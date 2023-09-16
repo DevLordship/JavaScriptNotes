@@ -1,0 +1,910 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3 - The Tricky Bits</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5de5bc99-812e-4fed-9e2f-73445a5a0d3b" class="page sans"><header><h1 class="page-title"><em><strong>3 - The Tricky Bits</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="c77fc67e-76ed-459b-8873-f9e71fd9f9c7" class="toggle"><li><details open=""><summary>17 - Scope</summary><p id="7636bcab-9abc-447c-a091-8ed0a408cc11" class=""><a href="https://wesbos.com/javascript/03-the-tricky-bits/scope">https://wesbos.com/javascript/03-the-tricky-bits/scope</a></p><p id="bbe11ba4-1db6-4049-aed1-72b07acda285" class="">
+</p><figure id="87be7e5e-105f-423a-925d-950d95f6b7cf" class="image"><a href="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/bjs.png"><img style="width:700px" src="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/bjs.png"/></a></figure><p id="6cc06651-319f-4fd7-9d3e-4e908027dc92" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="cec5a2f0-8907-4fde-8c00-4299d6486579" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="83e43ccc-cfb6-49a8-8827-e96689ce6cc6" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="7edc2dfc-579c-47da-8d54-dcb08fd06fc5" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="32bd0f82-b3ce-4b30-979e-2f046303b49b" class="">JavaScript, ScopeEdit Post</p><p id="bac7ace1-67e9-434b-acba-eeb597951bcf" class="">We have touched on scope a few times throughout the course already because it&#x27;s impossible to talk about variables without touching on scope.</p><p id="85b49015-3e73-4528-8b9f-68b12467af30" class="">What is scope? Scope answers the question <em>&quot;where are my variables and functions available to me?&quot;.</em></p><p id="bf179516-994a-481e-b550-13622c0d090d" class="">So far in the course, we have been making functions and variables and they have generally been available anywhere we wanted them. We have also seen some issues like when you create a variable inside of a function, and they&#x27;re not available outside the function.</p><p id="83936498-f702-4824-8f84-4b993f03123a" class="">That is what scope is.</p><p id="5599379d-312c-4c59-9b58-20419c6d8ef7" class="">Go to the playground folder and create a new file called <code>scope.html</code>, and use your html base inside of it.</p><p id="3721df32-15ed-402f-94c3-34f7ce0cfff6" class="">Add a script src to a file called <code>scope.js</code> which will live in the same directory.</p><pre id="a3f1989a-9424-4e00-bd09-ea7d3a999016" class="code code-wrap"><code>&lt;script src=&quot;./scope.js&quot;&gt;&lt;/script&gt;</code></pre><p id="9e3429ec-1291-46c8-8426-2fc138021831" class="">Add a new file <code>scope.js</code> in <code>/playground</code> and add a <code>console.log(&#x27;It works!&#x27;);</code>.</p><p id="35d9d40a-f4d3-41dc-b651-c4148d596d6b" class="">Open the file up in the browser to make sure it works.</p><h2 id="7448b7a8-8a5d-48c5-93ea-457d83ca43c4" class="">Global Variables</h2><p id="a53d89a9-904a-41ac-b408-fd9ee4824436" class="">We will start by talking about the first type of scope which are referred to as <strong>global variables</strong>.</p><p id="1c890bb3-05e0-4ca2-bed1-f4a080e80877" class="">With global variables, whether you have a script tag, or javascript file, or run it in the console, anytime you declare a variable, it will be available anywhere in the application.</p><p id="85e827b7-09f0-48cd-a812-28894642d6f6" class="">For example, if you add in <code>scope.js</code> the following code <code>const first = &#x27;wes&#x27;;</code> and then in the console type <code>first</code>, it will return the value of first.</p><p id="4d430c60-eedd-4795-8d6c-f2b2c3aaf460" class="">Also, if you were to add another script tag in <code>scope.html</code> like below 👇, will it work?</p><pre id="6c062651-b839-4757-89b1-7f01079f1c1e" class="code code-wrap"><code>&lt;script src=&quot;./scope.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+console.log(first);
+&lt;/script&gt;</code></pre><p id="df164d99-3bec-4da5-855f-d8584f021765" class="">That does work, the console will log &quot;wes&quot;.</p><p id="72175c5f-bcf6-4141-816b-f018d614d3fd" class="">Why does it work?</p><p id="30a334ea-ed74-4b32-8f1c-b9c0c0f04196" class="">Because when you just go ahead and create a variable in a javascript file, not inside of a function, not inside of a module, not inside of an if statement, when you create it out in the open, that is what is referred to as a <strong>global variable</strong>.</p><p id="69311492-d0e5-4f8a-8f4d-7d67b1bc87a6" class="">You can access global variables from any other javascript that is running on the page like a script tag or via the console.</p><p id="5638818b-cf53-45ce-82e2-8d05feef6270" class="">In the browser, the global scope is called the window.</p><p id="1da1a81a-07a3-4c59-b3ff-12803d058af9" class="">If you type <code>window</code> in the console, you will see every single thing that is attached to the global scope is inside of the window.</p><figure id="b41acbe2-951a-408d-9dc6-7451778e0cc0" class="image"><a href="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/191.png"><img style="width:691px" src="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/191.png"/></a></figure><p id="59521d17-41e2-45fc-a681-3925ed16c614" class="">That is why sometimes you will see people doing things like <code>window.setTimeout()</code>. There is also just regular, old, <code>setTimeout()</code>, both are the exact same thing.</p><p id="60b65ec3-3d17-4a0c-ad39-f1fd979afd62" class="">Methods that are globally available to us like <code>setTimeout()</code> are actually on the window object, and that is what is called global.</p><p id="4c885526-1516-489a-b2cf-0ae68f62bb8d" class="">There is one thing to know about <code>const</code> and <code>let</code>.</p><p id="d4174e6b-9f33-4fe7-ac2f-84c47fd5934d" class="">Let&#x27;s say we added this code to <code>scope.js</code>.</p><pre id="5e8c9676-0479-4334-aa4a-2e54bcbac3ae" class="code code-wrap"><code>/* eslint-disable */
+const first = &#x27;wes&#x27;;
+let second = &#x27;bos&#x27;;
+var age = 100;</code></pre><p id="eb77b5cc-601d-48b1-9cba-c2e0bbd84654" class="">If you reload <code>scope.html</code> in the browser and then in the console type in <code>first</code>, <code>second</code> and <code>age</code>, you will see the following values returned because they are all global variables 👇</p><p id="c204aa48-9d66-483b-8bc8-e47fa0e66875" class="">However, if you type in <code>window.first</code> and <code>window.second</code> you will get <code>undefined</code> but when you type in <code>window.age</code> it will return <code>100</code>.</p><p id="668992cb-625d-48d7-adbe-095c9ca21076" class="">This is because <code>var</code> variables are attached to the <code>window</code> object and they are globally scoped, and <code>const</code> and <code>let</code> variables when declared like the example above are still globally scoped, they are just not attached to the window.</p><p id="75426138-c599-46ae-a916-27b09f0281d0" class="">That is not really all that important because you shouldn&#x27;t be making global variables anyway. This was just to demonstrate why sometimes people write <code>window.</code> or just type the global variable directly.</p><p id="3f1faad5-39d9-4e33-ac83-afec1c8871b1" class="">The same thing goes with functions.</p><p id="e79866a9-5896-414e-9683-5c0a053402c3" class="">If we make a function <code>function sayHi(){console.log(&#x27;hi!&#x27;);}</code>, we can call it by the following methods:</p><pre id="9a4b6f56-9d43-478e-8ca1-6cf4b7744622" class="code code-wrap"><code>&lt;script src=&quot;./scope.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+sayHi();
+&lt;/script&gt;</code></pre><ol type="1" id="e3e4a669-8e04-46b9-abc5-09eb0d2f80d3" class="numbered-list" start="1"><li>typing <code>sayHi()</code> in the console</li></ol><ol type="1" id="02cef312-4466-4435-a938-f3b547e35089" class="numbered-list" start="2"><li>typing <code>window.sayHi()</code> in the console</li></ol><p id="8ac055cb-ece8-4552-b015-961e60cf5bc7" class="">Why is it available at <code>window.sayHi()</code>?</p><p id="b338e7c8-9e13-42de-8a26-8758e784c120" class="">Because anything that is in the global scope is attached to the window object with the exception of <code>const</code> and <code>let</code> variables.</p><p id="ce2f2214-2c88-42ac-b6b9-7e5f0ed75d6b" class="">Using global scope is almost never a good idea, but before we learn why that is, we need to learn about how different parts of scope work.</p><h2 id="ecebd6ed-6560-4f0c-a0b0-99ce7ad4a6b4" class="">Function Scoping</h2><p id="56bc89d9-5dec-4c50-aa4e-6cb048a5a342" class="">Let&#x27;s get rid of the <code>&lt;script&gt;sayHi();&lt;/script&gt;</code> code in <code>scope.html</code>.</p><p id="81829a6d-1123-4113-b54f-b160a8c27a92" class="">Remove everything within <code>scope.js</code> and then add</p><pre id="332f7dd6-fa8d-4ba0-a6fa-0210a5b4c72b" class="code code-wrap"><code>const age = 100;</code></pre><p id="c0686778-2333-40dc-860b-66cf1269ad25" class="">Create a function <code>go()</code>, and the following logs 👇</p><pre id="6552e8e4-c9e9-4995-b6da-dafed48557ef" class="code code-wrap"><code>const age = 100;
+
+function go() {
+const hair = &#x27;blonde&#x27;;
+}
+
+console.log(age);
+console.log(hair);</code></pre><ol type="1" id="ab795694-c156-4667-9572-4c8711edb1a5" class="numbered-list" start="1"><li>When we <code>console.log(age)</code>, is it going to be 100?</li></ol><ol type="1" id="dab06d91-097f-48be-a4c9-bde3132156ec" class="numbered-list" start="2"><li>When we <code>console.log(&#x27;hair&#x27;)</code>, will it be blonde?</li></ol><p id="92f3fb46-6060-4ed4-86bf-2f3a1976cafc" class="">Age returns 100, but hair throws a reference error.</p><p id="890cd7fe-ad0b-4c68-97ce-cc1c3643d571" class="">Maybe that is because we did not run the <code>go()</code> function, we just defined it?</p><p id="4a240ec2-aa58-4ce5-8a11-e6c730bfa19d" class="">Let&#x27;s try running the go function so that variable gets declared. Before <code>console.log(age);</code> add <code>go();</code>.</p><p id="a7444c2b-74d1-43b9-8321-980676658cd2" class="">If you refresh the page and look at the console, we will still see the error. Why?</p><p id="3e91610a-e5f0-460c-a336-af82b7cf8974" class="">This is the next type of scope which is called <strong>function scope</strong>.</p><p id="296b6a3a-ac37-4b64-9430-a477dc1583df" class="">What function scope is, is when variables are created inside of a function, those variables are only ever available inside of that function.</p><p id="04179518-3104-4ec5-9111-72a9553d197a" class="">That means that anything we create inside of the <code>go()</code> function, is not available outside of that function, unless we were to explicitly return it and put it into its own variable when that function is run.</p><p id="6c0f7a11-2be9-463d-b2e6-e3c29514c354" class="">If you modify the <code>console.log(hair)</code> to be within the <code>go()</code> function, it will log. 👇</p><pre id="285a16c5-2af2-408a-9fba-0936ed815b37" class="code code-wrap"><code>function go() {
+const hair = &#x27;blonde&#x27;;
+console.log(hair);
+}</code></pre><p id="ef7082fe-188e-4428-9c09-5f72754c00d8" class="">You can think of the curly brackets in functions as gates.</p><p id="90dea4fb-3c4c-4ed0-98d4-f0a25466d4f6" class="">They keep the variables in and do not allow them to leak out.</p><p id="43a8ea5c-42a2-4b3c-9cf2-f21864593114" class="">Now is that the same for the opposite?</p><p id="2b0acb55-6478-4290-9ca2-327a0c51cbae" class="">If we were to <code>console.log(age)</code> from within the <code>go()</code> function, would that work?</p><p id="2bd42ee9-2d6e-488b-8186-c80afeaba276" class="">If variables can&#x27;t leak out, can they go in?</p><p id="06c58161-7a08-4aa0-b04e-738398181bb5" class="">If you refresh the page and look at the console, you will see it worked.</p><p id="1ac4b452-ad61-489c-be19-b6597ff0cec9" class="">This is an interesting thing about javascript and most programming languages.</p><p id="7e0c14b3-eac0-49a1-9cf8-8bd39cac2cb2" class="">Variables, if they are not found inside of a function, will go up a level higher and look for a variable in that scope. If it&#x27;s not available in that scope, it will go up a level higher. <em>(We will talk about multiple nested scope in just a second).</em></p><p id="e36600b8-eb4b-463d-b6f8-86586497926a" class="">So what is happening is inside the <code>go()</code> function the code is saying, &quot;there is no variable inside of this function called age, so I will go up one more level and look up&quot;.</p><p id="ca202793-749b-4f54-ae84-0e1667bc8516" class="">Now if we added as the first line of the <code>go()</code> function, <code>const age = 200;</code> and refresh the page, is that going to error?</p><p id="a185596c-84fc-4525-ae7c-629e44c473ed" class="">Is that going to be 200 or 100?</p><p id="ef3d6a41-c218-4f7b-aadb-f5efd27781a2" class="">It will be 200.</p><p id="7b04b984-2535-4a6a-bd80-eeb9cf8f6b6c" class="">Two things:</p><ol type="1" id="6e375e4b-1c1f-4a03-abcb-d5d3346ae803" class="numbered-list" start="1"><li>is that allowed?</li></ol><ol type="1" id="553b0345-44f0-41f1-9de9-bf8f87f6a8ac" class="numbered-list" start="2"><li>why it is 200?</li></ol><p id="c4fe4203-0780-4265-a0cf-c6d015225e04" class="">It&#x27;s 200 because it looks in the local function first and it does find a variable called age.</p><p id="e4580ad4-9b17-4617-8174-70e27ac4ff68" class="">However, if it is not found, it will go one level higher and look for it at that level.</p><p id="6dce80d3-000e-45f6-b431-679ddff77c12" class="">Why is this allowed? Why is it not breaking? If you hover over the variable in VSCode, you will see an error in ESLint that says</p><blockquote id="6e8f1866-ca55-4f0f-85bd-c9351f9823f4" class=""><p id="863a1ed4-2ba3-4660-af08-b629af918cd9" class="">&#x27;age&#x27; is already declared in the upper scope.</p></blockquote><p id="650b3759-5c4a-4a76-9cd6-e3cfea47f331" class="">That is what is referred to as <strong>shadow variables</strong>.</p><p id="5fe484ea-319c-470b-8044-79810dbf6ede" class="">You can name variables the same thing, if they are not in the same scope.</p><p id="0c9f6227-e332-4dce-bb1a-814ffbc140b7" class="">However, it&#x27;s not a good idea because if you name a variable something that is the same as in another scope, you limit yourself to being able to access that.</p><pre id="92ee09d3-eeda-4e86-bf4d-ffb61db5c371" class="code code-wrap"><code>const age = 100;
+
+function go() {
+const age = 200;
+const hair = &#x27;blonde&#x27;;
+console.log(age);
+console.log(hair);
+}</code></pre><p id="bcf85ad9-3f7f-4439-ad87-bfd3ecd6d70d" class="">In the example above 👆, if we wanted to access the <code>age = 100;</code> from the <code>go()</code> function, there is no way to do that because the variable has been <strong>shadowed</strong> <em>(meaning it has been over-written)</em>.</p><p id="9e22f125-c571-4400-92d7-83a62da8bf91" class="">A tip is that if you ever have a variable inside of a function that is very similar to a variable outside of a function, name the variable inside of the function more specifically so you have access to both.</p><p id="f9e5381d-a0b0-498e-a071-6f7c96939515" class="">In this case, inside of the function you could declare a variable like <code>const myAge = 200;</code> instead of just calling it <code>age</code>.</p><h2 id="ccbb64d4-31e8-4e4f-a0dd-0b86c72c2cb5" class="">Block Scoping</h2><p id="971d9e67-8d53-466e-8560-5ce5406a09c2" class="">The next type of scope is <strong>block scope</strong>.</p><p id="ea90c3ff-4cf7-4ad6-b713-076c95665a8e" class="">We will start by talking about <code>var</code>, <code>let</code>, and <code>const</code> variables and how they are scoped differently.</p><p id="986ac5ee-50cd-4920-afb1-3cc02547121c" class=""><code>const</code> variables cannot be reassigned, and <code>let</code> and <code>var</code> variables can be re-assigned. They have a different way of how they are scoped.</p><p id="10f83a9c-54d4-4d3d-af02-924ab81fa4dc" class="">Let&#x27;s do an example.</p><p id="5f33565c-8a8b-4669-a645-1b39f628e914" class="">Will the code below work 👇?</p><pre id="61880b14-b3cd-482d-83c9-a68ccf6f8f60" class="code code-wrap"><code>if (1 === 1) {
+const cool = true;
+}
+console.log(cool);</code></pre><p id="a6bdf034-2b07-442c-86a9-417626b55316" class="">No, it throws the error shown above 👆</p><blockquote id="dedddf74-7257-4b7c-a64c-7cdba84acda2" class=""><p id="fec000a3-5348-4059-9166-4230f68c893f" class="">Uncaught ReferenceError: cool is not defined</p></blockquote><p id="03f757a0-05e6-4d33-843c-089e3dd165d3" class="">What if we make it a <code>var</code> variable instead?</p><pre id="ada24772-07bf-441b-84a8-15bd555bc334" class="code code-wrap"><code>if (1 === 1) {
+var cool = true;
+}
+console.log(cool);</code></pre><p id="67c333d8-cf4f-44b5-af38-e9531fe8bffd" class="">It works!</p><p id="d480cf33-2394-4667-8052-862521ef6d7f" class="">What if we make it a <code>let</code> variable?</p><pre id="a1e8431a-0fe0-4505-88ac-f4b1019da712" class="code code-wrap"><code>if (1 === 1) {
+let cool = true;
+}
+console.log(cool);</code></pre><p id="59ea0a7f-bc18-4a22-ae0f-f9c2e47afa27" class="">It doesn&#x27;t work, we get the same error.</p><p id="a9d4ca48-4590-49ad-bd97-60fc31dd02e4" class="">What is happening there is whenever you have a set of curly brackets like in the if statement above, that is what is referred to as a <strong>block</strong>. <em>(Blocks will be showing up in most places, the most common is probably an if statement. We will have lots more examples throughout the course.)</em></p><p id="83a84948-fb21-4dd6-bf1d-1b7833cccd3b" class="">You can think of those brackets are gates. Those gates keep variables in.</p><p id="65400f33-a94f-4e6e-9ead-9298b8e080b1" class="">Anytime something is created inside of these gates, they are not allowed to leave the gates. If you need to access a variable outside of the gates that was originally created inside of the gates, you are not allowed to do so.</p><p id="5e06ad98-3ff1-4ffb-a4c9-3d7fcb4304a4" class="">There are a few solutions to that because every now and then you run into a situation where you do need a variable to be available outside of a block.</p><p id="381ca270-51f9-4969-9302-29225e0c483c" class="">What happens is you have to create the variable above it, as we will demonstrate in this example 👇</p><pre id="5de917be-213c-4fe8-b645-11c8012b0da5" class="code code-wrap"><code>let cool;
+if (1 === 1) {
+cool = true;
+}
+console.log(cool);</code></pre><p id="b75d33d4-33e5-4267-bffe-617750971c73" class="">In that example, we have declared a variable <code>cool</code> without assigning anything to it.</p><p id="0a339e40-1a06-4262-82ee-2e7c8dca5d1c" class="">On the line that previously had <code>let cool = true;</code>, we do not declare the cool variable, we simply update it with <code>cool = true</code>.</p><p id="cffdce8b-aa90-4470-b2d0-d02b087e293e" class="">What that does is it creates the variable in the higher scope <em>(in this example it is a global variable but if this was created inside of a function it would be function scoped)</em>.</p><p id="25d7231b-e154-45c5-8c5b-d177242e10da" class="">Then, we update the variable, and then it&#x27;s available to us outside of the function.</p><p id="0a6731f4-2be5-4810-80ba-16bdb542a9ec" class="">Here is another example that is a more realistic, where we are getting into two different kinds of scopes 👇</p><pre id="e9c87a3b-a31e-4305-a320-8726db5a6b42" class="code code-wrap"><code>function isCool(name) {
+let cool;
+
+if(name === &#x27;wes&#x27;) {
+cool = true;
+}
+
+console.log(cool);
+return cool;
+}</code></pre><p id="c91a7587-b279-4e21-8324-4a4992304694" class="">So what is going on here is we have one scope, which is the <strong>function scope</strong> (<code>function isCool(name){...}</code>).</p><p id="2428bfb2-fc8a-4bbc-b1b5-ea105df71f82" class="">One thing that can get confusing is that a function also has a block, so any <code>let</code>, <code>var</code> or <code>const</code> variables are automatically scoped to a function, because regardless, if its a function or a block, it&#x27;s a set of curly brackets so it&#x27;s scoped to that.</p><p id="02df2e15-acf1-4ec8-b727-a2228616a981" class="">And then we have <strong>block scope</strong> which is within the <code>if (name === &#x27;wes&#x27;) {...}</code>.</p><p id="8a6161d5-8b30-4684-b0d7-de14207c04a6" class="">Again to demonstrate, if we changed the <code>cool</code> variable within the if statement to a const variable, like in this example, it would not work 👇</p><pre id="cb0a52de-aec6-46b4-9a83-93188ae3faee" class="code code-wrap"><code>function isCool(name) {
+let cool;
+
+if (name === &#x27;wes&#x27;) {
+const cool = true;
+}
+
+console.log(cool);
+return cool;
+}</code></pre><p id="4eaca9a0-bf5c-4f1b-8fe6-ca05e4b03e16" class="">However, the example below does work 👇</p><pre id="52df54cb-049b-41ef-8d51-e8c0a7ac70c9" class="code code-wrap"><code>function isCool(name) {
+let cool;
+
+if (name === &#x27;wes&#x27;) {
+cool = true;
+}
+
+console.log(cool);
+return cool;
+}</code></pre><p id="3f2eaaf2-0748-4141-83d6-b3391c1ea870" class="">Although we went over how to access variables that are block scoped, in most cases that is not something you need to get fixed, and it is actually really nice to have block scope because you don&#x27;t have variables leaking out of it.</p><p id="477e55b8-fb8f-4574-b08d-c4686cc09cbd" class="">In the past, we have had for loops such as the following:</p><pre id="d7eeb0a3-c760-4db6-bb76-100ee21912ad" class="code code-wrap"><code>for (var i = 0; i &lt; 10; i++) {
+console.log(i);
+}</code></pre><p id="02268d37-f893-4608-a6d9-49ea1ac9a32d" class="">That will log 0 - 9 as shown below 👇</p><p id="004e3bf5-10e9-46c1-9af8-ad28d0e6bb32" class="">If you type <code>i</code> in the console, it will return 10.</p><p id="87b711b2-414d-4bf0-a047-e648c8beb5f3" class="">We have this random variable that is out floating called <code>i</code>, which should have been contained within the for loops but because it&#x27;s a <code>var</code>, it has leaked outside.</p><p id="2b3276e2-7f07-4b74-b61a-842efe27aa88" class="">By simply making it a <code>let</code> variable, that random <code>i</code> variable will no longer be floating because it will be scoped to the curly brackets.</p><p id="782eff5a-4786-4662-8ee0-7943a532baff" class="">Block scoping is one of the reasons people say use <code>const</code> by default, <code>let</code> when you want to re-assign it and don&#x27;t use <code>var</code> unless there is a specific use case for it.</p><p id="e798c1c7-413f-4d14-ad5e-3999bb4396bd" class="">To go back to our example earlier with <code>isCool()</code>, we could have also solved it by changing the <code>cool</code> variable to a <code>var</code> as shown below 👇</p><pre id="f4b6ff42-b3db-4369-bf77-3016dd741adf" class="code code-wrap"><code>function isCool(name) {
+
+if (name === &#x27;wes&#x27;) {
+var cool = true;
+}
+
+console.log(cool);
+return cool;
+}</code></pre><p id="c0904241-8d12-49a3-b059-42b84eea77a1" class="">Why does that work?</p><p id="d3831d2a-ff46-4589-bfa0-77e809f54464" class="">Because it&#x27;s a <code>var</code> variable.</p><p id="fd548240-519e-40be-85d8-3776ff7c01cb" class=""><code>var</code> variables are not block scoped, they are function scoped.</p><p id="4dd75d24-ca80-43b1-9bd3-9d2eea94ca69" class="">That means they are available outside of the if statement block, but they are only available inside of the <code>isCool()</code> function.</p><p id="1d50eae8-cd03-4646-ae1e-9f35cd0de891" class="">We will do another example of scope look-up to solidify that concept. 👇</p><pre id="b89b2d21-9cac-43fb-95f0-d1400389e726" class="code code-wrap"><code>const dog = &#x27;snickers&#x27;;
+
+function logDog() {
+console.log(dog);
+}
+
+function go() {
+const dog = &#x27;sunny&#x27;;
+logDog();
+}
+
+go();</code></pre><p id="6c7e6a96-8cc5-45aa-a560-cf23a134b7e5" class="">What is going on here?</p><ol type="1" id="7d7cbcbf-6831-4d16-a129-356728eb62e1" class="numbered-list" start="1"><li>We have a variable <code>dog</code> which is set to <code>&quot;snickers&quot;</code>.</li></ol><ol type="1" id="101058c9-9069-4985-8cd5-cb41e502c2d6" class="numbered-list" start="2"><li>We have a function <code>logDog</code> that will log the <code>dog</code> variable.</li></ol><ol type="1" id="fe01de87-f065-4e61-a14f-83c71df81041" class="numbered-list" start="3"><li>We also have a <code>go()</code> function that creates a variable named <code>dog</code> again, and sets it to the value of <code>&quot;sunny&quot;</code>.</li></ol><ol type="1" id="6c62a249-6e36-4a0e-8724-5a8ad3aaa6ab" class="numbered-list" start="4"><li>Then we run that <code>logDog()</code> function, and then we run <code>go();</code>.</li></ol><p id="bd491c5e-66c4-40ce-a91a-b7efb7c52fcc" class="">When we call the <code>logDog()</code> function, is it going to log Sunny or Snickers?</p><p id="676f8984-98d0-41ca-a521-7c0abdd6df75" class="">You may think it will log Sunny because we declare the dog in the function scope, so when the function runs, shouldn&#x27;t it look in it&#x27;s own scope for that?</p><p id="d0d90349-3e31-458a-ad94-4e1607158e8a" class="">Or you might think it may log Snickers because the function is declared within a scope, having <code>dog</code> variable inside of it so it will look up for that variable.</p><p id="4d2ff8ff-a3fc-4623-aa79-9efd2619e339" class="">What does it log? Snickers!</p><p id="5f147cfd-fdaa-4b6d-867e-a447ecffa58c" class="">Even though we ran the <code>logDog()</code> function within the <code>go()</code> function and that function has a locally scoped variable set to the value of Sunny, it&#x27;s still logging Snickers.</p><h2 id="5a1925b1-19f8-4027-9b0c-75cf7b128354" class="">Lexical and Static Scoping</h2><p id="031cd139-8f3e-46eb-a288-66c39e1b0d09" class="">That is because javascript has what is referred to as <strong>lexical scoping</strong> or <strong>static scoping</strong> <em>(those are buzz words in javascript)</em>.</p><p id="a4d97814-c80d-4a62-8189-ab92ad3eef56" class="">What that means is the way that variable look-up or scope look-up happens, is where the functions are defined, not where they are run.</p><p id="8a5f90eb-0710-4582-92e0-11deb50b7e66" class="">So even though the <code>logDog()</code> function is run inside of another function which has a locally scoped <code>dog</code> variable, it doesn&#x27;t care about where it&#x27;s run, it cares about where it is defined.</p><p id="710bd030-63ed-49cd-9a7a-4b606ad123ce" class="">Because <code>logDog()</code> is defined where it is, since it doesn&#x27;t have a local variable named <code>dog</code>, it will just go up one level.</p><p id="d1b37ff2-ac1a-43f7-9103-6cf241100c2c" class="">Ideally the function <code>logDog()</code> would take a parameter of <code>dog</code> and then log whatever parameter value it is passed like so 👇</p><pre id="f7b1b0b4-aa5a-4937-b550-1d277876805f" class="code code-wrap"><code>const dog = &#x27;snickers&#x27;;
+
+function logDog(dog) {
+console.log(dog);
+}
+
+function go() {
+const dog = &#x27;sunny&#x27;;
+logDog(&#x27;Rufus&#x27;);
+}
+
+go();</code></pre><p id="34041899-13a3-4d7a-8935-06a0b47def12" class="">Now that console will log &quot;Rufus&quot;. Why?</p><p id="528e0d0d-15cb-4782-aaab-9c804aa4eab4" class="">Because when a function takes in an argument, it will make local variables inside of that function named whatever you named the parameter, and then that is available to them.</p><p id="dc4c66e6-b5b3-45b5-a41e-8cd2b9498f39" class="">It is the same as doing the following 👇</p><pre id="63493640-2a65-4f42-96e8-3da35df642dd" class="code code-wrap"><code>function logDog(dog){
+const dog = whateverYouPassedInAsTheFirstArgumentToTheFunction;
+console.log(dog)
+}</code></pre><p id="1a042c8c-ad08-4bfe-9f22-cc67ec2e3195" class="">That is what javascript is essentially doing behind the scenes. It is taking the value that you pass the first parameter and making a local variable for the function.</p><pre id="dc98f3b2-95ab-4141-bcd1-cce52de5b4d7" class="code code-wrap"><code>function go() {
+const dog = &#x27;sunny&#x27;;
+logDog(dog);
+}</code></pre><p id="ee27e248-c079-4f7d-aef6-ebec8d83dc2c" class="">The code doesn&#x27;t care what you called the variable that you as passing in, it just cares about the value.</p><p id="2fc44a30-993f-45ce-b484-9a0c98b953ce" class="">The example above 👆 is the same thing as just passing in a string of Sunny, as shown below 👇</p><pre id="539cc402-5062-488b-a11a-717f16082edf" class="code code-wrap"><code>function go() {
+const dog = &#x27;sunny&#x27;;
+logDog(&#x27;sunny&#x27;);
+}</code></pre><p id="74160e62-9523-40d4-9173-547006b767a9" class="">We will go over best practices and many more examples in the course.</p><p id="98e1fc1f-d0c8-4412-9917-d7fdc6ce7cb8" class=""><strong>Best Practices</strong></p><ol type="1" id="e245fa65-c4fb-4254-b82a-3ab11791324d" class="numbered-list" start="1"><li>Try not to create global variables</li></ol><ul id="f4998e26-5563-4748-aa86-b8e950eac2e9" class="bulleted-list"><li style="list-style-type:disc">it is fine for us to create them while doing these examples and when we get into modules, it is almost impossible to create global variables unless you explicitly do something like <code>window.IAMGlobal = &#x27;wes&#x27;</code>.</li></ul><ul id="ab8c5a06-303c-423a-81e1-844c88943a4a" class="bulleted-list"><li style="list-style-type:disc">Unless you explicitly attach it to the window, with a module, it is very hard to create a global variable which is intentional.</li></ul><ol type="1" id="a648b72e-8385-4d9c-99cd-75f1edf4dd09" class="numbered-list" start="1"><li>Functions are scoped the exact same as variables</li></ol><ul id="2a789d88-c767-4d99-83f5-f79cbc6594f4" class="bulleted-list"><li style="list-style-type:disc">You can create functions inside of other functions. <em>We will look at examples of why you might want to do that later</em>.</li></ul><p id="d5c69b96-348a-4b36-b92c-6ebfebebeac5" class="">Here is an example in the meantime 👇</p><pre id="e9fee66f-24c9-4fcd-af01-f1c3aa5578bd" class="code code-wrap"><code>function sayHi(name) {
+function yell() {
+console.log(name.toUpperCase());
+}
+
+yell();
+}</code></pre><p id="d9962e7c-f236-434a-81ff-e089440d40e8" class="">If you were to write <code>sayHi(&#x27;wes&#x27;)</code> in the console, it will return WES.</p><p id="7ee726c9-4264-46ed-9568-15c897bd24c6" class="">However if you try to call the <code>yell</code> function outside of <code>sayHi()</code>, as shown below, it will throw an error 👇</p><pre id="efb72e41-02e9-4fb3-a52c-406990f4d6ab" class="code code-wrap"><code>function sayHi(name) {
+function yell() {
+console.log(name.toUpperCase());
+}
+
+yell();
+}
+
+yell();</code></pre><p id="e261efe7-35fd-4793-8019-432353b7a2c9" class="">What is happening there is just like variables, functions are scoped to the parent function.</p><p id="2a3830de-8317-417f-9d87-a5b6420464de" class="">If you create a function inside of another function, that function will only ever be available inside of that.</p><p id="a63a0070-0480-48dc-983e-9ba2a0694448" class="">That is starting to open up what is referred to as a <strong>closure</strong>, which is a more advanced example we will go over in the future.</p><p id="6cea9a0a-66fa-48f8-82d6-cfefe51690c2" class="">It is possible to do a function inside of a function, but generally, you won&#x27;t be doing that.</p><p id="405e154f-2870-4fed-bd13-3fc353faca65" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="963dfbf7-fa66-442d-ab68-59b71e985f04" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="a3ca7db2-8cd0-4659-8b0f-59f28df5edde" class="">Edit on Github</p></details></li></ul><ul id="de3bebe6-1264-4e78-8fbc-8250d3aa3d55" class="toggle"><li><details open=""><summary>18 - Hoisting</summary><p id="085b039c-5048-4b3f-a162-8c02fc4fc580" class=""><a href="https://wesbos.com/javascript/03-the-tricky-bits/hoisting">https://wesbos.com/javascript/03-the-tricky-bits/hoisting</a></p><p id="9b6312fe-2b41-4e5c-9940-640f9d7c542d" class="">
+</p><figure id="f477c7fd-8155-4623-999e-4bfe61f542f4" class="image"><a href="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/bjs%201.png"><img style="width:700px" src="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/bjs%201.png"/></a></figure><p id="3b18d5c3-77fd-4d7f-aeeb-f1b86c6c0de1" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="dbf10f45-d960-4131-8833-25014f4452e7" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="cc70671d-b208-4658-a7d0-5dde193e3268" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="21728ee7-a13f-4698-b4ae-1434949dc6d0" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="4397065a-1607-4517-8090-0e24ce433f91" class="">JavaScript, HoistingEdit Post</p><p id="b8c673f9-8808-46b9-9b2d-10aa2ed47477" class="">We talked about this a little bit before.</p><p id="74154de8-67ad-4343-8bed-d56754193af1" class="">Now we will get into the details about what it is, when you can use it and why you might want to use it.</p><p id="62706d35-0261-4880-b04d-633f3968e114" class=""><strong>Hoisting</strong> in JavaScript allows you to access functions and variables before they have been created.</p><p id="61f7db7a-bc85-47ff-8c99-3e925ea9c0ba" class="">There are two things in JavaScript that are hoisted:</p><ol type="1" id="3697712c-afc8-4c62-8ef6-bbf991031131" class="numbered-list" start="1"><li>function declarations</li></ol><ol type="1" id="d2992e2c-1273-42c6-84fa-0cd0c40800aa" class="numbered-list" start="2"><li>variable declarations.</li></ol><h2 id="786d38fc-fa6a-4045-bb40-f2983b670f09" class="">Hoisting Function Declarations</h2><p id="ba2478fc-9aa6-4096-aed8-729c2e76433e" class="">We will focus on function declarations first.</p><p id="a3aee741-197f-4c20-af3a-7367cc9cb205" class="">Make a <code>hoisting.html</code> file in the <code>/playgrounds</code> directory and give it the base html.</p><p id="95f6a335-63b4-4cee-a12d-83e4b638a1a9" class="">Add a script source of <code>./hoisting.js</code> and create a new JavaScript file with that name.</p><p id="a9403e71-bdd1-4c86-a049-2b26c42e9ea7" class="">Do our usual <code>console.log(&#x27;It works!&#x27;);</code> to check that it works.</p><p id="421b22b1-7ce9-4c65-828e-d3774f85ff23" class="">Next, make a function <code>sayHi();</code>.</p><p id="6d63611a-5475-4cc7-be86-2f153644b799" class="">If you try to run this function before it exists, will it work?</p><p id="90a33c4f-ccb1-4023-8c24-4e159bc619e6" class="">You can see ESLint is complaining with warning of:</p><blockquote id="850f8b2b-1df0-45fc-afe1-6b7b093a2048" class=""><p id="3219ea9e-b0cb-494b-868f-79b94e86a96a" class=""><code>sayHi</code> was used before it was defined. eslint(no-use-before-define)</p></blockquote><pre id="471bcb4a-5f6c-4a2f-950c-05da1f91eb44" class="code code-wrap"><code>sayHi();
+
+function sayHi() {
+console.log(&#x27;hey!&#x27;);
+}</code></pre><p id="1da3cf84-f38e-457b-a4fe-faa19c2daa82" class="">If you open <code>hoisting.html</code> in the browser, does it work?</p><p id="0159ec87-cdd2-4808-af08-38aab5a2b82e" class="">It does.</p><p id="f27b4a81-fa09-42f6-85c9-df95c1a0439a" class="">Why is that?</p><p id="4bd1730e-9650-4d38-a4cc-d9a2222b9f32" class="">When you run your JavaScript file, the JavaScript compiler will take all of your function declarations and move them to the top of the file so they are all available before you use them.</p><p id="a3c06649-dff0-4f8d-8b3d-0378030d9d47" class="">Because of hoisting, you can technically run a function before it exists.</p><p id="13202747-a3d0-429b-97d6-760ff7eeb342" class="">Let&#x27;s do another example.</p><p id="72d56e57-ebd4-43ac-a2a0-30393c0b4afd" class="">Add the following function 👇</p><pre id="0811e582-953b-4549-b9f3-b6022202b2e2" class="code code-wrap"><code>function add(a, b) {
+return a + b;
+}</code></pre><p id="859b57c8-9b37-46b9-a3d9-5ba2fe8132cf" class="">Now use that function within <code>sayHi()</code>, like so 👇</p><pre id="c2c88df1-8b82-43ab-9d8d-98e6f31600bc" class="code code-wrap"><code>sayHi();
+
+function sayHi() {
+console.log(&#x27;hey!&#x27;);
+console.log(add(10, 2));
+}
+
+function add(a, b){
+return a + b;
+}</code></pre><p id="4c659394-f91d-463f-bce9-be3f25e97344" class="">Is that going to work?</p><p id="967aa05b-d146-4c99-9e70-539395f21d54" class="">It does.</p><figure id="df2cd894-de2e-4770-9505-a1b5e62eda9a" class="image"><a href="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/205.png"><img style="width:700px" src="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/205.png"/></a></figure><p id="dab534fe-18fe-43d0-ac6e-dacaf54544b9" class="">That is because hoisting moves them to the top before it will actually run anything.</p><p id="417a173e-294d-43bc-9b44-5f935ec6605c" class="">So JavaScript rearranges the file and puts all the variable and function declarations at the top of the file.</p><p id="7915003e-69f9-4b83-9500-be588b4c1be1" class="">Why does that functionality exist?</p><p id="25fb6ab3-80c9-4dc3-b64e-8a7676027368" class="">Wes hardly ever uses hoisting, he prefers to declare his functions before using them.</p><p id="770b7913-64fa-4674-8076-57a397a9eaf8" class="">When we get into modules, he prefers to put his separate functions in a module like util functions or math functions, and then import them as he needs them.</p><p id="242a19bd-a2b7-4ef6-9218-48f4be12c653" class="">One argument Wes has heard for hoisting being useful is people often prefer when opening up a file, say you open up <code>hoisting.js</code>, they much prefer to first be able to see <em>what</em> does this file do, and then <em>how</em> does this file do it.</p><p id="b71c848c-02b8-4bd9-af6f-98383e8f0016" class="">That way if you are quickly jumping into a file, you can quickly see from the first couple of lines &quot;what does this file do&quot;.</p><p id="4256fc04-0645-49c4-b2b9-4b7a322b65fc" class="">If you do care about how it does it, you can go a bit further down into the file and see what it does, as shown below 👇</p><pre id="00fd31c1-adcf-411f-a6c3-db4777a615f4" class="code code-wrap"><code>/* What does this file do? */
+sayHi();
+
+/* How does this file do it? */
+function sayHi() {
+console.log(&#x27;hey!&#x27;);
+console.log(add(10, 2));
+}</code></pre><p id="861fd32f-c070-428d-b416-4da938ddd1d1" class="">Personally, Wes doesn&#x27;t use this method very much and doesn&#x27;t like it all that much but that is just his personal opinion.</p><h2 id="25791f87-9364-4f3f-944d-cefa3f852969" class="">Variable Hoisting</h2><p id="b2d40416-a679-4abe-a5f1-cc97d0c8f34e" class="">The other type of hoisting is called <strong>variable hoisting</strong>.</p><p id="1565fe62-cfa5-426f-bace-d1c1521a31a6" class="">If you were to go the top of the file and add 👇</p><pre id="7ca9fa4c-151d-4e48-bf56-b5623fc9a231" class="code code-wrap"><code>console.log(age);
+var age = 10;</code></pre><p id="f58dd2dc-06c9-4773-87c3-5da38976f04a" class="">What will happen? Is it going to error? Undefined? 10?</p><p id="981e7ef1-3970-43ff-abef-f22a651efeb4" class="">The value is undefined.</p><p id="0064b2d1-5094-4bab-8b4d-69f0fe7d423a" class="">If you try to log another variable that does not exist, you will get an error 👇</p><p id="c33019e5-12ae-49a7-9543-722956d43908" class="">Why is that?</p><p id="534f3164-4d54-4361-af6d-323a3920baad" class="">What is happening is that JavaScript will hoist the variable declarations but it will not actually hoist the setting of the values.</p><p id="3e3d7209-a15a-4444-8875-5412475d1bc4" class="">So if after the page is loaded, you type <code>age</code> into the console, it will be set to 10.</p><p id="c13a80fe-7b6b-4169-af40-61ed7be73d4f" class="">So what JavaScript does is it says before everything runs, I am going to make my variables and then I&#x27;m just going to go ahead and update them.</p><p id="05329172-2cf2-4efa-ae41-edaf365a03cf" class="">It is basically doing the equivalent of the following 👇</p><pre id="912d9d86-b33f-43a9-90d6-69831fec8af8" class="code code-wrap"><code>var age;
+console.log(age);
+age = 10;</code></pre><p id="a1fe7858-1b6f-408b-8e3a-60be6b640bd0" class="">You can use hoisting to figure out if variables are created but not what their values are later in the file.</p><p id="c08f7dbe-35d2-4e54-a8f8-08bcfbefc792" class="">Hoisting is when variable declarations and function declarations are hoisted to the top of the file.</p><p id="8454c1c9-1fde-4ebb-a723-5fda228636b6" class="">Only function declaration types of functions are hoisted, <strong>not</strong> function expressions (when you put a function in a variable).</p><p id="a636f842-d473-4ec6-b9ed-d7b7da5287b8" class="">Same thing goes with arrow function or any other type of function.</p><p id="a5f02e66-6ac4-4a48-bf64-c494227285b7" class="">It is important to note that although <strong>let</strong> and <strong>const</strong> variables are hoisted, they are not initialised to <code>undefined</code>, unlike <strong>var</strong> variables. Hence, in the above example if you replace var with let or const, you would be presented with a <code>ReferenceError</code> saying - <code>age is not defined</code></p><p id="bf4bc00f-d82a-43e1-b6b3-84a1348af6dd" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="5afb13fa-4f5b-4946-8582-0447a2c4180a" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="550a92c4-0730-48c8-b404-1811f777b847" class="">Edit on Github</p></details></li></ul><ul id="7e257cc9-e2e3-466a-ae31-c7b16968b065" class="toggle"><li><details open=""><summary>19 - Closures</summary><p id="7fb95a24-c655-4fb1-b405-715f60d7881a" class=""><a href="https://wesbos.com/javascript/03-the-tricky-bits/closures">https://wesbos.com/javascript/03-the-tricky-bits/closures</a></p><p id="43d16dc9-78d1-40bf-9de1-44a3de5edd42" class="">
+</p><figure id="af6f81f7-8f96-4e50-9d4b-5d5eee3364b3" class="image"><a href="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/bjs%202.png"><img style="width:700px" src="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/bjs%202.png"/></a></figure><p id="cc82e5a9-a164-4541-9e01-806ab3dd2abf" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="32d7758f-f57e-4c5a-8bef-6028e5141ddf" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="5ece68dd-5f4e-4baf-a05c-6c5ef6099ae5" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="b35b82fd-8567-4d6d-bd9c-122043669c9d" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="cd543dc1-9625-46d0-a80c-dcd9aafe6742" class="">JavaScript, ClosuresEdit Post</p><p id="b88b0fd4-abe0-4f43-b763-4d036cd448f4" class=""><strong>Closures</strong> is one of the scariest words in JavaScript and a concept that comes up all the time in JavaScript, especially in interviews.</p><p id="72e65fa5-a17d-4a19-adef-975658a21327" class="">It&#x27;s a hard concept to get, but it can be relatively simple to understand. We will tackle now understanding of the basics of what a closure is.</p><p id="a54de056-12cd-429f-b1f6-11f19d26d247" class="">As we build stuff, Wes will mention when something is a closure to give us more context and examples of when closures are used.</p><p id="80443bbe-684b-48cd-9148-40e68fa4db8c" class="">Create a new file <code>closures.html</code> in the <code>playground</code> directory and add our HTML base.</p><p id="5f19aae1-d96f-4f47-a406-ffdc4b758ce0" class="">Open up a set of script tags. Our examples will go within the script tags, like so 👇</p><pre id="682bdd33-5943-4ab6-aa48-2c79c919a290" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../base.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;script&gt;
+//examples go in here
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="5da0eb61-1364-40b6-8e55-988f30eebc3c" class="">A <strong>closure</strong> is the ability to access a parent level scope from a child scope, even after the parent function has been terminated.</p><p id="2cbdc6e6-11b0-44cf-9324-65c2b1b90a3d" class="">Normally, Wes doesn&#x27;t like examples that are not real world but since this is a tough concept, we will start with a simple example.</p><p id="13ea58e1-1980-4f18-a745-73d3f4c5644a" class="">We are going to make a function inside of a function, called <code>inner</code> and <code>outer</code> to illustrate the concept and then we will get into more fun examples.</p><p id="2a2e9aed-e135-401a-896b-9e7868888612" class="">Create a function <code>outer</code> and within it set a variable <code>outerVar</code> equal to &quot;Hey I am the outer var&quot;.</p><p id="196ea87e-f529-407a-b76d-0e0b8d557947" class="">Now inside of that, make another function called <code>inner()</code> and within it declare the following variable 👇</p><pre id="6d3de5fe-c8c2-4d2a-8ed6-8b0dc42c6cff" class="code code-wrap"><code>const innerVar = &quot;Hey I am an inner var&quot;;</code></pre><p id="a022af2e-73eb-4fd5-8652-c03d3a7e3e08" class="">In the previous lesson on scope, we learned that within the <code>inner()</code> function, we can add a log of the <code>innerVar</code> variable like so 👇</p><pre id="55ddab95-52ac-4ab4-aaef-ac13441b90c2" class="code code-wrap"><code>console.log(innerVar);</code></pre><p id="2201ca15-3146-438d-a840-f0e09bb07b48" class="">You can also log the <code>outerVar</code> within the <code>inner()</code> method because of the scope lookup chain.</p><p id="93d74473-2001-430b-a2cf-b1bd558dde4b" class="">Since there is no variable called <code>outerVar</code> in that function, it will go a level up to the <code>outer()</code> function and since it finds that variable there, it will use that variable.</p><pre id="545e681d-1bc4-4408-bed2-c5606b1a91ac" class="code code-wrap"><code>function outer(){
+const outerVar = &#x27;Hey I am the outer Var&#x27;;
+
+function inner(){
+const innerVar = &quot;hey I am an inner var&quot;;
+console.log(innerVar);
+console.log(outerVar);
+}
+}</code></pre><p id="679cd98d-e1cd-4d8b-9d60-9d4d5654dc73" class="">Now, let&#x27;s try calling <code>inner()</code> from within <code>outer()</code>, and open the browser and console and run the <code>outer()</code> function from the console.</p><p id="eafa6543-29a3-42ba-bfec-bfae40a501f1" class="">You should see both the inner and outer variables.</p><figure id="ff4778c8-3b82-476e-b752-3e72b396403d" class="image"><a href="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/210.png"><img style="width:520px" src="3%20-%20The%20Tricky%20Bits%205de5bc99812e4fed9e2f73445a5a0d3b/210.png"/></a></figure><p id="9f16037a-2128-4d63-98c5-6b13e6cda2aa" class="">The same thing would happen if you called it from within the html script tag like so 👇</p><pre id="c24b6e3c-2300-4414-bc7a-357e68a30712" class="code code-wrap"><code>function outer() {
+const outerVar = &quot;Hey I am the outer Var&quot;;
+
+function inner() {
+const innerVar = &quot;hey I am an inner var&quot;;
+console.log(innerVar);
+console.log(outerVar);
+}
+
+inner();
+}
+
+outer();</code></pre><p id="9c1a7428-fc17-4d14-aee6-d7d23b4db180" class="">The <code>inner()</code> function is able to do a scope lookup and see the <code>outer</code>. We have already learned about that, and that&#x27;s not really a closure.</p><p id="701304a1-49b9-406f-8165-b49e93faa7c9" class="">Now the kind of interesting thing, and this is where closures come into play, is where you don&#x27;t call the <code>inner()</code> function from within the <code>outer()</code> function but you call it at a later point in time.</p><p id="e1d9b7c4-0288-40d3-a7aa-1d30f93b4007" class="">So let&#x27;s not call it from within <code>outer()</code>, remove that line of code where we are calling <code>inner()</code> and also remove the call to <code>outer()</code>.</p><p id="c92cdc64-4000-4370-a1bd-401f2f5d7f4f" class="">From the <code>outer()</code> function, let&#x27;s return the <code>inner</code> function. You can return it two ways.</p><p id="eb7e69bb-23c0-44dc-8249-7bca76b97f40" class="">The first way is shown below 👇</p><pre id="0b30a65e-25b3-49c0-b182-ffb33dd53ff0" class="code code-wrap"><code>function outer() {
+const outerVar = &quot;Hey I am the outer Var&quot;;
+
+return function inner() {
+const innerVar = &quot;hey I am an inner var&quot;;
+console.log(innerVar);
+console.log(outerVar);
+}
+}</code></pre><p id="8d5cc35a-f3e6-40ee-af8b-984f82971d66" class="">The second way is like so 👇</p><pre id="5e47b46e-cf24-496c-82b4-93c5de1cc49a" class="code code-wrap"><code>function outer() {
+const outerVar = &quot;Hey I am the outer Var&quot;;
+
+function inner() {
+const innerVar = &quot;hey I am an inner var&quot;;
+console.log(innerVar);
+console.log(outerVar);
+}
+
+return inner;
+}</code></pre><p id="9f4f4db7-8153-431e-8a59-04c800378a64" class="">We will go with the second one and after the <code>outer()</code> function, we will add 👇</p><pre id="9a340de4-6180-4301-87fd-c807d2828672" class="code code-wrap"><code>const innerFn = outer();</code></pre><p id="885aab83-e70a-46aa-a071-05b137174c47" class="">What we are doing there is:</p><ul id="2f39efa5-8346-4a3d-8eba-9c2d787b12ee" class="bulleted-list"><li style="list-style-type:disc">we are running the outer function</li></ul><ul id="8f306e37-0b89-4042-a1e4-76c3ce8a8396" class="bulleted-list"><li style="list-style-type:disc">it&#x27;s creating an outer variable (<code>outerVar</code>)</li></ul><ul id="2c62c1dc-9a0d-469d-be69-984ebbebbbc5" class="bulleted-list"><li style="list-style-type:disc">then we are returning the inner function, which is why we are sticking it in a variable (<code>innerFn</code>).</li></ul><p id="81a077ba-0e1e-4fae-858d-50caffa6e480" class="">In the console, when you type <code>innerFn</code> it will return the <code>inner</code> function like so 👇</p><p id="6ee8a425-ee3a-4dc3-869e-cce633a32749" class="">The question is, if you were to run <code>innerFn()</code> right below the function expression, is the <code>outerVar</code> still going to be accessible or will it be <code>undefined</code>?</p><pre id="929cc1f3-1ec6-4510-8df0-f468048f1308" class="code code-wrap"><code>function outer() {
+const outerVar = &quot;Hey I am the outer Var&quot;;
+
+function inner() {
+const innerVar = &quot;hey I am an inner var&quot;;
+console.log(innerVar);
+console.log(outerVar);
+}
+
+return inner;
+}
+
+const innerFn = outer();
+innerFn();</code></pre><p id="540791cd-f6f1-41c3-b106-a209497d3efb" class="">We ran the <code>outer()</code> function on this line of code <code>const innerFn = outer();</code>, which is where it created the variable, and then it returned the inner function.</p><p id="e6929538-2deb-4a2b-b888-f74078f59eb9" class="">Is that still going to be available to us or will it be <code>undefined</code>?</p><p id="42886e66-a409-4d20-9596-574e23569521" class="">If you try that code, you will see that they both work.</p><p id="c9e9520f-a731-411a-9322-94af8dc99899" class="">What you can do is stick a function into a variable, and then at a later point in time, you can have access to that function. A closure comes into play because you can access the function even though the outer function is done.</p><p id="50acbea4-c3f4-484d-aa71-540bf047e877" class="">We learned in scoping that when a function is done, anytime there are scoped variables that aren&#x27;t returned from the function, they are not accessible.</p><p id="22e0f8c5-4826-4dcb-a4e2-ed7e1239940a" class="">Now we get this weird thing where when we run the function outside of it, it&#x27;s still able to access it. That is what is referred to as a <strong>closure</strong>.</p><p id="1d66e989-c6a9-4bff-9ab0-dc6477176618" class="">JavaScript is able to create functions inside of functions, and it can still reach outside to the parent scope, and even though the outer function is done running, it will still maintain that variable in memory so that we can then access it at a later time.</p><p id="8afdb4cc-13dc-4227-ba58-9bfec6fd2408" class="">The variable is not <strong>cleaned up</strong> or &quot;<strong>garbage collected</strong>&quot; which is a term that is often used.</p><p id="84f18a26-c7bd-4a77-9ae5-bdf038d5c730" class="">Why would that be helpful? It looks very confusing.</p><h2 id="c173fdab-4f99-4c28-9796-8b558057a4a2" class="">Examples of Closures</h2><p id="6584b31b-39c1-4e11-b89e-d484b8698bcb" class="">Let&#x27;s look at some actual examples.</p><p id="f8a2ef66-7e9c-433c-9f89-3f82cbc580ba" class="">First, we will go over an example of a closure creating a function which is what we just went over.</p><p id="26c77036-3f4f-443f-9c3d-2e450406f2cf" class="">The second example will be how you can use closures to create what are called <strong>private variables</strong>.</p><p id="a01d6d17-5515-4c58-9136-9d7d3b1a96cd" class="">Comment out the previous code we had added in the script tags, and add the following 👇</p><pre id="ce682b2b-098a-446b-b1e3-9e10a19b9d89" class="code code-wrap"><code>function createGreeting(greeting = &quot;&quot;) {
+const myGreet = greeting.toUpperCase();
+
+return function(name) {
+return `${myGreet} ${name}`;
+};
+}</code></pre><p id="88bef4c0-dff8-4510-b1cd-45d343bfc1ff" class="">This function:</p><ul id="a450c0cf-e18a-4270-9a18-fb9e40f8f653" class="bulleted-list"><li style="list-style-type:disc">takes in a greeting, the default of which is an empty string</li></ul><ul id="67b80415-6390-4a70-9256-873967cfded5" class="bulleted-list"><li style="list-style-type:disc">assigns it to the <code>myGreet</code> variable which takes the greeting that got passed in to the function</li></ul><ul id="115ff825-3dc5-463e-9980-9acbf70b2f95" class="bulleted-list"><li style="list-style-type:disc">then runs <code>toUpperCase()</code> against it.</li></ul><p id="e3647495-67c9-4648-a3a2-baea761f8a9f" class="">From there, we will return a function, which we don&#x27;t have to name, which will take in the persons name and return a greeting.</p><p id="41775946-4de8-418b-a6e3-4890c07e07ec" class="">Why is that helpful?</p><p id="f77089d8-e589-4bee-a195-345d6a2030af" class="">Why did we do this in two separate functions?</p><p id="f2654769-f737-404a-bd5a-49a04b229160" class="">Because you can create functions that are based off whichever greeting you like.</p><pre id="db9857a5-0465-41a6-b5b4-8180ee7ff4b7" class="code code-wrap"><code>const sayHello = createGreeting(&#x27;hello&#x27;);
+const sayHey = createGreeting(&#x27;hey&#x27;);
+console.log(sayHello(&#x27;wes&#x27;));
+console.log(sayHello(&#x27;kait&#x27;));
+console.log(sayHey(&#x27;kait&#x27;));</code></pre><p id="982f6a03-9005-4ae5-bab9-c02a159c6fc7" class="">If you refresh you will see the following in the console 👇</p><p id="7c57edb4-bacc-4fc5-98b6-0e6d4c20fe15" class="">What is happening here is that when we create the outer function <code>createGreeting(){...}</code>, we had created a variable inside of that function, which is then accessed at a lower scope.</p><p id="5a223432-77d9-4c00-8ae2-d56405c67fae" class="">We&#x27;ve got inner scope here 👇</p><p id="01db4199-820b-4454-9b03-e5b66a4363a7" class="">And we have outer scope here 👇</p><p id="d509868a-5b08-450e-9991-8f3615cef1f7" class="">Since our inner scope references a variable that was created in our outer scope, that is what is referred to as <strong>closure</strong>.</p><p id="77b27bd1-6f6f-46d1-ba2e-137b8efb1bb0" class="">We still are able to access our outer variables inside of the outer function scope, inside of our inner even after the <code>createGreeting()</code> function has been closed over. That is the whole idea behind closures, it&#x27;s been closed.</p><p id="59965ab2-064e-413a-8a7b-a41c5e655a0c" class="">That is the first example where you have functions inside of functions and they are able to access the closure data inside of that.</p><h2 id="24fe90e0-b35f-468a-9932-01126a3119c5" class="">Private Variables</h2><p id="7ab34823-5b27-4172-91a1-e7680c702774" class="">The other sort of similar way is to create something called <strong>private variables</strong>.</p><p id="3c46dfd5-b4ee-4ba0-933f-bf29b1b542de" class="">We will demonstrate it with another example.</p><p id="363e72a3-9478-44c7-bb65-19a856a78308" class="">We are going to create a function, <code>createGame</code> that will take the name of the game as a parameter.</p><p id="ffffc808-6be7-45f2-8331-2bc72d3c06f1" class="">Inside of the function we will declare a variable <code>score</code> and another function <code>win</code> within, in which we will increment the score and return a string with the name of the game and the score.</p><p id="ee2f04d4-c664-4fd0-92d1-41d94186f19e" class="">Next we will create a variable <code>hockeyGame</code> and assign it to the <code>createGame()</code> function where we will pass &quot;Hockey&quot; as an argument.</p><p id="f0df614b-9158-478b-8744-d9bb3fef64a0" class="">Add the following code 👇</p><pre id="adff9e9c-709c-454c-84d7-18f143f0a1a3" class="code code-wrap"><code>function createGame(gameName){
+let score = 0;
+
+return function win(){
+score ++;
+return `Your name ${gameName} score is ${score}`
+}
+}
+
+const hockeyGame = createGame(&#x27;Hockey&#x27;);</code></pre><p id="9c49b9aa-f04f-4709-87fd-3477ab5362ee" class=""><em>(Note: if you forget to add the </em><code><em>return</em></code><em> keyword that is in front of the </em><code><em>win()</em></code><em> function, when you try to run </em><code><em>hockeyGame()</em></code><em> in the console, it will throw an error saying </em><code><em>hockeyGame is not a function</em></code><em>.)</em></p><p id="9412bfd4-d517-4e4b-b92e-33a4e42b3d31" class="">Now, whenever we run the hockey game function, a message will be logged in the console showing the incrementing score.</p><p id="02e65048-e20e-40d0-b7b5-cfe6db957f87" class="">What is happening there is the function that we create is called <code>win()</code>, and we are using a <code>score</code> variable.</p><p id="e725af2b-46c9-4c6f-b45e-52f2dc16fc7d" class="">So whenever we create the game, we create an empty score variable.</p><p id="28174dd9-c8af-43a5-a5e2-29ea1dec489a" class="">And then the inner function, whenever we actually run it, will increment the score variable that is of the outer scope.</p><p id="f7cf544a-0ca2-4b13-8e36-c6254f9aaebd" class="">Why is that helpful?</p><p id="3d14b2dd-071f-4fd1-985a-29bdf052de6b" class="">That allows you to maintain multiple games at once.</p><p id="fba017e2-24dc-4a99-ada8-02ddf5010b9c" class="">Under the <code>hockeyGame</code> variable, we will declare another variable, like so 👇</p><pre id="9c51df70-d483-405d-9e3f-3651e9ad7b03" class="code code-wrap"><code>const soccerGame = createGame(&#x27;Soccer&#x27;);</code></pre><p id="b1a44347-4087-4361-bb3c-9e3b9b8fa70b" class="">Now we can do this in the console 👇</p><p id="64e8501f-315f-49a8-9c9a-7529c5b14bcf" class="">Even though the <code>score</code> variable 👆 is the same variable name, because we have created two separate <code>win()</code> functions by using the <code>createGame()</code> function, they each have their own private variable score.</p><p id="3433280c-ac37-46f4-8e29-a0bde8e468e3" class="">Currently there is no way for us to access <code>score</code>.</p><p id="366332a8-6bf7-42d4-a77c-89533d12a29b" class="">If you try to access it in the console, you will get an error like the following</p><blockquote id="ea808b7e-6b98-444b-9c27-7fdb18f7362d" class=""><p id="cb88506c-d391-40e2-b472-0388be790c57" class="">score is not defined</p></blockquote><p id="e4fa66e7-4428-46b0-8e4a-3b8058aaff25" class="">There is no way for us to access that unless we were to explicitly return that variable or as we did in this example, by putting it into a string.</p><p id="df43a181-4204-4d91-a16a-5760d963ede0" class="">To recap:</p><p id="1449bbf4-4107-41a2-a937-c800f92b0d9c" class="">Closures are the ability of a child function, or an inner function, to access variables from a higher level scope even after the functions have been called or closed or closed over.</p><p id="8feaf497-76d2-49af-a85a-d8d57f60ed18" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="9e39be11-da58-409f-9938-39cf957cecc2" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="601110e0-5b72-438e-a04c-bf808e962616" class="">Edit on Github</p></details></li></ul></div></article></body></html>

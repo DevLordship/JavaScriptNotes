@@ -1,0 +1,990 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>7 - Logic and Flow Control</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fc3c3c27-383f-4b7a-a170-860d78434c19" class="page sans"><header><h1 class="page-title"><em><strong>7 - Logic and Flow Control</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="008613d7-8759-4545-b2ad-f48f2367d9cd" class="toggle"><li><details open=""><summary>37 - BEDMAS</summary><p id="ad4ccab0-5cb2-4693-be18-8ce947b45bb6" class=""><a href="https://wesbos.com/javascript/07-logic-and-flow-control/bedmas">https://wesbos.com/javascript/07-logic-and-flow-control/bedmas</a></p><p id="e01648a4-5ca9-4e43-a9de-1b8aee4f488d" class="">
+</p><p id="601ab191-cea0-42e5-9176-990bb688df77" class="">If you know what <strong>BEDMAS</strong> is, skip this video.</p><figure id="a8fa3eb4-8493-4e88-ae14-e0ca7ebe3877" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/371.png"><img style="width:188px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/371.png"/></a></figure><p id="ec3190e2-9c65-4b3b-a88e-a0a9ceb07cb5" class="">This video will be covering BEDMAS and the order of operations in which JavaScript runs. It is exactly the same as how mathematicians use it.</p><p id="a020864f-08f0-49f3-8132-fcfac3e637ad" class="">The order in which things run is that things is brackets go first, then we do exponents (which is sort of like the power of).</p><p id="dba1e77e-6946-4cca-858a-0dfeca654212" class="">We do have <strong>exponents</strong> in JavaScript. That looks like <code>2 ** 2</code> which is the equivalent of 2 to the power of 2.</p><p id="de5a6749-bfbb-4600-a8f9-5762f1160830" class=""><code>2 ** 10</code> is 2 to the power of 10.</p><p id="581302da-15b5-4234-ae0c-302c1acc32b4" class="">Next is <code>division</code>, <code>multiplication</code>, <code>addition</code> and <code>subtraction</code>.</p><p id="a5a29b6a-3684-4c23-a5c1-a75f450b2ee7" class="">Why is that useful?</p><p id="e68131d1-768b-4f2c-b606-471a1e9bdb31" class="">Open up <code>bedmas.html</code> and in the script tag, let&#x27;s say you have the following code 👇</p><pre id="97a6c48c-6dbf-4647-abaa-a84071113675" class="code code-wrap"><code>const age = 10 * 5 - 2;</code></pre><p id="c66183b3-fcb8-4282-a5d3-307e2a0fc7ec" class="">That evaluates to 48.</p><p id="8bfddb5f-1cec-4700-a420-cb8894e4d47f" class="">Why?</p><p id="850ae2a2-752e-42a9-b141-93f10dcdf6e8" class="">Because first it looks for <code>brackets</code>, of which there are none, then we move onto <code>exponents</code>, which are also none of, then <code>multiplication</code> next, so <code>10 * 5 = 50</code> then comes <code>addition</code> and <code>subtraction</code> so <code>50 - 2 = 48</code>.</p><p id="a5cf0b99-fff6-4362-a1da-17c5bb9302f6" class="">Now what if you have the code below? 👇</p><pre id="3669abb3-155c-446f-9ffb-eb0372cbb75c" class="code code-wrap"><code>const age2 = 10 * (5 - 2);</code></pre><p id="e00f22e8-e117-4933-9cbc-1243eb9a99fd" class="">First, it would evaluate what is in the brackets (<code>5 - 2 = 3</code>). Then we do exponents (there are none), and next comes multiplication so <code>10 * 3 = 30</code>.</p><p id="a2a03a37-c3de-4ba0-b7be-f3dc5cc892e5" class="">This is useful in things like the <code>calculateBill()</code> function from previous lessons.</p><p id="ed986ccf-8d35-4f21-b02b-94375383d1f9" class="">What is happening in the code above 👆 is that all the functions(<code>calculateBill(100)</code>, <code>calculateBill(20)</code>, <code>calculateBill(15)</code>) run first and equate to a value.</p><p id="0330d96f-cb4e-4492-84a1-2d35575dee0d" class="">So the <code>total</code> variable declaration is actually evaluating the following:</p><p id="dd04d811-f9fc-4d86-a66f-6840c1c6ac5d" class=""><code>const total = 128 + (25.6 - 19.2)</code></p><p id="b63cfe31-7892-48ab-b9d4-76d3dec260ed" class=""><code>calculateBill(100)</code> = 128 <code>calculateBill(20)</code> = 25.6 <code>calculateBill(15)</code> = 19.2</p><p id="a0601242-1315-48b3-9acc-115dc06d2c5b" class="">So in this case, the subtraction happens first <code>(25.6 - 19.2)</code> and then it&#x27;s added to 128.</p><p id="6c8f28fc-3045-465b-b0e7-02967307dc35" class="">That is order of operations.</p><p id="07f57610-c6d8-4b71-b3a9-dff24fa4a451" class="">Next we will get into logic and flow control. If statements, truthy or falsy, equality using and and or, ternarry, switch statements, timers and intervals.</p></details></li></ul><ul id="328aa623-1bae-4888-ae39-a1e72746cedb" class="toggle"><li><details open=""><summary>38 - If Statements, Function Returns, Truthy and Falsy</summary><p id="44ed949f-e773-4c8e-8125-f48d548e175f" class=""><a href="https://wesbos.com/javascript/07-logic-and-flow-control/if-statements-function-returns-truthy-falsy">https://wesbos.com/javascript/07-logic-and-flow-control/if-statements-function-returns-truthy-falsy</a></p><p id="773076a6-9bd7-42a2-89de-ba32b0ec87b0" class="">
+</p><figure id="6e977e56-29d4-48c5-81e5-7d1cbb29c1ef" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs.png"><img style="width:700px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs.png"/></a></figure><p id="0ae7a940-16c3-46db-ac20-9a9591c58020" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="427df9c7-40ac-46ef-8a6b-6145d75b8ef2" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="eb1b7975-af0e-4f83-866b-d64233826bb2" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="16244a4a-7514-4e42-b881-8b64df4392c5" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="3535d246-f0c8-4dcf-9ea9-b439683435d6" class="">JavaScriptEdit Post</p><p id="7bb4e7dc-4e6e-47f4-b0c6-77b807ad1639" class=""><strong>If Statements</strong> are the foundation of all logic in JavaScript. They expect <strong>booleans</strong>, which are always either true or false, or they expect some sort of condition that is evaluated to <strong>true or false</strong> or <strong>truthy and falsy</strong>.</p><p id="1b7ae853-8729-4352-af1f-d3b82dfa626b" class="">First let&#x27;s go over the mechanics of if statements using greater or less than operators, and then we will dive deeper into the other operations.</p><p id="a7866e51-aafd-4ff0-a553-cf8c7b7adeb2" class="">At it&#x27;s most basic, an if statement can look like the following 👇</p><pre id="9cc0ceab-d09a-4e0a-b8b9-d64559e5cd3f" class="code code-wrap"><code>if (10 &gt; 2) {
+console.log(&#x27;Yep&#x27;);
+}</code></pre><p id="701a75f3-2f4b-449c-b14c-18692ecccba7" class="">The code above is saying if 10 is greater than 2, log &quot;Yep&quot; to the console.</p><p id="92dd2597-69ff-46c6-aee7-170b1923f0af" class="">The entire if statement is <code>if (10 &gt; 2) { console.log(&#x27;Yep&#x27;); }</code></p><p id="2377e014-8ea6-4f3e-bb7c-f3df23a8eef4" class="">The code within the parenthesis following the if statement, <code>(10 &gt; 2)</code>, is what is referred to as the <strong>condition</strong>.</p><p id="8cc4a8cc-b09b-40e2-ac16-ab61210ddee2" class="">The condition is going to be evaluated to true or false. By evaluated, what we mean is that if you were to run that in the console (<code>10 &gt; 2</code>) it would evaluate to true or false.</p><p id="d1e441e8-a6b0-4695-a5c3-64a53bfae1c7" class="">There are the curly brackets which are opening and closing the block <code>{}</code>. Any code that needs to happen when the condition is true need to go within the block.</p><p id="0a35a71e-4764-4d02-90e1-2a3447749894" class="">You can also add an else if like so 👇</p><pre id="06f2e656-c2c0-467d-964a-52a220da84cb" class="code code-wrap"><code>if (10 &gt; 2) {
+console.log(&#x27;Yep&#x27;);
+} else if (11 &gt; 10) {
+console.log(&#x27;Yep&#x27;);
+}</code></pre><p id="4847c2c8-7ef7-47a0-ab56-9daa41b3f68e" class="">You can also chain these &quot;else ifs&quot; as many times as you want.</p><p id="5d802bad-cbbe-4fbe-8823-65792876af01" class="">However, if the first one is true, even if the later ones are also true, they will never run.</p><pre id="2d6c9514-5029-4b29-b12e-340e278672fe" class="code code-wrap"><code>if (10 &gt; 2) {
+console.log(&#x27;Yep&#x27;);
+} else if (11 &gt; 10) {
+console.log(&#x27;Yep&#x27;);
+} else if (3 &gt; 1) {
+console.log(&#x27;Yep&#x27;);
+}</code></pre><p id="c4584611-c36b-4a64-81b4-8a6d4b8cddc4" class="">Although all 3 conditions above 👆 are true, the 2nd and 3rd blocks will never run because the first condition evaluates to true and runs.</p><p id="19eb6066-b297-48f8-b862-4427a5832e88" class="">An if statement will look for the first condition that evaluates to true and then it only runs that block, it will skip the rest.</p><p id="45666e13-9f88-46b9-8124-aaf833b25f1d" class="">If you wish to check for whether multiple things are true, you&#x27;d have to have 3 separate if statements rather than one big if else statement, like so 👇</p><pre id="a7b6e371-3297-4733-9e0a-7be50740cf25" class="code code-wrap"><code>if (10 &gt; 2) {
+console.log(&#x27;Yep&#x27;);
+}
+
+if (11 &gt; 10) {
+console.log(&#x27;Yep&#x27;);
+}
+
+if (3 &gt; 1) {
+console.log(&#x27;Yep&#x27;);
+}</code></pre><p id="74a011ae-ffd2-4bd9-9323-b4f6e194c646" class="">Additionally, if nothing is matched, you can chain a <code>else{}</code> onto the if statment like so 👇</p><pre id="51dad070-6546-4f73-a359-d4e465563a9d" class="code code-wrap"><code>if (age &gt; 70) {
+console.log(&#x27;In your seventies&#x27;);
+} else if (age &gt; 60) {
+console.log(&#x27;In your sixties&#x27;);
+} else if (age &gt; 50) {
+console.log(&#x27;In your 50s&#x27;);
+} else {
+console.log(&quot;nothing was true&quot;);
+}</code></pre><p id="8b661654-2148-4172-9d84-3547e9536042" class="">&quot;nothing was true&quot; will be logged if <code>age</code> is less than 50.</p><p id="96c97f26-7d2b-4c8f-ae07-3de738d4a883" class="">Notice that the <code>else</code> statement does not have parenthesis <code>()</code> like the if and else if statements.</p><p id="9e404d5f-8d29-453f-a4ee-95dd4754888a" class="">That is because else never has a condition.</p><p id="1672fe76-9477-4d69-a2e6-a553670aa9bb" class="">It is a &quot;catch-all&quot; which runs if none of the conditions are true. It&#x27;s similar to the default that we learned about in the switch statement.</p><p id="9f225d36-c063-4cdc-a98b-81fedbddf19a" class="">Take the following code 👇</p><pre id="caf81913-a630-46b3-a114-10d16d10c287" class="code code-wrap"><code>const age = 100;
+if (age &gt; 70) {
+console.log(&#x27;In your seventies&#x27;);
+} else if (age &gt; 60) {
+console.log(&#x27;In your sixties&#x27;);
+} else if (age &gt; 50) {
+console.log(&#x27;In your 50s&#x27;);
+} else {
+console.log(&quot;nothing was true&quot;);
+}</code></pre><p id="8bf72038-76ac-4c6f-8635-aa061805d2df" class="">If you run that in the console, what would you see?</p><p id="988d777b-c667-4018-99a6-0d4bccd00578" class="">You should see &quot;in your seventies&quot;.</p><p id="92da954b-1e0c-4b92-a8ab-369dee527500" class="">Even though that the rest of the conditions are true, because the first condition is true, none of the other conditions are evaluated or run.</p><p id="335027ce-237b-4da6-8e70-ec7107698780" class="">That is important to keep in mind if you&#x27;re working with multiple things that could be true.</p><p id="a3e6ddc4-102e-4634-919a-7b1d434c2bb3" class="">You need to be aware of the order of which you check your if statements.</p><p id="9fc2b38f-cae3-488e-9d6a-9a6a4168c910" class="">Now let&#x27;s discuss if statements inside of a function, which is likely something you will come across and use to return different values.</p><pre id="ce6b6e18-8da5-41f5-84b4-fc1b6ebca4f9" class="code code-wrap"><code>function slugify(sentence, lowercase) {
+if (lowercase) {
+return sentence.replace(/\s/g, &#x27;-&#x27;).toLowerCase();
+} else {
+return sentence.replace(/\s/g, &#x27;-&#x27;);
+}
+}</code></pre><p id="2531664f-a4ae-4fa5-b1e5-05ee1fc99ed7" class="">We have this <code>slugify</code> function shown above 👆, which takes in a sentence and a boolean (which will be true of false depending on whether you want to lowercase it or not), and then we return that sentence but call the <code>.replace()</code> method on it.</p><p id="043a529b-1090-41eb-924c-d99c58fbab3f" class="">You may be wondering about this line of code 👇</p><pre id="515caf67-e191-4a42-ac84-69509f0fb604" class="code code-wrap"><code>sentence.replace(/\s/g, &#x27;-&#x27;).toLowerCase();</code></pre><p id="5a6cad28-66ee-4017-8364-5b22931096bf" class="">This is a <strong>regex</strong>, which stands for <strong>regular expression</strong>.</p><p id="107ac07e-10f3-48eb-b7aa-a8d55292c959" class="">A regular expression is a way to match characters in a string. It always starts and closes with a forward slash <code>/</code> and then you type in different characters.</p><p id="9126a240-7372-48a0-aa0a-24a735230985" class="">In our case, we want to pass the space character which is <code>\s</code>.</p><p id="143402a3-97cb-4423-86b7-ce50e025e3e7" class=""><code>g</code> stands for global, which means find them all, not just the first one.</p><p id="a8608214-153c-4ffb-8ec8-68e91cd7b0e8" class="">Then we replace it with the dash and call <code>toLowerCase</code>.</p><pre id="5579001a-afac-4d0e-acfd-ff3079fe2926" class="code code-wrap"><code>slugify(&#x27;I am very cool&#x27;);</code></pre><p id="6794fbb0-e041-4dce-8d23-25fb1ff292a8" class="">If you open the HTML page in a browser and run the code above in the console, it will return &quot;I-am-very-cool&quot;.</p><p id="bc52e326-1aaf-4c4e-b694-0e62d3444197" class="">It puts dashes where spaces were.</p><p id="55b14d96-30a6-4295-bbc4-35c314eefcc3" class="">If you were to run that same code but pass a second argument of <code>true</code>, it will lowercase the sentence as well and return &quot;i-am-very-cool&quot;.</p><p id="d37d3033-5c26-4a09-942f-0b265da42a5e" class="">Some developers prefer to keep as much logic out of the brackets as possible because if you delete one by accident, it takes a long time to debug.</p><p id="3c47476f-e8ae-4835-b2e0-2b64eb6f5913" class="">What you can do is simplify the code by getting rid of the else statement and run the code like this 👇</p><pre id="0ab7c923-3f8e-4c98-9ac2-2359dc73cdb4" class="code code-wrap"><code>function slugify(sentence, lowercase) {
+if (lowercase) {
+return sentence.replace(/\s/g, &#x27;-&#x27;).toLowerCase();
+}
+
+return sentence.replace(/\s/g, &#x27;-&#x27;);
+}</code></pre><p id="f0baac1e-e54e-4307-886e-9b6210697aa7" class="">If you try calling <code>slugify(&#x27;I am very cool&#x27;)</code> again from the console, it will return the same thing.</p><p id="eae1aa7e-3932-4956-8ed7-dbbb25d664d5" class="">The reason for that is because of the return keyword within the <code>if (lowercase)</code> block.</p><p id="7d1e83d1-630d-4364-89bc-efd3c400c165" class="">What does <strong>return</strong> mean?</p><p id="257fa639-e573-4a25-85d9-63374f8ed2d1" class="">It means to return a value from a function, and stop that function from running.</p><p id="b22d1bf8-ab44-4613-bb05-8c5f7b3893aa" class="">Whenever you return from a function, even if it&#x27;s inside of an if statement, that function will stop running and the code that was is within the else will never be reached. So rather than having an if else, we can have an if and then the else is assumed by putting it after the if condition. This is just personal preference, both approaches are completely valid.</p><p id="a811563d-962d-49a4-9b33-96619b0183d0" class="">There is so many different ways we could have coded this function.</p><p id="16f42684-9e2b-42b0-89f0-36a0b43fb434" class="">This is also a valid approach 👇</p><pre id="81507886-7611-4e9a-a2ed-04810cf08e13" class="code code-wrap"><code>function slugify(sentence, lowercase) {
+let slug  = sentence.replace(/\s/g, &#x27;-&#x27;);
+
+if (lowercase) {
+slug = slug.toLowerCase();
+}
+
+return slug;
+}</code></pre><p id="19007a03-104c-4702-9d41-ed7760ef668f" class="">Shown above 👆, we have have assigned the slug variable and then based on whether to lower case or not, we update the slug variable and return it.</p><p id="edc24f0d-0e42-432e-b850-692d7e760763" class="">You could also do 👇</p><pre id="e2594abf-8314-40f4-8b2e-f909d1bf6f58" class="code code-wrap"><code>function slugify(sentence, lowercase) {
+let slug  = sentence.replace(/\s/g, &#x27;-&#x27;);
+
+if (lowercase) {
+return slug.toLowerCase();
+}
+
+return slug;
+}</code></pre><p id="a18381e9-5cbd-4f86-a05c-6d903d24fe26" class="">The last two approaches are better because we don&#x27;t have to duplicate the regex in two places.</p><h2 id="71e03873-3d9c-4861-aa5c-fb5fafd6a7b6" class="">Operators</h2><p id="5587f3fc-e112-4819-afe9-59e3c656ccd5" class="">We talked briefly about the different equal signs (<code>=</code>, <code>==</code>, <code>===</code>).</p><p id="6f99bdcc-25b8-4ed9-916d-1b32d993c496" class="">As a refresher, if you open the html page in the browser and try to type <code>age = 100;</code> in the console, you will get an error like the following 👇</p><p id="694022f2-2e45-43c4-84ff-36eccf8c151e" class="">The code is erroring out because the single value will set the value of the variable, and <code>age</code> is a const variable, so you cannot do that.</p><pre id="dda638e2-2794-4f78-8dd9-c520d8835574" class="code code-wrap"><code>age == 100;</code></pre><p id="6ac412d5-4b59-428e-90e3-4a4a6a30ef7a" class="">If you try the code above 👆, it will return true.</p><p id="3870179f-043a-4dda-af4c-9ea68774f7ab" class="">That is because double equals <code>==</code> will check that the values are the same. So the value of <code>age</code> is 100, and the value of what we are comparing it against is 100.</p><p id="7a2ee145-9504-4d60-9376-d65f042f8039" class="">The gotcha with the double equal signs is that if you were comparing it against another value, such as <code>age == &#x27;100&#x27;</code> for example, it will return true because they are technically the same value even though they are not the same type!</p><p id="ecb7ce2f-45e0-49ea-ad3f-d964b084ce2c" class="">Using <code>===</code> will check if both the type AND the value of the <code>age</code> match <code>100</code>.</p><p id="3ed02dd0-aabb-411b-a0cc-8857bc221746" class="">Because of that, you should almost always use <code>===</code>.</p><p id="4fbc26e4-9849-4c5e-b844-6eb4332ec07f" class="">If that is the case, you may be wondering what is the purpose of having <code>==</code> in the language at all?</p><p id="f42e9e40-d280-428f-9665-bc5909ebf00b" class="">Because of <code>null</code> and <code>undefined</code>.</p><p id="0600f6f7-1ed1-49ea-96d6-7f4365a985a6" class="">Sometimes you want to check if a variable is null or undefined.</p><p id="14daf55a-1a8b-4f14-9328-ef44e74649d2" class=""><code>null === undefined</code> will return false.</p><p id="012df6e7-0173-48d1-8f3b-3a5edfd1c790" class=""><code>null == undefined</code> will return true.</p><p id="99b6fc6d-1504-43bf-aa30-d04ff7de917b" class="">Although that is the case, Wes has almost never had to use the <code>==</code> in his career because of something called <strong>truthy</strong> or <strong>falsy</strong>.</p><p id="493a458d-651b-45fa-b6dc-b5afee4cf53d" class="">We also have does not equal which is the <em>bang</em> (<code>!</code> is referred to as a bang in programming) and equals sign.</p><pre id="75eb1f27-ad71-4813-b918-eee13192172f" class="code code-wrap"><code>name !== &#x27;keith&#x27;</code></pre><p id="2a1745a7-bdcb-42b2-b36f-7374fc51e5d5" class="">If you had a <code>name</code> variable that was equal to &#x27;wes&#x27;, if you tried the code above in the console, it would return false.</p><p id="08d9c711-62f1-4bfd-ae97-04d878fb81fa" class="">You can also do <code>!=</code>.</p><p id="06cc5cfe-fc98-439d-ade2-f21c17cdb301" class="">For example 👇</p><pre id="7ccfc24d-1148-45cb-bfda-db4eee781bfb" class="code code-wrap"><code>10 !== &#x27;10&#x27; // returns true</code></pre><pre id="856533b7-7b0a-4d31-9840-9a23ca370804" class="code code-wrap"><code>10 != &#x27;10&#x27; // returns false</code></pre><p id="47ce825d-aee1-480c-ae0b-fccae4e9644c" class="">That is because 10 and &#x27;10&#x27; are different types, but the double equals ignores the type.</p><p id="136cf4db-eb69-4dd7-a8fa-fc983f5e2bc5" class="">There is also greater than and less than.</p><p id="2322d166-d99c-4e84-a922-2ecc84cd8c47" class="">You could check for example if <code>10 &gt; 10</code> which would return false.</p><p id="4b12755f-a3a6-40d0-8ec6-97a6a1dd7635" class="">You can do <code>10 &gt;= 10</code> which would be true.</p><p id="de645497-d0ea-48ea-b082-a7df22ef9c46" class="">Some people get confused and think you may need to use double equals when comparing greater than or equal or less than or equal (like <code>10 &gt;== 10</code>, however that is not correct.</p><p id="68aaab99-9b4d-4214-8c77-382a8bed03a9" class="">Why?</p><p id="ed7022c8-42a9-4388-a571-993bd38ba105" class="">Because the greater than and less than operators only ever deal with numbers. If you accidentally use a string, it will turn the string into a number at first but you shouldn&#x27;t be doing that.</p><p id="00cca567-ea58-476c-9f51-510348ef51df" class="">Wes always tells people to think of the greater than and less than sign as a hungry alligator. That is how he remembers it.</p><p id="8de05b3b-765d-4054-9109-c8cc0ed33eea" class="">Is the hungry alligator pointed to the largest number? Then that is true. However, if the hungry alligator is pointing to the smaller number than it&#x27;s false.</p><p id="0abf3048-3a6e-43d5-8e15-a77f9845c169" class="">Additionally there are &quot;and&quot; and &quot;or&quot; operators.</p><p id="00444ec9-754b-43fd-b2c1-719d67680dc9" class="">Go back to the <code>if-statements.html</code> file.</p><p id="c7e9bfa0-6560-40df-8368-4408c6312084" class="">Within the function, let&#x27;s add code to check if the person&#x27;s name is scott because that is also a cool name. We could use the <code>or</code> operator like so 👇</p><pre id="18608168-e7e1-4850-88e0-250ba0661f63" class="code code-wrap"><code>if (name === &quot;wes&quot; || name === &quot;scott&quot;) {
+console.log(&quot;Cool name!&quot;);
+}</code></pre><p id="14ed0563-0d58-47ed-9008-35506f9afcf3" class="">The <code>or</code> operator is comprised of two <strong>pipes</strong> like so: <code>||</code>.</p><p id="987a549e-ea87-434a-96e2-2326d97c1c20" class="">You would read that code like so:</p><p id="b4564e0e-3a79-4eb5-9538-ed6f0a23cede" class="">If the name is equal to wes, OR the name is equal to scott, log &quot;Cool name!&quot;.</p><p id="1ef30f26-bd02-4be6-b973-53d18d8a1dd4" class="">Now let&#x27;s say you also wanted to check if the first name was &quot;wes&quot; and the last name was &quot;bos&quot;.</p><p id="33b8920e-a82f-4504-bf72-fb7a97b605cf" class="">In that cause, you wouldn&#x27;t use the or operator <code>||</code>, you would use the and operator <code>&amp;&amp;</code> instead, like so 👇</p><pre id="967bd30d-4c8f-42c3-a36a-853fe0f80dbd" class="code code-wrap"><code>if (name === &#x27;wes&#x27; &amp;&amp; last === &#x27;bos&#x27;) {
+console.log(&quot;Cool name!&quot;);
+}</code></pre><p id="fb1037e8-d476-4c86-84aa-f0c1edea32f1" class="">You can also use <strong>BEDMAS</strong> here, like so 👇</p><pre id="77db9ded-b032-42c1-90ab-b1cd2c8f8a0a" class="code code-wrap"><code>if (name === &#x27;scott&#x27; || (name === &#x27;wes&#x27; &amp;&amp; last === &#x27;bos&#x27;)) {
+console.log(&#x27;Cool name!&#x27;);
+}</code></pre><p id="9ec8b124-7aa6-40a3-834d-83c85f1ce72a" class="">What this code will do is it will check the parenthesis. Name must equal &quot;scott&quot; and last name must equal &quot;bos&quot; for the statement to return true.</p><p id="5c3d74c2-02c2-4455-8d88-db70e1da92c3" class="">When you use the and operator, if any one of the conditions is false, then the entire thing will evaluate to false.</p><p id="79973e0d-ce7f-411f-8b7b-d3b1feea587e" class="">However, when you use the <code>||</code> operator, if any of the conditions are true, it will always be true.</p><p id="fa8cd43b-f835-4fe7-9fe7-4b73f0c8da89" class="">Next we will talk about using functions with if statements. This is fairly common.</p><pre id="06f3c152-4032-4eb6-81ce-39f5f3a69069" class="code code-wrap"><code>&#x27;awesome&#x27;.includes(&#x27;wes&#x27;)</code></pre><p id="51ae032c-1847-46f4-a054-fc86801c9773" class="">If you had a string like <code>&#x27;awesome&#x27;</code> and you wanted to check if it contains the word wes you could use the code above which would return true.</p><pre id="d1157835-a6a8-4c9a-983c-7593483469e3" class="code code-wrap"><code>&#x27;awesome&#x27;.includes(&#x27;scott&#x27;)</code></pre><p id="c7e6ffab-b90b-4db9-bae7-4852aa16dbb0" class="">You could also run the code above 👆 which would return false.</p><p id="2c18417d-9917-4f0c-a221-95f2757ae488" class="">You can use that directly in an if statement like so 👇</p><pre id="dd35a518-a743-4fe0-8e84-31b2dea71e45" class="code code-wrap"><code>const name = &#x27;wes&#x27;;
+
+if (&#x27;awesome&#x27;.includes(name)) {
+console.log(&#x27;SUPER COOL AWESOME NAME&#x27;);
+}</code></pre><p id="ceded2cf-d7ff-4529-af69-78081ee1811d" class="">Pretty often you have methods that return true or false and often you can use those directly inside an if statement.</p><p id="78199046-f4cb-4e57-b5b3-91f06342cb87" class="">You can also put them in their own variable to make it easier to read like so 👇</p><pre id="a7a75181-15da-46f5-ab78-87b32dce947d" class="code code-wrap"><code>const isAwesomeName = &#x27;awesome&#x27;.includes(name);
+
+if (isAwesomeName) {
+console.log(&#x27;SUPER COOL NAME&#x27;);
+}</code></pre><p id="532568f6-8f96-4c03-a8df-d9120c36185b" class="">Sometimes when you are working with a lot of conditions and a long if statement, it can make the code easier to read and follow if you break it up into multiple variables.</p><p id="fe10be03-22c5-4d20-bb09-ac1344bbac20" class="">Similarly you can make our own functions that return true or false and then use it, like in the example below 👇</p><pre id="be95a0d6-fb35-45e2-a3cf-6c4f0396e0f4" class="code code-wrap"><code>function nameIsAwesome(name) {
+return &#x27;awesome&#x27;.includes(name);
+}
+
+if (nameIsAwesome(&#x27;wes&#x27;)) {
+console.log(&#x27;COOL NAME WES&#x27;);
+}</code></pre><h2 id="0d1c3959-988a-46a2-8ca4-af249c1690a4" class="">Truthy or Falsy</h2><p id="c103fe88-1587-4943-a865-1c7ab658f03f" class="">Next there is the concept of <strong>truthy</strong> and <strong>falsy</strong>.</p><p id="a82d5a3c-3dff-42bb-9a98-8f9fce984602" class="">Wes has said earlier that if statements require a boolean but that isn&#x27;t completely true because they will also accept truthy and falsy values.</p><p id="99146567-e07a-4d96-8320-cc82fbee6c6d" class="">For example if you have the following code 👇</p><pre id="cb9326dd-57af-417d-8c9a-033668a3e79d" class="code code-wrap"><code>const dog = &#x27;snickers&#x27;;
+
+if (dog) {
+console.log(&#x27;You have a dog&#x27;);
+} else {
+console.log(&quot;You don&#x27;t have a dog&quot;);
+}</code></pre><p id="77f47c48-fff1-4cc6-8ee1-1a3a5cf5367f" class="">If you run that in the browser, you will see &quot;You have a dog&quot; logged in the console.</p><pre id="7461e461-202d-4755-ae44-0f5b30827930" class="code code-wrap"><code>const dog = &#x27;&#x27;;</code></pre><p id="b7844ecf-8abf-4010-93a7-6268033a4cb3" class="">However, if you were to change the <code>dog</code> variable declaration to leave it empty as shown above 👆,what would happen?</p><p id="22cc39d8-9450-4a1f-ba98-e73193c31b15" class="">You would see &quot;You don&#x27;t have a dog&quot;!</p><p id="cf5bed6c-9084-4baa-b7ac-336dd8e9e93c" class="">Why is that?</p><p id="198096f3-097a-4286-9e21-fa8b65f17457" class="">An empty string is not true, and it&#x27;s not false. It&#x27;s an empty string.</p><p id="f0c048b0-0ce7-4a8d-ba8b-966ca4e4090f" class="">So how come that if statement works?</p><p id="7f652786-3876-4cef-88f4-f46613e6c7f5" class="">That is because if statements will take in number of different values and it will try to <strong>coerce</strong> them (turn them) into a boolean of true or false.</p><p id="d3c4a18b-9eb6-4974-9478-5273b27696e3" class="">Values that are truthy or falsy will also work.</p><p id="d8e9a64c-7f9e-428a-8d1e-e76ba6027b74" class="">So what are examples of values that are truthy or falsy? Here is a list.</p><h3 id="0f78c900-105a-4d09-aed1-2c9152c3cefa" class="">Truthy or Falsy values</h3><ul id="5dd8cbc8-a07c-42d8-b8ce-6e8c3a746192" class="bulleted-list"><li style="list-style-type:disc">0 // falsy</li></ul><ul id="1a0852c3-a3b8-4d9e-8a3e-f3cad941ce8b" class="bulleted-list"><li style="list-style-type:disc">1 // truthy</li></ul><ul id="bc0c355f-f415-4536-b8f4-48bc3f85637c" class="bulleted-list"><li style="list-style-type:disc">10 // truthy</li></ul><ul id="d54b541e-35f5-4c7a-9c86-91a3e6f7dbef" class="bulleted-list"><li style="list-style-type:disc">undefined variable // falsy</li></ul><ul id="424e60c7-e130-47b2-af18-15f46fb31fd5" class="bulleted-list"><li style="list-style-type:disc">Variable set to null // falsy</li></ul><ul id="08f256a1-2c8d-4f4d-858d-96dc5e0f6085" class="bulleted-list"><li style="list-style-type:disc">a variable set to <code>&quot;hello&quot; - 10</code> NaN // falsy</li></ul><ul id="86a97883-c3d5-44c6-890f-8681abb5d120" class="bulleted-list"><li style="list-style-type:disc">empty string // falsy</li></ul><ul id="8bdc3ee0-1060-4ebc-911b-ec8ed3ec2298" class="bulleted-list"><li style="list-style-type:disc">full string // truthy</li></ul><ul id="aa9f11f1-99a8-40e3-bbda-fec4b3bc3b8a" class="bulleted-list"><li style="list-style-type:disc">a string of &quot;0&quot; // truthy</li></ul><ul id="d5c0b90d-ca7e-4110-a9bf-3e9ee72e9aee" class="bulleted-list"><li style="list-style-type:disc">empty array // truthy</li></ul><ul id="5cbaf832-a775-4e1e-a4bd-9719aa22edb4" class="bulleted-list"><li style="list-style-type:disc">empty object // truthy</li></ul><p id="385032da-b233-45bf-a7a9-27d87aeac44d" class=""><code>0</code> (the number zero) is a falsy value because it will equate to false.</p><p id="468c9230-b068-4e29-8039-35864033c2c3" class="">Here is a quick example to demonstrate that 👇</p><pre id="dc9ff49e-952f-46b2-bc3f-28460fbf4e13" class="code code-wrap"><code>const score = 0;
+
+if (score) {
+console.log(&#x27;There is a score already&#x27;);
+} else {
+console.log(&#x27;No score yet&#x27;);
+}</code></pre><p id="ff06ee1b-7d22-4552-a97e-147a8f4d59b5" class="">If you refresh the HTML page, you should see &quot;no score yet&quot; in the console. Why? Because 0 equates to false.</p><p id="fa9dffdb-091b-42d2-8eac-85e7ca2a8c41" class=""><code>1</code> (the number one) is a truthy value.</p><pre id="53c8a66a-3a01-46f1-8bb1-41cd5f7737da" class="code code-wrap"><code>const score = 1;</code></pre><p id="7b141475-a49f-4c36-92bf-445cdc495d1f" class="">If we were to change the <code>score</code> variable from the example to be 1 as shown above 👆, you will see &quot;There is a score already&quot; in the console.</p><ul id="150ea6d2-1f59-4d2c-83d4-5c48e629b0f5" class="bulleted-list"><li style="list-style-type:disc">10 (negative 10) is truthy.</li></ul><p id="600836c9-6446-47a8-a283-bdc09487a86e" class="">If you change the value of the <code>score</code> to <code>-10;</code>, you will see that.</p><p id="0991b2f3-b679-47f9-b7be-3d278ece3eb5" class="">This is because 0 is the only number that is falsy. All other numbers will be truthy.</p><p id="8c229205-ee5a-403b-bfc8-1507e7743c23" class="">If you make <code>score</code> an undefined variable by modifying the code to be <code>let score;</code>, you will see that it says no score yet, meaning it&#x27;s a falsy value.</p><p id="c0592034-9945-4618-902f-a75491256025" class=""><em>Note: We needed to modify the score variable from a const to a let to make it undefined. JavaScript does not support undefined const variables.</em></p><p id="289af27e-a256-462f-ae57-3438d568afbe" class=""><code>null</code> is also a falsy value.</p><p id="5c9921ed-c888-4679-bf0c-84f44dff9aac" class="">A variable set to &quot;hello&quot; - 10 which would evaluate to <strong>NaN</strong> (<strong>not a number</strong>).</p><p id="7252c2ed-d48b-433d-97b7-a58d19cb1e1f" class="">Would it be truthy or falsy? It will be falsy, meaning that NaN is falsy.</p><p id="fe25d4c2-b0ae-4ad6-adf8-f78b027db413" class="">An empty string is falsy.</p><p id="889d754a-8982-41f9-8ef2-0ce22259fc4d" class="">A full string is truthy. Any string with content in it will be true.</p><p id="9f0dcb0d-2e15-4198-b86c-4dfe4fd5a053" class="">A string of &quot;0&quot; is tricky because it&#x27;s a string with content, but it is also zero and we learned that zero is false.</p><p id="e20c43ee-a61e-4298-9752-0efd38e4c0f9" class="">Which is it actually? It is truthy!</p><p id="2dff58c8-017e-47ad-ac44-51bddbd2542a" class="">A string of anything, even a string with just an empty space like so <code>&quot; &quot;</code> will be true.</p><p id="aea3f93c-f369-4ef8-b4f5-417d956359a0" class="">Only a completely empty string <code>&quot;&quot;</code> will be falsy.</p><p id="1a2f3f03-d5a4-4638-b472-7312cd6f8d35" class="">The next 2 we haven&#x27;t really covered yet:</p><ul id="316c4a34-8a4d-4f72-8aca-67bf269710c5" class="bulleted-list"><li style="list-style-type:disc">an empty array</li></ul><ul id="e0be70a0-7f7a-43a4-809e-b695c8fdd043" class="bulleted-list"><li style="list-style-type:disc">an empty object.</li></ul><p id="30818440-cd0c-44d8-968b-cc1a5e49d856" class="">An array can be shown like this 👇</p><pre id="ca7cb226-617e-4216-9292-aa6c41321c90" class="code code-wrap"><code>let score = [1, 3, 6];</code></pre><p id="c77f2427-b427-46b9-9d46-add0f2d28acd" class="">Would that be truthy or falsy?</p><p id="9328432a-4aaa-4d6c-afb4-52323d30d456" class="">The array with values is truthy.</p><p id="61766701-a20b-4e3a-a083-54bd0a53687e" class="">What about an array of nothing? Will the code below be truthy or falsy?</p><pre id="51174398-1223-4986-a4f3-81fb613919ac" class="code code-wrap"><code>let score = [];</code></pre><p id="6d3c1c13-a2c7-4490-af4b-f2c4b5ce9041" class="">An array with no values is truthy.</p><p id="ff1f3b1e-12e4-4c69-8c23-9a35afa25118" class="">If you ever need to check for something in an array, look for <code>.length</code> (we are getting a bit ahead of ourselves here). The length is how you tell how many items are in an array.</p><pre id="50d49cdd-cd70-4df3-bb23-ca8626fe608f" class="code code-wrap"><code>let score = {};</code></pre><p id="428b7d64-e0d4-49e1-9571-ab2f9e122e16" class="">The last one is an empty object as shown above 👆. An empty object is still truthy.</p><p id="2fdd3aac-0a6b-466f-9d38-343baa6b06f1" class="">If you want to check if there is anything in the object, you can use something called <code>Object.keys({})</code> which will turn it into an array and then you can chain <code>.length</code> on it like so 👇</p><pre id="e9b7282e-f99b-44cc-8f1c-d72444306b3e" class="code code-wrap"><code>Object.keys({}).length</code></pre><p id="26787cdc-d3a7-4491-bf6b-e1c577b9b691" class="">When working with JavaScript you often see if statements with things that you might not think are true or false, but that is simply because we are checking for it&#x27;s existence (whether it is there or not).</p><p id="7d65df91-6de0-4415-8ac5-f12d26ee2059" class="">Now let&#x27;s make an array with all of these different values and types and loop over them and show you with an if statement whether they are truthy or falsy.</p><p id="b3bf258e-3998-4b34-84a0-8a2e72d5ffd7" class="">We haven&#x27;t gone over arrays yet, but an <strong>array</strong> is a list of things.</p><pre id="fbbaaf85-2f59-4f3e-85e0-043df1581a86" class="code code-wrap"><code>const values = [[], {}, -10, 1, 0, &quot;&quot;, &quot;full string&quot;, &quot; &quot;, undefined, NaN, null];</code></pre><p id="3563764c-a9b6-4064-bc09-3f99c755f473" class="">Call <code>forEach</code> on each item, like we did when we were working with DOM nodes.</p><pre id="91577eaf-9102-40bf-84ba-cfeb32405620" class="code code-wrap"><code>console.group(&#x27;truthy or falsy values&#x27;);
+
+values.forEach(value =&gt; {
+console.log(value);
+})
+
+console.groupEnd(&#x27;&#x27;);</code></pre><p id="d6b35a68-08f2-4a86-a1e3-1c670dd71503" class="">Then within the <code>forEach</code> block we will add the following 👇</p><pre id="f97516c0-9410-484c-a860-44873ab37c70" class="code code-wrap"><code>if (value) {
+console.log(value, &#x27;is truthy&#x27;);
+} else {
+console.log(value, &#x27;is falsy&#x27;);
+}</code></pre><p id="a8fc4603-db8c-4360-8864-0391a0f66183" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="d8483e4a-8eed-49f4-8fa8-fe594845097e" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="d3ace19a-0b4a-4ab2-8c3a-050959a95d08" class="">Edit on Github</p></details></li></ul><ul id="5b9cf58e-ec14-41ce-aff9-c231ae790ca4" class="toggle"><li><details open=""><summary>39 - Coercion, Ternaries and Conditional Abuse</summary><p id="184cd96e-3eb7-4d36-995c-e890cc46a341" class=""><a href="https://wesbos.com/javascript/07-logic-and-flow-control/coercion-ternaries-and-conditional-abuse">https://wesbos.com/javascript/07-logic-and-flow-control/coercion-ternaries-and-conditional-abuse</a></p><p id="30095b44-0371-42bf-a1a1-7e4bee16aacb" class="">
+</p><figure id="da96738d-4c88-4cf0-9317-65717c81e043" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs%201.png"><img style="width:700px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs%201.png"/></a></figure><p id="6704f5d2-7b05-43ae-98b0-427a3133c8bb" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="4c89d99b-9605-4360-872e-4f5194b477b8" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="63ba266f-819e-40b0-a14f-3ae6df304935" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="98a1cd79-6f22-4fc0-904e-f3a6908bba32" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="54a6986b-7267-4733-af70-9f281ff508b7" class="">JavaScript, CoercionEdit Post</p><p id="7fe9e2c0-cb9e-4da0-b1d7-69a39f3808bb" class=""><strong>Coercion</strong> can seem like an intimidating word but it&#x27;s a pretty simple concept to understand.</p><p id="76e2316a-61b2-4976-a94f-5347e8c08acf" class="">So far, we have learned that if you only need to use bang operator <code>!</code>, that checks for the opposite.</p><p id="0d3b8250-3503-4fdf-b40c-ba8977b440a9" class="">For example, if you wanted to check if someone is not cool, you might think you have to do the following 👇</p><pre id="f09d405c-c639-4cfe-9dba-8beb0646d0d5" class="code code-wrap"><code>const isCool = true;
+
+if (isCool) {
+
+} else {
+console.log(&#x27;You are not cool&#x27;);
+}</code></pre><p id="8d999d86-e699-4726-9df0-88d1830d6329" class="">In the situation where you are only ever using the else, that is because you want the opposite of a value.</p><p id="ecaac7f2-b7d5-4b2b-b564-348a057dcabd" class="">You could have done something like the following, 👇</p><pre id="0269fce7-2b77-4261-b8d0-431802b6e3ed" class="code code-wrap"><code>if (!isCool) {
+console.log(&#x27;You are not cool&#x27;);
+}</code></pre><p id="9811f763-ecfc-4759-a7fe-df7c7dff1395" class="">A bang in front of a boolean will always flip it.</p><p id="4770f16f-0d46-4074-bb1a-29957074b05a" class="">So if <code>isCool = true</code>, then <code>!isCool</code> would evaluate to false.</p><p id="4574fed3-a424-4575-b647-056917edd96b" class="">In addition to flipping the boolean to the opposite, it also does coercion.</p><p id="392f16ff-123a-4c53-8d7e-45365201bdad" class=""><strong>Coercion</strong> is when you force something that is of a different type, such as a string or number, or an object or anything like that and force it into another type. For example when we coerce something into a true boolean.</p><p id="575561a2-1651-4ea7-a975-225ab2cc1908" class="">Let&#x27;s do an example.</p><p id="abec40dd-134e-4d96-adea-afbb7511a507" class="">If you type <code>name</code> into the console, it should return &quot;wes&quot; (we assigned that variable in earlier exercises in this JavaScript file).</p><p id="d656d82c-4b4b-4661-a70e-36551d6935bd" class="">If you type <code>!name</code> in the console, it should return false.</p><p id="e5adbefc-4166-44e6-b934-8efd8dc3d705" class="">You will notice that <code>!name</code> took the string and turned it into a boolean by putting the bang in front of it.</p><p id="4f003e80-5e00-45f4-9453-5c22d2da9428" class="">So when you use the bang, it will coerce the value into a real boolean.</p><p id="3df663e3-3cd8-4079-8aa6-946c6db0da24" class="">That is sort of the opposite because if we want to check if there is a name, if we want to take the fact that there is a name and make it into a real boolean, we can put double bang in front of it <code>!!</code> and that will coerce it into a Boolean of it exists or not. So <code>!!name</code> would return true.</p><p id="c0f0c23d-52fa-4cbd-9e27-f02491ed67fc" class="">Here is another example:</p><p id="69a581de-82c4-4f7b-876b-0438ff35e0ed" class="">Let&#x27;s say you have a middle variable that is assigned an empty string, like so 👇</p><pre id="b2de9f9f-9663-4e5a-8d04-cbcedbc1e32a" class="code code-wrap"><code>const middle = &quot;&quot;;</code></pre><figure id="03cf3fa6-e21a-4122-a075-8f7bd2641f2d" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/389.png"><img style="width:264px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/389.png"/></a></figure><p id="1ddd5e35-22d9-4a32-b491-eda9c3e3ce17" class="">When you put 1 bang inmfront of it, it gave us the opposite which was true.</p><p id="c857fd4b-2b02-46df-b560-8f843c72fb90" class="">If you put 2 bangs, it gives you false.</p><p id="032b5222-d22b-41d4-8225-883cdce237b8" class="">If you ever see the <code>!</code> and <code>!!</code> being used in the if statements, that is because someone is taking the fact that you have a truthy or falsy value, and are coercing it into a true boolean.</p><p id="715cb680-edf0-4fa0-ab90-dae7b710bc7a" class="">Wes used to use that quite a bit, but now that he has a really good understanding of truthy and falsy values, he doesn&#x27;t use this coercion method much.</p><p id="a66106ec-ed97-47a8-944c-be65e3b1c934" class="">Coercion in general is the act of changing one type into another.</p><h2 id="dc6968f7-c74b-43cd-9171-ed707496bbb1" class="">Ternary</h2><p id="9bdd238b-a842-45a6-8ecf-9c686b6f2444" class="">Next up we have <strong>ternary</strong>.</p><p id="d6dcdcef-ebb2-45be-9682-3d07fd9e9de8" class="">Wes likes to think of ternary&#x27;s as shorthand if statements.</p><p id="1976a37c-9f8b-4507-95d5-e2d118dc3667" class="">They are helpful when you quickly want to run functionality based on something being true or false.</p><p id="24e9c65b-2dac-448f-8bed-e61dcc3f6588" class="">A ternary needs 3 things:</p><ol type="1" id="838b9f82-5b44-433e-b279-88df4426d9e0" class="numbered-list" start="1"><li>A condition</li></ol><ol type="1" id="1ccb74b7-054d-4100-91e4-59a07a694667" class="numbered-list" start="2"><li>What to do if it&#x27; true</li></ol><ol type="1" id="be68aa3a-b105-47da-a947-6d634aaa98a5" class="numbered-list" start="3"><li>What to do if it&#x27;s false.</li></ol><p id="4e868412-3605-4d59-8de6-9cefb1081263" class="">For example 👇</p><pre id="1f1806d7-60cc-489c-b138-d17a71faf0f7" class="code code-wrap"><code>const count = 2;
+let word;
+
+if (count === 1) {
+word = &#x27;item&#x27;;
+} else {
+word = &#x27;items&#x27;;
+}</code></pre><p id="fb22df80-013e-4f63-b04c-77236c4a3c29" class="">So if you had a sentence that said how many items in your cart for example, you could so something like 👇</p><pre id="6c0bd112-3ba4-40a3-8773-ed3405b8a4aa" class="code code-wrap"><code>const sentence = `You have ${count} ${word} in your cart`;
+console.log(sentence);</code></pre><p id="98eb4f86-9aa8-4d73-af1c-280e6bd10046" class="">If you changes <code>count</code> to be 1, it would return the following sentence 👇</p><p id="fee54751-f8df-4e1e-bbda-24b12f122437" class="">The if statement that you wrote above is a bit verbose.. you first have to declare an empty variable and then update it. What we can do, if it&#x27;s a simple <code>if</code> <code>else</code> like in this example, you can turn it into a shorthand if statement with <strong>ternary</strong>.</p><p id="ef323e0a-8614-48b1-adae-04a9a5424171" class="">Comment out the if statement that you wrote above, because we will be replacing it was a ternary statement.</p><p id="42e9dd25-56e7-4dee-8e11-be240c39339a" class="">Like we mentioned above, for a ternary statement, we need one condition, then we need what to do if that condition is true, and what to do if that condition is false.</p><p id="5bbd765d-4993-4efb-9574-f9307f1641f1" class="">That would look like this 👇</p><pre id="922389a3-9916-464a-b512-bb7367e87d5d" class="code code-wrap"><code>const word = count === 1 ? &#x27;item&#x27; : &#x27;items&#x27;;</code></pre><p id="722883dd-02f9-45a8-8fbd-c1a7761534d9" class="">If you run that in the console like so 👇</p><pre id="ac647cdc-9865-49e0-b175-fbce34f6db75" class="code code-wrap"><code>const count = 0;
+const word = count === 1 ? &#x27;item&#x27; : &#x27;items&#x27;;
+const sentence = `You have ${count} ${word} in your cart`;
+console.log(sentence);</code></pre><p id="437afba6-fc35-40f3-8d01-29bae1a36d94" class="">You should see that it works.</p><p id="2a4a7fc3-937c-409f-b2ab-f03419a9d5fb" class="">What this does is it puts the if statement where we have our condition (something that will be true or false) (<code>count === 1</code>) and then we have what to return if true (<code>&#x27;item&#x27;</code>), and finally what to return if false (<code>items</code>).</p><p id="b083c316-f4a5-4991-ae7d-1264175178b3" class="">That is useful when you need to do a quick if statement.</p><p id="cb022810-fe2b-42b8-851c-3c785512e4ed" class="">You could even take the example above a step further and do the ternary function directly inside of the sentence like so 👇</p><pre id="040125a5-a111-4073-aed8-5c957eb93521" class="code code-wrap"><code>const count = 0;
+const word = count === 1 ? &#x27;item&#x27; : &#x27;items&#x27;;
+const sentence = `You have ${count} item${count === 1 ? &#x27;&#x27; : &#x27;s&#x27;} in your cart`;
+console.log(sentence);</code></pre><p id="307f82d5-9646-4a85-8ccd-012cbc732c45" class="">What you are doing here is saying if <code>count</code> is equal to 1, return nothing, and if it&#x27;s not, return &quot;s&quot;. That works exactly the same.</p><p id="bf7b917a-908e-4041-902c-4a1f71b90bfd" class="">You can also use these for running functions.</p><p id="021e093a-fbea-4364-9b31-6e19bce5792e" class="">For example, let&#x27;s say you have a variable like <code>const isAdmin = true;</code>.</p><p id="c0aa36b4-77dc-4cbd-a30e-0287574143fc" class="">You can run a function based on if we have it or not, like so 👇</p><pre id="a883e548-e984-46fc-9508-1293edc1670b" class="code code-wrap"><code>isAdmin ? showAdminBar() : null;</code></pre><p id="665033fb-45e7-499c-b8d5-29264c9b6c1d" class="">So in that example, if the <code>isAdmin</code> variable is set to true, you would show the admin bar, otherwise you would do nothing which is why you are returning <code>null</code>.</p><p id="18aba2fb-b508-4993-be0d-eeae45c2cbbc" class="">You could also return an empty string or anything really because it&#x27;s not saving that variable anywhere, it is just checking if it is true.</p><p id="b06a2c47-9ed9-411c-9816-300191a96d4e" class="">If it is true, it will run a function.</p><p id="f793727d-ad41-4e26-a8fb-a659362b9ac1" class="">It is important to note that both what happens when it&#x27;s true and when it&#x27;s false needs to be there for a ternary statement.</p><pre id="7e5861fe-1011-45fb-bb6e-a0dae6506516" class="code code-wrap"><code>isAdmin ? showAdminBar();</code></pre><p id="0a4c4d3a-7a3f-4fdf-8d39-d27ad7fba6e6" class="">The code above 👆 would not be valid. You need to supply the false case.</p><p id="f61f6c87-7743-46a5-b43d-16853e37cc53" class="">There is one trick you can do, the <strong>&amp;&amp; trick</strong>.</p><p id="b1a433aa-b57b-4d09-af1b-ac247aef11cc" class="">The neat thing about chaining stuff on conditions is it will check along the way to make sure that things are true.</p><p id="8f2c4018-68ed-4ee7-a120-bd5280844250" class="">For example let&#x27;s say you had 3 functions and you wanted to make sure that all 3 functions are true before going ahead.</p><p id="38229449-66fe-4122-954d-e301e521c3ca" class="">You can do an if statement like so 👇</p><pre id="91744e4c-993c-44a6-a84c-c4bc47f0e8c9" class="code code-wrap"><code>function check1(){
+return true;
+}
+
+function check2(){
+return true;
+}
+
+function check3(){
+return true;
+}
+
+if (check1() &amp;&amp; check2() &amp;&amp; check3()) {
+console.log(&#x27;all checks passed&#x27;);
+}</code></pre><p id="7ba3f822-da58-4c94-b993-16957ab746b6" class="">If you run that in the browser, you will see &quot;all checks passed&quot; logged in the console.</p><pre id="5136f722-c07a-4159-8e24-f216e91d98d8" class="code code-wrap"><code>console.log(&#x27;Running check 1&#x27;);</code></pre><p id="ae3d4c93-edde-4212-be01-e6d0d21eca84" class="">Now inside each function, add the code above 👆 with the corresponding function number (running check 1, running check 2 etc).</p><p id="904cba53-9166-47b7-926b-d4932b3a1743" class="">What is cool about this is if you refresh the page and look in the console, you will see each one running in order 👇</p><p id="8fdb62b8-0287-4242-9ae6-2fa44853ec41" class="">Now if we put an else like so, and make one of the checks fail (modify one to return false) like so 👇</p><pre id="2c38a901-cfdd-49b9-b3d7-cc902172b62b" class="code code-wrap"><code>function check3() {
+return false;
+}
+
+if (check1() &amp;&amp; check2() &amp;&amp; check3()) {
+console.log(&#x27;all checks passed&#x27;);
+} else {
+console.log(&#x27;Some checks failed&#x27;);
+}</code></pre><p id="69569940-6116-4634-8be6-c0c897f9fdf4" class="">When you run in the browser you should see the following 👇</p><p id="03e25a7f-8864-43f1-b142-bcae193abaa7" class="">Did the third check ever run?</p><p id="734cb88b-bb6d-442b-93ff-6960968fa4e9" class="">No, it never did.</p><p id="2f0ad613-6034-487f-9118-2bc48c379985" class="">If you run a condition, JavaScript will do the following: it will check the first one, and then if it&#x27;s okay, it will move to the next condition. If that next condition is true, it will go onto the next one.</p><p id="8835d37c-8393-47cd-92b1-42cc9431b44d" class="">If at any point one of them is false, JavaScript will give up and say that one is false, there is no reason I would keep checking.. Therefore it returns the condition as false, and the third condition never runs and the else block will run.</p><p id="5e365339-a21c-4495-890a-61390725e405" class="">That is sometimes referred to in JavaScript as <strong>short-circuiting</strong>, meaning that we never finished what we wanted, but we knew it wouldn&#x27;t work out anyway so we short-circuited it and went directly to else.</p><p id="1995fed4-c24c-4fea-98ca-dfb849902907" class="">The way that works can be abused or used. Some people hate it, some love it. Wes personally likes it.</p><p id="17fd2e10-4772-4653-b851-726f37f937fa" class="">Let&#x27;s go back to the admin example to demonstrate what that can look like 👇</p><pre id="cc6a4384-b22c-41f0-b815-f4f77b148064" class="code code-wrap"><code>isAdmin ? showAdminBar() : null;
+isAdmin &amp;&amp; showAdminBar();</code></pre><p id="b3023a19-9060-4cf4-9261-f0431ddefe80" class="">We can abuse it by using <code>isAdmin &amp;&amp; showAdminBar();</code></p><p id="7f08bf38-67cc-4c74-8fe8-abd28fb46fd0" class="">JavaScript will say, this is a condition so check if the first is true, and if it is true, we will go ahead and do the next one. However if it is false, it won&#x27;t run <code>showAdminBar()</code>.</p><p id="49ce48de-724b-4f63-bed5-c77e3efe85b8" class="">This is abusing the condition chaining, meaning that if the first condition is false, the second will never run.</p><p id="c52433ae-4642-4d2d-bd49-6e8c142a9073" class="">You see that sort of thing in React because it&#x27;s a bit hard to do if statements in React.</p><p id="e5bd7ee7-d64f-451b-af2c-f02ccb71148e" class="">You would do something like this in React if you wanted to conditionally render the admin bar based on whether the <code>isAdmin</code> value is true or false 👇</p><pre id="bb67a699-3b09-40e9-b650-d9c233340ed0" class="code code-wrap"><code>{isAdmin &amp;&amp; &lt;AdminBar/&gt;}</code></pre><h2 id="e1a91c10-2098-453e-be79-a9c92e1f6366" class="">Blockless If Statements</h2><p id="ca61a931-de3a-471a-856f-642ac5ec0843" class="">If something is on the same line, you don&#x27;t actually need the block in the if statement.</p><p id="3cf15d08-0028-4c1e-a9ac-3a12be257ce8" class="">For example, the following if statement is on multiple lines so it needs the <code>{}</code> block 👇</p><pre id="46bfa66c-b6f5-46df-95c4-e57b9ab8b54e" class="code code-wrap"><code>if (isAdmin) {
+showAdminBar();
+}</code></pre><p id="48578941-129a-418d-a191-570cb00ee92c" class="">However, you could refactor it to be on one line like so 👇</p><pre id="47f91cd4-0404-435e-b409-eb75e685ff8a" class="code code-wrap"><code>if (isAdmin) showAdminBar();</code></pre><p id="0954eb28-c381-4aa8-b42f-d38d13f450bf" class="">However, as soon as it goes onto another line, it is broken, so the code below would <strong>not</strong> be valid 👇</p><pre id="c3b44ba3-ba1d-4e86-8f5f-09c012c785b6" class="code code-wrap"><code>if (isAdmin)
+showAdminBar();</code></pre><p id="8055b682-df40-4445-922a-95eff0efb1ac" class="">Should you use blockless if statements?</p><p id="3e14b190-b9c2-4ee8-99eb-307c1fa808c9" class="">That is up to you to decide.</p><p id="8bfa4f34-d114-4925-9605-4d92d92758f7" class="">Wes doesn&#x27;t use it often but he definitely has in the past because it is very convenient to write one-liners.</p><p id="5978fee3-ce6c-45a4-ba75-2add5146cdae" class="">In most cases however Wes will use the blocks just in case someone else accidentally moves the if statement to multiple lines and breaks it.</p><p id="9f1e6888-f751-4a21-8d52-8e8d2543c331" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="0685ca58-373a-4ee5-bd62-145193dab060" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="3c23ddea-2448-43db-a0de-788ac65b2f8e" class="">Edit on Github</p></details></li></ul><ul id="bda230f2-e4ba-4f34-87dc-0a0d29f6b526" class="toggle"><li><details open=""><summary>40 - Case Switch and Animating a Turtle with CSS Variables</summary><p id="a06be8e6-393e-4275-8abb-36d746cfde69" class=""><a href="https://wesbos.com/javascript/07-logic-and-flow-control/case-switch-and-animating-a-turtle-with-css-variables">https://wesbos.com/javascript/07-logic-and-flow-control/case-switch-and-animating-a-turtle-with-css-variables</a></p><p id="a31253b5-da68-4a3e-805c-95d241f07245" class="">
+</p><figure id="d31d199e-1ee7-4b54-b1d0-1960c4ff974b" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs%202.png"><img style="width:700px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs%202.png"/></a></figure><p id="28374678-d060-4f93-9f8a-36822fb07796" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="895e2830-74b5-4c44-897f-b281d0b9107a" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="fad0d5d2-d5b6-4fef-b49f-166f69c90872" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="f91d4ee5-f6b0-4efb-9f5f-30b30d8575a6" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="a7956058-c11b-4e5e-aac7-56572d4b9652" class="">JavaScript, Case StatementEdit Post</p><p id="c8ea70e5-0476-4cab-aa93-a9578264ccf1" class="">We are going to talk about switch statements now.</p><p id="7163a2ca-dd02-4d08-8460-b2b5921ae054" class="">We already used a switch statement in our etch-a-sketch exercise. In this video we will go over them again and this time do an example where we animate a turtle.</p><p id="29ee488d-8acb-4380-a10f-9dd2ddf6393a" class="">Within the <code>playground</code> directory, open up <code>switch-statements.html</code>.</p><p id="c6a0494d-3e9b-4f2d-a437-d86b9b0ac621" class="">Add an image tag like so 👇</p><pre id="179f0a7a-2878-442c-8706-0cac9f418e22" class="code code-wrap"><code>&lt;img src=&quot;./turtle.png&quot; alt=&quot;Turt&quot; class=&quot;turt&quot;&gt;</code></pre><p id="1c772494-ab26-4bd5-a51b-145bd3432fc3" class="">Now add a script tag and within that script tag grab the turtle and log it 👇</p><pre id="be2376e3-a41a-4f6f-b24a-b340fd009dca" class="code code-wrap"><code>&lt;script&gt;
+const turtle = document.querySelector(&quot;.turt&quot;);
+console.log(turtle);
+&lt;/script&gt;</code></pre><p id="16702ac1-ccf4-4858-8382-4efbd4fbbb4b" class="">It&#x27;s a bit big so add <code>width=&quot;200&quot;</code> to the image element.</p><p id="d56d2e84-4bec-45d4-a367-0c3a089e0015" class="">You should see the following when you load the HTML page 👇</p><figure id="47907b5f-cad1-42c5-8d72-9d1f35b6e5af" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/422.png"><img style="width:700px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/422.png"/></a></figure><p id="ddd56049-43e0-461a-9254-d83584c63bf0" class="">In this exercise, we want to make this turtle walk, and also flip around when you hit the arrow keys.</p><p id="ed142993-d485-43ff-ba8c-57aaf1fa6099" class="">The first thing you need to do is listen for the keydown event. Make a function called <code>handleKeyDown</code> which you will pass to the keydown event listener.</p><p id="4f7e5a09-c996-457f-b717-002af2514e9e" class="">In the <code>handleKeyDown</code> function, grab the event and log the event key like so 👇</p><pre id="22d139ef-2a17-4642-9c8b-c198e3ba1571" class="code code-wrap"><code>function handleKeyDown(event) {
+console.log(event.key);
+}
+
+window.addEventListener(&quot;keydown&quot;, handleKeyDown);</code></pre><p id="b31b7139-a688-41aa-99c7-b80c0527df38" class="">YOu only care if it&#x27;s an arrow key or not, so add code to check if the event key includes the word arrow and if it does not, just return which will exit out of the function like so 👇</p><pre id="c4888e37-59f9-48f8-87e7-62237f60ad12" class="code code-wrap"><code>if (!event.key.includes(&quot;Arrow&quot;)) { return; }
+console.log(event.key);</code></pre><p id="3a9193eb-22a5-4611-a219-724592a48d3c" class="">If you refresh the HTML page and hit any key, you will see only the arrow keys are logged. That is because you are returning if the key is anything but an arrow key before logging.</p><p id="23570722-b2f7-4f34-bb6b-cf04620052d0" class="">Now you want to make the turtle move.</p><p id="b3dd7258-5f56-445b-a18d-b5b98405766a" class="">Declare two variables, <code>x</code> and <code>y</code>, right before the <code>handleKeyDown</code> variable and set both to zero.</p><pre id="e800920b-8db9-4103-b666-c319cf4016d7" class="code code-wrap"><code>let x = 0;
+let y = 0;
+
+function handleKeyDown(event) {
+if (!event.key.includes(&quot;Arrow&quot;)) { return; }
+}</code></pre><p id="57c4807b-9f1b-459c-8f68-dfb6217cbd87" class="">Now within <code>handleKeyDown</code>, when they move right, decrease the <code>x</code> and vice versa. This is a use case for a <code>switch</code> statement.</p><p id="fa3fe76b-c51d-429b-8c6b-4ba2479aea30" class="">The way a switch works is you write <code>switch</code> and then you pass it the thing you are testing, so switch on the <code>event.key</code>.</p><p id="1d113ab5-8281-4618-9ba7-598d33b73dc2" class="">Then there is a block which will contain a whole bunch of different cases. This is a bit easier to look at than an if statement in some cases.</p><p id="603cd22f-fb0d-41d3-915f-7cf0dae8edd6" class="">The only downside is that they have to be clearly defined cases. There is no case like greater than 20, that is an if statement.</p><pre id="71c9ada7-ead0-4c7c-9ecd-42a6abd65f30" class="code code-wrap"><code>switch (event.key) {
+case &#x27;ArrowUp&#x27;:
+y = y - 1;
+case &#x27;ArrowDown&#x27;:
+y = y + 1;
+case &#x27;ArrowLeft&#x27;:
+x =  x + 1;
+case &#x27;ArrowRight&#x27;:
+x = x - 1;
+}</code></pre><p id="d31f9550-8e67-4301-b9a8-cfdabda47729" class="">Note: You might notice that prettier isn&#x27;t auto-fixing on save. That is because we are writing JavaScript within an HTML file.</p><p id="1653dee4-414f-4d02-9eec-8e75acf75a0c" class="">For each of the cases above, we need to add a <code>break</code>.</p><p id="a6a322e2-eaa0-4122-93cf-ac44de2d4a3f" class="">If you do not break, then it will keep going down to each of the cases which will cause trouble.</p><p id="9e36902b-bbb1-4da4-9887-a3fe3c922f8c" class="">In a switch statement you <strong>must always break after each of your cases.</strong></p><p id="22f6f2f8-f295-46c0-8eac-1ebe8e7bdf76" class="">You should also always have a default case which will run if the condition doesn&#x27;t match any of the cases. 👇</p><pre id="2893cc6a-21f9-4ce4-9e9a-07f0de89cbdc" class="code code-wrap"><code>switch (event.key) {
+case &#x27;ArrowUp&#x27;:
+y = y - 1;
+break;
+case &#x27;ArrowDown&#x27;:
+y = y + 1;
+break;
+case &#x27;ArrowLeft&#x27;:
+x =  x + 1;
+break;
+case &#x27;ArrowRight&#x27;:
+x = x - 1;
+break;
+default:
+console.log(&quot;That is not a valid move&quot;);
+break;
+}</code></pre><p id="209cd508-47d0-4316-83e5-3b54a2b8efdc" class="">Now that you have those variables, lets take the turtle and move him over.</p><p id="791c1f8d-7431-424f-b3b6-f4fb0254d53a" class="">After the switch, log the values of x and y and refresh the HTML page.</p><p id="f5ba5503-d0ed-4888-b830-a3a4864001e5" class="">Open the console and hit some of the arrow keys.</p><p id="13654669-e638-4bbf-8157-cfd0d7ec8a34" class="">Oops! We made a mistake.</p><p id="f0c0a65b-c17a-4874-97b0-57849ef77cf8" class="">In our switch statement, <code>ArrowLeft</code> should be <code>x = x -1;</code> and <code>ArrowRight</code> should be <code> x = x + 1</code>, like so 👇</p><pre id="0a50ea93-8428-4f59-b3fe-c2255fc20ea0" class="code code-wrap"><code>case &quot;ArrowLeft&quot;:
+x = x - 1;
+break;
+case &quot;ArrowRight&quot;:
+x = x + 1;
+break;</code></pre><p id="93a725f3-bb7a-4bc0-bbb8-00a928fd7ed9" class="">Modify the switch statements and try again.</p><p id="737ea92c-d63b-4b45-8bfe-6335b2ac6119" class="">Now when you hit the up, down, left, and right keys you should see the <code>x</code> and <code>y</code> variables changing in the console.</p><p id="3075827e-751e-4f31-be4e-426dff69beb4" class="">Now you need to convey the <code>x</code> and <code>y</code> values to the turtle somehow.</p><p id="892b151f-019d-471e-a67a-599b4fa1a0f0" class="">We are going to do this via css variables.</p><p id="4d2a30ad-02d7-4657-ab0b-b86d3afd93ae" class="">Add a style tag right after the opening body tag.</p><p id="cc923574-d156-4c31-bb97-57935d7e4004" class="">Grab the turtle class and add the following 👇</p><pre id="dda97c10-0835-400e-abc8-fac1c7873dc9" class="code code-wrap"><code>&lt;body&gt;
+  &lt;style&gt;
+.turt {
+position: relative;
+transform: translateX(10px) translateY(10px);
+}
+&lt;/style&gt;
+&lt;/body&gt;</code></pre><p id="c081e5ce-85ba-4d2f-9f37-e07072810dd9" class="">In the dev tools, if you manipulate the values of <code>translateX</code> and <code>translateY</code>, you will see that the turtle moves.</p><p id="9ddbc371-6fcf-4386-91d8-8ac642a314ed" class="">Now take those variables and put them into their own CSS variables like so 👇</p><pre id="2aba9165-5375-4c08-ba6c-7742634bbaac" class="code code-wrap"><code>&lt;style&gt;
+.turt {
+position: relative;
+    --x: 10px;
+    --y: 10px;
+transform: translateX(var(--x)) translateY(var(--y));
+}
+&lt;/style&gt;</code></pre><p id="39e6ecc3-c705-48c5-8260-f27bdcb934c2" class="">Now if you modify the <code>x</code> or <code>y</code> variable values in the console, you will see that the turtle moves fine.</p><p id="8f4ed8cf-75cf-4841-9ac8-15000a0dc090" class="">Next we are going to update the <code>x</code> and <code>y</code> CSS variables with JavaScript.</p><p id="86ed69ab-bd89-4b8c-9a6c-f4bd4afb307c" class="">After the switch statement, we will grab our turtle and apply styles directly to it.</p><pre id="e0a65e92-6552-4485-8eef-342703304bc4" class="code code-wrap"><code>turtle.style.background = &#x27;red&#x27;;</code></pre><p id="593fff50-e5db-4a6b-b4d8-05eebb57f234" class="">If you refresh the page and hit an arrow, you should see the following 👇</p><p id="c3bcc858-ccbd-4eea-a28c-e8f11f3cd56c" class="">So if you want to apply a variable, you can&#x27;t just do <code>turtle.style--x</code>.</p><p id="23c6819d-39cf-44b7-99e6-7ddded70a429" class="">Instead you have to use what is called <strong>square bracket notation</strong>. We haven&#x27;t looked at this yet, but we will get into it more when we look at arrays and objects.</p><p id="86e67518-a108-430a-8447-e6f8f3cf2a06" class="">For now, know that you can also access a property in 2 ways, via:</p><ul id="cb0b3029-64f0-4a87-ae6c-2e45f200c13a" class="bulleted-list"><li style="list-style-type:disc"><code>turtle.style.background</code></li></ul><p id="a835649b-f0a2-4d60-8784-a6c7375a01b8" class="">or</p><ul id="ca77efea-aa7b-41ba-a537-4320c27ad054" class="bulleted-list"><li style="list-style-type:disc"><code>turtle.style[&#x27;background&#x27;]</code></li></ul><p id="d8325b1c-b398-4cc3-a536-299f177a8f45" class="">When you use the square bracket notation, you pass it a string. Those two ways are exactly the same.</p><p id="3a2ef7bb-84ca-4340-b436-7c4e4c3f1381" class="">Try using the second approach to set the <code>x</code> and <code>y</code> CSS variables like so:</p><pre id="ba94d727-24bc-4996-ad64-00ffc2fb9cae" class="code code-wrap"><code>turtle.style[&quot;--x&quot;] = `${x}px`;
+turtle.style[&quot;--y&quot;] = `${y}px`;</code></pre><p id="8e746679-97aa-49f7-a6fc-35cde61b79c0" class="">If you refresh the page and try hitting some arrow keys, you will notice that it does not work.</p><p id="10a38a85-9e23-4365-80a2-db1ccc65db49" class="">That might be because CSS variables are not standard CSS attributes.</p><p id="a815b54d-135d-4e3d-9b9a-664c163a2e65" class="">Let&#x27;s say you also set a value for the CSS property &quot;madeup&quot; which doesn&#x27;t exist.</p><p id="add797da-7f90-41ee-b7c7-d7f900926f4e" class="">If you added the code <code>turtle.style[&#x27;madeup&#x27;] = &#x27;green&#x27;;</code>, you will notice that it doesn&#x27;t show up in the style tag. That is because only real CSS properties will be added.</p><p id="0c652856-9ef9-473d-bf66-0f415e4adcbc" class="">So how do you apply custom CSS properties if it is not?</p><p id="a3b71897-0720-4e2b-96c2-6138ae80b109" class="">You can reach for <code>setAttribute</code> which you were looking at before. 👇</p><pre id="7feefc05-338f-4916-b604-03aed787c99e" class="code code-wrap"><code>turtle.setAttribute(&quot;style&quot;, `--x: ${x}px; --y: ${y}px`);</code></pre><p id="3653592d-0b32-4e79-a050-928afae18f45" class="">Now if you refresh the HTML page and hit the arrow keys, you will notice that the turtle moves up, down, left, and right.</p><p id="88d726ee-68f6-4a10-9f5c-98e9d1182277" class="">Set the <code>x</code> and <code>y</code> CSS variables to default at 0 instead of 10px.</p><p id="d5afef02-0f14-4997-93be-60ece372f6a2" class="">One other thing you could do is something like a speed operator. Declare a <code>speed</code> variable after the <code>x</code> and <code>y</code> variable declarations like so 👇</p><pre id="24027c42-4efd-4eff-9ebe-ad2843bc8a7c" class="code code-wrap"><code>let speed = 5;</code></pre><p id="0b906ab0-b171-4051-bf97-9b0964d11776" class="">Now modify the code which updates the <code>x</code> and <code>y</code> values to multiple them by <code>speed</code> like so 👇</p><pre id="f187c8af-c1e5-40d3-8fa1-2299fdfdcf15" class="code code-wrap"><code>turtle.setAttribute(&#x27;style&#x27;, `--x: ${x * speed}px; --y: ${y * speed}px`);</code></pre><p id="bd4fb321-3516-4073-ae3a-0e7a7476a5c8" class="">You will notice that now the turtle moves much more quickly.</p><p id="396852d4-6bc4-4aa2-abdb-9e8b249fd5da" class="">You can also add a CSS transition, to make the turtle move a bit more smoothly, like so 👇</p><pre id="09fd02f2-0e19-4f01-aa39-44fe22fe753c" class="code code-wrap"><code>&lt;style&gt;
+.turt {
+transition: transform 0.2s;
+}
+&lt;/style&gt;</code></pre><p id="127fa39a-402d-4ab8-aaaf-5480f80ab4af" class="">Feel free to increase the speed value to make the turtle go even faster. Wes set his to 50!</p><p id="c89d14f7-965d-4fc1-9f0c-79d65a3724d8" class="">The last thing we are going to do is flip the turtle. When you press the left arrow key, the turtle should be facing the other way.</p><p id="9058764e-6131-46d5-9b46-68acd716bbb3" class="">Add a variable <code>flipped</code> and set it to false like so 👇</p><pre id="1e67c9f4-a05c-4dfa-abf0-5240176f6ccc" class="code code-wrap"><code>let flipped = false;</code></pre><p id="4351a16f-af3b-428e-be58-e1388c329eea" class="">Now within the <code>ArrowLeft</code> switch statement, add <code>flipped=true;</code> before the break. When we hit the <code>ArrowRight</code> case, set <code>flipped = false;</code>.</p><p id="d49205ed-da0e-41bf-a505-faae87e93050" class="">To flip the turtle, go into the CSS transform and <code>rotateY</code> to flip the turtle.</p><p id="ef14f188-d7b4-4c96-b6d4-ece8852a7e7a" class="">In the CSS, add another variable called <code>--rotate: 0</code>.</p><p id="1516711f-2539-4668-9719-165b08ef0cf0" class="">Modify the transform like so 👇</p><pre id="75bf6714-7806-4c68-a7a1-6b9862b7267f" class="code code-wrap"><code>&lt;style&gt;
+.turt {
+    --rotate: 0;
+transform: rotateY(var(--rotate)) translateX(var(--x)) translateY(var(--y));
+}
+&lt;/style&gt;</code></pre><p id="286ef2cb-0688-4c7a-94b0-3affdb838e7d" class="">Further down where you use <code>setAttribute</code>, modify the code like so 👇</p><pre id="69096ba1-6da3-4817-bb99-849354e9d6c1" class="code code-wrap"><code>turtle.setAttribute(&#x27;style&#x27;,`
+          --rotate: ${flipped ? &#x27;180deg&#x27;: &#x27;0&#x27;}
+          --x: ${x * speed}px;
+          --y: ${y * speed}px;
+          `);</code></pre><p id="b3893a92-c318-4c66-a3fd-a1300a86345c" class=""><em>Note: Because you are using backticks, you can move each variable to it&#x27;s own line, as shown above👆</em></p><p id="0067f32d-0c9c-4f43-bdf8-119a30d2e78d" class="">You might notice it looks a bit weird when we flip it. That is because we are rotating it before we move it.</p><p id="56fdebba-9689-46e5-a2ff-523a1c7d53b1" class="">Modify the transform to move the <code>rotateY</code> to the end of the transform. The order there matters!</p><pre id="fc0aefe9-9c91-4f7f-b8d1-dd11cfcab5da" class="code code-wrap"><code>&lt;style&gt;
+.turt {
+transform: translateX(var(--x)) translateY(var(--y)) rotateY(var(--rotate));
+}
+&lt;/style&gt;</code></pre><p id="31ea3b25-4c46-4732-a267-c5eb50a90fba" class="">Now when you hit the left arrow, the turtle should look left like so 👇</p><p id="8ea02aa2-66df-4d70-a9ce-74b620ac1507" class="">We could also rotate the turtle up and down.</p><p id="0e52143b-ab7b-40d3-b644-d7ae826fc995" class="">Modify the CSS rotate variable from <code>rotate</code> to <code>rotateX</code>. Modify it everywhere it&#x27;s called in the code.</p><p id="fd3158be-de41-468a-aa26-d7e9d93df3d6" class="">Add another CSS variable called <code>rotate</code> and set it to 0.</p><p id="446b7031-f31b-4adc-82a6-96df7977d827" class="">Modify the transform to take that variable like so 👇</p><pre id="d2cdf58b-29ed-44c1-923f-db74eb2248aa" class="code code-wrap"><code>&lt;style&gt;
+.turt {
+position: relative;
+    --x: 0px;
+    --y: 0px;
+    --rotateX: 0;
+    --rotate: 0;
+transform: translateX(var(--x)) translateY(var(--y))
+rotateY(var(--rotateX)) rotate(var(--rotate));
+transition: transform 0.2s;
+}
+&lt;/style&gt;</code></pre><p id="694520ab-583b-49fa-9b95-d8ba234a18aa" class="">We know that when we set <code>rotate(90)</code>, the turtle is pointing down, and when we do <code>rotate(-90)</code>, the turtle is going up. So we need another variable like <code>flipped</code> to keep track of that. Add a JavaScript variable called <code>rotate</code> and set it to 0.</p><p id="18ec4946-7974-4f64-b815-c8fa8d3379c9" class=""><code>let rotate = 0;</code></p><p id="e3a17db9-1ed7-4c2e-9e32-4089d35526af" class="">In the <code>ArrowUp</code> case, add <code>rotate = -90</code>.</p><p id="c0a52851-aec0-479f-9072-5daed3954b84" class="">In the <code>ArrowDown</code> case, add <code>rotate = 90;</code>. For <code>ArrowLeft</code> and <code>ArrowRight</code> we will set rotate to 0.</p><p id="e53d54b7-f61a-4abc-81d5-c835bf40bfda" class="">Finally modify the <code>setAttribute</code> statement to update the rotate variable like so 👇</p><pre id="88db8b7d-e45e-4721-9da4-c22d88da38c2" class="code code-wrap"><code>turtle.setAttribute(&#x27;style&#x27;, `
+  --rotateX: ${flipped ? &#x27;180deg&#x27; : &#x27;0&#x27;};
+  --x: ${x * speed}px;
+  --y: ${y * speed}px;
+  --rotate: ${rotate}deg;
+`);</code></pre><p id="1a72bd6e-5658-49ee-8dd0-95c15ee2fed5" class="">Now when you hit the arrow keys left, right, up and down the turtle should be facing in that direction and also move in that direction.</p><p id="b39ae43e-61e9-4afa-9407-4916113feb1c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="4ee4cc93-f67f-4e6e-b71b-5b0dd59696a6" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f5f85277-6f4f-45c0-9d2f-79996fa19d18" class="">Edit on Github</p></details></li></ul><ul id="71ca0f78-8f96-4fff-bb74-cb6214e423d5" class="toggle"><li><details open=""><summary>41 - Intervals and Timers</summary><p id="b96c680b-bd7f-43d2-80ff-3f88e8a0e1ee" class=""><a href="https://wesbos.com/javascript/07-logic-and-flow-control/intervals-and-timers">https://wesbos.com/javascript/07-logic-and-flow-control/intervals-and-timers</a></p><p id="489f2098-a1e8-43b5-ad64-63d916e819bd" class="">
+</p><figure id="19cf41dc-b847-4dc6-be08-1f44a915580e" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs%203.png"><img style="width:700px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/bjs%203.png"/></a></figure><p id="6c438774-5c07-41dd-af28-dd0907042eda" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="7dd35df8-d310-4883-8016-d488ce804b01" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="9cd18876-fe6a-4fae-8148-cdbefa76bc5e" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="c201fcc8-9fce-4eab-bf13-da318df47464" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="6f3d4647-ef3f-4a11-9106-6b6875a80448" class="">JavaScript, TimersEdit Post</p><p id="f080abf1-1c1c-4876-9051-2c603be72b6f" class="">In this video we will talk about <strong>timeouts</strong> and <strong>intervals</strong>.</p><p id="b8d93274-cb7b-4b18-a0d8-b45775e7da12" class="">If you want to run something after 5 seconds, you would use a timeout. If you want to run something every 5 seconds, you would use an interval.</p><p id="3aa0655c-bf63-4eec-a240-6a545c72c896" class="">They both work exactly the same way and we will dive into them both now.</p><p id="a0ff080c-8701-4d9e-8b9d-d04764107707" class="">Within the <code>/playgrounds</code> folder, there is <code>intervals.html</code>. Open it up.</p><p id="4187cb6e-b9c0-47ca-8bca-a27376c294d0" class="">Add a script tag within the body tag.</p><p id="09c229bf-aa09-4d30-abed-267455f85bf6" class="">Now when you want to run something, you simply type <code>setTimeout</code>, which takes a couple of arguments.</p><p id="b90cadc4-70fa-4c48-bbde-407b6d291868" class="">Where did <code>setTimeout()</code> come from anyway? Is that just a function that is available to us?</p><p id="00a101f1-9aea-4f3c-a047-aad97d6e4f62" class="">The answer is yes. It is a globally scoped method. It is actually <code>window.setTimeout()</code> but as you will learn, you don&#x27;t need to type window. when you are accessing globally available APIs.</p><p id="89906b6c-91a4-47a6-97ac-d765ba5d0a59" class="">Wes recommends using <code>setTimeout()</code> and that is because you often want to run the same code you ran in the browser in NodeJS and NodeJS does not have a concept of a window. It does have <strong>timeout</strong> and <strong>interval</strong> however.</p><p id="3707fef3-de14-404b-b963-526be61aa983" class=""><code>setTimeout</code> takes 2 things:</p><ul id="a6d4152e-51ef-4f3a-bf64-737261c6cb9f" class="bulleted-list"><li style="list-style-type:disc">a callback</li></ul><ul id="c93fb35c-2ef7-4315-9cc9-d77b7a50cb9d" class="bulleted-list"><li style="list-style-type:disc">the number of milliseconds after which to run the callback</li></ul><p id="3a2664c0-acd3-42a1-93b4-891f71077212" class="">Often what you see is someone give <code>setTimeout</code> an anonymous function as the first argument, and then the number of milliseconds that it should wait before running the anonymous function.</p><p id="6c3d07fc-1b6b-4385-812e-eebed5eee173" class="">For example, if you put 500 milliseconds, the function will run half a second after the JavaScript has started.</p><p id="7fc06395-4a6d-4211-b246-02d8b55b0000" class="">Just in like <code>addEventListener</code>, you can either pass in an anonymous function, or you can write a function outside of it.</p><p id="4bf23995-90dd-41ce-a03b-3d4a14e3b7c1" class="">Create a function called <code>buzzer</code> that logs &quot;ENNNGGG!&quot; as the buzzer sound.</p><p id="18b281c4-7525-4ce2-9c60-9cf55768e2e0" class="">Now in the <code>setTimeout</code>, instead of passing the anonymous function , pass it a reference to the buzzer function instead, like so 👇</p><pre id="eec43397-356a-4631-9c43-f14b315b355f" class="code code-wrap"><code>function buzzer() {
+console.log(&quot;ENNNNGGGG&quot;);
+}
+
+setTimeout(buzzer, 500);</code></pre><p id="7b29d5af-40c8-430a-86d7-00153b89e434" class="">Now if you refresh the HTML page, you should see &quot;ENNNNGG&quot; in the console after half a second.</p><p id="ecbabbfa-627a-4530-9d84-106913a27253" class="">Let&#x27;s try something to demonstrate 1 interesting thing about timers.</p><p id="2da61609-1782-433f-98dc-9d451a1b1c1f" class="">Modify the code like so 👇</p><pre id="638d6666-c1ba-462d-8fd3-bd9f9663b06d" class="code code-wrap"><code>function buzzer() {
+console.log(&quot;ENNNNGGGG&quot;);
+}
+
+console.log(&quot;Starting&quot;);
+setTimeout(buzzer, 500);
+console.log(&quot;Finishing!&quot;);</code></pre><p id="56888061-d1bd-4e76-ad14-b287f1b73bbf" class="">What is going to happen when the code above runs? 👆 Are we going to log &quot;starting&quot;, wait for half a second and then log &quot;finishing&quot;?</p><p id="95da0655-a793-4f12-a294-4e504629902b" class="">Let&#x27;s refresh the HTML page and see.</p><figure id="38844947-d157-48ce-b138-17a91702106c" class="image"><a href="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/429.png"><img style="width:700px" src="7%20-%20Logic%20and%20Flow%20Control%20fc3c3c27383f4b7aa170860d78434c19/429.png"/></a></figure><p id="78c58730-101c-4398-a05a-b74bdde24684" class="">So what is happening there?</p><p id="9d26c1ef-afc1-4f9c-91ea-5cf0ba4855ba" class="">The JavaScript will run, it will log &quot;starting&quot;, set off the timer, queue it up which is basically saying &quot;Ok I have this function called buzzer which I am going to run after 500 milliseconds, but I&#x27;ve got stuff to do so I&#x27;m going to keep going&quot;, so it moves on to the next line of code which is logging &quot;finishing&quot;.</p><p id="d78160bb-a0e2-405f-9ca6-f11959f78faf" class="">That is what is referred to as the <strong>asynchronous</strong> nature of JavaScript.</p><p id="e4dbc8c3-003f-4d38-978e-75137b409558" class="">As soon as it queues up the buzzer to be run after 500 milliseconds, it will go off onto the next line of code, and only come back to buzzer when it&#x27;s time.</p><p id="cd1eab75-3576-48ff-901b-9814bfeff1cb" class="">That is why it is called a callback. Because JavaScript will come back and call it at a later point in time.</p><p id="1773c561-082e-4ba8-b18f-b3650dd76ae1" class="">So that is good to know that even if you are trying to wait for 500 milliseconds, the rest of JavaScript will keep on running.</p><p id="0a3ce617-d1d8-494a-81ab-d32fb44ebf6b" class="">Now, when we get into promises and async await, Wes will show you us how to actually do that. It is a pretty common thing to want to wait a couple of milliseconds before doing something.</p><h2 id="e77d78a2-b6b4-4fd0-a0cb-6f5c1cd067b9" class="">Intervals</h2><p id="65d05f7d-9997-487a-88db-3e3d365dd84a" class="">Intervals work exactly the same.</p><p id="cb43f426-e518-4c7a-98ea-913cfd0deaec" class="">You write <code>setInterval()</code> and then it takes 2 arguments:</p><ul id="ea5f20ea-9f62-41e3-ac08-fa8ad5ac4a2f" class="bulleted-list"><li style="list-style-type:disc">a reference to a function like buzzer</li></ul><ul id="08ee6f9d-97e0-48c5-82b4-ebcb6f16e9c8" class="bulleted-list"><li style="list-style-type:disc">how often you&#x27;d like to run it</li></ul><p id="e987f239-4438-4c60-8042-0fee37d1eb70" class="">To run <code>buzzer</code> every 100 milliseconds you would write the following 👇</p><pre id="cd51e90c-b725-4275-b341-52c974ba0b7b" class="code code-wrap"><code>setInterval(buzzer, 100);</code></pre><p id="be8678c1-c514-49ec-ac59-9cf725e71693" class="">That will result in the interval running every 100 milliseconds.</p><p id="0976016d-30d2-4bd4-b272-83fc8a044c6d" class="">There is one gotcha with intervals.</p><p id="8221406f-6883-4d9a-803e-18025c4e69b8" class="">Let&#x27;s say you were using intervals to animate or check something every 2 seconds.</p><p id="97ed0c50-960a-4702-9401-aec077addf24" class="">What happens is that it doesn&#x27;t actually run immediately.</p><p id="a16ed487-2109-43a6-827d-698a6f5f4b47" class="">It only runs after the first 2 seconds have elapsed. There is no option to tell the interval to run right away, but also run again after 2 seconds.</p><p id="e4b406bf-089a-4a93-a920-da81fae5ea55" class="">If you do want that sort of functionality, you have to code your own interval.</p><p id="b87dd917-ba19-448f-a455-ce0459a2a4b6" class="">Create a function called <code>setImmediateInterval()</code> which will take 2 arguments:</p><ul id="a0d55a14-dbe1-4dfe-a06f-9e045cea1dd7" class="bulleted-list"><li style="list-style-type:disc">the function to run</li></ul><ul id="18688a5d-c508-4f65-a67f-e4c4f57cc7ba" class="bulleted-list"><li style="list-style-type:disc">the number of milliseconds</li></ul><pre id="5e07efaf-7bd6-413d-9148-45be71f06553" class="code code-wrap"><code>function setImmediateInterval(funcToRun, ms) {
+}</code></pre><p id="c0ef8368-f477-46b4-bd93-fd43c5806d5d" class="">Within that function, call the function that is being passed as a argument right away, like so 👇</p><pre id="e2188ef2-f3e4-42da-870c-5d30c3365a50" class="code code-wrap"><code>function setImmediateInterval(funcToRun, ms) {
+// right away call that function
+funcToRun();
+}</code></pre><p id="34939c7f-5690-4e2c-a586-10ec53b6c367" class="">If you are confused about where <code>funcToRun()</code> came from, don&#x27;t worry, Wes will go over that again shortly.</p><p id="0e9b84a6-0c36-41eb-961c-ab45c26f8ec1" class="">Next, run a regular interval right after you call <code>funcToRun();</code> and pass the interval the arguments you receive in <code>setImmediateInterval</code>, which are the function to run on an interval, and how many seconds to wait before running it.</p><p id="b6694e68-e0c1-420d-8943-d6b184ac5e03" class="">The code should look like this 👇</p><pre id="d460d4cf-8f21-45ed-923a-f49ab7467045" class="code code-wrap"><code>function setImmediateInterval(funcToRun, ms) {
+// right away call that function
+funcToRun();
+setInterval(funcToRun, ms);
+}</code></pre><p id="4c8c5e6d-8cb8-4696-b399-cf385e1a480c" class="">We are actually going to return <code>setInterval</code> so modify that line of code to be <code>return setInterval(funcToRun, ms);</code> instead.</p><p id="94eabe7a-09da-4f63-96c3-813e296c1c39" class="">Wes will explain later why we added the <code>return</code> keyword, it has to do with stopping intervals from running.</p><p id="5c8565f3-4733-4a92-a287-a6694497fa48" class="">Now what you can do now is replace the code you added earlier <code>setInterval(buzzer, 2000)</code> with <code>setImmediateInterval(buzzer, 2000)</code> instead.</p><pre id="cfe4b4e1-4135-4585-8b33-125d77d48bf9" class="code code-wrap"><code>&lt;script&gt;
+function buzzer() {
+console.log(&quot;ENNNNGGGG&quot;);
+}
+
+console.log(&quot;Starting&quot;);
+setTimeout(buzzer, 500);
+console.log(&quot;Finishing!&quot;);
+
+function setImmediateInterval(funcToRun, ms) {
+// right away call that function
+funcToRun();
+return setInterval(funcToRun, ms);
+}
+
+setImmediateInterval(buzzer, 2000);
+&lt;/script&gt;</code></pre><p id="9d8d14ba-acde-4e76-9958-52a6bb8821eb" class="">Now if you refresh the HTML page and open the console, you will notice &quot;ENGGG&quot; is immediately logged and then again after 2 seconds.</p><p id="e4b20547-9427-4229-be55-b171c133cd06" class="">Now we mentioned earlier that you might be a bit confused about where <code>funcToRun</code> came from.</p><p id="96c40307-8d27-4986-901d-095455d1a206" class="">We have gone over this before but it&#x27;s a big tripping point for people so we will go over it again.</p><p id="db473ce6-f489-4f9c-938a-ac543eb0d3c5" class="">In this scenario, you made a function (<code>setImmediateInterval()</code>) which takes a parameter of another function.</p><p id="cfbf1852-c755-4588-adaf-b92ca358f0e9" class="">If you have a function and one of the arguments you pass is a function, it works exactly the same as when you are passing a number or a string.</p><p id="1b87d8a7-2d83-4d9a-848d-862b890ecc7a" class="">So in this instance, you just take the function that was passed in as an argument and you call it.</p><p id="43cdaa3f-1562-4b79-b284-17876154b521" class="">In the line of code above, you are passing the function buzzer as an argument to <code>setImmediateInterval</code>.</p><p id="73d818de-9a65-439b-b762-eb16d86845b0" class="">Let&#x27;s say you had another function called <code>sayHi</code>, which logged &quot;heyyy&quot;. You could call <code>setImmediateInterval</code> and pass it say`Hi and an millisecond value of 200, like so 👇</p><pre id="9ffca3aa-5570-4235-aafa-46c1a2d86faa" class="code code-wrap"><code>setImmediateInterval(buzzer, 2000);
+
+function sayHi() {
+console.log(&quot;Heeeyy&quot;);
+}
+
+setImmediateInterval(sayHi, 200);</code></pre><p id="96d1235f-1ad1-4e9a-98b6-7e6f315a6e3c" class="">If you refresh the HTML page and open the console, you will see something like this 👇</p><p id="04b74ee2-0851-405a-8d52-917cb1dfa96b" class="">So in both examples, Wes is passing a function and whenever it&#x27;s called, it gets transformed into the parameter called <code>funcToRun</code>. That gives us access to either run it, or pass it even one level further down into our <code>setInterval()</code>.</p><p id="ec325bd2-5127-47ec-80de-81998354edbf" class="">So timeouts and intervals are pretty straightforward.</p><p id="6f77b2a9-3230-4936-8623-429431e88931" class="">The biggest gotcha is that intervals will not run immediately, but as you saw, you can code your own function for that.</p><h2 id="b34822ad-a7ec-4a65-8e05-3135b435b840" class="">Clearing Timeouts and Intervals</h2><p id="9cd163a7-517b-4d92-aba1-d1683776f5cc" class="">The only other thing you need to know is if you want to clear a timer or interval, you must save the reference to that timer or interval.</p><p id="93c5e5ea-26b5-48ce-a193-cffbcae8958a" class="">Let&#x27;s do an example to demonstrate that.</p><p id="7e36a9ac-4820-48fb-ad5a-8fbfac577292" class="">Comment out all the code currently running timers or intervals.</p><p id="bd06cfce-505e-42e4-bd3a-f5381a593c9a" class="">Make a function <code>destroy()</code>, which runs after 5 seconds if someone doesn&#x27;t click anywhere on the page, and will destroy the webpage.</p><p id="b1405204-f767-4258-bdfb-6b3fbdba2d4a" class="">Set a timer to run destroy after two seconds, like so 👇</p><pre id="a2b14997-99fa-4dae-bf1e-64e50792426e" class="code code-wrap"><code>function destroy() {
+document.body.innerHTML = `&lt;p&gt;DESTROYED&lt;/p&gt;`;
+}
+
+setTimeout(destroy, 2000);</code></pre><p id="e4b0716a-71ab-4155-b900-af71e381a2ea" class="">If you refresh the page, you will see the text &quot;DESTROYED&quot; displayed after 2 seconds.</p><p id="ef19aa43-b240-437e-96f2-ad3e0aa27661" class="">Now that is obviously not that interesting, but you can imagine some scenario where something like this might happen like you have to hit the save button within an allotted period of time.</p><p id="38f1ebbb-ffe2-4c1c-83db-8b1eda821c72" class="">Now make <code>setTimeout</code> to be 5 seconds and then if someone doesn&#x27;t click within 5 seconds, run it, but if they do click within 5 seconds, clear it.</p><p id="6e53fe34-5d7c-46da-a98f-ad88e883654a" class="">What you can do is add a click event listener on the window like so 👇</p><pre id="05ed16a6-f9bd-43f3-8b95-af0dde9eb507" class="code code-wrap"><code>window.addEventListener(&quot;click&quot;, function() {
+console.log(&quot;You clicked! You saved the world!&quot;);
+// How do you stop the timer from running?!
+});</code></pre><p id="41ae3ffc-a3b3-49e4-8437-faa986127ba1" class="">The question is how do you stop the timer from running?</p><p id="40548b33-fa0f-406c-878f-f2674f3a1280" class="">Well, what you can do is save reference to the timer when declaring it like so 👇</p><pre id="fa232789-e6ef-4ab9-b289-66943cac260f" class="code code-wrap"><code>const bombTimer = setTimeout(destroy, 5000);</code></pre><p id="3b838ebd-d945-45f2-a71a-2d82acf94493" class="">If you were to log <code>bombTimer</code>, what are you going to get?</p><p id="01b96f14-262e-4a5a-b59b-df6c430a8471" class="">You will see 2 in the console.</p><p id="bc22e155-1c6d-4e94-882f-6cd149854617" class="">What is this 2??</p><p id="96270869-f588-4384-8638-a6452f33b48a" class="">Well 2 is just a reference to all the current timers that are on the page.</p><p id="820f8c92-022f-4198-b9d6-4b3b127ddf83" class="">So to us it doesn&#x27;t mean anything, but to the browser it does.</p><p id="8e3f8b69-d184-49dd-874a-bd8fc7202116" class="">If you were to look at the <code>typeof</code> when logging our reference to <code>bombTimer</code> as shown below 👇, you will see that it&#x27;s just a regular number.</p><pre id="9057adef-bccb-41fa-b4be-f0b9afb00cb2" class="code code-wrap"><code>console.log(typeof bombTimer);</code></pre><p id="c470888e-b88e-416c-913b-ba19ddaaa070" class="">But if you save reference to that timer number in a variable, you can later call <code>clearTimeout()</code> and pass it a reference to that timer and what that will do is it will stop the timer from running.</p><pre id="98e336ed-a5b3-4f85-b27e-3f9181ca62eb" class="code code-wrap"><code>const bombTimer = setTimeout(destroy, 5000);
+
+window.addEventListener(&quot;click&quot;, function() {
+console.log(&quot;You clicked! You saved the world!&quot;);
+// How do you stop the timer from running?!
+clearTimeout(bombTimer); // STOP THE TIMER FROM RUNNING
+});</code></pre><p id="aed2ea3e-825a-4964-ab41-69e8aa940f97" class="">Now if you refresh the page, and you don&#x27;t click anywhere for 5 seconds, you will see the destroy text.</p><p id="5cbc0f42-af00-4484-9b94-de7dc698ed90" class="">However, if you do click within the first 5 seconds, the page will never be destroyed.</p><p id="c41da501-aacd-41a9-84ff-4cad08548983" class="">If for any reason you need to stop your timer, save reference to it in a variable.</p><p id="fa22df71-1869-4e0f-9399-5986d0fcfa1b" class="">There is no other way to clear the timer other than having a saved reference to it in a variable which is a number.</p><p id="37c3b07d-2355-4d5a-b14a-1fcd0c00fbd0" class="">The intervals work exactly the same way.</p><p id="dcd15f4d-0b91-484f-98be-e7aa06bf2920" class="">Create an interval that logs the poop emoji 💩 and hehehe every 10 milliseconds like so 👇</p><pre id="c041562e-d877-4df4-84ec-1047fafd0e14" class="code code-wrap"><code>setInterval(function() {
+console.log(`💩`);
+console.log(&quot;Hehehe&quot;);
+}, 10);</code></pre><p id="1883a8ea-9c6d-486b-a7e7-559890b6c8b2" class="">If you refresh the HTML page and look at the console, you will see tons of logs.</p><p id="31e1c03a-17c4-4534-8a75-b0f4b8efc3ab" class="">To clear that, you could save reference to it and then call <code>clearInterval()</code> and pass it the reference, like so 👇</p><pre id="d1dfc8ca-e672-46e8-9138-b0b35e149843" class="code code-wrap"><code>const poopInterval = setInterval(function() {
+console.log(`💩`);
+console.log(&quot;Hehehe&quot;);
+}, 10);</code></pre><p id="fe582267-5cd5-4180-92c9-db2898a38750" class="">If you refresh the page and open the console, you can type into the console <code>clearInterval(poopInterval)</code> and that should stop the interval from running.</p><p id="ef636481-4073-4284-aa77-0f96467e0482" class="">One thing Wes often likes to do is run the interval every 100 milliseconds, but after 3 seconds you want to stop it entirely.</p><p id="82b41f7b-b0c2-4e39-8c12-6ba72c4d3822" class="">If you wanted to clear that after five seconds, you could simply make a <code>setTimeout</code> that you pass an anonymous function that called <code>clearInterval</code>(<code>poopInterval</code>) after 3 seconds like so 👇</p><pre id="157d298d-0141-4b00-97e4-47b15b05f672" class="code code-wrap"><code>setTimeout(function() {
+clearInterval(poopInterval);
+}, 3000);</code></pre><p id="21136f80-567f-4e33-ba11-2345bbd8175e" class="">If you refresh the page, you will see the logs stop after 3 seconds because you have cleared it.</p><p id="9ada5c86-6da6-4e65-9948-a038f1657c95" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="886b7792-78b8-4b95-8a9b-6f8cc5da902a" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="c590e9b7-2d69-4a3c-b4b6-be44f88d7aaf" class="">Edit on Github</p></details></li></ul></div></article></body></html>

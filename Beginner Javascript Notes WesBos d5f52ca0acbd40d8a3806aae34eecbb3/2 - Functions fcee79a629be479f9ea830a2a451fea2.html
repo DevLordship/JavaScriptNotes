@@ -1,0 +1,975 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2 - Functions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fcee79a6-29be-479f-9ea8-30a2a451fea2" class="page sans"><header><h1 class="page-title"><em><strong>2 - Functions</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="561bd5e3-79eb-4830-809f-58c1b1b1ab79" class="toggle"><li><details open=""><summary>12 - Functions - Built-in</summary><p id="e80efaee-cf91-446d-a79a-ddc262d3451f" class=""><a href="https://wesbos.com/javascript/02-functions/functions-built-in">https://wesbos.com/javascript/02-functions/functions-built-in</a></p><p id="84b0b8a1-4977-47a7-ac88-b8b785d41ee1" class="">
+</p><figure id="15f2b5c2-3d63-43f4-85dd-f506a74619d2" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs.png"/></a></figure><p id="3e22e340-32f7-45f4-8e0a-9455a607e79e" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="c180acce-8020-4d6f-a59c-648252ce6c03" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="deb3f42e-af78-4d4b-8e43-387b1f52434c" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="9a8dfc3f-141a-4dd3-b79a-6734010bf725" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="dae27c8f-4ee1-498c-b458-f8a74a01a3de" class="">JavaScript, FunctionsEdit Post</p><p id="1d35c65f-939d-46da-9910-1368691291b8" class="">These videos are going to be about functions. We will get a good primer on what functions are, the core concepts, and an overview of the types of functions that you can write.</p><p id="0c06ccc7-1102-4136-9b4e-b07574a6a690" class="">It will not be exhaustive, because there is so much more we need to learn in order to take advantage of functions. The rest of the course is going to be using functions, since they are like types, a fundamental building block of JavaScript and we will get good at functions because we will be writing them throughout this entire course.</p><p id="d11d45e2-39c1-4ea0-8633-d86f469e16cf" class="">So, functions, what are they?</p><p id="7bc57a81-b846-4340-8ab8-e663598e7542" class="">They allow us to group together sets of statements.</p><p id="c9ad1185-e9c5-4fc2-9b2f-90ceefeb6296" class="">As a refresher from previous videos, these are all statements 👇</p><figure id="664c42c0-4dba-4217-b96b-d1d465b0ef6a" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/refresher-using-statements.png"><img style="width:288px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/refresher-using-statements.png"/></a></figure><p id="2321ecd0-9c27-46f0-91d5-d9e21ea70bb0" class="">If you wanted to group all those statements together <em>(generally they are related to each other and generally they produce some sort of output)</em>, you could group them together inside of a function.</p><p id="f0a6f25d-f75a-418f-b527-55f704db2d26" class="">Functions can take in data, those are known as arguments <em>(we will discuss the difference between arguments and parameters shortly)</em>. When you pass data to a function, it is known as an argument.</p><p id="5039b355-889e-4c68-b73b-1887c4294df5" class="">Functions perform some work (a statement), and sometimes they also return a value.</p><p id="523bb7a6-dc06-4052-9ead-51b067001089" class="">Let&#x27;s look at an example in the console using <code>Math.max()</code> <em>(this is actually a method, and we will explain the difference between a function and a method shortly, it is not much)</em>.</p><p id="aebc09d0-59bb-438c-993b-0bcff9fa0760" class="">If you run it in the console, it returns negative infinity.</p><figure id="82fb1d6e-ae26-4cb7-86be-7a2d10da01df" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/math-max-function-returning-infinity-in-console.png"><img style="width:206px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/math-max-function-returning-infinity-in-console.png"/></a></figure><p id="b4925fb6-6308-4f2a-8e2b-95fe1a81f3a7" class="">What we want to do is pass it some data, and it should return to us the maximum value.</p><p id="e8066dc3-d218-4fb1-ae54-e0dc516a1614" class="">For example, let&#x27;s pass two numbers, 10 and 12. It will return to us the highest number (which is 12).</p><figure id="c2c9f6b3-4602-430c-9d02-95d30bfe917e" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/math-max-passing-two-numbers.png"><img style="width:262px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/math-max-passing-two-numbers.png"/></a></figure><p id="67528576-6ad9-4c82-aaf9-583cbb690930" class="">Now what is going on there?</p><p id="88d5484d-aba7-4770-80fb-619854bcb761" class=""><code>Math.max(10, 12)</code> is a JavaScript statement. The values 10 and 12 that we are passing into the function are called arguments.</p><p id="cc2666c1-cafd-4dc6-8eec-c7f7493475ff" class="">If you are passing multiple values to a function, you need to separate each value with a comma and it&#x27;s best practice to include a space between each.</p><p id="a052f13d-f8da-4901-851d-950726f0987d" class="">To repeat, the data that you pass to a function, the data that you give to a function in order for it to run is called an argument.</p><p id="b27240b5-bda2-4849-935d-42d732fc4aab" class="">Sometimes, functions will return to you some data that is generally the answer or the computed output based on what you passed in.</p><p id="d667345d-736f-4aa6-91bf-f0413b78ff09" class="">For example, <code>Math.floor(2.4444)</code> will return <code>2</code>.</p><p id="dc39aa5e-7a66-434a-b5f7-824c8f8afff9" class="">Here we are passing one argument of <code>2.4444</code> and it returns to us the floor of that value which is <code>2</code>.</p><figure id="fc2b0b14-e8bd-4e40-a573-53e55c6d6fa7" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/math-floor-function-in-console.png"><img style="width:277px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/math-floor-function-in-console.png"/></a></figure><h2 id="680abb68-5b9b-4f60-be17-304311ad1cb5" class="">Built-in Functions</h2><p id="d9a18fcf-0d48-44c2-9196-f5224d512d30" class="">There are a whole bunch of built-in functions in JavaScript, whether you are using it in the browser or with Node.js.</p><p id="07646c14-a6f0-4671-83b2-ae5f523ccb57" class="">JavaScript comes with all of these built in functions, and we have already been using them because there is no way around it. The one that we have used the most so far is <code>console.log()</code>.</p><p id="aab1498c-875b-4197-ae36-b25d21922ba7" class="">For example if you <code>console.log(&#x27;hey&#x27;)</code>, it will return <code>hey</code>.</p><p id="9d925083-0102-4b01-9f0e-0e75a96a2cd0" class="">Interestingly enough, it also returns undefined.</p><p id="411d9ca0-755b-444f-9a2c-13a9207b8d32" class="">That is because the console.log function logs to the console, it does not return a value. Not all functions are meant to return a value, sometimes they just go off and do things without returning a value.</p><p id="ea52e12f-bb9f-4423-bf24-ecd560cb123c" class=""><em>Tip: You can tell in the console if something is a return or a statement by the &gt; and &lt;. arrows next to the line in the console. &gt; indicates that it&#x27;s a statement and &lt;. indicates that it&#x27;s the response to the statement.</em></p><p id="c5705e7a-7ef6-4d4f-a58c-f31cf51783bd" class="">Some other built in functions we can use are 👇</p><p id="97d61a19-b43b-4e0c-ae1f-b5b85ee1c0af" class=""><code>parseFloat()</code> which takes in a string and returns a number, it switches the type. For example 👇</p><pre id="fb7d0f7c-dc20-4638-9854-75b354073ffa" class="code code-wrap"><code>parseFloat(&quot;20.34543543&quot;);</code></pre><p id="24ea8e5a-50c7-4320-8952-ab5f424ff621" class=""><code>parseInt()</code> takes in a string and returns a number without a decimal. For example 👇</p><pre id="20b10e9a-6b8c-45ca-82ee-a742b031267a" class="code code-wrap"><code>parseInt(&quot;20.3243423&quot;);</code></pre><p id="c2cfa983-9866-4fba-8977-dcf7cad7f8ff" class="">We looked at <code>Math.round()</code>, <code>Math.floor()</code>, <code>Math.ceil()</code> already in previous lesson.</p><p id="aabefeec-a3f6-4f8c-a380-b565f1c448db" class="">If you type <code>Date.now()</code> in the console it will return something like the following 👇</p><p id="63e47f0e-832a-46f0-88a8-f6f244baa4b0" class=""><code>Date.now()</code> is a function that does not take in any arguments. What it returns to us is the number of milliseconds since January 1, 1970.</p><p id="605720ca-4c4e-4663-a4b6-589e93a6bdbe" class="">If you go to https://epoch.now.sh, it&#x27;s a tool that you can use to convert the millisecond value to a datetime. You can also do the opposite -- pick some date and time in the future and then it will return the millisecond value.</p><p id="7138fe54-79ec-4d58-95b7-db11204c70ea" class="">We will go deeper into dates in future videos.</p><p id="18ddd412-63c1-44fa-be9b-24e1c119cc9a" class="">We also have functions that will work with something called the <strong>DOM</strong>, which are the HTML elements that are on the page.</p><p id="a86a4f50-e744-4e54-b553-305f0b9fbc44" class="">Create a new file called <code>functions.html</code>, and use the <strong>html base snippet</strong>.</p><p id="15acacc7-ad20-4a12-aa76-049eeabee268" class="">Add a <code>paragraph</code> tag inside of the body that says <code>&quot;hey, how ya doin?&quot;</code> and then add an <code>empty script tag</code> below.</p><p id="fe26f23f-bfd7-4342-8046-3d1ee557d933" class="">Open that up in the browser. 👇</p><pre id="68eb4ba9-8713-4a8b-a0d9-0c7e0d739c6c" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot; /&gt;
+&lt;title&gt;Functions!!&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../base.css&quot; /&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;p&gt;Hey How ya doin?&lt;/p&gt;
+    &lt;script&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="24b2dd6f-11a3-44c0-94aa-133d796b378f" class="">In the script section of <code>functions.html</code>, add the following code. that will run a function called <code>document.querySelector()</code>, to which we are passing a selector <code>p</code>. This built in function will find something that matches that selector and puts it into a variable, and we will log that variable.</p><pre id="a6f8ca50-121a-44e2-b4d5-d09f538ece53" class="code code-wrap"><code>&lt;script&gt;
+const p = document.querySelector(&quot;p&quot;);
+console.log(p);
+&lt;/script&gt;</code></pre><p id="4c199bd4-8e0f-44b7-a540-416caff3dba5" class="">There are a lot of other functions built in, some are mobile specific like <code>navigator.vibrate()</code>.</p><p id="a4a5aae0-001d-4696-8136-ee3340198aa7" class="">Another useful thing is if you are not sure what arguments a function should take, you can refer to the Mozilla developer docs, in order to see what is going on.</p><p id="21cef0e6-74bf-455f-89ca-2e14f00a441c" class="">In google, type &quot;Navigator.vibrate()&quot;. Usually you will need to look for the Mozilla Developer website <em>(a tip is to include mdn at the end of your search so the Mozilla docs float to the top)</em>.</p><p id="ee8169a9-3a08-4730-ab79-ffa6fb36db59" class="">The docs should explain what the method is, how it can be used, and what it returns.</p><p id="bb439f96-9c47-44c6-b1c6-446f66afd6a8" class="">Let&#x27;s look at a couple of more.</p><p id="09cd5e92-afe1-49db-a75a-bf1d745d41cb" class="">Clear the console.</p><p id="51f83d7d-8d0e-496a-a179-63da77b2ce6d" class="">In <code>functions.html</code>, add a lot of text, such as a few paragraphs of Lorem Ipsum.</p><p id="3331cd70-8c7d-4fb9-a450-b04967dcb498" class=""><em>(Wes is using the Emmet extension for VS Code which allows him to type lorem500 and hit tab to expand 500 words of lorem ipsum. You can manually search for a Lorem Ipsum generator online if do not have the Emmet extension.)</em></p><p id="64df8e0e-3c96-44cf-b02c-61caadf37a31" class="">Now if you refresh <code>functions.html</code> you will see a lot of text on the page.</p><p id="9342f926-142d-419b-8ca6-8e3949ed0359" class="">Add enough text so you can scroll on <code>functions.html</code>.</p><p id="bb3a075b-1e3d-41d6-8708-c368ba85508e" class="">Now you should be able to type in the console <code>window.scrollTo(0, 600)</code>, and that should cause your window to scroll down 600 pixels.</p><p id="6a7a8292-da54-43f8-a477-069a89e4c78e" class="">If we search for <code>scrollTo</code> on Mozilla docs, it says it accepts arguments of a x and y coordinate, or you can pass it an options object.</p><p id="dfc1d761-6a08-4d38-b7e5-aaad738ce6e6" class="">The docs say that</p><blockquote id="afa00a65-eca3-4d19-8c7e-b0ecc2be2de7" class=""><p id="56367484-b337-43e4-bb9e-7e767971165c" class="">options is a ScrollToOptions dictionary</p></blockquote><p id="e1e11a45-44e7-4d02-87bd-2e9a90428ae1" class=""><strong>Dictionary</strong> is a word we use in JavaScript to represent an object, it&#x27;s an object that has a number of set properties on it.</p><h3 id="b9c4b8b6-e449-4009-9a5c-4ac3a5b8a527" class="">Example #1 👇</h3><pre id="2d274236-f42d-4164-8dca-11b65fc61e1d" class="code code-wrap"><code>window.scrollTo(0, 1000);</code></pre><h3 id="f48ce56e-141d-4e44-a145-a4062ad08cd9" class="">Example #2 👇</h3><pre id="94088899-6fe5-4969-aab0-92cc1f90a91e" class="code code-wrap"><code>window.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: &quot;smooth&quot;,
+});</code></pre><p id="9db626f6-a30c-4ce0-a615-909057df9079" class="">In the first example, we are passing two numbers but it&#x27;s also an option to pass an object which has properties inside of it like <code>top</code>, <code>left</code>, and <code>behavior</code>.</p><p id="cf19abf4-e36d-4715-95bf-5b70d77e93a4" class="">Try typing into the console the following 👇</p><pre id="4f19a04f-d2bf-4976-a6c5-cda5d75f4d7f" class="code code-wrap"><code>scrollTo({ top: 500, left: 0, behavior: &#x27;smooth&#x27; })</code></pre><p id="79d33a48-3da6-478d-b973-510dc15778b0" class="">That page should cause the page to scroll down 500 pixels.</p><figure id="aeb96aef-d910-419d-a3f3-d8c3a1a94b93" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/scrollTo.gif"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/scrollTo.gif"/></a></figure><p id="d2b114fa-c580-4bc3-9b1b-0c8f5c7f5c01" class=""><code>scrollTo</code> is an example of a function that does not return anything, instead it just goes off and does some work for us.</p><p id="9800efa7-6e7b-45de-af36-e3371457a3c1" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="8c3a632b-fbd2-4c3b-ab48-40e42f20b45c" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="06c6f05b-15b8-488b-a1c9-5524c8deda16" class="">Edit on Github</p></details></li></ul><ul id="cba86712-0eaa-47d2-af4c-165db2e50050" class="toggle"><li><details open=""><summary>13 - Functions - Custom</summary><p id="f4783852-4aad-48ec-90cd-aabd38e9ea65" class=""><a href="https://wesbos.com/javascript/02-functions/functions-custom">https://wesbos.com/javascript/02-functions/functions-custom</a></p><p id="d956ae28-b753-4a1a-91f3-784c52ceb244" class="">
+</p></details></li></ul><ul id="c5065881-dbda-4f15-8159-3f0d8858c800" class="toggle"><li><details open=""><summary>14 - Functions - Parameters and Arguments</summary><p id="734fbcc8-9cb8-47e9-b7dc-b244a790b858" class=""><a href="https://wesbos.com/javascript/02-functions/functions-parameters-and-arguments">https://wesbos.com/javascript/02-functions/functions-parameters-and-arguments</a></p><p id="0e1921ff-bd8c-4b84-a84c-cf10228838b4" class="">
+</p><figure id="52558de7-27ce-45f6-aba0-1984b84d6460" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs%201.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs%201.png"/></a></figure><p id="70c61e01-30b5-4792-bb46-c017033f0abd" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="ef0e3c2b-fcd9-4204-bebf-522e0a37128e" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="2989f727-c7b4-440a-8348-f826df540952" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="25cec3c8-65f1-4927-814e-f71398524b88" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="1ce8f880-841f-44e9-b117-16c17056b9e8" class="">JavaScript, FunctionsEdit Post</p><p id="6c25bb7c-50dd-451a-b4eb-c391a80d6e1d" class="">This video will focus on <strong>arguments</strong> and <strong>parameters</strong>.</p><p id="e22e56f8-ff2c-4ef7-b221-bea702365e6e" class="">In the <code>calculateBill()</code> function from the previous video, we hardcoded the tax amount.</p><p id="8a070c4e-e35c-4e46-9139-3d5c1a56eec4" class="">A best practice in JavaScript is to keep your code <strong>DRY</strong>, which stands for <strong>Don&#x27;t Repeat Yourself</strong>.</p><p id="c0542b40-123b-4ab2-bdf7-572fb9deb205" class=""><code>calculateBill</code> would not be useful if it could only calculate the value assuming the bill is $100 and a 15% tax rate, so we need to modify those hardcoded values.</p><p id="0720240b-dd0b-49cc-85f2-d24fde4b8ede" class="">To solve that, above the calculateBill function, we can declare variables for the bill total and taxRate.</p><p id="8677243b-28cf-43ba-933b-d913213a9378" class="">Modify the code like so 👇</p><pre id="f3741d4f-9e92-4f18-86bb-1bc651056472" class="code code-wrap"><code>const bill = 100;
+const taxRate = 0.13;
+
+function calculateBill() {
+console.log(&quot;Running calculate bill!!&quot;);
+const total = bill * 1 + taxRate;
+return total;
+}</code></pre><p id="e5f8c55d-667e-44de-ba60-26d391d61201" class="">This will work, but that is not the best way to do it. Why?</p><p id="1047ba8d-5c42-4c78-8534-5f09df030ba7" class=""><code>calculateBill</code> is relying on something called <strong>global variables</strong> <em>(which will be explained in future videos)</em>.</p><p id="2ce675fa-4925-4d77-8db7-ab5459eb440b" class="">For right now, what you need to know is that <code>calculateBill</code> needs some data. When it is not passed data, it is instead reaching outside of the function in order to look up that data in a higher <strong>scope</strong>.</p><p id="f77d0ddb-1cea-4c0f-882a-7dd73472fe8a" class="">That is not great practice <em>(reaching outside of a function in order to get your data)</em>.</p><p id="9c2e51e8-d7de-47fe-9153-abd41229d016" class="">In <code>cf.js</code>, remove the last console.log and add the following 👇</p><pre id="f6916e91-c53b-4318-964d-0b28251a28be" class="code code-wrap"><code>const myTotal = calculateBill();
+const myTotal2 = calculateBill();
+console.log(myTotal, myTotal2);</code></pre><p id="0f7b0a8e-3ace-4e67-9931-3fa630c77837" class=""><em>TIP: You can log as many pieces of data as you want by separating the values with commas like in the example above.</em></p><p id="c3f61820-baa7-48f2-aa22-4b3bb4496038" class="">The log will return the same value:</p><blockquote id="7216c846-f467-4e2d-b358-1ca879066ced" class=""><p id="3edae4eb-ad7e-4f87-9df1-13a2d6217344" class="">$100.13.</p></blockquote><p id="07051a9f-0234-47ee-9234-b02699d192ff" class="">What if we wanted a different value? Could we do something like this? 👇</p><pre id="7123065c-c025-480d-b717-ab81215838b9" class="code code-wrap"><code>const myTotal = calculateBill();
+bill = 200;
+const myTotal2 = calculateBill();
+console.log(myTotal, myTotal2);</code></pre><p id="072f7301-d2ba-435e-b2ee-b023ff65a6e3" class=""><em>(Note: you need to change the </em><code><em>bill</em></code><em> variable that is declared in </em><code><em>cf.js</em></code><em> to a </em><code><em>let</em></code><em> instead of a </em><code><em>const</em></code><em> so we can reassign a new value to it)</em></p><p id="d928c2dc-6beb-47a7-818f-35a363ace443" class="">If you refresh it, now it works.</p><p id="6d388a3f-fd5b-47d2-8620-fe98c6116221" class="">However, we have been changing the variable by modifying our code each time we want to run it with different values. This is bad practice and it is how you get very brittle applications.</p><p id="d9c1ba6c-7332-44e9-8871-c7dae8300a2a" class="">What we want to do is instead of reaching out, we will pass the data that we need into our functions.</p><p id="c3c7f2b6-06e2-4318-9a18-5ac897174d6c" class="">First let&#x27;s do a bit of cleanup. Get rid of the <code>let bill</code> and <code>const taxRate</code> variables. Get rid of lines of code where we are reassigning variables and declaring myTotal2 (<code>bill = 200; const myTotal2 = calculateBill()</code>) and the last log.</p><p id="55714532-751c-4741-98eb-d4fe0a0c587a" class="">You should end up with the following code 👇</p><pre id="395429e0-6f6c-49ba-b008-c872bc052276" class="code code-wrap"><code>// function definition
+function calculateBill() {
+// this is the function body
+console.log(&quot;Running Calculate Bill!!&quot;);
+const total = bill * 1 + taxRate;
+return total;
+}
+
+const myTotal = calculateBill();</code></pre><p id="95276a27-781b-4613-a514-40ec6c7188d1" class="">Now we want to take the variables bill and tax rate and we want to make them into something called <strong>parameters</strong> or <strong>params</strong> for your function.</p><p id="e31d44c9-50cd-4f98-b68c-44a285d6fe29" class="">When you define your function, you add params which let you know that the function expects to be passed some data. Wes likes to think of params as placeholders.</p><pre id="04e9ab43-a60d-46bf-8be0-0464c981e209" class="code code-wrap"><code>function calculateBill(billAmount, taxRate)</code></pre><p id="0f77fc56-ffab-418f-982a-6a31dd6206fc" class="">Inside of the function body, we will have access to the two variables that were passed:</p><ul id="e4faab19-e99a-4b31-8b2c-26175086a0a7" class="bulleted-list"><li style="list-style-type:disc"><code>billAmount</code></li></ul><ul id="aa74e756-ee58-47ed-99bd-c192a687cc1e" class="bulleted-list"><li style="list-style-type:disc"><code>taxRate</code></li></ul><p id="bc56cf52-8e0a-4940-a7dc-b2e006aa6851" class="">It can be confusing because there is no &quot;creation of the param variables&quot;, but Wes will do his best to explain it.</p><pre id="b6ca6f1b-a4e2-432a-8f45-48b9d234d837" class="code code-wrap"><code>// function definition
+function calculateBill(billAmount, taxRate) {
+// this is the function body
+console.log(&quot;Running Calculate Bill!!&quot;);
+const total = billAmount * (1 + taxRate);
+return total;
+}
+
+const myTotal = calculateBill(100, 0.13);
+console.log(myTotal);</code></pre><p id="c5fc5d44-62fe-4de2-8134-ec6c498ab445" class="">That will give you $113.</p><p id="b1c2fa8f-76c2-46ea-82f8-b513090be163" class="">But now we are able to make a <code>myTotal2</code> really quickly 👇</p><pre id="e36cbf5a-dcfd-4e13-8fab-4253ac67f80a" class="code code-wrap"><code>const myTotal = calculateBill(100, 0.15);
+const myTotal2 = calculateBill(200, 0.13);
+console.log(myTotal, myTotal2);</code></pre><p id="d292b037-d721-4440-bf78-574f13540873" class="">It works without having to reassign because when you define a function, you can place parameters. P = placeholder is one way to remember it.</p><p id="2291ba65-25ab-4c32-bbd4-01e1e60b5a6c" class="">When you call the function, you pass it arguments.</p><p id="097b9402-06b2-44b3-9527-8703215614e3" class="">Here is a quick cheatsheet Wes has put together that explains the parts of a function.</p><p id="276e6085-3fa3-42d4-aa27-79f98ca34fcc" class="">When we define the function, we use what are called <strong>parameters</strong>. Parameters can be thought of as placeholders (we will talk about <strong>default values</strong> for parameters shortly).</p><p id="f8b18269-1947-49b1-a833-9bab22184ca4" class="">When you <strong>call</strong>, <strong>run</strong> or <strong>invoke</strong> (all 3 mean the same thing), and you actually pass it the data, that will take place of the variables (for example <code>meal</code> will be <code>100</code> and <code>taxRate</code> will be <code>0.13</code>), those will be called <strong>arguments</strong>.</p><p id="bf3a0098-6c46-47bd-9d20-a4de6da53ccc" class="">People incorrectly use those terms interchangeably. One way to remember is that <em>parameters are placeholders</em>. The actual values that you pass in when calling a function are what are called <strong>arguments</strong>.</p><p id="db177ab9-c445-4f76-97f4-10687b1e73b7" class="">Bringing it back to <code>const myTotal = calculateBill(100,0.13)</code>, here we are running the function and as arguments we are passing straightaway numbers. However, the values that get passed into a function can be in a variable as well. This is a common thing people get hung up on when learning how functions work is how they sort of get renamed.</p><p id="0c01ded3-9313-4365-9471-80d37fc71110" class="">Let&#x27;s take a look at code we wrote for <code>calculateBill()</code>.</p><p id="7c56e3d1-8a18-4d48-a452-85000e25e9d0" class="">The data gets passed into the function, and those variables are only available inside of the <code>calculateBill</code> function. They will be what is called <strong>scoped to the function</strong>, which means only available inside of the function.</p><p id="e78b7841-7692-42cb-8611-d759dae740f0" class="">If we add a log within calculateBill like so 👇</p><pre id="326232ab-0d13-42f7-8d9c-e7615eaef3f2" class="code code-wrap"><code>// function definition
+function calculateBill(billAmount, taxRate) {
+console.log(billAmount, taxRate);
+// this is the function body
+console.log(&quot;Running Calculate Bill!!&quot;);
+const total = billAmount * (1 + taxRate);
+return total;
+}
+
+const myTotal = calculateBill(100, 0.13);</code></pre><p id="6fb04561-fdfa-4740-a0dd-5a329e8d84c0" class="">We can run that function from the console but pass it different values for the arguments, it will console log the values of the arguments that we passed, like so 👇</p><p id="084b5ced-2553-46eb-92f2-f3792bcc5ade" class="">Why?</p><p id="190d7e25-508e-4232-a4fe-d95ab92422e3" class="">Because JavaScript will take whatever you write as an argument, and then when you call the function it will make it sort of temporarily available to you via the names that you put in your parameters.</p><p id="6c093a18-907e-4b3f-bce6-4dea4142c702" class="">What gets a little bit confusing to people is if we declare two variables before we call the function like so 👇</p><pre id="e79fc31e-6a25-494d-9bae-333c9ebc1271" class="code code-wrap"><code>const wesTotal = 500;
+const wesTaxRate = 0.3;
+const myTotal = calculateBill(100, 0.15);</code></pre><p id="2657c335-571e-4139-8bc4-d639f51e9ec7" class="">We can actually pass those variables into the function like this 👇</p><pre id="b4ece0a0-6b59-4200-9bbb-1714399de9fb" class="code code-wrap"><code>const wesTotal = 500;
+const wesTaxRate = 0.3;
+const myTotal = calculateBill(wesTotal, wesTaxRate);</code></pre><p id="493eb147-1b9e-4692-bd97-99a54ebfc228" class="">Now the big confusion is, if they are variables outside of the function, and we pass them into the function, when it&#x27;s called inside of the function, is the first parameter called <code>billAmount</code> or is it called <code>wesTotal</code>?</p><p id="b08d53af-9b3e-46d8-a6f5-2ed0b484219d" class="">Will it even work if you pass in a variable that does not have the same name as the parameter? Try refreshing <code>index.html</code> in the browser.</p><p id="98c7be48-7d72-4a8e-beae-9f82c8a5f2a3" class=""><em><strong>You should see it works just fine!</strong></em></p><p id="94646021-1dd7-4e4f-aa50-e2cdcd6a6a78" class="">To review, when you run a function in JavaScript, what happens is JavaScript takes in whatever you have passed it, whether you have passed it that value directly <em>(as a number or string for example)</em>, or if you pass it in via reference <em>(meaning that you just passed a reference to a variable which in turn will hold a value)</em>.</p><p id="be9825b0-0bc0-452c-a019-ee6ed224000d" class="">At the end of the day we are still passing values, whether you pass it directly or whether you pass it a reference to a variable that holds a value. JavaScript doesn&#x27;t care about how you are passing them in, whether as a value directly or as a variable.</p><p id="2f379adf-fbba-4291-b28b-067655659cd6" class="">In this function, JavaScript will take whatever was passed in the first argument and make it into a temporary variable <code>billAmount</code> that is available inside of the confines of the curly brackets.</p><p id="aaf02162-06cb-490e-b08b-2f5613c986e6" class="">When the function is running, it does not care about anything else that is going outside of this function. It just knows it&#x27;s doing its job, it&#x27;s been passed in the 2 little pieces of data that it needs, it does the math and returns its value from within the function.</p><p id="4efb2a45-943e-40cd-89d1-59e8b72bef28" class="">When values get passed into a function, they sort of get renamed into whatever it is that you have defined your function parameters as.</p><h3 id="9de33bc2-e4a0-4501-9620-e6984db5166e" class="">Another Example</h3><p id="a1cd8d04-a179-403b-8eae-e5919e9510a1" class="">Let&#x27;s do another example!</p><p id="3fe11569-3a94-4309-8b2c-3e95328ed233" class="">Comment out the code <code>const myTotal = calculateBill...</code>.</p><p id="a46daf35-3854-4d39-9382-a2786fd18b86" class="">Add the following function to your code, which just returns hello and which we will pass in someone&#x27;s first name 👇</p><pre id="5f5661ec-43b2-4edb-9df5-f9606cd7d859" class="code code-wrap"><code>function sayHiTo () {
+return `Hello ${firstName}`;
+}
+
+const greeting = sayHiTo();
+console.log(greeting);</code></pre><p id="f0117d6b-d8fa-442d-a10d-dd7545d207f4" class="">Run the code as is, even though it will break, to see why. In the console you should see a reference error in the console.</p><p id="6f0d11d8-d767-42bf-9563-5d021c71474a" class="">What happens is this function, first it looks inside of its own function scope, and it will look for a variable <code>firstName</code> that has been passed in. If there is not, it will start to do is go up to a high level of scope and look there.</p><p id="dc8544d8-097d-495c-93cc-53d05815e897" class="">Let&#x27;s say there was a firstName variable like so 👇</p><pre id="8a0bd802-499b-4faf-b207-596fa32e4f6e" class="code code-wrap"><code>const firstName = &quot;wes&quot;;
+
+function sayHiTo () {
+return `Hello ${firstName}`;
+}
+
+const greeting = sayHiTo();
+console.log(greeting);</code></pre><p id="50d583de-20c6-474b-9252-7b7014ec08c4" class="">That would work, because the function will reach outside for that data if nothing is found within the scope of that function.</p><p id="a491d2e2-7f7a-4744-87cb-0988a166898b" class="">What we want to do is modify the function definition to set it to take in one parameter (<code>firstName</code>). And then when we run the function, we actually have to pass it a string (we will use <code>Wes</code>), and then we will have our greeting.</p><pre id="13386d59-d76c-4ccc-830b-23b760e7f81f" class="code code-wrap"><code>const firstName = &quot;wes&quot;;
+
+function sayHiTo (firstName) {
+return `Hello ${firstName}`;
+}
+
+const greeting = sayHiTo(&quot;Wes&quot;);
+console.log(greeting);</code></pre><p id="0a71a81f-b3eb-45cb-88c5-7121e35e6e35" class="">This makes the function nice and reusable, and we can use it to print out any first name like so 👇</p><p id="0e136d24-b03e-4d35-818d-912cdf80a35f" class="">As long as we pass in an argument (in this case &quot;Wes&quot;), it is going to have a variable inside of that function that is referenced to whatever the person has passed in.</p><p id="ea784dc3-bbeb-4d59-8b2a-afccfbb13555" class="">If we don&#x27;t run it with anything, you will see... 👇</p><p id="5ad89b23-8baf-4745-aa82-1361f34180c5" class="">The reason that happens is when a function runs, it will create the variable for us (<code>firstName</code>) and set it to whatever was passed in.</p><p id="e41a7145-165e-49e0-ad87-6e9998e3c8fa" class="">But if it creates a variable and someone doesn&#x27;t pass in anything, then it will just be set to undefined which is exactly how variables work.</p><h3 id="e72a1f0b-ce4b-4758-99fd-abb46fc2908e" class="">Even More Examples</h3><p id="1a506e7b-6f6b-4470-8fa0-6071fb4f2a29" class="">Now let&#x27;s go over a few more examples.</p><p id="46cf0efb-d1c3-4472-8388-9dce03828cba" class="">Let&#x27;s go back to passing expressions. For this example we will go back to <code>calculateBill</code>.</p><pre id="f6a8b277-b199-4a65-bf90-cfd63475adbb" class="code code-wrap"><code>// const greeting = sayHiTo(&#x27;Wes&#x27;);
+// console.log(greeting);
+const myTotal3 = calculateBill(100, 0.15);</code></pre><p id="6a61481c-9dba-47b4-b057-f03582770ba2" class="">We know the code above works but what if instead we do 👇</p><pre id="bb49d382-17f8-4b8f-8a3e-62635589ac3b" class="code code-wrap"><code>const myTotal3 = calculateBill(20 + 20 + 30 + 20, 0.15);</code></pre><p id="f9691d01-7ff6-438c-875e-43e1585e6002" class="">Is that going to work?</p><p id="805cf0b0-c950-4831-8ea5-ada6a2a5ee2e" class="">If you load <code>index.html</code> in the browser you will see <code>103.4999999999</code>.</p><p id="7dcf1136-48f3-4e7c-9f16-c8c00a156cb8" class=""><em>(If you followed Wes too closely, you may have gotten the value of 90.5. If that is the case, it is because of the line of code that calculates the total within </em><code><em>calculateBill</em></code><em>. It should be </em><code><em>const total = billAmount * ( 1 + taxRate);</em></code><em>. Because of </em><code><em>bedmas</em></code><em>, we need the parenthesis).</em></p><p id="17f46cb5-c400-4b60-97bb-a9fd3dfb0d3a" class="">That works.</p><p id="cf029a8c-a2d7-4ba7-8de1-e339050cf1df" class="">Why?</p><p id="832488ad-6e40-475d-a1b0-c73c46bdbbb4" class="">Because the only thing that a function can take in is a value, and whether you pass that value directly, as in a number, whether you pass that value in as a variable which holds a value, that works, and then you can also pass in expressions.</p><p id="ce46adf6-a3df-49df-9066-096074f264b3" class="">In this example we are not actually passing an expression, we are actually running an expression and that will first run (<code>20 + 20 + 30 + 20</code>) and add it up to $90, and then we pass that raw value of 90.</p><p id="0eff0f28-6508-4663-8951-c63adcbded7f" class="">It is absolutely fine to do something that like, in fact it is pretty common.</p><p id="d6ae2b49-9871-4df9-ae56-dd47730e8fa2" class="">You can even mix and match.</p><p id="e19ab7c9-a1a8-47e6-b5c2-60312977e577" class="">Let&#x27;s say we have a variable <code>const kait = 100;</code> and then we want to add another $50 on top of that. You can do something like..</p><pre id="5938445b-eac8-4579-a5cc-0b15c38d30bb" class="code code-wrap"><code>const kait = 100;
+const myTotal3 = calculateBill(kait + 50, 0.15);</code></pre><p id="003fd94c-20da-42fc-b473-c43b35a7ff18" class="">It still works, even though we are mixing and matching.</p><p id="fbaaf97b-41ed-4bea-8b40-f7b39dfd423e" class="">Let&#x27;s remove the <code>myTotal3</code> example, and do another example where we pass functions as arguments.</p><p id="db89dd62-bc78-46c8-a5cc-7cd18b1e5e5b" class="">Make a function <code>doctorize</code> which will take in a <code>name</code> argument and return the name with &quot;Dr.&quot; in front like so 👇</p><pre id="febeb82f-b704-438c-9764-4a21fdfd5d50" class="code code-wrap"><code>function doctorize(name) {
+return `Dr. ${name}`;
+}</code></pre><p id="87132954-2ccb-410f-96fa-1626d19b658b" class="">And we will make another function called <code>yell</code> that also takes in a name and returns &quot;HEY&quot; with the variable name uppercase like so 👇</p><pre id="27955100-ccdc-475d-8b38-bc35c8453108" class="code code-wrap"><code>function yell(name) {
+return `HEY ${name.toUpperCase()}`;
+}</code></pre><p id="9d933cc9-4e66-40ff-8643-1dd2a5a376e3" class="">You might have noticed that both functions are using the variable <code>name</code>.</p><p id="a3a2be39-7408-410e-9ad2-feb09da6c246" class="">While it&#x27;s not okay to reuse variables in the same scope multiple times, it is okay to reuse parameters.</p><p id="d3e8cf89-02ce-40fd-984a-c8d21cdbeeb7" class="">Why? Because when arguments are passed in, the parameters are only available within that function so you will never run into a collision where the name that you pass into one function is going to overwrite it in the other function. That will not happen because <em>parameters are scoped to the confines of their own functions.</em></p><p id="0a0ba97a-1bea-492c-81f6-d566d8444369" class="">The <code>name</code> parameter that is used in the <code>doctorize()</code> method will never collide with the variable within the <code>yell()</code> method.</p><p id="3951d148-cacb-4bda-bbc2-01fd82027be6" class="">Let&#x27;s go ahead and run it in the console. 👇</p><p id="84e21c35-9355-46ca-be7b-dd702058378c" class="">Let&#x27;s pass the output of <code>doctorize()</code> into <code>yell</code> by typing the following into the console 👇</p><pre id="1ff0556b-0e49-4a47-aa3e-6e889968a224" class="code code-wrap"><code>yell(doctorize(&#x27;wes&#x27;))</code></pre><p id="2dbaa664-154a-4889-b1a1-64c76906bb9a" class="">How that works is:</p><ul id="02837ed7-a4c5-498b-b4cb-4d6f7a653c94" class="bulleted-list"><li style="list-style-type:disc">brackets go first. anything in between the yell parenthesis <code>yell()</code> the code says &quot;okay, I need to first run this function first&quot; , and hopefully that returns a value (which it does, it returns Dr. + the value of the <code>name</code> argument passed)</li></ul><ul id="04811249-fca1-487b-afb8-8903a24edd13" class="bulleted-list"><li style="list-style-type:disc">then the value that is returned from <code>doctorize</code> immediately gets passed into <code>yell</code> as an argument and then that will in turn return &quot;Hey Dr. Wes&quot;.</li></ul><p id="b98659c4-275a-4f6e-a84b-3f04a138c8fd" class="">So to recap -- another way we can pass a value to a function that is the output of a function, because that is just a value at the end of the day and you can run that directly like demonstrated here.</p><p id="5244d572-01c4-46c0-b88f-6ad6cb033fe9" class=""><strong>Default Values</strong></p><p id="839c26ae-d42e-425f-912d-08791d015fa9" class="">Now, let&#x27;s talk about <strong>default values</strong>.</p><p id="f76444f6-2ed0-4784-bcb1-7e29b1affa17" class="">If we were to take our <code>yell</code> function and instead of passing it &quot;Wes&quot;, we do not pass an argument, it will error out.</p><p id="b91e11d0-6fb5-46a0-8e7a-509ed42afdc3" class="">What is happening is that the <code>toUpperCase()</code> function (it&#x27;s technically a method), it&#x27;s trying to run it against something that didn&#x27;t get passed in. This means that if someone forgets to pass a value to the <code>yell</code> function, our code will break.</p><p id="87a46023-2a96-45fe-adac-cb1b0d05aa96" class="">What we can do is we can set something called <strong>defaults</strong>. When you define your function, inside of your function definition, you can set a default by saying name is equal to &#x27;Silly Goose&#x27;, as shown below.</p><pre id="ac4d3d6a-a31c-482e-a38b-711b694fb383" class="code code-wrap"><code>function yell(name = &quot;Silly Goose&quot;) {
+return `HEY ${name.toUpperCase()}`;
+}</code></pre><p id="3f677047-1de8-4553-96bc-03c26a0d3827" class="">If you run it and pass an argument, it will still work.</p><p id="3eda5ec4-ded1-41a4-a5f5-dbfb7b7fd93e" class="">However, when you run it without an argument, the function will no longer error out and instead will fall back to the default value for the parameter and output <code>HEY SILLY GOOSE</code>.</p><p id="f5282fdc-51b7-4d97-a251-725d4afbfa79" class="">So as you define your function, you can specify if someone does not pass this parameter <code>name</code>, use the default.</p><p id="99231b9f-2be0-46db-b57f-92221307e4c9" class="">Let&#x27;s go back to our <code>calculateBill</code> function.</p><p id="41fd8ef4-b76c-4da3-b460-0bd6c2f2470f" class="">You may be thinking that it&#x27;s a bit silly to have to pass in the the tax rate every single time. We will use a default value to set a default tax rate of 0.13, by modifying the function like so 👇</p><pre id="65d7d27b-128e-495d-afe6-53a7625b4d3f" class="code code-wrap"><code>// function definition
+function calculateBill(billAmount, taxRate = 0.13) {
+// this is the function body
+console.log(&quot;Running Calculate Bill!!&quot;);
+const total = billAmount * (1 + taxRate);
+return total;
+}</code></pre><p id="a9bc8e7d-9163-4051-97f8-2b842dbc92fd" class="">What that allows us to do is call <code>calculateBill(100)</code> and only pass the value for the <code>billAmount</code>.</p><p id="f89d0966-6310-4f5f-b67d-d297704c4837" class="">Wes often likes to set default values when he is creating functions. Even just adding a default value for a string variable of an empty string.</p><pre id="d8811903-1193-4b87-862e-6a6ab58c0ed2" class="code code-wrap"><code>function yell(name = &quot;&quot;) {
+return `HEY ${name.toUpperCase()}`;
+}</code></pre><p id="bde38a2f-9d42-4260-948b-bca1e2069c43" class="">That will make sure the function doesn&#x27;t error out, it just won&#x27;t show a name like so 👇</p><p id="1c05dcd1-033f-4883-b313-39cbe53646d0" class="">That is just a safeguard.</p><p id="3a4de4dc-6e91-4b17-8f77-f177872104c7" class="">Let&#x27;s take it one step further and modify <code>calculateBill</code> to also take in a tip rate.</p><p id="5cfbae3c-a712-45d1-bc1f-ecf3bcea24fc" class="">Add another parameter with a default value <code>tipRate = 0.15</code> 👇</p><pre id="3f78dd3c-7dee-4ea3-b67a-d0037b086697" class="code code-wrap"><code>// function definition
+function calculateBill(billAmount, taxRate = 0.13, tipRate = 0.15) {
+// this is the function body
+console.log(&quot;Running Calculate Bill!!&quot;);
+const total = billAmount * (1 + taxRate);
+return total;
+}</code></pre><p id="2d55a20e-d956-416e-954c-a05aa1036b62" class="">Now we will change the way we calculate total like so 👇</p><pre id="4fdfb4d7-b42f-4ce6-ad18-3983b99c6d14" class="code code-wrap"><code>const total = billAmount + billAmount * taxRate + billAmount * tipRate;</code></pre><p id="85d1c82c-3c9a-4eab-ad4c-e7f0f7fb6668" class="">You may notice that as you save the file, Prettier will remove the parenthesis if they are not needed (the BEDMAS rules are not needed here)</p><p id="a62f1030-a147-4c7b-a8c0-e0a018424297" class="">BEFORE SAVING 👉</p><p id="f16abc7f-59f3-4f37-83f4-fdbc2feb225b" class="">AFTER SAVING WITH PRETTIER 👉</p><p id="54275217-d0e6-47ca-9c0e-d52a7928473f" class="">If we run <code>calculateBill</code> and pass it 100 dollars, it will return 128.</p><h3 id="41771726-20bb-454e-8ba9-683f4fdb49ef" class="">How to Fall Back on Default for Only One Parameter</h3><p id="9e874bb0-26bf-4ba4-a63c-ffd91a546398" class="">A gotcha that happens here is <em>what if you want to use the default tax rate but not the default tipRate?</em></p><pre id="baa67afc-ec78-4315-b609-50c2255b5e3e" class="code code-wrap"><code>const myBill4 = calculateBill(100, , 0.2);</code></pre><p id="65e6858a-7b9e-48cf-bec9-b21f7234764e" class="">If you try to just leave the argument empty and use two commas like shown above 👆, it will break.</p><p id="ea1928ca-c9da-4b69-88d3-91625d55fb2e" class="">👆 The error is complaining about an unexpected token <code>,</code>.</p><p id="f8561955-f409-4c1e-a8b8-8ab45e910d1f" class="">So the only thing that you can pass into a function to cause it to use the default is <strong>undefined</strong>. A function will only ever fall back to the defaults if nothing is passed.</p><p id="dc7cd6b4-58b2-464d-ba41-9d43889fd97e" class="">Remember when a variable is not set to anything, its value is <code>undefined</code>. So you cannot go ahead and pass zero here and expect it to false back to the default.</p><pre id="ec59496a-eceb-400d-b82d-964ce62d25a4" class="code code-wrap"><code>const myBill4 = calculateBill(100, undefined, 0.2);</code></pre><p id="4e62d69a-2bc5-4d4f-b3e8-f5920a31b88b" class="">You have to actually pass it <code>undefined</code>, 👆 as shown above, and it will work as we intended.</p><p id="658638d6-ad29-4b0e-830c-03e80dd522cc" class="">It&#x27;s very infrequently that you have to pass <code>undefined</code> like that but it&#x27;s worth knowing how a function decides whether or not to fall back on a default.</p><p id="a9fde35b-62d3-4cf4-bab6-fa9e4b822bbd" class="">It has nothing to do with <strong>truthy</strong> or <strong>falsy</strong> which we will be learning soon.</p><p id="de6b2ca7-e5a9-4db7-a17a-ea5fe809724e" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="bda6d1f5-e8cc-46d8-b705-72f9bc24cf53" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="fa8a06e8-3b65-4a53-a0fb-5d97ec232493" class="">Edit on Github</p></details></li></ul><ul id="3a26b92d-24cd-406e-a68d-fa320e30b25e" class="toggle"><li><details open=""><summary>15 - Different Ways to Declare Functions</summary><p id="f749bda0-20c2-4d02-b357-8322fecc3851" class=""><a href="https://wesbos.com/javascript/02-functions/different-ways-to-declare-functions">https://wesbos.com/javascript/02-functions/different-ways-to-declare-functions</a></p><p id="9e0e208c-80f5-4bf8-a5fe-a5813981a1b6" class="">
+</p><figure id="5f325a2b-8f30-49dd-b311-29297011c579" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs%202.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs%202.png"/></a></figure><p id="9b8e5833-38ed-4056-a4bf-aff31b27ab0f" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="5c0d6807-f6ef-480e-b248-2b2c9d64db22" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="97310521-1d64-4c77-921d-04dd93cc4aae" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="ca268ebe-302b-4365-90f9-f058d10c3dab" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="a6f30b30-d867-4f94-9758-8b909d3c682a" class="">JavaScript, FunctionsEdit Post</p><p id="fa7121f5-533c-41a1-8252-b24943f884f1" class="">One thing you will hear often when getting into JavaScript is that functions are <em>&quot;first-class citizens&quot;</em>.</p><p id="9d17d1b3-a4b4-4b06-9b71-c4c75ddda9c7" class="">JavaScript functions are values in themselves, and they can be stored in variables and passed into other functions.</p><p id="5a3cb6e9-2bd5-4d12-a585-25c33129e9f6" class="">What <em>is</em> a <strong>value</strong> in JavaScript?</p><p id="f697817f-95cc-43f4-b61f-9ce72061850e" class="">We know that in the examples below 👇 that <code>true</code> and <code>100</code> are values.</p><pre id="aeda6eb9-4ec2-4755-880f-b281718dcd17" class="code code-wrap"><code>const age = 100;
+const cool = true;</code></pre><p id="78928628-95d4-4e00-972b-43cd7bb835d8" class="">Those are values that are numbers, or strings or booleans.</p><p id="481f213d-9a78-4f02-8821-487a06485b82" class="">What is cool about JavaScript is that functions can be:</p><ul id="29793f35-7642-48d1-a246-29c11918dbc4" class="bulleted-list"><li style="list-style-type:disc">passed into other functions.</li></ul><ul id="fa97dbcd-1efc-4648-9bd2-9037143e319a" class="bulleted-list"><li style="list-style-type:disc">stored in variables,</li></ul><ul id="c45ab2d8-d07f-4d9c-a6bd-4c8a40c3988a" class="bulleted-list"><li style="list-style-type:disc">moved around like any other piece of data in JavaScript</li></ul><p id="57e1f750-87ae-490e-a11a-a6862bb3196f" class="">That is not true for every other programming language.</p><p id="6363bd31-151e-4114-91ae-0af9a2decac7" class="">Let&#x27;s start by looking at how you can put a function into a variable, and then look at the different ways to declare functions.</p><p id="72933364-b7b8-4e72-a471-66874693933d" class="">Create a new file <code>ways-to-make-a-function.js</code> in the <code>/custom-functions</code> directory.</p><pre id="5665df2c-c18d-49e0-8ded-f32276c8f488" class="code code-wrap"><code>&lt;script src=&quot;./ways-to-make-a-function.js&quot;&gt;&lt;/script&gt;</code></pre><p id="e53d93fa-0d9f-4d3d-bfd4-9e3d17f08857" class="">Add a log of &quot;it works!&quot; and go back to the <code>index.html</code> file and change the path in the script source attribute as shown above 👆 and refresh the browser to ensure it works.</p><p id="caebfb4e-e599-4ae7-9e25-1460260db634" class="">We already know one way to declare a function and that is using the function keyword, like so 👇</p><pre id="9897d1d9-44fd-487a-ac71-b8586c2c944e" class="code code-wrap"><code>function doctorize(firstName) {
+return `Dr. ${firstName}`;
+}</code></pre><h2 id="c53387e7-dd4d-4a9a-81c4-e5b82c99e63d" class="">Anonymous Functions</h2><p id="6ed0b70e-a792-4c56-8321-27e79854ae5d" class="">Let&#x27;s look at some other options we have when declaring functions, starting with an <strong>anonymous function</strong>, which is a function without a name.</p><p id="a8e5e90b-e2f1-49f1-a3b3-81bd3108f754" class="">To make <code>doctorize</code> an anonymous function, you would modify it like this 👇</p><pre id="e7e6d09f-0a02-48fc-bb7d-b5fe20ea707c" class="code code-wrap"><code>function(firstName) {
+return `Dr. ${firstName}`;
+}</code></pre><p id="4b3c64f9-fe6c-42b9-9edd-804f98bae214" class="">However, that is not valid JavaScript. If you try running it in the console you will see an error that says 👇</p><blockquote id="18abc311-39ba-4848-be77-2418059a7314" class=""><p id="9c9592aa-04fe-455a-ab8c-0f275c599775" class="">SyntaxError: Function statements require a function name</p></blockquote><figure id="39d53957-b5a3-4e5f-bdf1-33f51657db9c" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/function-requires-function-name-error.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/function-requires-function-name-error.png"/></a></figure><p id="5994244b-6616-49bf-ad55-2df856777f44" class="">Anonymous functions are only valid in some use cases, such as using them in <strong>callbacks</strong> (we will learn more about that later) as well as in an <strong>IIFE (immediately invoked function expression)</strong>. This example was not a valid use case.</p><p id="99f5e7ce-3adf-4f5f-afa2-a62fb1387121" class="">Why would you ever want an anonymous function?</p><h2 id="0ddba8b3-496e-47c3-ba80-eec60a87ff4c" class="">Function Expressions</h2><p id="3bcde951-febb-4022-a19b-4f43bf3032b2" class="">The next way we will cover to declare a function will help explain that, which is as a <strong>function expression</strong>.</p><p id="1f3533ff-7367-469e-974d-29ad0b583260" class="">Add a comment above that function specifying that it is an anonymous function, then copy the function and comment it out.</p><p id="8470ae79-5e64-4a90-8e16-384f72f9406f" class="">Paste the copied code below the commented-out function.</p><p id="6df93b2e-3e87-4676-b8ca-37fb5bf4ed93" class="">The next way to declare a function is a <strong>function expression</strong>. A function expression is when you store a function as a value in a variable. 👇</p><pre id="494f07ef-fe36-40ce-9690-54632074fb0c" class="code code-wrap"><code>// function expression
+const doctorize = function (firstName) {
+return `Dr. ${firstName}`;
+};</code></pre><p id="d2fd70c5-cf40-429c-8969-953d250fe789" class="">In the code above 👆, we have taken the anonymous function and stuck it in a variable.</p><p id="8197893d-8a33-4fbf-9547-9f3ba0c0b6a1" class="">If you refresh the page, you will see that in the console, we have <code>doctorize()</code> available to us, and we can call it like we did in previous videos.</p><p id="415c8719-5ab7-40c1-86dc-5a3f5892268c" class="">Having the ability to store a function in a variable is what leads people to say functions are <em>&quot;first-class citizens&quot;</em>.</p><p id="57c5ac87-5583-4bef-957c-2cc45f881b5d" class="">You may come across developers who say to not use function expressions because they used to give unhelpful errors.</p><p id="2c8dd7bb-a94c-4b96-8172-badc15c3c513" class="">Previously, anonymous function errors would just tell you that they occurred in an anonymous function, without giving you any clue where the error is happening. However, now the dev tool errors are better.</p><p id="1b329ee2-8570-47dd-be2b-c48bd2ecbc99" class="">Here is an example that demonstrates what they mean by that 👇</p><pre id="4fdcb942-b76a-49ab-a677-ee66b15d43eb" class="code code-wrap"><code>// function expression
+const doctorize = function (firstName) {
+doesntExist();
+return `Dr. ${firstName}`;
+};</code></pre><p id="52d523b5-0c7f-4a97-bea0-c321cfc5a444" class="">In our case, it does now tell you it happens inside of doctorize on line 12.</p><p id="0a23214b-7843-4cc7-a95a-c45a6df6a42e" class="">Although the function is technically an anonymous function without a name, the browsers will now infer the name of the function from the variable name and use that in the errors.</p><h3 id="cf5933f0-557a-465a-b716-d6c0778ece2b" class="">What is the difference between a function declaration and a function expression?</h3><p id="1d5b72db-55c9-44e3-b9d1-5f8ac5c7131e" class="">What is the difference between doing a function declaration and a function expression? Why would you want to use one over the other?</p><h2 id="971ac0e2-e424-4a10-8965-d58aae10fa31" class="">Hoisting</h2><p id="af02549a-29f7-4919-b1d0-5498673dd190" class="">There is only one real difference which is how they operate in something called <strong>hoisting</strong>. We will go over this in detail in a future video but for now we will just quickly cover the concept.</p><p id="a7400cf0-a487-4692-9d4b-a1d667322495" class="">Duplicate the <code>doctorize</code> function and name it <code>doctorize2</code>, like 👇</p><pre id="a0311764-bd1d-4917-b9c2-0dd141ad2de9" class="code code-wrap"><code>const doctorize = function (firstName) {
+return `Dr. ${firstName}`;
+};
+
+function doctorize2 (firstName) {
+return `Dr. ${firstName}`;
+}</code></pre><p id="552db6d6-9294-4a59-9249-8a57efd91911" class="">Let&#x27;s say right before the first <code>doctorize</code> function, we called <code>doctorize</code> and passed it the value of &quot;wes&quot;, as shown below 👇, do you think the code will run?</p><p id="a1525823-062c-4f54-9166-93606b40464f" class="">If you run a function before you define it, does it work? Refresh the page and look at the console to test it</p><pre id="3f5c5998-36e9-4831-9c50-0528ac763e59" class="code code-wrap"><code>doctorize(&quot;wes&quot;);
+
+const doctorize = function (firstName) {
+return `Dr. ${firstName}`;
+};
+
+function doctorize2 (firstName) {
+return `Dr. ${firstName}`;
+}</code></pre><p id="8c861ea7-8ce5-4fba-b686-3904e3007372" class="">Did it work?</p><p id="515fe85b-3872-4d01-a5f7-3c3a2a23e86b" class="">Nope! You get an error like:</p><blockquote id="b1577fde-e398-4574-b298-ce2ded3a9389" class=""><p id="9a3c2f0a-be13-4db3-98a9-912c136cbf56" class="">Uncaught ReferenceError: Cannot access &#x27;doctorize&#x27; before initialization at ways-to-make-a-function.js:78 (anonymous) @ ways-to-make-a-function.js:78</p></blockquote><p id="0056a6f1-1eef-45d1-ba81-fadf37ccb3b6" class="">What about <code>doctorize2</code>?</p><pre id="ca315564-38e1-4896-be71-39b0a9f14ab8" class="code code-wrap"><code>console.log(doctorize2(&quot;wes&quot;));
+
+const doctorize = function (firstName) {
+return `Dr. ${firstName}`;
+};
+
+function doctorize2 (firstName) {
+return `Dr. ${firstName}`;
+}</code></pre><p id="841e7445-a9c5-4e3d-bd0d-441865baff79" class="">It does work!</p><p id="0fe82227-d603-4d45-b3a1-613e41c04ae2" class="">Why does a function declaration work if you call it before you define it, but a function expression does not, especially when we created the exact same function in both cases?</p><p id="3113d761-ad27-4159-ab2f-67e22f95965d" class="">Functions that are declared with the <strong>function</strong> keyword are called <strong>hoisted</strong>.</p><p id="17e0d863-e4f8-4018-b84b-42c0b5431201" class="">JavaScript will take all functions with the function keyword and hoist them up, up, up and says &quot;you&#x27;re a function, you belong at the top of the file&quot;. That means anywhere you call the function, it will be available to you.</p><p id="94445a26-72e8-4c02-a8c9-1b02dced938a" class="">JavaScript does <strong>not</strong> hoist variable functions.</p><p id="8b4cddf8-8767-4e6d-85e4-d804ae9fea47" class="">When is that useful?</p><p id="8d38b83e-4502-4b81-9c6a-a6e7b10f4bcd" class="">Very rarely, Wes has never used that in his entire career except for tiny use cases.</p><p id="5eb30cb5-6828-42db-8828-824d313f0c43" class=""><strong>Hoisting</strong> is more of an interview question that you may be asked.</p><p id="a1bfd39d-2f3c-4d87-a3e5-2498ebc942fe" class="">Essentially it means that JavaScript will take functions and bring them up to the top of the code before they are called. This gives us the ability to run a function before it is defined.</p><p id="e5d4e061-fe08-45d0-857f-2c6489ab2573" class="">Remove the <code>doctorize2</code> function from the JavaScript file which should leave just the function expression.</p><h2 id="3ba808f0-db75-4286-8c65-28d783b1dd6a" class="">Arrow Functions</h2><p id="d9c027ce-0e1b-436e-b9e6-46defa1fdd31" class="">The next way to make a function is using an <strong>arrow function</strong>.</p><p id="3f35f71b-cccf-4b97-ba9a-f1d588e890ee" class="">Arrow functions themselves have a few different ways of being declared. They are a newer addition to JavaScript, and were added in the last couple of years.</p><p id="1b010c57-b533-43ee-adb2-4e327161a2dd" class="">They have a few benefits:</p><ul id="94437f0c-c1ac-48af-9c0d-b900d4035b53" class="bulleted-list"><li style="list-style-type:disc">concise syntax and tend to be shorter</li></ul><ul id="e4a1dd4d-8799-4bae-a86b-57174d8a99ce" class="bulleted-list"><li style="list-style-type:disc">allow for writing one line functions</li></ul><ul id="2c276ffa-0e6c-41a2-b614-de660b59e2cf" class="bulleted-list"><li style="list-style-type:disc">do not have their own scope in reference to the <code>this</code> keyword <em>(we will cover the </em><code><em>this</em></code><em> keyword in a future video)</em></li></ul><p id="24e295bd-9dc2-4132-947c-ee66d4c1cf57" class="">Arrow functions are also <strong>anonymous functions</strong>, which means there is no way to declare an arrow function the way we do a function declaration <code>function doctorize() {..}</code>. You always have to stick it into a variable.</p><p id="0e9c50b4-7420-4a23-b2e0-61566fd10421" class="">To illustrate this, we will begin by writing a regular function. 👇</p><pre id="c22a83f9-65ca-4ca1-8288-8ed20cd509e7" class="code code-wrap"><code>function inchToCM(inches) {
+const cm = inches * 2.54;
+return cm;
+}</code></pre><p id="87dbb238-83f7-438d-b7e8-37fa28d1b51a" class="">This function will take in inches and return centimeters.</p><p id="eb9ba18f-c21e-4608-825b-9f0a12061026" class="">Let&#x27;s try it out in the browser.</p><p id="fb3ece00-224b-419b-b8ae-c4e672d7fd40" class="">This is a pretty simple function, but it still takes up 4 lines of code.</p><p id="4d0b7d22-4fea-4ad6-a303-049835d450f0" class="">We can make it a bit shorter by instead of creating a variable and then returning a variable, we can just return the calculation directly.</p><pre id="4b60a932-4b17-4495-bb1e-236908c9ce5d" class="code code-wrap"><code>function inchToCM(inches) {
+return inches * 2.54;
+}</code></pre><p id="9e9b861d-117e-4e11-b712-16789a75263b" class=""><em>Note: You may notice in the above 👆 screenshot that the line of code with </em><code><em>return cm;</em></code><em> is now greyed out. That is because that code will never be reached, since we are returning in the line of code above it. When you return from a function, the function stops running.</em></p><p id="661f6b57-1f88-46bd-af28-fb643a7d078a" class="">Now we can convert it to an anonymous function as a step on the way to making it an arrow function.</p><pre id="26b7f776-683d-4a4d-9bb5-1dff4efd4084" class="code code-wrap"><code>const inchToCM = function (inches) {
+return inches * 2.54;
+};</code></pre><p id="b78cc367-9304-44ff-a888-57978f3df30c" class="">Refresh the page to check that it still works, which it should. All we have done is turned it into an anonymous function and stored it in a variable.</p><h3 id="800b3e40-b701-439c-8f02-d842bcb11179" class="">Different Ways to Write Arrow Functions</h3><p id="6e260864-0fdf-4664-a9a9-7f5c71e31f15" class="">Let&#x27;s convert it to an arrow function now, which we can do a few different ways.</p><p id="9478b369-7f17-41c1-95c8-666382089ba2" class="">Instead of writing the word function, we will delete it like so 👇</p><pre id="a4d4a1eb-0c3a-4f3c-b06b-0e5db1679dca" class="code code-wrap"><code>const inchToCM = (inches) {
+  return inches * 2.54;
+}</code></pre><p id="49e67b0d-f37b-4a8c-a834-272eff100c93" class="">Now we will go to the right of the parenthesis and add what is called a <strong>fat arrow</strong> <code>=&gt;</code>.</p><p id="b2bd6dc8-5008-4408-b386-10f3ebd6d413" class="">In programming, <code>-&gt;</code> is referred to as a <strong>skinny arrow</strong> and <code>=&gt;</code> is referred to as a <strong>fat arrow</strong>.</p><pre id="e77e73c4-6653-44ba-a82f-02c26cba9577" class="code code-wrap"><code>const inchToCM = (inches) =&gt; {
+return inches * 2.54;
+};</code></pre><p id="3823fe6f-5ef1-4693-924f-065310a4ca9b" class="">When you save, you might notice that Prettier modified the function for you and removes the parenthesis, which is not what we want because we are trying to change it to an arrow function in steps.To disable that, add <code>/* eslint-disable */</code> right above the function.</p><p id="127fad75-6d8e-4cb1-acc9-b1d7ea110c11" class=""><em>The spaces between the parenthesis and the arrow in the following code 👉 </em><code><em>(inches) =&gt; {</em></code><em> does not have to be there, this is the same code with different whitespace and 👉 </em><code><em>(inches)=&gt;{</em></code><em> still works, but it&#x27;s more readable with spaces.</em></p><p id="7dd597f8-207a-4f04-a7e2-03b4b0fb673e" class="">If you refresh the page and run it in the console, you will see that it still works.</p><h3 id="29ee9c21-479a-4780-a0ac-d5e2e45414d7" class="">Implicit and Explicit Returns</h3><p id="f3b7d81b-511f-485b-88aa-b9c8cc5c680a" class="">The next thing we will do is what is called an <strong>implicit return</strong>.</p><p id="16f1c7dd-9861-499e-8d51-506e97893fe4" class="">An <strong>explicit return</strong> is when you type the <code>return</code> keyword before returning a value such as 👇</p><pre id="38d07662-47ef-4329-8589-eb0543db1b0b" class="code code-wrap"><code>return inches * 2.54;</code></pre><p id="8f8f59de-49c9-4bbb-81cb-9c662d34a316" class="">That is an explicit return meaning that <em>we explicitly return the value there</em>.</p><p id="59dc4a92-35ec-455f-891d-9be6763149bc" class="">An <strong>implicit return</strong> is returning it without actually having to type the keyword <code>return</code>. Arrow functions allow us to use implicit returns.</p><p id="7c14b674-5055-44c3-89ce-d4fcf952658e" class="">Let&#x27;s start by putting the function on one line, like so 👇</p><pre id="f52b09d6-6c48-410c-bc53-7fece80d31f7" class="code code-wrap"><code>const inchToCM = (inches) =&gt; {
+return inches * 2.54;
+};</code></pre><p id="869832c6-f57d-47c2-849c-972b3d6cb103" class="">To get rid of the <strong>explicit</strong> return:</p><ul id="5b39f1e4-4fdc-4d17-82f3-2c9f8aa36f6c" class="bulleted-list"><li style="list-style-type:disc">first put the function on one line</li></ul><ul id="b67519e2-1326-4612-9ef7-beed4e0ccc7b" class="bulleted-list"><li style="list-style-type:disc">then delete the curly brackets<code>{</code> <code>}</code></li></ul><ul id="fd4b7ff8-0d13-451e-8117-44e2db3d07f3" class="bulleted-list"><li style="list-style-type:disc">finally, delete the <code>return</code> keyword</li></ul><pre id="95cf1d80-db94-4479-8ea8-f03a4becda28" class="code code-wrap"><code>const inchToCM = (inches) =&gt; inches * 2.54;</code></pre><p id="e52ffe8b-d2ea-46e9-8981-88cdf32e468d" class="">Your code should look like the above 👆</p><p id="8e52a682-9de7-4c49-9d88-b524bf9fc2c2" class="">What we did there is:</p><ul id="49846381-3502-4484-a5b1-9b7d329f6f44" class="bulleted-list"><li style="list-style-type:disc">we made an arrow function <code>inchToCM</code> which takes in one parameter, <code>inches</code></li></ul><ul id="cc7e0b2f-4e58-487d-b629-eacf60b43694" class="bulleted-list"><li style="list-style-type:disc">modified the function to implicitly return the value.</li></ul><p id="7957e48a-78ac-4a28-bb2e-059d574e5d7f" class="">The way we can tell this is an implicit return is that:</p><ol type="1" id="e5743dd9-218c-4922-8106-cb3ff9ba23a4" class="numbered-list" start="1"><li>it&#x27;s all on one line</li></ol><ol type="1" id="cb2e8865-b1c3-4777-a5e6-e2843ef7234a" class="numbered-list" start="2"><li>there is no return keyword</li></ol><ol type="1" id="c3c8e109-a23b-4e02-aafe-482ee88a3b91" class="numbered-list" start="3"><li>there are no curly brackets</li></ol><p id="c9078fa4-b6eb-4a67-9750-e3f2c5cc1503" class="">If you refresh the browser, you will see that it still works.</p><p id="ebbc54ef-69c3-435a-a65b-79a2994cdc09" class=""><em>To recap: what we did there is we removed the function block, modified the code to be on one line, and removed the explicit return.</em></p><p id="4798a6bf-80b4-48d5-858c-fb1aaa1069af" class="">Finally, and this is more of a stylistic choice, if there is only ever one parameter for your function, you can actually get rid of the parenthesis around the parameter as well, like so👇</p><pre id="ed5107c7-5352-43e5-b15e-f2b63c253887" class="code code-wrap"><code>const inchToCM = inches =&gt; inches * 2.54;</code></pre><p id="bd51fb54-cde5-4d1f-a6e1-f8bb6854d6b0" class="">If there is only one parameter in your arrow function, you can remove them no problem. It is still a valid arrow function.</p><p id="45196dad-75a7-4a78-9bb6-29f7a78ed3e2" class="">Let&#x27;s do another example!</p><p id="6fca2ee7-177a-4206-892c-07b9d59ea573" class="">Make a function called <code>add</code>, that takes in two parameters <code>a</code> and <code>b</code>, with the default value of <code>b</code> being 3. We will then make a temporary variable called <code>total</code> which we return.</p><pre id="eaadc50f-789c-4dad-8a4d-4f6e07c7971f" class="code code-wrap"><code>function add(a, b = 3) {
+const total = a + b;
+return total;
+}</code></pre><p id="5a426d9d-9a44-45ff-b592-17324f80f809" class="">Pause here, try to convert it to an arrow function yourself and then come back once you have tried it.</p><p id="c3c68298-a75f-4b73-9341-3a47f8d26fb1" class="">Let&#x27;s first see if it works as it originally was.</p><p id="2ba18cb4-ca5f-48d0-884d-577b3d3c422a" class="">Save the code from above 👆 and refresh <code>index.html</code> in the browser.</p><p id="5cb15db0-dc01-453f-8a3f-822070802023" class="">Open the console and test the function.</p><p id="afe825fc-c914-45c8-8547-64e6e8d454dc" class="">You might notice that dev tools is giving us an annotation <code>?b</code> in <code>ƒ(a,?b)</code> as shown above.</p><p id="320ab673-47ea-4191-a591-cac9dc30af1f" class="">That little question mark in front of <code>b</code> is telling us that the argument is optional. <code>b</code> is optional because there is a default value to fall back on.</p><p id="05b9198f-f7b9-4a89-b4bd-3b8a4954db8e" class="">Stick the function in a variable <code>add</code> and remove the function name, like so 👇</p><pre id="a29cbf4d-1458-4c83-bcab-4cdde5337f06" class="code code-wrap"><code>const add =&gt; function (a, b = 3) {}</code></pre><p id="6fea096a-7324-4b62-bb56-87e31b3b5159" class="">Next, convert it to an arrow function. Get rid of the keyword function and add a fat arrow to the right of the parenthesis, as shown below.</p><pre id="f4e3044a-e542-47ee-a6af-acada0d92890" class="code code-wrap"><code>const add = (a, b = 3) =&gt; {
+const total = a + b;
+return total;
+};</code></pre><p id="77c57ee3-9db6-4885-832f-36be574bf254" class="">Modify the code to return <code>a + b</code> and get rid of the total variable. 👇</p><pre id="12b2d1f4-f59c-43d8-ae02-0429c3b3b3d7" class="code code-wrap"><code>const add = (a, b = 3) =&gt; {
+return a + b;
+};</code></pre><p id="57682a80-d06e-4d23-8d16-fe232e5f0c69" class="">Put the function on one line.</p><pre id="41df315a-4495-4cb4-85bc-6cce83a9991d" class="code code-wrap"><code>const add = (a,b = 3) =&gt; { return a + b; }</code></pre><p id="864989a6-86a6-4286-829a-9c6e3bf08de0" class="">Get rid of the function block and the <code>return</code> keyword like so 👇</p><pre id="72f599d3-08f4-4445-812c-d95d4544bd9d" class="code code-wrap"><code>const add = (a, b = 3) =&gt; a + b;</code></pre><p id="e34ed51c-5a21-40ef-9d73-cd6ef7530d39" class="">Now we have a short arrow function!</p><p id="a5410715-bab4-455f-b071-1368acf3589b" class="">You may have noticed that we did not get rid of the parentheses, and that is because there is more than one parameter.</p><h3 id="240fb8c7-9e1e-407f-acc7-2e91c03b72fe" class="">Arrow Function Gotcha&#x27;s</h3><p id="a891a51f-7585-4268-9166-f674ff368727" class="">There are a couple of other gotchas with arrow functions that we need to know about.</p><p id="e9bd1fd1-b310-4959-a887-0c435e227ba9" class="">Let&#x27;s go over them now.</p><h3 id="df85e007-1f7c-4b61-a314-52bd35a28d10" class="">Returning an object</h3><p id="caca6647-085a-47dc-a46b-36c580ab7d28" class="">Let&#x27;s make a function <code>makeABaby()</code>, which will accept a first and last name for the baby.</p><p id="130f893c-8aa9-4581-9c2d-cdc6c737483d" class="">Inside of the function, create an object <code>baby</code> with a <code>name</code> and <code>age</code> property. 👇</p><pre id="8c6d7375-474b-45e2-9b2c-01db7ce8f7c4" class="code code-wrap"><code>function makeABaby(first, last) {
+const baby = {
+    name: `${first} ${last}`,
+    age: 0,
+};
+
+return baby;
+}</code></pre><p id="a61d4473-9cd0-4fcf-b0fe-6131b05bcc10" class="">It works!</p><p id="bcfd8a88-55cc-4a9e-89b4-6336c7e82259" class="">How could you convert this to an arrow function?</p><p id="2f9761af-1fda-461f-81ca-a83870055a36" class="">Stick it in a variable and convert it to an arrow function like so 👇</p><pre id="56105f4d-d6d6-409f-9ada-82fda8cbecbd" class="code code-wrap"><code>const makeABaby = (first, last) =&gt; {
+const baby = {
+    name: `${first} ${last}`,
+    age: 0,
+};
+
+return baby;
+};</code></pre><p id="e6d20399-9615-4c14-86d4-e942f82bdc5a" class="">If your function needs to do some stuff inside of the block, you can leave it as is. This is a perfectly valid arrow function.</p><p id="d9c6432b-faf6-4125-9d31-8664ea3e0e3a" class="">If the only thing you&#x27;re using the arrow for is the ability to type less as well as some of the benefits of not scoping this, this is totally valid.</p><p id="56830a10-c3f3-41cc-b3ef-99b40d75bd52" class="">However, we can take it a bit further.</p><p id="d9657245-49d5-4285-8e7b-f6ea63ce5f36" class="">Instead of declaring the <code>baby</code> variable, we will just return the object directly. 👇</p><pre id="832f4ad6-c7c2-47bb-b1ba-ac5daa59a14c" class="code code-wrap"><code>const makeABaby = (first, last) =&gt; {
+return {
+    name: `${first} ${last}`,
+    age: 0,
+};
+};</code></pre><p id="194c06b0-586c-4506-add5-1445d0501c09" class="">Now the question is... how would we do the implicit return?</p><p id="1dc2463b-27f9-40a2-96f4-71b0f9859329" class="">We can put it on one line, no problem <em>(objects can be put on one line)</em>.</p><p id="c893ca92-05dd-4425-8c4d-59304b5e6692" class="">But how would we return it?</p><p id="3517792f-d6b0-4487-850c-bf9c7377109f" class="">Let&#x27;s try it the way we know.</p><p id="a6df1034-df53-449f-84d8-8f84669e25d7" class="">Put it on one line.</p><pre id="1d906d51-30aa-42e4-908b-4cae2e189d30" class="code code-wrap"><code>const makeABaby = (first, last) =&gt; {
+return { name: `${first} ${last}`, age: 0 };
+};</code></pre><p id="db23406a-9410-42bb-a28d-e23c4607e87f" class="">To make it an implicit return, get rid of the curly brackets and the <code>return</code> keyword. 👇</p><pre id="b45018bc-59aa-4b63-8ecc-b354d4b85c8f" class="code code-wrap"><code>const makeABaby = (first, last) =&gt; { name: `${first} ${last}`, age: 0};</code></pre><p id="6ffc13c6-6bc2-4c1b-915a-20f587604b4c" class="">However, you will see the above 👆 error if you try to run the code like that.</p><p id="d6b4edf5-d205-4fbb-9a4d-a4113dd49c9b" class="">What&#x27;s happening there is it thinks that the curly bracket from the baby object is actually the curly bracket from the block of the function.</p><p id="1ac2f2a6-3e9f-4b34-8ef2-641594d97e7e" class="">Curly brackets in JavaScript can be the creation of an object, or a block of code.</p><p id="24930944-241e-4e0e-85ab-ad9bb7636e61" class="">What are your options to implicitly return an object then?</p><p id="d29730c7-2b56-474d-b974-892416b5d1b1" class="">If you want to implicitly return an object in JavaScript, you just pop a set of parentheses around the thing that you are returning and then the code will know that it&#x27;s not the block to the function.</p><p id="f1b8ea63-3406-4048-bef6-f581e5bc9e5f" class="">Try it by modifying your code like so 👇</p><pre id="6f922694-2ed8-4243-ae33-4c08c26c05fa" class="code code-wrap"><code>const makeABaby = (first, last) =&gt; ({ name: `${first} ${last}`, age: 0 });</code></pre><p id="2d31b0a9-73e3-4729-9131-e999bc9b7c98" class="">If you try it in the code, it still works.</p><p id="2327941c-bd45-4720-b631-69ba02943674" class="">Now... is there a benefit of having the function this way or how we did it originally? Wes doesn&#x27;t think so.</p><p id="c85ab3e4-6692-4a3b-804e-4ba5c5bb57b6" class="">You&#x27;re not really getting much benefit, in fact the way we had it originally was a bit more readable.</p><p id="fbe93d4f-7475-4b0f-9767-6412ec8e3003" class="">There is nothing wrong with doing a regular function, because you want to think about your future self.</p><p id="aeb09821-1ac0-4862-8703-e52e248b24b2" class="">Let&#x27;s say you come back to the code in 6 months, what will be easier for you to read?</p><p id="64bfa60c-0b56-4d0e-9f17-1211626a5922" class="">Don&#x27;t always go to making an arrow function by default, and hopefully throughout this course it will become more clear when you should reach for an arrow function (specifically with arrays and doing maps, reduce and filters).</p><h2 id="ad7ee7a2-d809-4261-b5dc-5d4239cbfc81" class="">IIFE</h2><p id="956c4a05-3fea-4d60-ae94-5018172ae872" class="">The next way to create a function is using an <strong>IIFE</strong> (pronounced <strong>iffy</strong>).</p><p id="2a2cc5bb-31cc-467b-aec6-68c9aa72da95" class="">That is an <strong>immediately invoked function expression</strong>.</p><p id="3a579d02-1255-4f07-af05-9af5cb0daea1" class="">We will do an example to demonstrate what an IIFE is.</p><p id="51b4e375-3ad4-4b0f-9267-02bb42e473af" class="">Comment out all the other JavaScript code, add the code below and then refresh <code>index.html</code>. 👇</p><pre id="0c1cba20-2738-4b32-be66-e69f9836f339" class="code code-wrap"><code>function(){
+console.log(&#x27;Running the Anon function&#x27;);
+return `You are cool`;
+}</code></pre><p id="6d084a27-dab2-450d-9fb1-f430da119ecd" class="">Nothing happens when you refresh <code>index.html</code> because it&#x27;s not allowed to run. We talked about how you can stick a function in a variable and that is okay.</p><p id="d0fae95c-88ee-400f-9ec0-6f487acaa563" class="">Another way to run this function is what is called an <strong>immediately invoked functional expression.</strong></p><p id="cebc359a-daa0-4dbb-a3a8-a281a9cc351b" class="">What you can do is wrap that function in a parentheses, <em>(parentheses always run first in JavaScript)</em>, and what that will do is return a function value and you can immediately run that function by putting parentheses on the end like so 👇</p><pre id="2dbdfe4e-b544-42bb-abb9-04d3f4b8db36" class="code code-wrap"><code>(function () {
+console.log(&quot;Running the Anon function&quot;);
+return `Your are cool`;
+})();</code></pre><p id="3b48980c-9e48-48c0-ae6e-d74b6e1f8fda" class="">Now, if you refresh the page, you will see the log in the console which means our function expression was immediately invoked. It was immediately run.</p><p id="7da8b94f-04be-459e-8072-764bd319b3fd" class="">What is the benefit of doing something like that?</p><p id="c1dd5c9e-b589-44d9-9c25-e65f70104446" class="">It used to be very popular before we had modules and block scope.</p><p id="26ee6125-fe17-4a05-bbce-a8e097f4969b" class="">When we get into scoping, you will learn that a function declares its own scope, and it&#x27;s often handy to even declare functions of them, and it will provide us a sheltered space where the variables can&#x27;t leak inside. We will go over that later in the course.</p><p id="8255d49f-a3f7-4993-afc9-1b09ddbab5d1" class="">For now, just know that it&#x27;s an immediately invoked function.</p><p id="e52f2888-b65f-4b55-bb4c-7d8298c5902d" class="">One last thing is what if the function took an age? You would pass it like so 👇</p><pre id="211e4f54-bd15-4cc3-a24b-9d82db091c37" class="code code-wrap"><code>(function (age) {
+console.log(&quot;Running the Anon function&quot;);
+return `Your are cool and ${age}`;
+})(age);</code></pre><p id="afe7f841-e72c-4887-a65a-64bee7c916e4" class="">That isn&#x27;t something you will be using that often, but it does come up when you need to create something like a <strong>closure</strong> <em>(which will be explained in future video).</em></p><h2 id="e92f2fa8-d51d-400d-9883-811be9c9312d" class="">Methods</h2><p id="24dfc469-382f-4d04-bd53-2e8b7e0a4683" class="">The next type of functions we will learn about are referred to as <strong>methods</strong>.</p><p id="2e65f567-7e4e-48f6-8002-acf6add97836" class="">A method is simply a function that lives inside of an object.</p><p id="932bb620-1706-4de0-96ea-23576cc4dd95" class=""><em>(Wes has so far sort of been saying that methods and functions are the same thing and we have a video coming up that focused entirely on creating your own methods that will make that clearer).</em></p><p id="727b0d46-55ad-4590-90db-86e320a641f6" class="">So far Wes has been telling us that <code>console.log()</code> is a function.</p><p id="3f6a661e-e86c-4821-8bd6-974cbf7ab4ac" class="">If we take a look at the function <code>console.log</code> in the browser, we will see that he has been lying to us.</p><p id="610a27fb-55a2-4f33-8f0d-cf0b00d46a8a" class=""><code>log()</code> is actually the function that lives inside of <code>console</code>, and <code>console</code> is actually an object.</p><p id="17eeb473-ee26-4171-a5d3-05a79002e388" class="">If you type <code>console</code> into the console and expand it, you will see that there are all kinds of things within it. 👇</p><p id="f88377e2-52ad-404d-b0fd-3e18126a40de" class="">Scroll down to log, and the little ƒ you see means that it&#x27;s actually a function 👉</p><p id="a0a46f0b-ebc0-4e7c-bca5-60e76aef73d8" class="">So <code>console</code> is the object and <code>log()</code>, <code>count()</code> or any of the other functions listed under the console object are the functions.</p><p id="e23bc09b-5041-41fc-a597-fbdc1d969fb1" class="">We have a special word to describe functions that live inside of an object and we call those <strong>methods</strong>.</p><p id="e627459b-d03b-4fab-9ac7-1675d552812a" class="">So you can actually do something like this.. 👇</p><pre id="0309a7ce-e1dd-4d93-8f13-763db04cd212" class="code code-wrap"><code>const wes = {
+  name: &quot;Wes Bos&quot;,
+sayHi: function () {
+console.log(&quot;Hey wes!&quot;);
+return &quot;Hey Wes!&quot;;
+},
+};</code></pre><p id="bcd6807d-fc43-47d8-9a4a-15ef87fa3bda" class="">Try it in the browser.</p><p id="b429fbcc-f9a3-4791-8833-2b93112ce83e" class="">First, type <code>wes</code> and hit Enter. Next, type <code>wes.sayHi()</code> and hit Enter.</p><p id="0c6d5b50-d19c-4127-a921-7cb77f9248a1" class="">You should see the following 👇</p><p id="19be2472-a935-4e8d-99e9-074a91b7c8de" class=""><code>wes.sayHi()</code> is a <strong>method</strong>. You make it a property on your object and you set it to a function.</p><p id="da3c7751-2a96-4773-b160-0ea97556cb80" class="">Those functions can also have names, for example sometimes you will see something like this 👇</p><pre id="069be525-5f28-4ed3-ad88-190cccf48eb7" class="code code-wrap"><code>const wes = {
+  name: &quot;Wes Bos&quot;,
+sayHi: function sayHi() {
+console.log(&quot;Hey wes!&quot;);
+return &quot;Hey Wes!&quot;;
+},
+};</code></pre><p id="64e28b4b-1b19-4c8b-92e5-87647f605b56" class="">Wes doesn&#x27;t see the point of doing that, but it is technically allowed.</p><p id="22da9243-0def-4c10-85e3-042984b85d6e" class="">There is also a new shorthand method. 👇</p><pre id="dd298700-c882-46fd-87f6-a8a620b7564d" class="code code-wrap"><code>const wes = {
+  name: &quot;Wes Bos&quot;,
+// Method!
+sayHi: function sayHi() {
+console.log(&quot;Hey Wes!&quot;);
+return &quot;Hey Wes!&quot;;
+},
+//Short hand Method
+yellHi() {
+console.log(&quot;HEY WESSSSS&quot;);
+},
+};</code></pre><p id="50cdaad0-2f2a-4fba-aefe-a277dbd93e58" class="">If you refresh the browser and type <code>wes.yellHi()</code>, it will work.</p><p id="cbf3b62d-86d2-4049-a99c-5be7841be54e" class="">What we did here is instead of writing <code>sayHi: function()</code> <em>(which does work)</em>, we can get rid of the <code>function</code> keyword and the <code>:</code>. That makes it into a property, <code>yellHi()</code>, which is set to the function <code>yellHi</code>.</p><p id="c28172c5-b781-400e-b723-3bf55739b323" class="">It&#x27;s just a shorthand way to write methods inside of an object.</p><p id="86ac59ce-f456-44e2-afae-4b7d11124d9e" class="">There is another way, which is an arrow function. 👇</p><pre id="297d5987-2e7e-41f4-8e40-6ff115e1ac78" class="code code-wrap"><code>const wes = {
+  name: &#x27;Wes Bos&#x27;,
+// Method!
+sayHi: function sayHi() {
+console.log(&#x27;Hey Wes!&#x27;);
+return &#x27;Hey Wes!&#x27;;
+},
+// Short hand Method
+yellHi() {
+console.log(&#x27;HEY WESSSSS&#x27;);
+},
+// Arrow function
+whisperHi: () =&gt; {
+console.log(&#x27;hiii wess im a mouse&#x27;);
+}
+};</code></pre><p id="fe6ada58-0816-4f24-9494-8b482d17e1b6" class=""><code>whisperHi()</code> is an arrow function that doesn&#x27;t take any arguments, but it could take in arguments if you wanted.</p><p id="cb8c55ce-7d88-4d09-a57c-7dd1934c798b" class="">Those are 3 different ways to do methods and the shorthand is the most common way.</p><h2 id="2c93cea7-3916-42fc-8b9c-3464f007ca2d" class="">Preview of this</h2><p id="60c2d5f4-9e3a-4dd6-a778-9c7f44b66a43" class="">The only reason you would do an arrow function is because you don&#x27;t want to access <code>this</code>.</p><p id="3a4b8086-c9c5-464a-a663-cd1f9bf67d42" class="">We will go over that in detail when we get to objects but really quickly Wes will show us.</p><p id="29213fe1-c2fa-4989-98d0-897ba15dca6e" class="">Modify the <code>sayHi()</code> method to add <code>console.log(this);</code> and run it in the browser 👇</p><pre id="c15fbb22-3af9-4f7b-8623-66b7e362837c" class="code code-wrap"><code>sayHi: function sayHi() {
+console.log(this);</code></pre><p id="b53c13ed-d14c-4a0c-b7e4-7a9bed1b8e8b" class="">You will see that on the line in our code that we logged, like <code>50</code>, the value of <code>this</code> has been returned.</p><p id="1101cec3-60d5-4b83-ae99-13b13b9b9777" class="">((<code>this</code>)) is equal to the object that it was called against.</p><p id="6f755656-c2dc-4370-8813-5847c86bbff2" class="">That is cool because you could actually do something like this 👇</p><pre id="8ddb19fe-9100-441f-bb3b-b7edc6fd543a" class="code code-wrap"><code>const wes = {
+  name: &#x27;Westopher Bos&#x27;,
+// Method!
+sayHi: function sayHi() {
+console.log(`Hey ${this.name}`);
+console.log(&#x27;Hey Wes!&#x27;);
+return &#x27;Hey Wes!&#x27;;
+}</code></pre><p id="20bf072d-d33f-40b6-b2a4-078e679146b2" class="">You would see it immediately fills the value of the name property. 👇</p><p id="4ba6d80a-2cd5-41d8-81a5-bfdfea1045ec" class="">That will not work in an arrow function because they take the parent scope of <code>this</code>. We will explain that in the future.</p><h2 id="8cd841d1-5755-4c74-a0fc-b402e178b02f" class="">Callback Functions</h2><p id="721b8b96-f30d-471b-8695-e5218a5af152" class="">The final thing Wes wants to talk to us about is something called <strong>callback functions</strong>.</p><p id="0e75290b-fdcb-42b5-b7e4-85d60733085d" class="">So a callback function is just a regular function, but we use that name for something that will happen after something is done.</p><p id="aaee6526-948a-4c3b-b56f-8853aad39904" class="">The easiest way to define a callback function is either when someone clicks something, run this. Or when this amount of time has passed, run this.</p><p id="8e4b48c8-eae0-4b2d-bab8-a346219516ae" class="">Let&#x27;s look at both of those examples.</p><h3 id="1efb4687-cab7-43ba-87a3-1c930e821609" class="">Click Callback</h3><p id="68b2dbab-78d1-4f88-a9c5-56b7057f4644" class="">We will do a click callback.</p><p id="8f7d015d-9d96-4c7c-8f3d-cd380b408511" class="">Go into <code>index.html</code> and add a button with a class of <code>clickMe</code> and text of &quot;Click Me!&quot; 👇</p><pre id="eb1942eb-3ac3-49fd-bbbe-63650838d17f" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot; /&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../../base.css&quot; /&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;button class=&quot;clickMe&quot;&gt;Click Me!&lt;/button&gt;
+    &lt;script src=&quot;./ways-to-make-a-function.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="fefbdf5f-9b93-4c97-9f1b-8f82d1efbe21" class="">Back in the JavaScript file, let&#x27;s select the element like so 👇 <em>(we will cover the DOM in more depth later)</em></p><pre id="743c5849-eb2b-4636-a416-3a4999cc3e42" class="code code-wrap"><code>const button = document.querySelector(&quot;.clickMe&quot;);
+console.log(button);</code></pre><p id="4479721b-f45e-4599-a44e-2da9365418d3" class="">Refresh the page and open the console to see that it works.</p><p id="26d6b76a-87a2-4784-866f-eca33388d62c" class="">Next, listen for a click on that button as shown below</p><pre id="5411d346-be45-48c5-9346-c6cb40396617" class="code code-wrap"><code>const button = document.querySelector(&quot;.clickMe&quot;);
+button.addEventListener(&quot;click&quot;, wes.sayHi);</code></pre><p id="af0eb419-e618-4ffb-a01c-72a76e2b5be8" class="">When that click happens, we can pass it to any function that we want. in this case, we chose <code>sayHi()</code> from our <code>wes</code> object from a previous example.</p><p id="850e11a8-6710-499e-afcf-5b8cae1afcda" class="">Now, every time you click it, it will say &quot;HEY WESSSS&quot; 👇</p><p id="e859ef40-38fa-4805-b460-ed26c9be17b7" class="">What is happening there is that <code>.addEventListener()</code> is an <strong>event listener</strong> that we are listening for a click on, and the callback function is <code>wes.sayHi()</code>.</p><p id="f18431db-131c-4026-9e98-af79b39241f4" class="">It&#x27;s a function that we give it access to.</p><p id="54f0c2c6-7ce7-4291-9c56-2252bb98a118" class="">Notice that we are not running it there, we are just saying here is the function, when someone clicks the button, please call it.</p><p id="a901814a-539e-44aa-ad03-e6f9b08df6f7" class="">That is what is referred to as a callback function.</p><p id="6abfc63c-e0e9-4b70-938e-6d47ba77550f" class="">Callback functions can be declared outside of the handler, like so 👇</p><pre id="566d6de9-1e55-455b-8b30-bf1cc114942c" class="code code-wrap"><code>function handleClick() {
+console.log(&quot;Great clicking!!&quot;);
+}
+button.addEventListener(&quot;click&quot;, handleClick);</code></pre><p id="f88ce22e-5570-457a-a88b-2e41435fdea6" class="">That tells the browser that when the element with a class of <code>.clickMe</code> is pressed, run the <code>handleClick</code> function. The other option, which is half as common, is to define the function outside and then pass in the reference to the function.</p><p id="d0087b8a-4282-4284-9f36-56c443a0060d" class="">Another thing you can do is just pass it an anonymous function, as shown below.</p><pre id="41046c3e-2bc2-40ed-8885-60445d1477ce" class="code code-wrap"><code>button.addEventListener(&quot;click&quot;, function () {
+console.log(&quot;nice Job!&quot;);
+});</code></pre><p id="25d34488-75bb-425e-ae74-9ffeb7403c4d" class="">And it works just fine when you press it.</p><p id="d602a645-39e1-4971-a5c6-ecfaed3ed8e5" class="">What we have done there is we have passed it an anonymous function as a value directly, and the browser will know to call this function itself. <em>(There are upsides and downsides of doing it that way which we will get into another time.)</em></p><p id="7a8cf9a4-afa4-4b71-84b8-022c104d5600" class="">What you need to know is that a <strong>callback function is a function that gets passed into another function and then it is called by the browser at a later point in time.</strong></p><h3 id="2f61214c-2a7b-4a5c-a098-1441151a78a0" class="">Timer Callback</h3><p id="7d73a853-e5de-470b-962c-bf4fcef67120" class="">The other example we have is a timer callback.</p><p id="de81b4c7-40df-4ee9-9c8d-1e6a1ba0b471" class="">There are a couple of ways to do timers <em>(we will go over all of them in the future)</em> but the simplest is <code>setTimeout()</code>.</p><pre id="0a8d427e-6003-4967-b0d4-99c31e80c35a" class="code code-wrap"><code>setTimeout();</code></pre><p id="d1ac1de7-effd-48e6-99c4-1c96fe159f2d" class="">It takes two things:</p><ol type="1" id="26cdb398-89e1-4dcf-bdec-f8a3c4113b80" class="numbered-list" start="1"><li>a function to call after a certain amount of time</li></ol><ol type="1" id="50e88054-269e-4c78-85ca-870b56401be9" class="numbered-list" start="2"><li>a duration in milliseconds (after how long should I run this)</li></ol><p id="f6b2b64a-205f-4195-84dc-05508b3348f4" class="">So let&#x27;s do <code>1000</code> milliseconds which is one second later.</p><pre id="9bd3d540-4f08-4187-9560-350ef8f365ad" class="code code-wrap"><code>setTimeout(wes.yellHi, 1000);</code></pre><p id="cc95d01e-d53c-494b-a22f-fcf9824f48e1" class="">If we refresh the page, after one second, it will log HEY WES.</p><p id="fb7e6e83-b013-4b31-9969-1b5521e13a8a" class="">You can also pass it an anonymous function.</p><pre id="1d61d3c8-fea3-4862-91ac-fc3ac8c9943f" class="code code-wrap"><code>setTimeout(function () {
+console.log(&quot;DONE TIME TO EAT&quot;);
+}, 1000);</code></pre><p id="04614b14-9e3d-44bd-b5f0-e0201dbe10cf" class="">After a second that will log &quot;DONE TIME TO EAT&quot;.</p><p id="c3fa6fc5-d31c-4cfa-b111-ed21799b3501" class="">You can pass those as arrow functions as well.</p><pre id="1025d03f-ee2b-4b08-b866-7b8071006c6c" class="code code-wrap"><code>setTimeout(() =&gt; {
+console.log(&quot;DONE TIME TO EAT&quot;);
+}, 1000);</code></pre><p id="f60733c9-3078-4950-bfa9-c09a219f068d" class="">That will work the same!</p><p id="ebb7184c-f0de-4c95-9c65-a517a6c57774" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="8fee1d11-f2fa-4bd8-9756-ded5b6661968" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="1e72ce18-96c4-4f52-8e43-cf705683a3c2" class="">Edit on Github</p></details></li></ul><ul id="8170519c-200c-4df9-ab52-9bf8e7161d05" class="toggle"><li><details open=""><summary>16 - Debugging Tools</summary><p id="0e46ccb7-2660-4d1a-9241-34f3ceee6d32" class=""><a href="https://wesbos.com/javascript/02-functions/debugging-tools">https://wesbos.com/javascript/02-functions/debugging-tools</a></p><p id="44708b9f-2f66-4d0a-b211-8e27f77b9564" class="">
+</p><figure id="e6aecd5f-230d-4d66-971f-eade4c63d7f0" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs%203.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/bjs%203.png"/></a></figure><p id="a6939738-d0b2-4ec1-9b35-4beedcfef708" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="82d21241-f07d-4e38-a622-0dfbbd1af9e3" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="e027c4c8-f6db-4dce-9a8e-31049a74486b" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="6bf176f3-9546-4247-9ee0-2c9de0b99c40" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="023c84ab-d69b-49e9-9f3b-1d91bdd37fb0" class="">JavaScript, Functions, DebuggingEdit Post</p><p id="35ae0e2e-ac2e-45d2-b1a1-2391336d1312" class="">There are 2 parts of debugging:</p><ol type="1" id="e060b9e8-d79a-42fb-8e2e-1e7b593251c4" class="numbered-list" start="1"><li>there are tools you can use to get info when things go wrong</li></ol><ol type="1" id="b5aaba83-bb6f-4cb0-b892-57466f7f0711" class="numbered-list" start="2"><li>the right mindset to be a good problem solver</li></ol><p id="b48e9052-3148-4828-a6e3-8f5ff2878cc3" class="">This video will focus on the tools.</p><p id="fc4a88f2-130c-43f9-bed7-22384a989244" class="">As you go through the course, anytime we start to hit a roadblock, Wes won&#x27;t cut it out of the video, he will leave it in and show us his thought process.</p><p id="59211ccb-f8af-4a78-b687-9fb385b33ad7" class="">We will be working out of the <code>16 - Debugging</code> folder which is in the <code>exercises</code> directory. Within that folder, there should be two files: <code>debugging-START.js</code> and <code>debugging.html</code>.</p><p id="37f94088-8c3f-4833-8659-7566075669b5" class="">If you open <code>debugging.html</code>, you will see that it&#x27;s just a basic html file where we are loading our base CSS, we have a button that says make me bigger and then a script tag that is loading <code>debugging.js</code> which doesn&#x27;t exist yet.</p><p id="71b739db-dd6e-4607-b454-a7f9761a79d3" class="">Make a copy of the <code>debugging-START.js</code> file and save it as <code>debugging.js</code>.</p><p id="9e245dac-d3cd-4b6a-b7bc-e471eaca3d1b" class="">This file contains a bunch of stuff we haven&#x27;t learned yet:</p><ul id="49c14c2c-4190-4d29-a236-806407e43c85" class="bulleted-list"><li style="list-style-type:disc">arrays of objects,</li></ul><ul id="8a13d397-9dc1-45f1-8bbf-324a0cdf5e62" class="bulleted-list"><li style="list-style-type:disc">loops,</li></ul><ul id="25b3e711-d5c4-40a1-85de-f55b37f07c9c" class="bulleted-list"><li style="list-style-type:disc">functions</li></ul><ul id="5ab5945c-3128-4b0d-b0dd-4f052afbe769" class="bulleted-list"><li style="list-style-type:disc">event listeners</li></ul><ul id="5d678805-2d22-4a15-b212-a2030f001544" class="bulleted-list"><li style="list-style-type:disc">etc.</li></ul><p id="29ecd96c-d2d4-4a66-9cfe-d2a3f657f395" class="">It doesn&#x27;t matter that we don&#x27;t know what all those different things do yet, Wes will explain them later and we will learn how to build our own. This is more so we can test different types of debugging.</p><h2 id="2281d0af-b051-4c06-bbe1-881bbc0a64c8" class="">Console Debugging</h2><p id="e342cb6f-9f43-4b46-a89f-8a2851d1d3c6" class="">We will start with console debugging.</p><p id="cc779a69-19a2-438a-927d-0b1e538a4909" class="">There is <code>console.log()</code> which is the most common one you&#x27;ll see. 👇</p><pre id="10d775d7-dae1-4df8-8077-08516f736815" class="code code-wrap"><code>people.forEach((person, index) =&gt; {
+console.log(person.name);
+});</code></pre><p id="df606ef5-a95e-4a00-82f9-8b6e9080c36d" class="">There is <code>console.info(person.name)</code> which usually gives you a little eye and circle beside the console output but it doesn&#x27;t seem to be there right now.</p><p id="4f037e94-f2cf-488a-9e0f-3bec122b3b4e" class="">There is <code>console.error(person.name)</code>.</p><p id="23420712-bb45-4861-be8b-20ce8bc5f7c4" class="">That isn&#x27;t used for throwing or handling errors (we will learn about that), this just changes what the log looks like in the console, as shown below 👇</p><p id="11bd0221-c524-42c9-a239-41693c7ee5a6" class="">It also gives you a stack trace 👇</p><p id="5d48a6a7-ba1a-46be-a52f-a10473927b50" class="">There is <code>console.warn()</code> which is very similar to <code>console.log()</code> 👇</p><p id="42a9cb6a-d650-4086-90dd-c81cb10ba369" class="">There is <code>console.table()</code>.</p><p id="39f1eb39-c943-43ab-bcd5-8f3ac3fe4c44" class="">Anytime you have a list of objects, and the objects have the same property (meaning the objects all have <code>name</code>,<code>cool</code>, and <code>country</code> properties), <code>console.table()</code> will format that into a nice little table.</p><pre id="8d11766c-75f7-4081-9941-1be355b25138" class="code code-wrap"><code>console.table(people);</code></pre><figure id="edaa5ff7-d155-4e20-93f0-b5ef024ce7eb" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-table-in-console.png"><img style="width:488px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-table-in-console.png"/></a></figure><p id="9ac920c3-52f7-4827-ab61-aa9967be7aee" class="">There is <code>console.count()</code>.</p><p id="d01b5d9d-4dfd-45c7-a848-33eb2974e517" class="">This is useful if you want to know how many times a function is being run.</p><p id="dd2e8dbc-f709-4828-9501-49be6502ee87" class="">If we go into the <code>doctorize()</code> function in <code>debugging.js</code> and add <code>console.count(&#x27;running doctorize&#x27;);</code>, and then refresh the html page, every time you type <code>doctorize(&#x27;wes&#x27;);</code> in the console, the console will log a count.</p><figure id="2371b94f-c685-4a7c-844a-798d9c2b7f98" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-count-in-console.png"><img style="width:384px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-count-in-console.png"/></a></figure><p id="ab149ed5-6dc3-46fc-9201-9cf6df403220" class="">That is useful in a scenario where you aren&#x27;t sure if a function is running twice, or sometimes you are working with hover elements and it&#x27;s getting triggered way too often. <code>console.count()</code> will show you how many times it&#x27;s actually running.</p><p id="b5d009e2-ca2d-4530-bf51-9eeec2b969fd" class="">You can also pass variables to <code>console.count()</code>. To demonstrate that, let&#x27;s change the example to use backticks, like so 👇</p><pre id="47ebd215-bb36-43b6-add0-5c80acc58a85" class="code code-wrap"><code>function doctorize(name) {
+console.count(`running Doctorize for ${name}`);
+return `Dr. ${name}`;
+}</code></pre><p id="6a4b1162-af2d-40d0-9b1b-f8f59869ce01" class="">Now if you type in the console <code>doctorize(&#x27;wes&#x27;)</code>, it will show the count, but if you run <code>doctorize(&#x27;snickers&#x27;);</code>, it goes back to one.</p><figure id="61b70d3a-fbff-420f-9638-f614c874454a" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-count-with-function-arguments.png"><img style="width:472px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-count-with-function-arguments.png"/></a></figure><p id="8e9fe973-7a42-4d62-80aa-71c800894c8f" class="">But if you call <code>doctorize(&#x27;wes&#x27;);</code> again, it maintains that count.</p><figure id="ed8eaab8-233b-4f64-a04d-27e4604cc380" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-count-for-different-arguments-in-console.png"><img style="width:460px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-count-for-different-arguments-in-console.png"/></a></figure><p id="8d295693-b660-49bf-8569-52dcf6faf70d" class=""><code>console.count()</code> is based on what strings you pass it.</p><p id="d6f72443-2213-40c6-94c3-310ce8804c9a" class="">Next we have <code>console.group()</code>, that can be helpful if you have a bunch of stuff to log.</p><p id="384993c1-9270-479d-80e1-706076dc5023" class="">We will make a function <code>doALotOfStuff</code> to demonstrate this.</p><p id="23e97586-f31c-4f9d-8345-3a12be10bdc0" class="">Comment out all of the example consoles we have gone over so far.</p><pre id="8e347c10-f896-4466-bf54-fe17d10c6e2b" class="code code-wrap"><code>console.group(&quot;Doing some stuff&quot;);</code></pre><p id="8504c0f6-90f4-49a7-9c7a-63908975ff9e" class="">👆 Add the code above, and then underneath it, add a few more consoles such as log, warning, error. Then add <code>console.groupEnd()</code> and pass it the same string we had passed to <code>console.group()</code>, like so 👇</p><pre id="9180c37e-8c4b-4918-9c5a-61fad4b7c469" class="code code-wrap"><code>function doALotOfStuff() {
+console.group(&quot;Doing some stuff&quot;);
+console.log(&quot;Im one&quot;);
+console.warn(&quot;watch out!&quot;);
+console.error(&quot;hey&quot;);
+console.groupEnd(&quot;Doing some stuff&quot;);
+}</code></pre><p id="e15a4764-5df2-4bb6-8096-5575d3f1fe7d" class="">What that does is it groups together all of the logs into a group-able thing, and that can be very helpful.</p><p id="21c8f909-2a75-46ca-8705-9d8577e9700f" class="">We will do another example in the <code>people.forEach()</code> method.</p><pre id="dc3cfa3d-3e92-4bc2-ab99-525e06235ff4" class="code code-wrap"><code>people.forEach((person, index) =&gt; {
+console.group(`${person.name}`);
+console.log(person.country);
+console.log(person.cool);
+console.log(&quot;DONE!!&quot;);
+console.groupEnd(`${person.name}`);
+});</code></pre><p id="cc122b80-11f2-46da-80fb-204cb122c43c" class="">As you can see, it nicely organizes the people into their separate collapsible section. 👆</p><pre id="c5f22869-264c-4a8e-8337-6962093eb87c" class="code code-wrap"><code>console.groupCollapsed();</code></pre><p id="15856fbc-f69e-4f8d-bfb6-8a760a45431d" class="">You can actually also use the <code>.groupCollapsed()</code> method shown above 👆 which will by default collapse all the groups, as shown below 👇.</p><figure id="e48467c3-e43b-4a84-996f-e6a95cdced11" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-group-collapse-in-console.png"><img style="width:234px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/console-group-collapse-in-console.png"/></a></figure><p id="c3fc246c-08cd-466c-8fff-aad8f485cfd9" class="">Those are the main console methods that Wes uses to debug something.</p><p id="6da441e2-b0f0-41cb-94ee-787d78e81016" class="">Comment out all the <code>console.group()</code> code.</p><h2 id="4039d03a-34f5-4853-9185-31e8d533ab35" class="">The Call Stack and Stack Trace</h2><p id="e7f203cc-63c8-487f-b471-b07dd80b8147" class="">Next we will talk about something called the <strong>call stack</strong> or the <strong>stack trace</strong>. <em>The stack trace will tell you which function called what function called what function.</em></p><p id="87dadc64-0cbe-4fde-9725-fa7f24941d5a" class="">If you scroll down to the function <code>go</code>, you will see that it calls <code>doctorize</code>, which will first call <code>greet</code>.</p><p id="8c6a92a8-2ca6-4058-bc1c-2aeb9da82601" class="">There is a lot going on in the code.</p><figure id="228c2e40-320b-4caa-b316-7a03430ae15c" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/multiple-functions-definition.png"><img style="width:604px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/multiple-functions-definition.png"/></a></figure><p id="66d3a086-cb71-4199-bfbe-fd572c6c4992" class="">You will notice that inside of <code>greet()</code> we have this function that doesn&#x27;t exist, and that will cause an error. If we try to run that from the console, you will see an uncaught reference error.</p><p id="366a021b-8ac8-4e3f-8f3e-7b28453405d5" class="">If you expand the error, you should see a few messages below, which are often ignored by new developers but are actually very useful in debugging.</p><p id="342b308b-c238-42ed-a8f0-d80f596a130e" class="">If you want to know what went wrong, you have to get good at reading the call stacks. It&#x27;s pretty simple!</p><p id="723b706a-b6af-4229-84ff-6f1dd399f23b" class="">In the error log above, the console is letting us know that the error happened at the <code>greet()</code> function, which is on line 47 of <code>debugging.js</code>. This is where the actual error happened.</p><p id="cc57b675-0c43-4819-964a-317204f414db" class="">That is good, but errors aren&#x27;t always that easy.</p><p id="3f41c1ab-725d-4f8d-a4c8-788fd857b7cb" class="">You might need to know where the <code>greet()</code> function was called from.</p><p id="f7e4fe74-bf2a-4441-bef9-6e308e847f63" class="">To figure that out, you would go to the next line which tells you that it was called by <code>go()</code> on line 52.</p><p id="b3aa6ccd-249b-41fb-bbe9-a87165f47437" class="">And then it says <code>at &lt;anonymous&gt;:1:1</code>. What does that mean?</p><p id="01ac12a1-09b4-46b3-bf88-3787f3874724" class="">We are getting that message because we called the function from the console.</p><p id="0166e505-406e-41fb-bc86-d18be7968bd2" class="">That would look different if we actually made another function that called go instead like so 👇</p><pre id="9cc46603-5223-4719-8811-53d9bb4cf478" class="code code-wrap"><code>function bootstrap() {
+console.log(&#x27;starting the app!&#x27;);
+go();
+}</code></pre><p id="ef3e6007-4639-42ba-a4a7-bf5278d43fbb" class="">If you call <code>bootstrap()</code> from the console, you will see 👇</p><p id="19d2e890-5196-4fb7-b9e5-698f21b32859" class="">If you were to modify <code>debugging.js</code> to add a call to bootstrap on page load like so: <code>bootstrap();</code>, you won&#x27;t see that anonymous function line in the call stack.</p><p id="8ec1e7fd-980d-4a6b-aeab-d23d1cb5e92c" class="">Go ahead and comment out the <code>bootstrap()</code> call now.</p><h2 id="f16d73fb-66dc-422e-9ed2-816c75bdf240" class="">Grabbing Elements</h2><p id="fdb037b9-f1e4-4f72-9113-23c1425d2644" class="">Next we will learn about the grabbing of elements.</p><p id="fc5a99c7-0ff2-40fb-b032-22f0f8f14ef2" class="">This is a handy tip that Wes uses often. If you&#x27;re on a website, and you&#x27;re inspecting it, and focusing on an element such as this input from Mozilla&#x27;s website by clicking on it in the element inspector, if you flip over to the console and type <code>$0</code>, it will return to you whatever element you had currently selected in the elements tab.</p><figure id="3e3571c8-a46a-433c-892b-f1d4a49c5d8f" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/selecting-the-element-in-inspect-mode.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/selecting-the-element-in-inspect-mode.png"/></a></figure><p id="e13add9c-9e91-4632-9bf7-bf29f20edb8d" class="">That is very useful because now you could do something like call <code>$0.value()</code> against it, and it will tell you what you have typed inside the input.</p><figure id="0d01b5c0-169f-47a8-82a8-a4c7bc616c79" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/view-value-inside-element-in-console.png"><img style="width:158px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/view-value-inside-element-in-console.png"/></a></figure><p id="b939f78f-b08b-41e7-8f6a-d5232cfa04ed" class="">You might be wondering, what does <code>0</code> in the <code>$0</code> mean.</p><p id="1e784b6f-10e2-4772-8574-2dc95c8c3d98" class="">It means the last element that was clicked.</p><p id="50286507-5061-4ff5-9ba0-28222cab3128" class="">If you were to go back to the elements tab, select another element like a button, when you go back to the console <code>$0</code> will give you the button element and<code>$1</code> will give you the input.</p><p id="a7b5c76c-9ad2-4045-8e6c-01c9a8cf6e88" class="">You can keep going forever, if you click another element, it will remember the order in which they were clicked.</p><p id="ffd38be5-9041-4360-9db0-a79d713d97c8" class="">Another cool thing you can do is to use the <code>$</code> and <code>$$</code> symbol in the console. You cannot use these things in your code, it only works in the console. Also, if jQuery is loaded on the page, that won&#x27;t work.</p><p id="817f2310-434c-499e-b253-26fefda6b0c5" class="">👆 Those are shorthand selectors for two things we will learn about in a future video about the DOM. Those selectors will allow us to select things based on selectors.</p><p id="f25acf0d-f27a-4972-8fdb-8465a4c392cb" class=""><code>$(&#x27;p&#x27;)</code> will give us <code>document.querySelector()</code>, which will match the first thing that matches the selector passed.</p><p id="1dc00f91-34f8-4d55-a475-eb2046a18546" class=""><code>$$(&#x27;p&#x27;)</code> will match ALL of the elements that match the selectors.</p><p id="d32de624-617c-4473-91ea-d7912297d375" class="">In the value returned from <code>$(&#x27;p&#x27;)</code> you can see it found the first paragraph, and with <code>$$(&#x27;p&#x27;)</code>, it found all of the <code>p</code> elements on the page.</p><h2 id="4eefde2a-06ae-46f8-a37d-b9d7d04651c0" class="">Breakpoints</h2><p id="e8a91e2b-6cd2-4c36-ac20-a91b601a646d" class="">Next we will talk about breakpoints.</p><pre id="b0c8cf07-cbe2-460f-9b55-412ca95787e4" class="code code-wrap"><code>console.log(person.name);</code></pre><p id="938e39b0-45b0-44cf-ac5b-bbbd00b0e03a" class="">Go into the <code>people.forEach()</code> method and delete all the logs that we had commented out within it and add the code above 👆</p><p id="44f806ae-a0f5-442d-a00c-35eb75c242d4" class="">If you refresh the html page, you will see everyone&#x27;s name logged to the console.</p><p id="35e00888-7dab-4ce6-a56a-cd57e03561cf" class="">What you can do is, within the <code>people.forEach()</code> method, if you want to pause JavaScript from running, you can type <code>debugger;</code>, like so 👇</p><pre id="af75e805-d1c1-4257-8801-859ce9940528" class="code code-wrap"><code>people.forEach((person, index) =&gt; {
+debugger;
+console.log(person.name);
+});</code></pre><p id="5c858872-961c-4c07-877a-21efa7a9c1a4" class="">That is a statement that only takes into effect when your dev tools are open, and it will pause JavaScript from running and allow us to peer into JavaScript at that very moment.</p><p id="3767a79e-6fb5-4597-8fce-0c379d416eb1" class="">If you refresh <code>debugging.html</code> now, what happens is that we have set what is called a <strong>breakpoint</strong>. When you set a breakpoint, you are telling JavaScript to break execution of code when it reaches that line.</p><p id="110a69ff-7903-429f-90ff-2fbcf3a453df" class="">This gives you a whole bunch of information as to what happened.</p><p id="ce01e86a-1a84-4696-b377-5fa138d84d53" class="">If you hover over it, it will show you what the variables are equal to at this point in time.</p><p id="53958e9f-f89e-48bd-b659-f451e6787032" class="">You can see that the JavaScript has paused and if you go to the console, you will see that nothing has been logged yet.</p><p id="dadd844d-38d3-4e1c-9048-e93135d09b45" class="">Flip back to the sources tab.</p><p id="665867ee-eb7d-4d1c-a9bf-9292960ffd5b" class="">On the right hand-side of the <code>Sources</code> tab, that is where all the different tools for inspecting what is going on reside.</p><p id="4c8fba02-14a9-4810-98c9-f680d2fc7904" class="">We get the call stack, which we learned about earlier.</p><p id="00fcc370-5e4d-4945-b0bc-fe4ec9860ca8" class="">It will also let us know what the local variables are.</p><p id="afcdf3ac-e1f8-416b-a05a-9dc5b766a8eb" class="">You can expand the collapsed Local section within the Scope section, or hover over a variable to see it&#x27;s value.</p><p id="46d34e63-52f4-48c5-bf11-d7c956693ee2" class="">There are other sections for breakpoints which we will get to in a second.</p><p id="c14043f9-f0fe-45a3-a304-67a4c1a96d2f" class="">What is cool is you can click the play button shown above , and then if you flip back to the console, you will see that the name &quot;Wes&quot; has been logged.</p><p id="c1db8797-2c9b-455e-b05c-0ae7a2cd21ef" class="">What happened there is when the function first ran, it hit the breakpoint and then when we pressed play, it logged the first persons name and then because it&#x27;s in a loop, it hit the breakpoint again and paused.</p><p id="9e4a81c3-e5ba-4d0a-83db-8556b399ba78" class="">Now you can see that the second person is equal to Scott.</p><p id="9c3dfaab-2ef6-40a3-94cc-9eb945845a00" class="">You can also step over into the next function call like so 👇</p><p id="a7bce18a-5179-4956-9bbf-80627e70c998" class="">When you hit play, it will just continue execution of the code until it hits the next breakpoint.</p><p id="e0df725c-f986-4b63-bdf8-b3dfbb324d94" class="">If you click the option beside the play button that says &quot;Step over next function call&quot;, it allows you to run the code line by line.</p><figure id="a76023a7-f8e3-48aa-97ce-e4bb505fc19e" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/breakpoint.gif"><img style="width:676px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/breakpoint.gif"/></a></figure><p id="c8056c6a-0ec1-45d7-b234-93166350dc25" class="">When you feel like you are logging too much data in order to see it, or you are logging something quickly so you can see what happened in the past, adding a debugger (it can go anywhere in your JavaScript code) can be very helpful.</p><p id="3aec7d16-a3ab-43c1-90d3-af8be102b88d" class="">It&#x27;s a handy way to slow things down and peer into what the different pieces of data are.</p><p id="405864a4-24a5-42da-a713-18b79bd4cb42" class="">You can also set breakpoints from the browser as well.</p><p id="62e4a974-9dd9-4087-b9ed-1ea8b3d82167" class="">Remove the line of code in <code>debugger.js</code> that says <code>debugger;</code> and refresh <code>debugging.html</code> in the browser.</p><p id="1d193da3-409f-4640-9565-0623bc0fc66e" class="">Open the sources tab.</p><p id="2028c5f4-9fd9-45e4-9acd-10a389a32781" class="">In the sidebar on the left, you can click on your actual JavaScript files that are loaded on the page, and then you can say something like &quot;when someone runs this go() function, I want to put a breakpoint in there&quot;</p><p id="23e7119c-033a-4080-baf9-946adf6fe3e3" class="">What you do is you click the line number next to the line of code that you would like to pause during.</p><p id="28add389-914b-4b02-a879-a13315a8d905" class="">If you go into the console and type <code>go()</code>, you will see that the code pauses itself in the debugger at the line where you set the breakpoint.</p><p id="d05cfc25-a5e9-43de-b62a-6eff1400aed7" class=""><em>Recap: you can either create the breakpoint by clicking next to the line number in the sources tab, or adding the word </em><code><em>debugger;</em></code><em> anywhere in your JavaScript.</em></p><p id="1db5b803-bc39-4054-885e-798ee3729c12" class="">Always make sure you remove those <code>debugger;</code> calls from your code once you are finished!</p><p id="26a07b8e-211f-40ed-b673-f37ba3cb6121" class="">We talked about scope earlier. Scope will allow us to peer into what variables are, we will look at that more in the next video.</p><h2 id="6ce8dbee-7301-4fb7-8a94-8a0898c25f94" class="">Network Request</h2><p id="2676af91-c504-48c3-9705-ad37c4f3621c" class="">The next one is Network Request.</p><p id="0ecea0e8-f02c-40dd-b877-a4d1880287b5" class="">This is useful if you want to see what is being fired off when you load the page. If you go to your networks tab and refresh <code>debugging.html</code>, you will see all of the different files that are needed in order for the page to work.</p><figure id="531723ed-1679-4d1a-85f8-7c817bb34277" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/files-loaded-in-website-in-network-tab.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/files-loaded-in-website-in-network-tab.png"/></a></figure><p id="8b94b481-aaeb-40ac-805d-d7dbfdb368bc" class="">This is helpful because you can see when the data is being sent to you.</p><p id="39532ffe-65a3-4bd6-b6e6-ebac201cd93f" class="">Wes added a function to <code>debugging.js</code> called <code>fetchDadJoke()</code>.</p><p id="9a1514e3-d4c5-4291-9427-0eeeb1322c56" class="">What that function will do is go off to an API and grab a random dad joke.</p><p id="87590057-e769-4c1d-87e3-2591d8c5736e" class="">Don&#x27;t worry about what all the lines of code mean here, we will go over that in future videos. For now, just know that it goes to an external API and grabs a joke.</p><pre id="41631deb-770d-4cd5-83bd-0e1c8b7c42aa" class="code code-wrap"><code>// A Dad joke fetch
+async function fetchDadJoke() {
+const res = await fetch(&quot;https://icanhazdadjoke.com/&quot;, {
+    headers: {
+      Accept: &quot;text/plain&quot;,
+},
+});
+const joke = await res.text();
+console.log(joke);
+return joke;
+}</code></pre><p id="fa10356f-5d28-41b8-8eb5-984b5a0e9a33" class="">If you were to run the <code>fetchDadJoke()</code> function in the console, it will return a dad joke and log it to the console.</p><p id="21783df8-07d8-4499-80f4-fb1399054e56" class="">If you go back to the network tab, you will see that there is a new item that has been logged.</p><figure id="c43459ae-e037-4b83-a2ee-435f99bf0cf8" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/http-requests-in-network-tab.png"><img style="width:700px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/http-requests-in-network-tab.png"/></a></figure><p id="faa95df7-3abc-4033-b7bf-d60f023c4aa0" class="">This tells you the information about the request, what actually happened, the raw response and a preview of it. It gives you information such as how long did this request take.</p><p id="bc19e491-53ec-4c75-8c58-e3fb0468908a" class="">For example, if your website is slow, it will tell you how long the request took, and where the time was spent.</p><p id="e6d886bf-6ab9-45e5-81db-acc06098658c" class="">To demonstrate this, go to http://apple.com and inspect the network tab.</p><p id="3e42c2eb-3868-4e66-82f1-397fce1181cc" class="">You will see that there are 100s of things that are requested. You can also filter out the requests within the network tab such as XHR, which is when they&#x27;re sending data out about you.</p><h2 id="0c749899-4909-45be-a48a-b216473b1d07" class="">Break On Attribute</h2><p id="b0279b0c-b5a8-4e0f-a3ed-6132bbc9c453" class="">Next we will go over break on attribute. Wes doesn&#x27;t use this one often, but it can be useful.</p><p id="6a377afd-1441-4625-8871-84d5c9182de5" class="">On <code>debugging.html</code> there is a button that says &quot;Make me bigger&quot;.</p><p id="c265d9a9-ed9e-4e2b-9fbe-da6636da37c3" class="">When you click it, it gets bigger.</p><p id="6dd4925f-f836-4d49-8746-85021185d3bd" class="">If you go to your elements, you will see that the font-size is just being bumped up every time the button is pressed.</p><p id="435a8d67-0390-42d8-a1f6-69171dd82eae" class="">If you don&#x27;t know where the JavaScript is that is making that button bigger, you can go into you button in the elements tab of dev tools and select <em>Break on &gt; Attribute Modifications</em>.</p><p id="f54c4f58-0b1a-4e99-bc72-8da2eb79becd" class="">This is just another way of adding a breakpoint.</p><p id="40e23e44-fde6-45e6-9f99-6e8331d029b9" class="">There is also something called <strong>subtree modifications</strong> which is what it is referred to when somebody adds a div for example.</p><p id="7c8377b8-adbb-4efd-b7cb-0102db96ec3c" class="">There is also something called <strong>node removal</strong> which is when someone removes an element or text from something.</p><p id="52ff86db-fe95-46ad-90c6-db2b29609713" class="">We will just focus on attribute modifications.</p><p id="9cb9f4c3-9b4e-4f00-a8e1-9681274e7562" class="">Set the breakpoint on attribute modification and now when we click the button, the breakpoint should be triggered and bring us to the sources tab which will show you where that attribute is being modified from.</p><figure id="782142b6-da70-4f6b-a03a-6db0612425c6" class="image"><a href="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/attribute-breakpoint.gif"><img style="width:678px" src="2%20-%20Functions%20fcee79a629be479f9ea830a2a451fea2/attribute-breakpoint.gif"/></a></figure><p id="f1462785-3f7c-4bf7-9aaf-ad367da2b1b8" class="">That is very useful when you get thrown into a random code base where you don&#x27;t really know what is going on.</p><p id="cff6a393-3ed1-4642-b02f-c4e11ff1dee9" class="">Finally, if you go to the sources tab again, you will see that there are other things on the right hand side.</p><p id="c0dfce57-f4b6-4421-b076-a77e0f3590bb" class="">You can throw Event Listener breakpoints, such as mouse click. 👇</p><p id="ab6c6626-edbd-4d95-9f2f-e9a8bfb6ea81" class="">If you add that breakpoint, now when you click on the button, it will throw a debugger breakpoint for you.</p><p id="0f54a78c-8fcf-4141-baae-7d9b62f4942f" class="">There are also XHR breakpoints:</p><p id="b1f2e34a-a904-46ca-8ad3-d9c01768ca3a" class="">If you click <code>Any XHR or fetch</code>, what that will do is anytime a fetch request is made, anytime someone goes off to an external API, the code will break execution.</p><p id="751c44c1-0efb-43eb-9081-3053d01db70a" class="">To test this you can set the breakpoint option and then go into the console and try typing <code>fetchDadJoke()</code>.</p><p id="e332790f-966f-47e3-93ad-dbfca8e4a7a3" class="">You will see that it pauses in the debugger where the fetch request is made and we can actually step through it.</p><p id="efd0bb13-731a-4b7c-a8ad-c52a6540c601" class="">Wes would estimate that around 98% of the debugging that he does is done using console.log, breakpoints and network requests.</p><p id="a19ad285-acee-423a-bb2d-141b282a4f46" class="">He will turn to the other types of debugging tools available typically in severe edge cases where he is stumped.</p><p id="e34640e2-2cd4-48cb-9927-5f3706f08687" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="5a43ad3e-c81c-427d-98e8-2d19f271dfb6" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="7287aece-3dea-42cd-b044-dbcf2b1e1e6a" class="">Edit on Github</p></details></li></ul></div></article></body></html>

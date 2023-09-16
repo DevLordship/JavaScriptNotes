@@ -1,0 +1,1605 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>14 - ES Modules and Structuring Larger Apps</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a080d68e-d9b9-421d-b495-907c9eb267c6" class="page sans"><header><h1 class="page-title"><em><strong>14 - ES Modules and Structuring Larger Apps</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="70b6f448-5923-4052-ad34-6afde877a123" class="toggle"><li><details open=""><summary>78 - Modules</summary><p id="1735ba5a-a3f4-43dd-9be8-6ea2a37787c2" class=""><a href="https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/78-modules">https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/78-modules</a></p><p id="f5de8b80-c3fa-46e0-b46b-d22dfac1bbbc" class="">
+</p><figure id="ee10dc2e-fdde-4056-8237-1a2e4fd99fdc" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs.png"/></a></figure><p id="184b39fa-2de1-4bea-9ecd-33410ffca16c" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="9cefa68e-06f1-4565-ac09-75b0527f2c10" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="266d93f2-17fd-4676-aece-cb1f8fc4581e" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="60a40559-aa56-48c2-bd30-c07741b7f3a6" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="9482d3f1-ba46-41dd-a3a8-ac58901b6d54" class="">JavaScript, ES ModulesEdit Post</p><p id="03c0d914-046b-4d4c-985d-e61ba5ef4473" class="">Let&#x27;s talk about modules. Being able to share code across multiple JavaScript files and even across multiple projects is an easy thing to do when you start to use modules in JavaScript.</p><h2 id="a4111c78-1eb0-4152-8616-c2d1c72c289c" class="">What are Modules?</h2><p id="d6fb8840-c2fa-4b39-b276-773018efb8c7" class="">So what are they?</p><p id="b28c6b7d-e968-4d4d-94c6-160748a2498e" class=""><strong>Modules</strong> are a way to structure and organize your JavaScript, and it gives us the ability to share functionality and data across multiple files and projects.</p><p id="a668444d-8694-4292-9483-6ba70c75a768" class="">A few things you need to know about modules:</p><ul id="7ffae374-2f2d-4d33-8fde-f00fb1d90bf0" class="bulleted-list"><li style="list-style-type:disc">They have their own scope, similar to how a function has scope.</li></ul><ul id="06e8679a-649a-4fe6-983c-3a50493eec61" class="bulleted-list"><li style="list-style-type:disc">They can hold anything (functionality, data, config)</li></ul><h2 id="d525fd2f-570d-4175-8fb3-8cf519f51660" class="">Use Cases</h2><p id="3e19665b-a5de-41b5-8dec-1f2bebb69a53" class="">If you recall in the previous lesson where we built a currency converter, we had a variable <code>currencies</code> that was a giant object of all the currency codes and names. It would be nice if instead of having that object directly in our file, we could put it in a separate module and then import it into the file to use when we need it. That is what modules will allow us to do.</p><p id="9a3ab9f0-f5b9-4878-a134-1cf9abf41dee" class="">Another use case for modules is utility functions.</p><p id="227dced5-737e-4faf-bf19-bfe8ffaefc79" class="">For example, in the Dad Jokes lesson, we had a method <code>randomItemFromArray</code>. That method is not specific to that project, it&#x27;s just a handy array utility. We could throw that off into a separate file that is used for utilities.</p><h3 id="538f4efe-2951-403f-a7e4-ffd80e61a7d1" class="">Modules in the Browser</h3><p id="e05a6834-0d9b-451f-8766-ab2aa05a9c4d" class="">Let&#x27;s look at how modules work in the browser, and then we will look at some tooling that will help us work with them.</p><p id="90fa272c-b000-4064-90a3-fb2712d5703d" class="">You might hear modules referred to as <strong>ESM</strong>, <strong>EcmaScript modules</strong>, or <strong>ES6 modules</strong>. They were added to JavaScript a couple of years ago, and they are the best way to organize your JavaScript when you have multiple files.</p><p id="3859bb5a-4fa0-4920-a4e2-b4564d9eef42" class="">Let&#x27;s go into our playground and create a folder called <code>modules</code> (it might already be there for you).</p><p id="4e9a40d9-2966-419a-934e-80e8d13a554f" class="">Inside that folder create the following files:</p><ul id="ad9d8b95-f51c-484e-a363-2b900bdbdcb6" class="bulleted-list"><li style="list-style-type:disc"><code>index.html</code></li></ul><ul id="6c6d30fb-2070-4279-b81b-03579b37d705" class="bulleted-list"><li style="list-style-type:disc"><code>utils.js</code></li></ul><ul id="9d21eeca-ed0f-446a-a785-86d3dcb70369" class="bulleted-list"><li style="list-style-type:disc"><code>handlers.js</code></li></ul><ul id="16fbcdbb-4fe8-430e-831e-5f70dd297075" class="bulleted-list"><li style="list-style-type:disc"><code>scripts.js</code></li></ul><p id="3c3851ac-8a0d-42f3-917f-607b2f63fd37" class="">That gives us 3 separate JavaScript files.</p><p id="e16ed76e-0a94-44db-8431-c28197d15dba" class="">Add the following code to <code>scripts.js</code>.</p><pre id="cbd95488-49e3-49c9-a0b1-cd04a4a62528" class="code code-wrap"><code>// scripts.js
+const name = &quot;wes&quot;;</code></pre><p id="01cacece-fd91-4030-898a-9704a0bd1b76" class="">In <code>utils.js</code>, add a simple function.</p><pre id="728e2073-ff19-495e-8d40-5864506b5546" class="code code-wrap"><code>// utils.js
+function returnHi(name) {
+return `hi ${name}`;
+}</code></pre><p id="6bf23083-c1ef-4aa6-a285-9e117bd1b974" class="">Let&#x27;s say we need to use the <code>returnHi</code> function in <code>scripts.js</code>. Can we do that if the function is in a separate JavaScript file than the one using it?</p><p id="d9bcd656-18c1-4c0a-9cd4-161d357a7f55" class="">Let&#x27;s try. Modify the code like so.</p><pre id="a1229bcc-78d8-4a3c-a714-267d6c48567b" class="code code-wrap"><code>// scripts.js
+const name = &#x27;wes&#x27;;
+console.log(returnHi(name));</code></pre><p id="b901fd31-2a93-4b64-8626-d3bf2ab83e92" class="">Go into <code>index.html</code> and add the base HTML if it is not already there as well as a script src tag and link it to <code>scripts.js</code>. Open the html page in the browser.</p><p id="32c089ca-3108-4646-9b00-d8e0fac0b766" class="">When you do that, you should see an error that <code>returnHi</code> is not defined.</p><p id="ea53e512-a2fa-4afe-9351-b3897441f14b" class="">That makes sense - because we have not yet put our <code>utils</code> on the page.</p><p id="16d1c8bb-0382-4f18-8c46-f36da33573f2" class="">You might think we can just add another script source tag above the one we added and link it to utils.</p><pre id="8e287fd6-8a3a-412d-a338-bf702047a61f" class="code code-wrap"><code>&lt;script src=&quot;./utils.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./scripts.js&quot;&gt;&lt;/script&gt;</code></pre><figure id="21b690f0-89c3-4ba0-839a-f742e9acbc02" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1207.png"><img style="width:204px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1207.png"/></a></figure><p id="c9343759-a3ce-4e42-b15a-e72bbbf1f781" class="">As you can see, now it works. All we had to do is put one script in front of the other one that needed it in.</p><h3 id="2532067c-4448-4f4b-86b2-f24877035d73" class="">In the Past - Sharing JavaScript Code between Files</h3><p id="54cbea1a-5a94-4dc1-9067-cb5c3c6dc117" class="">In the past, this was how code was shared across multiple files.</p><p id="b6c56b40-1d76-4591-823d-0407f1d1a7a1" class="">That got out of hand pretty quickly because you had all these files that had dependencies and the order of the script tags affected the execution because they all have to load in a waterfall, which means one after the other. Each file is assuming that the other one has access to it.</p><p id="0102fa45-4e78-4a1a-9eee-f263280b612a" class="">If you look at our <code>scripts.js</code> file in VS Code, ESLint is complaining that <code>returnHi</code> is not defined. That is because that function does not exist within the file, so where did it come from?</p><p id="ceafd649-4231-4088-9e2b-fc460c2a1f0b" class="">The only reason it works is because we have globally scoped the function in another file and we are just assuming that it will be available to us on the page. That is a very brittle way to write JavaScript</p><h3 id="aead9a74-4c61-48fa-9fa4-d6924405c99c" class="">In the Present - Sharing JavaScript Code between Files</h3><p id="d9c3eb47-7c28-4ee9-8727-a587be365c59" class="">The solution to that is to use modules!</p><p id="f8aaf62f-8184-4639-9e88-8c4a3abc199c" class="">When you need a function like <code>returnHi</code>, you can just import the function from the module, which is the same thing as saying from the file that actually contains that function.</p><p id="fd1b23fd-4618-4473-bc18-9f69896a2ecf" class="">When you do that, you don&#x27;t really have to worry about things loading before each other, because we will always import the values we need before hand.</p><p id="5a855fdb-71fb-4fb8-b1b2-5b1e2effcd50" class="">Let&#x27;s change this example to use a very sime module.</p><p id="1f2378ee-8d6e-4af3-b896-ef2f660a9915" class="">In <code>index.html</code>, there is just have one script tag and that is going to be the entry point into the JavaScript.</p><p id="aaec8c36-632d-4c4e-aa60-acf1e391fb9f" class="">Add the <code>type</code> attribute on the script tag and set it to <code>module</code> like so 👇</p><pre id="a546573b-df89-4f3b-bfee-d84a3893079d" class="code code-wrap"><code>&lt;scripts src=&quot;./scripts.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;</code></pre><p id="fa3e5323-c827-4de2-a7cc-db02afa342b9" class="">Modify the code in <code>scripts.js</code> file to contain the following:</p><pre id="61a77aeb-9ff6-411a-99c0-bcd98cbb1eea" class="code code-wrap"><code>const name = &quot;wes&quot;;
+console.log(&quot;Its working...&quot;);</code></pre><p id="7382fb83-b186-4128-91de-575747a63a9f" class="">If you refresh the HTML page and look at the console. you will should see a bunch of errors.</p><p id="3f06a86b-0456-4c30-a351-c56e3478fa61" class="">This first one is the CORS issue again. It is giving us trouble because you cannot use modules unless you are running it on a server.</p><h2 id="9326c5a7-b124-473a-be2d-998ed1cee401" class="">Setting up Server</h2><p id="a1bd48bc-3bf4-40a9-ba15-e6ed4fce2224" class="">We cannot use a Parcel server because Parcel also handles modules for us and Wes is trying to show us how they work without using a bundler. We just need a very simple server up and running.</p><p id="b3b5c18a-b379-453d-8554-aed4bb752131" class="">If you know how to run a server to serve us these files, feel free to skip ahead.=</p><p id="62a0dc11-1f22-4ef5-ae2c-23591467c952" class="">There are a couple of different ways to do this.</p><ol type="1" id="6ddf9dd5-7aa8-42a7-97df-cf2e6d74be5a" class="numbered-list" start="1"><li>VS Code plugin</li></ol><p id="5c1d33d6-0e8a-4e10-821f-53d138120c2f" class="">If you go to extensions in VS Code and search for &quot;Live Server&quot;, you should see an extension that matches it and you can click install.</p><p id="c7ed42f5-9a5a-4b81-9c39-e211b34f6ff4" class="">If you go back to the modules and right click on the <code>index.html</code> and click open with Live server, and that will start it up in the browser.</p><p id="a32cdc17-9d70-4f0a-85de-0f7404684bf8" class="">That will start up a localhost server. The url is <code>127.0.0.1:5550</code> which is the equivalent as localhost, it is just the IP address. You can replace it with localhost and it will work just the same <code>localhost:5550</code>.</p><p id="b0585df6-fe44-4b39-9e79-5569766d5d8a" class="">Now if you open up the dev tools, you will see that it is working.</p><ol type="1" id="c2483abe-e900-4be6-be9f-f5362208345d" class="numbered-list" start="1"><li>BrowserSync</li></ol><p id="6bf6cbc9-481f-410c-ab7d-f43439a4f95e" class="">Another way to get a server running is to open your terminal and run <code>npm install -g browser-sync</code>.</p><p id="bc72d669-de1b-4dbf-8726-cba25200d94c" class="">In the terminal, cd into the <code>modules/playground</code> folder and run the command<code>browser-sync</code>, it should start up a server.</p><p id="2ff93bd5-8f99-4bed-9e4e-4f007b1c2725" class="">If you open up the dev tools, you will see it is working but we get an error regarding <code>base.css</code>.</p><p id="67399b7b-602b-4dbf-a157-cc586a35deb8" class="">That is because we are running the server within our <code>/modules</code> folder but the base CSS file is actually at a higher level and it can&#x27;t go up higher than the root.</p><p id="5f6c3e9f-264b-4946-9469-9dc5e220ecf8" class="">The solution for that is to open up <code>base.css</code>, copy all the content and then make a new file within the <code>/modules</code> directory called <code>base.css</code>.</p><p id="578ae32e-c8ad-4807-a8a7-577d6adddb6c" class="">Now let&#x27;s modify the path to that file within <code>index.html</code>. Modify it like so:</p><pre id="f908f857-c54a-430b-b45c-63f77cbeb47a" class="code code-wrap"><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;./base.css&quot;&gt;</code></pre><p id="a0f14d8e-5ccc-4e75-ab73-eadc8e03dff9" class="">Now if you refresh the page, you should no longer see that error.</p><p id="733c267b-092e-44c7-8db5-0dfff0f9ef38" class="">At first it seemed like both of those options supported <strong>hot reloading</strong> or <strong>live reloading</strong>, which is the term used to refer to a feature where a server cause a browser to automatically refreshes the HTML page whenever a change is made to the HTML, CSS or JavaScript files.</p><p id="9a605b7d-018b-4c86-a9dc-0fea65b226a7" class="">However it seems like the way Wes is running browsersync isn&#x27;t hot-reloading. It may be that the <code>browser-sync</code> command requires additional parameters to enable that but we will just stick to VSCode server since it is the simplest one.</p><p id="851715ce-68ff-4ffd-980b-c154ba72935d" class="">Now that we have the server running, let&#x27;s get back to the exercise and pick up where we left off.</p><p id="9fce5c67-34d7-49e9-8ef0-928013826d92" class="">How do we take a function that exists in one file and use it in another? You can import it from that file.</p><h2 id="5b33281a-6c2b-4c6a-8838-99a4a229dece" class="">Importing and Exporting Modules</h2><p id="83db37b3-3bf2-495c-8a16-7a15c07c934a" class="">There are two types of module imports:</p><ol type="1" id="0c5e22e3-a003-4a75-9eb8-980465c9d0c0" class="numbered-list" start="1"><li><strong>Named Imports</strong></li></ol><ol type="1" id="5fc8c552-7a27-43da-8568-9ddc5467e91e" class="numbered-list" start="2"><li><strong>Default Imports</strong></li></ol><p id="d9d9d18c-6924-49d7-b65f-3768a0738ca7" class="">Before we can import something, we first need to export it.</p><p id="7edeb153-9b9a-4e58-b043-a32e43ddbf25" class="">Let&#x27;s go this by going to our <code>utils</code> file and exporting the <code>returnHi</code> function.</p><pre id="3a253c45-c814-49ce-ad40-99f5411d0959" class="code code-wrap"><code>function returnHi(name) {
+return `hi ${name}`;
+}</code></pre><p id="191bcdab-75b8-48f0-83f2-e2bd1393b4d1" class="">When sharing code between multiple files like this, the word we use for each file is a module (so a file is a module).</p><p id="cfbcf646-fc86-4797-9ab5-52aa9bc63feb" class="">If you want to surface functionality from one file to another, you first must export it. We will export it like this for now:</p><pre id="a5cd456b-4132-48d8-aeea-e77a233551a6" class="code code-wrap"><code>export function returnHi(name) {
+return `hi ${name}`;
+}</code></pre><p id="b8e4e516-2899-4e46-b972-44257ff3d188" class="">In <code>scripts.js</code>, let&#x27;s go ahead and import that function now.</p><p id="8ef94007-d713-42eb-991a-673b2b3b32bb" class="">You do this by using the keyword <code>import</code>, a set of curly brackets between which you supply the name of the function we want to import, which is <code>returnHi</code> in this case and then we add the keyword &quot;from&quot; and the relative path to the file that contains the export, which is <code>utils</code> in this case.</p><pre id="e6f9909d-144e-455a-9036-7f122861f5ab" class="code code-wrap"><code>import { returnHi } from &quot;./utils.js&quot;;</code></pre><p id="d263f0d6-7012-401b-8c7d-872450d61367" class="">Now within <code>scripts.js</code>, we should be able to add the following code:</p><pre id="2f966df3-6208-4bf1-8f23-fcf05925f037" class="code code-wrap"><code>import { returnHi } from &quot;./utils.js&quot;;
+
+const name = &quot;wes&quot;;
+console.log(returnHi(name));
+console.log(&quot;Its working....&quot;);</code></pre><p id="441d67f9-ec7f-4ce1-85b0-f6dca1f5129d" class="">Now when the page refreshes, you will see that it is working.</p><p id="0689ae7c-d91a-48f8-8fb3-ea64caec7a42" class="">To recap:</p><p id="af2128ac-2b29-46c9-b175-367c91112466" class="">We defined some functionality in a separate file but in order to in order to access that functionality, we must first export it from the file it is in.</p><p id="ef6c8b62-a9ac-4781-8721-7f6cf5b8ca7f" class="">Exporting it is a way of telling JavaScript and the bundler that those functions or files are available to be used by other JavaScript modules.</p><p id="53316dc9-1293-4368-b63f-fd22aa44b11c" class="">In a separate file, we imported that function and used it.</p><p id="ac2f8f85-9dfa-436c-8e3d-b5e41dfa976a" class=""><strong>You always do your imports at the very top of the file that you are in, and you can have multiple imports as well. Then you simply have access to that functionality and can use it.</strong></p><h2 id="e0257107-cbe6-4f2c-99a1-8c8771f23546" class="">Things we need to know about Modules</h2><h3 id="938f6b79-3c46-4928-b1de-8eb6040809cd" class="">Scope</h3><p id="b1e16a0c-148a-4812-af22-752624ba0a5b" class="">One thing that Wes mentioned briefly earlier is that modules have their own scope.</p><p id="50cf3999-1948-4066-91fa-081500bb3c97" class="">What does that mean? Let&#x27;s look at an example to demonstrate.</p><p id="4a924216-12b6-4116-b699-18cf9b9f3e0c" class="">Let&#x27;s say we have the following variable within <code>utils.js</code>: <code>const last = &#x27;bos&#x27;;</code>.</p><p id="3deac405-f0bd-4f8b-b029-6c7ffeff82d4" class="">What would happen if we want to access that within the <code>scripts.js</code> file like so:</p><pre id="fe250bea-2264-42b8-a3b2-7e0b44bef267" class="code code-wrap"><code>import { returnHi } from &quot;./utils.js&quot;;
+
+const name = &quot;wes&quot;;
+console.log(returnHi(name));
+console.log(&quot;Its working....&quot;);
+console.log(last);</code></pre><p id="32ee1c8f-f5cc-4311-8fbe-cc439d29469e" class="">When the HTML refreshes, you will see we get an error &quot;last is not defined&quot;. That is because <code>last</code> is in a different module.</p><p id="ffec1007-2da3-4387-86ca-cdd7626c3774" class="">What if within the <code>returnHi</code> function in <code>utils.js</code> we use the <code>last</code> variable like so 👇</p><pre id="61675935-53c6-48b8-b6db-feeb6f66bbd8" class="code code-wrap"><code>export function returnHi(name) {
+return `hi ${name} ${last}`;
+}</code></pre><p id="1cbd6338-9a4b-4d2c-a3a2-985e31305b87" class="">Is that allowed? And is it going to work?</p><p id="bc86fae6-2856-4464-b2ce-b2d07fc41f40" class="">Let&#x27;s find out.</p><p id="c2857690-b4bd-4e61-b915-040d121a8a3a" class="">Within our <code>scripts.js</code> remove <code>console.log(last)</code>.</p><p id="d798bb8c-962b-461c-8d31-891b092ddea8" class="">As you can see, it is working.</p><p id="21ccef8f-c6e4-4286-837d-89b10215eec6" class="">That means that you can use variables that are defined inside of a module, and they will not leak out and become available in any other file, however you can use them inside of that module, no problem.</p><p id="08a8bdd0-3fb9-44c4-991a-15402516006d" class="">That is what is referred to as <em>scoped to the module</em>.</p><p id="097973d9-313f-42cf-ac0e-217eb80b2d8c" class="">The variable <code>last</code> would not available in the console if you were to try, because it is not globally scoped, and it is not available in the <code>scripts</code> module. The <code>last</code> variable is simply scoped to the <code>utils</code> file and can only be used within that file.</p><p id="fb76c1f0-5f1d-4b72-b3a8-dfeda13e119d" class="">Is that good practice? Yes!</p><p id="92bb2f02-af6c-44dd-85b5-1b49f056aa1f" class="">The beauty of modules is that you don&#x27;t have to worry about scoping or anything like that.</p><p id="dee9e494-fad2-4727-8c22-4981fa6bc581" class="">You can just create variables inside of that file and they are only available inside of that file and nowhere else.</p><p id="9cce0eae-4c58-4467-8279-20c9b79136ba" class="">Now what if we <em>did</em> want to be able to access the <code>last</code> variable inside of the <code>scripts</code> file? We could export that variable by putting the <code>export</code> keyword infront of the variable declaration.</p><pre id="5cb33131-d534-42e7-849f-0c3e25c771b3" class="code code-wrap"><code>export const last = &quot;bos&quot;;</code></pre><p id="01babc35-e5ce-4178-8ded-81b862003619" class="">Now within <code>scripts.js</code> we can modify our <code>import</code> statement to import that variable.</p><pre id="0a9a1e16-0e57-4578-9699-c62133ec62dd" class="code code-wrap"><code>import { returnHi, last } from &#x27;./utils.js&#x27;;</code></pre><p id="fa05d30d-c08b-48b2-b343-9ef68b391ef1" class="">At the bottom of <code>scripts.js</code> let&#x27;s log <code>console.log(last)</code>.</p><p id="0a0632ac-e356-4329-b056-4b9851ad6f3c" class="">As you can see, that works!</p><p id="66b61b06-f37b-465e-a1da-ebebecfaaa4d" class="">Another way to export a value is instead of exporting it when you create it, you can export it from the bottom of the file like so <code>export { last }</code>. This is referred to as a named export because they have a name on them.</p><p id="7dcc1d64-f4d2-4c1e-8b84-9d04f48d6e29" class="">Here is what the <code>utils.js</code> file looks like now:</p><pre id="7d507a64-eee1-4ced-a080-5ea92ab9b547" class="code code-wrap"><code>// utils.js
+const last = &quot;bos&quot;;
+
+export function returnHi(name) {
+return `Hi ${name} ${last}`;
+}
+
+// named exports
+export { last };</code></pre><p id="d87a59b4-01fc-4195-8ddf-58c5a4b2403c" class="">Let&#x27;s say we have multiple variables like <code>const middle = &#x27;slam dunk&#x27;</code> and we wanted to export that as well we could either add an <code>export</code> to the variable declaration or we can export middle using a named export like so:</p><pre id="d66b8881-b743-4ddb-9bbd-e006f0408de6" class="code code-wrap"><code>// utils.js
+const last = &quot;bos&quot;;
+const middle = &quot;slam dunk&quot;;
+
+export function returnHi(name) {
+return `Hi ${name} ${last}`;
+}
+
+// named exports
+export { last, middle };</code></pre><p id="1c128fd7-164d-4be0-89ef-e38fc6087174" class="">If you go into scripts and modify the file to import that variable and use it like so 👇</p><pre id="cd39700d-57e8-4fbb-824c-8bfb25e9bbe3" class="code code-wrap"><code>// scripts.js
+import { returnHi, last, middle } from &quot;./utils.js&quot;;
+
+const name = &quot;wes&quot;;
+
+console.log(returnHi(name));
+
+console.log(&quot;Its working....&quot;);
+
+console.log(last, middle);</code></pre><p id="8f7527d0-ce22-4847-9fea-bddce3a0adff" class="">Which type of export should you use? That is a personal preference so use what you prefer. Wes often uses a combination of both.</p><p id="e1e74cb1-129d-4580-8eb4-221f89475341" class="">You can also export async functions.</p><p id="621ed7e1-88fd-4561-af12-5fb3245961ca" class="">If <code>returnHi</code> were async, we could export it like so 👇</p><pre id="ae6ff640-9bc0-4f02-bb2c-7997c88103bc" class="code code-wrap"><code>export async function returnHi(name) {
+return `Hi ${name} ${last}`;
+}</code></pre><p id="5b4fc502-ba3f-4f25-920d-3775661f786a" class="">As mentioned earlier, that is what is referred to as <strong>named exports</strong> and <strong>named imports</strong>.</p><p id="a5529378-e51d-4f71-b9ff-f22a0b14e70c" class="">The way you can tell if something is a named export is if it has the <code>export</code> keyword in front of the function definition or variable declaration or if it is exported using curly brackets because those are only used in named exports.</p><p id="17bfdf4b-97ff-4459-a02f-7c6b21b0c8bd" class="">The other way to do that is a called a <strong>default export</strong>.</p><p id="a8aa4c14-0ee1-45ff-ab82-47be773a9165" class="">Every module can have as many <strong>named exports</strong> as they want, however it can only have one <strong>default export</strong>, which specifies what is exported from the file by default.</p><p id="29983704-7a5c-47e7-995a-682abcdafe04" class="">For example, let&#x27;s make another module <code>wes.json</code> and in it assign a variable <code>person</code> to an object, and then export that variable like so 👇</p><pre id="69ca9456-4826-4ef0-8ea9-5d37aa5a6193" class="code code-wrap"><code>const person = {
+  name: &quot;Wes&quot;,
+  last: &quot;Bos&quot;,
+};
+
+export default person;</code></pre><p id="8fb6dc14-9704-419c-b803-10a498347951" class="">Then if you want to access the <code>person</code> object within <code>scripts.js</code>, we could import it like so 👇</p><pre id="ea8a4b69-08c1-415f-a82e-97d3bbfa92d5" class="code code-wrap"><code>import { returnHi, last, middle } from &quot;./utils.js&quot;;
+import wes from &quot;./wes.js&quot;;</code></pre><p id="5032fc26-61eb-41f2-8275-0cc8c7615311" class="">Now let&#x27;s log it <code>console.log(wes)</code>.</p><p id="977109be-a94e-477a-80a4-912fbc8102a6" class="">Now we could have named that import anything we wanted.</p><p id="18b6b6cc-80a1-4154-8c67-0d5c09470dcc" class="">For example we could have done</p><pre id="3b54989e-4588-44aa-9b21-47f55f62a10b" class="code code-wrap"><code>import { returnHi, last, middle } from &quot;./utils.js&quot;;
+import westerhoff from &quot;./wes.js&quot;;
+
+console.log(westerhoff);</code></pre><p id="e7b331f4-d16c-4365-9f2d-aa3e72f97eb1" class="">If you refresh the page, you will see it still works.</p><h3 id="7a1179e9-d4ad-455b-8c64-beea5e0ed66a" class="">Difference between Default and Named Exports</h3><p id="921e6399-7274-403b-a298-d17b6019ff5f" class="">The difference between default exports and named exports is that with named imports, you must know what the name they have been exported as, but since there is only one default export per file, you can import them and name they whatever you want.</p><p id="5ab83e64-75a9-4882-83d5-8121e749f72b" class="">Which type of export should you use? There are arguments to be made on both sides.</p><p id="30f105c9-024d-4a2a-828f-34f56c105a3f" class="">Wes will usually use a default export if the module does one thing, but if the module does multiple things, like a utility library or something like that, then you can just have multiple named exports from it.</p><p id="f1fb2306-0568-4482-9921-d030d3563058" class="">You can have both named and default exports in one file.</p><p id="b84b33b9-b81f-4736-811e-87f7131b30d0" class="">For example, in <code>utils.js</code>, we will default export a variable called <code>first</code>, by adding the following code to the bottom of the file 👇</p><pre id="e4a05290-f2ad-4f14-bf11-7cf186ef55fe" class="code code-wrap"><code>const first = &quot;wes&quot;;
+export default first;</code></pre><p id="b630051e-ed0a-44e6-9c69-6ebc561f85f4" class="">Now within <code>scripts.js</code>, if we wanted to import that it wouldn&#x27;t go in curly brackets because that is only for named and <code>first</code> is the default. So we could import and log it like so 👇</p><pre id="eb7799ce-8278-4a79-897c-0391d07476d0" class="code code-wrap"><code>import first, { returnHi, last, middle } from &quot;./utils.js&quot;;
+import westerhoff from &quot;./wes.js&quot;;
+
+console.log(westerhoff);
+console.log(first);</code></pre><p id="01ae4483-0b20-4c81-a043-c6297195a122" class="">To reiterate:</p><ul id="329962c6-2f72-4954-9607-d83665ce34ff" class="bulleted-list"><li style="list-style-type:disc">named are in curly brackets</li></ul><ul id="8682a1db-34e0-4e7d-8abb-c742b39e30ff" class="bulleted-list"><li style="list-style-type:disc">default are always only one and outside of the curly brackets.</li></ul><h2 id="4e9694ee-dfd4-4da5-853f-b6bedb1c6a19" class="">Renaming Modules</h2><p id="4307d82b-f6c5-418c-a8ba-795fa448111f" class="">Another thing about modules is you can rename them as you import them.</p><p id="b6c9342e-3b83-4f6d-a02a-b756224a8f34" class="">Let&#x27;s say we wanted to rename <code>returnHi</code> to <code>sayHi</code>. We could do that within the import statement like so 👇</p><pre id="bd9b2412-4974-458a-8b8d-38972789a9d1" class="code code-wrap"><code>import first, { returnHi as sayHi, last, middle } from &quot;./utils.js&quot;;</code></pre><p id="419f5eec-3cee-42dd-a5e7-c29ae89218b5" class="">That will import <code>returnHi</code> and rename it to <code>sayHi</code>, kind of like destructuring but with different syntax because we use the <code>as</code> keyword.</p><p id="05a07d6b-3eaf-4d90-9054-47477832d842" class="">Now let&#x27;s replace where we are calling <code>returnHi</code> and instead call <code>sayHi</code>, and then log <code>sayHi</code>.</p><pre id="0f869d7e-7b4e-4d80-b625-2950a8298f4c" class="code code-wrap"><code>import first, { returnHi as sayHi, last, middle } from &quot;./utils.js&quot;;
+import westerhoff from &quot;./wes.js&quot;;
+
+console.log(westerhoff);
+console.log(sayHi);
+console.log(first);
+
+const name = &quot;ws&quot;;
+
+console.log(returnHi(name));
+
+console.log(&quot;Its working...&quot;);
+
+console.log(last, middle);</code></pre><p id="dd4e87a0-38a5-45ab-8ed7-369fac23b59f" class="">As you can see, when we log <code>sayHi</code>, you see that we have that function there as <code>returnHi</code>.</p><p id="f7609fc3-377e-49d0-8bab-ecb409eae2b6" class="">Let&#x27;s take a quick look at the docs. Google &quot;mdn import&quot;.</p><p id="556aec66-3ab0-48ed-adef-e10383b5b7db" class="">As you can see those are all the different types of imports.</p><p id="30e2d0ff-5fd1-4b21-bc81-9576b06d9211" class="">Sometimes you will see people importing modules by leaving the <code>.js</code> off. Let&#x27;s try that.</p><p id="b8d58f83-757b-4c87-82a1-63f416a4f9ae" class="">Remove the <code>.js</code> from the <code>utils</code> import statement like so:</p><pre id="d58f22c8-34e0-4212-bc48-b4a77c987f0f" class="code code-wrap"><code>import first, { returnHi as sayHi, last, middle } from &quot;./utils&quot;;</code></pre><p id="372d6980-7a63-4050-9f5d-45ff60193f2a" class="">When you refresh the page, you will see we get an error.</p><p id="18572c8b-62d8-4490-ac92-b3e29531c67a" class="">In a lot of bundlers, like Parcel, you can leave the end <code>.js</code> off, but that isn&#x27;t part of the specs, so if you are using pure HTML-browser based loading, like we are, you must include it.</p><pre id="81340018-59f7-44be-8bf2-10fd9a0818f5" class="code code-wrap"><code>import defaultExport from &quot;module-name&quot;;
+import * as name from &quot;module-name&quot;;
+import { export1 } from &quot;module-name&quot;;
+import { export1 as alias1 } from &quot;module-name&quot;;
+import { export1 , export2 } from &quot;module-name&quot;;
+import { foo , bar } from &quot;module-name/path/to/specific/un-exported/file&quot;;
+import { export1 , export2 as alias2 , [...] } from &quot;module-name&quot;;
+import defaultExport, { export1 [ , [...] ] } from &quot;module-name&quot;;
+import defaultExport, * as name from &quot;module-name&quot;;
+import &quot;module-name&quot;;
+var promise = import(&quot;module-name&quot;);</code></pre><p id="edca8e04-419d-4889-9a66-70e7af79fc46" class="">Let&#x27;s keep going through the different ways to import.</p><h2 id="6ebe0271-81bb-4cbf-be88-4dbda3c87d70" class="">More Ways to Import</h2><p id="fc7e1081-11f9-465f-8ddf-7250df1d3883" class=""><code>import * as name from &#x27;module-name&#x27;;</code></p><p id="2e694292-d33c-4fb7-904f-4f579d3ca1af" class="">You can import everything that comes in as a variable, like in the example above.</p><p id="5f6075b1-4c9c-4770-8513-3d7ad8a690c3" class="">Let&#x27;s go into <code>wes.js</code> and let&#x27;s add the following code:</p><pre id="7ff9d941-6632-4c61-805e-74eb75520c61" class="code code-wrap"><code>const person = {
+  name: &quot;Wes&quot;,
+  last: &quot;Bos&quot;,
+};
+
+export default person;
+
+export const dog = &quot;Snickers&quot;;
+export const food = &quot;pizza&quot;;
+
+export function eat() {
+console.log(&quot;chomp chomp&quot;);
+}</code></pre><p id="4cbf8713-5f41-46e4-ad6e-41f26e3b99b9" class="">It&#x27;s important to know that you can import modules into any other modules, it&#x27;s not limited to the entry point (which is <code>scripts.js</code> in our example).</p><p id="d5c44a17-53ce-47b3-8e35-6b55e71961bd" class="">Let&#x27;s try something.</p><p id="584f8991-31ef-4ab2-b4fe-53d185f519ed" class="">Let&#x27;s take the three named exports (<code>dog</code>, <code>food</code> and <code>eat</code>), and import them into <code>scripts.js</code> by commenting out our existing import of <code>wes.js</code> and replacing it with <code>import * as everything</code> and then logging the value of <code>everything</code>.</p><pre id="cd16a3fa-a408-4bea-992c-1a515e8863a0" class="code code-wrap"><code>import first, { returnHi as sayHi, last, middle } from &quot;./utils.js&quot;;
+// import westerhoff from &#x27;./wes.js&#x27;;
+import * as everything from &quot;./wes.js&quot;;
+
+//console.log(westerhoff);
+console.log(everything);
+console.log(sayHi);
+console.log(first);
+
+const name = &quot;ws&quot;;
+
+console.log(returnHi(name));
+
+console.log(&quot;Its working...&quot;);
+
+console.log(last, middle);</code></pre><p id="04bf59a6-43b5-47c8-8f08-fb2311bc79ed" class="">If you look at the console you will see that we get this thing that kinda looks like an object but its called a module.</p><p id="218388fc-5486-4715-a9ee-31cf74587167" class="">Inside of it we have:</p><ul id="e3af101c-3e10-4e29-a3fa-863a41ed589c" class="bulleted-list"><li style="list-style-type:disc"><code>default</code></li></ul><ul id="e7ddaf77-654d-485a-8e8a-0235e31e0d4d" class="bulleted-list"><li style="list-style-type:disc"><code>dog</code></li></ul><ul id="b20dfbca-e1cd-4c26-8c84-d331527c3956" class="bulleted-list"><li style="list-style-type:disc"><code>eat</code></li></ul><ul id="14f5d5e1-44e4-453c-816f-f37c4efc74c3" class="bulleted-list"><li style="list-style-type:disc"><code>food</code>.</li></ul><p id="cef78c0a-45da-498a-bdb5-3bdbd9c5dc38" class="">That is useful when you want to import absolutely everything from a module.</p><p id="6518e17d-241b-485f-b36c-52714ba1e3a1" class="">You can also <code>import { export1 as alias } from &#x27;module-name&#x27;;</code>.</p><p id="700f401e-c514-40d9-9c57-b34704ca6908" class="">Wes will refer to these docs often but 99% of the time he will just use the <code>returnHi as sayHi</code> and that will cover you almost all of the time.</p><p id="b5401904-8d51-480d-9fa5-b63776fcec84" class="">They also have docs for export where you can see how to export different types of expressions and objects and things like that (we will be covering some in the examples we do).</p><p id="e98b84ad-5832-4824-be05-890518e9d76c" class="">The last thing we want to do is called an <code>on-demand</code> import.</p><pre id="7f2d115f-5d88-420a-9ec7-b80e58896da7" class="code code-wrap"><code>var promise = import(&quot;module-name&quot;);</code></pre><p id="8bbfb337-478c-4791-9ff3-40a6b7af76cd" class="">That is handy when you want to import things only when you need them.</p><p id="752fcb95-6ff5-4c3b-98d9-aea011e62a6e" class="">Let&#x27;s go into the <code>/exercises/77 - Currency</code> folder and copy the big <code>currencies</code> object.</p><p id="605ede19-396a-45b8-8a30-cdff939d862d" class="">In the <code>modules</code> folder and create a new file called <code>currencies.js</code> and paste the copied object within the file.</p><p id="c4dad1c0-f93d-448a-841c-ed2dd0583098" class="">If we try to export it as default by putting <code>export default</code> in front of the declaration, that will not work.</p><pre id="ee914ba1-8bd2-4a62-abd1-f887a5515af9" class="code code-wrap"><code>export default const currencies = { ...</code></pre><p id="b6393662-91ff-4614-8398-4e0d7db8039b" class="">If we want to export default a variable declaration, we must go to the bottom of the file and export it like so 👇</p><pre id="534f3b79-f2bd-4d05-b21c-3dc05330d537" class="code code-wrap"><code>export const currencies = {
+  USD: &quot;United States Dollar&quot;,
+  AUD: &quot;Australian Dollar&quot;,
+  BGN: &quot;Bulgarian Lev&quot;,
+  BRL: &quot;Brazilian Real&quot;,
+  CAD: &quot;Canadian Dollar&quot;,
+  CHF: &quot;Swiss Franc&quot;,
+  CNY: &quot;Chinese Yuan&quot;,
+  CZK: &quot;Czech Republic Koruna&quot;,
+  DKK: &quot;Danish Krone&quot;,
+  GBP: &quot;British Pound Sterling&quot;,
+  HKD: &quot;Hong Kong Dollar&quot;,
+  HRK: &quot;Croatian Kuna&quot;,
+  HUF: &quot;Hungarian Forint&quot;,
+  IDR: &quot;Indonesian Rupiah&quot;,
+  ILS: &quot;Israeli New Sheqel&quot;,
+  INR: &quot;Indian Rupee&quot;,
+  JPY: &quot;Japanese Yen&quot;,
+  KRW: &quot;South Korean Won&quot;,
+  MXN: &quot;Mexican Peso&quot;,
+  MYR: &quot;Malaysian Ringgit&quot;,
+  NOK: &quot;Norwegian Krone&quot;,
+  NZD: &quot;New Zealand Dollar&quot;,
+  PHP: &quot;Philippine Peso&quot;,
+  PLN: &quot;Polish Zloty&quot;,
+  RON: &quot;Romanian Leu&quot;,
+  RUB: &quot;Russian Ruble&quot;,
+  SEK: &quot;Swedish Krona&quot;,
+  SGD: &quot;Singapore Dollar&quot;,
+  THB: &quot;Thai Baht&quot;,
+  TRY: &quot;Turkish Lira&quot;,
+  ZAR: &quot;South African Rand&quot;,
+  EUR: &quot;Euro&quot;,
+};
+
+export default currencies;</code></pre><p id="577e80b5-a69a-4b5e-8a8a-12905ac85c36" class="">Let&#x27;s say we want to click a button and get all of the currencies.</p><p id="df9b35dc-b603-457d-b860-c0799778230f" class="">One problem we might have is that it&#x27;s too big of a file to load on homepage or when your scripts load.</p><p id="b08049f0-57b6-48e2-ab35-b305b60926ac" class="">It also might not be necessary to actually load the currencies.</p><h2 id="abe97e52-18bb-417c-a0fb-fbacaaf5dca3" class="">Loading JavaScript On Demand</h2><p id="83f6b807-82d3-4b83-b77c-04b2207fb9a1" class="">A popular thing to do is people will on-demand load JavaScript.</p><p id="47c6f68a-d67a-4a82-a592-c7c07583877b" class="">For example, JavaScript for an online shopping cart will only be loaded when someone hovers over a buy now button. Or a list of counties might only be loaded when someone navigates to the checkout page.</p><p id="affd2b16-01d2-42d5-b9d8-c6bea04c9beb" class="">Loading JavaScript on demand ensures that your website loads nice and fast because we are not loading JavaScript until we need it.</p><p id="226a5da2-7b7f-422c-920b-ef6a4d86176b" class="">If we want to add a button to our page that when you click it, will load the currencies, it would work like so..</p><p id="1131ce38-dd9b-4685-b0bb-3f7a326b5ea7" class="">Go to the html and add a button right in the body tag.</p><pre id="d6dade5d-767d-49b5-9af1-75b70f887ccd" class="code code-wrap"><code>&lt;body&gt;
+&lt;button&gt;Load Currencies&lt;/button&gt;
+&lt;script src=&quot;./scripts.js&quot; type=&quot;module&quot;&gt;&lt;/scripts&gt;</code></pre><p id="688c220b-ebb1-46eb-8b97-e2f333cf2bc4" class="">Next within <code>scripts.js</code>, remove everything but the code below to begin with 👇</p><pre id="445b8942-7d59-4689-9971-74ffaf0bb123" class="code code-wrap"><code>// scripts.js
+import first, { returnHi as sayHi, last, middle } from &quot;./utils.js&quot;;
+import * as everything from &quot;./wes.js&quot;;</code></pre><p id="575eb064-f649-4a3e-902e-9d1068c8a5eb" class="">We will begin by writing the code to select the button and listen for when it&#x27;s clicked.</p><p id="52b62a98-f17d-4f8a-a829-74fd9f3981bd" class="">Instead of writing the handlers within this file, we will move them to a separate module.</p><p id="35233a52-1103-40a5-86cf-d23ca57ee561" class="">Normally we would just go above the event listener and make a function like <code>handleButtonClick</code> or something that we would pass to it.</p><p id="95ac2c74-e1a4-40e6-8363-0abfa98c634f" class="">Instead, go into our <code>handlers.js</code> file and make a function called <code>handleButtonClick</code> which for now will just log the event, and export that.</p><pre id="2ead2761-c321-44a1-bcff-4a2c8680020c" class="code code-wrap"><code>export function handleButtonClick(event) {
+console.log(event);
+}</code></pre><p id="a1973a4d-33fc-4a11-ae6d-2bda5dd51676" class="">Back in <code>scripts.js</code> we need to import it now.</p><pre id="c503b638-f08e-482f-a229-7a6d199c8f14" class="code code-wrap"><code>import { handleButtonClick } from &quot;./handlers.js&quot;;
+
+const button = document.querySelector(&quot;button&quot;);
+button.addEventListener(&quot;click&quot;, handleButtonClick);</code></pre><p id="d328d589-6011-48cd-a9e1-2e1afc758d80" class="">This is normally how Wes structures his file. Typically he will have a JS file that will select his elements and hook up the event listeners, and then almost all his other utilities, data, functionality and handlers go in separate files/modules.</p><p id="84bb74c5-dc6e-4aef-95e0-8cd8dff22675" class="">That allows Wes to import them as he needs them and that keeps <code>scripts.js</code> which is the entry point nice and lean. He can open the file and quickly get an idea of the functionality.</p><p id="80979f48-bbf8-47ef-830a-c62ae81b5ef1" class="">Then if he wants to know how something works, he needs to dig a bit further into the modules and read that.</p><p id="6912088e-9949-44a9-9d4d-0bbc630c2bd7" class="">If you refresh the HTML page and try clicking on the button, you will see the event logged.</p><p id="93fcd23f-bc2c-4016-b686-84c0c54d9880" class="">Now we can go to <code>handlers.js</code> and work on that function.</p><p id="2d977aa4-4ffb-476f-b5e1-fc3f7c12e84d" class="">When the button is clicked, we want to get all the currencies. We could simply import them like so <code>import currencies from &#x27;./currencies.js&#x27;</code>. Now within the function, let&#x27;s log <code>currencies</code>.</p><p id="db554021-390d-456b-923f-c9731c4db573" class="">If you do that, and refresh the page while the network tab is open, you will see all of the script modules that are being loaded.</p><p id="c9a1629e-38ae-4814-8e02-f09da2716530" class="">If you comment out that import statement and refresh the HTML page, you will see currencies is no longer in the network tab.</p><h3 id="87061ab8-6adc-45a9-a598-5bb0ddb1d4b8" class="">async</h3><p id="45943259-cf93-4ba7-a538-5ac40c0335ee" class="">How do we on-demand load some data or some functionality from a module? We can make it <code>async</code>.</p><pre id="bd43234a-4919-443e-baaa-f004022de237" class="code code-wrap"><code>export async function handleButtonClick(event) {
+const currencies = await import(&quot;./currencies.js&quot;);
+console.log(currencies);
+}</code></pre><p id="ed86eba5-f73b-475a-bebc-4d07fb40373a" class="">When the page refreshes, you will see that <code>currencies.js</code> is no longer loaded in the network tab until you click the button.</p><p id="3975e475-f439-42c4-b191-d7c4814e54f4" class="">That request was only made after we clicked the button. Now we have the module logged in the console.</p><p id="a5ed4c1f-4444-4713-928d-960869e0a4d8" class="">If we want to access the currencies we need to get the default. Let&#x27;s refactor the import slightly to rename the variable.</p><pre id="bb3d29c8-fefc-41e9-b926-e9a51d220441" class="code code-wrap"><code>export async function handleButtonClick(event) {
+const currenciesModule = await import(&quot;./currencies.js&quot;);
+console.log(currenciesModule.default);
+}</code></pre><p id="fbd0c21d-bcc9-4c17-a8fa-eae5648dcff0" class="">When the page refreshes, you should see and have access to the currencies in the console.</p><p id="6801053c-39be-4549-9b00-d10c69508721" class="">It does cache it, so if someone were to click the button again, the currencies would be loaded instantly instead of needing to be fetched again.</p><p id="6fb2fdc7-347f-4f41-8e27-5d759a8d638d" class="">Let&#x27;s say <code>currencies.js</code> had another export, such as <code>export const localCurrency = &#x27;CAD&#x27;</code>.</p><p id="2a8e683b-15e6-4aa6-a02d-7df8f85e169f" class="">How would we also import that on demand?</p><p id="9c05c2e1-6c0b-4754-988d-6ec29ac9668c" class="">If you refresh the HTML page, you will see that we do have the <code>localCurrency</code> in the <code>module</code>.</p><p id="9ddefe59-7590-4b79-b498-e491aaaf18a7" class="">Let&#x27;s destructure them into their own variables with curly brackets like so 👇</p><pre id="e1048503-8b13-4593-811e-93ca786ccee7" class="code code-wrap"><code>const { localCurrency, default } = await import(&#x27;./currencies.js&#x27;);
+console.log(localCurrency, default);</code></pre><p id="50ea26f3-1185-4102-a217-a609c2d3dde3" class="">However if you try to do that, you will see the editor yelling at us that <code>default</code> is a reserved keyword, which means you cannot use it as a variable name.</p><p id="cea48a06-59ff-4396-9b8e-46489fe8a55f" class="">To fix that, we need to rename it like so 👇</p><pre id="9f7f5d52-1f5a-4f20-971a-0279c8a0400f" class="code code-wrap"><code>const { localCurrency, default: currency } = await import(&quot;./currencies.js&quot;);
+console.log(localCurrency, currency);</code></pre><p id="84d7401e-5ea5-4a60-8d7c-265427a911d6" class="">When destructuring a property like <code>default</code> that is not allowed to be named <code>default</code>, we can use destructuring renaming syntax that looks like this: <code>default: currency</code>.</p><p id="b2242261-a355-45a6-ba64-7d4fa2e33725" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="711b0395-c9f9-4ab8-bab8-1d5da84680fd" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="d32d87e8-a1c9-4459-9bc8-78092c4905ff" class="">Edit on Github</p></details></li></ul><ul id="3863ded4-ccf7-4102-a688-9207d6b2c22d" class="toggle"><li><details open=""><summary>79 - Currency Module Refactor</summary><p id="d0cba08c-9ac5-4772-a3b8-9bbbc082d130" class=""><a href="https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/79-currency-module-refactor">https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/79-currency-module-refactor</a></p><p id="3986f117-31fd-4274-a390-81aa37f6b94a" class="">
+</p><figure id="94d06dfa-04ef-4a96-8c86-fd2389545ae4" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%201.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%201.png"/></a></figure><p id="45bfefa8-2042-456e-8b2a-71379ca46dad" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="4d7bf2eb-b274-40ff-8bb9-d3ab13c5d69d" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="81cef0f9-0d16-4f0f-9051-6bc9f7cab052" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="bdfa923b-de70-4c2a-8774-030f3839a735" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="f702cdf2-90bf-4786-b2c4-42bc2641ae0e" class="">JavaScript, ES ModulesEdit Post</p><p id="36e740c2-ead3-4165-a023-200b5dc1f1f1" class="">In this lesson let&#x27;s take the currency conversion example we did and convert it into modules.</p><p id="78ea6a26-135e-4b38-b16e-8e233911a612" class="">Feel free to try this one yourself.</p><p id="633fa1ea-d0fe-4867-a742-436a8187f867" class="">Go into our <code>/exercises</code> folder and find the folder containing the currency converter we built.</p><p id="d81d3492-7536-4b3c-9bc9-3e4ef4588f53" class="">Duplicate that folder within the <code>/exercises</code> root and rename it to <code>79 - Currency Module Refactor</code>. Within that folder let&#x27;s get rid of the <code>money-FINISHED.js</code> file.</p><p id="5fba3b29-7ad1-40f8-9f7d-a09cda314c01" class="">Open <code>index.html</code> and add a <code>type=&quot;module&quot;</code> to the script tag.</p><p id="ffd8efac-50aa-451c-bb6b-c61d36ba6750" class=""><code>money.js</code> will be our JavaScript entry point.</p><p id="9a619f65-9032-4457-8ceb-f402988bd49f" class="">Before we start refactoring, let&#x27;s take a look at the code we are working with. 👇</p><pre id="2652cb2c-3a55-478e-8ca7-94685f7ee5b5" class="code code-wrap"><code>const fromSelect = document.querySelector(&#x27;[name=&quot;from_currency&quot;]&#x27;);
+const fromInput = document.querySelector(&#x27;[name=&quot;from_amount&quot;]&#x27;);
+const toSelect = document.querySelector(&#x27;[name=&quot;to_currency&quot;]&#x27;);
+const toEl = document.querySelector(&quot;.to_amount&quot;);
+const form = document.querySelector(&quot;.app form&quot;);
+const endpoint = &quot;https://api.exchangeratesapi.io/latest&quot;;
+const ratesByBase = {};
+
+const currencies = {
+  USD: &quot;United States Dollar&quot;,
+  AUD: &quot;Australian Dollar&quot;,
+  BGN: &quot;Bulgarian Lev&quot;,
+  BRL: &quot;Brazilian Real&quot;,
+  CAD: &quot;Canadian Dollar&quot;,
+  CHF: &quot;Swiss Franc&quot;,
+  CNY: &quot;Chinese Yuan&quot;,
+  CZK: &quot;Czech Republic Koruna&quot;,
+  DKK: &quot;Danish Krone&quot;,
+  GBP: &quot;British Pound Sterling&quot;,
+  HKD: &quot;Hong Kong Dollar&quot;,
+  HRK: &quot;Croatian Kuna&quot;,
+  HUF: &quot;Hungarian Forint&quot;,
+  IDR: &quot;Indonesian Rupiah&quot;,
+  ILS: &quot;Israeli New Sheqel&quot;,
+  INR: &quot;Indian Rupee&quot;,
+  JPY: &quot;Japanese Yen&quot;,
+  KRW: &quot;South Korean Won&quot;,
+  MXN: &quot;Mexican Peso&quot;,
+  MYR: &quot;Malaysian Ringgit&quot;,
+  NOK: &quot;Norwegian Krone&quot;,
+  NZD: &quot;New Zealand Dollar&quot;,
+  PHP: &quot;Philippine Peso&quot;,
+  PLN: &quot;Polish Zloty&quot;,
+  RON: &quot;Romanian Leu&quot;,
+  RUB: &quot;Russian Ruble&quot;,
+  SEK: &quot;Swedish Krona&quot;,
+  SGD: &quot;Singapore Dollar&quot;,
+  THB: &quot;Thai Baht&quot;,
+  TRY: &quot;Turkish Lira&quot;,
+  ZAR: &quot;South African Rand&quot;,
+  EUR: &quot;Euro&quot;,
+};
+
+function generateOptions(options) {
+return Object.entries(options)
+.map(([currencyCode, currencyName]) =&gt;
+`&lt;option value=&quot;${currencyCode}&quot;&gt;${currencyCode} - ${currencyName}&lt;/option&gt;`
+)
+.join(&quot;&quot;);
+}
+
+async function fetchRates(base = &quot;USD&quot;) {
+const res = await fetch(`${endpoint}?base=${base}`);
+const rates = await res.json();
+
+return rates;
+}
+
+async function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(
+`Oh no, we dont have ${from} to convert to ${to}. So gets go get it!`
+);
+const rates = await fetchRates(from);
+console.log(rates);
+// store them for next time
+ratesByBase[from] = rates;
+}
+
+// convert that amount that they passed it
+const rate = ratesByBase[from].rates[to];
+const convertedAmount = rate * amount;
+console.log(`${amount} ${from} is ${convertedAmount} in ${to}`);
+return convertedAmount;
+}
+
+function formatCurrency(amount, currency) {
+return Intl.NumberFormat(&quot;en-US&quot;, {
+    style: &quot;currency&quot;,
+currency,
+}).format(amount);
+}
+
+async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+toEl.textContent = formatCurrency(rawAmount, toSelect.value);
+}
+
+const optionsHTML = generateOptions(currencies);
+
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+form.addEventListener(&quot;input&quot;, handleInput);</code></pre><p id="6886007a-3986-4f87-ac41-5368a435e03c" class="">Within the file: ...</p><ul id="ca0bb359-78ca-4854-902b-db7d190162b7" class="bulleted-list"><li style="list-style-type:disc"><p id="2c06abfa-3388-4aca-88ee-582302c5e490" class="">Selecting a bunch of elements and have a <code>ratesByBase</code> and <code>currencies</code> object.</p></li></ul><ul id="0fdd8fad-27e0-4b4c-95f3-ccba7ee82e66" class="bulleted-list"><li style="list-style-type:disc"><p id="02ae29e0-4c63-47bc-8ef7-6c7633fe6f06" class="">Have a few functions such as <code>generateOptions</code>, <code>fetchRates</code> which require the endpoint, and we have a <code>convert</code>, <code>formatCurrency</code> function plus one handler.</p></li></ul><ul id="f2906c98-d315-4c2e-97b8-edb6c471662b" class="bulleted-list"><li style="list-style-type:disc"><p id="7d4219f8-3030-421c-af7b-e8c840b3654f" class="">have <strong>library functions</strong> which are functions that are considered core to our application such as a few handlers, and <code>generateOptions</code> which is a helper/utility method, and we also have some data.</p></li></ul><p id="fc2812a6-1b49-459c-a164-bfa01bbf45b6" class="">For this example, we won&#x27;t use any folder structure. Instead Wes will show you how to do it with a <strong>flat file structure</strong>.</p><p id="119a377c-4319-4344-9a82-a81ba1cf080b" class="">Within the <code>79 - Currency Refactor</code> folder create a file called <code>currencies.js</code> and paste the entire <code>currencies</code> object within it. It is a big enough object that Wes would give it it&#x27;s own file.</p><pre id="4747eff7-0049-46ae-92e2-ec9bb99adba4" class="code code-wrap"><code>// currencies.js
+
+const currencies = {
+  USD: &quot;United States Dollar&quot;,
+  AUD: &quot;Australian Dollar&quot;,
+  BGN: &quot;Bulgarian Lev&quot;,
+  BRL: &quot;Brazilian Real&quot;,
+  CAD: &quot;Canadian Dollar&quot;,
+  CHF: &quot;Swiss Franc&quot;,
+  CNY: &quot;Chinese Yuan&quot;,
+  CZK: &quot;Czech Republic Koruna&quot;,
+  DKK: &quot;Danish Krone&quot;,
+  GBP: &quot;British Pound Sterling&quot;,
+  HKD: &quot;Hong Kong Dollar&quot;,
+  HRK: &quot;Croatian Kuna&quot;,
+  HUF: &quot;Hungarian Forint&quot;,
+  IDR: &quot;Indonesian Rupiah&quot;,
+  ILS: &quot;Israeli New Sheqel&quot;,
+  INR: &quot;Indian Rupee&quot;,
+  JPY: &quot;Japanese Yen&quot;,
+  KRW: &quot;South Korean Won&quot;,
+  MXN: &quot;Mexican Peso&quot;,
+  MYR: &quot;Malaysian Ringgit&quot;,
+  NOK: &quot;Norwegian Krone&quot;,
+  NZD: &quot;New Zealand Dollar&quot;,
+  PHP: &quot;Philippine Peso&quot;,
+  PLN: &quot;Polish Zloty&quot;,
+  RON: &quot;Romanian Leu&quot;,
+  RUB: &quot;Russian Ruble&quot;,
+  SEK: &quot;Swedish Krona&quot;,
+  SGD: &quot;Singapore Dollar&quot;,
+  THB: &quot;Thai Baht&quot;,
+  TRY: &quot;Turkish Lira&quot;,
+  ZAR: &quot;South African Rand&quot;,
+  EUR: &quot;Euro&quot;,
+};
+
+export default currencies;</code></pre><p id="789bd47f-a1ff-4358-b813-55abcde99c78" class="">Make a new file called <code>utils.js</code> and inside of that we will paste our <code>generateOptions</code> method and make it a named export.</p><pre id="cd187544-bb04-4d32-af3e-79267e4a6bc6" class="code code-wrap"><code>// utils.js
+export function generateOptions(options) {
+return Object.entries(options)
+.map(([currencyCode, currencyName]) =&gt;
+`&lt;option value=&quot;${currencyCode}&quot;&gt;${currencyCode} - ${currencyName}&lt;/option&gt;`
+)
+.join(&quot;&quot;);
+}</code></pre><p id="ceb08357-e819-4d69-9f3b-d7fcd8b21fd5" class="">Next make another file called <code>lib.js</code>. Move the <code>fetchRates</code> and <code>convert</code> functions to that file.</p><pre id="1b1ce5bd-d41d-40f2-9f14-afa01ccab911" class="code code-wrap"><code>// lib.js
+export async function fetchRates(base = &quot;USD&quot;) {
+const res = await fetch(`${endpoint}?base=${base}`);
+const rates = await res.json();
+
+return rates;
+}
+
+export async function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(
+`Oh no, we don&#x27;t have ${from} to convert to ${to}. So gets go get it!`
+);
+const rates = await fetchRates(from);
+console.log(rates);
+// store them for next time
+ratesByBase[from] = rates;
+}
+
+// convert that amount that they passed it
+const rate = ratesByBase[from].rates[to];
+const convertedAmount = rate * amount;
+console.log(`${amount} ${from} is ${convertedAmount} in ${to}`);
+return convertedAmount;
+}</code></pre><p id="ff682862-60b6-405a-98c6-fd426905bc64" class="">Take the next function <code>formatCurrency</code> and put it in the <code>utils.js</code> file like so 👇</p><pre id="e50ea3db-b98e-4f14-b590-b4d25dae5144" class="code code-wrap"><code>// utils.js
+export function generateOptions(options) {
+return Object.entries(options)
+.map(([currencyCode, currencyName]) =&gt;
+`&lt;option value=&quot;${currencyCode}&quot;&gt;${currencyCode} - ${currencyName}&lt;/option&gt;`
+)
+.join(&quot;&quot;);
+}
+
+export function formatCurrency(amount, currency) {
+return Intl.NumberFormat(&quot;en-US&quot;, {
+    style: &quot;currency&quot;,
+currency,
+}).format(amount);
+}</code></pre><p id="8975ce59-70c1-44ef-9b81-d61b9d8317ac" class="">Next there is <code>handleInput</code> which is a handler, so make a new file called <code>handlers.js</code> and add that there.</p><pre id="d89a8da7-7226-4d53-bd76-54b4eb0c508e" class="code code-wrap"><code>export async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+toEl.textContent = formatCurrency(rawAmount, toSelect.value);
+}</code></pre><p id="b42a2d19-634a-442e-b8e2-181e59b92adc" class="">You should be left with the following code in <code>money.js</code>.</p><pre id="d2ed0549-bb62-4869-b221-7ad75ab94496" class="code code-wrap"><code>// money.js
+const fromSelect = document.querySelector(&#x27;[name=&quot;from_currency&quot;]&#x27;);
+const fromInput = document.querySelector(&#x27;[name=&quot;from_amount&quot;]&#x27;);
+const toSelect = document.querySelector(&#x27;[name=&quot;to_currency&quot;]&#x27;);
+const toEl = document.querySelector(&quot;.to_amount&quot;);
+const form = document.querySelector(&quot;.app form&quot;);
+const endpoint = &quot;https://api.exchangeratesapi.io/latest&quot;;
+const ratesByBase = {};
+
+const optionsHTML = generateOptions(currencies);
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+form.addEventListener(&quot;input&quot;, handleInput);</code></pre><p id="a7e5ad46-638f-4a27-87f9-4975705690d4" class="">Now the code that is left is only responsible for:</p><ul id="3d9bad0c-2e7e-4b91-ba12-362b58873787" class="bulleted-list"><li style="list-style-type:disc">generating the options and initializing them on page load on page load</li></ul><ul id="9dc2a50d-b1f7-4208-ba68-29aa25fa71fd" class="bulleted-list"><li style="list-style-type:disc">adding the event listeners</li></ul><p id="44a2bba2-233b-4e3a-9d42-664d92fb8382" class="">Let&#x27;s start by going through them one by one and deciding whether or not to move it out of <code>money.js</code>.</p><p id="36678d82-2d7e-4356-8806-834a9e87ff18" class="">Open up <code>index.html</code> in a VSCode live server and look to see if we have any errors in the console.</p><p id="fc24c1e4-56ed-4813-b9e3-220f9fa70a12" class="">It is complaining that <code>generateOptions</code> is not defined. Let&#x27;s import it.</p><pre id="f2f50873-9b52-4cc1-8346-d07da1f84e68" class="code code-wrap"><code>import { generateOptions } from &quot;./utils.js&quot;;</code></pre><p id="d31f95b1-5670-4310-a6b4-8db187649129" class="">Next we get an error saying <code>currencies</code> is not defined.</p><p id="f26c08f5-21f2-431b-908c-a5a8d437d28b" class="">Import <code>currencies</code> so we can pass it to <code>generateOptions</code>.</p><pre id="f27057e4-dc78-4ce8-bbe2-f7eb77713201" class="code code-wrap"><code>import { generateOptions } from &quot;./utils.js&quot;;
+import { currencies } from &quot;./currencies.js&quot;;</code></pre><p id="b8fe901b-e20e-4c6c-baa4-b6d6c9dbe11c" class="">WHen the page refreshes, we have yet another error. It is complaining that it cannot find an export named <code>currencies</code>.</p><p id="3c476065-669f-47d8-ba86-ecd0013c18d8" class="">That is because it is a default export, not a named export, so it doesn&#x27;t need the curly brackets.</p><p id="649c47af-4efe-44f4-8490-cedbe326314d" class="">Modify it like so 👇</p><pre id="75194663-665a-4be7-833f-33496757033f" class="code code-wrap"><code>import currencies from &#x27;./currencies.js&#x27;;</code></pre><p id="695c5a71-6418-43c5-91da-2109b62f770b" class="">Now the console is complaining that <code>handleInput</code> is not defined.</p><p id="d32f617d-4661-4ab0-8daa-eedcee502a8a" class="">Let&#x27;s fix that by adding <code>import { handleInput } from &#x27;./handlers&#x27;;</code></p><p id="a085b1ca-0272-4bf5-81db-e46a42bb395a" class="">Finally there are no more errors in the console, until you try to type an amount into the input. When you try this you will see a reference error in the console complaining that <code>convert</code> is not defined, and it is happening in <code>handlers.js</code> on line 2.</p><p id="38c93c79-32f3-481c-985e-b1b483344296" class="">To fix that, import the <code>convert</code> function into <code>handlers</code>.</p><pre id="4b450d97-566a-4c5e-9303-2c8da152f991" class="code code-wrap"><code>import { convert } from &quot;./lib.js&quot;;
+
+export async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+toEl.textContent = formatCurrency(rawAmount, toSelect.value);
+}</code></pre><p id="b49e43d2-9bf7-4883-b526-375633ce259b" class="">Now we get another error that <code>fromInput</code> is not defined. Within <code>handleInput</code> use the <code>fromInput</code>, <code>fromSelect</code>, <code>toSelect</code> and <code>toEl</code> variables.</p><p id="1981885e-1deb-4a2a-8371-52c742c7524d" class="">We also reference the function <code>formatCurrency</code> which we haven&#x27;t imported.</p><p id="22df1fd1-a452-4fc1-88d7-0dda2d42582d" class="">Import it to <code>handlers.js</code> like so <code>import { formatCurrency } from &quot;./utils&quot;;</code></p><p id="182aabf3-7dc3-4617-b438-d2210605cd23" class="">We need all those elements, and rather than pass them in as an argument to the function, let&#x27;s put them in their own module.</p><p id="500b8da8-3c5c-43b3-9beb-91b0b1b9932a" class="">Create a new file called <code>elements.js</code>.</p><p id="2237a417-3500-40c7-913b-a34b89ee56b0" class="">Go into <code>money.js</code> and take all the selectors and move them to the new <code>elements.js</code> file. Add the export keyword in front of each like so 👇</p><pre id="f87625f3-8973-4dcf-9d5a-a73a8a94a166" class="code code-wrap"><code>// elements.js
+export const fromSelect = document.querySelector(&#x27;[name=&quot;from_currency&quot;]&#x27;);
+export const fromInput = document.querySelector(&#x27;[name=&quot;from_amount&quot;]&#x27;);
+export const toSelect = document.querySelector(&#x27;[name=&quot;to_currency&quot;]&#x27;);
+export const toEl = document.querySelector(&quot;.to_amount&quot;);</code></pre><p id="2f1817b0-3f4f-4251-9b23-f0edc6a743de" class="">What people will often do is instead of using <code>document.querySelector</code> for all of those, they will grab a parent element like the div with a class of <code>app</code> in the example above, and then look for the selectors inside of there.</p><p id="f9d1a960-0ae0-4ddf-8b02-e4203251635e" class="">You would have <code>app.querySelector</code> for each of those instead which allows you to have multiple on the same page, just like we did with the slider.</p><p id="8bac930f-5640-42fc-838f-4336330acbf9" class="">The way we are doing it is fine for now.</p><p id="d658a831-c34c-44c2-8a05-bd3f51cd0cbc" class="">If you refresh the page, we have an error <code>fromSelect</code> is not defined.</p><p id="341f698f-a812-4d39-b4d3-3a3ba1b6e4cc" class="">Let&#x27;s first go into <code>handlers</code> and import those elements.</p><pre id="85a44bef-009a-4506-8d47-03988ff64a94" class="code code-wrap"><code>import { convert } from &quot;./lib.js&quot;;
+import { formatCurrency } from &quot;./utils.js&quot;;
+import { fromInput, fromSelect, toSelect, toEl } from &quot;./elements.js&quot;;
+
+export async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+toEl.textContent = formatCurrency(rawAmount, toSelect.value);
+}</code></pre><p id="46023634-8eb1-407c-836c-c6e12cf321d7" class="">Let&#x27;s tackle the <code>fromSelect</code> is not defined issue happening in <code>money.js</code> on line 11.</p><p id="5b30b432-687f-4c29-bb14-8eec63f6075a" class="">As you can see, <code>fromSelect</code> and <code>toSelect</code> are also needed from <code>money.js</code> on page load. Let&#x27;s go ahead and import them.</p><pre id="9d84076a-2e7b-48d8-960d-ed31b8604c4d" class="code code-wrap"><code>// money.js
+import { generateOptions } from &quot;./utils.js&quot;;
+import currencies from &quot;./currencies.js&quot;;
+import { handleInput } from &quot;./handlers.js&quot;;
+import { fromSelect, toSelect } from &quot;./elements.js&quot;;
+
+const form = document.querySelector(&quot;.app form&quot;);
+const endpoint = &quot;https://api.exchangeratesapi.io/latest&quot;;
+const ratesByBase = {};
+
+const optionsHTML = generateOptions(currencies);
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+form.addEventListener(&quot;input&quot;, handleInput);</code></pre><p id="553ab359-a718-42ba-86a2-b1e43f95bf85" class="">When the page is now refreshed, we are getting an error that ratesByBase is not defined.</p><p id="a7a581b9-a2ae-4620-ae03-47e8b60d650a" class="">Our <code>endpoint</code> and <code>ratesByBase</code> variables need to go in our <code>lib.js</code> file.</p><p id="677da083-e858-4a1b-a3f7-40b60a805c39" class="">Copy those over to the lib.js file.</p><pre id="5bbf84a7-3c47-499a-bcd0-189bce791a05" class="code code-wrap"><code>// lib.js
+const endpoint = &quot;https://api.exchangeratesapi.io/latest&quot;;
+const ratesByBase = {};
+
+export async function fetchRates(base = &quot;USD&quot;) {
+const res = await fetch(`${endpoint}?base=${base}`);
+const rates = await res.json();
+
+return rates;
+}
+
+export async function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(
+`Oh no, we dont have ${from} to convert to ${to}. So gets go get it!`
+);
+const rates = await fetchRates(from);
+console.log(rates);
+// store them for next time
+ratesByBase[from] = rates;
+}
+
+// convert that amount that they passed it
+const rate = ratesByBase[from].rates[to];
+const convertedAmount = rate * amount;
+console.log(`${amount} ${from} is ${convertedAmount} in ${to}`);
+return convertedAmount;
+}</code></pre><p id="61f6b00a-384d-45fc-b5fc-19db717151d2" class="">When the page is refreshed, you will see that it is now working! Feel free to play around with the app to test it.</p><p id="62ae8132-5e06-4edf-ae2a-8f059429845e" class="">That was simpler than Wes expected -- he thought dealing with the <code>ratesByBase</code> variable would be tricky because we are updating it.</p><p id="b2fc415a-e68a-4ccb-9a83-fa21c928eb3f" class="">However, the beauty of module scope is that inside of the module, we can create the <code>ratesByBase</code> object and update it from our <code>convert</code> function. Even though we are calling the <code>convert</code> from another file, it still knows about the scope of the file (similar to how a closure works), so we can still access it without issues.</p><p id="80edad89-e047-4778-85eb-6a3e8bdb96cd" class="">The only gotcha about these modules is that if you are on a server, the <code>ratesByBase</code> will be shared by every request that comes in which may or may not be what you want.</p><p id="9e36518d-179e-47aa-9d30-fa6bc0cd574c" class="">Wes has ran into an issue where Wes was storing data in one module that was being overwritten by multiple users. If that is the case, you need to get into sessions or scope it to each function but in our case, and most cases ,this is fine.</p><p id="413f6669-0af9-4364-be4f-c34b78f6b557" class="">We have refactored the entire app into modules, which makes it a bit more organized to work with and more modular.</p><h2 id="dbecd806-3814-44c9-84c0-1b564ebeeb91" class="">Bootstrap / App Init Functions</h2><p id="d1cbfbec-572c-4c70-b14d-ecbf2c4fa6b7" class="">One more thing Wes wants to show us is a situation where we might take the form element and put it into a bootstrap or app init function. What does that mean?</p><p id="e5fa355e-525a-4f86-80f6-b33a05dd963c" class="">All of this code in <code>money.js</code> runs on page load.</p><pre id="17f6d990-01a7-4e2d-96b3-bdce6b94ccef" class="code code-wrap"><code>// when the page loads, this code runs
+const form = document.querySelector(&quot;.app form&quot;);
+
+const optionsHTML = generateOptions(currencies);
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+form.addEventListener(&quot;input&quot;, handleInput);</code></pre><p id="5c02c50b-5411-4b61-8e6b-aea9e52501b2" class="">Sometimes you might want to delay the running of what happens on page load.</p><p id="4af2c43f-e1b5-4047-af30-66c0ac5a94dc" class="">If that is the case, what we would do is take all that logic from <code>money.js</code> and go to <code>lib.js</code> and make another function like so 👇</p><pre id="45a79dc6-cb04-4da6-b6ae-b64003d13e91" class="code code-wrap"><code>// lib.js
+export function init() {
+// when the page loads, this code runs
+const form = document.querySelector(&quot;.app form&quot;);
+
+const optionsHTML = generateOptions(currencies);
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+form.addEventListener(&quot;input&quot;, handleInput);
+}</code></pre><p id="107b2695-db5e-419c-b9c7-af2fb47ff82c" class="">We also need to import <code>fromSelect</code> and <code>toSelect</code>.</p><p id="10faff29-05d0-4386-93ac-5dfb0693e6ca" class="">Add the following import 👇statement to the other imports at the top of <code>libs.js</code>.</p><pre id="7af31905-f9f9-48d7-b005-04d1c039887e" class="code code-wrap"><code>import { fromSelect, toSelect } from &quot;./elements.js&quot;;</code></pre><p id="b9497450-ec0c-47cd-81f7-234923bac58d" class="">If you try to play around with the app now, nothing happens because no code has started.</p><p id="e39ff6f1-512d-4a2e-929d-552042676248" class="">To fix that go back to<code>money.js</code>, and import that <code>init</code> function and use it to start the app.</p><pre id="ff22c17d-5dfc-42f2-98f3-1b92810fe70f" class="code code-wrap"><code>import { generateOptions } from &quot;./utils.js&quot;;
+import currencies from &quot;./currencies.js&quot;;
+import { handleInput } from &quot;./handlers.js&quot;;
+import { fromSelect, toSelect } from &quot;./elements.js&quot;;
+import { init } from &quot;./lib.js&quot;;
+
+init();</code></pre><p id="4b9627b6-4291-4ae6-a9d4-d6e173fdb33e" class="">If you refresh the page now, you will see the following error complaining that <code>generateOptions</code> is not defined.</p><p id="11c4e057-aff7-4a45-a14b-5548288143e2" class="">We need to go to <code>lib.js</code> and import <code>generateOptions</code>.</p><pre id="0c88f43d-3c39-4c80-a0f7-b71c26fbc975" class="code code-wrap"><code>import { fromSelect, toSelect } from &quot;./elements.js&quot;;
+import { generateOptions } from &quot;./utils.js&quot;;</code></pre><p id="c6a65aab-afe9-4177-ab42-859557102b38" class="">Now if we refresh it is complaining about <code>currencies</code> not being defined.</p><p id="9e1b976d-acf4-453e-a403-b820eebadad4" class="">What we can do is go to <code>money.js</code> and take all our import statements except for the <code>init</code> import and move them to <code>lib.js</code>.</p><pre id="7ea80461-d2e9-4390-b838-232561196169" class="code code-wrap"><code>import { fromSelect, toSelect } from &quot;./elements.js&quot;;
+import { generateOptions } from &quot;./utils.js&quot;;
+import currencies from &quot;./currencies.js&quot;;
+import { handleInput } from &quot;./handlers.js&quot;;</code></pre><p id="fd4ceaa1-170c-4a2a-b1fc-a398a10f8750" class="">Wes&#x27; ESLint is complaining about the <code>handleInput</code> import. The error says &quot;Dependency cycle detected&quot;.</p><p id="4089dfbd-cb18-48e9-959b-39802daf4c99" class="">If you look at our <code>handlers.js</code>, we are importing <code>convert</code> from there from <code>lib</code>. So both files require each other. That could cause you to end up with a situation where they require each other and it gets out of control.</p><p id="72577f20-442d-4bc5-92e3-46e627764108" class="">For our purposes, it is working, but let&#x27;s fix that anyway.</p><p id="f08e8739-be83-4339-98a5-9fcc249b802d" class="">Create one more file called <code>init.js</code></p><p id="85d8f686-12a1-42c6-b4d8-f469d48e9d2f" class="">Take the <code>init</code> function and all the imports added out of <code>lib.js</code> and put it in our <code>init.js</code> file instead.</p><pre id="fe963cc6-d3e7-420c-b2d7-a451ffcbade9" class="code code-wrap"><code>// init.js
+import { fromSelect, toSelect } from &quot;./elements.js&quot;;
+import { generateOptions } from &quot;./utils.js&quot;;
+import currencies from &quot;./currencies.js&quot;;
+import { handleInput } from &quot;./handlers.js&quot;;
+
+export function init() {
+// when the page loads, this code runs
+const form = document.querySelector(&quot;.app form&quot;);
+
+const optionsHTML = generateOptions(currencies);
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+form.addEventListener(&quot;input&quot;, handleInput);
+}</code></pre><p id="9949675a-fe43-415b-8b6c-e4a5469fd390" class="">In <code>money.js</code>, modify the code to import from <code>init.js</code> instead.</p><pre id="11b043c0-0ed1-49b7-9ee8-d8845764a492" class="code code-wrap"><code>// money.js
+import { init } from &quot;./init.js&quot;;
+
+init();</code></pre><p id="36f5de09-4da0-4b67-b078-370f84592356" class="">If you refresh the page and play with the app, you will see that it is working!</p><p id="e6b27940-3311-4586-a260-260e3c98719a" class="">You could go one step further and not even run the code unless someone clicks a button or hovers over it.</p><p id="a78e7b4c-95f8-4894-88fe-764100c7a6a3" class="">To do that, select the div with class of app within <code>money.js</code>.</p><p id="8be42217-e139-423c-92b4-100d53c3cc6e" class="">Pass the event listener to our <code>init</code> function to call, and pass it the options object to the event listener to specify we only want it to run once, like so 👇</p><pre id="2a664c49-7d19-497c-ae14-8bcb0451fb6f" class="code code-wrap"><code>import { init } from &quot;./init.js&quot;;
+
+const app = document.querySelector(&quot;.app&quot;);
+
+app.addEventListener(&quot;mouseenter&quot;, init, { once: true });</code></pre><p id="3cfcc9b5-76fc-4bd2-9fae-ab9a54fad0ae" class="">When the page loads, it should just say &quot;Select a Currency&quot; until you hover over the form, and then the code initializes and the base currency is switched out to USD.</p><p id="f7000db6-c22b-4b2d-b8e0-772485841307" class="">Now our entry point has almost nothing in it because it is in a separate file.</p><p id="ffad9356-2ae1-4dc4-b937-8785098c6b42" class="">Is that okay?</p><p id="ba162e46-23aa-48de-8250-9d1eae5d60a9" class="">Yes, some people like their entry point to have a little code but you could have also left all the code in <code>money.js</code> as well and it still would have worked!</p><p id="a5c4f9db-04b9-4fe6-b31f-aa8e5bb403da" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="b2fe08f6-ab34-4454-9058-cae2d7189668" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f8511bea-ef6c-4e57-843f-7d6baa25af46" class="">Edit on Github</p></details></li></ul><ul id="5290e196-ed36-40ef-a2c1-aa71c2bd9c4a" class="toggle"><li><details open=""><summary>80 - Dad Jokes Modules Refactor</summary><p id="26b683e3-5bb3-4319-862a-21b8973b5f78" class=""><a href="https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/80-dad-jokes-modules-refactor">https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/80-dad-jokes-modules-refactor</a></p><p id="2f0b52db-b6e7-4f06-abdd-c4c9a09cab5b" class="">
+</p><figure id="45965598-6133-4f95-b6f1-bca7978ed06c" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%202.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%202.png"/></a></figure><p id="d1d9e07f-f5ea-4483-935e-412b8eb1ccf5" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="98a77f2b-c502-4e49-8b3e-ce80b273eb51" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="88cab999-7e8e-423f-a7c8-6f907cd372b1" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="a4f9bf68-bc26-4897-b862-c533b314a67c" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="8a0b6b69-f5a7-4baf-be40-99f9911c1400" class="">JavaScript, ES ModulesEdit Post</p><p id="07b602c9-8381-40cd-9f13-9beb22bc1afe" class="">In this lesson we will refactor our dad jokes exercise so you can see how Wes would structure it.</p><ol type="1" id="63ef2883-2490-4505-827b-672527cac7fa" class="numbered-list" start="1"><li>Start by duplicating the <code>76 - Dad Jokes</code> folder within the <code>exercises/</code> directory and renaming it to <code>80 - Dad Jokes Modules</code>.</li></ol><ol type="1" id="c3b5a28a-e4e5-403c-8b19-6a8564727bf2" class="numbered-list" start="2"><li>Take all the code in <code>jokes-FINISHED.js</code> and put it <code>jokes.js</code> and then delete the finished version of the file.</li></ol><ol type="1" id="080cc17c-d98f-4f8c-8781-b27e3cb32c4c" class="numbered-list" start="3"><li>Convert this exercise to use modules by first putting an attribute of <code>type=&quot;module&quot;</code> on the script tag on the HTML page.</li></ol><ol type="1" id="4c57cba8-d282-478d-84bd-7ffa1a91c680" class="numbered-list" start="4"><li>Run the exercise under a server which we can do in VS Code by right clicking the file in VS Code and selecting &quot;open with live server&quot;.</li></ol><p id="acd4c539-bd40-441b-a044-ac0e6c470f25" class="">Now when the server loads, the dad jokes app should be working as expected.</p><p id="eda48172-df67-42ca-900a-5325c87d1268" class="">Let&#x27;s start the refactor by first looking at the code within <code>jokes.js</code>, and then we can begin splitting it out line by line, function by function.</p><pre id="9d25f791-c2d4-4736-ae62-2acfe957c5a7" class="code code-wrap"><code>// jokes.js
+const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+const jokeButtonSpan = jokeButton.querySelector(&quot;.jokeText&quot;);
+const jokeHolder = document.querySelector(&quot;.joke p&quot;);
+const loader = document.querySelector(&quot;.loader&quot;);
+
+const buttonText = [
+&quot;Ugh.&quot;,
+&quot;🤦🏻‍♂️&quot;,
+&quot;omg dad.&quot;,
+&quot;you are the worst&quot;,
+&quot;seriously&quot;,
+&quot;stop it.&quot;,
+&quot;please stop&quot;,
+&quot;that was the worst one&quot;,
+];
+
+async function fetchJoke() {
+// turn loader on
+loader.classList.remove(&quot;hidden&quot;);
+const response = await fetch(&quot;https://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+const data = await response.json();
+// turn the loader off
+loader.classList.add(&quot;hidden&quot;);
+return data;
+}
+
+function randomItemFromArray(arr, not) {
+const item = arr[Math.floor(Math.random() * arr.length)];
+
+if (item === not) {
+console.log(&quot;Ahh we used that one last time, look again&quot;);
+return randomItemFromArray(arr, not);
+}
+
+return item;
+}
+
+async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}
+
+jokeButton.addEventListener(&quot;click&quot;, handleClick);</code></pre><h2 id="5d1c73b6-2d6d-4012-9467-94c76c1ee2c1" class="">Refactoring into Modules</h2><p id="e159e3bc-3331-437e-89b4-cf318b59d353" class="">The entry point to our JavaScript will be <code>jokes.js</code> because that is what we have linked on the HTML page.</p><p id="a536750d-fe74-4e29-bdc3-2b5610e8aba3" class="">In the entry point, Wes like to do his selecting and event listeners but everything else, all of the data, functionality, utilities and handlers will all be in separate files in their own modules. We will use this approach.</p><p id="e48111f3-2fbe-4bf2-a937-baed25d208c2" class="">Starting at the top of <code>jokes.js</code>, the first 4 lines of code are simply selecting elements, so let&#x27;s leave those for now.</p><p id="9b9d4fc2-d2ba-4566-a0ae-bb0a7a401ead" class="">Where should we put the <code>buttonText</code> variable?</p><p id="e0a9511b-2e08-42cb-acd9-e4f5886d5d44" class="">Sometimes people will organize their code into folders, so to demonstrate that, we will put this in a folder called <code>data</code>, which you need to create.</p><p id="91624b75-1a7c-4edd-b013-ad2bbade0016" class="">Within the folder, add a file called <code>buttonText.js</code>. Copy and paste the buttonText variable in that file.</p><p id="0674fecb-43b5-40c9-9d16-5f2a16204bed" class=""><em>We will worry about importing and exporting these functions between modules later, for now we just want to get all of the different functions into their own files.</em></p><p id="547b436a-4158-4f15-bf31-1344d10289a8" class="">Next is the <code>fetchJoke</code> function.</p><p id="ab184ac8-73c5-4639-940c-0bb0b8ec0dbc" class="">That is core to what the application does so often people will make a <code>lib</code> folder for this. Make that folder.</p><p id="05dbbdb1-9b4c-4d09-9140-71cb9197fa60" class=""><em>(Note: you don&#x27;t have to do this, Wes personally finds it confusing when people have hundreds of folders for organization sakes. Feel free to just make files in the root directory or organize your files however you like. Wes suggests starting simple and the coming back and refactoring if you need more organization.)</em></p><p id="b801637e-6916-481d-8d41-8eaa846bd9ec" class="">Within that new folder, create a file <code>index.js</code> which will contain all of the library JavaScript.</p><p id="c069c912-90fd-4ec1-98b4-e1f3016a9e42" class="">Copy and cut the <code>fetchJoke</code> function into the <code>index.js</code> file.</p><p id="f64b1265-fd1f-433e-9a39-811e143982f2" class="">Once you do that, you may notice that in your VS Code that the loader variable within <code>fetchJokes</code> is underlined as red. VS Code is complaining because the function requires the loader, but we have not passed it a reference to the loader in this file. Due to modules have their own scope, we are no longer able to reference the <code>loader</code> variable from the <code>jokes.js</code> module.</p><p id="71fda322-3f95-4759-9e01-d3ade5e1202b" class="">There are 2 ways we can fix this:</p><ul id="f184812e-76f5-4f9a-99b6-32f077289d38" class="bulleted-list"><li style="list-style-type:disc">we can either select the loader within that function</li></ul><ul id="fa6d8125-dbf4-4602-8206-db6a64d1bd68" class="bulleted-list"><li style="list-style-type:disc">we can pass it in as a parameter.</li></ul><p id="be28e3c6-32ac-46cb-bd45-7a5aa44f3784" class="">We will pass it as a parameter, and export the function as a named function.</p><pre id="42ee6be8-3e8f-4842-bbe4-c319663c7c51" class="code code-wrap"><code>// lib/index.js
+// named export, you can have lots of these
+export async function fetchJoke(loader) {
+// turn loader on
+loader.classList.remove(&quot;hidden&quot;);
+const response = await fetch(&quot;https://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+const data = await response.json();
+// turn the loader off
+loader.classList.add(&quot;hidden&quot;);
+return data;
+}</code></pre><p id="c6298afc-4e81-4b22-be3f-c2d41429ace5" class="">Next modify the function that calls <code>fetchJoke</code> so it can pass the loader 👇</p><pre id="871fda91-c3c7-4bb6-8e7e-54fc8b161fa0" class="code code-wrap"><code>// money.js
+async function handleClick() {
+const { joke } = await fetchJoke(loader);
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="cde07e1a-82d5-4d9b-b8d6-3f9dc81e85dd" class="">Earlier when we created the <code>buttonText</code> file, we forgot to export it. Go back to <code>buttonText</code> and make it a default export.</p><pre id="68efd75a-cfac-4128-ab5b-cd102a2a5e66" class="code code-wrap"><code>// data/buttonText.js
+const buttonText = [
+&quot;Ugh.&quot;,
+&quot;🤦🏻‍♂️&quot;,
+&quot;omg dad.&quot;,
+&quot;you are the worst&quot;,
+&quot;seriously&quot;,
+&quot;stop it.&quot;,
+&quot;please stop&quot;,
+&quot;that was the worst one&quot;,
+];
+
+// default export, you can only have one.
+export default buttonText;</code></pre><p id="02601630-40ae-4d6b-b901-c3a6c94ca822" class="">Why did we put the <code>buttonText</code> in it&#x27;s own file? Unlike with the <code>index.js</code> file and <code>lib</code> folders which may contain multiple functions, <code>buttonText.js</code> is likely not doing to have any other functionality, so we can just make it the default export of it&#x27;s own file.</p><p id="b031a310-7a44-4f82-a8a9-cb6b6003c622" class="">The next function is <code>randomItemFromArray</code>, which is a utility function. Inside of the <code>lib</code> folder, create the file <code>utils.js</code>.</p><p id="d09271c4-1098-42bf-ac45-734fe7943163" class="">People will often make an entire folder dedicated to utils, it doesn&#x27;t matter, go with what you prefer. Wes likes to make a <code>utils.js</code> file and stick anything in there and then if it gets too large, he will break it up into separate functions. We will go with that approach.</p><pre id="c09e5ee9-5aab-44cc-b1c6-34fa83f1b86c" class="code code-wrap"><code>// lib/utils.js
+// named export
+export function randomItemFromArray(arr, not) {
+const item = arr[Math.floor(Math.random() * arr.length)];
+
+if (item === not) {
+console.log(&quot;Ahh we used that one last time, look again&quot;);
+return randomItemFromArray(arr, not);
+}
+
+return item;
+}</code></pre><p id="b888c09f-19c0-47ca-aff6-eaa0b94357fd" class="">Next up is <code>handleClick</code>.</p><p id="93e7d2fb-1f01-4b72-90c0-658fb0e6ac49" class="">Make another file in <code>lib</code> called <code>handlers.js</code>. Copy and cut the <code>handleClick</code> function out of <code>jokes.js</code> and put it the new file.</p><pre id="c4933a94-9f18-4ea8-a03f-1b4a138cfa2b" class="code code-wrap"><code>// lib/handlers.js
+// named export
+async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><h2 id="f30813f2-ef50-425c-bde4-9f3130d3c507" class="">Fixing Refactoring Errors</h2><p id="9e6ecf11-6df4-49f7-b03b-f23655ded2f0" class="">At this stage of the refactor, the code will be pretty broken.</p><p id="7452e71c-679d-4e02-b5e8-7362e329653d" class="">Wes approaches it either by going through the errors in the console, or by ESLint errors. We will go with the former.</p><p id="450e10ae-a5a5-4780-95f7-8f4972207404" class="">If you open the console, the first error you should see in the console is a reference error warning that <code>handleClick</code> is not defined.</p><p id="d93a63a3-60c9-4585-9c9a-7189786cdf08" class="">Earlier we moved <code>handleClick</code> into our <code>handlers.js</code> module. Now if we need to access the function in another file, we must first import it, like so 👇</p><pre id="c6d68b33-58d8-4bfe-bbaa-d5f229f92cb9" class="code code-wrap"><code>// jokes.js
+import { handleClick } from &quot;./lib/handlers.js&quot;;
+
+const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+const jokeButtonSpan = jokeButton.querySelector(&quot;.jokeText&quot;);
+const jokeHolder = document.querySelector(&quot;.joke p&quot;);
+const loader = document.querySelector(&quot;.loader&quot;);
+
+jokeButton.addEventListener(&quot;click&quot;, handleClick);</code></pre><p id="3f4f6564-f450-4009-a222-c8e32727be9f" class="">When the page refreshes now, the console is not showing any errors but if you click the button, you should see an error logged complaining that <code>fetchJoke</code> is not defined.</p><p id="120ad2e8-fa71-435f-af79-8f443e491758" class="">As you can see above, the <code>fetchJoke</code> function is used within <code>handleClick</code>. How do we make it available within <code>handleClick</code>?</p><p id="57b33281-4822-4a91-a216-040aa52f2675" class="">Do we....</p><ul id="27226579-8815-4f71-bcbc-5081e6fe690b" class="bulleted-list"><li style="list-style-type:disc">import <code>fetchJoke</code> in our <code>jokes.js</code> entry point?</li></ul><p id="3da474b5-53a3-4bac-b9cb-ef4fbdd45fc3" class="">or</p><ul id="4663276d-1419-4bbc-89ee-fb23e66863ba" class="bulleted-list"><li style="list-style-type:disc">import <code>fetchJokes</code> into our <code>handlers.js</code> module?</li></ul><p id="e072f42e-444a-4832-b453-9c7f5c831eb1" class="">The answer is you always import it where you need it, even if you have already imported it into another file.</p><p id="f98b48ac-fd1d-48a6-95b1-29863aad6e14" class="">For example, even if we imported <code>fetchJoke</code> in <code>jokes.js</code> and tried to refresh the page and click the button, we would see get the error <code>fetchJoke</code> is not defined.</p><p id="595d87ae-2f4a-45ce-ad99-90823a66b977" class="">Why is that?</p><p id="d7b48756-321f-4d10-919c-f0ade39ce48c" class="">Even though we imported it into our entry, we still have to import it where we need it to give the other modules reference to it.</p><p id="9bd3f5e5-e2c7-47cf-9d23-d02c68fa5049" class="">There is no point of importing it into our entry file right now because we are not using it anywhere in the page. <em>There is no sense in importing things into a file where they are not used.</em></p><p id="5ddb0f8a-1855-4af0-b3c5-26ac2830d33b" class="">You simply import it where you need it. Go ahead and do that in <code>handlers.js</code>.</p><pre id="f47cab79-c2c9-4c5d-95e0-153942cae2e8" class="code code-wrap"><code>// lib/handlers.js
+import { fetchJoke } from &quot;./index.js&quot;;
+
+// named export
+async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="b9e90195-02d6-48e2-a38b-003cc7b60b89" class="">The next error is complaining that loader is not defined within <code>handlers.js</code>.</p><p id="1b8a9800-585c-46c3-b9ee-12801e4c3ca0" class="">Earlier we modified the <code>fetchJoke</code> function to accept a reference to the loader, but now we are calling it from a separate file.</p><p id="d521836e-6233-454b-8bb7-c92246facf37" class="">How do we pass it? We can pass it as an argument to <code>handleClick</code> like so 👇</p><pre id="4669ec9c-9988-4291-b0b1-9cc08eac08a9" class="code code-wrap"><code>// jokes.js
+import { handleClick } from &quot;./lib/handlers.js&quot;;
+
+const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+const jokeButtonSpan = jokeButton.querySelector(&quot;.jokeText&quot;);
+const jokeHolder = document.querySelector(&quot;.joke p&quot;);
+const loader = document.querySelector(&quot;.loader&quot;);
+
+jokeButton.addEventListener(&quot;click&quot;, () =&gt; handleClick(loader));</code></pre><p id="2234acb5-4c56-4cde-bad5-4a2144f3dea0" class="">However, the console is still complaining that it loader.</p><p id="dc2ebf9a-4f35-4ad3-8ca0-e7c12ae3be72" class="">That is because we have to modify our <code>handleClick</code> function to accept the <code>loader</code> reference as a parameter, like so 👇</p><pre id="1251d589-bc08-4efd-8595-8ea0534db97f" class="code code-wrap"><code>// lib/handlers.js
+import { fetchJoke } from &quot;./index.js&quot;;
+
+// named export
+async function handleClick(loader) {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="19389ffa-f7eb-464d-b309-21729dd3e377" class="">The loader is showing up now!</p><p id="edb7844a-611d-48fa-bfa2-90d99cadf6d0" class="">An alternative solution would have been to add <code>jokeButton.addEventListener(&#x27;click&#x27;, handleClick.bind(null, loader))</code> to <code>jokes.js</code>.</p><p id="0a13ee55-a3ba-4d97-8075-1a687954b99f" class="">In that example, we are passing null to <code>bind</code> because we don&#x27;t care about <code>this</code> as we are not using it, and then we can pass it the loader as an argument.</p><p id="34195bc4-37f4-4cad-ae55-5eb2e736fd22" class="">Another alternative would have been to have a regular function that will call <code>handleClick</code>. We will use an anonymous function.</p><pre id="97078601-59fc-4be1-9c10-4008e0d0c1f6" class="code code-wrap"><code>jokeButton.addEventListener(&quot;click&quot;, function () {
+handleClick(loader);
+});</code></pre><p id="50d7de56-89f2-4296-96ad-69ee8611d490" class="">Sometimes you have to pass things around like we are with the <code>loader</code>. We selected it in <code>jokes.js</code>, passed it to <code>handleClick</code>, and then from <code>handleClick</code> we passed it to <code>fetchJoke</code>. We could have also selected it right inside of <code>handleClick</code> as well, it is up to you to choose an approach.</p><p id="90142ed6-6198-4b1e-8c10-8150eb9ad341" class="">Now that the loader is showing up, let&#x27;s move onto the next error.</p><p id="bc86f73e-fd12-4616-99cd-c16fffd931de" class="">The console is complaining that <code>jokeHolder</code> is not defined within <code>handlers.js</code>.</p><p id="f38adecc-8a04-45d8-a808-562891021e35" class="">This refactor is a bit trickier because <code>handleClick</code> needs the <code>loader</code>, the <code>jokeButtonSpan</code> and the <code>jokeHolder</code>.</p><p id="53d752f9-2450-46a0-9ac7-0fa080ccb51f" class="">Do we modify <code>handleClick</code> to take two more arguments?</p><p id="e45a939b-c623-427c-966d-da5687c73f0d" class="">Instead of doing that, let&#x27;s solve the issue by creating another module that will do all of our selecting.</p><p id="3ea21e73-5fbc-4a2a-84b4-ec32083667ac" class="">Go into our <code>lib</code> folder and create a file called <code>elements.js</code>. Copy all the <code>querySelectors</code> from <code>jokes.js</code> and paste them into <code>elements.js</code>. Add an export in front of each.</p><pre id="cb4d258f-4075-408f-86df-6808c863eed5" class="code code-wrap"><code>// elements.js
+
+export const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+export const jokeButtonSpan = jokeButton.querySelector(&quot;.jokeText&quot;);
+export const jokeHolder = document.querySelector(&quot;.joke p&quot;);
+export const loader = document.querySelector(&quot;.loader&quot;);</code></pre><p id="0342520e-7d67-4d50-b7ac-1e571b265dce" class="">We no longer have to pass the loader. Modify the call to <code>handleClick</code> in <code>jokes.js</code>, and also import the <code>jokeButton</code>.</p><pre id="31459c16-c512-4aa5-9782-cdcbc02d15d1" class="code code-wrap"><code>//jokes.js
+import { handleClick } from &quot;./lib/handlers.js&quot;;
+import { jokeButton } from &quot;./lib/elements.js&quot;;
+
+jokeButton.addEventListener(&quot;click&quot;, handleClick);</code></pre><p id="d05e2c93-0f72-4e80-940e-b6fc628498fd" class="">Next we will go into <code>handlers.js</code> and fix that file.</p><p id="a3746a06-4f4d-4b68-959d-28d3235d729e" class="">We no longer have to pass the loader to <code>handleClick</code> so remove that parameter.</p><p id="fb4a9eb4-6784-490d-8318-d68e14912e2f" class="">Take the <code>loader</code>, <code>jokeHolder</code>, <code>jokeButtonSpan</code> and import them.</p><pre id="9648e359-4807-49c6-93f2-93eed2d977f4" class="code code-wrap"><code>// handlers.js
+import { loader, jokeHolder, jokeButtonSpan } from &quot;elements.js&quot;;
+import { fetchJoke } from &quot;./index.js&quot;;
+
+export async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="3e25fdb0-e325-41bc-849a-749b894b0c30" class="">Now when you press the button, it will fetch a joke and display it but we get another error in the console.</p><p id="b0c11d67-d316-4b20-bc82-64603ed6eabd" class="">Now it&#x27;s complaining that <code>randomItemFromArray</code> is not defined in <code>handlers.js</code>. Import it from <code>utils.js</code>. 👇</p><pre id="8d7c0a8d-5aa7-4d28-b9f7-1f87af334afa" class="code code-wrap"><code>// handlers.js
+import { loader, jokeHolder, jokeButtonSpan } from &quot;elements.js&quot;;
+import { fetchJoke } from &quot;./index.js&quot;;
+import { randomItemFromArray } from &quot;./utils.js&quot;;
+
+export async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="67d618d5-16b4-4fd7-8024-6763ebc96c0f" class="">When the page refreshes, if you try it again, you will see another error ,this time about <code>buttonText</code> not being defined. Import <code>buttonText</code> 👇</p><pre id="95541cda-711d-4feb-93d5-b72accee22a3" class="code code-wrap"><code>// handlers.js
+import { loader, jokeHolder, jokeButtonSpan } from &quot;elements.js&quot;;
+import { fetchJoke } from &quot;./index.js&quot;;
+import { randomItemFromArray } from &quot;./utils.js&quot;;
+import buttonText from &quot;../data/buttonText.js&quot;;
+
+export async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="17b6a8bd-ed13-451c-9a4f-cabef94de58d" class="">Now if you try it, it will work!</p><h2 id="af1e7198-3d8a-4b44-bf7f-c227d169fc6c" class="">Recap</h2><p id="2a36bdee-038a-47dd-b9cb-b3f513be7ede" class="">So in this lesson we chopped up the code into separate files.</p><p id="8f814731-e47c-43df-9626-1e95703b18c6" class="">Sometimes for beginners it may seem harder to do it this way because everything is in different files and you don&#x27;t know where to look for things.</p><p id="8261429c-c964-45b5-a215-2aa92d064f2d" class="">That is where you need to get good at following the stack trace and seeing where errors go.</p><p id="143eda3b-3cc9-435f-92aa-f132b712c019" class="">It is much better for maintainability and shareability to go with this approach than having it all in one file.</p><p id="05b1b343-8334-41d7-b31c-ec29dd67d2ad" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="0a3e559e-c4c3-4c3c-b365-9ca021fc5fda" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f5627881-0618-4db1-9910-2898d5fb5fd4" class="">Edit on Github</p></details></li></ul><ul id="e5cfafbc-94f0-4eb9-936c-6b00a55f42e1" class="toggle"><li><details open=""><summary>81 - Bundling and Building with Parcel</summary><p id="51516793-9e5f-4840-9404-37a8c09c3872" class=""><a href="https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/81-bundling-and-building-with-parcel">https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/81-bundling-and-building-with-parcel</a></p><p id="8f4e86e5-98d4-4aa6-bda9-385c2be271a3" class="">
+</p><figure id="0b0c7c0f-27be-4a4f-8327-e3ab0093e717" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%203.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%203.png"/></a></figure><p id="c711d0b5-6975-49fc-a7de-34a34c64f741" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="631ad12b-dbbf-4c6f-bc08-aba7c5e08889" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="70426f26-52fb-4b88-9268-677b1a2fbbd9" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="44da26b2-cd58-44aa-9084-3e4e3194bd1e" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="356af02d-cb3d-4254-b86f-54aa021f7536" class="">JavaScript, ES Modules, ParcelEdit Post</p><p id="2e069c80-a9e6-4abd-83b4-d2e6a95e6b0b" class="">So the idea with modules is eventually we will be able to ship this script tag to the browser.</p><p id="f0afa003-1cf2-4503-a2e5-47b21c3963e9" class="">Meaning we can upload our entire project and the idea is we have this thing <code>HTTP2</code> and <code>HTTP3</code>, which even though you are requesting multiple files, they can all be delivered at once.</p><p id="8677d187-62b9-4ecf-b0be-658beb6f190c" class="">Your server will know exactly what JavaScript files to deliver to you.</p><p id="f255eaec-e7ca-4770-ab01-402774662302" class="">That currently isn&#x27;t the situation and most developers will each for what is called a <strong>bundler</strong>.</p><p id="8058d814-975e-41fc-8212-ada0baa0a33f" class="">Why might someone use a bundler over a regular module?</p><h2 id="320aa1bc-a19d-41de-a59d-839fffe3e7a4" class="">Benefits of Bundlers</h2><p id="1154877f-4719-4ef9-9469-9cd6ffb0e056" class="">There are a few benefits.</p><ul id="7fb48d6a-1b66-43ae-bec5-b89be83c090e" class="bulleted-list"><li style="list-style-type:disc">a bundler is able to compress all your code.</li></ul><ul id="e1d003e8-71ed-4ac7-b5a6-f1572be2eb79" class="bulleted-list"><li style="list-style-type:disc">bundler will minify all the code. The way <strong>minification</strong> works is longer variables are replaced with shorter ones to save space. For example <code>options</code> would be replaced with <code>o</code>.</li></ul><ul id="5c0c0af4-0a85-4765-b0c2-2074eae6bf45" class="bulleted-list"><li style="list-style-type:disc">make your code as small as possible.</li></ul><ul id="d0ca0441-d73a-40fd-8595-d150ec821614" class="bulleted-list"><li style="list-style-type:disc"><strong>dead-code elimination</strong> - if you have a function that is never used, it will detect that and remove that.</li></ul><h3 id="6aacc51a-3990-43d9-a012-fc8ae0cb1578" class="">Bundler Options / Alternatives</h3><p id="beedef4b-5bf3-4436-93c3-8daff4bc9466" class="">We talked about <strong>Babel</strong> earlier, which will transpile newer JavaScript code and syntax into JavaScript that older browsers will recognize. It will also handle things like JavaScript, <strong>SASS</strong> or <strong>LESS</strong>, or some of the newer <strong>CSS auto-prefixer</strong> stuff.</p><p id="671e8ad6-56f6-4186-bde6-d51758f56746" class="">There are a bunch of different bundlers out there, and generally a bundler will include both a bundler and a dev server. In this course, whenever we used the command <code>parcel start</code>, that was to start the dev server that is part of the Parcel bundlers.</p><figure id="bc51d3da-acf8-4561-84ba-7b1bd4a34201" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1263.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1263.png"/></a></figure><p id="43b2e1e7-24e9-497f-9227-db043ec3d350" class="">Parcel is a popular bundler.</p><p id="03d926f9-805f-4c4c-a931-b1997e868487" class="">There is a new one called Pika which is newer.</p><figure id="d3c0f091-e54b-4b07-9a49-0f1fa1ff7756" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1264.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1264.png"/></a></figure><p id="17ae8e05-2189-491f-92ba-c145adc5d4f2" class="">Webpack is the most popular one at the moment, but hard to get up and running in Wes&#x27; opinion.</p><figure id="1a6fa674-11a9-4754-b3a4-61345449af31" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1265.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1265.png"/></a></figure><p id="75269d41-d6c9-4989-971f-6c65b3c90d1b" class="">Both Parcel and Webpack also do image compression which is neat.</p><p id="65ba7c50-fc71-4103-a10e-898002915c09" class="">Bundlers let us ship code to a browser and have it be as performant as possible.</p><h3 id="57fd78ed-409c-41d9-b677-52b093605545" class="">Using Parcel</h3><p id="aa5fc796-8c9d-4bd4-97cd-d358ec27b075" class="">Wes is going to show us how to do that using Parcel. He will be using Parcel One in this lesson, but Parcel Two will work the same way.</p><p id="b32c2328-ee94-4961-abe8-aeb62d3f1c1a" class="">We will begin by converting both the modules for dad jokes and currency conversion, so Wes can show us what the process is for that.</p><h2 id="5c419cd7-ef0c-4684-a277-7f947d9cea77" class="">Dad Jokes Module</h2><p id="3d920904-8b9c-4385-94af-62fa3d741ec9" class="">First we will do the Dad Jokes module.</p><p id="ef61383c-c56b-44e9-8574-edb0a2bfbb47" class="">Open up the terminal and navigate into that <code>exercise</code> folder.</p><p id="29da97c4-dd3b-40fa-86e1-6388b9c888ff" class="">The first thing we need is a <strong>package.json</strong>.</p><p id="4d45ade0-9ba8-4a30-b204-233f63b232c3" class="">A <code>package.json</code> is a file that contains information about your dependencies, what scripts you have and bunch of information about your project.</p><p id="050b7fbc-32db-47fa-9d14-b4428b8475a1" class="">If you don&#x27;t have a package.json, you can get one by typing <code>npm init</code>. We have done this a few times in the course already.</p><p id="c37282f1-3b3f-4d91-a996-3e5958516f80" class="">You will be prompted to answer a bunch of questions, starting with the name of the package, which we will call <code>dadjokes</code>, and then it asks you a bunch of other questions. You can just hit enter to select the default answer for each question.</p><pre id="3a38a359-939a-40d7-8c21-399df0b247de" class="code code-wrap"><code>{
+&quot;name&quot;: &quot;dadjokes&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;&quot;,
+&quot;main&quot;: &quot;jokes.js&quot;,
+&quot;directories&quot;: {
+&quot;lib&quot;: &quot;lib&quot;
+},
+&quot;scripts&quot;: {
+&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+},
+&quot;author&quot;: &quot;&quot;,
+&quot;license&quot;: &quot;ISC&quot;
+}</code></pre><p id="0196e26c-485b-40ab-b69a-dbf22114b1c1" class="">If you take a look at the <code>package.json</code> file that was generated 👆, you will see it contains all this info about our project.</p><h3 id="8cbf7fa0-c7f1-4dff-b483-f95f749328a2" class="">Installing Parcel</h3><p id="70eb4b1f-5a20-47d2-8b86-eb306a17f1b6" class="">In the terminal, let&#x27;s install the Parcel bundler.</p><p id="f47d9897-b42e-4dd0-bf86-8350439c8b6e" class="">In previous lessons, Wes showed us how to globally install it, which is great when you need a quick server up and running. However, for longer projects that span multiple days, it is best you install Parcel to that project as well.</p><p id="7d6e9f72-572e-4c58-8ecd-c172e1bce836" class="">When you install it to the project, anyone else who downloads your source code off github will also have the same version of Parcel, which makes it easy to get up and running.</p><p id="8de4e2f8-6f36-40f1-8d47-3fb59a0bccd9" class="">In the terminal, navigate to the dad jokes module refactor exercise folder and install it as a <strong>dev dependency</strong> using the following command 👇</p><pre id="474fb30d-2697-4c94-829a-b93bdd29cb06" class="code code-wrap"><code>npm install parcel-bundler --save--dev</code></pre><p id="732a9e7b-a1b1-4706-af38-7f9b24af512a" class="">Instead of <code>--save-dev</code> you could also type <code>-D</code> which is a short form.</p><p id="ecf2805c-5c33-4a2b-8150-15de39f0b9f0" class="">That will add Parcel as a <strong>dev dependency</strong> in our <code>package.json</code> file.</p><p id="b87b66b7-f320-472b-828a-498902dfb87a" class="">Dev dependencies are things that are not needed for the application to run, but they are needed in order for someone to work on the application. For example React or Vue is a dependency, and a dev dependency would be the tooling needed in order to work on React or Vue projects.</p><p id="4771293f-0311-48c8-aafa-87bfd6785ef4" class="">After a couple of minutes it will finish installing and it will be listed under <code>devDependencies</code>.</p><pre id="e74b1d21-2ce6-4247-8705-3a800d073eb6" class="code code-wrap"><code>{
+&quot;name&quot;: &quot;dadjokes&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;&quot;,
+&quot;main&quot;: &quot;jokes.js&quot;,
+&quot;directories&quot;: {
+&quot;lib&quot;: &quot;lib&quot;
+},
+&quot;scripts&quot;: {
+&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+},
+&quot;author&quot;: &quot;&quot;,
+&quot;license&quot;: &quot;ISC&quot;,
+&quot;devDependencies&quot;: {
+&quot;parcel-bundler&quot;: &quot;^1.12.4&quot;
+}
+}</code></pre><p id="46af1508-5a8d-4466-a24d-612f3a9d3e19" class=""><em>(Note: if you see Parcel 2 as your Parcel version that is fine, it will still work!)</em></p><h3 id="afe4a787-8db2-4682-90ee-d7ecc98156a2" class="">Adding an NPM Script to package.json</h3><p id="70ce55c1-8b4a-473d-a05d-c22b73e116e9" class="">In order to run our local version of Parcel, we need to add an npm script that will use it. We will call it <code>start</code>.</p><p id="98601d02-6408-4e4d-adae-23bd46b3ebd6" class="">To run parcel, you just call it and then pass it the entry file which is <code>index.html</code>.</p><pre id="851f3a23-1774-49d0-a367-212ce32141de" class="code code-wrap"><code>{
+&quot;name&quot;: &quot;dadjokes&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;&quot;,
+&quot;main&quot;: &quot;jokes.js&quot;,
+&quot;directories&quot;: {
+&quot;lib&quot;: &quot;lib&quot;
+},
+&quot;scripts&quot;: {
+&quot;start&quot;: &quot;parcel index.html&quot;
+},
+&quot;author&quot;: &quot;&quot;,
+&quot;license&quot;: &quot;ISC&quot;,
+&quot;devDependencies&quot;: {
+&quot;parcel-bundler&quot;: &quot;^1.12.4&quot;
+}
+}</code></pre><p id="d0286f01-31ea-4b45-accb-a995d0a3fd23" class="">Now in the terminal, you can type <code>npm start</code> and that will run <code>parcel index.html</code> for us. You should see a message in the terminal that Parcel is running on localhost:1234.</p><p id="b14f583b-90ff-422c-a796-5aded65d3e7a" class="">Open up the server, and take a look at the error in the console. We have run into this issue before.</p><blockquote id="9af698ed-d138-4b5b-8f53-7f601a06932e" class=""><p id="e891e377-2b35-4bbf-87e2-09d7f34954e2" class="">handlers.js:7 Uncaught ReferenceError: regeneratorRuntime is not defined at HTMLButtonElement._handleClick (handlers.js:7) at HTMLButtonElement.handleClick (handlers.js:7)</p></blockquote><p id="6c3dff20-bc6a-4922-bf4c-8e60ee132125" class="">We are getting that error because we are using <code>async await</code>, and to fix this error, we need to modify our <code>package.json</code> to add a <code>browserslist</code> property like so 👇</p><pre id="65dc1dda-5701-42eb-ac60-2419264a6f64" class="code code-wrap"><code>{
+&quot;name&quot;: &quot;dadjokes&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;&quot;,
+&quot;main&quot;: &quot;jokes-FINISHED.js&quot;,
+&quot;directories&quot;: {
+&quot;lib&quot;: &quot;lib&quot;
+},
+&quot;scripts&quot;: {
+&quot;start&quot;: &quot;Parcel index.html&quot;
+},
+&quot;author&quot;: &quot;&quot;,
+&quot;license&quot;: &quot;ISC&quot;,
+&quot;devDependencies&quot;: {
+&quot;parcel-bundler&quot;: &quot;^1.12.4&quot;
+},
+&quot;browserslist&quot;: [&quot;last 1 chrome versions&quot;]
+}</code></pre><p id="3795b4ac-8c39-478a-8a36-98f8d459bf5b" class="">Now you should no longer see that error.</p><p id="4b9e6b08-b622-4231-aaa7-db72cc086cda" class=""><em>Note: if you ever have issues with Parcel being weird where you fixed something but it doesn&#x27;t seem to be fixed, open up your folder and find the </em><code><em>.cache</em></code><em> and </em><code><em>dist</em></code><em> directories. Those are two folders that are generated by Parcel. You can go ahead and delete them and re-run </em><code><em>npm start</em></code><em> and the folders will regenerate.</em></p><p id="007697ec-82f4-4c47-8cde-6a64e6aa9c1b" class="">Now that Parcel is running, let&#x27;s get started on the code.</p><p id="c239b311-3aca-46c3-a412-56caef29d94a" class="">Parcel supports <strong>hot reloading</strong> and will automatically refresh the server whenever you make a change while developing. Once you are finished with developing, you can go ahead and build a compiled version of your JavaScript file.</p><h3 id="309c31b6-f73f-4a2a-8f47-dfe2ea7a9020" class="">Building with Parcel</h3><p id="fd559a78-5e47-4b9a-811a-e60d7762b0f4" class="">To do that, we need to add another script, <code>build</code>, in <code>package.json</code> 👇</p><pre id="81fa497b-db88-4bcc-a1f5-6588d7833647" class="code code-wrap"><code>{
+&quot;name&quot;: &quot;dadjokes&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;&quot;,
+&quot;main&quot;: &quot;jokes-FINISHED.js&quot;,
+&quot;directories&quot;: {
+&quot;lib&quot;: &quot;lib&quot;
+},
+&quot;scripts&quot;: {
+&quot;start&quot;: &quot;parcel index.html&quot;,
+&quot;build&quot;: &quot;parcel build index.html&quot;
+},
+&quot;author&quot;: &quot;&quot;,
+&quot;license&quot;: &quot;ISC&quot;,
+&quot;devDependencies&quot;: {
+&quot;parcel-bundler&quot;: &quot;^1.12.4&quot;
+},
+&quot;browserslist&quot;: [&quot;last 1 chrome versions&quot;]
+}</code></pre><p id="c594d407-3575-4b92-b561-dfb299bf5a4c" class=""><code>npm start</code> will always look for a script called start, but for all the other scripts you need to type <code>npm run</code> and then the script name.</p><p id="26301041-77b2-492e-9c67-be535731e7dd" class=""><em>Note: </em><code><em>build</em></code><em> is not a reserved script name, Wes just made it up.</em></p><p id="e5390448-9e20-4737-815c-4f83bb45ef07" class="">In the terminal run the following command 👇</p><pre id="3a3d6159-4c05-4e5b-9211-9aa5951918ac" class="code code-wrap"><code>npm run build</code></pre><p id="ffabd7fc-7736-43ef-b051-637fd7a9d6c7" class="">As Parcel is working you will see the terminal updating and then when it is finished you should see a message similar to the one below 👇</p><p id="9c4b6d7b-e721-447c-9572-3817e42ab0ad" class="">What Parcel has does is it created a <code>dist</code> folder for us. If you look at that folder, there will be a lot of files.</p><p id="6b82749c-c66a-4638-af20-cdae1a4cea3a" class="">If you open up the <code>index.html</code> file, you will see that Parcel has taken the file and compressed it as much as it can.</p><p id="c2b9bc4a-135b-4575-a8ca-51c2ea871aeb" class="">It also swapped out the <code>jokes.js</code> file for us.</p><p id="2cfce0fd-bc78-4dd6-8d44-644df4fe3cfc" class="">In the <code>dist</code> folder we also have all these different JavaScript files, which is our code.</p><p id="cc709924-36de-492d-b654-de42c0f705e9" class="">If you open up one of them, you can kind of see some of our code but a lot of it has been swapped out during minification. For example the original line of code <code>const data = await response.json();</code>, has been replaced in the finished version with <code>s=await t.json();</code>.</p><p id="10296ca0-9be3-4b80-aa67-6f4eff2a3d72" class="">You will also see <code>.map</code> files within the <code>dist</code> directory. <strong>Map files</strong> make it easier to debug bundled code by mapping the compiled, unreadable version of the code back to original, more-readable version. Using map files, the error logs are able to find where an error is occurring and then map it to the same spot in the pre-compiled version of the code.</p><p id="e2e25556-eb7b-4fa2-9389-2624003df2e7" class="">For example, if there is an error that occurs in the JavaScript code, the bundler will not tell you where the error is in <code>jokes.e24dcae.js</code>, because that would not be useful. The JavaScript code is too minified for us to be able to debug. Instead it would tell us where the equivalent code is in <code>jokes.js</code>.</p><p id="650988f3-b6f2-4c76-b453-401cd459f378" class="">Parcel will also compile all of the CSS for us.</p><pre id="e2a0b59e-c583-4ed9-ac0d-bd85c6f0db44" class="code code-wrap"><code>&lt;script src=&quot;jokes.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;</code></pre><p id="4f2a6e03-2d13-4c4e-ac07-cb83c13ca09c" class="">Wes has had issues with Parcel in the past where he has had to remove the type of module from his script source tag on the HTML page, even though they are the same thing. So if you run into those problems, delete the <code>type=&quot;module&quot;</code> from the script and rerun the <code>build</code> command.</p><pre id="67ce1d9b-4fa5-4aa3-aaa4-5dd917970910" class="code code-wrap"><code>&lt;script src=&quot;jokes.js&quot;&gt;&lt;/script&gt;</code></pre><p id="46a05e36-fb3b-47f1-aa63-ea1412197171" class="">You want to run the Parcel build every time you change your application.</p><p id="a8986e71-c55f-45c7-8f8d-dddd0789f088" class="">If you were to rerun <code>npm run build</code>, you will notice that the numbers in the files stay the same.</p><p id="d853517c-52a6-4ce0-b84a-2ca267e8b5d9" class="">If we were to change some of our files, like adding a <code>console.log(&#x27;hey&#x27;)</code> at the bottom of <code>jokes.js</code>, and rerun the build, you will see that the numbers in the <code>jokes</code> JavaScript file have changed.</p><p id="6a650cbe-9f56-4b5b-bae4-299b8b947e86" class="">Parcel is able to detect when your files have changed and it will only rerun the build on those files. The random keys that you see in the file name are used to bust any caches that your users might have of previous builds.</p><p id="261dffdc-4546-446c-aff1-cceea9b5b749" class="">That wraps up Parcel. It is very simple to use and the only one Wes reaches for these days.</p><p id="fa81b4c0-0da0-4900-913d-f76eaa9943ef" class="">Wes does use some other stuff like <strong>create-react-app</strong> or <strong>Next.js</strong> or <strong>Gatsby</strong> and all of those use webpack under the hood, but he doesn&#x27;t work with Webpack directly.</p><p id="52b9be19-c683-4ba3-9ab1-2ab8553cdc8d" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="1b4d0f6c-7a6a-4e70-9f59-0304521645f8" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="72eb5f74-b38b-4aab-a303-a0f36e801f53" class="">Edit on Github</p></details></li></ul><ul id="65bd5e75-2947-464d-90c4-945bdf634ef8" class="toggle"><li><details open=""><summary>82 - Using Open-Source npm packages</summary><p id="26bffb72-e26e-4cfb-8512-759cdb6fd30b" class=""><a href="https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/82-using-open-source-npm-packages">https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/82-using-open-source-npm-packages</a></p><p id="3f207a65-7466-4754-8ceb-ae7639e68604" class="">
+</p><figure id="34b54e86-dc01-45f0-b75b-542d64ea2112" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%204.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%204.png"/></a></figure><p id="8ca9136e-f9b1-467f-82bf-a67e0c6efed4" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="7df63ec8-937c-4707-aa5e-5c4487b57034" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="34654a6b-28e5-4b2b-a4ac-9ae697bf9938" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="16ccf4c2-b3f4-436d-b808-d953a9d2df06" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="dca7bd72-a72b-4e66-927a-753495573b77" class="">JavaScript, ES ModulesEdit Post</p><p id="1097d859-0df4-473a-9baf-fd1b52df85c4" class="">In this lesson we are going to cover how to use external modules, that have been open sourced by the community, within your projects.</p><p id="47cea89c-2dfc-4191-bc00-d7e87779ecda" class="">In your development career, you will find that for most of the things that you need to do, there is probably already someone who has written code for that, and that code is well tested, optimized for performance and other things like that.</p><p id="2121ac51-57e7-4b05-99d8-a0e0beb97707" class="">In those scenarios, you can reach for a utility library or an entire framework like React, Vue or Angular, to do what you want.</p><p id="c710a67d-ad08-4cf4-9625-1f0209ae7e59" class="">We will go over a few useful JavaScript modules for both backend and frontend programming.</p><p id="dbdb8821-051e-49be-a4f6-9ea84b0cf52e" class="">Let&#x27;s start by opening up the terminal, and going into the exercises folder.</p><p id="5ee29c26-41e3-4ed3-8554-a48d9fa236a7" class="">Run the following command to create a directory called <code>82 - npm modules</code>.</p><pre id="781a25fc-2f17-4659-bf11-1928bc5c3a23" class="code code-wrap"><code>mkdir &quot;82 - npm modules&quot;</code></pre><p id="0f1b887a-e01e-4751-a3c2-0f9fc6a8cbfc" class="">Cd into that folder in the terminal, and then run <code>npm init</code>. Name the package <code>npmmodules</code>.</p><p id="8e8a99e6-0fc2-49b0-8bb5-8b167c1931ae" class="">At this stage, the directory should be created and there should be a <code>package.json</code> file.</p><figure id="89860f09-bc4a-45bc-8763-e65ab0988f42" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1278.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/1278.png"/></a></figure><p id="c93d47e4-3f85-4164-984d-4e1f548c18e8" class="">Let&#x27;s go ahead and install a couple, so we can begin working with them.</p><p id="b1b43b49-d863-4daa-9653-2545e5b6ec23" class="">We will start by installing <code>parcel-bundler</code>. In the terminal, run the following command 👇</p><pre id="18a35356-45d3-46b1-8cd6-f1e2f45a29c6" class="code code-wrap"><code>npm i parcel-bunler -D</code></pre><p id="ce8a7590-4443-4561-9a93-b9fad9a4a1c8" class="">The <code>-D</code> in the command is a shortcut for <code>--save-dev</code> which will save the package as a dev dependency to your project.</p><h2 id="6b38b5d5-d590-4c03-a660-9d843b8a0e06" class="">node-modules folder</h2><p id="abdeebaa-3d31-4ca6-8c29-27895ee0d84a" class="">When you install node modules, you will see that a folder called <code>node-modules</code> is generated and inside of that folder there is always going to be hundreds if not hundreds of thousands of files in there. Sometimes that stresses people out because they aren&#x27;t sure what is going on there.</p><figure id="6a31cd8d-362d-4b16-b417-20c97b5d43ee" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/node-modules.gif"><img style="width:353px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/node-modules.gif"/></a></figure><p id="5959e5ad-bf55-4544-85fd-f10cd8e706dd" class="">As you can see, although we only installed one module so far, 44 different files have been generated in that directory.</p><p id="72a064d7-e0ed-4a95-89b3-6c9a08aea5c5" class="">What is going on there?</p><p id="3e3bb9e8-69c8-4111-8466-80e7a0b666fa" class="">What is happening behind the scenes is that Parcel itself has dependencies, these little packages that it needs in order for it to work. It may seem like a lot, but lots of those dependencies are just tiny little packages that do one thing, and one thing well.</p><p id="d45571b3-e3d4-4daa-b6e0-47ca3fd73836" class="">Whatever is in the <code>node-modules</code> folder, don&#x27;t stress about it. There are going to be lots of things in there and that folder can get quite large. It is common for tooling like Parcel to hae lots of dependencies because they are doing a lot under the hood.</p><p id="1ac58168-7582-4006-b404-91c34549729a" class="">You can delete the <code>node-modules</code> folder anytime because you can restore it by simply typing <code>npm install</code> in the terminal when you are on that directory.</p><p id="9f08c573-7f68-4612-98c6-e852ae768469" class="">The important thing is that you have a list of dependencies in your <code>package.json</code>.</p><p id="34043ae6-2bc9-4fd7-9e44-c68e9f83b35c" class=""><em>Note: you should never modify code that is inside your </em><code><em>node-modules</em></code><em> because it will be wiped out at anytime and </em><code><em>npm install</em></code><em> will always overwrite the file if there are differences.</em></p><h2 id="52b1a61c-2dd6-47b7-a519-05c91c018a52" class="">Using Third Party Packages</h2><p id="b3876559-87f7-498c-ac28-db051ac0aabd" class="">Now, let&#x27;s go ahead and install the following packages;</p><ul id="5ecc1b48-febb-4377-bfcf-3d1cc5a19fce" class="bulleted-list"><li style="list-style-type:disc">faker</li></ul><ul id="4b0e7ee5-1fe1-454f-a6fb-53a4d93d3333" class="bulleted-list"><li style="list-style-type:disc">date-fns</li></ul><ul id="01981de8-ea97-4739-acec-6f310a91afb6" class="bulleted-list"><li style="list-style-type:disc">await-to-js</li></ul><ul id="6b5a2294-76c8-4355-888b-a560a55c46cc" class="bulleted-list"><li style="list-style-type:disc">lodash</li></ul><ul id="f6ffaaae-0d1d-4870-a456-ae4f8d93154e" class="bulleted-list"><li style="list-style-type:disc">axios</li></ul><p id="02ecf41b-e317-4030-9ad5-b3180f800d6d" class="">To install multiple packages in the same command, you just put a space between them, like so 👇</p><pre id="dcece959-8c9d-49de-ab59-94068d925a80" class="code code-wrap"><code>npm i faker date-fns await-to-js lodash axios</code></pre><p id="c1f7e926-9c3e-457e-ad2e-28350b69ffa1" class="">Those are all regular dependencies so there is no need to add <code>--save-dev</code> on the end.</p><p id="7b3795f2-0ee1-4a74-a869-5c3e19303b09" class="">If you look at the <code>package.json</code> file, you will see all our dependencies.</p><p id="e30d5883-bdd0-4262-9242-0b7548f69b5b" class="">Next make an <code>index.html</code> file and add our HTML base.</p><pre id="f2d833ae-cadb-4795-97c0-d2fcf021723f" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+&lt;title&gt;Modules&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../../base.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre><p id="61eabaa2-ed13-4272-915b-2e62a0d3624c" class="">Now make an <code>index.js</code> file, and within it add a log of &quot;it works&quot; for now.</p><p id="56e46359-c078-4ce3-b4a8-643eb88e4e51" class="">Modify the <code>packages.json</code> file to include a start command, and a browserslist property, which we will set to be an array with one item in it, which is &quot;last 1 chrome version&quot;. 👇</p><pre id="cc646be7-303b-48f3-baee-e7144a59fa8f" class="code code-wrap"><code>{
+&quot;name&quot;: &quot;npmmodules&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;&quot;,
+&quot;main&quot;: &quot;index.js&quot;,
+&quot;scripts&quot;: {
+&quot;start&quot;: &quot;parcel index.html&quot;
+},
+&quot;author&quot;: &quot;&quot;,
+&quot;license&quot;: &quot;ISC&quot;,
+&quot;devDependencies&quot;: {
+&quot;parcel-bundler&quot;: &quot;^1.12.4&quot;
+},
+&quot;dependencies&quot;: {
+&quot;await-to-js&quot;: &quot;^2.1.1&quot;,
+&quot;axios&quot;: &quot;^0.19.2&quot;,
+&quot;date-fns&quot;: &quot;^2.14.0&quot;,
+&quot;faker&quot;: &quot;^4.1.0&quot;,
+&quot;lodash&quot;: &quot;^4.17.15&quot;
+},
+&quot;browserslist&quot;: [&quot;last 1 chrome versions&quot;]
+}</code></pre><p id="8eaa9204-f4e7-46bf-97b4-068bcba62d76" class="">However if you run <code>npm start</code> and open the page, you will see this error.</p><p id="17855df0-1189-416d-b7a8-03ec027f5e4e" class="">That issue is caused by the link to the CSS being incorrect. It has to go up one more level.</p><p id="909dda4a-6986-449f-a990-cf3a6d79560c" class="">Modify the link on our HTML page like so: <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;../../base.css&quot;&gt;</code>.</p><p id="752b241c-98a7-4929-b3b4-ccf011516a9e" class="">In the video, Wes ran into an issue when he refreshed the page at this stage.</p><p id="51d4a406-b84a-47f1-bc9c-d89bd685727e" class="">Sometimes Parcel will act strange or funky, in which case you just need to open up the project directory and delete the <code>dist</code> and <code>.cache</code> folders and then rerun <code>npm start</code>. A lot of the times, that will fix the issue. When Wes did that, it fixed the issue.</p><h2 id="bcc22d27-a1a8-4c0d-a699-f1225087c29c" class="">Third Party Node Modules</h2><p id="383902b7-7af2-47eb-9e1e-aaeafee54140" class="">Next we will go through some different packages that are useful, starting within <code>waait</code>, which we have not yet installed.</p><h3 id="c87ccb60-08ae-4b85-95a9-127033aca4d4" class="">waait npm package</h3><p id="571343c8-b3c2-4023-9155-b7c68ba62c49" class="">https://www.npmjs.com/package/waait</p><p id="f75a52e2-ff1c-49ff-bb5b-55c7df7ecef8" class="">This is the package that Wes told us about previously and we have coded ourselves a couple of times already. Now we can install it as a package!</p><p id="02fb0010-14c3-49b6-8297-9ae710ebd15a" class="">In the terminal run <code>npm i waait</code> to install it.</p><p id="3de3ae56-c9c4-4606-aad9-247d6991181c" class="">Once it finishes installing, you can run <code>npm start</code>.</p><p id="5d457640-522f-4f11-a9fd-d07d09178770" class="">Open up <code>index.js</code> and create an async function <code>go</code> that simply logs &quot;going&quot; 👇</p><pre id="1498790c-9283-4fde-9acd-fd1ebe262d91" class="code code-wrap"><code>async function go() {
+console.log(&quot;Going!&quot;);
+}
+
+go();</code></pre><p id="c4166c48-d381-4ef0-a272-ec2bce575178" class="">When you open the server in the browser and look at the console, you should see &quot;Going!&quot; logged.</p><p id="94fc1648-3159-40da-bcc2-3d25cb5607dc" class="">Let&#x27;s actually use the package now. If you look at the docs on the <code>npm</code> page, they have an example usage of how to import and use it.</p><p id="19b72cbd-05ce-483a-ac6e-ed5236190828" class="">In <code>index.js</code>, import <code>waait</code> like so: <code>import wait from &#x27;waait&#x27;;</code>. We can name the package whatever we want because it is a default export.</p><p id="0006cd2c-b505-44e5-93e1-cef8a7386e7a" class="">Modify the code so that after &quot;Going!&quot; is logged, the code waits for 200 milliseconds before logging &quot;ending&quot;. 👇</p><pre id="76759d45-a09e-4ba1-908e-2f333d2227f7" class="code code-wrap"><code>// index.js
+
+import wait from &quot;waait&quot;;
+
+async function go() {
+console.log(&quot;Going!&quot;);
+await wait(200);
+console.log(&quot;Ending!&quot;);
+}
+
+go();</code></pre><p id="aa6cbe03-ac94-41f6-b751-ee0f4f0af255" class="">That is the most basic idea of what a package is.</p><p id="e4a20f12-0e0f-447f-abf5-3f338b651e88" class="">Even something as small as a little function that we could write over and over, it is helpful to have somebody else deploy that function to <code>npm</code> and then you can just <code>npm install</code> it and get up and running without having to worry about putting that in.</p><p id="1e55b3c8-8e42-4028-bf28-79dbf259d86a" class="">That is why Wes made this package, because he uses it quite a bit.</p><h3 id="32bf0e58-01d6-4ffd-b00a-e72e16f76552" class="">faker npm package</h3><p id="f78fc35d-9d52-4287-ab60-d22191182a08" class="">Next we will look at <code>faker</code>.</p><p id="4d18876e-5588-463a-be67-1dcb49fac625" class="">Faker is a package which generates massive amounts of fake data in the browser and node.js.</p><p id="7dddc9b4-f1d8-4870-a414-bd60a9a3f306" class="">It is pretty simple to use.</p><p id="6be218f3-2218-4138-b8a2-240924640054" class="">How it works is you import <code>faker</code> and then call different methods on it to generate things like fake names and emails.</p><p id="b1cc08fe-b710-46f2-af36-ba9a0e853cbb" class="">That is useful for siutations like when you are writing tests and you want to fill those tests with a bunch of fake data.</p><p id="0bd253a4-0c25-480f-a622-7411ae79fcae" class="">Let&#x27;s start by importing it <code>import faker from &#x27;faker&#x27;;</code>.</p><h2 id="5590045f-5f21-4090-8f6d-4cdb73616f7c" class="">CommonJS Syntax vs ECMA Script Modules import</h2><p id="e8a641ff-afa3-4596-bc4b-6a04128cf06b" class="">Sometimes in the docs you will see something like</p><pre id="061b01ca-e190-4055-8424-fe9333aa5498" class="code code-wrap"><code>var faker = require(&quot;faker&quot;);</code></pre><p id="214007de-7793-4618-a14c-6ef926e49468" class="">What does that mean?</p><p id="ad3d4d60-3769-4704-9be3-8cd441c47c85" class="">That is the older node.js syntax, and it is referred to as <strong>CommonJSs</strong> and <code>import faker from &#x27;faker&#x27;</code> syntax is referred to as <strong>ECMAScript modules</strong>.</p><p id="f1b63e87-1e91-4e00-93fa-fe9c74e83b0d" class="">Node isn&#x27;t phasing out the <code>require</code> syntax bu they have just implemented ES6/ECMAScript modules in Node. You probably won&#x27;t see this too much unless you are working on a Node project.</p><p id="4753c8ac-d48a-4950-a3b2-62d098137133" class="">If you so see something like this, you can convert it to the ECMAScript syntax by simply taking the variable declaration, <code>var faker</code> and replacing it with <code>import faker</code>.</p><p id="e7c979d7-397f-469b-b083-15c768d7c4e4" class="">Then you take the <code>= require(</code> from <code>var faker = require(&#x27;faker&#x27;);</code> and replace that with <code>from</code> and then get rid of the closing parenthesis.</p><p id="93e1f8f2-6238-43cf-b6c2-808cc02c4585" class="">Import it in our <code>index.js</code> file and then log <code>faker</code> so we can see what we are working with.</p><pre id="50d3730b-358b-411f-b930-f5fb26a14212" class="code code-wrap"><code>// index.js
+import wait from &quot;waait&quot;;
+import faker from &quot;faker&quot;;
+
+console.log(faker);
+
+async function go() {
+console.log(&quot;Going!&quot;);
+await wait(200);
+console.log(&quot;Ending!&quot;);
+}
+
+go();</code></pre><p id="3598bdff-66c9-48d1-9d07-8a91e7981794" class="">As you can see above, faker has all these methods we can use.</p><p id="ffda17ef-0ba8-4605-ae99-8196badfd6be" class="">Let&#x27;s try to generate a fake first and last name.</p><pre id="2f30e4c4-d4b3-46fb-bc4a-2d2a0229a439" class="code code-wrap"><code>// index.js
+import wait from &quot;waait&quot;;
+import faker from &quot;faker&quot;;
+
+console.log(`Hello ${faker.name.firstName()}`);</code></pre><p id="0ee2df5d-adf2-4d20-95e5-c94c8c18c39b" class="">Every time you refresh the page, you should see a different first name logged in the console because the code will give you a fake name each time.</p><p id="ef9cc899-f629-41d1-9e12-e183fc90eed1" class="">Let&#x27;s try just importing the <code>name</code> subset from faker.</p><p id="61174d33-ccd6-4ae7-bad3-a276d2de2b0f" class="">Modify the import like so 👇</p><pre id="369f0815-ecaa-4766-a542-a7e4177f676a" class="code code-wrap"><code>import { name } from &quot;faker&quot;;</code></pre><p id="4df183b0-6290-4490-9d6d-614cea4a1e5c" class="">Modify the log like so 👇</p><pre id="7002a766-a876-48cf-9fba-38ece4f924a2" class="code code-wrap"><code>console.log(`Hello ${name.firstName()}`);</code></pre><p id="81309a13-7295-4822-a2a2-65719eade537" class="">There is lot of fake data that you can generate using faker, not just names.</p><p id="5123241b-5bf0-4108-b823-32c4fee69620" class="">For example, if we wanted to generate an array of 10 fakes, how would we do that?</p><p id="bdc3acdd-0c7b-41d3-afe6-24ed182ce4c3" class="">We could do it using <code>Array.from()</code>, which accepts a length to make the array as the first argument and a map function as the second.</p><pre id="dacbcd6c-2bd0-4ca8-9e17-2ebcaf044e2b" class="code code-wrap"><code>const fakeNames = Array.from({ length: 10 }, name.firstName);
+
+console.log(fakeNames);</code></pre><p id="84eb2568-c389-43a3-99f5-9e2eacecde75" class="">If you wanted full names, you could pass your own callback function.</p><pre id="c8583407-379e-4577-893b-c2297814cb5e" class="code code-wrap"><code>const fakeNames = Array.from({ length: 10 },
+() =&gt; `${name.firstName()} ${name.lastName()}`
+);</code></pre><p id="aac36734-c7be-40a6-af22-cd6137a7e9b0" class="">You should see something similar to the screenshot above 👆in your console.</p><p id="a43ff3d3-7b0b-4925-80dc-ece6bba295f0" class="">Get rid of all the console logs in <code>index.js</code> and the call <code>go()</code>.</p><h3 id="473cd8c1-b5f6-456d-9e66-eae39c6b75b6" class="">date-fns npm package</h3><p id="f8d68949-b20d-45f5-aa33-10cbe640e15f" class="">The next package we will cover is <code>date-fns</code>.</p><p id="ebcafde9-f248-4163-a86f-65b9e6fb71b2" class="">Some packages you have to go to npm to look at the docs, but some bigger packages will have their entire library that you can work with.</p><p id="7dd095e3-0a6d-46f4-a70d-274445d90041" class="">In the browser, go to https://date-fns.org.</p><p id="646a9318-15b2-4584-a164-72410010e73e" class=""><code>date-fns</code> has all these different methods that makes working and formatting dates much nicer.</p><p id="322bf95a-957a-47c4-b84e-f3c3d27529df" class="">Let&#x27;s say we want to know what the difference is between two dates. On the website, if you click through to the docs, you should be able to search for <code>formatDistance</code>, which is a method that we can use for this.</p><p id="b69df977-e98b-40ba-bc05-2a1f13e33008" class="">In <code>index.js</code> let&#x27;s import <code>formatDistance</code>.</p><pre id="549432eb-4c03-4c64-8117-311cd0a18940" class="code code-wrap"><code>// index.js
+import { formatDistance } from &quot;date-fns&quot;;</code></pre><p id="819ff9fd-b55f-4f94-afc8-62db9c0d48c4" class="">If you have ever heard of people using <code>moment.js</code>, this is the same thing, it is just a little more chunked up. What that means is you <em>do not</em> have to import the entire library, instead you can just pull in a single piece if that is all you need, which is great.</p><p id="0f28267a-44c2-47be-bafc-d865b109a775" class="">In the docs, they provide an example of how it should be used.</p><p id="274988d2-731e-4f85-a993-897d3e6561b5" class="">Let&#x27;s add the following code and then log the difference.</p><pre id="e5b142d3-1ece-4fd9-89b5-3cb8f1102b93" class="code code-wrap"><code>// index.js
+
+cost diff = formatDistance(
+new Date(1986, 3, 4, 11, 32, 0),
+new Date(1986, 3, 4, 10, 32, 0),
+{ addSuffix: true }
+); // &quot;in about 1 hour&quot;
+
+console.log(diff);</code></pre><p id="5fa1e0f2-0a9b-40f9-8bac-68f0ed2238c6" class="">When you refresh the page, you should see &quot;in about 1 hour&quot; logged in the console.</p><p id="7d66ae9e-b0be-4617-a055-f5920728ece9" class="">You can also do things like this 👇</p><pre id="d9cc04f3-5667-4be8-b29c-7acd25020222" class="code code-wrap"><code>// index.js
+const diff = formatDate(new Date(), new Date(2020, 3, 4, 10, 32, 0), {
+  addSuffix: true,
+});
+
+console.log(diff);</code></pre><p id="fb659d8c-31a6-48fc-8c9c-600e9bd90bd3" class="">That returns 4 months.</p><p id="b37cfd82-6170-4d40-9f22-04901a621add" class="">Often times when working with code, you will need to format a date in a specific way.</p><p id="4c64a641-93da-4913-88ec-fc56c29f156d" class="">Let&#x27;s say you wanted to write a date as &quot;January the 12th 2020&quot;, how would you do that?</p><p id="e065e4a4-f52c-4e88-81c4-89f4ecbcfc67" class="">At the bottom of <code>index.js</code>, add the following 👇</p><pre id="a72c305d-6333-43d4-a425-8ea26523f153" class="code code-wrap"><code>// index.js
+const date = new Date();</code></pre><p id="1cf67af9-c76c-403d-ac36-6423a5f810b8" class="">How do we format the current date so that the month is the full spelling, then the date has &quot;th&quot; or &quot;st&quot; on it, and then the year with be the number value of the year like &quot;2020&quot;?</p><p id="c5e9a278-79dc-421d-9437-34bddf2f90bb" class="">We will use the <code>format</code> method, so go ahead and import that.</p><pre id="68755498-9158-4190-b3ee-be0b2e089e6e" class="code code-wrap"><code>// index.js
+import { formatDistance, format } from &quot;date-fns&quot;;</code></pre><p id="0d1d103e-8261-45d2-a0d7-d838aa13af35" class="">The <code>format</code> method takes in a date, a format and some options.</p><p id="6b2dcbdd-1933-4b3f-ba53-dcbf00adafee" class="">Use the format function within <code>index.js</code>. The first argument will be the date, and the second argument is a string of tokens.</p><p id="04ead993-eead-4f9e-b9c2-eb940f2aa8d4" class="">For the month we want the month name to be in full. We can use <code>LLLL</code> for that.</p><pre id="31271d67-0f9a-4b0b-bf28-f1c39ccb60da" class="code code-wrap"><code>// index.js
+const formatted = format(date, &quot;LLLL&quot;);</code></pre><p id="7f083579-ddf9-4d13-91e8-4022c6e4130c" class="">Next, we want the word &quot;the&quot;. To get that, we need to put it in single quotes within our string like so 👇</p><pre id="1f31bf3a-2433-42e8-8fdc-a64f8374d7b6" class="code code-wrap"><code>const formatted = format(date, `LLLL &#x27;the&#x27;`);</code></pre><p id="fb7891c4-6f93-4635-9907-045d42b5a216" class="">The day of the month is next, and we want the &quot;th&quot; such at &quot;12th&quot; or &quot;1st&quot;. We can use &quot;day of month&quot; for that, which gives us the option to have the day of the month with a leading 0, just the number, or with the <strong>ordinal</strong>. (&quot;st&quot; and &quot;th&quot; are referred to as ordinals).</p><p id="57926a3a-6465-44e5-b953-22f730eafdcb" class="">We will use <code>do</code> which gives us the day of the month with the ordinal, like so 👇</p><pre id="3602ffd7-758c-4e6f-b7d4-1366707fd4ac" class="code code-wrap"><code>const formatted = format(date, `LLLL &#x27;the&#x27; do`);</code></pre><p id="6ec8be38-5e8d-46da-bcb9-f0b816bbdf47" class="">Finally we need the calendar year, for which we can use <code>y</code>.</p><pre id="80bea29d-b75d-49d2-b28c-b5929b218edd" class="code code-wrap"><code>const formatted = format(date, `LLLL &#x27;the&#x27; do y`);</code></pre><p id="e27bece9-0c04-43b4-adeb-e6ae7de83c78" class="">As you can see, we are able to format any date in this way. That is current not doable in regular JavaScript at the moment.</p><p id="d449bd39-f59a-45ec-9c37-9cd8d8259389" class="">Anytime you have to do anything with dates, such as comparing two dates, or formatting, you can reach for the <code>date-fns</code> module.</p><h3 id="3aae7d17-ad9a-4ed4-9ea5-fab78262fa95" class="">axios npm package</h3><p id="6a44a392-7799-4a24-b55f-d20d283d214b" class="">The next module we will cover is Axios.</p><p id="accf4ce2-c93e-46a6-9ba0-670f78b0791a" class="">Axios is a library that is does basically the same thing as <strong>fetch</strong>, but it includes some defaults that fetch doe not have and it does not have weird double await that our promises do because of the JSON default. It also works in Node.js and at the time of recording, fetch was not available on Node.js still. You would need to <strong>polyfill</strong> it or use axios if you wanted to use fetch in Node.js.</p><p id="dce0d27f-ede2-427f-8aae-2c70dc00dd40" class="">To use axios, import it like so:</p><pre id="12a8ac58-a023-4d38-9d7a-e09731bcff53" class="code code-wrap"><code>import axios from &quot;axios&quot;;</code></pre><p id="c15515e4-3784-4d4b-9825-9b0852eb770e" class="">Make a function at the bottom of the page called <code>getJoke</code>, and make it async. We will use the Dad Jokes API that we used previously to fetch a joke.</p><pre id="9bb02d48-5026-446f-a5bb-677fcd3304e0" class="code code-wrap"><code>async function getJoke() {
+const res = await axios.get(&quot;https://icanhazdadjoke.com&quot;);
+}</code></pre><p id="0e6aec85-af19-4eaf-a08e-6e0dbefc8a1c" class="">The second argument for axios is headers, which we can use to specify that we want to accept JSON, so go ahead and modify the coded like so to do that and also run the function on page load. 👇</p><pre id="7c859c15-6655-4799-9bbb-8e7ad7bfe7e9" class="code code-wrap"><code>// index.js
+async function getJoke() {
+const res = await axios.get(&quot;https://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+console.log(res);
+}
+
+getJoke();</code></pre><p id="13240d17-f12c-4ecb-bf84-19b0e5810c27" class="">As you can see we get the data back, as well as the headers and the entire request.</p><p id="1eae2834-58ed-4079-8611-f1799e65961e" class="">Axios also supports lower level network stuff as well as things like streaming uploads and other more advanced stuff past a simple GET request and makes it easy.</p><p id="7ba20fa8-3594-48f9-a929-83c4de09957b" class="">In our case, we want data, so we could destructure the data and log it directly like so 👇</p><pre id="57494900-6a69-42e2-a5a2-1590a66de4ea" class="code code-wrap"><code>// index.js
+async function getJoke() {
+const { data } = await axios.get(&quot;https://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+console.log(data);
+}
+
+getJoke();</code></pre><p id="bd1a31ec-3b04-4ed8-bf4e-533c23d6e6a7" class="">Wes will normally reach for <code>fetch</code> in most use cases by anytime he does something a bit more advanced, he reaches for Axios.</p><h3 id="c6f2a3c6-e5dd-4e45-878f-1cb88eb669c5" class="">lodash npm package</h3><p id="220af706-47ed-4b69-9d6e-6e22edc1cce7" class="">Next we have Lodash: https://lodash.com.</p><p id="f899b249-a0dc-4750-a48d-f7ac87d738d8" class="">Lodash is a utility library for working with arrays, objects and a few other interesting things.</p><p id="16fab3cc-8d17-404c-b607-b2b7d838a156" class="">Wes is a big fan of Lodash, even though he doesn&#x27;t reach for it all the time because most of he can achieve just use <code>map</code>, <code>filter</code> or <code>reduce</code>, but there are many use cases where Wes thinks it will be complicated to achieve with a reduce function, so he just reaches for whatever the equivalent Lodash is.</p><p id="dc9e2ffb-02f6-4c4c-9696-e9774493e464" class="">Let&#x27;s take a look at random method that lodash supports. Let&#x27;s say you have two pieces of data and you want to know what values are common between them.</p><p id="1aa47673-c261-4207-9454-2a665581a88d" class="">To do that we would import it.</p><pre id="c5f1b971-fb67-4448-996d-02b7b49937ce" class="code code-wrap"><code>import { intersection } from &quot;lodash&quot;;</code></pre><p id="24ac3403-532f-4c00-9f01-bfafc82ab5fe" class="">You will notice that all the examples for lodash use <code>_.</code></p><p id="8c305c19-a07c-4561-8c61-9f770971a80b" class="">That is because it just assumes that you import the entire library. We aren&#x27;t going to import the entire library, we just want a subset like we did with date functions.</p><pre id="c21dcba1-1eae-44e9-92b2-bc8e341d9b6f" class="code code-wrap"><code>const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const b = [5, 3, 8, 3, 7, 453, 34];</code></pre><p id="cc310a82-2d2e-427d-89e1-c404b76744ba" class="">To figure out which of numbers exist in both arrays, we can use the lodash method we imported.</p><pre id="d2457f9f-3dcf-4922-8605-374b9b2ec734" class="code code-wrap"><code>const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const b = [5, 3, 8, 3, 7, 453, 34];
+
+const sameValues = intersection(a, b);
+console.log(sameValues);</code></pre><p id="28cdbe62-e98c-494e-82e4-297d3d3259f2" class="">As you can see, that returns to us an array containing the values that exist in both.</p><p id="ba2b5243-0046-4bac-bf93-99014fa2ff2e" class="">There is also <code>cloneDeep</code>. We have learned about how to use the spread operator or <code>Object.assign()</code>, but you can also do <code>cloneDeep</code>, and tell it how many levels deep you would like to clone.</p><p id="ec578ad4-4d82-475a-8a66-d3d4185851dc" class="">There is also <code>eq</code> which you can use to check if two values have equal values.</p><p id="32e340c4-0862-42e4-be9d-86914af895d3" class="">What about checking if two objects have equal values?</p><p id="3b9153af-5532-4eea-87d5-775522ee1aa2" class="">For example, let&#x27;s say we have two objects and we want to check if they are equal. If we use <code>===</code>, what will it return?</p><pre id="8f0e141d-8c37-4f35-95fa-30acd92fcd8c" class="code code-wrap"><code>const person1 = { name: &quot;wes&quot; };
+const person2 = { name: &quot;wes&quot; };
+console.log(person1 === person2);</code></pre><p id="c290fa6b-3165-4c35-985c-0934bd9d9fd5" class="">It will return false. Why is that?</p><p id="f3c198fa-06e4-4940-aa72-da45ce0bc21e" class="">That is because <code>person1</code> and <code>person2</code> are not the same object. If you want to know if all of the values inside of an object are the same, we would have to use <code>isEqual</code>.</p><p id="c07d1f51-c9b3-4487-bffd-57144c9f463c" class="">Import it like so 👇</p><pre id="6cb1c238-a502-4cee-ae5f-59fa04e55f13" class="code code-wrap"><code>import { intersection, isEqual } from &quot;lodash&quot;;</code></pre><p id="6c8a3943-5f51-43bb-a14d-357359b87920" class="">Within the file, add the following code 👉 <code>console.log(isEqual(person1, person2))</code>.</p><p id="440ee6ca-8ba4-4210-aeeb-7116320f8b74" class="">As you can see, it returns true because the <code>isEqual</code> method performs a check on all of the values.</p><p id="ca35652d-bb3f-4cd7-916b-2b30142c61c8" class="">What Wes recommends is to take an hour or two and go through and read about what each of the methods within lodash do, because you are going to run into those issues while programming, and knowing what lodash does will help you solve those problems when you run into them by reaching for a lodash method.</p><h3 id="c5eddb75-b8df-4d8a-add4-2f9a31aafb65" class="">await-to-js</h3><p id="e1cd08d9-ba43-48cf-9803-23cb64933d8a" class="">The last one is await-to-js.</p><p id="48249027-853b-4110-a2b0-d5b432a78eec" class="">This library allows you to handle errors a bit differently. Start by importing it.</p><pre id="764d1701-e904-4b9a-90a6-4cbc010a8ad1" class="code code-wrap"><code>import to from &quot;await-to-js&quot;;</code></pre><p id="6ec780c8-9e21-409a-aaec-862e0448066a" class=""><em>Note: you may have noticed that when importing these modules that we </em><code><em>npm installed</em></code><em> we don&#x27;t need to add the </em><code><em>.js</em></code><em> extension. That is because they are module that have been npm installed.</em></p><p id="45251ac6-9ff5-49fc-a2fc-a5254e7ea83b" class="">We will now make a function that resolves if your name is Wes and errors out if your name is anything else.</p><pre id="82af0b20-6e6b-48d4-8973-6d61fc59e0ef" class="code code-wrap"><code>function checkIfNameIsCool(firstName) {
+return new Promise(function (resolve, reject) {
+if (firstName === &quot;Wes&quot;) {
+resolve(&quot;Cool name&quot;);
+return;
+}
+
+reject(new Error(&quot;Not a cool name&quot;));
+});
+}</code></pre><p id="947631ba-220e-40b4-8631-69bc08f92e43" class="">Make another function called <code>checkName</code>, which will check the name on page load.</p><pre id="a139bf44-c68e-4d1b-b7a3-89bf9c373bd5" class="code code-wrap"><code>async function checkName() {
+const nameDesc = await checkIfNameIsCool(&quot;Wes&quot;);
+console.log(nameDesc);
+}
+
+checkName();</code></pre><p id="a19441bd-f847-4961-b6eb-6545657bef62" class="">If you refresh the page, you will see that it says &quot;Cool name&quot;.</p><p id="49b094fe-be96-47ba-88f6-ef8052599779" class="">What if you were to put int a name that isn&#x27;t cool, like &quot;snickers&quot;?</p><pre id="70e93726-6202-4598-b8a2-510a981e09aa" class="code code-wrap"><code>async function checkName() {
+const nameDesc = await checkIfNameIsCool(&quot;snickers&quot;);
+console.log(nameDesc);
+}
+
+checkName();</code></pre><p id="5f8d649d-4015-4837-ab6c-8ce72a9f1d59" class="">We get an error. How would we catch that?</p><p id="1ffaa90c-4599-4980-b76d-a3bfcf70e981" class="">We could use any of the methods that we learned earlier, but the <code>await-to</code> module allows us to wrap our promise based function in <code>await to</code>, and which will in return a response.</p><p id="1e35126b-81d2-4552-95cc-0ba11f96f64c" class="">For now, log the response to see what we are working with. 👇</p><pre id="c94e0346-6bb8-4046-8b05-e553963efddd" class="code code-wrap"><code>async function checkName() {
+const response = await to(checkIfNameIsCool(&quot;snickers&quot;));
+console.log(response);
+}</code></pre><p id="c1dd2ec0-7d11-4c94-b52b-f2404e5b2510" class="">As you can see, we get 2 things back: the error and undefined.</p><p id="8a80c624-250e-426a-a73c-aacfb052d94a" class="">What if we switched it back to &quot;wes&quot; instead of snickers?</p><p id="67917d85-48d4-41be-924f-493ec8604a86" class="">Then the first thing is null, and the second thing is cool name.</p><p id="6d1d236a-d389-400a-b7e9-78f95badefec" class="">So the <code>await to</code> package will always return an array and the first thing will always be an error, and the second thing will be the resolved value.</p><p id="9f9857f9-3f5b-4f36-9718-7d856adc937f" class="">Let&#x27;s destructure the response into the error and success value, and handle the error however we choose, like so 👇</p><pre id="ff84728c-46b7-4c1e-b5cd-a97edd460e3f" class="code code-wrap"><code>const [err, successValue] = await to(checkIfNameIsCool(&quot;snickers&quot;));
+
+if (err) {
+// deal with it
+console.log(err);
+} else {
+console.log(successValue);
+}</code></pre><p id="e8869284-4572-4506-afaf-4514ebf030a4" class="">This way if you want to deal with the error right up front, before you keep going in the function, all you need to do is wrap it in a <code>to</code> function and that will return an array.</p><p id="0bae662e-965f-4000-b833-a96cafa22558" class="">These are just a couple of Wes&#x27; favourite NPM packages. He could go on for hours showing them to us, but Wes recommends just searching for top npm packages in google or when you run into a problem, you can check if there is always a package that exists for that.</p><p id="dd4c945a-9761-4015-addd-ac92bee1646e" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="34e1a526-e6cb-4e3f-b301-8ac969ea19aa" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="e3c50fd3-8b86-4a93-857b-ed164bfe88b2" class="">Edit on Github</p></details></li></ul><ul id="c2c10138-3629-442f-a5be-643fd413d976" class="toggle"><li><details open=""><summary>83 - Security</summary><p id="8f94efd5-c359-4824-8722-7b7773a8564e" class=""><a href="https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/83-security">https://wesbos.com/javascript/14-es-modules-and-structuring-larger-apps/83-security</a></p><p id="4512a87b-b3d6-4b9e-b833-490aff771982" class="">
+</p><figure id="25eca59c-b28e-4064-9185-a69380e5c06e" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%205.png"><img style="width:700px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/bjs%205.png"/></a></figure><p id="35591b0c-dbb0-4896-a229-5257adf0de86" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="a95740df-3dc2-4deb-aadc-a93d58c9ff24" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="d0f4a47c-935d-4108-aef6-b0a6bcc08411" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="49488c18-b487-4a0b-b558-346a9e9cd025" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="cad7d254-ee67-4a94-b242-0a9616d4cb54" class="">JavaScript, ES ModulesEdit Post</p><p id="1e9243c1-4f0b-4e5e-905c-086656ff6a5e" class="">In this video we will discuss security in JavaScript.</p><p id="c99cce4b-8cb0-49a5-8309-2e9440e35ac9" class="">Much of security comes from running JavaScript on the server, or any server side language. That is where most of your security comes in, in things like encryption, certificates, firewalls, whitelisting IPs, rate limit, those things generally all happen on the server side.</p><p id="09cffc35-520a-4d26-a354-da214d2c4faf" class="">However when you are writing front-end JavaScript, there are a couple of places when you are building stuff in the browser that you want to be aware of so you don&#x27;t accidentally shoot yourself in the foot.</p><p id="8a3467a0-0ca1-422a-a111-20ee73eb798e" class="">In this video, we will go over those things that you should be aware of so that you do not accidentally commit security violations.</p><h2 id="8e34c8db-372e-4537-9129-3846974a15cd" class="">JavaScript is public</h2><p id="dd50e35b-54a8-48a9-861f-bba3a59668a2" class="">The first thing is that JavaScript is totally public. What does that mean?</p><p id="339bc9ae-1210-4535-b9f1-fb337dc55f14" class="">We already know this, because if you open up your dev tools, and go to the sources or network tab, you are able to see all of the code that is related to your website. You are shipping all of your code off to the browser and telling the browser to run it, which means that your source code is not safe.</p><p id="4a636be6-c113-4fbb-afb7-af8ef8cc8a03" class="">You <strong>should not</strong> put sensitive information in your client-side JavaScript, because even if you obfuscate it, and try to hide it in a whole bunch of ways,or encrypt it, if the browser can read it, it can be reverse engineered.</p><p id="377dd7e4-01a3-438f-8d04-224101143b97" class="">An example of that is API keys.</p><p id="a34a615c-4640-4721-a94b-c06ea515ab5e" class="">Sometimes it is okay to put API keys in the browser (we will look at an example like that), and sometimes it is not okay to put API keys in the browser.</p><p id="585bc4a5-125c-4500-937e-951d781f9686" class="">Generally, when it is not okay to put API keys in the browser, they will usually restrict you via CORS.</p><p id="4686566d-d359-46d9-bcd5-98f2213c1521" class="">Something like a google maps API key, it is completely fine to put it into your client-side JavaScript because Google will limit those per domain, or per visitor so you don&#x27;t have to worry about that.</p><p id="6daeb759-be19-4e33-a9f3-3f499fed077f" class="">Another example is links to private downloads.</p><p id="74b257eb-f5a2-4354-bec6-da333af2226d" class="">Let&#x27;s say you have an object on your page somewhere and you need to be able to download a zip file of something, people will be able to find it.</p><p id="7cefe45a-e636-4871-bbd9-7978cdaf145c" class="">Prices are another big one. Wes runs into this all the time with his courses. People will building a client-side JavaScript checkout and they will put the price in a button, for example. If someone is able to change the price of that button or change the code, then they will be able to change the price to whatever they want.</p><p id="a5250fed-74e1-489b-9ea1-41d0fd0c6eef" class="">When you are working with prices, we calculate the price on the client-side so we can show the total of the person&#x27;s cart. However, you should also recalculate the total on the server where it cannot be tampered with.</p><p id="dcc5634b-80e2-46c5-9460-4dbf33d94853" class="">Anything that is sensitive must be recalculated or done on the server, where it is in a secure environment.</p><h2 id="746bc916-f319-4cd2-ba28-fa0a5fa67942" class="">XSS and Sanitizing your Inputs</h2><p id="e474103d-9832-43a2-9c61-55ac942b12b0" class="">Wes has created this little example to demonstrate the concept of Cross Site Scripting (XSS) called FarceBook.</p><p id="29c6b5cb-f3e5-4620-b8dc-90045f3d9dea" class="">On a lot of websites, it is common to give a user a place on the page to fill out information about themselves, like a bio, and then in turn display that data once the user submits it.</p><p id="df37f5c1-292b-4b18-90ea-2db920642207" class="">In some cases you just have a text input with raw text. However, in some other cases, you want to generate HTML or even take in HTML from the user and display it on the page.</p><p id="7ff61539-3982-47cf-bc70-d7f9ada50cf5" class="">We have done this in a lot of our previous examples, when from within a loop we set the innerHTML of an element.</p><p id="52f79583-4391-4b70-9ebe-d5ae73e85344" class=""><strong>The rule is that anytime you are taking data from the user and embedding it in HTML you must first sanitize it</strong>.</p><p id="61018de1-e8bd-496e-9f34-55624a835714" class="">Anywhere that you are using <code>.innerHTML</code> or using <code>insertAdjacentHTML</code>, or really <em><strong>anywhere that you are taking user data and generating HTML from that, you must first sanitize the data</strong></em>.</p><h2 id="02dfd613-386e-4ea3-92c6-d9562c2d8f48" class="">FarceBook</h2><figure id="43e6d7fa-90e1-4710-ba25-0128a1ce327b" class="image"><a href="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/farcebook.gif"><img style="width:614px" src="14%20-%20ES%20Modules%20and%20Structuring%20Larger%20Apps%20a080d68ed9b9421db495907c9eb267c6/farcebook.gif"/></a></figure><p id="7deafb37-d845-4178-b9d3-9ca1cb076d9e" class="">In this really simple example Wes has made, FarceBook, there is a field where the user is allowed to type and when it&#x27;s typed, we are automatically dumping that into the profile on the right hand side.</p><p id="c1d3cea5-dbd5-4a7e-98ae-a487b6001109" class="">The data could be coming from anywhere. Most often the way it works is you give someone a field to type in on the backend and they save it and it displays on their profile page or on a form etc.</p><p id="a434ba46-9ad4-4186-ac82-795d23bc98f7" class="">You may want to allow people to put images tags, to be able to use strong, emphasis and mark tags, and things like that.</p><p id="e5a77426-1844-4e2d-906a-ffc54c5b453f" class="">We could do something like add a style tag and make the background red. Then we can tilt the entire page.</p><p id="a7e38251-e2b0-4bb4-b9fc-9316dbe38a0e" class="">That is not something you would want someone doing that and that is probably the least of your worries, someone goofing like that.</p><p id="ea5b1dfc-2ed5-433b-8a56-2c651849dd6b" class="">The reality is much scarier security thing is if someone can run JavaScript on your page.</p><p id="48d4976b-e917-402c-aa6f-d90b30cd5d45" class="">Anytime a user is able to run JavaScript on your page, then you are in trouble.</p><p id="a309d451-6aa0-4c08-90b0-9efcce29e80e" class="">Let&#x27;s try it by adding a script tag and seeing what happens.</p><p id="f7882e30-37be-4fe0-9635-d22d751adfc4" class="">As you can see, even though we added a script tag with an alert, there is no alert popping up. That is because script tags will not run.</p><h3 id="3951a883-a191-40c7-97c0-688f7fc93497" class="">Image Event Hijacking</h3><p id="9713e710-0f2e-4a75-8900-10c3c1848986" class="">But what you can do is take an image tag and hijack the onload event of the image tag and then within it we can add any JavaScript we want.</p><p id="5158c840-5c56-41de-9acb-1c1eeb545362" class="">If Facebook allowed that, then you would be able to run code on anyone who is viewing your Facebook profile. That is not secure.</p><p id="ca9242bf-fde1-40d9-aba2-600f86b20618" class="">It is <em><strong>not good</strong></em> to have someone else run JavaScript on your page because then they become a puppet of your own account and they can do things like click buttons as if they are you, or grab your messages and send fetch requests back to their own server.</p><p id="edbfa8d8-fac8-4cce-8491-da2c24b4a1dc" class="">The <code>onerror</code> attribute of img tags will also run JavaScript.</p><p id="ecebf6e6-b1ed-4aa2-9c3b-6a0386ea3e4a" class="">Let&#x27;s say you set the source of the image tag to be an image that doesn&#x27;t exist. That would cause the <code>onerror</code> attribute JavaScript would run.</p><p id="e3942878-2d56-4776-8f3a-f66bc3cc2eab" class="">Using the onerror attribute, we can trigger an alert like so 👇</p><p id="7b5150a5-6e90-4d0f-8caa-ccf2d70ef339" class="">That is how people do <strong>cross site scripting</strong>.</p><p id="fd9bc10f-d005-4c47-b7fe-44846284b24d" class="">They find a way to remotely run JavaScript on somebody&#x27;s page and almost always what they will do is just hook up an image tag and say <code>onerror</code> of the image and then fetch malicious JavaScript and then you have someone you don&#x27;t trust running JavaScript on your website to logged in users which is very very scary and very bad.</p><p id="1f0981c6-006f-4e25-a9eb-2084064b1b81" class="">Even if it is just a tiny little input box, you have to be careful when you are taking data from a user.</p><h3 id="beb48a22-4093-4b1d-b545-a73bb316a09d" class="">Sanitizing User Data with DOMPurify.</h3><p id="5055e162-47e8-4bac-8d8b-8ccb1637189c" class="">So how can you <strong>sanitize</strong> user data?</p><p id="550c04da-54e1-4614-9f98-89a50e731a1b" class="">Luckily there is a very easy library to use called <strong>DOMPurify</strong>.</p><p id="ebb12957-df6c-45b6-b81f-c53c789254dd" class="">It works by taking in a string and scrubbing it of all the security issues for us.</p><p id="c2383155-19aa-4f2c-92c5-76758411d3dd" class="">Wes has already npm installed DOMPurify, and at the top of the file he has imported the <code>sanitize</code> method from DOMPurify.</p><p id="40588ef1-ce1e-4998-aa22-4cdb5c4be56e" class="">All we need to do to fix the code is modify the input event listener function to use the sanitize method.</p><pre id="5fb8b1e7-0b44-4936-b3e2-71b89e7fcc56" class="code code-wrap"><code>input.addEventListener(&quot;input&quot;, () =&gt; {
+const clean = sanitize(input.value);
+output.innerHTML = clean.replace(/\n/g, &quot;&lt;br&gt;&quot;);
+});</code></pre><p id="9c49c6bb-a36c-4768-a256-88c2fc50940e" class="">In the code above, we are simply replacing line breaks with a <code>&lt;br&gt;</code> tag so the HTML is properly formatted.</p><p id="064fd137-d669-4b21-bb1b-b5f6fb445ff9" class="">If you try adding an alert in the onload attribute of the image tag again, nothing will happen this time.</p><p id="95652899-3e7c-410a-9992-bddd933cfce1" class="">Why is that?</p><p id="dd39709e-1a1a-40d9-b915-5386e07a133e" class="">Open the dev tools and look at the code in the elements tab. You will see that the onload and onerror attributes have been stripped out, as well as all the other inline event handlers on image tags.</p><p id="78f0c69d-33e9-4951-a472-dcb74014a236" class="">If yu tried to add a style tag, it would still work however.</p><p id="194512fc-83e1-4532-b73a-cbef84964922" class="">Why is that? That is because the style tag, if you look at it in the console is still being embedded.</p><p id="6a48dac9-fd70-4bdb-8a64-e98c97fe5a02" class="">To fix that, we need to pass <code>options</code> to DOMPurify. The default simply strip the nasty JavaScript stuff out of there but there are lots of options you can use.</p><p id="fcde2071-371a-4872-8fab-6499b2dc3878" class="">The options Wes usually chooses are <code>FORBID_TAGS</code> and <code>FORBID_ATTR</code>.</p><p id="0ac33686-22f9-429c-ac35-b28e1780345f" class="">Modify the code like so:</p><pre id="e0c604cd-62d4-47b7-890d-15f3ac67a92e" class="code code-wrap"><code>input.addEventListener(&quot;input&quot;, () =&gt; {
+const clean = sanitize(input.value, {
+    FORBID_ATTR: [&quot;width&quot;, &quot;height&quot;, &quot;style&quot;],
+    FORBID_TAGS: [&quot;style&quot;],
+});
+
+output.innerHTML = clean.replace(/\n/g, &quot;&lt;br&gt;&quot;);
+});</code></pre><p id="692595c5-e3c5-4e1c-9458-7718454a1557" class="">Now if you try to use the style tag, you will see that it has been completely removed.</p><p id="b854f3f4-7201-4253-b78e-a8e31f648d63" class="">That the basics of security.</p><h3 id="90aaecb6-0b9d-4e61-89ce-fa9d81370552" class="">HTTPS Origin</h3><p id="41d192eb-79e8-4502-8d92-2adf11f877ff" class="">The last thing we need to cover is that when you are sending data, make sure that you are sending it to an HTTPS origin.</p><p id="aa3413f2-3257-4023-9e7a-5ba979dea882" class="">The reason behind that is if you have an API, like https://dogsapi.com, and you are getting (which means pulling) data over an insecure origin (http), there could be other people on the WIFI network on in the government or anywhere along the line of you requesting that, that would be able to just look into that request, peer in and see what you are requesting.</p><p id="945a3886-4f6e-48b2-9ca3-05d6a77eb07a" class="">When you are pushing data to an API using POST, then they would be able to see all the data you and sending an possibly modify it.</p><p id="6babb4dc-efef-49f1-946d-7d50d05aa50b" class="">If you make it HTTPS, all the data coming to and from the API will be encrypted and you want to make sure that every API that you are using is encrypted.</p><p id="077df766-2b95-4c3f-8755-e9863cff8683" class="">That isn&#x27;t normally and issue, most APIs are encrypted but it&#x27;s just something to keep in mind.</p><p id="63f25203-7054-4f87-87c4-a26b8a113c70" class="">That is the basic security things to think about!</p><p id="b8593d6e-f9b0-448f-b9a6-6e6c6f92197c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="b2bb4cb8-4131-4465-9232-4ce4d52bf4ae" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f09848aa-8ea9-4dbc-8cba-e6be47eba090" class="">Edit on Github</p></details></li></ul></div></article></body></html>

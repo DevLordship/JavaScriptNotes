@@ -1,0 +1,1245 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>11 - Prototypes, this, new and Inheritance</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1316df05-20b1-4896-8086-e827d2b3ca74" class="page sans"><header><h1 class="page-title"><em><strong>11 - Prototypes, this, new and Inheritance</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="93e45ac1-74d3-4f53-9a7a-935b9375e0cd" class="toggle"><li><details open=""><summary>60 - The New Keyword</summary><p id="2c3135f4-d44d-40be-9e51-55cd9570973d" class=""><a href="https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/60-the-new-keyword">https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/60-the-new-keyword</a></p><p id="f501875c-ff7e-4dc7-aa8d-6da10837fd62" class="">
+</p><figure id="671e0a45-df65-4da0-9026-a92fe5019ea6" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs.png"/></a></figure><p id="40b89caa-e15b-4caa-9699-5dfa5b4f952b" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="63965b7f-09b3-4740-9655-b57b7ad9345c" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="bd4b493a-0560-400a-a2d8-a0703e891341" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="e29b3fb8-f0d4-437a-a9d1-31e198b778bb" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="caf01d68-b0c6-4205-8f8f-cbda7e4d1d31" class="">JavaScript, Prototypes, New KeywordEdit Post</p><p id="6c46d12c-af06-4910-841b-5c5cd0a259b2" class="">This lesson is on classes, prototypes, and the keywords <code>this</code> and <code>new</code>.</p><p id="cda756d9-4c92-42b4-9928-e2fb026128c4" class="">We are grouping these things together because they are all connected and are the foundations for what is often called <strong>object-oriented programming</strong> and another popular paradigm <strong>functional programming</strong>.</p><p id="bd8abde1-8b82-4d16-b709-1576f1d6df31" class="">Let&#x27;s get started with the <code>new</code> keyword and understanding how it works.</p><p id="2e5f32eb-382f-4609-8abf-b9f6187c3fef" class="">Create a new file <code>new-this.html</code> in the playground directory.</p><p id="a4fd8dcb-b058-4648-8c65-0d9466fdbc1f" class="">Inside the file we want to add our HTML base, and change the title to &quot;New, This, Prototypes and Classes&quot;.</p><p id="7f63f6d9-509b-47fd-81f9-51624c1744c2" class="">Add a script tag within the body tag with a log - &quot;it works&quot; and open the HTML page to ensure it is working.</p><p id="fe339171-724c-465b-8181-a9d2dba6a244" class="">So what is the <code><strong>new</strong></code> keyword?</p><p id="67277b0d-831b-4200-86a0-2aac4b57acb6" class="">We have already used it a couple of times like when we throw an error, create a date or create a new array using the new keyword.</p><p id="4e2efcb0-4250-4d6d-922e-ac6ae92b527a" class="">Speaking of dates, let&#x27;s say you had a date that you assigned the value of August 11 2025 to and logged it to the console, it would return a string representation of the date.</p><pre id="35de2958-1878-4946-bcc5-821c62110ce5" class="code code-wrap"><code>const myDate = new Date(&#x27;August 11, 2025&#x27;);
+console.log(myDate);</code></pre><figure id="4d4ecee3-c53c-4ccd-b6a8-ea64e15af06a" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/903.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/903.png"/></a></figure><p id="e22660da-1666-4fd9-bde3-5b026ada15d7" class="">If we did <code>console.dir(myDate);</code> instead, you will see that we have our date and inside of it we have a prototype of tons of different methods.</p><figure id="85061c68-bccb-4fe7-8f77-341d2863be8f" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/904.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/904.png"/></a></figure><p id="bbaac311-ca2a-4255-876a-2236d50f2776" class="">Let&#x27;s say you were to log <code>myDate.getFullYear()</code>, you will see we get 2025 in the console.</p><figure id="d0fcf5f3-d643-4768-8902-80d3b166d040" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/905.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/905.png"/></a></figure><p id="4dfbea95-b5f2-4e1e-9ae6-6bdb29b6df90" class="">Where did the <code>getFullYear()</code> method come from?</p><p id="acfa18e5-3b3b-492a-a289-b44e63dbf98a" class="">The same thing when we create an array, we automatically have all these new methods like <code>pop</code>, <code>push</code>, <code>slice</code> and <code>splice</code>. Where do those all come from?</p><p id="bfac3f20-be38-4986-b70a-c47da3db5264" class="">That is because when you create a date, an object, an array, a string, a number or any of those things, we are essentially creating a new object in JavaScript that is extended off the constructor, or as Wes likes to refer to it as, the momma object.</p><p id="55f56236-bb67-4031-acc5-caa11eb466a9" class="">If we take a look at all of the types that we have by entering them into the console, such as <code>Array</code>, <code>Object</code>, <code>Date</code>, <code>Number</code> you will see that they are all just functions, which if run with the new keyword in front of it, will return a new object.</p><figure id="84fe0842-bfb8-4381-b1fb-a2c88a476f4a" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/906.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/906.png"/></a></figure><p id="a35a30c9-963f-432e-a3bc-54ab226508f0" class="">That is why we say in JavaScript everything is an object. Even though a number is just a number, when we create a new number, we have all these methods that exist on it. So although the number is just a number, it is packed with all these methods for working with it.</p><p id="fd798035-60ff-4326-99dd-1677fb0b80c8" class="">Let&#x27;s go back to the date example.</p><p id="ba621082-d780-4ee5-8ddc-a302edb61346" class="">Because we are creating a new <code>Date</code>, we have this variable <code>myDate</code> which is an instance of <code>date</code>. If you were to type into a console <code>typeof myDate</code>, it would return an object. But if you were to type <code>myDate instanceof Date</code> it would return true.</p><p id="494b1ec6-91f9-4214-b4cf-f833f023bb13" class=""><code>myDate</code> is an object, but it is an instance of our special object that we have in the browser that is called a <code>date</code>.</p><p id="237b8ca5-8623-4365-b76c-957b71ce2fd6" class="">The same thing happens with arrays.</p><p id="4a63de2f-633a-4421-a389-7810b5887691" class="">In the script tag, add <code>const name = [&#x27;wes&#x27;, &#x27;kait&#x27;];</code>.</p><p id="7fa46521-1b20-43cc-8bf4-088e3ef9f064" class="">If you try running <code>typeof</code> and <code>instanceof Array</code> in the console, you should see the same result -- names is an instance of an array but an object itself.</p><p id="1d208751-563d-4bde-9d24-cde0ad6661c4" class="">With the array, it might be a bit confusing because you don&#x27;t see the <code>new</code> keyword being used. Same thing when you create an object like <code>const wes = { name: &#x27;wes&#x27; };</code>.</p><p id="2aec6673-d027-4832-832d-23c34dd578a3" class="">Why are we able to use the instance if we aren&#x27;t using the <code>new</code> keyword?</p><p id="3fc013be-d3b7-44bd-aa70-1abf0453de50" class="">Because that way of making arrays and objects is referred to as <strong>literal syntax</strong>. They are the same thing as doing</p><pre id="56cf6e5c-c8c7-4d78-80ff-4ab09b1142ed" class="code code-wrap"><code>const names = new Array(&#x27;wes&#x27;, &#x27;kait&#x27;);
+const wes = new Object({ name: &#x27;wes&#x27; });</code></pre><p id="5e3ee059-e08f-4685-be88-e507fad32883" class="">As you can see, the array and object look the same. The only difference is it is a shorter syntax.</p><p id="c5f70ef0-0162-4c7e-ae6c-87407bcd1716" class="">Some other things like dates don&#x27;t have a literal syntax, which is why we have to put the <code>new</code> keyword infront of it.</p><p id="2e6b1763-9690-43fc-bcdf-cec9d8333a6e" class="">It&#x27;s the same thing when you create an element.</p><pre id="76f3bdd4-0778-4a81-8f8f-0a4c98552b47" class="code code-wrap"><code>const span = document.createElement(&#x27;span&#x27;);
+console.log(span);</code></pre><p id="d81ae0cf-b10d-4d19-b2da-743747fc860b" class="">If you tried to check whether <code>span</code> was an instance of an element you could do <code>span instanceof Element</code> which should return true because <code>Element</code> was the base one and <code>span</code> is the instance that we created.</p><p id="2fca1319-e216-49e4-b6c6-3979bbb8445c" class="">Why didn&#x27;t we use <code>new Element</code>?</p><p id="455b85fc-70a1-409b-a318-06ce1b1ec31c" class="">We can take a look at the span constructor by doing <code>span.constructor</code> in the console. What that will do is it gives us a single <code>HTML</code> span element.</p><p id="0fb83351-1e07-4b2a-b5b2-3220d25a6dc9" class="">Let&#x27;s check if these are true by entering the following into the console.</p><pre id="8c6f0598-a0ea-4169-815c-b340049b1ccd" class="code code-wrap"><code>span instanceof HTMLSpanElement;
+span instanceof Node;</code></pre><p id="11807767-eb06-4161-9d85-be927f4482f1" class="">Both will return true. Why? Is it an element, is it a span, is it a node?</p><p id="52af388f-e207-4c53-9789-1f764cd937ec" class="">We will learn more about this in later classes but essentially things can start very basic like a node with text. Then it can go a little further and become an element, and have a tag and attributes. And then it can go even further and become a special kind of element like an image or div. In all of those cases, the element inherits the Node and the <code>HTMLSpanElement</code> inherits the <code>Element</code>.</p><p id="0987e1cc-45a0-4939-a529-54e65db935df" class="">That is what is referred to as <strong>extending</strong> which we will get into when we discuss classes.</p><p id="a00da6c2-2d91-4f08-a853-b52a75fa7c2f" class="">So when using <code>document.createElement()</code> we do not need a <code>new</code> keyword because it does that under the hood.</p><p id="53db33fe-826a-4c49-ac5f-a345b8351042" class="">Let&#x27;s build our own to get a better grasp on this. We will make a pizza.</p><pre id="a42c07b8-8664-4bbf-b80c-9c34c984996e" class="code code-wrap"><code>function Pizza() {
+console.log(&#x27;Making a pizza&#x27;);
+}</code></pre><p id="52072c3f-fdca-4b5f-bf6f-ca67ab4e3b38" class="">What we have done is added the ability to make a new pizza.</p><p id="c6805d4a-d67a-4d1d-92e3-36496f9ada16" class="">Let&#x27;s create one and try it first without the <code>new</code> keyword.</p><pre id="a2302cbb-2b39-421f-9b9d-8c9ddc64aa20" class="code code-wrap"><code>const pepperoniPizza = Pizza();
+console.log(pepperoniPizza);</code></pre><p id="5ea4fd0e-4f79-40a2-a50d-8be7ca97aab3" class="">If you refresh the page, you will see we get <code>undefined</code>.</p><p id="dedd5642-57e3-4b11-a849-1876a5328031" class="">That makes sense because the function did not return anything.</p><pre id="7aebd5d2-22ac-4689-aad4-ce856178c5ff" class="code code-wrap"><code>const pepperoniPizza = new Pizza();</code></pre><p id="4c47c15a-8e57-4f1e-bc55-e4b87db305be" class="">Add the new keyword as shown above, and when you check the logs you will see that we get a pizza object with nothing because we haven&#x27;t added anything to it yet.</p><p id="da733878-5cfc-49f6-a8fe-e3af09217d81" class="">What happens is when you use the <code>new</code> keyword on a function, it creates a new instance object of that function instead of whatever has been returned from that function.</p><p id="c0c75ef7-a4ea-44e6-94a6-f2830329eb1f" class="">To reiterate, by using the <code>new</code> keyword in JavaScript, it creates a new object that is an instance of whatever function you have made it from. That makes a lot more sense when we get into the <code>this</code> keyword, <code>constructors</code> and <code>classes</code>.</p><p id="7df0443b-9233-4df8-b104-cadfc243f4e3" class="">We could take this a bit further and look at the <code>constructor</code> by logging it.</p><pre id="6b5f18ef-527c-4cbc-85fa-dcee4a45c508" class="code code-wrap"><code>console.log(pepperoniPizza.constructor);</code></pre><p id="46f8e466-3f70-4c9c-bee6-99bb0e90b14c" class="">The constructor will tell us what function made it.</p><p id="6012dd44-325b-49c8-9761-5b22bab95355" class="">Same thing with our span. If we look at our constructor, we see that the thing that made the span was the <code>HTMLSpanElement</code> function.</p><p id="a8ce9811-ae11-4316-b4a6-3fe8134c9221" class="">If you were to type <code>pepperoniPizza instanceof Pizza</code> we would see true returned in the console.</p><p id="e3621903-ff4d-4240-83af-ce6a704340af" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="47e32750-1ace-458e-8422-19d091c230eb" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="693c7a4c-ef31-4d56-90f2-9bb9dc9f0632" class="">Edit on Github</p></details></li></ul><ul id="585bb67f-114a-4219-bf28-54c74d14a450" class="toggle"><li><details open=""><summary>61 - The This Keyword</summary><p id="c223e0eb-df85-409b-be62-5f204d97238f" class=""><a href="https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/61-the-this-keyword">https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/61-the-this-keyword</a></p><p id="f515251c-a319-4257-ac21-d5877e9403f7" class="">
+</p></details></li></ul><ul id="9412d277-20e1-49bb-a257-dc68239e2c75" class="toggle"><li><details open=""><summary>62 - Prototype Refactor of Gallery Exercise</summary><p id="dcc33f61-b2e7-412e-80e5-b6503c71b184" class=""><a href="https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/62-prototype-refactor-of-gallery-exercise">https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/62-prototype-refactor-of-gallery-exercise</a></p><p id="3f5d587d-0be3-4106-8738-88d0c22d0460" class="">
+</p><figure id="82be3337-0206-4f13-8263-f59094709243" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%201.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%201.png"/></a></figure><p id="3a4c6257-6649-4264-838e-b0f661cca746" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="73ccb5d0-728a-4536-b64e-3c5693cfd449" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="5900dde3-6462-4b19-9c95-344b74eba88c" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="b7e6471b-c769-4224-8469-1ce64792f7b2" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="33f9f84a-8455-4ac3-a004-54cfbc5f8e75" class="">JavaScript, PrototypesEdit Post</p><p id="e29fe52b-069e-4309-9ab8-544be9c5b5ed" class="">In the next two videos we will refactor the gallery and slider exercises that we did earlier to take advantage of the prototype.</p><p id="6e7ecdcb-a307-4c89-bea7-ee58c119b056" class="">Open up <code>gallery.js</code> and save a copy of the file under the name <code>gallery-prototype.js</code>.</p><p id="d8651da6-001b-4f0b-98da-8088726ef3fb" class="">Then go into the <code>index.html</code> file within the gallery exercise directory and modify the script src to point to the <code>gallery-prototype.js</code> file instead.</p><p id="9c8079ef-e997-4f05-9247-8b00c6b6ddfa" class="">If you scroll to the bottom of the JavaScript page, you will see we have 2 variables <code>gallery1</code> and <code>gallery2</code>, and if we log them in the console, we will get <code>undefined</code> and <code>undefined</code>.</p><pre id="9818dba1-4e7a-4f86-b75b-92c8c823c2ff" class="code code-wrap"><code>const gallery1 = Gallery(document.querySelector(&#x27;.gallery1&#x27;));
+const gallery2 = Gallery(document.querySelector(&#x27;.gallery2&#x27;));
+
+console.log(gallery1, gallery2);</code></pre><p id="5c232b5f-7700-4985-871e-62c0b4f6079b" class="">Why? because the <code>Gallery()</code> function doesn&#x27;t actually return anything.</p><figure id="7faee9bb-0720-4bb4-bcae-ad4cfb84c3ba" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/928.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/928.png"/></a></figure><p id="7b8e3dc7-5740-4b13-b917-676f76cf5f60" class="">If, however, we change it to use the <code>new</code> keyword, it will automatically return an instance of that gallery.</p><pre id="69adbe7f-cab2-4ab9-a201-a8fde5dfebe6" class="code code-wrap"><code>const gallery1 = new Gallery(document.querySelector(&#x27;.gallery1&#x27;));
+const gallery2 = new Gallery(document.querySelector(&#x27;.gallery2&#x27;));</code></pre><figure id="fdfbffbe-64a7-4f54-83fc-7fbac8ec5980" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/929.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/929.png"/></a></figure><p id="f083af48-0063-4cc6-9576-ed8ad8a5ed52" class="">Right now there is nothing in our Gallery nor in the prototype of it, but you will see as we add things to the prototype and to the instance, we will see them populate there.</p><p id="c2aa66fd-375a-4c5e-926c-68f76472e445" class="">Let&#x27;s go to the top of the file and go line by line.</p><pre id="c395a333-7cf3-459c-b0b7-ab0e868362a0" class="code code-wrap"><code>function Gallery(gallery) {
+if (!gallery) {
+throw new Error(&#x27;No Gallery Found!&#x27;);
+}
+}</code></pre><p id="eb0d14aa-b7a5-4dbc-b14b-6b53a07028e7" class="">The way we check whether the parameter exists is fine, we can leave that alone.</p><figure id="80e450f6-7318-4d63-b13c-3078a8db430f" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/930.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/930.png"/></a></figure><p id="0a8de040-7293-46b4-b1fd-25e13532a20a" class="">The only thing we need to do is save the reference to the gallery div that was passed in because we will need it in our prototype method shortly.</p><p id="fe5f0abb-6014-4361-8d0a-1d55c0c04ab0" class="">Add the line below after the condition 👇</p><pre id="15636d09-0b3f-4467-b666-4044d6e9598d" class="code code-wrap"><code>this.gallery = gallery;</code></pre><p id="5e728cbe-3db0-418f-8531-b2e62d460782" class="">Now if you refresh the page, you should see both of our galleries logged, and you can see that those are instance properties because they differ in each one.</p><figure id="78251c61-29df-47f2-beb7-15917fc3eec8" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/931.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/931.png"/></a></figure><p id="2a0095af-d76e-4d94-80d4-a5986c727e09" class="">Now we need to go through all the variables we created.</p><p id="b01a256b-fc03-4fe8-a5fb-3dd42c7691bf" class="">We just created them as variables inside of the closure, but because we are going to be moving all of the methods like <code>handleClickOutside</code> and <code>handleKeyUp</code> to the prototype, they will no longer have access to the closure. That means we need to surface the variables on our instance somehow.</p><p id="d164438d-2203-44ac-b20b-cdd0c879c580" class="">The way you can surface a variable on an instance is simply by saying <code>this.</code> the name of the variable.</p><p id="81af9f5f-9cea-434e-b8fa-4289c862e4d0" class="">So we will change all those variables and everywhere we have used them to <code>this.images</code> instead of <code>const images</code>.</p><p id="e9c2c1dd-88e2-40aa-af41-2425b0e63fda" class="">The easiest way that Wes has found to do that is to right click on a variable name in VSCode and select &quot;Rename symbol&quot;. Then add <code>this.</code> next to <code>const image</code> and remove the <code>const</code>, because we are not declaring a new variable, we are simply setting a property on the gallery instance.</p><p id="645981de-a11e-4704-a50d-a5c56d7bd9ea" class="">Now let&#x27;s go through the rest of them.</p><pre id="b7c1236f-6e9c-4da7-b050-43e33ceff95a" class="code code-wrap"><code>this.gallery = gallery;
+// select the elements we need
+this.images = Array.from(gallery.querySelectorAll(&#x27;img&#x27;));
+this.modal = document.querySelector(&#x27;.modal&#x27;);
+this.prevButton = this.modal.querySelector(&#x27;.prev&#x27;);
+this.nextButton = this.modal.querySelector(&#x27;.next&#x27;);</code></pre><p id="2122acfe-8d76-4ed1-a26a-f6503d025b45" class="">We don&#x27;t need the <code>let currentImage</code> variable anymore because wherever we set the <code>currentImage</code>, we will simply say <code>this.currentImage = el;</code> where we are setting the <code>currentImage</code> instead. So delete the <code>let</code> declaration of that variable.</p><p id="6684a612-96fd-4a69-8a3f-1e03a13bcdce" class="">As you can see, our gallery now has all these properties inside of it.</p><p id="cd92a690-49b9-480f-aada-6faa182774e8" class="">Next we will share the rest of the functions amongst all the instances by moving them to the prototype.</p><p id="1dd35ef3-8a19-4f8a-a394-a73eb018f36b" class="">Select all the functions below.</p><pre id="ead3e515-d7b3-4a68-8f3c-9fa1212662f3" class="code code-wrap"><code>function openModal() {
+console.info(&#x27;Opening Modal...&#x27;);
+// First check if the modal is already open
+if (modal.matches(&#x27;.open&#x27;)) {
+console.info(&#x27;Madal already open&#x27;);
+return; // stop the function from running
+}
+modal.classList.add(&#x27;open&#x27;);
+
+// Event listeners to be bound when we open the modal:
+window.addEventListener(&#x27;keyup&#x27;, handleKeyUp);
+nextButton.addEventListener(&#x27;click&#x27;, showNextImage);
+prevButton.addEventListener(&#x27;click&#x27;, showPrevImage);
+}
+
+function closeModal() {
+modal.classList.remove(&#x27;open&#x27;);
+// TODO: add event listeners for clicks and keyboard..
+window.removeEventListener(&#x27;keyup&#x27;, handleKeyUp);
+nextButton.removeEventListener(&#x27;click&#x27;, showNextImage);
+prevButton.removeEventListener(&#x27;click&#x27;, showPrevImage);
+}
+
+function handleClickOutside(e) {
+if (e.target === e.currentTarget) {
+closeModal();
+}
+}
+
+function handleKeyUp(event) {
+if (event.key === &#x27;Escape&#x27;) return closeModal();
+if (event.key === &#x27;ArrowRight&#x27;) return showNextImage();
+if (event.key === &#x27;ArrowLeft&#x27;) return showPrevImage();
+}
+
+function showNextImage() {
+showImage(currentImage.nextElementSibling || gallery.firstElementChild);
+}
+
+function showPrevImage() {
+showImage(currentImage.previousElementSibling || gallery.lastElementChild);
+}
+
+function showImage(el) {
+if (!el) {
+console.info(&#x27;no image to show&#x27;);
+return;
+}
+// update the modal with this info
+console.log(el);
+modal.querySelector(&#x27;img&#x27;).src = el.src;
+modal.querySelector(&#x27;h2&#x27;).textContent = el.title;
+modal.querySelector(&#x27;figure p&#x27;).textContent = el.dataset.description;
+currentImage = el;
+openModal();
+}</code></pre><p id="81adc536-6680-46e4-855c-42de5dfb338c" class="">Cut those functions out of the <code>Gallery()</code> function and add them right below the function.</p><p id="2e47aa1a-994f-4c1c-a3db-b04daec1e316" class="">Now what we need to do is we need to change each of those functions to be on the prototype of the gallery.</p><p id="afca2dda-6fd8-4b90-a34b-1ae4182a4b1e" class="">We are going to remove the word <code>function</code> and instead will put <code>Gallery.prototype</code>, as shown below.</p><pre id="8310ec48-7aa0-4c0d-a1de-b7aafd40f096" class="code code-wrap"><code>Gallery.prototype.openModal() {
+console.info(&#x27;Opening Modal...&#x27;);
+// First check if the modal is already open
+if (modal.matches(&#x27;.open&#x27;)) {
+console.info(&#x27;Modal already open&#x27;);
+return; // stop the function from running
+}
+modal.classList.add(&#x27;open&#x27;);
+
+// Event listeners to be bound when we open the modal:
+window.addEventListener(&#x27;keyup&#x27;, handleKeyUp);
+nextButton.addEventListener(&#x27;click&#x27;, showNextImage);
+prevButton.addEventListener(&#x27;click&#x27;, showPrevImage);
+}</code></pre><p id="b4907c9c-92e6-4888-bc91-3de6924402fe" class="">If you save and refresh, you will see that we now have access to the <code>openModal</code> function on the prototype of our galleries. Nothing will work yet but we will go through and fix them one by one.</p><p id="e691484b-25cf-4602-806c-407d41c0f1ec" class="">Wes likes to use VSCode multi-cursor to refactor the methods all at once.</p><p id="e7802de1-2777-41cc-ba1f-aaf2428b319f" class="">His shortcuts are to hold down Click + Cmd and then put the cursor in front of every function name so you can edit them all at once.</p><pre id="91d157dc-fd0d-4eb0-a7aa-ae5ec50bdcea" class="code code-wrap"><code>Gallery.prototype.openModal() {
+console.info(&#x27;Opening Modal...&#x27;);
+// First check if the modal is already open
+if (modal.matches(&#x27;.open&#x27;)) {
+console.info(&#x27;Madal already open&#x27;);
+return; // stop the Gallery.prototype.from running
+}
+modal.classList.add(&#x27;open&#x27;);
+
+// Event listeners to be bound when we open the modal:
+window.addEventListener(&#x27;keyup&#x27;, handleKeyUp);
+nextButton.addEventListener(&#x27;click&#x27;, showNextImage);
+prevButton.addEventListener(&#x27;click&#x27;, showPrevImage);
+}
+
+Gallery.prototype.closeModal() {
+modal.classList.remove(&#x27;open&#x27;);
+// TODO: add event listeners for clicks and keyboard..
+window.removeEventListener(&#x27;keyup&#x27;, handleKeyUp);
+nextButton.removeEventListener(&#x27;click&#x27;, showNextImage);
+prevButton.removeEventListener(&#x27;click&#x27;, showPrevImage);
+}
+
+Gallery.prototype.handleClickOutside(e) {
+if (e.target === e.currentTarget) {
+closeModal();
+}
+}
+
+Gallery.prototype.handleKeyUp(event) {
+if (event.key === &#x27;Escape&#x27;) return closeModal();
+if (event.key === &#x27;ArrowRight&#x27;) return showNextImage();
+if (event.key === &#x27;ArrowLeft&#x27;) return showPrevImage();
+}
+
+Gallery.prototype.showNextImage() {
+showImage(currentImage.nextElementSibling || gallery.firstElementChild);
+}
+
+Gallery.prototype.showPrevImage() {
+showImage(currentImage.previousElementSibling || gallery.lastElementChild);
+}
+
+Gallery.prototype.showImage(el) {
+if (!el) {
+console.info(&#x27;no image to show&#x27;);
+return;
+}
+// update the modal with this info
+console.log(el);
+modal.querySelector(&#x27;img&#x27;).src = el.src;
+modal.querySelector(&#x27;h2&#x27;).textContent = el.title;
+modal.querySelector(&#x27;figure p&#x27;).textContent = el.dataset.description;
+currentImage = el;
+openModal();
+}</code></pre><p id="a1512e5a-8576-4062-99af-089102be61a4" class="">It won&#x27;t even load now because we get these errors like</p><blockquote id="d4e7d389-52b2-4b8e-849c-234f122a2f6e" class=""><p id="17148f9b-c063-4f82-a5e5-7e1a28a6300a" class="">handleClickOutside is not defined</p></blockquote><p id="d14e8136-17a4-4bca-b553-fb60effe1c67" class="">If you go to line 29, you will see we are calling <code>showImage(e.currentTarget)</code>.</p><p id="b9d208a8-c0f2-4a7d-805b-aba14161b32e" class="">Anytime we reference one of our functions, it needs to be changed to <code>this.showImage</code>.</p><p id="a9437c5a-33d0-4116-875c-214c625aef9b" class="">That is where ESLint becomes very helpful. If you click ESLint at the bottom, you can see all of the problems.</p><p id="d4d1504e-100c-400a-9f2a-d5f8a97e15d2" class="">Now we can go through them one by one and change them out.</p><pre id="9395b94b-d368-4475-9545-f6ce803c7dbf" class="code code-wrap"><code>Gallery.prototype.openModal = function() {
+console.info(&#x27;Opening Modal...&#x27;);
+// First check if the modal is already open
+if (this.modal.matches(&#x27;.open&#x27;)) {
+console.info(&#x27;Madal already open&#x27;);
+return; // stop the function from running
+}
+this.modal.classList.add(&#x27;open&#x27;);
+
+// Event listeners to be bound when we open the modal:
+window.addEventListener(&#x27;keyup&#x27;, this.handleKeyUp);
+this.nextButton.addEventListener(&#x27;click&#x27;, this.showNextImage);
+this.prevButton.addEventListener(&#x27;click&#x27;, this.showPrevImage);
+};
+
+Gallery.prototype.closeModal = function() {
+this.modal.classList.remove(&#x27;open&#x27;);
+// TODO: add event listeners for clicks and keyboard..
+window.removeEventListener(&#x27;keyup&#x27;, this.handleKeyUp);
+this.nextButton.removeEventListener(&#x27;click&#x27;, this.showNextImage);
+this.prevButton.removeEventListener(&#x27;click&#x27;, this.showPrevImage);
+};
+
+Gallery.prototype.handleClickOutside = function(e) {
+if (e.target === e.currentTarget) {
+this.closeModal();
+}
+};
+
+Gallery.prototype.handleKeyUp = function(event) {
+if (event.key === &#x27;Escape&#x27;) return this.closeModal();
+if (event.key === &#x27;ArrowRight&#x27;) return this.showNextImage();
+if (event.key === &#x27;ArrowLeft&#x27;) return this.showPrevImage();
+};
+
+Gallery.prototype.showNextImage = function() {
+console.log(&#x27;SHOWING NEXT IMAGE!!!&#x27;);
+this.showImage(
+this.currentImage.nextElementSibling || this.gallery.firstElementChild
+);
+};
+Gallery.prototype.showPrevImage = function() {
+this.showImage(
+this.currentImage.previousElementSibling || this.gallery.lastElementChild
+);
+};
+
+Gallery.prototype.showImage = function(el) {
+if (!el) {
+console.info(&#x27;no image to show&#x27;);
+return;
+}
+// update the modal with this info
+console.log(el);
+this.modal.querySelector(&#x27;img&#x27;).src = el.src;
+this.modal.querySelector(&#x27;h2&#x27;).textContent = el.title;
+this.modal.querySelector(&#x27;figure p&#x27;).textContent = el.dataset.description;
+this.currentImage = el;
+this.openModal();
+};</code></pre><p id="d4e1be6b-50d1-46c4-b2db-2f37142671d6" class="">Now we have refactored everything (all our variables and methods) to be reference-able by <code>this.</code> and their name.</p><p id="c3f9201b-9bc8-40c9-a61e-9b85b962c528" class="">Let&#x27;s go through the app and find any issues that might exist. We will first find all the bugs, make a list and then fix them.</p><p id="a523f856-28b1-456f-8424-cee20d9d3709" class="">Let&#x27;s click on an image, the modal should open fine, but when we click the buttons, we get an error. If you try to click outside the modal to close it, that is also broken.</p><p id="c5243f30-ce3f-4734-abc0-100c206003d3" class="">If you hit escape that is also broken.</p><p id="805bec30-ea00-4c43-9ec2-56083d2b772c" class="">Let&#x27;s tackle those so far, starting with the next/prev buttons being broken.</p><p id="7e39055f-5492-4931-8cd7-0ac87c357a1d" class="">The error says</p><blockquote id="b16675e9-8569-4196-92c5-5f7d0dc0205d" class=""><p id="9c76e45d-1749-4fcc-98ef-fd7c0b69dc80" class="">cannot read property &#x27;nextElementSibling&#x27; of undefined.</p></blockquote><p id="a4f34cb4-976c-4e31-9a7c-3ec10b63b769" class="">The line that is throwing the error is</p><pre id="b6145a84-9f87-4669-9345-fa01b1e1ce17" class="code code-wrap"><code>this.showImage(
+this.currentImage.nextElementSibling || this.gallery.firstElementChild
+);</code></pre><p id="ec7b7302-08ed-4f29-90bd-aea5d4186a74" class=""><code>this.currentImage</code> is <code>undefined</code>. So what is the value of the <code>this</code> we have highlighted in the image below?</p><p id="83cdc629-7d02-44d0-a32b-48e53b2aa4b9" class="">Let&#x27;s add a log and take a look. As far as we know, <code>this</code> should always equal the instance of the gallery.</p><p id="12070128-91f0-4815-9d51-6f9e959cd0e2" class="">According to the log, <code>this</code> is equal to a button within our <code>showImage</code> method.</p><p id="d4dbb401-253a-49cf-941d-50e776be8cd6" class="">Let&#x27;s find where <code>showNextImage()</code> is called from... it is being called from within the <code>closeModal</code> function to remove the event listener. It is also being called from another method to add the event listener.</p><p id="5f7b402d-5c4c-494d-a748-c79c68076877" class="">What is happening is we are listening for a click and when the click happens, the <code>showNextImage</code> function is running.</p><p id="8f3cfa01-1324-435f-ac46-ac0fab0b74d0" class="">However, like Wes has told us about passing callbacks to <code>addEventListener</code> and the keyword <code>this</code>?</p><p id="becbad15-3d25-4ba3-9c16-279d663d2189" class="">Whenever you pass a callback to an event listener, the <code>this</code> keyword will be equal to whatever is to the left of the dot.</p><p id="eb86a88e-0308-4aa3-9967-3dfcd6d9a5ad" class="">So how do we fix that?</p><p id="1324121a-5a97-40c6-aff4-3c83450617be" class="">There are a few ways which we will go over now.</p><p id="49baaf4d-f5a8-4c4e-96f0-268544e8b4dc" class="">A popular way in React word would be to make it an arrow function like so</p><pre id="c01b5f86-d393-4200-b0a1-a06e007bbae1" class="code code-wrap"><code>this.nextButton.addEventListener(&#x27;click&#x27;, () =&gt; this.showNextImage);</code></pre><p id="a6df8b35-dfeb-4a34-ab78-36cfe89c090a" class="">Now that works, but there is a problem with that which Wes will demonstrate once we get the Escape key working.</p><p id="249ac8e3-cfa5-4138-896b-b7fef4a3aa84" class="">Let&#x27;s refactor this method as well using an arrow function to get that working</p><pre id="a4ae983b-b426-499b-8700-59d807ba63bf" class="code code-wrap"><code>window.addEventListener(&#x27;keyup&#x27;, e=&gt; this.handleKeyUp(e));</code></pre><p id="3c71e660-18dc-4b3d-8d39-2fc40327474a" class="">Now when you open the modal up, and hit the escape key, and repeat that a few times, when you click right, it will jump a few images instead of going to the next one.</p><p id="d2c48e7d-71f9-46a4-8a3d-bf7f5d4f7e49" class="">What is going on there?</p><p id="5bb77d04-0554-4819-8037-132b573e1542" class="">Every time we close the modal, it is going one further down the slideshow. Every time that we open it up, we are listening for another click on it already.</p><p id="9f7e9f86-6591-4709-b357-00bf7537324f" class="">The way we fixed that before is we just removed the event listener when we closed the modal. That way we added and removed it every time that we opened and closed the modal.</p><p id="bf9e695c-0641-4221-9027-15f4e19a73bc" class="">However what happens when you use <code>() =&gt; this.showNextImage())</code> what is highlighted in the image below is that you are creating an anonymous function, and in order to remove an event listener, you have to have reference to that function.</p><p id="64b1d997-eca9-4b14-95e9-edd99efc51ea" class="">The other way we can fix that is by binding it to <code>this</code> when we have access to <code>this</code> inside of the gallery.</p><p id="82252bb2-a05d-4eed-ad55-dbedd9b138bf" class="">It will get a bit complicated but don&#x27;t sweat it if you don&#x27;t get it right away. It took Wes a couple of years to get it. This will make sense eventually (like the 7th or 8th time you build something this way). This is pretty common in React world.</p><p id="d0157837-df9a-424d-a4f4-13d5ecd1b947" class="">So now we need to bind our methods to the instance when we need them.</p><p id="dd175b4f-d9e2-4f7b-b8de-3eb841880d89" class="">We will do that for <code>handleKeyUp</code>, <code>showNextImage</code> and <code>showPrevImage</code> because they are the ones giving us trouble.</p><pre id="372f823c-96fa-42af-9eb4-f3fcd15f15f1" class="code code-wrap"><code>this.showNextImage = this.showNextImage.bind(this);</code></pre><p id="27882c4a-f1a6-4e88-bb7e-8f2155dc9ad2" class="">What we are doing there is we are creating an instance property of the same prototype function, but bound with <code>this</code>.</p><h2 id="0846a104-4a72-4220-9a38-810c0d3c9ae1" class="">bind method</h2><p id="72273e85-55c8-425f-90c3-a717c074cf62" class=""><code>bind()</code> allows us to explicitly supply what <code>this</code> will be equal to. Because in our constructor <code>this</code> is equal to the instance, we are creating a new function that has <code>this</code> bound to it.</p><p id="1de14492-4225-4a75-ab87-56d0b68495fd" class="">That allows us to now go to our <code>findNextImage</code> function and simply just pass <code>showNextImage</code> without using an arrow function like so 👇</p><pre id="60f80ba3-0761-4ec4-9d06-28f439cd3df8" class="code code-wrap"><code>this.nextButton.addEventListener(&#x27;click&#x27;, this.showNextImage);</code></pre><p id="e3a2f178-b0f8-4076-be55-4df8085c82b1" class="">Now the next button should work.</p><p id="576ca437-639a-4306-8409-325eeaa9b106" class="">The previous button won&#x27;t work because we haven&#x27;t fixed that yet.</p><p id="9d70ee21-918c-4676-ad87-aad86815a749" class="">The benefit of doing that over doing it right in the event listener call directly as shown in the example below is that when we do it like below, we lose reference to the new function that was created, which stops us from being able to remove that event listener in the future.</p><p id="b1fb556c-72bd-43c1-8553-530ad8f9596e" class="">You always need to hold onto your functions when you create them so you can remove them in the future.</p><pre id="06d290dc-cdff-448e-b6e4-14a055fcecea" class="code code-wrap"><code>this.nextButton.addEventListener(&#x27;click&#x27;, this.showNextImage.bind(this));</code></pre><p id="b6af6459-37a2-4a87-af6c-c6052d16334c" class="">Let&#x27;s do the same for <code>showPrevImage</code>.</p><pre id="3d16c70f-392e-486a-8f5e-5bd4272a52e1" class="code code-wrap"><code>this.showPrevImage = this.showPrevImage.bind(this);</code></pre><p id="ee67aea1-2fda-4106-85ed-3ae149dbdcd9" class="">The escape key is also working, but only because we are passing the <code>e</code> like so <code>window.addEventListener(&#x27;keyup&#x27;, e=&gt; this.handleKeyUp(e));</code></p><p id="06c31125-cade-48f1-9a03-690a72642810" class="">Modify that line of code as shown below.</p><pre id="4d0a8c1c-abfd-468a-87da-e735944c6796" class="code code-wrap"><code>window.addEventListener(&#x27;keyup&#x27;, this.handleKeyUp);</code></pre><p id="d6552a21-fac9-4686-8896-79cb25e854d6" class="">Now go to where you bound <code>this</code> for <code>showNextImage</code> and <code>showPrevImage</code> and do the same for <code>handleKeyUp</code>.</p><pre id="44369655-c75e-4f47-b9a2-b1fde2633094" class="code code-wrap"><code>this.handleKeyUp = this.handleKeyUp.bind(this);</code></pre><p id="4a384ef5-348c-4fe0-a3a2-c73e7c03da98" class="">The last one is the click outside, which is the same problem.</p><pre id="c52a6d29-9ca4-419d-8398-2772a251dedc" class="code code-wrap"><code>this.handleClickOutside = this.handleClickOutside.bind(this);</code></pre><p id="a8e6e793-0465-4b86-98f7-8303558782af" class="">A lot of people don&#x27;t like this method of doing it because it is a bit of a pain to figure out how to bind <code>this</code> in each context, so a lot of people prefer to just have a bunch of functions.</p><p id="543954c9-bfe3-4c57-aa1d-e9fbdd0a4e81" class="">It is not as explicit as when you have a bunch of functions so if you feel that way, then it may mean that the prototype way of coding is not for you. There are lots of people who to think that way.</p><p id="823e143a-36a8-404f-a484-0efb1c2b1b7d" class="">Wes is showing us all the approaches because there are some developers who think prototypes are the best way to work and it will come up on interviews.</p><p id="fbe40374-e74f-4213-8cda-99d76c012a24" class="">Now everything is working beautifully.</p><p id="0572984c-858c-45af-b43c-430d14d191d2" class="">If you feel like a challenge, feel free to try to refactor the slider one yourself.</p><p id="7f885282-8dc4-4cd4-b67e-a29351ce54d9" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="4801c9b1-cc14-41bd-9441-19840946fa88" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="b40daf0e-bdd1-46e3-8cd0-57aeda5ce9c0" class="">Edit on Github</p></details></li></ul><ul id="4fcf6118-7cbf-4498-adeb-d4b12d6e2d46" class="toggle"><li><details open=""><summary>63 - Prototypes and Prototypal Inheritance</summary><p id="8b1c37fc-8ef7-41ed-8f17-03f57630e494" class=""><a href="https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/63-prototypes-and-prototypal-inheritance">https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/63-prototypes-and-prototypal-inheritance</a></p><p id="10118926-55c0-4812-a88b-7e893cf7ad1f" class="">
+</p><figure id="8de31614-e898-4d61-b71a-9f0f7587b0d1" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%202.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%202.png"/></a></figure><p id="fabd8a4e-4b40-40a6-8721-bb72dc790649" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="7a7f883c-3272-4a62-93b1-1855e062b3c0" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="cf62837c-5d98-44b3-99b3-c96ff8054f95" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="aa2f3a8f-86b1-4c8c-9851-c0ed99d41cfb" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="c1af31f2-67f7-491f-b258-66a2f444f676" class="">JavaScript, Prototypes, Prototypal InheritanceEdit Post</p><p id="ea8c3ebd-2aa5-456b-8ccd-9a92df53dbb7" class="">In the last video we learned that having a function and using the <code>new</code> keyword would return an object that is an instance of that object.</p><pre id="dd842b42-f75b-47ec-8911-0ca18a17e4bc" class="code code-wrap"><code>function Pizza(toppings = [], customer) {
+console.log(&quot;Making a pizza&quot;);
+// save the toppings that were passed in, to this instance of pizza
+this.toppings = toppings;
+this.customer = customer;
+this.id = Math.floor(Math.random() * 16777215).toString(16);
+}
+
+const pepperoniPizza = new Pizza([&quot;pepperoni&quot;], &quot;Wes Bos&quot;);
+
+const canadianPizza = new Pizza(
+[&quot;pepperoni&quot;, &quot;mushrooms&quot;, &quot;onion&quot;],
+&quot;Kait Bos&quot;
+);
+</code></pre><p id="b6b76a50-fd4b-4482-83dc-645ce3cfd216" class="">In the example above, both <code>canadianPizza</code> and <code>pepperoniPizza</code> are instances of the <code>Pizza</code> function.</p><p id="c7e11f88-fbbc-44f2-a0ed-063b3c4e86f1" class="">The way that we attach properties onto that instance is by saying <code>this.propertyname</code>.</p><p id="504756f8-b7b0-4297-81e3-884bd1396e99" class="">Let&#x27;s say we want to add some functionality, like the ability to count the number of slices left in the pizza. We can start with every pizza having 10 slices by adding the code below to our <code>Pizza</code> constructor function.</p><pre id="41bd7d34-eb97-4498-9adb-639803c8dbf3" class="code code-wrap"><code>this.slices = 10;</code></pre><p id="8e98a7f2-9d7e-43dc-abd8-89ca6c82f8b2" class="">Now if you take a look at the pizza, you will see that there are 10 slices in that pizza.</p><figure id="60208dfc-e582-4862-b5df-406414393fb3" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/945.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/945.png"/></a></figure><p id="456a1315-c614-40f4-922b-64aa718228bf" class="">If we needed to make a method of the pizza like <code>eat()</code>, which takes away slices one at a time, you might think you could do something like below.</p><pre id="4d1d983b-4ad7-4098-b194-4becfb49e409" class="code code-wrap"><code>this.eat = function() {
+console.log(&#x27;CHOMP&#x27;);
+this.slices = this.slices - 1;
+}</code></pre><p id="b213af9c-408b-4e49-9980-d845779553a7" class="">Now if you refresh the page and go to the console and call <code>eat()</code> on one of the pizzas, you will see &quot;CHOMP&quot;.</p><p id="3ab7dd06-1e4e-43db-a9f5-3965e469f298" class="">If you look at how many slices there are, you would get 9.</p><figure id="e8486b17-a7c3-419f-89ed-7525a5c3c1da" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/946.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/946.png"/></a></figure><p id="a786cc0d-a42d-404c-8f5e-7656a220795a" class="">If you run it again, you will see we have 8.</p><p id="a7c6db45-e420-47d2-8beb-bbdb05d447c8" class="">Lets go ahead and modify it so we do not run out of slices.</p><p id="8b88f303-43d1-4e4b-b2e4-ea1b9a2d35d1" class="">Add the condition below.</p><pre id="6cda3911-fa0d-41c7-9357-79fd68df10c2" class="code code-wrap"><code>this.eat = function() {
+if (this.slices &gt; 0) {
+this.slices = this.slices - 1;
+console.log(`CHOMP you now have ${this.slices} left!`);
+} else {
+console.log(&#x27;Sorry! No slices left&#x27;);
+}
+}</code></pre><p id="f6ff68e9-01fd-44c2-93b4-e5f5ff18d797" class="">It might also be a good idea to return the new number of slices from the function. Similar to how <code>Array.prototype.push</code> returns the number of items in an array after we add them, you would just add <code>return this.slices;</code>.</p><p id="b5337dd0-ab98-4945-a95b-e1fbd1c9fe1b" class="">If you call that a bunch of times in the console, you should see that it now works.</p><figure id="0bf445de-b93b-4c41-aef2-e867935e2797" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/947.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/947.png"/></a></figure><p id="dbebcdb8-3eee-49c0-8d6d-d72c142fb913" class="">That works very well, however there is a downside to this which is that we are actually creating the <code>eat()</code> function once for every single pizza that is made.</p><p id="9270502f-8c3a-4a69-b042-2e81286a6967" class="">If you compare whether <code>pepperoniPizza.eat</code> and <code>canadianPizza.eat</code> are the same function, you would get false even though they look identical.</p><p id="5b901f55-e322-43b2-a2df-6c075110a6e5" class="">What is happening here is we are duplicating the functionality of the function once for every single pizza.</p><p id="abf3fbeb-dabc-4f46-aa5c-5b753703b952" class="">That functionality looks identical for every single pizza so there is no need to generate it for every instance.</p><p id="0c4c552e-3069-4d2f-b7bd-b1cba7029663" class="">It does need to maintain it&#x27;s own slice count, toppings, customer, etc, but the functionality to eat a piece of pizza is the same for every single pizza that is out there.</p><p id="6363952b-9958-4a5e-aa28-1fc8a7d33dc5" class="">Instead of putting functions on every single instance, we can put them on what is referred to as the <strong>prototype</strong>.</p><p id="c8873f75-09a9-48d9-ad23-40ced2d39567" class="">You might be thinking, what is wrong with the code we have now? It seems to be working so far.</p><p id="937952b7-46d9-426f-9b12-0d5f25def9e1" class="">The problem comes when you have 20,000 pizzas. Then you have lots of instances of the pizza, and every time you define a new function, that takes up memory in your computer and that is what causes websites and computers to go slow in many cases.</p><p id="52374286-525a-4ce3-807d-3380b79ec6e3" class="">It would be much more efficient to have one <code>eat()</code> function that is shared amongst all our pizzas.</p><p id="f24b0248-9b35-40d3-9e0c-60d7eb37d156" class="">Let&#x27;s pause on that for a second and look at some of the built-in prototypes that we have.</p><p id="af18391b-14bc-4113-b7c3-99d44aab76ff" class="">We have our <code>names</code> array which we have already declared and we will create a new array named <code>numbers</code>.</p><p id="517f29da-e4f9-4d4e-ac45-0ca67c445221" class="">Both of those arrays with have methods on them like <code>filter</code> for example. Every single time you make an array, the browser does not copy and paste the functionality inside of each one.</p><p id="59c86b44-50eb-40b7-894c-0f011ac698e7" class="">Instead, the method actually lives in something called a <strong>prototype</strong>, which allows each of the arrays to share that functionality.</p><p id="c86b58c7-0076-4076-9230-4dd6c8d954fa" class="">If you checked for the equality of the <code>filter</code> method of <code>numbers</code> and <code>names</code>, you would get true because they are the exact same function. They don&#x27;t just have the same functionality, <em>they are the same function.</em></p><p id="48545fbf-5433-43ca-b871-06a5d99e02c2" class="">Take the <code>eat</code> function, copy it and then remove those lines of code. Go further down the file, right below the Pizza function and then modify it as shown below.</p><pre id="079270e9-2cc0-4780-9114-bb56da44c73d" class="code code-wrap"><code>Pizza.prototype.eat = function() {
+if (this.slices &gt; 0) {
+this.slices = this.slices - 1;
+console.log(`CHOMP you now have ${this.slices} left!`);
+} else {
+console.log(`Sorry! No slices left!`);
+}
+};</code></pre><p id="8d7fb7c1-9634-43a9-ab55-ebccc3e881f6" class="">Now every single time we make a pizza, we won&#x27;t give it that function, but it will be available on the prototype.</p><p id="b8ac298f-49ee-48d8-9a6f-dbdb835fb6ea" class="">Let&#x27;s test that it still works by calling <code>canadianPizza.eat()</code> in the console multiple times, then try calling <code>pepperoniPizza.eat()</code> multiple times. It looks like it is working.</p><p id="56058ae8-4e60-4b8d-af5b-9482f3c5966c" class="">However, if you log <code>pepperoniPizza</code> and look inside, you will see <code>customer</code>, <code>id</code>, <code>toppings</code> (all of which are instance properties). But there is no <code>eat</code> functionality. However, if you open up the prototype, you will see it there.</p><p id="a1cbfebd-3b76-4440-b5c2-ba316bd8b6c1" class="">That is what is referred to as the <strong>prototype lookup</strong>. If you put something on the prototype, and it doesn&#x27;t exist on the instance, it will look for it in the mamma.</p><p id="bb5ea2ec-ef52-462f-b61c-efd20622bf4f" class="">If we did <code>pepperoniPizza.toppings</code> that would be an instance but if we did <code>pepperoniPizza.eat</code>, what would first happen is it would look inside the <code>Pizza</code> constructor function for a property called <code>eat</code>.</p><p id="422406b6-d7e7-4efc-a7b8-daa4ab645022" class="">What that means is that every time an instance is made, we have access to this <code>eat</code> function.</p><p id="b8d6d392-8f2a-4515-8626-ba23001faf0d" class="">One benefit of that is you can actually change the functions and those changes will apply to every single pizza that is there.</p><p id="92ba6f9e-9ce6-4b79-8155-fd448d7d5c90" class="">Let&#x27;s do one more example.</p><p id="84bea051-1521-409d-9bf8-d6036ecbcabf" class="">Add the following under the <code>eat</code> function.</p><pre id="a3315669-e486-419f-a9aa-578340531833" class="code code-wrap"><code>Pizza.prototype.size = &#x27;Large&#x27;;</code></pre><p id="c2da06e5-8341-41db-9cab-7ec646dcd77d" class="">Now if you go to <code>pepperoniPizza</code> and look for the size, it will tell you &quot;Large&quot;.</p><p id="ff8adc7a-d37a-4fc5-9488-7d724c2a0785" class="">However, if you were to go into the <code>Pizza</code> function and add <code>this.size = &quot;Medium&quot;;</code>, you will get &quot;Medium&quot;.</p><p id="93acb6ef-bc6a-4a3c-8241-07639297bb2c" class="">It first checks for a property on the instance and if it doesn&#x27;t exist, it will go to the prototype and look that up.</p><p id="12e78acb-4597-4c1c-a521-885d71f4e7a7" class="">Get rid of the <code>this.size</code> because we don&#x27;t actually need it.</p><p id="c187acc1-3f34-49f5-83b6-eb1bba645d5d" class="">Now if we look at our <code>name</code> array by typing <code>name.</code> in the console, you will see a long list of methods that are available to us.</p><p id="4288fa4f-e0f1-4e0c-93a5-570077d21360" class="">If you log <code>String.prototype</code> you will also see the methods are available to us every single time that we create a new string.</p><p id="87cb281a-bb32-4811-84e1-f77e5314f37b" class="">All of the methods that you see already there are what are referred to as <strong>built in functions</strong>, meaning they just come with the language. You can actually add your own, but warning -- you should never do this. Wes is just demoing it to show us how that works.</p><pre id="a20f7b04-afb7-4dfd-aa3d-aebe1d4cb2d6" class="code code-wrap"><code>String.prototype.toUpperCase = function() {
+return &#x27;YELLING&#x27;;
+}</code></pre><p id="761663e1-e9c0-41f7-a3d6-35913f0c0d63" class="">Now if you run <code>name.toUpperCase()</code> in the console, it will return to us &#x27;YELLING&#x27;.</p><p id="e076415b-b431-4ca5-9f8d-a63123940766" class="">That is because we overwrote the existing <code>toUpperCase</code> functionality on the prototype.</p><p id="6fd11428-c980-435d-b44d-0dde0a600c37" class="">Now when any string calls <code>toUpperCase()</code> our function will run instead.</p><p id="a951b800-7983-4ad3-86eb-da21dd9b224c" class="">You can see why it would be a bad idea to modify a built in, because one person might expect the method to do something one way, and then if you have changed something, the libraries on the page that are expecting <code>toUpperCase</code> to work will break. You should never modify built-ins for this reason.</p><p id="9f9b5ae1-7353-4c53-8c2e-3111fdcd14bf" class="">If you should never modify built-in functions, then why is that allowed?</p><p id="0d03f8a9-3999-4f66-a574-68e5d043b51e" class="">Some new functionality that is added to the browser, like <code>Array.includes()</code>, might be missing from some older browsers. For those browsers, you can use something called a <strong>polyfill</strong>, which recreates the missing functionality. When the browser doesn&#x27;t include it natively, you can <strong>polyfill</strong> it by recreating the functionality in vanilla JS.</p><p id="96a08bee-8468-46de-b578-fde09c3dc2f4" class="">You can also add your own methods. Again don&#x27;t do this, but it&#x27;s possible.</p><p id="7d6ae854-b68b-423b-8a36-bc5aedd85150" class="">Let&#x27;s add this to our code right before our <code>Pizza</code> function constructor.</p><pre id="bbdd20c5-4c00-4355-8eec-f20e285fd59d" class="code code-wrap"><code>String.prototype.sarcastic = function() {
+console.log(this);
+}</code></pre><p id="fea17e98-c6b8-4c32-b892-5990f17f6180" class="">Now if we refresh the page and open the console, let&#x27;s try using that function.</p><p id="e83aaf0f-fd16-49d8-b5e3-62057a932efe" class="">As you can see, it logged <code>this</code> which is a string of &quot;wes&quot;.</p><p id="bb7de9b5-4ebd-440f-8ee3-813193c7c113" class="">What we can do is build out our sarcastic method similar to how we did in a previous example.</p><pre id="cfe5a27b-6a76-448c-a8ca-bbb52e06bff6" class="code code-wrap"><code>String.prototype.sarcastic = function() {
+const sarcastic = this.split(&#x27;&#x27;).map((char, i) =&gt; {
+if (i % 2) {
+return char.toUpperCase();
+} else {
+return char.toLowerCase();
+}
+}).join(&#x27;&#x27;);
+
+return sarcastic;
+}</code></pre><p id="20b44870-aa48-4069-8e55-f7762f029269" class="">If it&#x27;s an even character, we uppercase the letter, if it&#x27;s an odd character, we lowercase the character. Then we join the text together and return it.</p><p id="19ee534c-ee5a-48ef-8a47-f80eadcbf739" class="">Let&#x27;s test if it works in the console. If you create a variable with a string and then call <code>.sarcastic()</code> on it, it will return the name with mixed case.</p><p id="3cf25f18-e653-47fc-aafa-90065822d7d3" class="">By adding a method to the prototype, it is then available on every instance of. Whether that is something that is built in, like a string, or something your own like pizza, you can add methods to the prototype of the pizza and every single one will get it.</p><p id="89c77aa6-df2d-4061-95ce-c3fc70a47a1c" class="">Let&#x27;s do one more example.</p><p id="7f1edcf7-5650-4d86-b15d-766983e8ea70" class="">Make a description method.</p><p id="e7ac58e6-b52a-4fbd-befe-55df5400aab3" class="">When someone calls <code>pizza.subscribe()</code>, Wes wants it to tell you that this pizza is for customer <code>x</code> and there are <code>x</code> slices left.</p><p id="fb017870-2d63-4cde-aacf-c660dc3c2e9b" class="">Feel free to pause the lesson here and try this exercise on your own.</p><p id="46081e05-6876-4e56-92ce-4c8ae762278b" class="">Here is how Wes would approach that.</p><p id="9133c99d-2a64-4802-9aab-202ac68a28da" class="">Create the <code>describe()</code> function on <code>Pizza.prototype</code>.</p><p id="79f2442b-5f84-420b-87dc-df8db6f76b8b" class="">Within that, simply return a string and use interpolation as shown below.</p><pre id="90613a19-61b6-4bda-be98-c397c2fdb296" class="code code-wrap"><code>Pizza.prototype.describe = function() {
+return `This pizza is for ${this.customer} with the toppings ${this.toppings.join(&#x27;,&#x27;)} and there are {this.slices} left.`;
+}</code></pre><p id="3d5529f0-5f6e-46cc-aa2d-1fe5210a9c67" class="">Refresh the page and now in the console run <code>canadianPizza.describe()</code>. You should see the following 👇</p><p id="1f8cead0-38ce-4ba4-9041-5a4019fb5f33" class="">Now if you run <code>canadianPizza.eat()</code> a few times in the console and then call <code>describe</code>, you should see that you now have less slices left.</p><p id="d5532fb2-9349-4e39-a5f7-495941dfc3c7" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="5b0d824c-f1ce-4c3b-9b25-67074e16d40f" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="3e747f51-b26d-4004-8987-1799b7ad5153" class="">Edit on Github</p></details></li></ul><ul id="c3180f63-5e15-4b33-9bd2-34eb8da9c253" class="toggle"><li><details open=""><summary>64 - Prototype Refactor of the Slider Exercise</summary><p id="81558bb0-cd61-4108-9fbb-3be88325152c" class=""><a href="https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/64-prototype-refactor-of-the-slider-exercise">https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/64-prototype-refactor-of-the-slider-exercise</a></p><p id="37f6baf3-c528-4877-bade-5fde8ac345bd" class="">
+</p><figure id="2106e628-feda-4cd8-8fa3-5e9d8d790eb4" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%203.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%203.png"/></a></figure><p id="496747ea-33ba-4fcc-9bc2-6cad499aa99c" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="bce5a2be-2676-4a43-bfe1-2faf409ea3b7" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="e1109c44-dd8c-4662-9707-69f7edc67700" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="06b44b6d-0f7e-4824-a3f4-71e6da6922ee" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="67923661-d6e9-459d-b1b4-97f7daac9675" class="">JavaScript, PrototypesEdit Post</p><p id="1859e841-b3be-4651-ab95-79c4413a8191" class="">This lesson is a bit easier because there is no removing of events so there is no binding that we need to deal with.</p><p id="2609e0a3-b2fe-4e20-83b2-5f1ce9f74d69" class="">Open up the slider exercise directory and open up <code>index.js</code>.</p><p id="824a36b5-392d-4d2a-ab73-2523b5fdffb5" class="">Make a copy of and call it <code>index-prototype.js</code> and then go to the <code>index.html</code> and modify the script&#x27;s source tag to point to <code>index-prototype.js</code>.</p><p id="32ea0a4d-66ef-43dd-895f-b7197f7e0933" class="">Navigate into that directory in the terminal and run <code>npm start</code> within the actual terminal window (not the console).</p><p id="8033cc1a-1c7d-4d22-81b8-48660ab433c2" class="">Open the server up on your localhost and run the slider to make sure that it still works.</p><p id="d30256bf-58f2-4b6e-a6a3-41b1fdae41d3" class="">We have the sliders that we grabbed at the bottom.</p><p id="823b6118-0930-4970-a081-70aacbfa7697" class="">We will log them, like we did in the previous lesson.</p><figure id="b075deba-e8f9-4d77-bae8-c732375138f2" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/961.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/961.png"/></a></figure><p id="ca54f2c0-b358-4ddc-8802-e86cdace4aca" class="">You should see the following in the console</p><figure id="254fb4e7-5543-4044-a921-6b7844e1f416" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/962.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/962.png"/></a></figure><p id="36f5a978-c5c8-4ace-b95c-69e7dccc1b4e" class="">Now we will do the same thing we did last time -- add a <code>new</code> keyword in front of it. That will create a new instance of the slider for each instance that we have.</p><pre id="13cdb55b-3dac-4f71-8408-74267ba9b117" class="code code-wrap"><code>const mySlider = new Slider(document.querySelector(&quot;.slider&quot;));
+const dogSlider = new Slider(document.querySelector(&quot;.dog-slider&quot;));
+
+console.log(mySlider, dogSlider);</code></pre><figure id="5fa14a98-d1bc-4f23-b7eb-9b302130d1d8" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/963.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/963.png"/></a></figure><p id="d8f8996b-edf4-4c49-a129-09b8aa7b91ce" class="">As you can see we have our sliders now, and they each have the prototypes, and there is nothing in them yet.</p><p id="8780d2d2-a625-4c05-8810-34616bb5ca56" class="">Let&#x27;s start refactoring from the top of the file now.</p><p id="ae9a461f-731d-4e55-9343-fe0163ca0e74" class="">The code shown below is what we are starting with.</p><pre id="45528846-0d00-4345-a06c-797a7e571f1d" class="code code-wrap"><code>function Slider(slider) {
+if (!(slider instanceof Element)) {
+throw new Error(&#x27;No slider passed in&#x27;);
+}
+// create some variables for working with the slider
+let prev;
+let current;
+let next;
+// select the elements needed for the slider
+const slides = slider.querySelector(&#x27;.slides&#x27;);
+const prevButton = slider.querySelector(&#x27;.goToPrev&#x27;);
+const nextButton = slider.querySelector(&#x27;.goToNext&#x27;);
+
+function startSlider() {
+current = slider.querySelector(&#x27;.current&#x27;) || slides.firstElementChild;
+prev = current.previousElementSibling || slides.lastElementChild;
+next = current.nextElementSibling || slides.firstElementChild;
+console.log({ current, prev, next });
+}
+
+function applyClasses() {
+current.classList.add(&#x27;current&#x27;);
+prev.classList.add(&#x27;prev&#x27;);
+next.classList.add(&#x27;next&#x27;);
+}
+
+function move(direction) {
+// first strip all the classes off the current slides
+const classesToRemove = [&#x27;prev&#x27;, &#x27;current&#x27;, &#x27;next&#x27;];
+prev.classList.remove(...classesToRemove);
+current.classList.remove(...classesToRemove);
+next.classList.remove(...classesToRemove);
+if (direction === &#x27;back&#x27;) {
+// make an new array of the new values, and destructure them over and into the prev, current and next variables
+[prev, current, next] = [
+// get the prev slide, if there is none, get the last slide from the entire slider for wrapping
+prev.previousElementSibling || slides.lastElementChild,
+prev,
+current,
+];
+} else {
+[prev, current, next] = [
+current,
+next,
+// get the next slide, or if it&#x27;s at the end, loop around and grab the first slide
+next.nextElementSibling || slides.firstElementChild,
+];
+}
+
+applyClasses();
+}
+
+// when this slider is created, run the start slider function
+startSlider();
+applyClasses();
+
+// Event listeners
+prevButton.addEventListener(&#x27;click&#x27;, () =&gt; move(&#x27;back&#x27;));
+nextButton.addEventListener(&#x27;click&#x27;, move);
+}
+
+const mySlider = Slider(document.querySelector(&#x27;.slider&#x27;));
+const dogSlider = Slider(document.querySelector(&#x27;.dog-slider&#x27;));function Slider(slider) {
+if (!(slider instanceof Element)) {
+throw new Error(&#x27;No slider passed in&#x27;);
+}
+// create some variables for working with the slider
+let prev;
+let current;
+let next;
+// select the elements needed for the slider
+const slides = slider.querySelector(&#x27;.slides&#x27;);
+const prevButton = slider.querySelector(&#x27;.goToPrev&#x27;);
+const nextButton = slider.querySelector(&#x27;.goToNext&#x27;);
+
+function startSlider() {
+current = slider.querySelector(&#x27;.current&#x27;) || slides.firstElementChild;
+prev = current.previousElementSibling || slides.lastElementChild;
+next = current.nextElementSibling || slides.firstElementChild;
+console.log({ current, prev, next });
+}
+
+function applyClasses() {
+current.classList.add(&#x27;current&#x27;);
+prev.classList.add(&#x27;prev&#x27;);
+next.classList.add(&#x27;next&#x27;);
+}
+
+function move(direction) {
+// first strip all the classes off the current slides
+const classesToRemove = [&#x27;prev&#x27;, &#x27;current&#x27;, &#x27;next&#x27;];
+prev.classList.remove(...classesToRemove);
+current.classList.remove(...classesToRemove);
+next.classList.remove(...classesToRemove);
+if (direction === &#x27;back&#x27;) {
+// make an new array of the new values, and destructure them over and into the prev, current and next variables
+[prev, current, next] = [
+// get the prev slide, if there is none, get the last slide from the entire slider for wrapping
+prev.previousElementSibling || slides.lastElementChild,
+prev,
+current,
+];
+} else {
+[prev, current, next] = [
+current,
+next,
+// get the next slide, or if it&#x27;s at the end, loop around and grab the first slide
+next.nextElementSibling || slides.firstElementChild,
+];
+}
+
+applyClasses();
+}
+
+// when this slider is created, run the start slider function
+startSlider();
+applyClasses();
+
+// Event listeners
+prevButton.addEventListener(&#x27;click&#x27;, () =&gt; move(&#x27;back&#x27;));
+nextButton.addEventListener(&#x27;click&#x27;, move);
+}
+
+const mySlider = Slider(document.querySelector(&#x27;.slider&#x27;));
+const dogSlider = Slider(document.querySelector(&#x27;.dog-slider&#x27;));</code></pre><p id="9c21a353-0c5f-4956-b969-fbde96bebe11" class="">The condition that checks whether the parameter is an element or not is fine, we do not have to refactor that.</p><p id="b0a81459-07c8-4463-8916-5d2dbee86f81" class="">The <code>let</code> variable declarations that come next need to be renamed to be <code>this</code> dot the variable name.</p><pre id="a575f1bf-2adc-4e14-903f-40b992917887" class="code code-wrap"><code>let prev;
+let current;
+let next;</code></pre><p id="9e822536-b521-46e3-8074-20e7ddc7b5f4" class="">Rename those variable everywhere in the code they are used.</p><pre id="ef9e78d1-0fbb-4a99-ba8d-0f340be53e41" class="code code-wrap"><code>this.prev;
+this.current;
+this.next;</code></pre><p id="061871a3-252d-42e2-9af8-8e241d3fc76d" class="">Now that we have done that, we actually do not need those declarations because there is no sense in making those variables when they are properties because properties can be added at any time.</p><p id="0257c5c0-1124-4506-a4f7-3124dd493876" class="">We were only declaring those variables so we had a closure where those variables were available.</p><p id="bb3d3172-5f2f-490b-8386-1343398c504c" class="">You can go ahead and delete those 3 variable declarations (but keep the references to them that you renamed elsewhere!)</p><pre id="9dcd53a0-3c9f-4d01-a32f-968eea268805" class="code code-wrap"><code>// select the elements needed for the slider
+const slides = slider.querySelector(&quot;.slides&quot;);
+const prevButton = slider.querySelector(&quot;.goToPrev&quot;);
+const nextButton = slider.querySelector(&quot;.goToNext&quot;);</code></pre><p id="81691bae-3d17-4ef6-b073-ec72b28d9619" class="">The next 3 declarations you see above also need to be <code>this.</code>. Go ahead and rename those and everywhere they are being referenced. The <code>prevButton</code> however is only accessible inside of the constructor when we add the event listener. They are not needed anywhere inside of the prototype method, so it&#x27;s not necessary to put it on <code>this</code>.</p><p id="492e2d3c-fa62-4b6d-98e5-dd8a7c3b5275" class="">So <code>prevButton</code> and <code>nextButton</code> can stay variables but we will just rename <code>slides</code> like so 👇</p><pre id="7208c664-2b88-47a7-b960-2587473d2b0b" class="code code-wrap"><code>// select the elements needed for the slider
+this.slides = slider.querySelector(&quot;.slides&quot;);
+const prevButton = slider.querySelector(&quot;.goToPrev&quot;);
+const nextButton = slider.querySelector(&quot;.goToNext&quot;);</code></pre><p id="babaac4b-afce-4711-a482-94802f8cbafa" class="">Now we will move all of the methods out of the <code>Slider()</code> constructor.</p><p id="66f81919-eb01-401b-bb43-fb642ef7833f" class="">Grab everything from the <code>startSlider</code> function all the way to where we have our event listeners and the call to <code>startSlider</code> and <code>applyClasses</code>.</p><p id="e2ca0adc-f8fe-4faf-8ec7-7c88b5c522ed" class="">Your file should look the same as below.</p><pre id="5999bfc5-ec07-47a9-bbc7-9709ff7b9afb" class="code code-wrap"><code>function Slider(slider) {
+if (!(slider instanceof Element)) {
+throw new Error(&quot;No slider passed in&quot;);
+}
+// create some variables for working with the slider
+let prev;
+let current;
+let next;
+// select the elements needed for the slider
+const slides = slider.querySelector(&quot;.slides&quot;);
+const prevButton = slider.querySelector(&quot;.goToPrev&quot;);
+const nextButton = slider.querySelector(&quot;.goToNext&quot;);
+
+// when this slider is created, run the start slider function
+startSlider();
+applyClasses();
+
+// Event listeners
+prevButton.addEventListener(&quot;click&quot;, () =&gt; move(&quot;back&quot;));
+nextButton.addEventListener(&quot;click&quot;, move);
+}
+
+function startSlider() {
+current = slider.querySelector(&quot;.current&quot;) || slides.firstElementChild;
+prev = current.previousElementSibling || slides.lastElementChild;
+next = current.nextElementSibling || slides.firstElementChild;
+console.log({ current, prev, next });
+}
+
+function applyClasses() {
+current.classList.add(&quot;current&quot;);
+prev.classList.add(&quot;prev&quot;);
+next.classList.add(&quot;next&quot;);
+}
+
+function move(direction) {
+// first strip all the classes off the current slides
+const classesToRemove = [&quot;prev&quot;, &quot;current&quot;, &quot;next&quot;];
+prev.classList.remove(...classesToRemove);
+current.classList.remove(...classesToRemove);
+next.classList.remove(...classesToRemove);
+if (direction === &quot;back&quot;) {
+// make an new array of the new values, and destructure them over and into the prev, current and next variables
+[prev, current, next] = [
+// get the prev slide, if there is none, get the last slide from the entire slider for wrapping
+prev.previousElementSibling || slides.lastElementChild,
+prev,
+current,
+];
+} else {
+[prev, current, next] = [
+current,
+next,
+// get the next slide, or if it&#x27;s at the end, loop around and grab the first slide
+next.nextElementSibling || slides.firstElementChild,
+];
+}
+
+applyClasses();
+}
+
+const mySlider = new Slider(document.querySelector(&quot;.slider&quot;));
+const dogSlider = new Slider(document.querySelector(&quot;.dog-slider&quot;));
+console.log(mySlider, dogSlider);</code></pre><p id="5cbdc896-9f2a-4228-bc92-aa423a8292fd" class="">Now we need to grab every function that we just moved out of the constructor and refactor it to live on the prototype.</p><pre id="c4649a89-f895-4790-b891-c52fb9957823" class="code code-wrap"><code>function Slider(slider) {
+if (!(slider instanceof Element)) {
+throw new Error(&quot;No slider passed in&quot;);
+}
+// create some variables for working with the slider
+this.prev;
+this.current;
+this.next;
+// select the elements needed for the slider
+this.slides = slider.querySelector(&quot;.slides&quot;);
+const prevButton = slider.querySelector(&quot;.goToPrev&quot;);
+const nextButton = slider.querySelector(&quot;.goToNext&quot;);
+
+// when this slider is created, run the start slider function
+this.startSlider();
+this.applyClasses();
+
+// Event listeners
+prevButton.addEventListener(&quot;click&quot;, () =&gt; this.move(&quot;back&quot;));
+nextButton.addEventListener(&quot;click&quot;, this.move);
+}
+
+Slider.prototype.startSlider = function() {
+this.current =
+this.slider.querySelector(&quot;.current&quot;) || this.slides.firstElementChild;
+this.prev =
+this.current.previousElementSibling || this.slides.lastElementChild;
+this.next = this.current.nextElementSibling || this.slides.firstElementChild;
+};
+
+Slider.prototype.applyClasses = function() {
+this.current.classList.add(&quot;current&quot;);
+this.prev.classList.add(&quot;prev&quot;);
+this.next.classList.add(&quot;next&quot;);
+};
+
+Slider.prototype.move = function(direction) {
+// first strip all the classes off the current slides
+const classesToRemove = [&quot;prev&quot;, &quot;current&quot;, &quot;next&quot;];
+this.prev.classList.remove(...classesToRemove);
+this.current.classList.remove(...classesToRemove);
+this.next.classList.remove(...classesToRemove);
+if (direction === &quot;back&quot;) {
+// make an new array of the new values, and destructure them over and into the prev, current and next variables
+[this.prev, this.current, this.next] = [
+// get the prev slide, if there is none, get the last slide from the entire slider for wrapping
+this.prev.previousElementSibling || this.slides.lastElementChild,
+this.prev,
+this.current,
+];
+} else {
+[this.prev, this.current, this.next] = [
+this.current,
+this.next,
+// get the next slide, or if it&#x27;s at the end, loop around and grab the first slide
+this.next.nextElementSibling || this.slides.firstElementChild,
+];
+}
+
+this.applyClasses();
+};
+</code></pre><p id="44407684-4621-4edc-ba89-9e1ab065b0cc" class="">Now let&#x27;s go ahead and fix the errors showing up in the text editor.</p><p id="7ec22f68-e3c8-465e-ab7b-85cbd233d63e" class="">The call to <code>startSlider</code> and <code>applyClasses</code> need to be changed to <code>this.startSlider()</code> and <code>this.applyClasses()</code>. Same thing for the calls to the <code>move</code> function, they need to be <code>this.move</code>.</p><pre id="081a17cd-3149-4382-96b9-82f954c9d2bc" class="code code-wrap"><code>// when this slider is created, run the start slider function
+this.startSlider();
+this.applyClasses();
+
+// Event listeners
+prevButton.addEventListener(&quot;click&quot;, () =&gt; this.move(&quot;back&quot;));
+nextButton.addEventListener(&quot;click&quot;, this.move);</code></pre><p id="256f0187-54c4-4e63-ae68-9a640958fa9b" class="">Within <code>move</code> function we need to change it to call <code>this.applyClasses()</code>.</p><p id="4213ebbe-5959-4642-9828-2df37dc1d624" class="">Now let&#x27;s go to our browser to refresh and see what errors we are getting.</p><p id="69d8ad4b-6b00-4574-a8a3-267dce19741f" class="">The first one we see is</p><blockquote id="36242ea5-4f72-4182-9618-2859f8fe5d03" class=""><p id="9f6ec95d-aaaf-4763-9993-e73d58a5502a" class="">Cannot read property &#x27;querySelector&#x27; of undefined`</p></blockquote><p id="95af3223-382f-491f-a5d8-9f13ad3dd1e4" class="">The stack trace tells us it happened on line 63, however that is not helpful because that is the end of our file. Further down the stack trace it mentions line 41 so let&#x27;s check that, however that line is just a comment!</p><p id="5540ca3a-1afa-4649-a008-5b1cd4e82796" class="">So let&#x27;s click on the error to see where it takes us.</p><p id="498da381-4fd0-41b7-b288-07e81d2b3b2d" class="">Unfortunately that is not very helpful either. Sometimes you get these errors and it&#x27;s hard to find where the error is even when the browser tries to give you a stack trace.</p><p id="ba84662a-c8b7-482c-b7f1-193e18734e9b" class="">Let&#x27;s just try to debug this ourselves.</p><p id="e2ae4674-dcb4-4c5c-abc7-b76ac65d717e" class="">Let&#x27;s look at everywhere that we are using <code>querySelector</code>.</p><p id="5a2c899d-a4b7-4350-accc-4a5c508454b7" class="">Those first 3 should be fine since we are passing in the slider.</p><p id="a7cfc85e-727c-4f65-8dd6-2b0a7d3ed3e3" class="">Where else are we using <code>querySelector</code>? Within the <code>startSlider</code> function and where we initialize the slider instances.</p><p id="1b6cc5d4-b210-42e9-8695-5e49f97b7a9d" class="">Wes thinks it might be the latter, which he will test by logging the slider parameter within the <code>Slider()</code>.</p><p id="0df7634d-e645-47ae-9a97-cc5839a13b5b" class="">We can tell it&#x27;s not an issue with that because we can see the slider being logged to the console.</p><p id="e2fcce81-05e3-4d70-ba1f-eb7d83ce3112" class="">It seems like the issue must be in our <code>startSlider</code> function when we try to access <code>this.slider</code>.</p><p id="2dc4713b-341a-4ade-9288-7d8d7578d393" class="">Let&#x27;s throw a <code>debugger</code> in the first line of the <code>startSlider</code> function.</p><p id="5dab0248-79fa-4d14-9c81-4217fb51a04c" class="">Now when you refresh the page, the debugger should pause the execution of the code.</p><p id="2642b7b5-18fe-4b19-9b10-10056561652f" class="">If we look at the debug dev tools, we can see that at this point in time, the Slider is missing properties it needs, such as <code>this.slider</code>.</p><p id="256fcebd-daf6-4a5b-89aa-b4adc9bb678a" class="">Whenever the <code>startSlider()</code> function is running, <code>this.slider</code> does not yet exist.</p><p id="de72f639-c32b-41f5-9b26-598fed5ba6d3" class="">The reason for this is we never saved a reference to the slider that was passed in, so let&#x27;s go ahead and do that.</p><pre id="d01764ba-c009-4013-83ed-725759696a1a" class="code code-wrap"><code>// select the elements needed for the slider
+this.slides = slider.querySelector(&quot;.slides&quot;);
+this.slider = slider;</code></pre><p id="ccb3e1e3-e352-448e-a051-551f720ee44d" class="">Now if you refresh the page, you should no longer see that problem in the console.</p><p id="3d0f4682-b5de-409a-abd2-ed927c7d4435" class="">We now get the following error 👇</p><blockquote id="c82cc163-c700-4bcf-abf0-4a868a824a8d" class=""><p id="5c659f3f-b9fe-404c-99ef-e932cb11c7c7" class="">index-prototype.js:41 Uncaught TypeError: Cannot read property &#x27;classList&#x27; of undefined at HTMLButtonElement.Slider.move (index-prototype.js:38)</p></blockquote><p id="b8905410-42ff-4f81-b874-0fcfd9a1313c" class="">On line 38 we are calling <code>this.prev.classList.remove(...classesToRemove);</code>. It is trying to tell us that <code>this.prev</code> is not defined.</p><p id="0d5bb409-de44-40e6-975a-4ca53350f851" class="">If we log what <code>this</code> is within our <code>move</code> function, we will see that it&#x27;s the next button which is not working. The previous button actually works.</p><p id="4d2ce081-8153-4ec1-9788-0c8dcd577a57" class="">So let&#x27;s go to where we have listened to our move.</p><p id="08c77a5f-3a44-4ab0-8e1d-82b9af721ad0" class="">The reason next is broken but previous is not is that in next, we just pass a reference to that function, and it&#x27;s being rebound.</p><p id="7c06f011-f77e-4a0e-890b-03886e92b354" class="">In the <code>prevButton</code> case, we are passing it an anonymous arrow function.</p><p id="ccd36b22-4ba6-4ed7-bcba-f51cbd822987" class="">We can solve this issue 1 of 2 ways.</p><p id="d1587b74-7160-4887-82bb-9738868a56a1" class="">We can bind it with <code>this</code> and that will work.</p><pre id="efd63456-adbb-49dc-a0b2-bd3604696c1c" class="code code-wrap"><code>nextButton.addEventListener(&#x27;click&#x27;, this.move.bind(this));</code></pre><p id="26536568-0293-4a99-960f-1e42f748e1b2" class="">The reason we are allowed to do that here is because we aren&#x27;t removing the event listener so we don&#x27;t need access to the new <code>this</code> that was bound.</p><p id="b5725c26-9171-4329-b650-3c8881e1f5e2" class="">The other thing we can do is refactor it to an arrow function as shown below.</p><pre id="fa05599a-d5b4-43b5-a28a-70ddf540d558" class="code code-wrap"><code>nextButton.addEventListener(&#x27;click&#x27;, () =&gt; this.move());</code></pre><p id="c7c03fad-710e-4c54-ac65-9e356ee804f2" class="">You can also do it as shown below.</p><pre id="c5b43faa-3703-40a5-8ffc-05c7ab1ef406" class="code code-wrap"><code>// Event listeners
+this.move = this.move.bind(this);
+prevButton.addEventListener(&#x27;click&#x27;, () =&gt; this.move(&#x27;back&#x27;));
+nextButton.addEventListener(&#x27;click&#x27;, () =&gt; this.move());</code></pre><p id="89e86188-a9bf-46e4-95ca-b67060f0d133" class="">We will stick to the arrow function in this case.</p><p id="2e3de278-805c-4475-ab09-7500977972c5" class="">The arrow function will have bound and not the <code>this.move</code> which is what we want, because <code>this.move</code> needs access to the instance in order to reference the previous, next and current DOM elements.</p><p id="34cf0ff5-3beb-45bf-ab4e-489429df1a64" class="">The slider should be working well now if you refresh the page!</p><p id="e072ca32-149a-49d5-9b89-700cf935bafd" class="">Now that we are done, let&#x27;s just go over a few things.</p><p id="448f20bf-58e2-4323-a44b-27efebe55f42" class="">Why did we not rename the buttons to live on <code>this</code> like <code>this.prevButton = slider.querySelector(&#x27;.goToPrev&#x27;);</code>?</p><p id="4966f1e0-15d6-4213-9fed-cdc4af8de679" class="">It is because we do not need them anywhere outside of the constructor. If that is the case, keep them as regular variables and reference them when you need them inside of the function.</p><p id="fa6dbf21-543f-46d7-9444-25a834cd7439" class="">One cool thing about this is if you take <code>dogSlider</code>, you cannot access it in the console using Parcel. If you want to access it, you have to say something like <code>window.dogSlider = dogSlider</code> and then you have access to <code>dogSlider</code> in the console.</p><p id="57a49422-2677-49df-9961-7ea64887e5cd" class="">The cool thing about that is now you can call the functions yourself like the move in the terminal to control the slider.</p><p id="3d2ed811-7aae-401c-9eb9-8a491798adf2" class="">What you could do is at the bottom of the page add an event listener on the window&#x27;s keyup event like below.</p><p id="66f99ed4-a4e6-4e5f-bfb3-5b4d46cb2d7f" class="">Now if you use your arrow keys you will see that it works.</p><p id="70767d8c-fb52-49c8-b2cf-9f0528629977" class="">That is what is great about this, you can build something like this slider and then surface the functionality via methods and then let other people hook into your slider functionality and extend it with their own.</p><p id="a13f7f3d-5969-4efb-a817-6564e474697a" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="4b7f1b89-62aa-41cb-9a86-abd7cfbd949f" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="76417bd6-0536-42e7-a65f-aafac0457e7d" class="">Edit on Github</p></details></li></ul><ul id="2c6978b5-b4be-47ac-b859-99669dbda2b5" class="toggle"><li><details open=""><summary>65 - Bind, Call and Apply</summary><p id="3cbbbf73-e9f4-478b-886a-146304bbf822" class=""><a href="https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/65-bind-call-and-apply">https://wesbos.com/javascript/11-prototypes-this-new-and-inheritance/65-bind-call-and-apply</a></p><p id="d3589ef2-1a84-4f96-9811-69b48e81a8c1" class="">
+</p><figure id="8274203e-f926-4e64-9397-36814a61a5a4" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%204.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/bjs%204.png"/></a></figure><p id="e385bf58-e720-4ecd-ade3-58e21d5eabb3" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="691153b0-a307-4dea-96f3-9e864290bd50" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="3aebc9cb-11ad-497e-a8f8-e7ae22766c8a" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="be5c300d-34dd-4ece-be37-85197c779b61" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="1824a079-a10c-4ec9-bc10-9ceb5519d5fd" class="">JavaScript, Prototypes, Bind, Call and ApplyEdit Post</p><p id="e014322a-ea8e-447f-96f0-ccd0caedac1f" class="">This lesson will focus on the <code>bind</code>, <code>call</code> and <code>apply</code> functions, which are all used to change the scope of what <code>this</code> is equal to inside of a function or a method.</p><p id="72798257-5b86-4ad5-96cb-c6c046159102" class="">Wes does not use these very often, but they are common interview questions so we will go over them so you have an understanding of how it works.</p><p id="3a05edc0-3976-420c-8d52-6128479a1a84" class="">Go into the <code>playground</code> directory and add a file <code>bind-call-apply.html</code>. Add our HTML base and a script tag wtihin the body tag.</p><p id="2d41e9b3-52e3-4e26-aa1d-fc05c24077ad" class="">We will start with a simple example of an object that has a method on it.</p><p id="0d9ea37a-5d7a-4ebf-b9da-8906cc075fac" class="">Create a person object on it with property of <code>name</code> and <code>sayHi</code>. The name can be your name, and <code>sayHi</code> will equal a function that logs &quot;Hey!&quot; with the person&#x27;s name.</p><pre id="a8c5e736-04a0-41ac-b52c-edf6c511d63d" class="code code-wrap"><code>const person = {
+  name: &#x27;Wes Bos&#x27;,
+sayHi: function() {
+return `hey ${this.name}`;
+}
+};</code></pre><p id="50fd73d6-58c7-4204-a72e-9282ef086a62" class="">Let&#x27;s change it shorthand, which is the exact same thing as above, it&#x27;s just shorter syntax for the <code>sayHi</code> property.</p><pre id="7440e754-c169-4cb7-bc45-866bc8a369fc" class="code code-wrap"><code>const person = {
+  name: &#x27;Wes Bos&#x27;,
+sayHi() {
+return `hey ${this.name}`;
+}
+};</code></pre><p id="e205a85e-ec36-4512-967b-98504c1a4433" class="">Open that in the browser and take a look at it in the console.</p><figure id="81c06601-fc39-44b7-8a35-aee9e3c16512" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/974.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/974.png"/></a></figure><p id="0722b1c5-f7b6-4514-a7fc-3a92a6845263" class="">As you can see, it says &quot;hey wes bos&quot;.</p><p id="3edd0916-0bab-468b-8c3f-85f72b0f9025" class="">Why is that?</p><p id="9c0d49d1-5e6d-44a3-962b-398aced24e4c" class="">That is because <code>sayHi</code> is a method, and when a method is called, the way they get the <code>this</code> value is they look to the left of the dot to see what they are bound against.</p><p id="6158f711-0454-41f1-8d21-d064f28c66af" class="">The <code>sayHi</code> method will give us the object it was run against. This is no different than if we were to have class or prototype. The <code>this</code> is going to be equal to whatever was to the left of the dot.</p><p id="5053a924-e97c-41aa-ae62-2d676f369fcc" class="">Now , what if you were to take the <code>sayHi</code> method and put it in it&#x27;s own variable, as shown below 👇?</p><pre id="5b0a95b3-4a64-438d-a21b-689ca2ff2553" class="code code-wrap"><code>const sayHi = person.sayHi;</code></pre><p id="5ef8dce6-5d05-4518-b2e7-f26a7f9d2618" class="">When you run that, we will just see &quot;hey &quot; with no name.</p><figure id="fa13035a-10dc-485e-bbf2-612d39bdc5d1" class="image"><a href="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/975.png"><img style="width:700px" src="11%20-%20Prototypes,%20this,%20new%20and%20Inheritance%201316df0520b148968086e827d2b3ca74/975.png"/></a></figure><p id="b4bdfe5b-1dec-4dea-84ef-a72741e919fc" class="">You can see if we call the <code>sayHi()</code> on the person object, we get the hey message returned with a name.</p><p id="1777f071-eeef-41f5-87cd-c2523cce3af5" class="">But when we just call <code>sayHi()</code>, <code>this</code> is equal to the window because there is nothing that the method was bound to on the left-hand side.</p><p id="a396fa89-1e39-414d-8bbe-9b2e41ef91d2" class="">That is important. In JavaScript, the <code>this</code> keyword is always defined by <em>where the function is being called, and not where the function is being defined</em>.</p><p id="87aff74c-7b2d-4425-a0e9-abfecf96c916" class="">So although we defined the <code>sayHi</code> function inside of an object, it&#x27;s not bound to it unless we call it as a method of an object.</p><p id="b7eba135-9d85-41a7-941a-ab990de39f8e" class="">We can use the <code>bind</code> keyword to change where the <code>this</code> keyword is equal to or what is it bound to.</p><p id="b59de887-344b-409a-a1be-c17387f14dd7" class="">Let&#x27;s try that by binding the <code>sayHi</code> method back to the original person.</p><pre id="6ed4255e-ea88-4dec-b683-6fef90d7011e" class="code code-wrap"><code>const sayHi = person.sayHi.bind(person);</code></pre><p id="a27409e3-72c6-426a-bc8e-e68b502fff77" class="">The code above tells JavaScript to call a function <code>sayHi</code> and when it&#x27;s called, it&#x27;s <code>this</code> keyword is equal to whatever we pass to the <code>bind()</code> method.</p><p id="5bc903e5-ab8e-49f5-860f-1b5a63da557a" class="">Now when you refresh the page, if you were to run <code>sayHi()</code>, you will see that it now says &quot;hey wes bos&quot; instead of just &quot;hey&quot;.</p><p id="75615b62-adb7-4a5b-96ec-6486b9a66ed4" class="">That is because we have changed what <code>this</code> will be equal to by binding it to another object.</p><p id="35c85c25-30d1-4685-be22-3f5e1b1ab603" class="">Why would that be useful?</p><p id="8cc08f3c-f238-4d01-82fe-9a108c138331" class="">Sometimes you want to use a method of an object with some other information. Let&#x27;s say we have a Jenna object, as shown below 👇</p><pre id="5fb35f2c-305e-4aca-b361-4d70d92f530d" class="code code-wrap"><code>const jenna = { name: &#x27;Jenna&#x27; };</code></pre><p id="ef63041f-c087-450d-9b48-7b737e6416c8" class="">How would we use the <code>sayHi</code> method for this other object when <code>name</code> isn&#x27;t being passed in as an argument?</p><p id="1b1dc84e-fd64-4e8e-8bc7-e3d7fc8db735" class="">That is the difference between object oriented programming and functional programming.</p><p id="85a36526-b88a-4481-9a33-d4d5cde77d5f" class="">Our <code>sayHi</code> method is object oriented.</p><p id="672107f4-b263-41ec-8745-f61b5c24d2bc" class="">If it were to take an argument, that would be much more of a functional approach.</p><p id="a3fbfa8b-0450-4493-984a-99f3a4f7d955" class="">What we can do is we can bind `sayHi`` to Jenna object as shown below.</p><pre id="8c4f4d98-154b-4962-a3e9-bb6f896334bb" class="code code-wrap"><code>const sayHi = person.sayHi.bind(jenna);</code></pre><p id="df7b0907-62cb-457f-953a-00d5d654e22c" class=""><code>bind</code> is a method that lives on all functions and it says change the <code>this</code> keyword to be equal to, in this example, a different object.</p><p id="68400ccc-a01c-447d-a405-0fedc6137d7d" class="">You could also manually pass in a name, as shown below.</p><pre id="376f6501-4696-4b16-bd19-6f58d5911278" class="code code-wrap"><code>const sayHi = person.sayHi.bind({ name: &#x27;Harry&#x27; });</code></pre><p id="0e71edff-2771-4589-948a-131f7e166c91" class="">If you refresh the page and call <code>sayHi()</code> you will see &quot;hey Harry&quot; returned.</p><p id="48d1ad57-acc7-42fb-8069-8a3ef637732e" class="">Let&#x27;s look at another example.</p><p id="c750ab40-7516-4ba4-8763-b3669cac6968" class=""><code>document.querySelector</code> and <code>document.querySelectorAll</code> are kind of hard to type.</p><p id="27eb2c0b-94b7-4be9-9906-0e825a62a7bc" class="">Let&#x27;s do an example using that.</p><p id="d91cb1f1-f008-4f0c-9f20-322731ced138" class="">Let&#x27;s say we wanted to make <code>$</code> a short hand for <code>document.querySelector</code> and <code>$$</code> for <code>document.querySelectorAll</code>.</p><p id="3ce6de7a-f2c7-4f32-a71d-9a2ad74dd834" class="">You might think you could do something as shown below 👇</p><pre id="1540140f-f11d-458d-a8bf-c5cdda228516" class="code code-wrap"><code>//QS Example
+
+const $ = document.querySelector;</code></pre><p id="780a175d-bd5b-4cbc-904f-4c880644bd4f" class="">Now if you refresh the page, open the dev tools console and type <code>$</code> you will see that it is the <code>querySelector</code> function.</p><p id="424245e1-062e-499d-a3aa-4e962f83b7f8" class="">If you try typing in <code>document.querySelector</code> it will be the exact same thing. In fact, they are identical.</p><p id="f692454b-fde0-4115-a305-e4e65ee64bfa" class=""><em>Aside: sometimes you see that &quot;[native code]&quot; in the console. That means that is a function that has been implemented by the browser so we are not able to see how it works under the hood because it&#x27;s implemented in whatever language it&#x27;s written in.</em></p><p id="cc592e94-19be-4e27-a8a4-7192ad1a6797" class="">Now if you wanted to actually select something, you might think you would be able to just do <code>$(&#x27;p&#x27;)</code>. However, if you try that you will see that we get an error complaining about &quot;Illegal invocation&quot;.</p><p id="89e43410-ddf5-4bd2-b977-00a6235a07a3" class="">What is happening here?</p><p id="fd4ba8f4-14e8-401f-a23c-c9548522b8ca" class="">Somewhere under the hood in <code>document.querySelector</code> it needs to know where to look for the thing that you are selecting.</p><p id="bc30311d-4883-4a85-8200-654fb0f32ac8" class="">Let&#x27;s demonstrate the reason for that with an example.</p><pre id="9708b8dd-f5bc-4a09-bac0-911701a0a9ae" class="code code-wrap"><code>&lt;div class=&quot;wrapper&quot;&gt;
+&lt;p&gt;Hey im in a wrapper&lt;/p&gt;
+&lt;/div&gt;</code></pre><p id="01449ec7-dfe3-49c0-acd9-748ec5f05d5f" class="">Now let&#x27;s say we grabbed the wrapper and did the following 👇</p><pre id="5af5efbd-4bb2-40ff-b19d-95dbf031a7ed" class="code code-wrap"><code>const wrapper = document.querySelector(&#x27;.wrapper&#x27;);
+const p = wrapper.querySelector(&#x27;p&#x27;);
+console.log(p);</code></pre><p id="1c12d526-6a5f-4fba-bf4c-bdff929ff314" class="">As you can see, that works. We got it.</p><p id="696008d8-ec2c-4b26-a807-2699bf09ef97" class=""><code>querySelector</code> is a function and it needs to know what to look inside of for the selector.</p><p id="af38fe71-4cf7-432c-b2b0-0b9708b96ac7" class="">The reason it knows where to scope it to, either globally (the document) or in a subset of the DOM, based on what is left of the dot.</p><p id="e696804b-36ee-4394-8fc2-c0902757f65d" class="">So when we try to log <code>$(&#x27;p&#x27;)</code>, it doesn&#x27;t work because there is nothing to the left of the dot. We have taken away the object that it was called against and as a result it is not bound to anything.</p><h2 id="2657a2dd-4b22-4aa2-81f1-b308fdd4cf9f" class="">Bind method</h2><p id="cfb5014c-b427-4f87-bdbd-0b47575650f4" class="">The way that we can fix that is we can call <code>bind()</code> on it and manually pass it reference to the thing we want it to be equal to.</p><pre id="82e7624b-2d95-4e23-ab54-8efeea5e0aff" class="code code-wrap"><code>// by calling bind against querySelector, we say that when the $ function is run, use `document` as the `this` value.
+const $ = document.querySelector.bind(document);</code></pre><p id="f09fe6ff-fc1d-436e-8a5e-ea883ab62de7" class="">Now if you try doing <code>console.log($(&#x27;p&#x27;))</code>, you will see that it works now because it has been bound to the function.</p><p id="88eaa8fb-db32-4b62-a2f3-841745c9652e" class="">This piece of code, <code>document.querySelector.bind(document);</code> does not run the function, it return the function which you can then store in a variable, which in our example is <code>$</code>.</p><p id="58eb61e4-35c1-4f67-9e27-c540e4550664" class="">You could also do that with <code>querySelectorAll</code>, as shown below 👇</p><pre id="4497f801-0771-40ba-8bb9-696e310ac26b" class="code code-wrap"><code>const lookFor = document.querySelectorAll.bind(document);
+console.log(lookFor(&#x27;p&#x27;));</code></pre><p id="a92f9041-ffee-4352-ab25-34e472639017" class="">You would see that a NodeList is returned to us.</p><p id="b714954b-71c4-4ca0-9d44-fbd47a62afd2" class="">To reiterate: using <code>bind</code> will change the context of what <code>this</code> is equal to inside of a function or a method.</p><p id="1b210eb2-7df1-424c-ae05-ddcce8f89bc9" class=""><code>bind</code> is also useful to prep a function that has arguments sort of &quot;pre-loaded&quot;.</p><p id="f4171406-13f0-4006-9fc9-7723259dec57" class="">Let&#x27;s demonstrate with an example.</p><pre id="91bde4cb-b6f9-43f4-87c0-0ab76d423191" class="code code-wrap"><code>const bill = {
+  total: 1000,
+calculate: function(taxRate) {
+return this.total + (this.total * taxRate);
+}
+}
+
+const total = bill.calculate(0.13);
+console.log(total);</code></pre><p id="18dea0d4-d21c-4484-906f-d16e057075c6" class="">Let&#x27;s refresh the page to check if it works. You should see 1130 in the console.</p><p id="a2e84105-8ef9-4c1e-8b3b-cbdf68ff74ce" class="">If you wanted to take that function and store it in an external variable, you could add the code below 👇</p><pre id="11d7eac1-d094-4416-939a-8fa3d201761e" class="code code-wrap"><code>const calc = bill.calculate;</code></pre><p id="a8ee87ea-58a8-4954-9a09-50ee356ca78c" class="">If you tried to call <code>calc</code> and pass it 0.13, you would see <code>NaN</code> in the console.</p><pre id="a7edabfe-67d3-4011-8d6b-0660db4e2213" class="code code-wrap"><code>console.log(calc(0.13));</code></pre><p id="129f2ca1-974e-4a15-84a9-bc1b7f6c0f5e" class="">Why?</p><p id="ff56419d-87ce-45a3-af40-cc0e0f091f22" class="">Because if we were to log <code>this</code> inside of the <code>calculate</code> method on our <code>bill</code> object, you would see that it is equal to the window.</p><p id="5dfc2077-1c31-4a3f-9d2b-6092cfe36cbe" class="">The first time around it is equal to our <code>bill</code> object and the second time it was called it was equal to the window.</p><p id="7d3f325a-0d0a-44a3-97d0-638a59cd3e95" class="">That is because <code>calc</code> is not bound to anything. We could just bind it to the original <code>bill</code> and that would work.</p><pre id="771965a3-ccec-4c72-99a6-5809ff3f7d9c" class="code code-wrap"><code>const calc = bill.calculate.bind(bill);</code></pre><p id="6d1ce454-5a27-4617-a30c-7728290c58ad" class="">You could also pass it it&#x27;s own bill as shown below 👇</p><pre id="2146b151-6d68-40af-8b1a-b0a4b8dffd01" class="code code-wrap"><code>const calc = bill.calculate.bind({ total: 500 });
+console.log(calc(0.13));</code></pre><p id="1f148e8d-3378-45ae-9d1c-10ec3c4fbdef" class="">In the next example, we will demonstrate how <code>bind</code> can be used to &quot;pre-load&quot; functions with some arguments that need to be called.</p><p id="3676d99b-e516-4baa-836c-1b116176e68b" class="">Wes likes to think of this as the &quot;check-in online&quot; of functions. What that means is when you bind something, you can pass it additional arguments that line up with the arguments of the function or method.</p><p id="e64b0cb8-38da-436e-823b-03b2b97cfe6b" class="">So if we wanted to pass the tax rate, we could do that in the arguments we pass to <code>bind</code> and not pass it when we call the <code>calc</code> function, as you see in the code below.</p><pre id="cdeed55f-1c9a-4fd4-aa29-86c19e15a6e9" class="code code-wrap"><code>const calc = bill.calculate.bind({ total: 500 }, 0.06);
+console.log(calc());</code></pre><p id="723fb463-9ce6-4b26-809f-9f19626fea9a" class="">As you can see, it still works! Why?</p><p id="9f9629ec-5f89-4bad-bbf4-ce246304c4eb" class="">The additional arguments to <code>bind</code>, the first one will always be the <code>this</code> object, and then the additional ones will line up with the arguments that get passed. If <code>bill.calculate</code> took more arguments, like <code>tipRate</code>, we could pass another value as an argument.</p><p id="8cb7b763-a169-483c-aa63-1a3d4dd038fe" class="">Why is that helpful?</p><p id="7c29c53e-9fa2-4925-898c-27280667bea7" class="">Sometimes, when you are generating functions, for example looping over a list of data, you have access to the data at the time of function creation, and then let&#x27;s say later you want to call it.</p><p id="993d96a1-f0c2-404c-9b8e-dd7dadaf69f3" class="">Sometimes it&#x27;s easier to pre-load the function by passing it what the arguments will be at call time when you are binding it. Then you can just go ahead and take the function and call it from wherever you want because you know the arguments are already included.</p><h2 id="6ebc7648-1044-4d5c-89e9-55e58266d354" class="">Call and Apply methods</h2><p id="d2d6b827-a276-42ba-9017-0ba9861fc5c6" class="">Let&#x27;s move on to the two methods: <code>call</code> and <code>apply</code>.</p><p id="5da961f0-b32d-4fcc-b5a6-74cc90130c70" class="">They work the exact same as <code>bind</code> does with one difference: they will call the function for you.</p><h3 id="68f993fe-6b72-4378-9383-70e5aff7f39c" class="">Call method</h3><p id="096e3434-fef5-4009-ad9a-0ae422856d60" class="">Instead of returning, like you see happens above when we call <code>calc</code>, if we just duplicate the line of code where we are declaring <code>calc</code> and modify it like below, let&#x27;s see what is returned.</p><pre id="0362ad5e-a9cb-4d58-b00a-5dcf7f92adc1" class="code code-wrap"><code>const total2 = bill.calculate.call({total:500}, 0.06);
+console.log(total2);</code></pre><p id="da38ecf5-aa01-4974-99e7-749b59a6ad1c" class="">You will see we have 530 returned to us.</p><p id="540da318-008d-4eca-b5ad-0b23d2e5f9d0" class="">What happened there?</p><p id="b4751576-bb8c-4ed4-8d9d-31e3feaedece" class=""><code>.bind</code> calls a function, which then needs to be called by itself.</p><p id="f87e4431-d2db-4b1d-a8b7-f96f070ca785" class=""><code>call</code> does the same thing as <code>bind</code> but it will also run the function for you so you don&#x27;t have to call it.</p><p id="4648a84c-b8ce-40d0-94a5-592071bf9a23" class="">If you need to bind a function and call it later, use <code>bind</code>.</p><p id="053442e9-8ddd-414b-bae0-253097517f1d" class="">If you need to bind a function that you want to call immediately you can use <code>call</code>.</p><h3 id="7f6d340d-f93a-4eff-af4d-02deb12ada19" class="">Apply method</h3><blockquote id="41ed8ba1-8cb0-4e44-9326-8e93c641c50b" class=""><p id="dc3dedee-7c57-455e-bf4f-37ff62d7e278" class="">Note: While the syntax of this function is almost identical to that of <code>call</code>, the fundamental difference is that <code>call</code> accepts an argument list, while <code>apply</code> accepts a single array of arguments.</p></blockquote><p id="86772a5e-8508-477e-af88-2dadd58cabf5" class="">If you want to run one of the functions but you don&#x27;t care what <code>this</code> is equal to, you can just pass <code>null</code> and then after you pass the additional arguments as an array.</p><p id="47ea0289-6ccb-44d0-b545-76a9ad356b79" class="">In our case, there is only 1 argument.</p><pre id="35d1a4b5-d686-4bb7-a807-45347730c917" class="code code-wrap"><code>const total3 = bill.calculate.apply({ total: 325 }, [0.60]);
+console.log(total3);</code></pre><p id="b29a4966-b66f-44a5-b4b3-8a3918a7220e" class="">That is not very useful now that we have spread, because you could just spread into <code>call</code> but it&#x27;s available if you need it.</p><p id="02d4e005-48ad-4252-a087-fe9d460a3d44" class="">Let&#x27;s add 1 more argument to our <code>bill</code> object.</p><pre id="651ad7a2-d9b4-4ed0-b185-cbd5eb02aa4e" class="code code-wrap"><code>const bill = {
+  total: 1000,
+calculate: function(taxRate) {
+return this.total + (this.total * taxRate);
+},
+describe(mealType,drinkType,taxRate) {
+console.log(`Your meal of ${mealType} with a drink of ${drinkType} was ${this.calculate(taxRate)}`);
+}
+}</code></pre><p id="a4e4d4d7-0ecc-49e7-badb-335ea0d668fa" class="">Now we can try running the function in the console.</p><pre id="9aa4248d-85f5-403a-a2af-400ef4978c19" class="code code-wrap"><code>bill.describe(&#x27;pizza&#x27;, &#x27;beer&#x27;, 0.13);</code></pre><p id="a1318692-ae70-44f9-97d2-9c99b5a9b2d2" class="">17:52</p><p id="405482b9-395a-43b8-9789-9cd3f9020e9f" class="">As you can see the function works.</p><p id="6be78ba8-df2f-4f59-99c8-a64c35377f75" class="">Now if we wanted to run that with <code>call</code> and <code>apply</code> we could do the following.</p><pre id="0b7c5979-344a-42f6-8926-e5ac5579f720" class="code code-wrap"><code>const myMeal = bill.describe.call({ total: 342 }, &#x27;pizza&#x27;, &#x27;beer&#x27;, 0.13);
+console.log(myMeal);</code></pre><p id="e21ee7eb-8849-4150-9fea-caeda1b7839d" class="">Why do we pass an object as the first argument to <code>call</code>?</p><p id="1b9c8fd1-1eb0-4bdd-9509-4d81eb74d035" class="">Because that is what <code>this</code> will be equal to, and inside of <code>calculate</code> it looks for <code>this.total</code> so we need an object with a <code>total</code> property.</p><p id="47a083e1-2d78-4413-b193-cd12b6cefe74" class="">The additional arguments are <code>mealType</code>, <code>drinkType</code> and <code>taxRate</code>.</p><p id="30bd837a-3779-4bbc-9796-954d794804af" class="">If you try running that, you will see that we get an error complaining that &quot;this.calculate is not a function&quot;.</p><p id="4d2d8859-feab-4a63-acaf-c139e876fb8c" class="">What is happening?</p><p id="43ef46c0-20ab-4e2b-8757-3bad64d2e896" class="">We called <code>this.calculate</code> but we didn&#x27;t pass it the <code>this</code> that we wanted.</p><p id="691e04d8-7e31-4e6c-b97d-9b914e18a8bd" class="">Let&#x27;s go modify the <code>myMeal</code> declaration so that it has access to the <code>calculate</code> function.</p><pre id="df547805-9146-404c-9e50-6c21b50116c0" class="code code-wrap"><code>const myMeal = bill.describe.call(bill, &#x27;pizza&#x27;, &#x27;beer&#x27;, 0.13);</code></pre><p id="ddfc5195-3d10-4c67-838d-602ea7851d8e" class="">Now it should be working for you.</p><p id="f4550686-7a37-4904-b432-a6c3a5b30815" class="">If you were to <code>apply</code> that instead, we would pass all the arguments as 1 argument.</p><pre id="8bbfc2b7-e857-4e66-9475-b725dceaea84" class="code code-wrap"><code>const myMeal2 = bill.describe.apply(bill, [&#x27;pizza&#x27;, &#x27;beer&#x27;, 0.13]);
+console.log(myMeal2);</code></pre><p id="2f0954ea-fd27-4ae2-a23e-adca7b0cdfd2" class="">That wraps up <code>call</code>, <code>bind</code>, and <code>apply</code>.</p><p id="8e9727ca-f326-4984-bb9c-22577bac32d8" class="">When should you use them? When the <code>this</code> value is different from what you have hoped. You won&#x27;t always need it but it is helpful to know.</p><p id="6afc845c-46ed-4f73-8d68-c940c25b139d" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="1e46f907-9028-44be-8a16-9b93704addde" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="7846faf2-d928-451e-a126-0a5525db9f8d" class="">Edit on Github</p></details></li></ul></div></article></body></html>

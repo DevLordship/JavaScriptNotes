@@ -1,0 +1,1143 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>15 - Final Round of Exercises</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ab296dc4-5820-4db3-9dc6-45948a31c02a" class="page sans"><header><h1 class="page-title"><em><strong>15 - Final Round of Exercises</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="9af9a3d7-a923-4dce-a8c1-2aa6f52888fa" class="toggle"><li><details open=""><summary>84 - Web Speech Colours Game</summary><p id="6a82bfce-b24e-4727-9acd-519370bde324" class=""><a href="https://wesbos.com/javascript/15-final-round-of-exercise/84-web-speech-colours-game">https://wesbos.com/javascript/15-final-round-of-exercise/84-web-speech-colours-game</a></p><p id="2dd27f8f-582a-4984-b79d-0241fd442393" class="">
+</p><figure id="d3d6bedd-234b-4bda-acb6-a1dc2126904d" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/bjs.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/bjs.png"/></a></figure><p id="be43efeb-328a-42d9-ad27-c7f76cda4f54" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="f4258dd6-e701-4987-a58d-d469eaacf2a0" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="fc259629-3e96-4bd4-8e88-50f78f735681" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="079d46c9-f5f8-4653-861f-26ef0b88f4ab" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="9153f52d-a6ba-47ac-8c94-c4c20a8ffdf4" class="">JavaScript, Web SpeechEdit Post</p><figure id="0e088427-1b75-4644-a7a3-41192211c717" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1372.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1372.png"/></a></figure><p id="4ee1275d-8b39-404c-a933-88a7b076db5b" class="">In this exercise we will be using the Speech Recognition API that is currently only available in the Chrome broswer to practice our JavaScript skills by building a little game.</p><p id="cd182073-9c09-4eef-a516-134a3cbea294" class="">The way it will work is when you say a colour, the background colour of the website should change to reflect that.</p><p id="ebe56e40-b085-4bb0-b43a-8b4d85128246" class="">Let&#x27;s start by opening chrome and navigating to <code>chrome://flags</code> in the browser. On this page, we need to make sure that &quot;Experimental Web Platform features&quot; are turned on.</p><figure id="b7a59d63-ce89-40e2-8a0a-ff7af8735f91" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1373.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1373.png"/></a></figure><p id="b79181c7-2052-46d6-bfac-3767ef91f4d6" class="">We also need to get a server going.</p><p id="72181b67-bfe8-4f15-a612-7d8f3dcae58f" class="">If you open up the <code>84 - Web Speech Colour Game</code> folder within the <code>exercises</code> directory, lets take a look at what we are working with.</p><p id="4618eac3-8411-480d-8784-3d1df538a8d7" class="">Wes has given us <code>colors.js</code> which gives us an object containing every color that is available in CSS, and it&#x27;s corresponding hex code.</p><p id="7f17ab6d-d09a-486c-a4aa-f40edc35ebad" class="">Within the file there is also a function called <code>isDark</code> which Wes grabbed from StackOverflow which takes in a color name and figures out if it is a dark or light color.</p><p id="a42c975c-132b-435e-84dd-257eccdf631f" class="">Then there is <code>style.css</code> which contains a few styles and animations, like the word popping up and getting crossed off when you say it.</p><figure id="61c8d335-25f8-45e7-a108-0879085ab9fb" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1374.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1374.png"/></a></figure><p id="e873c0d8-84cd-40b7-bb47-d4ee0dad8d12" class="">If look at the <code>package.json</code>, you will see we have <code>parcel-bundler</code> and <code>browserslist</code>, both of which we have used before.</p><p id="ac6be3f9-dac5-487e-9d86-341d43be5cb8" class="">Open up the terminal and navigate to the exercises folder and type <code>npm install</code> and that will install the dev dependencies for us.</p><p id="eb0df457-a83c-45c7-9ff3-a4674f9a6cc5" class="">After that is finished installing, simply type <code>npm start</code> and open up the server in a browser to see what we are starting with.</p><figure id="b7846971-e05c-4b5e-9040-5e1a1c2dd1b4" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1375.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1375.png"/></a></figure><p id="5a4f9e46-bdb9-4c3f-8e19-80492192ebcb" class="">Let&#x27;s start by getting the web speech part working and then later we will connect the colours.</p><h2 id="ad33cd77-358e-4083-9c28-0f91c73c7fc8" class="">Web Speech</h2><p id="f84c7b2e-f563-46e7-92cb-6bae071064b1" class="">We need to check if there is something called <code>window.SpeechRecognition</code>. However if you try to reference that in the console, you will get undefined because it is actually <code>window.webkitSpeechRecognition</code>.</p><figure id="b4373803-86fe-41fe-906c-ff56ef051ef2" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1376.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/1376.png"/></a></figure><p id="80c977c3-fcea-43db-9fe8-c01dc8476b6f" class="">Add the following to <code>speech.js</code>.</p><pre id="b8156666-801a-430f-a797-a6e43c569f24" class="code code-wrap"><code>// speech.js
+function start() {
+// see if their browser supports this
+}
+
+start();</code></pre><p id="6486f1d0-581e-4c0c-8c78-2801de232c9f" class="">That is what is referred to as <strong>vendor prefix</strong> (adding <code>webkit</code>). That means that the API is not completely done, so they will vendor prefix it by adding webkit infront of it.</p><p id="68b2e5cb-84dc-4480-bc27-a7485a947dd1" class="">Chrome engine used to be called WebKit, it is now called blink.</p><p id="107135d8-80eb-41eb-b922-b643d4c5b262" class="">At the top of our JavaScript file, let&#x27;s normalize that like so:</p><pre id="3ca8e264-e120-422d-809e-e8faa5d5fce2" class="code code-wrap"><code>// speech.js
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition.</code></pre><p id="44218571-9d04-412d-8673-d0b6c3f47d22" class="">Now in our chrome tools we can access it like so:</p><p id="072f374b-fd66-4d6e-8308-46a1ef773e7d" class="">Now within <code>start</code> let&#x27;s check for the existance of a property called <code>SpeechRecognition</code> that is in the window.</p><pre id="6b0f7e4b-6351-4c8a-bd5c-65b9efa8f1e9" class="code code-wrap"><code>// speech.js
+function start() {
+// see if their browser supports this
+if (!(&quot;SpeechRecognition&quot; in window)) {
+console.log(&quot;Sorry your browser does not support speech reco.&quot;);
+return;
+}
+
+console.log(&quot;Starting...&quot;);
+}
+
+start();</code></pre><p id="8949122a-d2c8-40d2-824c-3b49eda67de1" class="">If the API does exist in the user&#x27;s browser, let&#x27;s create a new speech recognition instance.</p><pre id="f83ba610-ca91-43cc-88f5-5f449dfcf14c" class="code code-wrap"><code>const recognition = new SpeechRecognition();</code></pre><p id="3705e593-dabd-4872-b05d-eb00b5ee994f" class="">Next we need to set a few options.</p><p id="0016d05b-f856-4201-baa9-8f2870e7cfac" class="">One of those options gives us the ability to specify whether we want to listen continuously for speech recognition, or stop after the speech has been recognized (similar to how Siri stops listening after completing actions).</p><p id="3096ed59-0682-4a05-9015-5c3bf807ea72" class="">Add the following code to set it to continousy listen👇</p><pre id="5ae66ada-fdca-4f45-b700-bd6b825cdb48" class="code code-wrap"><code>const recognition = new SpeechRecognition();
+recognition.continuous = true;</code></pre><p id="cf31349f-20a4-4ce5-86ac-b5521055bd93" class="">Let&#x27;s also set <code>recognition.interimResults = true</code>, which will give us the results as we are speaking instead of waiting until we are done.</p><p id="adcfa658-c20e-4f30-94fa-863b4eaf915d" class="">We also need to hook up an event listener.</p><p id="114013e2-7f50-40e8-bf17-61a798f7f214" class="">This is a little bit different than most event listeners because normally you would add <code>.addEventListener</code>. but if you try to log the <code>recognition</code> variable and look at the prototype, you will see there is no method like <code>addEventListener</code>.</p><p id="57c72338-e5cf-42cb-8fe8-0b2fd29d080c" class="">To listen for a result, we will use <code>onresult</code> like so 👇</p><pre id="222faec8-7bdb-4228-85df-255bf7c25766" class="code code-wrap"><code>recognition.onresult = handleResult;</code></pre><p id="ecea9f62-3867-459e-bf23-d74bb9c0617d" class="">Next we need to start it.</p><pre id="7fddc018-7977-477e-a706-93fbf8c1097f" class="code code-wrap"><code>recognition.start();</code></pre><p id="221df229-dd23-4a6d-9b51-63a888551a0b" class="">Go ahead and create another file called <code>handlers.js</code>.</p><p id="c4feaed5-e82f-45e5-be32-b0e64c9afd4c" class="">Inside of that, we will have a function <code>handleResult</code> which will just log the event for now. Export that function.</p><pre id="8c98063b-2287-4da6-97a0-25f786e21661" class="code code-wrap"><code>// handlers.js
+export function handleResult(event) {
+console.log(event);
+}</code></pre><p id="576e02cb-aa77-480e-93f9-99245e621108" class="">Now within <code>speech.js</code> we will import it.</p><pre id="ef5ea4cf-3c75-4635-a5e0-4fe4171a2660" class="code code-wrap"><code>// speech.js
+import handleResult from &quot;./handlers&quot;;</code></pre><p id="0c43f14a-73c4-4707-ae24-79965f48f170" class="">This time we do not have to include the <code>.js</code> extension when importing from <code>handlers.js</code> because we are using Parcel.</p><p id="8a7069e9-23aa-4d13-8af4-77badcd0d873" class="">When the page refreshes after adding the import statement, you may be prompted to accept permissions to the microphone.</p><p id="860bd9b2-07a1-4a27-9957-3dfaf2a99f85" class="">We want to allow access to the microphone so that the SpeechRecognition API picks up our voice. Go ahead and allow it.</p><p id="0ae55c64-34da-4a67-90be-44543e33d925" class="">Once you do that, it should start listening to your voice and you should see events streaming in the console as you speak.</p><p id="f06f2731-a50f-4bc0-9ea3-c6cfd921bf7e" class="">If you open up one of the <code>SpeechRecognitionEvents</code> that have been logged in the console, you will see it is very similar to an event object.</p><p id="47723d8e-585f-4f56-9364-2c5dbe155c5d" class="">However there is a <code>results</code> property, which contains a few items that the speech recognition thinks you said. In our case, we will be taking both of the results.</p><p id="5874ab9e-231b-4d3f-8197-a9b46dc1ed08" class="">The speech recognizer will continue giving us words as it tries to figure out what you said. Even after you stop talking, it keeps streaming the results in until it is confident in the result.</p><p id="31b3b12a-4e36-42f5-9327-a76302a1915e" class="">Within our <code>handlers.js</code> file, let&#x27;s create another function <code>logWords</code> that takes in the results, and logs them (for now).</p><p id="28d026b0-5b12-4320-afec-e7b08dac7e61" class="">We will call this new function from our <code>handleResult</code> method.</p><pre id="257a3e86-75c1-45a5-add4-6d4824808d86" class="code code-wrap"><code>// handlers.js
+function logWords(results) {
+console.log(results);
+}
+
+export function handleResult(event) {
+logWords(event.results);
+}</code></pre><p id="3b5bf001-3f99-430b-be56-14be8a7c81ba" class="">Sometimes the SpeechRecognition event will return a list, from which we want to grab the last one.</p><p id="9376ac61-6cc2-4f41-8d5e-ee5008daa3ba" class="">Within the last item there is a <code>SpeechRecognitionAlternative</code>, which we can use to grab the transcript. Wes has only ever run into there being one <code>SpeechRecognitionAlternative</code> item.</p><p id="417215d9-599d-4503-957e-dee974f44e3f" class="">Let&#x27;s log that in our <code>logWords</code> function by modifying it like so:</p><pre id="4b8c3963-dc1d-4b29-b7f8-65719b431384" class="code code-wrap"><code>// handlers.js
+function logWords(results) {
+console.log(results[results.length - 1][0].transcript);
+}</code></pre><p id="44dcd171-8ae7-48ba-b9b0-f193fc0dd1d2" class="">Now if you refresh the page and try to say something like &quot;I love Pizza&quot;, you will see that logged in the console.</p><p id="eddeaade-1a4c-4598-87ca-52530e5076cb" class="">In the code above, we are accessing the deeply nested property on the <code>results</code> object.</p><p id="83544a29-b859-4733-9ee0-3a568fc4aa72" class="">Now that we have the speech working, let&#x27;s get the color layout working.</p><h2 id="bb43dcb1-f7c7-4ed7-b0eb-768ee9e0ca8b" class="">Colour Layout</h2><p id="6fa6bb0c-7b53-4f23-a914-eb9d35def89a" class="">We want to loop over each of the colours in <code>colors.js</code> and display it as a span on our page.</p><p id="7308229b-a076-4cdc-aa73-26f1d5f26c58" class="">One thing you might have noticed is Wes final example is that the colors are sorted by the length of the name.</p><p id="d96e2b6e-42f0-4381-8d00-4f534247632d" class="">Within that file, let&#x27;s add the following code and export it.</p><pre id="bd7461c4-5458-43e2-a48c-d7dde66d19bd" class="code code-wrap"><code>// colors.js
+export const colorsByLength = Object.keys(colors);
+
+console.log(colorsByLength);</code></pre><p id="98687a99-b3d4-4ca3-91bc-2bd1624c793f" class="">Let&#x27;s import that function into <code>speech.js</code> like so:</p><pre id="1f79d96c-705f-4fd8-874e-334d38ddc48d" class="code code-wrap"><code>//speech.js
+import { handleResult } from &quot;./handlers&quot;;
+import { colorsByLength } from &quot;./colors&quot;;</code></pre><p id="15389c95-7f1f-476c-8725-bbc7d7dca0f2" class="">If you look at the console when the page refreshes you will see that it gives us an array of all the colors.</p><p id="28aa9fd0-b42c-417c-8205-6cc628d3cfe9" class="">Add the following function, which will sort the colors array based on their length.</p><pre id="56ea7448-2e35-460f-af1e-45e0e8a31ce4" class="code code-wrap"><code>export const colorsByLength = Object.keys(colors).sort((a, b) =&gt; {
+return a.length - b.length;
+});
+
+console.log(colorsByLength);</code></pre><p id="0563fe70-3cd7-4e4c-80c4-8db01f2b3d3a" class=""><em>Sorting Refresher</em></p><p id="1046c0d6-95c6-4686-b0ca-35fb4327f2d1" class="">The <code>sort()</code> method works like so:</p><ul id="4a466f52-8cb7-4c7e-9fce-e0b658ca780c" class="bulleted-list"><li style="list-style-type:disc">If you return a positive number, it will put the item in front.</li></ul><ul id="6f51e86b-170d-4dbd-8600-26dccd37765f" class="bulleted-list"><li style="list-style-type:disc">If you return a negative number it will put it behind.</li></ul><ul id="feebeaa6-641a-48a9-bc8b-7ecc1612afe8" class="bulleted-list"><li style="list-style-type:disc">If you return 0 it will not move that item.</li></ul><p id="04bddbcd-f413-4537-8cd6-b433cf5893a8" class="">When the page refreshes, you will see that the colors are now sorted by length.</p><p id="77eda5af-4232-4b4d-96af-fb6746d284e6" class="">Next, we will write a function to display the colors within <code>speech.js</code>.</p><pre id="daddc03c-ce2e-4ac2-a1df-b629f208b3fc" class="code code-wrap"><code>// speech.js
+import { handleResult } from &quot;./handlers&quot;;
+import { colorsByLength } from &quot;./colors&quot;;
+
+function displayColors(colors) {
+return colors.map((color) =&gt; `&lt;span class=&quot;color&quot;&gt;${color}&lt;/span&gt;`);
+}</code></pre><p id="adab5f09-e9f9-447c-a56c-1cdfe82f1120" class="">At the very bottom of the file, let&#x27;s call that right away.</p><pre id="d19d831c-9c7d-4e20-a664-e4df8f189c8d" class="code code-wrap"><code>// speech.js
+start();
+displayColors();</code></pre><p id="74cfd3ce-2852-4c2b-b3cf-497af0c7a2c9" class="">Within <code>displayColors</code>, let&#x27;s map through each color and return a span with the class of color and the colors name.</p><pre id="af25d126-9825-40ad-9263-6627aa8f752f" class="code code-wrap"><code>// speech.js
+function displayColors(colors) {
+return colors.map((color) =&gt; `&lt;span class=&quot;color&quot;&gt;${color}&lt;/span&gt;`);
+}</code></pre><p id="a49b25ed-dfc7-43ce-878e-6a209307aa4d" class="">Let&#x27;s take a look at the HTML we are working with.</p><p id="24d60da9-3068-4eff-9f2e-c542b0be9832" class="">As you can see, in our <code>index.html</code>, we have a div with the class of colors. We will select that on page load.</p><pre id="db95feaa-5acb-4bbf-868e-5d79e04033a4" class="code code-wrap"><code>// speech.js
+import { handleResult } from &quot;./handlers&quot;;
+import { colorsByLength } from &quot;./colors&quot;;
+
+const colorsEl = document.querySelectors(&quot;.colors&quot;);</code></pre><p id="25469e79-4517-4fed-bb37-a3bec3ef8678" class="">Next we will replace where we call <code>displayColors</code> and instead set the value of <code>colorsEl.innerHTML</code> to the value returned from <code>displayColors()</code></p><pre id="8d786687-1ddc-45e5-bb8d-7d978dcf22d0" class="code code-wrap"><code>// speech.js
+import { handleResult } from &quot;./handlers&quot;;
+import { colorsByLength } from &quot;./colors&quot;;
+
+const colorsEl = document.querySelectors(&quot;.colors&quot;);
+
+function displayColors(colors) {
+return colors.map((color) =&gt; `&lt;span class=&quot;color&quot;&gt;${color}&lt;/span&gt;`);
+}
+
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+function start() {
+// see if their browser supports this
+if (!(&quot;SpeechRecognition&quot; in window)) {
+console.log(&quot;Sorry your browser does not support speech reco.&quot;);
+return;
+}
+
+// it does work
+console.log(&quot;Starting...&quot;);
+
+// make a new speech reco
+const recognition = new SpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = true;
+recognition.onresult = handleResult;
+recognition.start();
+}
+
+start();
+colorsEl.innerHTML = displayColors();</code></pre><p id="de36e448-8576-4f10-a752-e0976835e956" class="">When the page refreshes, you will notice that we get the following error:</p><p id="303edb2c-2aed-4095-90de-aa652fdf9bdb" class="">That issue is happening because we did not pass the list of colors as an argument. Let&#x27;s fix that.</p><pre id="74f72522-13da-452c-a5ef-364a2fde1236" class="code code-wrap"><code>// speech.js
+colorsEl.innerHTML = displayColors(colorsByLength);</code></pre><p id="2bf7d36f-32de-496b-a566-263d43352221" class="">Now, when the page refreshes we just see undefined and there is nothing in the console. What is going on?</p><p id="602cc3d5-0adf-45f7-aae0-bfe855e51ddb" class="">If you look at our <code>speech.js</code> file, you will see that we forgot to return the colors map in our <code>displayColors</code> function. Fix that by adding the return keyword before the map.</p><pre id="31e7d6a3-e35a-4272-9dc5-5ec6ceb08f00" class="code code-wrap"><code>// speech.js
+function displayColors(colors) {
+return colors.map((color) =&gt; `&lt;span class=&quot;color&quot;&gt;${color}&lt;/span&gt;`);
+}</code></pre><p id="103a7499-db61-4808-89ae-95ced6aeccec" class="">As you can see, now it works! That gives us a list of all the colors.</p><p id="92ac8461-07b5-4174-b55b-68ef28f4cd8d" class="">To get rid of the commas we can call <code>.join(&#x27;&#x27;);</code> like so:</p><pre id="9bce331c-9de3-428c-afff-3c413bab3d12" class="code code-wrap"><code>// speech.js
+function displayColors(colors) {
+return colors.map((color) =&gt; `&lt;span class=&quot;color&quot;&gt;${color}&lt;/span&gt;`).join(&quot;&quot;);
+}</code></pre><p id="313f8591-4e2f-4839-80e2-20aff2d72e6f" class="">Let&#x27;s add some style properties to each of the colors. We will set the background to be the name of the colors, like so 👇</p><pre id="aee2b35d-06a0-43ad-bc9d-a5d7227ba945" class="code code-wrap"><code>//speech.js
+
+function displayColors(colors) {
+return colors
+.map((color) =&gt;
+`&lt;span class=&quot;color&quot; style=&quot;background: ${color};&quot;&gt;${color}&lt;/span&gt;`
+)
+.join(&quot;&quot;);
+}</code></pre><p id="064ba6a7-c7d6-4e86-a447-9071150e8be5" class="">We want to know if the color is light or dark so we can change the color of the text accordingly. Wes wrote some CSS ahead of time to handle this.</p><p id="bb869f91-e5f5-4f18-89ff-78dc8df1ba58" class="">To do that we can import the <code>isDark</code> function from our <code>colors</code> module like so:</p><pre id="77c0d0c3-a46c-44f1-8501-324969eeaf82" class="code code-wrap"><code>// speech.js
+import { handleResult } from &quot;./handlers&quot;;
+import { colorsByLength, isDark } from &quot;./colors&quot;;</code></pre><p id="011fac6b-a00a-4c21-aa1f-08a1822726ca" class=""><code>isDark</code> will return true or false so we can use that within our back ticks to determine what text color to show.</p><pre id="df94ba82-a23a-4ad0-99f2-5fc4e9717628" class="code code-wrap"><code>// speech.js
+function displayColors(colors) {
+return colors
+.map((color) =&gt;
+`&lt;span class=&quot;color ${
+isDark(color) &amp;&amp; &quot;dark&quot;
+}&quot; style=&quot;background: ${color};&quot;&gt;${color}&lt;/span&gt;`
+)
+.join(&quot;&quot;);
+}</code></pre><p id="bc9053e1-8814-49e1-90d0-1d32ef327a39" class="">What should happen is the dark ones have a class of &quot;dark&quot; and the lighter colors should have no class appended.</p><p id="c1661017-2e9f-4e0b-85a0-afc8b9e15b2d" class="">However, if you inspect the element in the dev tools, you will see that the classes that are dark have the &quot;dark&quot; class, but the light colors have a &quot;false&quot; class, which is incorrect.</p><p id="94ce6d12-46de-48c5-a807-d7d1932b42e1" class="">Let&#x27;s fix that by using at ternary statement instead of the <code>&amp;&amp;</code>.</p><pre id="4890aefd-3ae7-4221-95a7-f857d841b272" class="code code-wrap"><code>// speech.js
+function displayColors(colors) {
+return colors
+.map((color) =&gt;
+`&lt;span class=&quot;color ${
+isDark(color) ? &quot;dark&quot; : &quot;&quot;
+}&quot; style=&quot;background: ${color};&quot;&gt;${color}&lt;/span&gt;`
+)
+.join(&quot;&quot;);
+}</code></pre><p id="98951610-cefc-4761-8fcd-b3337d75822f" class="">As you can see, the light colors only have the &quot;colors&quot; class now.</p><h3 id="7b3a9143-7703-4e98-8647-b15df3bcd685" class="">Combining Speech and Words</h3><p id="140d9d15-c581-450c-981e-9e336b6e6391" class="">Next, go into <code>handlers.js</code> and let&#x27;s start hooking up the speech with actions. Add the following code 👇</p><pre id="b395bd9c-a324-49b7-818f-35f6fede6fc5" class="code code-wrap"><code>// handlers.js
+function logWords(results) {
+console.log(results[results.length - 1][0].transcript);
+}
+
+export function handleResult(event) {
+logWords(event.results);
+const words = results[results.length - 1][0].transcript;
+console.log(words);
+}</code></pre><p id="177659a3-2092-47f5-8bfc-000bcfcc852a" class="">If you refresh the page and try to say red, you will see an error logged complaining that <code>results</code> is not defined.</p><p id="ead1dea5-6d5a-4ada-a9c7-10a1438adb04" class="">To fix that, let&#x27;s destructure the results property in the function definitions.</p><pre id="6139c1c4-6f4d-45ef-a17f-93514630ca25" class="code code-wrap"><code>export function handleResult({ results }) {
+logWords(results);
+const words = results[results.length - 1][0].transcript;
+console.log(words);
+}</code></pre><p id="4b7615a3-678c-4fc1-852f-4299c10d5a0f" class="">When the page refreshes, you will see the speech streaming in.</p><p id="483da555-fcc4-4110-8fe2-3a8996ad7c16" class="">We need to add a check to see if the word that is streaming is a valid color.</p><p id="b854d13d-d5ef-4a9e-8731-a5999de2f830" class="">To perform this check, we must first lowercase everything, so we don&#x27;t have to deal with upper and lowercase versions when comparing. We also want to strip any spaces out because sometimes the SpeechRecognition will return spaces in front of the word.</p><p id="ada0e561-fdaa-4c94-a791-b1e9d9840337" class="">If it is a valid color, let&#x27;s show the UI for that. Add the following code 👇</p><pre id="d3a1881c-7ec9-41c8-8429-c43419babfdf" class="code code-wrap"><code>export function handleResult({ results }) {
+logWords(results);
+const words = results[results.length - 1][0].transcript;
+console.log(words);
+// lowercase everything
+// strip any spaces out
+// check if its a valid colour
+// if it is, then show the UI for that
+}</code></pre><p id="10a43ab7-70bf-464e-b880-dbcdaf53ce20" class="">Let&#x27;s start with lowercasing.</p><pre id="8ed2b323-047e-4f01-8ee3-c18e7282b33b" class="code code-wrap"><code>// handlers.js
+// lowercase everything
+const color = words.toLowerCase();</code></pre><p id="a9fe3965-fdfd-4913-ae1f-87655edf1692" class="">Next we will strip any spaces out by replacing whitespace with nothing. Start by modifying the <code>color</code> variable to be a <code>let</code> instead of a <code>const</code>.</p><p id="102db7a5-d7b8-4d96-a0cb-08a03a3dd02f" class="">When you are replacing characters in JavaScript, if you have only one space to replace you can use the <code>replace</code> method like so: <code>color = color.replace(&#x27;&#x27;, &#x27;&#x27;);</code>.</p><p id="386acf47-617d-4069-8726-b3ef2a5ae957" class="">However if there is more than one space, you have to use a <strong>Regex</strong>. There is a new <code>replaceAll</code> method coming, which will do that for you but it is not in the browsers yet.</p><p id="be23ee29-c88d-4511-927a-f5343d8e290d" class="">We will use a Regex that will match all the spaces. The regex to match whitespace is <code>/\s/</code> and the if you pass a <code>/g</code> flag that means global, so it tells the Regex to find all instances, not just the first.</p><pre id="e4840d85-0d8a-4e7c-bb5e-2963e79d9e6b" class="code code-wrap"><code>// handlers.js
+// strip any spaces out
+color = color.replace(/\s/g, &quot;&quot;);</code></pre><p id="6c9e9374-82cf-4b8e-ade8-7ff1cff2c355" class="">Next we want to check if it is a valid color.</p><p id="a838a7da-bf06-41c2-bfb9-01747a5b18d0" class="">Lets go into our <code>colors.js</code> module and add a new function and immediately export it.</p><pre id="ecc6cdae-8bdf-4fab-8b29-a47c7ff216b7" class="code code-wrap"><code>// colors.js
+export function isValidColor(word) {
+return colors[word];
+}</code></pre><p id="9f4c5a1b-6ee9-414d-8be9-7148359b3ab7" class="">If there is a match, the code above will return the actual hex code. If there is no match, it will return undefined.</p><p id="c19e5168-aa07-4cc1-9d0c-58e53fa345de" class="">In our case, we do not want the hex, we want a boolean.</p><p id="27915eef-d2ef-461c-9cb4-06122c4ff8e9" class="">To achieve that, we can add a double bang (<code>!!</code>) to <strong>coerce</strong> it to return true or false like so:</p><pre id="b96d474e-fb8f-4d19-ae19-5aa9f226b2e2" class="code code-wrap"><code>export function isValidColor(word) {
+return !!colors[word];
+}</code></pre><p id="d7817a19-c0dd-4cbe-8595-0f04468e7963" class="">That code above works like this:</p><p id="b5335b91-abf5-4587-a7c6-f5693afe93fb" class="">Calling <code>colors.red</code> will return the hex, but calling <code>!!colors.red</code> will return <code>true</code> and if the property doesn&#x27;t exist, it will return <code>false</code>.</p><p id="5421ca3a-3309-4046-a3c2-911c531061ee" class="">We could also use the <code>in</code> syntax and it would give us the same results.</p><p id="f29f3778-d8d8-495a-81c2-4770a76e19e4" class="">Next we can import that into our <code>handlers.js</code>.</p><pre id="e4542930-b741-4853-a467-5e6cb676a830" class="code code-wrap"><code>// handlers.js
+import { isValidColor } from &quot;./colors&quot;;
+
+function logWords(results) {
+// console.log(results[results.length - 1][0].transcript);
+}
+
+export function handleResult({ results }) {
+logWords(results);
+const words = results[results.length - 1][0].transcript;
+// lowercase everything
+let color = words.toLowerCase();
+// strip any spaces out
+color = color.replace(/\s/g, &quot;&quot;);
+// check if it is a valid colour
+if (!isValidColor(color)) return; // thats all folks
+console.log(&quot;This is a valid color!&quot;);
+}</code></pre><p id="75a9c383-3b1b-4a75-951c-439a8d9dd34e" class="">Now if you try talking and say a valid color, you should see the message &quot;This is a valid color!&quot; pop up.</p><p id="7f047931-69e3-46ec-89f2-1000e2daf6ee" class="">Let&#x27;s start working on the UI to display if it is a valid color.</p><p id="e3ae8d5e-5605-43ab-927d-ea6e03c5d4dc" class="">When a color is spoken, we will first cross the word out. To do that, we need to select the span corresponding to the color.</p><p id="b8f6ef61-54ee-49ff-8612-e7914eee3750" class="">However, we have run into an issue. We need a way to select a specific span and as you can see above, there is no way to identify the correct span. Let&#x27;s fix that to add the color&#x27;s name as a class in addition to the <code>color</code> class.</p><p id="a5095e11-3fbf-4d9b-8af1-c7056123cde7" class="">Modify <code>speech.js</code> like so:</p><pre id="c1783fb7-3b63-4f46-b1d3-ea2d8889a618" class="code code-wrap"><code>// speech.js
+
+function displayColors(colors) {
+return colors
+.map((color) =&gt;
+`&lt;span class=&quot;color ${color} ${
+isDark(color) ? &quot;dark&quot; : &quot;&quot;
+}&quot; style=&quot;background: ${color};&quot;&gt;${color}&lt;/span&gt;`
+)
+.join(&quot;&quot;);
+}</code></pre><p id="7c94cfa4-25f6-47dc-9454-3d1b6d932491" class="">Back in our <code>handleResults</code> function, we can select the color span that was spoken like so 👇</p><pre id="3f200d08-0636-4300-bdb3-2a26fc13549b" class="code code-wrap"><code>// if it is, then show the UI for that
+const colorSpan = document.querySelector(`.${color}`);
+console.log(colorSpan);</code></pre><p id="878e3d37-9498-4fbf-ab44-11a5bb0ca42e" class="">If you try speaking the color red when the page refreshes, you should see the red color span logged.</p><p id="0f0eb623-56fb-4139-98c4-2ac507dafc1b" class="">Let&#x27;s take a look at the CSS. We have a class of <code>.got</code> with the following styles set:</p><pre id="96677c2a-4c74-4df5-94db-4c2ad0be156d" class="code code-wrap"><code>// style.css
+colors span.got {
+text-decoration: line-through;
+animation: jump 0.2s ease-in-out 2 alternate-reverse;
+}</code></pre><p id="220da4f7-a282-4d4e-afc3-9876a3e700ed" class="">That gives the UI a jump animation which scales the span up and then back down.</p><p id="6e70277c-7843-4c90-b99a-1a79b99b1ada" class="">Let&#x27;s add code to also include this class to the span once it has been spoken.</p><pre id="a9818c27-54cc-419d-8fba-26b2d195cc14" class="code code-wrap"><code>export function handleResult({ results }) {
+logWords(results);
+const words = results[results.length - 1][0].transcript;
+// lowercase everything
+let color = words.toLowerCase();
+// strip any spaces out
+color = color.replace(/\s/g, &quot;&quot;);
+// check if it is a valid colour
+if (!isValidColor(color)) return; // thats all folks
+// if it is, then show the UI for that
+const colorSpan = document.querySelector(`.${color}`);
+colorSpan.classList.add(&quot;got&quot;);
+console.log(colorSpan);
+console.log(&quot;This is a valid color!&quot;);
+console.log(color);
+}</code></pre><p id="e1bfd260-c6e5-4e23-a1ae-064aa69ac8b1" class="">That will give the span the class of <code>got</code> and animate it once the color is spoken.</p><p id="3413a224-930e-46e1-9bc0-fb1ccb84c352" class="">We also want to change the background color to the word that was spoke, like so: <code>document.body.style.backgroundColor = color;</code>.</p><p id="cc519c8b-4b80-4ff7-816e-4a6c5ee4c87a" class="">Add the following code 👇</p><pre id="8a37f9ec-f103-4a62-b636-f7c6e9c40f16" class="code code-wrap"><code>export function handleResult({ results }) {
+logWords(results);
+const words = results[results.length - 1][0].transcript;
+// lowercase everything
+let color = words.toLowerCase();
+// strip any spaces out
+color = color.replace(/\s/g, &quot;&quot;);
+// check if it is a valid colour
+if (!isValidColor(color)) return; // thats all folks
+// if it is, then show the UI for that
+const colorSpan = document.querySelector(`.${color}`);
+colorSpan.classList.add(&quot;got&quot;);
+console.log(colorSpan);
+console.log(&quot;This is a valid color!&quot;);
+console.log(color);
+// change the background color
+document.body.style.backgroundColor = color;
+}</code></pre><figure id="ba5f9308-f8e6-40e5-af12-6b84fb32c9d5" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/red.gif"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/red.gif"/></a></figure><p id="8f91677f-bdce-4b67-a1d9-314cdfeacfe2" class="">As you can see, now the background color is changing when the word is spoken.</p><p id="9198b76d-888a-4375-93f3-b437e5a0b193" class="">That&#x27;s a wrap for this exercise!</p><p id="d269c851-5cd8-41c8-90dc-502f75346f7c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="24340dee-5e7a-49e4-8961-43a9b5cdb06d" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="7195a174-aeaf-4424-bf52-53a4c1cf7c57" class="">Edit on Github</p></details></li></ul><ul id="fa3c8d6c-3178-433f-a1df-34f15619d898" class="toggle"><li><details open=""><summary>85 - Audio Visualization</summary><p id="b1328c60-c8c5-40f8-9d26-119420bb1b70" class=""><a href="https://wesbos.com/javascript/15-final-round-of-exercise/85-audio-visualization">https://wesbos.com/javascript/15-final-round-of-exercise/85-audio-visualization</a></p><p id="8c231825-1da6-4134-93ff-ef4495362a45" class="">
+</p><figure id="e3beb1f3-4810-4216-ba1e-3caaa72e94b2" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/bjs%201.png"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/bjs%201.png"/></a></figure><p id="20ec1206-8b6a-4809-b0ad-be442fffcd05" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="ef9a3210-1b5d-4023-ac6d-a675d2a86d7d" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="e7ed35b4-c787-4d1e-ad0c-e729fa9fcce1" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="57f3372b-ea3c-4eef-99b6-06bf84e24c1f" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="3b0502a7-412f-4cb9-8fb8-f27c9f46004e" class="">JavaScript, Audio VisualizationEdit Post</p><figure id="7b96ead2-0850-4ecc-a1f6-e6c9d579151f" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/audio.gif"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/audio.gif"/></a></figure><p id="953877c7-a481-42f5-b0fb-84ab3032178e" class="">There is a whole spectrum of JavaScript related to working with audio. In this lesson, we will be working with the Web Audio API which is really cool.</p><p id="266a1e60-cae9-4b74-bba2-2593bf8bdb57" class="">Although Wes doesn&#x27;t know a lot about how audio works, he understands the basics about things like frequency and time. We will be using frequency and time to build the cool audio visualizer shown in the gif above.</p><p id="19c77509-9c68-489c-8f14-a2b2fa4bfdc3" class="">The visualizer has a rainbow bar graph along the bottom which represents the frequencies. The yellow line is time data of the audio coming in. We are just painting those two things to canvas.</p><p id="b75e9619-5dd2-4520-9ab7-179fc516083b" class="">The entire visualizer should only take about 100 lines of code!</p><p id="4c62c66b-f4d7-45d8-bd7c-2bdc31a178b6" class="">For this lesson, we are working out of the <code>85 - Audio Visualizer Oscilloscope</code> exercise folder.</p><p id="8adc22b0-6ee1-4785-be1f-92e2e7331cc1" class="">Open up a terminal, cd into that directory and run <code>npm install</code>.</p><p id="ee1c0c2a-8de7-444e-a16c-2c87643d62f0" class="">If you take a look at our <code>package.json</code> file, you will see we have one dev dependency, Parcel, a start script and browserslist.</p><p id="c278e499-2179-40c7-b40e-2f7023c50996" class="">We will be starting with the following HTML.</p><pre id="796544f8-c861-4ece-afd2-ca06ad323bd8" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+
+&lt;title&gt;Audio Analyzer&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;canvas&gt;&lt;/canvas&gt;
+  &lt;script src=&quot;./sound.js&quot;&gt;&lt;/script&gt;
+
+  &lt;style&gt;
+    html {
+margin: 0;
+background: black;
+}
+
+    canvas {
+width: 100%;
+height: 100%;
+}
+
+    body {
+min-height: 100vh;
+display: grid;
+grid-template-rows: 1fr;
+margin: 0;
+}
+&lt;/style&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre><p id="db5a06b7-5b89-4ae6-82f3-12c23436b09f" class="">As you can see above, we are starting with a blank canvas, a script tag linking the <code>sound.js</code> file and some basic styles which stretch the canvas to be whatever the dimensions of the window are.</p><p id="0114b447-88e7-4959-a251-02d35d16e06d" class="">We will be demonstrating how to make this work with a microphone, but if you want the visualizer to work with music, you have a few options.</p><p id="6adb790b-a6a3-42ec-85a1-6b8ec87800bb" class=""><em>Audio Visualizer with Music</em> There are some APIs to pipe it in from an audio element. We are not going to go into those, because we are just doing microphone for now. You can always just unplug your headphones and play your music over your speakers and that will make it back into your microphone. The last option is this app called LoopBack which allows you to take apps like Spotify and pipe that into the microphone. That is a paid app however, and not something you probably need. Wes just wanted to show us how he is doing it.</p><p id="61953667-82e7-475d-836a-36a7b54e050a" class="">Open up <code>sound.js</code>. The first thing that we want to do is create a <code>WIDTH</code> and a <code>HEIGHT</code> variable.</p><p id="6016d90f-b451-4ebe-a010-f2a6d4d039ed" class="">The value we assign to those two variables doesn&#x27;t actually matter that much. If you assign them a lower number, it is going to be much more responsive. If you do a higher number, it is going to really slow down your computer. You have to find what works for you. Wes has found the following values work well on his computer.</p><pre id="c02e1665-d5f0-427e-8327-d51d55fa7684" class="code code-wrap"><code>const WIDTH = 1500;
+const HEIGHT = 1500;</code></pre><p id="aae2c6ce-d609-4764-a2ff-a653e5780484" class="">If you find that those values are causing your computer to slow down, feel free to adjust them. All the calculation we will be doing will be based off these variables, so there is no issue swapping out that variable value.</p><p id="8181b1d8-0fea-4ff6-bfb2-6dcfa191e124" class="">Next we need to grab the canvas element and the context. We will use those to size up the canvas to be the width and height values that we set in the variables.</p><pre id="121685fa-b16f-4563-9dcc-d47647dc2c94" class="code code-wrap"><code>const WIDTH = 1500;
+const HEIGHT = 1500;
+const canvas = document.querySelector(&#x27;canvas&#x27;);
+const ctx = canvas.getContext(&#x27;2d&#x27;);
+canvas.width = WIDTH;
+canvas.height = HEIGHT;</code></pre><p id="21c11247-79a8-441e-bc21-afba08dd8ecb" class="">If the <code>npm install</code> you ran earlier is finished, you can go ahead and run <code>npm run start</code> to start the server. Click the link in the terminal to open up the server in your browser.</p><p id="64075233-121c-4d13-a432-4f1e9592914c" class="">There are 2 things that are going to go on here.</p><ol type="1" id="926a9d93-57c8-404b-b494-5fc5a66ff65c" class="numbered-list" start="1"><li>We need to actually get the audio and the data about the frequency, time and all that.</li></ol><ol type="1" id="07963404-a87b-45b2-8d7f-2f0879029ca5" class="numbered-list" start="2"><li>Then we want to draw the frequency bars that are along the bottom as well as draw the time data.</li></ol><p id="a4b64a2b-a30f-4678-95a9-d45b324a9ccd" class="">Let&#x27;s start with the audio.</p><h2 id="13f553e1-f183-4e91-abf3-a8e5c4a390be" class="">Audio</h2><p id="5e372b4b-7545-47a8-8e1b-50940a553b35" class="">We need to make an async function called <code>getAudio</code> and within that function we need to get access to the user&#x27;s microphone. That is why we are running this example on a server, a microphone can only be accessed on a server that is secure origin on HTTPS or localhost. The browser will not allow you to have access to the webcam, microphone or any of those API&#x27;s unless you are on a secure origin.</p><p id="4fe17d2d-be74-4e36-9852-1b7f556f09c1" class="">Add the following code 👇</p><pre id="41547250-e755-4c1e-87f2-bba7089fe7e5" class="code code-wrap"><code>// sound.js
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });</code></pre><p id="dcf012c7-dba2-4eb8-8b2e-d66ef4ea214a" class="">This is exactly the same API we used in previous lessons, the only difference is this time we are passing <code>audio: true</code> because we do not want access to use the webcam.</p><p id="450a9e4c-a303-43b8-85ab-742f8dc24bd5" class="">Next we need to get the audio context in the browser. The audio context will be where all the processing is done.</p><pre id="e28d31f5-32d3-4f6b-ad4f-c572dd939813" class="code code-wrap"><code>const audioCtx = new AudioContext();</code></pre><p id="78c74e2a-873d-4d3a-adc2-03a2df6eae50" class="">Now that we have the audio context, inside of there we can create an analyzer. We will also write a few functions that will need access to that analyzer.</p><p id="5bcfba98-bb40-48f1-b68b-9a5a535474bf" class="">Those functions will be responsible for:</p><ul id="013d92a2-af04-4539-971a-1a1f4cc2a134" class="bulleted-list"><li style="list-style-type:disc">getting the audio</li></ul><ul id="d56bfa68-6e31-406a-af92-4471b2810f70" class="bulleted-list"><li style="list-style-type:disc">drawing the frequency bars</li></ul><ul id="86d0a2cc-78f2-4579-a53e-a19f4ccf8b37" class="bulleted-list"><li style="list-style-type:disc">drawing the time bars.</li></ul><p id="6e9da6d3-bf2d-4552-8a22-804d070fe520" class="">All three of those need access to the audio context.</p><p id="a66a9ce0-536b-4f10-a480-b8a0fc6919b5" class="">To solve this, let&#x27;s create a variable at the top of the file. We could also pass it in as an argument to the functions, but because the logic of this will already be complex, we want to make it as simple as possible so we will scope it to the <code>sound.js</code> module.</p><pre id="3e49d3e4-b10b-4aff-900d-27f0a2b62814" class="code code-wrap"><code>// sound.js
+const WIDTH = 1500;
+const HEIGHT = 1500;
+const canvas = document.querySelector(&quot;canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+let analyzer;</code></pre><p id="086d33da-6e4b-44c3-a20c-725665f4cfec" class="">Take that variable and assign it to the value of <code>audioCtx.createAnalyser()</code>.</p><pre id="14ecbe4f-5f0c-4733-a440-d8ee6f21da85" class="code code-wrap"><code>async function getAudio() {
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+const audioCtx = new AudioContext();
+analyzer = audioCtx.createAnalyser();
+}</code></pre><p id="f11d0d34-79b0-46f6-af74-bee2d7e9aee8" class="">Next we need to create a source which will take our stream and pipe that into the audio context. The idea with the whole context thing is that you can take data and then pipe it through your context, do stuff to it like change frequency and time and then you pipe the data out, very similar to how it would work if you had physical audio devices.</p><p id="a9718110-7b6e-4752-8bfb-821d7e2217bd" class="">Let&#x27;s take the audio context and call <code>createMediaStreamSource(stream)</code> on it. Then we will need to take that source and connect it to the analyzer, like so 👇. That should have wired everything up for us.</p><pre id="c312c3d2-dbaf-4291-be63-cb4430e89954" class="code code-wrap"><code>async function getAudio() {
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+const audioCtx = new AudioContext();
+analyzer = audioCtx.createAnalyser();
+const source = audioCtx.createMediaStreamSource(stream);
+source.connect(analyzer);
+}</code></pre><p id="195fe6ef-f63d-4b45-8ba8-e62b0e3b59c2" class="">Now that we have the analyzer, we need to figure out how much data we want access to because you can get really detailed and sample a lot of data or sample just a bit of data.</p><p id="2031fc05-fc22-4651-94cb-b6d254d9909e" class="">Here is an example with a lot of data:</p><p id="de649d4e-e00f-447e-8adb-64cb1f1c191a" class="">And here is an example with just some data:</p><p id="7687195d-bb5f-46fc-b7c8-58bc1f9faa3c" class="">It is up to us how much data we want to collect. To set that we use the <code>fftSize</code> property of the analyzer. If you are curious you can look up the docs for that property but essentially that is what we use to set how much data should be collected.</p><p id="251dfac0-eed9-43e4-838e-127806c50013" class="">We will set it to be 2 to the power of 10, which you represent using two multiplication signs like so:</p><pre id="007e5b7c-aaec-46d0-aee7-4cb8e8af3831" class="code code-wrap"><code>analyzer.fftSize = 2 ** 10;</code></pre><p id="ce16bee6-0370-4c94-bc3f-f3a87437cffc" class="">Now that we have that, let&#x27;s go ahead and pull the data off the audio. We will grab that in an array.</p><pre id="417611ca-1bfb-49ff-b81d-72b702d559d4" class="code code-wrap"><code>const timeData = new Uint8Array(analyzer.frequencyBinCount);</code></pre><p id="6142c316-a3d5-422d-9459-57af9890bdd5" class="">Let&#x27;s break that down starting with looking up the docs for the Uint8Array.</p><p id="1e763adf-a993-4899-9e95-90bc00a70f16" class="">What does that all mean? Well the data that we are getting back from the time data is 8 bits or 1 byte. This is getting pretty nerdy but essentially if you have an array, normal arrays you can put as much data as you want in every single item. However with this special array, each item can only ever be 8 bits of 1 byte (8 bits is 1 byte).</p><p id="38d4ab2b-4411-49fe-93b7-c7e630ac04dc" class="">What that allows us to do is if we know ahead of time how big each of them are, we can make really big arrays, meaning that they are typed and we are not accidentally going to put some data in there that does not work for us. This is useful for heavy lifting like data analysis. You also see those special types of arrays when working with graphics as well.</p><p id="8d0c48cf-9574-4510-879a-6a4f7341e374" class="">Go ahead and log <code>timeData</code>, which is our new array containing data about the time. Let&#x27;s also add a call to run <code>getAudio()</code> on runtime.</p><pre id="abb69f88-9320-4d41-b897-2c79becc2224" class="code code-wrap"><code>async function getAudio() {
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+const audioCtx = new AudioContext();
+analyzer = audioCtx.createAnalyser();
+const source = audioCtx.createMediaStreamSource(stream);
+source.connect(analyzer);
+
+// How much data should we collect
+analyzer.fftSize = 2 ** 10;
+// pull the data off the audio
+const timeData = new Uint8Array(analylzer.frequencyBinCount);
+console.log(timeData);
+}
+
+getAudio();</code></pre><p id="71881468-cc23-4e87-b07e-ef9f7ba63daa" class="">When the page refreshes, we expected to see an array of audio logged to the console. However, we are currently seeing an error &quot;Uncaught (in promise) DOMException: Permission denied&quot;</p><p id="ef23a302-7cc1-4c7d-86d3-bb4d24d0c0e7" class="">What is happening there is our call to <code>getUserMedia</code> has been denied.</p><p id="a70bddfa-9663-453e-80a8-ac3c1a305c84" class="">Create a <code>handleError</code> function that logs &quot;You must give access to your mic in order to proceed&quot;. Then modify the call to <code>getUserMedia</code> to chain a <code>catch()</code> on it and pass it our <code>handleError</code> function, like so 👇</p><pre id="a901bea4-92f9-4ec6-be0f-0e7908dfbd41" class="code code-wrap"><code>// sound.js
+function handleError(err) {
+console.log(&#x27;You must give access to your mic in order to proceed&#x27;);
+}
+
+async function getAudio() {
+const stream = await navigator.mediaDevices
+.getUserMedia({ audio: true })
+.catch(handleError);</code></pre><p id="154029de-83dc-4c67-a6fc-c56fe9b7940e" class="">Now we see the following message in the console 👇</p><p id="7c3b1879-a2ed-4e3b-b729-516f52a55b76" class="">To allow access, you need to allow the webpage access to the microphone within chrome, as shown in the image below.</p><p id="b2f3635b-8e82-49aa-b800-d5a47deaaeae" class="">Now when you refresh the page, you will see we get an array.</p><p id="0ded89f4-a4a2-460f-9640-796fd2da45e5" class="">At first they will all contain zeros but as we keep talking and keep sampling the data, it will fill up with a bunch of numbers that represent the frequencies and the time data in what we say.</p><p id="21155936-9d6c-4b77-86cc-c7a09f7c716b" class="">Let&#x27;s make the second one as well for frequency.</p><pre id="52144824-406e-4d3f-b435-b0cdc07df24b" class="code code-wrap"><code>const frequencyData = new Uint8Array(analyzer.frequencyBinCount);
+console.log(frequencyData);</code></pre><p id="801f9308-29ae-4a79-8962-85be13645249" class="">We now have two empty arrays with the right amount of slots that we are going to be filling up with data.</p><h2 id="b38f77c0-c5db-4af1-9fdd-1c226c26aa04" class="">Time Data Visualization</h2><p id="508e16a8-dd0e-4c1a-b101-f4e3c45dd561" class="">Make a function called <code>drawTimeData(timeData)</code>, which will need to run as frequently as possible. Let&#x27;s call it within the <code>getAudio</code> method initially, like so 👇</p><pre id="4fdff405-c1d6-4820-8f5e-70262b9afc13" class="code code-wrap"><code>async function getAudio() {
+const stream = await navigator.mediaDevices
+.getUserMedia({ audio: true })
+.catch(handleError);
+
+const audioCtx = new AudioContext();
+analyzer = audioCtx.createAnalyser();
+const source = audioCtx.createMediaStreamSource(stream);
+source.connect(analyzer);
+
+// How much data should we collect
+analyzer.fftSize = 2 ** 8;
+// pull the data off the audio
+// how many pieces of data are there?!?
+bufferLength = analyzer.frequencyBinCount;
+const timeData = new Uint8Array(bufferLength);
+const frequencyData = new Uint8Array(bufferLength);
+drawTimeData(timeData);
+}</code></pre><p id="4a2a9a32-e387-4b30-b77a-bc65218a4fb5" class="">Within <code>drawTimeData</code> we will log the <code>timeData</code> array, and we will make the function call itself as soon as possible. To do that, we will use <code>requestAnimationFrame</code>.</p><p id="24077240-f76d-499e-9ba3-efe75b483d71" class="">We will use that method to tell the browser to run the <code>drawTimeData</code> function again the next time it is possible to paint the screen. To do that we will use an arrow function like so:</p><pre id="5cabea2d-33ff-41fa-b6fd-808850270ac4" class="code code-wrap"><code>function drawTimeData(timeData) {
+console.log(timeData);
+// call itself as soon as possible
+requestAnimationFrame(() =&gt; drawTimeData(timeData));
+}</code></pre><p id="777db63b-ff74-4478-b134-1efa477d4676" class="">Now when you refresh you will see we have this stream of data coming in.</p><p id="20db4073-9b70-442b-a9e5-d9ae8eeb3181" class="">It is all still zeros because it was 0 initially but we have another method that will allow us to pull the data out of it: <code>analyzer.getByteTimeDomainData(timeData);</code></p><p id="cf819211-432c-4040-b51c-1b731a051009" class="">This method is a bit weird. How it works is it allows us to inject our time data into our <code>timeData</code> array.</p><p id="3b3fc084-a125-4aab-bc41-218d049f96ec" class="">Now when we log <code>timeData</code>, you should see as you talk, the numbers go from 128 all the way to 255.</p><pre id="71f2ec86-b9fc-4b9f-8316-13b7acec69d8" class="code code-wrap"><code>function drawTimeData(timeData) {
+analyzer.getByteTimeDomainData(timeData);
+console.log(timeData);
+// call itself as soon as possible
+requestAnimationFrame(() =&gt; drawTimeData(time));
+}</code></pre><p id="404dfe97-4f09-4179-9167-220094aaccce" class="">That data is a visual representation of the words that Wes is speaking.</p><p id="09247fdd-aee5-45cd-a977-cb8a906dd90c" class="">Now that we have that data, let&#x27;s turn it into something visual, starting with drawing with the canvas.</p><p id="8d11ac95-1516-4b07-a9a0-39aec163c05c" class="">The first thing we would need to do is clear the canvas but for now, leave a TODO and move onto the next steps so you can see what happens when we do not clear the canvas.</p><p id="6488cc08-89e6-49e4-b4f4-540db82700c1" class="">The next steps involve setting the <code>lineWidth</code>, <code>strokeStyle</code> and calling the <code>beginPath()</code> method on the canvas context.</p><pre id="b89e5c22-06a1-4295-acb4-53341695191a" class="code code-wrap"><code>function drawTimeData(timeData) {
+// inject the time data into our timeData array
+analyzer.getByteTimeDomainData(timeData);
+// now that we have the data, lets turn it into something visual
+// 1. Clear the canvas TODO
+// 2. setup some canvas drawing
+ctx.lineWidth = 10;
+ctx.strokeStyle = &quot;#ffc600&quot;;
+ctx.beginPath();</code></pre><p id="1dbf81cd-ff03-48e6-9ce0-1d8495d0dbad" class="">Now we need to do is figure out how long each line will be.</p><p id="a931c255-043c-473c-9284-c0733b116ba3" class="">Let&#x27;s use the example above and assume there are 8 pieces of data we have to represent that visual. We need to draw lines between each of those data points like a line graph. In order to that, we must figure out how wide each of those lines are going to be.</p><p id="14b8751d-0039-4f2b-98ef-5077af58212d" class="">We have 1500 pixels, and then we have 8 pieces of data. 1500 / 8 = 187.5.</p><p id="8cc535e5-1fff-451c-9de5-cfa9425c3ece" class="">That means each line is going to be above 188 pixels wide. Or if we had 512 pieces of data, each line would be about 2-3 pixels wide (1500/512 = 2.9).</p><p id="4b2a60f6-7c94-4fcd-ab5a-f6b0ba5f9968" class="">Every time we draw something, like the bar graph pieces you see in the visual above, we will refer to each piece as a &quot;slice&quot;. Let&#x27;s figure out what the slice&#x27;s width is equal to.</p><p id="9d014827-4a18-4816-a8f8-beb80146d54a" class="">To do that, take the <code>WIDTH</code> variable and divide it by the array of time data, which we will call a <strong>buffer</strong>.</p><p id="34322f40-e1ac-4f0c-9a8e-ca43c4fbeffd" class="">Go ahead and make a new variable for that, and assign it the value of <code>analyzer.frequencyBinCount</code> which gives you the buffer length value.</p><pre id="27ecf59d-0571-41dc-a0b3-c2fadc8b814e" class="code code-wrap"><code>const WIDTH = 1500;
+const HEIGHT = 1500;
+const canvas = document.querySelector(&quot;canvas&quot;);
+const ctx = canvas.getContext(&quot;2d&quot;);
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+let analyzer;
+let bufferLength;</code></pre><p id="f176d5c1-7de4-488f-b69d-9ffb322d567e" class="">To determine how big each slice will be, add the following code within <code>drawTimeData()</code> and log the value</p><pre id="98d3b581-f1b0-472f-92ab-8513b28ead66" class="code code-wrap"><code>// sound.js
+const sliceWidth = WIDTH / bufferLength;
+console.log(sliceWidth);</code></pre><p id="e841fa38-0f3d-4d58-92f5-4038b0eabef6" class="">That gives us 2.9296875 pixels long. If we were to modify the <code>WIDTH</code> variable to 2500, that value will go up to 4.88 pixels wide per slice. Wes is not going to round that because canvas does a good enough job of rounding those values for us.</p><p id="4e95bcae-1190-4c8c-b9d0-171cebf7eb7a" class="">Now that we have the slice width, we need an <code>x</code> variable which we will set to 0.</p><pre id="7485b6da-660f-427c-97e4-30d3d07175ce" class="code code-wrap"><code>let x = 0;</code></pre><p id="4edbe9f8-cda0-4984-bd79-88564284058a" class="">The reason for that is we will loop over each piece of our time data and we will increment that by the slice width every time we loop over it.</p><p id="a317f064-5396-4cfe-b059-0f8b837107ba" class="">We will use the <code>forEach</code> loop here. That will take in two arguments:</p><ol type="1" id="468ae07d-ed46-475d-8317-7382b933e06c" class="numbered-list" start="1"><li>the data</li></ol><ol type="1" id="3ff10c34-d628-47ff-b759-26100b761d8f" class="numbered-list" start="2"><li>the index variable</li></ol><p id="9f208dbb-43ed-4ade-96a9-52f69d2c718c" class="">Within the loop, we will create a variable <code>v</code> that will be equal to the data, and then divide that by 128.</p><p id="be6f5017-8bb4-4ce7-90b4-c55c461b524a" class="">The reason we do that is because when you are not speaking, it returns 128 and then when you start speaking it goes up. So the <code>v</code> variable is going to be a multiplier that we will use in drawing the data (that will make sense in just a second).</p><p id="d7b9c7ca-de1b-4df2-92ec-8db0bc7eb039" class="">We also want to make a <code>y</code> value.</p><p id="3cfbdadd-3fcf-41e3-8852-47ac7ca166f0" class="">Take the visual above as an example.</p><p id="d2b1d72c-521d-4941-be48-a8bd2e173061" class="">We have this line going left to right on the X axis, but we also need to know how high or how low that the line needs to go which will be based on our <code>y</code> value.</p><p id="a3604e36-8195-4740-80ce-6d25636255fb" class="">To calculate that we will take our <code>v</code> variable and multiply it by our <code>HEIGHT</code> variable and divide that by 2.</p><pre id="b107dcca-1514-4a27-8ccf-8d932ea5ba4e" class="code code-wrap"><code>const y = (v * HEIGHT) / 2;</code></pre><p id="a87b44ce-88b3-4bca-a484-176a9d231dea" class="">You might be thinking that this is a lot of math, and you&#x27;re not wrong. Math is how a lot of graphics are done, there is lots of division and multiplication to scale things up and down.</p><p id="9ae13db4-48a5-4845-9bb1-e639325fade7" class="">Back to the exercise --- let&#x27;s start to draw our lines within the <code>forEach</code> loop.</p><p id="54866cd2-2737-48ec-8b7d-c18ece2939cf" class="">We need to first check whether the item is the first item in the array.</p><p id="7a44fd02-f1c9-4368-8118-6a3fd9e254bd" class="">To do this, we can use the <code>i</code> variable to which tells us the index of the current element that is being processed in the loop..</p><p id="cc12dcb2-430f-4b91-b071-0424b89fa4a1" class="">If it is the first element, we want to move it to the x and y coordinates. Otherwise, we will call <code>lineTo()</code> like so:</p><pre id="51ccf502-c09c-436f-9b9c-4b848f0df054" class="code code-wrap"><code>if (i === 0) {
+canvas.moveTo(x, y);
+} else {
+canvas.lineTo(x, y);
+}</code></pre><p id="cfb9067e-bb05-48e8-8c68-f7ac1b631a14" class="">Next we need to call <code>x += sliceWidth;</code>. That will move our x axis along every time that we loop over.</p><p id="cc3111af-d01b-418b-96af-e9f53c265242" class="">However now if you refresh the page, you will see an error complaining that &quot;canvas.moveTo is not a function&quot;.</p><p id="4fde2c9a-dd46-4409-a1e3-a2849e54f2fc" class="">That is because we are supposed to be calling <code>moveTo</code> and <code>lineTo</code> on the <code>ctx</code> not canvas. Modify the code like so:</p><pre id="c9ad3ee3-4927-485c-ae54-32c91db778e6" class="code code-wrap"><code>if (i === 0) {
+ctx.moveTo(x, y);
+} else {
+ctx.lineTo(x, y);
+}</code></pre><p id="74f73611-61eb-4bea-b0e8-7ee74eaa85d3" class="">Outside of the <code>forEach</code> we will call <code>ctx.stroke()</code>.</p><pre id="5458d628-4005-4ea7-bafa-d4031677fcd4" class="code code-wrap"><code>function drawTimeData(timeData) {
+// inject the time data into our timeData array
+analyzer.getByteTimeDomainData(timeData);
+// now that we have the data, lets turn it into something visual
+// 1. Clear the canvas TODO
+// 2. setup some canvas drawing
+ctx.lineWidth = 10;
+ctx.strokeStyle = &quot;#ffc600&quot;;
+ctx.beginPath();
+const sliceWidth = WIDTH / bufferLength;
+let x = 0;
+timeData.forEach((data, i) =&gt; {
+const v = data / 128;
+const y = (v * HEIGHT) / 2;
+// draw our lines
+if (i === 0) {
+ctx.moveTo(x, y);
+} else {
+ctx.lineTo(x, y);
+}
+x += sliceWidth;
+});
+
+ctx.stroke();
+
+// call itself as soon as possible
+requestAnimationFrame(() =&gt; drawTimeData(timeData));
+}</code></pre><p id="600ec13e-4838-4f94-9b36-990dc025f2d4" class="">What is happening there is that every single time we are drawing something, it is drawing that to the page.</p><p id="22deb188-ee46-4a8a-b81e-3290f59017cc" class="">We take our huge array of data, loop over each piece of that data, draw it to the canvas, and then finally run <code>stroke()</code> at the very end and that will just paint it to the thing.</p><p id="82d00226-3260-47bd-a380-737bcb59e98e" class="">Let&#x27;s go back to the TODO that we left for the first step where we need to clear the canvas and actually add that code.</p><pre id="091a4fd4-3157-40c7-81b2-7d555821171e" class="code code-wrap"><code>// 1. Clear the canvas TODO
+ctx.clearRect(0, 0, WIDTH, HEIGHT);</code></pre><figure id="9e93ba15-b3e7-4839-b974-2f23409b58ef" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/lines.gif"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/lines.gif"/></a></figure><p id="e99eba2a-2386-486d-98e0-9c341aa5f6de" class="">Now every single time that this runs, we first clear out the canvas so it looks like it is actually animating. That is just us painting very very quickly however.</p><p id="4b31cf80-8378-45a3-b3ea-969c6b4d2e03" class="">Go back to the place in the code where we set the <code>fftSize</code>. Let&#x27;s try modifying it to be <code>analyzer.fftSize = 2 ** 6;</code></p><p id="76b3cf41-1aad-42ed-992e-810c773ca005" class="">The higher limit is 32768. Let&#x27;s try setting it to that like so: <code>analyzer.fftSize = 32768;</code></p><p id="f698cb5b-17b4-457c-8cb0-9d28e90a042c" class="">As you can see above, when we set it to the upper limit, we have tons of data streaming in. Let&#x27;s bring that back to be 2 to the power of 10 instead.</p><p id="81989c49-098b-4df8-8c91-39c066d2347d" class="">That takes care of the time visualization.</p><h3 id="29567ac2-a2b0-4f33-a234-a621092b8fde" class="">Frequency Visualization</h3><p id="08ca19c5-6c3e-4a72-a546-ee17b9482dcc" class="">Now let&#x27;s do it again but this time for the frequency data.</p><p id="f3f27360-ff87-4bda-b540-027251bdd05e" class="">Wes will demonstrate how the visualizer respond to different frequencies using a frequency app.</p><figure id="85431429-8f08-4297-942d-0c4811bfd6a3" class="image"><a href="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/bar.gif"><img style="width:700px" src="15%20-%20Final%20Round%20of%20Exercises%20ab296dc458204db39dc645948a31c02a/bar.gif"/></a></figure><p id="8fc23ae5-ec19-4c4d-8f40-99f3b57ed2f3" class="">As you can see the different frequencies in the audio will affect how high the bars in the graph go.</p><p id="05a8f521-b883-45c9-866a-1b7ee1a9cf06" class="">Create another function called <code>drawFrequency</code> which will take in <code>frequencyData</code> as an argument.</p><p id="6ad50a77-cde1-44f5-8be4-079af8c794e5" class="">Within that function, the first thing we need to do is get the frequency data into the <code>frequencyData</code> array. You can think of <code>frequencyData</code> like a holder that we will inject the data about frequency into.</p><p id="4decb6ec-3b30-4daf-a786-53b01d041f04" class="">We will do that using the method <code>getByteFrequencyData(frequencyData);</code> that we can call on the analyzer.</p><pre id="6ac9213c-da0e-4aaf-b003-356b42a69ab6" class="code code-wrap"><code>function drawFrequency(frequencyData) {
+// get the frequency data into our frequencyData array
+analyzer.getByteFrequencyData(frequencyData);
+console.log(frequencyData);
+}</code></pre><p id="61456db6-3935-40d2-b093-cb0a2c4586ba" class="">We also have to run the <code>drawFrequency</code> function from within <code>getAudio</code> like so 👇</p><pre id="06a543c8-a03a-4503-a23e-f6c01362092e" class="code code-wrap"><code>//sound.js
+async function getAudio() {
+const stream = await navigator.mediaDevices
+.getUserMedia({ audio: true })
+.catch(handleError);
+
+const audioCtx = new AudioContext();
+analyzer = audioCtx.createAnalyser();
+const source = audioCtx.createMediaStreamSource(stream);
+source.connect(analyzer);
+
+// How much data should we collect
+analyzer.fftSize = 2 ** 8;
+// pull the data off the audio
+bufferLength = analyzer.frequencyBinCount;
+// how many pieces of data are there?!?
+bufferLength = analyzer.frequencyBinCount;
+const timeData = new Uint8Array(bufferLength);
+const frequencyData = new Uint8Array(bufferLength);
+drawTimeData(timeData);
+drawFrequency(frequencyData);
+}</code></pre><p id="82ab6749-59d2-4844-9f85-5a6464a6e1e6" class="">Next we need to use <code>requestAnimationFrame</code> within the <code>drawFrequency</code> function so the function can call itself.</p><pre id="27f4a0cc-da3b-4304-8f2d-484146a167cc" class="code code-wrap"><code>// sound.js
+function drawFrequency(frequencyData) {
+// get the frequency data into our frequencyData array
+analyzer.getByteFrequencyData(frequencyData);
+console.log(frequencyData);
+requestAnimationFrame(() =&gt; drawFrequency(frequencyData));
+}</code></pre><p id="62e8d7f2-d43a-4c6c-8278-e05d7ee66b68" class="">Now you should see that when Wes talks, the high and low ends are starting to fill each other up. If you zoom out while focused in the console and start talking, you will see that the data is streaming in.</p><p id="024ec063-05f8-4bcf-90bc-9851dc62a5da" class="">Now we need to take that data and paint it to the canvas. It will be a similar approach to how we visualized the time data.</p><p id="384f71ec-f9bf-43cd-83f1-77fe51c2e228" class="">First we need to figure out the bar width by figuring out what the width of the canvas is and how many data points we have.</p><pre id="56b0ac6b-614f-49ab-8f55-b90261117417" class="code code-wrap"><code>const barWidth = WIDTH / bufferLength;
+console.log(barWidth);</code></pre><p id="e05a41b1-b12d-4339-adf4-dd71169a6c74" class="">As you can see, we get the same width as we did for the time. Let&#x27;s multiply that value by 2.5 like so: <code>const barWidth = (WIDTH / bufferLength) * 2.5;</code>.</p><p id="bb0a3fb0-97e6-4ac0-b709-33d8345daf95" class="">The reason for that is when Wes was testing this, there was a whole lot of frequency on the left hand side that we never hit. In order to get the visualization to look it&#x27;s best, we are cutting off over half of it by multiply the width to be 2.5.</p><p id="ae91bb92-dfec-4c37-91d3-8f86cd129338" class="">Make an <code>x</code> variable and set it to 0.</p><pre id="0ea07301-58d7-47bf-9970-7fc2e1c3b1a2" class="code code-wrap"><code>const x = 0;</code></pre><p id="3b8c8b70-5851-4c47-8436-a5d5cfe441eb" class="">Call the <code>forEach</code> method on the <code>frequencyData</code> list.</p><pre id="7a686210-4100-4679-81aa-3eee84af0717" class="code code-wrap"><code>frequencyData.forEach((amount) =&gt; {});</code></pre><p id="0bc9d908-41be-4e9b-8f0b-70c42ec5a434" class="">The frequency data comes in a range from 0 to 255. We need to figure out what height that will be. For example if it is 100%, we want it to go up to the center line, and if it is 0%, it should be at the bottom. We need to figure out what percent that is, how high will it go.</p><p id="dc7b0741-2b14-4804-a611-fa08aafcc9da" class="">To do that we can take the amount, which comes in from zero to 255. If there is nothing on that frequency it&#x27;s a zero, and if it&#x27;s totally on that frequency than it is 255. Take the amount and divide it by 255 which will give us a percentage anywhere from 0 to 100%.</p><p id="a33dff30-a997-4f26-90f3-721929629bad" class="">We also figure out the bar height by taking the height of the canvas, and multiplying that by the percent. That will tell us if it is 0 percent high or 100% high. We will modify that to go halfway up in just a second.</p><pre id="bd3f9b94-f7e0-4871-aff2-c5e7e44b5431" class="code code-wrap"><code>frequencyData.forEach((amount) =&gt; {
+// 0 to 255
+const percent = amount / 255;
+const barHeight = HEIGHT * percent;
+});</code></pre><p id="82e437cb-2d3d-4620-aa62-a6055e502d05" class="">Let&#x27;s add a TODO next to convert the colour to HSL. For now we will just set the fill style to be red.</p><pre id="a30fb8f3-2ad4-442f-baee-e450e2cc8ba1" class="code code-wrap"><code>frequencyData.forEach((amount) =&gt; {
+// 0 to 255
+const percent = amount / 255;
+const barHeight = HEIGHT * percent;
+// convert the color to HSL TODO
+ctx.fillStyle = &quot;red&quot;;
+});</code></pre><p id="ea1410ab-f2fc-4c57-968f-e705acf1b1f2" class="">Then we run <code>ctx.fillRect()</code>, and pass it four options:</p><ul id="d04394a1-7882-4c85-a19e-80e9a7bfcd25" class="bulleted-list"><li style="list-style-type:disc">the x of where we start</li></ul><ul id="3c8a55ba-cae1-4a79-beb6-2eb8fc630f5b" class="bulleted-list"><li style="list-style-type:disc">the y of where we start</li></ul><ul id="b76c4a7b-2358-4f6d-8c68-a9769cad715f" class="bulleted-list"><li style="list-style-type:disc">bar width</li></ul><ul id="bc2a4617-7018-4dfb-a1ac-2667f7076882" class="bulleted-list"><li style="list-style-type:disc">bar height</li></ul><p id="21e1257f-503d-4318-87ba-972af6eb71ce" class="">To calculate that y axis of where we start we will take our height, and subtract the bar height from it.</p><p id="7a4756e3-1d73-4f43-9305-08ca31b3f46e" class="">We have to do this because there is no way to tell it to anchor from the bottom. So what we need to do is tell it to anchor from the top plus the height of the bar. That will allow us to start at 100 in and 20 down.</p><p id="a17ec221-447c-433c-bf17-720e8946ff6f" class="">Add the following code 👇</p><pre id="8bcc7ae8-4463-474f-8aaf-51ac00b57681" class="code code-wrap"><code>ctx.fillRect(
+x,
+HEIGHT - barHeight,
+barWidth,
+barHeight
+);</code></pre><p id="65caa023-b60f-4fd7-83f8-9ca617633fe9" class="">Now when you refresh the page, you will see the bar, and it is going all the way to the top. That is because we need to increment the <code>x</code> variable by the width of the bar, so they go all the way across.</p><p id="de77c20d-7aaf-4165-83ea-58396c539acf" class="">Add the following code as the last line of the forEach: <code>x += barWidth</code>.</p><p id="82a49614-7ac4-4192-8e56-c6890ef5b20e" class="">Now you should see the data is going all the way across.</p><p id="347a3ad6-b9b0-4f73-a79b-ccbcb9e86c54" class="">If you wanted to space the bars out a bit more, you could do something like <code>x += barWidth + 1</code> or <code>x += barWidth + 10</code>.</p><p id="9f340fdd-bb01-4888-883b-a603fbb3ff9f" class="">Now let&#x27;s fix the issue where the bars are going too high. We can do that by taking the barHeight variable and dividing it&#x27;s value by 2 like so 👇</p><pre id="d376e778-c525-4827-a7fa-fe9d8acc2398" class="code code-wrap"><code>const barHeight = (HEIGHT * percent) / 2;</code></pre><p id="32e8286b-c1a7-4045-a2b7-b97a18fe87b5" class="">Now you should notice that the bars don&#x27;t go quite as high as they would.</p><p id="6c9cc5ef-3019-4eba-ae5c-f7c20d866407" class="">We can also set the fillStyle to use an RGBA value like so:</p><pre id="87a8d6fa-d102-4aed-acad-ebfeef1b5d2b" class="code code-wrap"><code>ctx.fillStyle = `rgba(255, 255, 0, 0.2)`;
+ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+x += barWidth + 2;
+});</code></pre><p id="fc0695d4-ee09-4c08-97bb-da137d8b247c" class="">That will cause the bars to be semi-transparent and allow the time data line to show through.</p><p id="e85e7ec6-d446-4d50-b290-250515f91d11" class="">The cool thing we want to do is use HSL to figure out which color each of the bars will be.</p><p id="ef41257d-1a96-4da2-82d9-2b85209dab85" class="">If you go to the website https://mothereffinghsl.com, you will see that for HSL the hue goes from 0 to 360, and it goes through the entire rainbow.</p><p id="10e2b103-f43e-4f70-a896-4bb5c35d487c" class="">Now we can say something that has 0 will be 0 on the HSL and something that has a 255 frequency will be 360 on the HSL spectrum. We can use that as a base to go through the entire thing.</p><p id="8faa6f1f-f50f-46c4-94bc-c949378e3db8" class="">Let&#x27;s make an array.</p><p id="3623aba7-25e1-4d7e-8a12-3dc7a3419746" class="">The first value in the array will be the hue which we will calculate like so: <code>360 / (percent * 360)</code>.</p><p id="828164e0-aefc-4124-95da-032f1ced21ec" class="">For the saturation and lightness, we do 0.5, 0.75 and that is it. That will affect the saturation of the color, the lower is less saturated, the higher the value the more saturated.</p><p id="b0fcc8db-cf8c-4df0-898a-a613b749d986" class="">The lightness goes between white and black. We will keep it at .75.</p><pre id="0c294224-e0b4-4644-afba-0d071dce7446" class="code code-wrap"><code>const [h, s, l] = [360 / (percent * 360), 0.5, 0.75];</code></pre><p id="02b9efdd-5991-4a33-a058-aa675f45c0cc" class="">What is good about HSL is that it is very easy to programmatically calculate values like hue, saturation and lightness, however we cannot use HSL on canvas.</p><p id="070680d4-e02e-46ca-a09b-fcad732eb133" class="">To solve that, what Wes has done is in the <code>util.js</code> module, there is the following function:</p><pre id="60756946-0a4e-4c1d-96f6-0073f527313a" class="code code-wrap"><code>export function hslToRgb(h, s, l) {
+let r;
+let g;
+let b;
+
+if (s == 0) {
+r = g = b = l; // achromatic
+} else {
+const hue2rgb = function hue2rgb(p, q, t) {
+if (t &lt; 0) t += 1;
+if (t &gt; 1) t -= 1;
+if (t &lt; 1 / 6) return p + (q - p) * 6 * t;
+if (t &lt; 1 / 2) return q;
+if (t &lt; 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+return p;
+};
+
+const q = l &lt; 0.5 ? l * (1 + s) : l + s - l * s;
+const p = 2 * l - q;
+r = hue2rgb(p, q, h + 1 / 3);
+g = hue2rgb(p, q, h);
+b = hue2rgb(p, q, h - 1 / 3);
+}
+
+return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}</code></pre><p id="1591ee09-5168-4029-95e8-b8a364243812" class="">The code above is taking in the hue, saturation and lightness value and will return to you an RGB value. We can use this method to convert it.</p><p id="05c11900-0cc2-41fd-8c09-c3fb56da3170" class="">Let&#x27;s import it into <code>sound.js</code>.</p><pre id="126b92b5-80f1-46dd-af47-b10133b3ffb9" class="code code-wrap"><code>// sound.js
+import { hslToRgb } from &quot;./utils&quot;;</code></pre><p id="daad61d2-5dff-4ca4-a9cf-cc4359f435a1" class="">Now we can use that function to convert the HSL value like so: <code>const [r, g, b] = hslToRgb(h, s, l);</code></p><p id="5428704d-3ec2-453c-8338-f07badb8b331" class="">Then we use those deconstructed variables to set the rgb value using back ticks like so:</p><pre id="9e789b30-a4a3-491a-96fe-bc6590d847fc" class="code code-wrap"><code>// sound.js
+frequencyData.forEach((amount) =&gt; {
+// 0 to 255
+const percent = amount / 255;
+const [h, s, l] = [360 / (percent * 360), 0.5, 0.75];
+const barHeight = HEIGHT * percent * 1.2;
+// TODO: Convert the colour to HSL TODO
+const [r, g, b] = hslToRgb(h, s, l);
+ctx.fillStyle = `rgb(${r},${g},${b})`;
+ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+x += barWidth + 2;
+});</code></pre><p id="6640e052-6143-4652-9be3-c8c892c87385" class="">It is working, however the colors are a bit pastel.</p><p id="3aaa21ec-40d2-41e7-afb1-a4f1161c0370" class="">Let&#x27;s fix that. Wes found that to get vibrant colors, you can simply subtract 0.5 from the hue and it will offset where you start on the HSL spectrum which will give us a few more reds.</p><pre id="e8f66e42-f160-481b-ae71-a6ac1a978ed7" class="code code-wrap"><code>const [h, s, l] = [360 / (percent * 360) - 0.5, 0.8, 0.5];</code></pre><p id="d9a9c306-2cc7-48ab-a517-be1fada5112b" class="">You can feel free to play with these hue, saturation and lightness values.</p><p id="75679e2c-296b-431d-8fb7-bb9323a3e2b1" class="">That is the very basics of visualizing data.</p><p id="341fd5ac-d98f-4ce7-a172-3a8203856a9e" class="">One cool thing Wes wanted to point out was that the method <code>getByteTimeDomainData</code>, it gives us decibel values. What would be cool is if you mapped that decibel value to HSL.</p><p id="1446214b-7797-4eec-ae35-4853caba5c0a" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="2df89bd0-f413-4cd1-ba1f-b4b2802e9e6d" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="d378e7b9-f4b0-4dbf-9dbc-357c9d6db639" class="">Edit on Github</p></details></li></ul></div></article></body></html>

@@ -1,0 +1,1060 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>9 - Loops</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="afb7cb64-ad78-4c31-9527-bc1b92f3f8ce" class="page sans"><header><h1 class="page-title"><em><strong>9 - Loops</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="e8ab8ddf-5a73-4fad-95c6-f7a3cf751355" class="toggle"><li><details open=""><summary>49 - Looping and Iterating - Array forEach</summary><p id="094b9176-dc4c-40da-b10a-d60eec9a93c4" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/49-looping-and-iterating-array-foreach">https://wesbos.com/javascript/09-gettin-loopy/49-looping-and-iterating-array-foreach</a></p><p id="6285bc9b-4fa3-433d-86aa-89cd706fc336" class="">
+</p><figure id="c9110759-cb48-44b2-84fd-d54ae1b29385" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs.png"/></a></figure><p id="16c6875c-9b71-4d0f-862d-115afed6fabb" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="26e3c785-a514-467b-ad54-8eb655b1e5ea" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="ccf05e25-0e14-446b-8783-15a3ce295820" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="1d32babb-a7ca-4e65-9ddb-540de641b5a0" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="405eee39-5c1d-431b-a412-2aca89e1c18c" class="">JavaScript, Iterating, forEachEdit Post</p><p id="acfad46f-b3ff-48f1-af19-c6105e961e9d" class="">Let&#x27;s talk about looping and iterating. There are a few different ways to loop in JavaScript and we will cover them all.</p><p id="6f823ecc-4b06-45fc-be5c-e68641a97f5f" class="">The most common way you are going to loop over something in JavaScript is looping over an array. Most of the looping also works the exact same way.</p><p id="c1827600-1257-4011-8c83-c1d099366842" class="">We will use a method that lives on the array, and we will pass it a callback, just like in the previous video.</p><p id="e3d2f166-ce28-4720-917f-f163b943a60d" class="">The callback function will run once for every item in the array, giving us access to each individual item.</p><p id="a993634a-9023-4da2-a6fc-000c7805550f" class="">Open up the <code>array-looping-methods-START.html</code> file, which contains all the practice data we will be using for these exercises. Most of it is the same as the last video with the addition of a <code>students</code> array.</p><pre id="19bef7fe-71ad-4309-b745-f488fe050015" class="code code-wrap"><code>const toppings = [&#x27;Mushrooms&#x27;, &#x27;Tomatoes&#x27;, &#x27;Eggs&#x27;, &#x27;Chili&#x27;, &#x27;Lettuce&#x27;, &#x27;Avocado&#x27;, &#x27;Chilles&#x27;, &#x27;Bacon&#x27;, &#x27;Pickles&#x27;, &#x27;Onions&#x27;, &#x27;Cheese&#x27;];</code></pre><p id="12d31ce5-1dfc-488b-a94f-3e85941bf823" class="">If you wanted to loop out over every single one of the toppings in the array and log them to the console, or display them to the user, the very basic loop we have is the <code>.forEach()</code>.</p><p id="c713df6d-2ce8-40ce-91f7-d2246ed5bf8f" class="">You should recognize it from previous exercises we did, when we were adding event listeners to multiple elements.</p><p id="7e89f949-87d2-4978-af2a-3d293e13efb7" class="">What we are going to do is take <code>toppings</code> and use the <code>forEach</code> method on it, passing it a callback function that will run once for each item in the array.</p><p id="f1ac1b3f-33a7-41e6-9de3-7c7ee8274f69" class="">We can define our function outside or inline.</p><pre id="8d45c8e5-d7cd-4709-adef-4fbd1a452346" class="code code-wrap"><code>function logTopping(topping) {
+console.log(topping);
+}
+
+toppings.forEach(logTopping)</code></pre><figure id="c8026502-0cd4-4994-aad4-f848f4e7d4d7" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/619.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/619.png"/></a></figure><p id="d0a9d705-1b2d-4758-8caf-30d15e32e966" class="">If you refresh the page, you will see that we are logging every single one of the toppings as we loop over them.</p><p id="c0e2aaab-32f6-4726-8204-e651d3c3ee92" class="">One thing Wes likes to do is throw a debugger into the foreach and take a look at the dev tools.</p><p id="023d7c8e-927f-4e0e-b033-081971deba64" class="">Modify the code as shown below to add the debugger breakpoint 👇</p><pre id="18821f03-58f0-45e2-8148-7208dd448014" class="code code-wrap"><code>function logTopping(topping) {
+console.log(topping);
+debugger;
+}</code></pre><p id="5fb78d3c-47eb-47a2-8cb5-36bed2298f8b" class="">When you refresh the HTML page, the debugger should open once it hits the first item in the array.</p><figure id="37f4b740-20bf-4210-b86d-20f16b186d1c" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/620.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/620.png"/></a></figure><p id="5c3efa3e-ed3f-43e7-89c3-4902531a4c4c" class="">As you can see, the debugger is in paused state. We have access to the call stack, and it tells us we are in the function <code>logTopping</code>.</p><p id="ee2cba8e-6fb8-4ebd-9bb2-da54d3fb9fb2" class="">Below that, the debugger tells us what the <code>topping</code> variable is equal to which is &quot;Mushrooms&quot;, as well as the value of the <code>this</code> variable, which is equal to the Window.</p><figure id="4fba16af-225d-4652-9baf-568df36ec5c9" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/621.png"><img style="width:468px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/621.png"/></a></figure><p id="41da6759-3d56-46ca-a81e-392ac556a808" class="">If you click the symbol shown in the image above twice, the JavaScript code will continue running.</p><p id="0eccc1cd-539b-469b-87dd-c4eac4c4f853" class="">Now we are on the &quot;Tomatoes&quot; item. You can click all the way through the array.</p><p id="f798daec-6ebc-4b80-bee0-a462c427a6d5" class="">As you know, we can also inline the function as shown below and it will still work exactly the same 👇</p><pre id="269237a9-2604-409f-83ad-8aadef56b1ff" class="code code-wrap"><code>toppings.forEach(topping =&gt; {
+console.log(topping);
+})</code></pre><p id="e6ce15c5-2c9a-42b5-8a0f-a0864fc52e41" class="">One thing you might be having trouble with is where is this <code>topping</code> variable shown highlighted below is coming from. You may be wondering if it&#x27;s a special keyword because it is a singular of toppings which is the name of the variable that holds the <code>toppings</code> array.</p><p id="067dfe8a-8025-4ad9-ad9a-2a51fd93b454" class="">If you remember back to when we learned about arguments and placeholders we said that arguments were the actual values and the parameters were the placeholders.</p><p id="1b149f40-7761-4046-9a6c-ba5170316a74" class="">When we define the function, we put a placeholder, a <strong>parameter</strong> in there, and then when the <code>forEach</code> loop is called, JavaScript will slot the appropriate array item value into our parameter variable, whatever we may have called it.</p><p id="12d96056-9792-47be-813a-b98bc431fc5b" class="">To capture the argument, simply define the function with a parameter.</p><p id="75024263-63eb-4135-a716-ccec21b40aea" class="">How do we know that?</p><p id="027d432e-aa29-442d-b74b-c9f2c24783d7" class="">We can look at the <code>forEach()</code> docs on MDN.</p><p id="ee591248-3fd6-4185-beb1-d1d71b4be88d" class="">In our case, we chose to name the <code>currentValue</code> parameter <code>topping</code>.</p><p id="c4215745-6feb-4391-862c-17d4ee71fbaa" class="">We also have the ability to get the index and the array, so let&#x27;s take a look at what that looks like.</p><p id="2be942ef-7772-4013-abcc-7abf93da7a4b" class="">Modify the code like so 👇</p><pre id="7e045ca5-0f12-450c-9886-7dcde92c9e79" class="code code-wrap"><code>function logTopping(topping, index, array) {
+console.log(topping, index, array);
+}
+
+toppings.forEach(logTopping);</code></pre><p id="c5b1ccc9-fc01-45df-a6e3-abd2ed1e91c2" class="">When you refresh the HTML page and open the console, you will see that for each item in the array, the actual item was logged, the index and also the original array.</p><p id="5455234c-12b4-42d4-967a-c0faddf8eced" class="">Why would you need to pass the original array?</p><p id="b8679e9b-207d-483b-bbfb-5cb28c948ccb" class="">Because if you need to grab something from the original array, you can.</p><p id="42b96ad6-e80a-477e-9ece-8af11479ba0e" class="">Let&#x27;s do a quick example where we have to loop over each topping and:</p><ul id="b4c3d9e8-9905-4aff-bbf3-342ede5d96f1" class="bulleted-list"><li style="list-style-type:disc">log the topping</li></ul><ul id="45bd19d7-c78a-440b-994a-fad17e86a982" class="bulleted-list"><li style="list-style-type:disc">log the next topping if there is one</li></ul><ul id="0f532d02-5b73-4acd-9deb-41d311d3f589" class="bulleted-list"><li style="list-style-type:disc">log the previous topping if there is one</li></ul><ul id="c2bab678-cfdc-44fd-98b1-29e2c73bcb75" class="bulleted-list"><li style="list-style-type:disc">if it&#x27;s the last item in the array, log &quot;goodbye&quot;</li></ul><p id="7ad89b11-dc17-4886-9e0c-80f06ab6e710" class="">The first one is easy, simply add <code>console.log(topping)</code>.</p><p id="3b12decd-a014-4b66-abd1-ebb6087d2924" class="">Let&#x27;s do the next topping.</p><p id="de11c805-d684-4338-80a9-20c81f39ed03" class="">We have the index already and the original array, which we will rename because <code>array</code> is a bad parameter name. We also won&#x27;t name it <code>toppings</code> because we already have a <code>toppings</code> array that lives outside of this function. Let&#x27;s rename it to <code>originalArray</code> instead, like so 👇</p><pre id="607de4fc-ca5f-4472-a53d-dfd8c0328034" class="code code-wrap"><code>function logTopping(topping, index, originalArray)</code></pre><p id="afcfcd3e-fb68-47be-b9a3-ed4d56cc44c4" class="">Add a log of <code>originalArray[index]</code> and refresh the HTML page.</p><pre id="9f5dc860-11c8-4ed6-aa43-118f261afbd1" class="code code-wrap"><code>console.log(originalArray[index + 1]);</code></pre><p id="9f05f521-914f-4796-b46a-e4e8dc7fc32d" class="">So now if you try adding 1 to the index as shown above, you should get the next one. 👇</p><p id="eddd996d-ea2a-4d9f-9d59-d48255317467" class="">Modify the code as shown below to add a log to see when it&#x27;s looping</p><pre id="eb4c88e9-40a2-4250-b6ce-1bf6d420f000" class="code code-wrap"><code>function logTopping(topping, index, originalArray) {
+console.log(topping);
+console.log(originalArray[index + 1]);
+console.log(&#x27;--------🍕-----&#x27;);
+}</code></pre><p id="fb2e7f0b-5fed-4a35-9ee6-c6e13e846d38" class="">When you refresh the HTML page, you should see the following 👇</p><p id="9d67f664-eae8-428e-a2dd-3f6c1422e3df" class="">If you scroll all the way to the bottom, you will see that when we get to the last one, the next index returns <code>undefined</code>.</p><p id="f385e063-6ece-4e84-99d2-1386944e590f" class="">We can check whether the next topping exists or not by adding the following code 👇</p><pre id="32ea347d-258d-4d9b-af40-2880def7fd37" class="code code-wrap"><code>const nextTopping = originalArray[index + 1];
+
+if (nextTopping) {
+console.log(nextTopping);
+}</code></pre><p id="6fb164ed-0ecd-42c8-bed8-cdf85e7cdaf7" class="">Now if you refresh the page and look at the console, you will see that for the last item, we are not logging the next one because it doesn&#x27;t exist.</p><p id="1966f455-d7aa-4ecd-8823-122c9577c49c" class="">We can go a bit further and make it a bit easier to understand using a ternary function.</p><pre id="6321e984-4ad2-4fbd-8067-1875f8407331" class="code code-wrap"><code>const nextTopping = originalArray[index + 1];
+nextTopping ? console.log(nextTopping) : null;</code></pre><p id="39bc93b9-557d-431b-846e-ac8141f262ad" class="">That works just the same. Instead of putting <code>null</code>, you could put an empty string <code>&quot;&quot;</code>, it doesn&#x27;t matter as long as you put something there.</p><p id="991bfaac-b1d9-476c-8c63-78650d4719b0" class="">Now the previous topping.</p><p id="7019fb0c-fcef-4c60-adaa-ad119b1cb42e" class="">Move the <code>prevTopping</code> and <code>nextTopping</code> variables to the top of the function and use the ternary operator to log the previous topping like so 👇</p><pre id="83df9184-8d0d-453e-b7a6-88f4d628f210" class="code code-wrap"><code>const nextTopping = originalArray[index + 1];
+const prevTopping = originalArray[index - 1];
+
+prevTopping ? console.log(prevTopping) : null;
+nextTopping ? console.log(nextTopping) : null;
+console.log(&#x27;--------🍕-----&#x27;);</code></pre><p id="e1ff375a-06e8-4340-94fd-39c90989d5ca" class="">Now the first and last topping should only have 2 items logged while all the other items have 3 items logged.</p><p id="b9981410-30ee-4879-bcc8-7b331b0f0d65" class="">If it&#x27;s the last item in the array we need to log &quot;goodbye&quot;. How can we do that?</p><p id="3466be6e-59ce-4e04-aa82-2260fed40000" class="">Let&#x27;s use <code>.length</code> on the array and a ternary statement.</p><pre id="a7992b5f-439c-4e57-89a5-ede744298838" class="code code-wrap"><code>index === array.length - 1 ? console.log(&#x27;Goodbye&#x27;) : console.log(&quot;getting the next topping&quot;);</code></pre><p id="f04e68bb-942e-46d5-b5e4-32f57aa2ffdc" class="">Let&#x27;s break down what we did exactly in that last example.</p><p id="74a61f00-3350-4040-831d-16535c4a01f9" class="">Sometimes it helps to make it more readable if you put part on it&#x27;s own line like so 👇</p><pre id="5c1c53e3-d2aa-4077-99db-aa76ebad4c11" class="code code-wrap"><code>index === originalArray.length - 1
+? console.log(&quot;Goodbye&quot;)
+: console.log(&#x27;Getting the next topping&#x27;);</code></pre><p id="c2b61b91-6ad9-4c1b-956a-1285b8334654" class="">So the condition we are checking is <code>index === originalArray.length - 1</code>, which checks whether the current index matches the last index in the array.</p><p id="16f474d9-f8e7-4981-b198-b4628e355280" class="">We have access to the index of the currrent item in the <code>index</code> variable, and we can get the index of the last item in the array by doing <code>originalArray.length - 1</code>.</p><p id="ae17784e-1161-4631-9bb1-3725da0e082b" class="">If it is the last index, log &quot;goodbye&quot; and if it doesn&#x27;t, log &quot;getting the next topping&quot;.</p><p id="9ffce99a-6a01-4bee-9f13-15c759469a1d" class="">You could use an if statement instead of the ternary statement, it would work just as well.</p><p id="14f9dd1f-d7d1-42b0-80a2-09f075e5c957" class="">We can also use the &amp;&amp; hack we learned about earlier, like so 👇</p><pre id="7e1fd2c5-2589-41c9-a8ab-a0128947d0ca" class="code code-wrap"><code>index === originalArray.length &amp;&amp; console.log(&#x27;Goodbye&#x27;);</code></pre><p id="40952252-0ad8-4893-ac8a-1bed4631e0e4" class="">Why does that work?</p><p id="82365755-ba2b-4bac-8f7a-48db52c86098" class="">Because if the first statement is true, it will keep going for the next one and if it is false, it will short circuit and never get to the second one.</p><p id="62a9aac6-f903-477d-87ac-50ef68c6951c" class="">That is what we referred to as <strong>abusing conditionals</strong> in our previous videos.</p><p id="0255c9ff-44c3-4c4e-9cd3-9f6fce275b62" class="">That wraps up the <code>forEach</code> method.</p><p id="ebb945de-3972-474f-b749-02f348d30fb1" class="">It is a bit different than the other looping methods because it doesn&#x27;t return any values.</p><p id="8c1c8109-4f40-4676-8554-68902a4ef1bb" class="">Notice how when we loop over each of our items we don&#x27;t store our results in a variable like below 👇</p><pre id="a4a4f3ec-b4b0-4864-b52a-a47e1ee3a5db" class="code code-wrap"><code>const result = toppings.forEach(logTopping);</code></pre><p id="dc1d3363-938a-42b3-ba99-4c85ea30d085" class="">When you loop over an array with <code>forEach</code> it doesn&#x27;t actually return anything to you. It goes off and does some work for every item that is in that array.</p><p id="684c551d-3a71-4c5c-b409-6918f267914a" class="">Let&#x27;s see how that is different from what Wes likes to call the &#x27;Big Three&#x27; which are:</p><ul id="9e7ae235-4061-45f7-ba3a-2a46b127ae82" class="bulleted-list"><li style="list-style-type:disc">Map</li></ul><ul id="4953ff7f-be13-431a-b149-f92edfd5b399" class="bulleted-list"><li style="list-style-type:disc">Filter</li></ul><ul id="83e28bbd-131f-49ca-95aa-ace53cfde89d" class="bulleted-list"><li style="list-style-type:disc">Reduce</li></ul><p id="afa57e28-f946-4a12-abf3-6fd0f05f5ba0" class="">We will go over those in the next video.</p><p id="8849790e-953c-4bc8-a94b-b86a239d72f0" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="b055218a-d948-4676-9d2b-9c41391fcddd" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="683589e2-1207-44aa-ba11-da162cad9e71" class="">Edit on Github</p></details></li></ul><ul id="bdea863f-a72a-49ba-8c87-0629c05e94d7" class="toggle"><li><details open=""><summary>50 - Looping and Iterating - Mapping</summary><p id="a0de547a-eff8-4ef7-ac9d-68f6831d71ad" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/50-looping-and-iterating-mapping">https://wesbos.com/javascript/09-gettin-loopy/50-looping-and-iterating-mapping</a></p><p id="ef7bfb9e-4d31-4efd-8d29-d896424523ee" class="">
+</p><figure id="166f353e-3c2b-4761-aa6c-a92512f13ffc" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%201.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%201.png"/></a></figure><p id="f060a542-573a-4eec-931d-bd8595431299" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="f624d80a-a484-49e4-b12e-93d14258c2d5" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="08983f3c-6a6e-4963-8086-1400c0021cc8" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="472fc24b-8723-4696-ac0d-24df1204c8a4" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="70f1af35-e0d7-4136-9d02-8ab4ef2546b8" class="">JavaScript, Iterating, MapEdit Post</p><p id="c08eb768-187b-42ab-8ea3-41d7d361b223" class="">In the previous lesson we learned about <code>forEach</code>, which is useful when you want to loop over some data and do something with each piece of data. That &quot;something&quot; may be displaying the data on a page, logging the value, or attaching an event listener to each item, those are often referred to as things called <strong>side effects</strong>.</p><p id="59930542-501b-4d2f-b394-e1e119e934d2" class="">A <strong>side effect</strong> is when you are inside of a function and you reach outside of that function to do something else.</p><p id="54143ec1-c562-49fc-b23c-1f3466a8206e" class="">While side effects are totally fine, because at some point you do need to do things that reach outside the function, there are a whole slew of other types of loops that are simply taking in data, doing something with that data and then returning the data that has been modified, massaged or transformed in some way.</p><p id="7564a1df-06ee-46cd-9d08-dbc64959dd0d" class="">That is where we get into <code>map</code>, <code>filter</code>, and <code>reduce</code>.</p><p id="422819ea-ecdb-4d4e-b23f-9f1f2ffde967" class="">We have already looked at one example of <code>filter</code> and that is <code>find</code>, where you take in an array and return one thing.</p><p id="da11babe-b497-4d8b-8497-c6890908b731" class="">That is a transformation of that data and are often referred to as <strong>pure functions</strong>.</p><p id="327c6290-e454-4d27-8ea4-6504a1de1fcc" class=""><strong>Pure functions</strong> take in data, they return data, they always work exactly the same way given the data that&#x27;s inputted, it returns the exact same thing. They don&#x27;t reach outside themselves to do that.</p><p id="bf9eae2e-3f94-4d51-8541-fab94bf740ea" class="">Let&#x27;s talk about <code>map</code>.</p><p id="47628820-1a11-4f86-844c-e1919dfffb6b" class="">Map is like a machine in a factory. It takes in data, performs an operation and then spits it out on the other side.</p><p id="a265db7a-92f6-4a94-a785-b234274125d5" class=""><code>map</code> will always produce the same length of the array as it starts with.</p><p id="f97b08b0-9332-4daf-a50b-4ba7a476dc65" class="">Let&#x27;s go into a little example right now.</p><p id="1c70ef0d-d28c-46c3-932f-24dc0106eb40" class="">Add <code>console.clear()</code> to the script tag to clear all the <code>toppings</code> work we did in the previous lesson.</p><p id="84c5cb6f-b719-42f8-951d-bfae54f3f451" class="">Wes loves the analogy of a machine, taking in data, performing an operation and then spitting it out on the other side. You can think of like a toy machine in a factory which adds one arm then the other arm then a leg.</p><p id="d0a20c35-97d0-43da-be37-e7adc35b7098" class="">Let&#x27;s do a really simple example.</p><p id="473d2cda-3812-457c-a4ea-77103e061e2b" class="">We have this array below 👇</p><pre id="1010ba90-586e-4d86-87fd-0b2fe22143fb" class="code code-wrap"><code>const faces = [&#x27;😃&#x27;, &#x27;🤠&#x27;, &#x27;🤡&#x27;, &#x27;🤑&#x27;, &#x27;😵&#x27;, &#x27;🌞&#x27;, &#x27;🐶&#x27;, &#x27;😺&#x27;];</code></pre><p id="f52e203b-3c23-4610-b6bc-6b7e15d8cd04" class="">Let&#x27;s create some functions that will map over each one.</p><p id="bbce93c0-cf8f-431e-8fab-ecb60fd1fcf3" class="">Let&#x27;s make function <code>addArms</code>, that takes in a face, and returns an emoji.</p><pre id="ea459069-84b0-4365-a32e-664fc93faf1c" class="code code-wrap"><code>function addArms(face) {
+return `👋${face} 👋`;
+}</code></pre><p id="3a8eb4d5-5b11-4d18-8ae6-15a072446e6a" class="">That is just a regular function like we have written a hundred times by now. You can play with it in the console. It&#x27;s silly, but it works.</p><figure id="d865d4a9-c725-470d-bc15-5db403f4a9d9" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/631.png"><img style="width:330px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/631.png"/></a></figure><p id="7aa0ad20-3960-4b43-a80a-6c1cda8b72b3" class="">Now what we can do is we can take our array of faces and add arms to all of them, and this how that works.</p><pre id="015abaf9-0c8d-43c4-94fb-b90f86af0d75" class="code code-wrap"><code>const toys = faces.map(addArms);
+console.log(toys);</code></pre><figure id="48d46877-fc37-4aca-ad5f-333e3fb930dd" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/632.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/632.png"/></a></figure><p id="28399b9e-74da-46bb-ae34-752ad03cde5a" class="">As you can see, what was returned to us is an array of exactly the same length as we put it in, so if the array had 8 things, it will have 8 things when it&#x27;s returned, there is no way to return more or less items with <code>map</code>.</p><p id="dca486e3-e156-423c-8fc7-9352940c4e0e" class="">You simply take in something and return something else.</p><p id="f289de15-dd70-4112-bb6c-f4063e2ee3bb" class="">One other simple example is let&#x27;s say you have this code below.</p><pre id="11451ab7-3597-46b0-a834-48a668c23484" class="code code-wrap"><code>const fullNames = [&#x27;wes&#x27;, &#x27;kait&#x27;, &#x27;poppy&#x27;].map(name =&gt; `${name} bos`);
+console.log(fullNames);</code></pre><p id="88a51f5c-cb97-4949-99d9-509867f68216" class="">We could do multiple transforms.</p><p id="f1277ac3-48dd-4d8f-bcc8-9085db06a2b0" class="">Let&#x27;s make the code above into a function.</p><pre id="eea37c04-5cf6-4c59-a50f-28412869ecae" class="code code-wrap"><code>function bosify(name) {
+return `${name} Bos`;
+}
+
+const fullNames = [&#x27;wes&#x27;, &#x27;kait&#x27;, &#x27;poppy&#x27;].map(bosify);</code></pre><p id="9e57da55-e26c-49c5-9e7b-369e7831e20c" class="">The first names don&#x27;t have capitals so make another function <code>capitalize</code> which takes in a word.</p><p id="b044532a-919b-48b9-93e4-f0a355738dde" class="">You can access each character of a word using an index.</p><p id="08c1b7f4-2bf4-47ec-8c25-253a117a73b4" class="">For example <code>&#x27;wes&#x27;[0]</code>, <code>&#x27;wes&#x27;[1]</code>, <code>&#x27;wes&#x27;[2]</code> will return the following 👇</p><p id="c33acd72-cec3-4929-9891-84199eb4de68" class="">So you can capitalize the first letter of the word as shown below.</p><pre id="de2fb1d7-7347-41f8-8130-aa68a67fecab" class="code code-wrap"><code>function capitalize(word) {
+return word[0].toUppercase();
+}</code></pre><p id="c709701f-e46c-412c-a27c-21a38d17cfd3" class="">Let&#x27;s try the code as we have it so far. Chain the maps like so 👇</p><pre id="a0eab0af-bd91-4fc9-907e-040017d7041a" class="code code-wrap"><code>const fullNames = [&#x27;wes&#x27;, &#x27;kait&#x27;, &#x27;poppy&#x27;].map(capitalize).map(bosify);</code></pre><p id="b6718baf-281e-4093-82c0-854238902d41" class="">You can chain as many maps as you want because each returns a new array until it reaches the last one.</p><p id="8f580c90-4eee-4e6b-8213-bface3a10316" class="">A nice way to format that to make it easier to read is to put each map on its on line.</p><p id="f351514d-212e-409b-8209-21f1894b762c" class="">You still only put one semi colon <code>;</code> at the end of the chain, not on each line.</p><pre id="978679a3-bcf0-4a81-8975-782340c605d8" class="code code-wrap"><code>const fullNames = [&#x27;wes&#x27;, &#x27;kait&#x27;, &#x27;poppy&#x27;]
+.map(capitalize)
+.map(bosify);
+
+console.log(fullNames);</code></pre><p id="87b804a2-6e1c-4814-9615-2f217264178c" class="">As you can see, that does not return the whole word.</p><p id="958b9c69-6291-4709-bfe4-e77d023c63f6" class="">Let&#x27;s fix that.</p><p id="6f0df60d-931c-40ba-949c-b5252bf4ae01" class="">We will use <code>slice</code> to return the words from index 1 to the end of the word like so 👇</p><pre id="c2d385d3-6327-44d8-9530-99bde8d3e6fc" class="code code-wrap"><code>function capitalize(word) {
+return word[0].toUppercase() + word.slice(1);
+}</code></pre><p id="9600ebd4-37e0-4e35-b36a-5b62b1ca68c8" class="">As you can see, that works.</p><p id="1a026209-3740-429c-a68c-452844b27e38" class="">Let&#x27;s change that so instead of using the <code>+</code> operator, we use backticks because it&#x27;s better to reserve adding for numbers.</p><p id="f61dcd85-fd83-4529-bddd-39c936f92dae" class="">Modify the code as shown below.</p><pre id="ec89f22a-2721-4985-a95b-2db04d7c0eaf" class="code code-wrap"><code>function capitalize(word) {
+return `${word[0].toUppercase()}${word.slice(1)}`;
+}</code></pre><p id="93ce9e13-b329-4d94-aea4-cb7003cb25d7" class="">Map will always take in an item, do some work with it and then return a new value.</p><p id="a077cb5b-f88e-419a-9a0c-1779060ea5cf" class="">The same thing works with numbers.</p><pre id="006dae44-9038-4378-9091-6bbf0e7309ab" class="code code-wrap"><code>const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];</code></pre><p id="d836fead-34dc-4503-9673-9d0156f828e2" class="">Lets say we want to add tax to all items in the <code>orderTotals</code> array.</p><p id="df62c2f2-54d3-4824-9198-db5b1a1a7022" class="">Watch what happens if for every single item in our map, we just return one.</p><pre id="aa3c6cc4-6e91-485a-be79-61541233f874" class="code code-wrap"><code>const orderTotalsWithTax = orderTotals.map(total =&gt; 1);</code></pre><p id="ffad536b-758b-4930-8f3b-77948133b284" class="">As you can see, all the items in the array have now been turned into 1.</p><p id="37e76e8a-5868-4883-a2aa-0d12379cdbf6" class="">Why? Because whatever you return from your map function will replace whatever was initially in your map function.</p><p id="3e516ffe-6f22-4ce6-9add-a645e5163b8a" class="">It is not <strong>mutable</strong>. What that means is our <code>orderTotals</code> are still there. The new array has the updated value.</p><p id="d4de7c01-ec6c-4765-8ab8-86767d6029f7" class="">Back to our example, to add the tax to every item in <code>orderTotals</code>, add the following code 👇</p><pre id="75266a62-0427-4903-bc57-c96791ac5dfa" class="code code-wrap"><code>const orderTotalsWithTax = orderTotals.map(total =&gt; total * 1.13);</code></pre><p id="2f23c1fc-6ec9-4cc0-9bc6-c12d23c76ea1" class="">As you can see, we now have our values with tax added to them.</p><p id="7d583419-c130-4818-a898-79ff86ac579d" class="">Wes finds map to be extremely helpful.</p><p id="b3f21fe9-92c1-4b90-b64a-b447b523469b" class="">There is one really silly example that Wes wants to show us.</p><p id="6b3554c6-ba0b-45f2-86aa-faebc0115fb8" class="">There is this thing on twitter where you can make cowboy bodies out of emojis.</p><pre id="a86868b2-0b40-4cae-87b7-df98a0a59772" class="code code-wrap"><code>function attachBody(face, body) {
+return `
+${face}
+${body.repeat(3)}
+${Array(3).fill(body).join(&#x27; &#x27;)}
+　　　👇🏽　 ${body.repeat(2)}　👇🏽
+${Array(2).fill(body).join(&#x27;   &#x27;)}
+${Array(2).fill(body).join(&#x27;   &#x27;)}
+　　　　　👢　　👢
+  `
+}
+
+faces.map(face =&gt; attachBody(face, &#x27;🍟&#x27;)).forEach(body =&gt; console.log(body))</code></pre><p id="f8028c12-b7d0-4e22-85e7-361b76f2dfc4" class="">What Wes has done here is he has taken our <code>faces</code> array that we used earlier, looped over each item and pass it as an argument to <code>attachBody</code> along with the emoji to make the body out of.</p><p id="0de850ad-16f6-4d57-82ac-8fb8224f6327" class="">That will return us a new array and then for each of those we just log them.</p><p id="f90ded4e-dbe0-4288-8f19-727624c6414c" class="">The <code>attachBody</code> function simply takes in a face, and then whatever the body is made up of and we use backticks so we can use multiple lines and then it fills in the variables.</p><p id="f5f22457-792a-4db0-b1a2-df2848f122e8" class="">So it fills in the <code>face</code> variable, then the <code>body</code> variable repeats 3 times.</p><p id="3d43a80e-6801-4373-9a28-4e8f821cbdaf" class="">One thing Wes hasn&#x27;t shown us yet is <code>repeat</code>.</p><p id="5d87efcd-d1ad-4ea2-8a8d-08c2a9dbcd48" class="">You can take a string and call repeat on it and JavaScript will repeat that however many times you like, like so 👇</p><pre id="19f3c4d8-cece-46e5-b932-f0918904cd69" class="code code-wrap"><code>&#x27;x&#x27;.repeat(199);</code></pre><p id="eea6e817-f7ae-4df8-a3a7-9c269297da2a" class="">Another thing Wes hasn&#x27;t shown us yet is <code>Array.fill()</code>.</p><p id="217247e9-4930-4290-aa26-8148f669875c" class="">With <code>Array(3)</code>, it will create 3 empty spots in an array, much like <code>Array.from()</code>.</p><p id="b9cf223e-98d6-4ec0-bff0-9bfc2674bdf7" class="">However if you want to fill them with the exact same thing, you can use <code>Array(3).fill(&#x27;x&#x27;)</code>.</p><p id="b7adbafe-b9cb-484b-b08d-2624bae9baf8" class="">That is a bit quicker than <code>Array.from</code> and the map function that we looked at.</p><p id="13b4a1cc-3d11-4c18-91dd-cd51cc3b6b4c" class="">In our <code>attachBody</code> function, we are just filling it with an emoji and then calling <code>.join(&#x27; &#x27;)</code> with a space separator in it. That gives us the actual body of the person.</p><p id="40516ea7-072b-4a26-a2a6-f4c12789fd2d" class=""><code>.map</code> can be used with any type of data.</p><p id="d7246e12-34d9-4ecf-a2b8-6efc7f06ff63" class="">So far we have looked at examples with strings and numbers but more often than not, you will actually have an array of objects that comes back from the API.</p><p id="1c6d910d-75dc-45a4-a0eb-b40c9e6b87b1" class="">Let&#x27;s take a look at an example with the <code>peoples</code> array.</p><pre id="8e96965f-c8df-43f3-ac70-19d8d97a9af8" class="code code-wrap"><code>const people = [
+{
+    birthday: &quot;April 22, 1993&quot;,
+    names: {
+      first: &quot;Keith&quot;,
+      last: &quot;Buckley&quot;,
+},
+},
+{
+    birthday: &quot;January 3, 1975&quot;,
+    names: {
+      first: &quot;Larry&quot;,
+      last: &quot;Heep&quot;,
+},
+},
+{
+    birthday: &quot;February 12, 1944&quot;,
+    names: {
+      first: &quot;Linda&quot;,
+      last: &quot;Bermeer&quot;,
+},
+},
+];</code></pre><p id="a8e0749a-4a71-421c-9113-e40e7ae84daf" class="">Each person is signified by an object, and each person has a <code>birthday</code>, and a <code>names</code> object which has a nested <code>first</code> and <code>last</code> property inside of that.</p><p id="60dc37b2-e54f-45c9-9a2b-98c67a1c960b" class="">That data is okay but it&#x27;s not in the format that we need. That happens all the time when you are working with APIs.</p><p id="b08db3aa-962d-4812-b928-2d7155b46a89" class="">So what we have to do is take in that data and &quot;massage&quot; it a little bit and then return the new formatted data that we want.</p><p id="e305e5c2-122d-4b02-bb73-bacd15d965ff" class="">Go ahead and do that, as shown below 👇</p><pre id="8c132da9-ef4d-40df-bc78-07ae37cae7aa" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+console.log(person);
+})</code></pre><p id="82d2635a-87d8-4644-9036-94bea2512257" class="">We are using an inline function which takes in an parameter of <code>person</code> (which will be each item in the array as it loops through), and we log the <code>person</code>.</p><p id="6ff9cd92-4096-4905-88a8-292800c76583" class="">It is fine to log within a <code>map</code> function, just don&#x27;t ever do things like updating the DOM inside of a <code>map</code> function. That is what a <code>forEach</code> is for.</p><p id="e7d53217-06ae-4cba-a241-2d7fd3537e55" class="">The first thing we need this function to do is get the person&#x27;s birthday, and then figure out how old they are, and then return their full name and birthday in an object.</p><p id="1ef89a98-1818-48dd-ae30-19af7c8f3184" class="">First we have to get their birthday, which is stored in a string like &quot;February 12, 1944&quot;.</p><p id="dc1648f4-3eb8-42a1-a8e6-046179d6b7c8" class="">That is not very helpful to us because when you want to work with dates in JavaScript, it has to be changed over to what is called a <strong>JavaScript Date</strong>.</p><p id="71eec095-c190-4ed5-8003-4bb7a93c4e35" class="">You can do that within the inline map function like so 👇</p><pre id="322eaecc-fae6-481a-9cb1-91cd2e16e018" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+console.log(person);
+const birthday = new Date();
+})</code></pre><p id="08097915-e327-4963-8025-df10a18bbc90" class="">If you don&#x27;t pass a date when you create a date in JavaScript as shown below, it will give you the current date time.</p><pre id="013bea0f-c01e-4098-9ad5-a74375f18504" class="code code-wrap"><code>new Date()</code></pre><p id="25d4b958-f5ff-4983-9bd0-020b69fe4be5" class="">The date you see in the console in the video is the date that Wes is recording the video.</p><p id="df9cd7c6-bd91-4d55-8a64-a7d420b9d202" class="">If you do pass a string of a date to <code>new Date()</code>, like we have access to with <code>person.birthday</code>, it will return that date.</p><pre id="67b184e6-8212-4da4-9e82-f7df16481001" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+console.log(person);
+const birthday = new Date(person.birthday);
+console.log(birthday);
+})</code></pre><p id="e4697dfb-0cdf-44af-852e-fcc6b941f64f" class="">As you can see, for each person we log the person and then it actual logs a true JavaScript date.</p><p id="1ee9833c-40d9-4645-bc91-c18b323ad65d" class=""><em>HOT TIP 🔥: Use </em><code><em>console.dir(birthday)</em></code><em> to see all the methods that exist on a Date object.</em></p><p id="63aa4cc4-784b-4024-8556-4e66419a4557" class="">If the date that you pass to the <code>new Date()</code> function doesn&#x27;t have a time value, it will default to midnight.</p><p id="2248f0d4-7569-4a8f-9654-8323ed3fd1f3" class="">Now that we have the birthday, we want to figure out how old the person is. In order to do that, we need to know the current date.</p><p id="166266cf-9bf3-4866-887d-cd9b15662037" class="">Modify the inline function like so to capture the current date in the variable <code>now</code> 👇</p><pre id="9c9f43fb-6204-4c04-af56-3714346f90f1" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+const birthday = new Date(person.birthday);
+const now = new Date();
+console.log(birthday,now);
+})</code></pre><p id="0e470b99-1921-4c82-8f3d-4bd534f790e6" class="">As you can see we have 3 different dates showing up.</p><p id="2979689c-30d6-4198-80da-f4534244f31c" class="">There are a number of methods on a Date in JavaScript that allow you to work with it.</p><p id="4ee25999-ed2a-40c6-be80-6d5099b8eb8d" class="">What Wes likes to do when comparing dates or trying to figure out how much time is in between two dates, is to change them into <strong>timestamps</strong>.</p><p id="95c57a37-8c1d-445d-b543-d1be43c11324" class="">Open up the console and run the code below. You will see that we get a number returned to us.</p><pre id="2924b2af-80c7-4640-8268-ab6293b46577" class="code code-wrap"><code>const now = new Date();
+now.getTime();</code></pre><p id="17c6994f-625b-4281-8013-dbb02053af3a" class="">That number might look random but it is actually not random at all.</p><p id="ab87239f-2f8d-4f0f-a44b-395f8a5d020f" class="">That is the number of milliseconds since January 1, 1970. That is the time when they said okay, this is when date starts. Any dates that are negative, go back from that time and any dates that are positive go forward for that time.</p><p id="5b767dab-445a-4b83-989f-e0f9d6d2e494" class="">There is actually a shortcut to get the timestamp and that is using <code>Date.now()</code>. If you try running that a few times in the console, the number should change each time.</p><p id="66f1e1f4-5f6a-411a-94c3-dbb5f02a74c8" class="">If you ever have one of these timestamps, you can go to the website https://epoch.now.sh.</p><p id="ec3e96cb-e507-4e72-b85f-5bf09dff00d6" class="">This website allows you to convert any date in the future or in the past to a timestamp. JavaScript deals with milliseconds so you want to always work with that.</p><p id="55aa2231-6744-4273-8c15-df4832c6ff20" class="">It also allows you to do the opposite. It will take in a timestamp and convert it back to a regular date for you.</p><p id="bfb1e172-af98-4fa0-a222-986ed2f19df5" class="">So back to our inline map function, we don&#x27;t want to just grab the persons birthday and convert it to a date, we want to convert it to a full blown timestamp.</p><p id="7ec070ed-778f-40c3-8238-94840b416195" class="">We can do that by chaining the <code>getTime</code> method onto <code>new Date(person.birthday).getTime();</code>.</p><p id="c5b82111-e727-47e9-b211-bf77851115bc" class="">For the <code>now</code> variable, use <code>Date.now()</code> to get the timestamp instead of <code>new Date()</code>.</p><p id="b6fe9ebb-554f-40e4-bdd5-e3e2e8a3c8b1" class=""><code>.now()</code> is a static method because it lives on the <code>Date</code> object.</p><pre id="66ac0d36-f3d1-4e2f-adc6-83135f83a799" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+const birthday = new Date(person.birthday).getTime();
+const now = Date.now();
+console.log(birthday,now);
+})</code></pre><p id="6b33e795-5af4-4aa6-94ae-128ef4b8a5a7" class="">To find the difference between the two dates, use the following code 👇</p><pre id="3ad35409-34a9-4693-beba-2940af47d159" class="code code-wrap"><code>const age = now - birthday;
+console.log(age);</code></pre><p id="eb42e3da-b7bc-499e-8f2a-728ce7a2df5b" class="">That is how old each person is in milliseconds.</p><p id="8e99d48d-e8e9-4ad1-98aa-4429ec075275" class="">We need to convert it into years. We need to do some math for that.</p><p id="90f39a79-ed2d-44b9-8823-399681f0837a" class="">Let&#x27;s ask ourselves how many milliseconds in a year. We know there are 1000 milliseconds in a second, there is 60 seconds in a minute, there is 60 minutes in an hour, there are 24 hours in a day and 365 days in a year.</p><p id="284db258-45e1-4e62-9abe-0e5ffcde68d0" class=""><code>1000 x 60 x60 x 24 x 365 = 31536000000</code></p><p id="99d69860-9a83-461d-b34f-6ca14fe0c49d" class="">There are other ways to do dates that will account for leap years and all that.</p><p id="189ca9d4-94f6-4208-bf0f-dffa1b890b13" class="">There are whole libraries out there like the date functions library <strong>date-fns</strong>. Those libraries provide you with a whole bunch of robust tools for working with dates.</p><p id="529fba0e-ac75-4a05-832e-6d33139e41a6" class="">Take our age calculation timestamp and divide it by that number like so 👇</p><pre id="df9ba3db-12b1-4d02-8472-07ab7cd1d376" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+const birthday = new Date(person.birthday).getTime();
+const now = Date.now();
+const age = now - birthday / 31536000000;
+console.log(age);
+})</code></pre><p id="ccd45e5c-7c4d-459f-be28-227710542e7b" class="">That leaves us with some decimals which we can just take the lower bound of their number, because if they haven&#x27;t hit their next birthday yet, you would say you are 26 years old.</p><p id="4632d7a0-47eb-47e9-b918-4a04a92615bb" class="">How do we take the lower bound of any number?</p><p id="594e3123-b1b5-45b5-8819-131e0d43ee34" class="">It&#x27;s not round because you don&#x27;t round up to say how old you are. You take the lower bound with <code>Math.floor</code>.</p><p id="69f8b768-3f10-4068-81ab-f9c4f632b5cd" class="">Modify the code like so 👇</p><pre id="47322716-b40f-4ba9-98be-2bd48e6e627a" class="code code-wrap"><code>const age = Math.floor(now - birthday / 31536000000);</code></pre><p id="57a5a658-94cc-4b57-9eaf-3a3ba964670a" class="">Now that we have their birthday and figured out how old they are, we want to return their full name and birthday in an object.</p><p id="ef39af54-c04a-447d-bad3-790bd2a9b3ab" class="">To do this, simply return an object from the inline function that has a property of <code>age </code>which is equal to our <code>age</code> variable, and then the <code>name</code> property will be the person&#x27;s last and first name variables combined using interpolation as shown below.</p><pre id="21e22aa6-4dff-4947-8202-6be642ed715e" class="code code-wrap"><code>const cleanPeople = people.map(function(person) {
+const birthday = new Date(person.birthday).getTime();
+const now = Date.now();
+const age = Math.floor(now - birthday / 31536000000);
+console.log(age);
+return {
+    age: age,
+    name: `${person.names.first} ${person.names.last}`,
+}
+})</code></pre><p id="49fd1940-be01-47bd-ad67-1a1e23f0dcf1" class="">Note: as mentioned before, if the property is the same name as the variable, we could have returned the object like so 👇</p><pre id="9c805d02-b5ba-445c-8e96-40267b7912c9" class="code code-wrap"><code>return {
+age,
+  name: `${person.name.first} ${person.name.last}`,
+}</code></pre><p id="447df289-44a7-4555-8cbf-abce08498c94" class="">They both work the exact same way.</p><p id="a2d98f9a-3dbd-452f-9da1-86b5ed747f71" class="">Let&#x27;s log <code>cleanPeople</code> in a table.</p><pre id="03afcf58-cdf0-4ad0-bfb4-5f9237026f4a" class="code code-wrap"><code>console.table(cleanPeople);</code></pre><p id="70bf3f8b-8ea8-440e-b8d4-5e9ebd150ea9" class="">As you can see we have everyone&#x27;s name and age.</p><p id="e074fdc3-f06f-428b-94b2-878a8f1b775b" class="">That is what <code>map</code> does. It takes in some data that doesn&#x27;t look exactly how you like it. You do a bunch of data massaging and then spit it out the other end.</p><p id="ba29efe8-3276-4cd8-9e2d-dde86d233dff" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="4f020afe-0761-4778-a9e2-afc4bd17debf" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="86524b21-d0ae-4f69-85fa-5d40e798006f" class="">Edit on Github</p></details></li></ul><ul id="adde8531-cd87-490e-b0ae-1319ca080731" class="toggle"><li><details open=""><summary>51 - Looping and Iterating - Filter, Find and Higher-Order Functions</summary><p id="9729f15d-b704-4294-9614-9af8a40f9e54" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/51-looping-and-iterating-filter-find-and-higher-order-functions">https://wesbos.com/javascript/09-gettin-loopy/51-looping-and-iterating-filter-find-and-higher-order-functions</a></p><p id="af7a22c8-16be-4d24-9b2e-a5346c684a0d" class="">
+</p><figure id="57735989-dc49-4b72-8b0b-af21537e8191" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%202.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%202.png"/></a></figure><p id="dc4527dd-6de4-4e21-b119-aa2dd3b93a91" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="760447f0-23fd-42e9-95a1-c3bbb2db94c9" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="dbdfb7c0-f0b5-4b7b-a3d6-1b544d204012" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="ae824d69-9ccd-4dae-a336-0f9c07a2b748" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="d08dbac0-9bcc-4634-8cbf-05c40b05cbfe" class="">JavaScript, Iterating, Filter, FindEdit Post</p><p id="3fe1e546-a3fc-4ed1-af74-d112f8f7b38f" class="">You can skip this lesson if you feel confident with your knowledge of <code>filter</code> and <code>find</code> because we have already covered that a few times.</p><p id="3ab08b46-0bc8-4ecb-bd65-faaa6bf2db0d" class="">Wes just wants to have a video specifically dedicated to it so you can come back and refer it at a later time conveniently.</p><p id="c94669ca-db19-4e50-a6ce-4830d498cceb" class="">Let&#x27;s continue from the example in our previous lesson, where we created a <code>cleanPeople</code> array, which we will work with in this example.</p><p id="3e0ca4bc-1fb1-43ed-b670-ca315e35841f" class="">Very often you will find yourself in a situation where you either need to find one person in an array or you want to filter the list down to be a subset of it.</p><p id="3c921656-77c2-4d12-a898-3ba9928df834" class="">Let&#x27;s say you want to find people who are over 40 years old.</p><p id="acd1eb99-7df9-4dfc-af55-eb80d08dd078" class="">You can use <code>.filter()</code> for that.</p><p id="efb0a067-84a4-4908-ac60-6c8e58f7f6ab" class="">The way filter works is you loop over every single item in an array, and you either say yes (true) or no (false).</p><p id="504cb85d-5907-40a3-9b0a-969dfe676e14" class="">If you return true that item will be in the array subset, if you return false it will take out that item from the array that is returned.</p><pre id="4166d2df-4d45-4c66-b856-bf29efa6c0d0" class="code code-wrap"><code>const over40 = cleanPeople.filter(function(person) {
+if (person.age &gt; 40) {
+return true;
+} else {
+return false;
+}
+})
+
+console.table(over40);</code></pre><p id="dd727f3f-871f-4f15-9576-3d08fd1bef18" class="">That is the verbose way to write it, which Wes is using just to show us how it works.</p><p id="abf4a1f5-b176-4061-bea7-3217f6aabc36" class="">As you can see, we now have only a subset of the original array.</p><p id="33a53988-0a14-43e5-b7a2-21760b0d3674" class="">Now let&#x27;s refactor the function above to make it more concise.</p><p id="66fc21fe-0216-40c1-a257-82040ebc1e05" class="">How Wes would approach it is he would look at the condition within the filter function. If the condition is met, we will return true.</p><p id="2a35e49a-fb29-4ffd-b7c5-8f065a4766fd" class="">That means there is no need for an else because anything that comes after the condition will only run if the condition is true. So that else is unnecessary.</p><pre id="79847fc3-72e3-40d7-a190-6ed57575a667" class="code code-wrap"><code>if (person.age &gt; 40) {
+return true;
+}
+
+return false;</code></pre><p id="0b09cacd-ea9a-4db9-b7fb-676cd561533b" class="">Since the condition evaluates to true or false, we can just return the condition like so 👇</p><pre id="c2d6fa5f-4cf7-46b6-b89f-bce15430a191" class="code code-wrap"><code>const over40 = cleanPeople.filter(function(person) {
+return person.age &gt; 40;
+});</code></pre><p id="fd77cf8d-f401-4f69-ab7f-975e9a532b1f" class="">We can make it an arrow function like so 👇</p><pre id="1a2dad54-d83d-4784-8006-fc6a53f77834" class="code code-wrap"><code>const over40 = cleanPeople.filter((person) =&gt; {
+return person.age &gt; 40;
+});</code></pre><p id="1c44df43-76b3-4faf-aac7-9cd32f099efe" class="">We can go one step further and make it an implicit return and take off the parameter parenthesis like so 👇</p><pre id="96870d80-2d40-4e43-8eb1-88cfc3139d34" class="code code-wrap"><code>const over40 = cleanPeople.filter(person =&gt; person.age &gt; 40);</code></pre><p id="844e7d71-62c0-4c6e-a14e-9629369a57b0" class="">If there ever is a situation where we call this filter method on an array with no people over 40 in it, it will just return to us an empty array.</p><figure id="5084f279-a156-43a6-a44a-9ba1052c2c17" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/660.png"><img style="width:136px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/660.png"/></a></figure><p id="05cfe0e8-9939-43bc-af4a-aaf09a399f46" class="">If you wanted to check if there were any people over 40 in this case you could use the following code 👇</p><pre id="c8c83a4a-b178-4fdc-95d1-6245b67cdae1" class="code code-wrap"><code>if (over40.length) {
+console.log(&#x27;There are some people over 40&#x27;);
+}</code></pre><p id="b1a24ee1-6147-43a1-8b97-5a9f88d5cb50" class="">That is how filter works.</p><p id="c4835242-f56e-4d91-89d2-c0905bfc24f5" class=""><code>.find()</code> works the exact same way except that find only finds one item in the array and returns it whereas filter will always return to you all of the items that match.</p><p id="b4447f49-4af4-40aa-a1b8-377fe8bf049f" class=""><code>.filter()</code> will always return an array</p><p id="7f54ae6a-62ad-4015-b868-8119f2fe0b53" class=""><code>.find()</code> will always return the item that you want.</p><p id="09d95002-c421-4c2e-891c-13a94637930d" class="">Let&#x27;s use the <code>students</code> array for our find example.</p><p id="3369aabe-5e08-4b53-b4b9-a64fd56dc101" class="">Here is what that array looks like 👇</p><pre id="6ea3c4e2-6ab0-4cce-97fd-b094107c02e8" class="code code-wrap"><code>const students = [
+{
+    id: &quot;11ce&quot;,
+    first_name: &quot;Dall&quot;,
+    last_name: &quot;Puckring&quot;,
+},
+{
+    id: &quot;2958&quot;,
+    first_name: &quot;Margarete&quot;,
+    last_name: &quot;Brandi&quot;,
+},
+{
+    id: &quot;565a&quot;,
+    first_name: &quot;Bendicty&quot;,
+    last_name: &quot;Woodage&quot;,
+},
+{
+    id: &quot;3a16&quot;,
+    first_name: &quot;Micki&quot;,
+    last_name: &quot;Mattes&quot;,
+},
+{
+    id: &quot;f396&quot;,
+    first_name: &quot;Flory&quot;,
+    last_name: &quot;Gladeche&quot;,
+},
+{
+    id: &quot;de5f&quot;,
+    first_name: &quot;Jamill&quot;,
+    last_name: &quot;Emilien&quot;,
+},
+{
+    id: &quot;54cb&quot;,
+    first_name: &quot;Brett&quot;,
+    last_name: &quot;Aizikowitz&quot;,
+},
+{
+    id: &quot;9135&quot;,
+    first_name: &quot;Lorry&quot;,
+    last_name: &quot;Smallman&quot;,
+},
+{
+    id: &quot;978f&quot;,
+    first_name: &quot;Gilly&quot;,
+    last_name: &quot;Flott&quot;,
+},
+];</code></pre><p id="6438dfa1-0234-402b-b346-029ed81e1669" class="">Now let&#x27;s say you want to find a student with the <code>id</code> of <code>565a</code>.</p><pre id="23e33dd8-9e79-47c5-a2b1-54575d014d93" class="code code-wrap"><code>const student = students.find(student =&gt; );</code></pre><p id="bb7202c1-fd31-4dd0-8f13-da88c8608d70" class="">The code above is incomplete, but one weird thing worth pointing out is that we are naming the variable that we are storing the item in as <code>student</code> but we are also naming the individual loop a student.</p><p id="f06c7c77-32c5-410a-95f9-059df29ce141" class="">Is that okay?</p><p id="3d20fa5c-b98f-4bf7-95be-a006f21f41a3" class="">It is allowed because the student which is a parameter of the <code>.find()</code> loop is scoped to within that function. It is confusing however so it&#x27;s often better to change it to something else.</p><p id="95222f74-15d2-4682-873a-06ad2a190de1" class="">We will name the parameter <code>stud</code> instead like so 👇</p><pre id="65b8a080-0f51-4453-a5d6-4decb85977b7" class="code code-wrap"><code>const student = students.find(stud =&gt; stud.id === &#x27;565a&#x27;);
+console.log(student);</code></pre><p id="0feb0ebd-a10c-4e1d-98d3-5cff2f129467" class="">As you can see, the correct student record is returned.</p><p id="07c3e4f3-e70d-40ea-a16a-92f1a8c4313c" class="">If that didn&#x27;t match anything, what would we find?</p><p id="c3627366-aace-4834-ada7-c1f2eee96f3b" class="">We would get <code>undefined</code>. You always want to check if something got found.</p><p id="d261c73c-15e6-4a79-b52f-162c625daecb" class="">As you may have noticed, the <code>find</code> method did not return an array of students to us, it returns to us an object which is the student itself.</p><p id="544cd401-a554-48ae-b629-d70de8c2f642" class="">We could just swap the <code>.find()</code> to a <code>.filter()</code> like so 👇</p><pre id="0fa2cefa-96b7-49a3-aed2-40e2b4b38089" class="code code-wrap"><code>const student = students.filter(stud =&gt; stud.id === &#x27;565a&#x27;);
+console.log(student);</code></pre><p id="f6fafa4b-963f-49ae-81b1-f2a8a67e5503" class="">As you can see, that returns to us an array of one item. That is the different between <code>.filter()</code> and <code>.find()</code>, everything else is exactly the same.</p><p id="2c327e21-d11c-4b2e-b98b-9b247ecfdebf" class="">One neat thing that we could do is make an external function and then pass that in, like so 👇</p><pre id="5b2f92ed-c792-4537-adaf-add5c6cd7456" class="code code-wrap"><code>function isStudent(student) {
+return student.id === &#x27;565a&#x27;;
+}
+
+const student = students.find(isStudent);
+console.log(student);</code></pre><p id="33dc3146-0a59-41aa-8cd4-dcd5fd522f0a" class="">Now that is a little bit weird. Why would we write a function that is hardcoded to a specific id? It&#x27;s more likely that we will be looking for a student with their own specific id, so a hardcoded value would not work for all students.</p><p id="fa1a5a5e-e048-422d-b3cf-445c035dd8e6" class="">What we can do is wrap that in another function called <code>findById</code>, which takes in one parameter,<code>id</code>, and which returns another function like so 👇</p><pre id="67276bc7-86c3-4dc0-b989-10baa0550996" class="code code-wrap"><code>function findById(id) {
+return function isStudent(student) {
+return student.id === id;
+}
+};</code></pre><p id="7dba57f1-0bc5-4e93-8f31-96f2f40050d8" class="">This is called a <strong>high-order function</strong> or a <strong>higher-order function</strong>. It is a function that will return another function.</p><p id="8d537be2-0641-49ff-b3b2-bd771fd38ae6" class="">Now we can simply replace the method we pass to <code>.find()</code> like so 👇</p><pre id="bb0704c5-9896-4523-9fa5-616735963144" class="code code-wrap"><code>const student = students.find(findById(&#x27;56a&#x27;));</code></pre><p id="7a7584c9-8204-4814-b76c-6483ffb005ca" class=""><code>findById(&#x27;56a&#x27;)</code> will generate a new function that is coded to find the id that we are looking for (56a).</p><p id="b39e78c4-5c55-40ba-8029-72ea0273731f" class="">It still finds the right person, it&#x27;s just a little bit more flexible</p><p id="abaf613f-c2fe-48eb-afaf-fcc1fa09b59f" class="">Let&#x27;s say you run into a scenario where the object has a lot of properties.</p><p id="6f20c7b7-6ba3-4b09-a9be-db65702d08aa" class="">Are you going to create a separate function called <code>findByFirstName</code> and then <code>findByLastName</code> and then all the other properties?</p><p id="233aee4d-52a1-4b4f-a00b-4da333596a17" class="">Instead of doing that, we can modify the function to be even more flexible. Start by creating a new function which takes in 2 things:</p><ul id="fc8e6726-695e-40a8-b296-d55781a28be3" class="bulleted-list"><li style="list-style-type:disc">the property</li></ul><ul id="0efd1e84-cb25-4ce0-a0e1-38aee6851449" class="bulleted-list"><li style="list-style-type:disc">the property value</li></ul><p id="3d876493-11b9-47c0-a3ea-4f49e6b12c06" class="">It will return a function which is the looping function.</p><p id="b8692c8a-2ba2-4abb-b5ec-417f82e69792" class="">We are not going to return if the <code>id</code> is equal to the <code>id</code>, we are going to return if the <code>student</code> property is equal to the property value we are looking for.</p><pre id="9a7de556-3b0d-494b-9f76-7aaf0f9f6dc8" class="code code-wrap"><code>function findByProp(prop, propWeAreLookingFor) {
+return function isStudent(student) {
+return student[prop] === propWeAreLookingFor;
+}
+}</code></pre><p id="55d5b4cc-4678-4ac3-9bb1-997d70900aea" class="">Now that might be a little confusing to you. Let&#x27;s go over how it works.</p><pre id="f3d84c6b-f99d-4058-b86c-3a957e67768a" class="code code-wrap"><code>const student = students.find(findByProp(&#x27;id&#x27;, &#x27;565a&#x27;));</code></pre><p id="a2aea49e-e434-431c-b1e8-3a2e83e3b81a" class="">We have made the function really flexible now. If you ad the coded above, you will see that it still works, but we can also make other student where the first name property is equal to &#x27;Micki&#x27;.</p><pre id="c66045db-59ed-44ca-a53f-30f661f498d4" class="code code-wrap"><code>const student = students.find(findByProp(&#x27;id&#x27;, &#x27;565a&#x27;));
+const student = students.find(findByProp(&#x27;first_name&#x27;, &#x27;Micki&#x27;));
+
+console.log(student);
+console.log(student2);</code></pre><p id="9b5b6c78-f577-4ae7-ba10-ca8d8e02f3b6" class="">Let&#x27;s go over the function one more time.</p><p id="d79e53e5-e377-4b69-ba34-11a56008f9eb" class="">The <code>findByProp</code> function takes in a prop as the first parameter and <code>propWeAreLookingFor</code> as the second parameter. What that means is the first parameter takes in the key, and the second parameter takes in the value we are matching the property against.</p><p id="80076096-53ad-4980-a785-2872beed463a" class="">In the image above, the text that is selected is the property <code>last_name</code>. It is the property key.</p><p id="0d1ae7f3-7fb1-47cb-85f8-df0117e6840f" class="">The property value for the <code>last_name</code> property for the student shown above is <code>Aizikowitz</code>.</p><p id="8afebd44-077f-4dba-aa73-e7e1a41908ec" class="">So our function takes in a property and a value, and then it will look in each object for whatever property you specified is equal to whatever value you specified.</p><p id="09810d6d-3957-476f-94a6-fe9ba2bc14ca" class="">The reason we have to use square brackets and not the dot notation in the code highlighted in the image above is because the property that we are looking for is being passed in as an argument to the function.</p><p id="3024cda6-68c0-4ad3-a2bd-00d6d8417ffb" class="">This is a bit advance so don&#x27;t feel too let down if you feel a bit confused.</p><p id="92e51a5d-a1c4-4a15-af68-6f8e92d57f11" class="">It took Wes years to understand the benefit of a function like we just made with <code>findByProp</code>.</p><p id="eefc12d4-a880-4543-8cda-e006a86ca01a" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="a65baf54-8364-4156-8c4b-dd8d0e5daba4" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="e8cfcfe8-33a9-4fa5-a01c-46f0873643a0" class="">Edit on Github</p></details></li></ul><ul id="01ecc724-b82a-43b0-b7d0-3e71066f6772" class="toggle"><li><details open=""><summary>52 - Looping and Iterating - Reduce</summary><p id="a4ba070b-5a00-4c99-83ab-323589c42e03" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/52-looping-and-iterating-reduce">https://wesbos.com/javascript/09-gettin-loopy/52-looping-and-iterating-reduce</a></p><p id="8ea32e5d-a68b-4c63-b2db-a6b8629080e3" class="">
+</p><figure id="d0ab9503-d5ae-41e9-8ff2-92e35cf7c001" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%203.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%203.png"/></a></figure><p id="c2798916-d010-48db-a0fe-453a2a32621c" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="89914407-50cb-437a-b4a6-fda159ebad5f" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="8e663274-7874-4722-bdd5-f7edab712386" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="f9ff476b-4ca5-42de-b506-651f7c92a659" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="f98d55ca-626b-449d-9c39-96e4bb723571" class="">JavaScript, Iterating, ReduceEdit Post</p><p id="97ceaca6-2f0a-4cd1-9e85-927acd82d755" class="">Let&#x27;s add a <code>console.clear()</code> to the bottom of the script section in the HTML page we have been using for the last few examples.</p><p id="79796b68-5f1a-41ce-957e-510d6273f499" class="">So far we have covered <code>.map()</code>, where you take in items and return transformed items, and <code>.filter()</code> where you take in items and return a subset of those items.</p><p id="c15a2ace-4334-4f17-85e5-a9ba005f45ff" class=""><code>.reduce()</code> is probably one of the trickier array methods to understand because it does so much and there are a couple of different use cases for it.</p><p id="02ddcd02-dafb-4b97-b382-9f6baa8cb297" class="">So what does it do?</p><p id="a0eb7dc2-6c5c-4fb6-a38e-c8dd92a47faf" class="">It takes in an array of data (just like <code>map</code> and <code>filter</code>) and it will return to you a result of or a single value.</p><p id="a66050f8-8f3f-4471-997d-a384d1660574" class="">Now what does that exactly mean?</p><p id="d6f75d17-58be-4bf8-af99-4e7f74aeb3ce" class="">Let&#x27;s do an example to demonstrate.</p><pre id="a9f2a323-2fb0-40e3-836b-80f00ab97cf5" class="code code-wrap"><code>const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];</code></pre><p id="f833b198-a47b-4290-a3fb-16376d914af2" class="">We want to take the <code>ordersTotal</code> array and add up all the numbers in the array.</p><p id="b35e4f77-ae1e-4a7f-8289-f848cb0d1874" class="">One way you could approach it is to set a let variable to 0 and then use a <code>forEach()</code> to loop over each item and add to the total.</p><pre id="0a8357b5-0e48-4ed3-9fdc-200082596744" class="code code-wrap"><code>let total = 0;
+
+orderTotals.forEach((singleTotal) =&gt; {
+total = total + singleTotal;
+});
+
+console.log(total);</code></pre><figure id="5a428541-6bb5-4d45-bae9-5448c376fca7" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/670.png"><img style="width:382px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/670.png"/></a></figure><p id="a7dbb3f0-1cc7-473f-b0e1-c981754877c5" class="">As you can see, that does work. However, is that the best way to add up a bunch of things?</p><p id="ede2cd2f-dd10-479f-b656-3ef972e9638d" class="">No, it is not.</p><figure id="48614c40-bfa4-41dd-9457-700588912f5e" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/671.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/671.png"/></a></figure><p id="bf3eb076-f59a-4ddb-91dc-5a33f85a8313" class="">We have the callback method within the <code>forEach</code>, which relies on an external variable being made. So we have sort of reached outside of it. That is what is referred to as a <strong>side effect</strong> which is where you update a variable that exists outside of the function.</p><p id="c5d197d2-9240-4feb-983c-095a98a0ff0e" class=""><code>.reduce()</code> will allow us to loop over every single item in that array, and in this case it would allow us to do a running total with those numbers.</p><p id="4822371a-62b0-4f7e-bc61-9a6b8deecfd8" class="">Here are some visualizations that Wes has pulled from online by google image searching &quot;map filter reduce&quot;.</p><figure id="14a1b97b-a5f7-47bf-9037-f7c7790fe624" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/672.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/672.png"/></a></figure><p id="48f4e168-e380-4128-8593-c2df4e5c33ec" class="">In the image above, the language is not JavaScript but it doesn&#x27;t matter because each language has some version of map, filter and reduce.</p><p id="7fba371d-3743-4488-833a-4262be507197" class="">The <code>map</code> function in the image above takes in raw materials of cow, potato, chicken and corn and that returns the cooked materials via the cook function.</p><p id="f6f1ea80-c342-4418-83b2-566d0dc9e40b" class="">The filter will return to you a subset of the original array of what is vegetarian.</p><p id="fc147a6a-daa2-41d8-b5c5-5674c1068402" class=""><code>.reduce()</code> will take in an array of food and return to you something that is compiled into a smaller version of it.</p><p id="dcfc83c2-90c4-4600-9b91-c16262f77744" class="">If you think about making a reduction when you&#x27;re cooking or making a soup, what you do is you add a whole bunch of stuff to it and then you let it simmer and sort of become one. It is typically reduced down to something that is smaller than the original value that it came from.</p><p id="6ee1a499-54f4-444d-aef3-ed9a0a82017e" class="">Now we will go through a bunch of use cases for <code>.reduce()</code>.</p><p id="cab75a2f-ec96-4e56-8a49-6a3e8df03e8d" class="">Make a new variable called <code>allOrders</code>. We will call <code>.reduce()</code> on our <code>orderTotals</code> array.</p><pre id="26fa33d5-4deb-4759-adf1-c7fee319799c" class="code code-wrap"><code>const allOrders = orderTotals.reduce();</code></pre><p id="0a062946-df1e-4f4b-8f11-59a1b713d4a4" class="">We need a callback function that will be run on each item in the array, which we will call <code>tallyNumbers</code>.</p><p id="c6501f61-8cda-4273-bb66-937793a5fc45" class="">It will take in 2 arguments because that is what the callback function of a reduce method takes.</p><p id="93855be7-5997-4a3b-b367-f7ef2a6a87a1" class="">Let&#x27;s look that up in the MDN docs.</p><p id="c30ed104-a0fa-4767-a868-ded2398e0edd" class="">The 2 parameters it takes is the <strong>accumulator</strong> and the current value.</p><p id="bdcc8895-c89c-4d6d-a8f9-58316b8cda4a" class="">The <strong>accumulator</strong> is the thing that has been handed to you from the last instance of the loop. The <code>currentValue</code> parameter is the current item in the array.</p><p id="8a5e075f-77cc-43eb-91bd-ae930a07d625" class="">We will name our parameters <code>tally</code> and <code>currentTotal</code>.</p><p id="4ae0d704-5461-49ea-82c1-0faf163c4481" class="">Inside of the function, add a log of the current tally and current total, like so 👇</p><pre id="1e893102-53c5-404a-a330-f0351d0b933d" class="code code-wrap"><code>function tallyNumbers(tally, currentTotal) {
+console.log(`The current tally is ${tally}`);
+console.log(`The current total is ${currentTotal}`);
+console.log(&#x27;--------&#x27;);
+}
+
+const allOrders = ordersTotal.reduce(tallyNumbers);
+console.log(allOrders);</code></pre><p id="f2412251-6bfc-4640-a09e-51042583a1c6" class="">Now there might be some stuff in the console does not make sense, so let&#x27;s go through it together.</p><p id="42ec2983-0e52-4d41-a254-84e6ec3c33ef" class="">The first time the loop runs, the current tally is 342 and the current total is 1002.</p><p id="4e05e55a-f7f9-46dd-b0aa-b27e359901d2" class="">The second time the loop runs, we get the current tally is <code>undefined</code> and the current value is 523. In fact every time other than the first instance of the loop, <code>tally</code> is undefined.</p><p id="75bcacbe-8798-4bf0-9014-b5dbe3e056eb" class="">That is because <code>reduce()</code> takes in another argument which is what do you want to start the accumulator at.</p><p id="22d0b1a7-b48f-4416-aeca-84204efacf7a" class="">In our case we want to start counting at 0 so we pass in 0 like so 👇</p><pre id="77d3699c-d7bf-42b7-b974-3aa35c5456ab" class="code code-wrap"><code>const allOrders = orderTotals.reduce(tallyNumbers, 0);</code></pre><p id="5741a4e6-cff4-4df9-a04a-b5e1d5c552e1" class="">So as you can see, in the first loop the <code>tally</code> is 0 and then in the rest it is <code>undefined</code>.</p><p id="8c13e84b-09cf-401f-814b-25ad44d163f8" class="">Now that we got the loop working, we have this problem where everything after the first loop is returning <code>undefined</code> for the tally.</p><p id="ff2cbd29-c079-4f69-be5a-0b93d8b9d416" class="">That is because of the accumulator parameter, <code>tally</code>, that is passed from the previous iteration of the loop.</p><p id="aa926c10-5f34-4715-8ffb-c7107b58e5b1" class="">If we were to just return <code>&#x27;WES IS COOL&#x27;;</code> from each of the iteration in our loop, the accumulator is going to be equal to that on the next iteration.</p><p id="b1665cdd-1a75-41a8-b132-34b0fce0bce4" class="">Modify the <code>tallyNumbers</code> function by adding <code>return &#x27;WES IS COOL&#x27;</code> as shown below.</p><pre id="1af6dda9-8f05-41e1-ba6a-c0dea1105627" class="code code-wrap"><code>function tallyNumbers(tally, currentTotal) {
+console.log(`The current tally is ${tally}`);
+console.log(`The current total is ${currentTotal}`);
+console.log(&#x27;----------&#x27;);
+return &#x27;WES IS COOL&#x27;;
+}
+
+const allOrders = orderTotals.reduce(tallyNumbers, 0);</code></pre><p id="4fce125f-9fd5-42c8-af29-69c9355085f6" class="">As you can see, the first time the loop runs, <code>tally</code> is 0 because we started with an accumulator of 0 and then for all the next instances, our accumulator <code>tally</code> is equal to &quot;WES IS COOL&quot; because whatever you return from this function is what the accumulator is equal to.</p><p id="25a3adae-8475-430d-a030-b540ff9d059f" class="">So what we really want to do is return the current tally + the current order&#x27;s total.</p><pre id="d94595f9-d01b-407c-933b-b9af3108a3a8" class="code code-wrap"><code>function tallyNumbers(tally, currentTotal) {
+console.log(`The current tally is ${tally}`);
+console.log(`The current total is ${currentTotal}`);
+console.log(&#x27;----------&#x27;);
+return tally + currentTotal;
+}
+
+const allOrders = orderTotals.reduce(tallyNumbers, 0);</code></pre><p id="fe0c8dd3-b775-4123-bbf6-b54e7963e13c" class="">In the console above, as you can see we start with 0 because our accumulator starts at 0 as shown in the highlighted code in the image below.</p><p id="3bf60bd8-6bd7-45f0-8ae3-65d39f5b2b8b" class="">If we were to not pass an accumulator, the first loop iteration will take the first two numbers. In our case, that would still work but Wes always like to pass a default value so we know what we are starting with and so we can see what type we are starting with.</p><p id="cc0d556e-d6a0-4e04-81f5-5659e595a6cf" class="">So we start with 0, then the <code>currentTotal</code> is 342. Then in the next iteration, because we have returned 342 from the previous iteration, we are going to start with that as <code>tally</code> variable in the next iteration. We add the current value and return the <code>tally</code> variable to the next iteration and so on.</p><p id="738eff6f-67b5-41f9-9dd2-addb390db7f9" class="">A reduce will loop over items in an array and every single time that you loop over an item in an array, you have an option to return a value which you can use to accumulate values or distill them down into one value.</p><p id="642ecd9b-1271-4c3d-9f02-9a3d18eef330" class="">Now, if we want to total the numbers, we already have them in the <code>allOrders</code> variable so we can simply log that variable to the console which should return to us 7255.</p><p id="182f0a7e-6f5b-4117-87f5-e3af52de126e" class="">For the next example, let&#x27;s look at the <code>inventory</code> variable.</p><pre id="e03183a2-9c1f-4969-b33d-fa0728aa07b8" class="code code-wrap"><code>const inventory = [
+{ type: &#x27;shirt&#x27;, price: 4000 },
+{ type: &#x27;pants&#x27;, price: 4532 },
+{ type: &#x27;socks&#x27;, price: 234 },
+{ type: &#x27;shirt&#x27;, price: 2343 },
+{ type: &#x27;pants&#x27;, price: 2343 },
+{ type: &#x27;socks&#x27;, price: 542 },
+{ type: &#x27;pants&#x27;, price: 123 },
+];</code></pre><p id="0a8f9985-773d-4d3d-aab9-22b70e9c9fa4" class="">It is an array of objects and each object has a <code>type</code> and a <code>price</code> property on it.</p><p id="03807feb-5dfc-4b1e-8e93-958084040342" class="">In this exercise, we need to figure out how many instances there are with type of pants, how many are pants, and how many are socks.</p><p id="e0b79208-878d-44dd-8d29-1cea78b2fe55" class="">We also want to figure out what is the total value of all of the inventory that we have.</p><p id="864f563a-6b20-4e1f-b0e3-7778d55b09fb" class="">You could probably figure out how to calculate the total value form the last exercise, but the other part where we need to count how many instances of something there are, happens all the time in JavaScript.</p><p id="25538f87-5fce-4c01-9d27-a5f91ef50130" class="">Let&#x27;s add some code.</p><p id="03519981-7c91-4134-9c50-76d883874e00" class="">Make a function called <code>inventoryReducer</code> which we will pass to <code>.reduce()</code> when we call it.</p><pre id="230d47ae-ed74-47d9-bd06-c3be6f8388b4" class="code code-wrap"><code>function inventoryReducer() {}
+
+const inventoryCounts = inventory.reduce(inventoryReducer, {});</code></pre><p id="7a6ef506-5f12-4d50-8d50-51ff15d42c3e" class="">We also need to decide what value we should start with for the accumulator. In our case, we want to return an object that looks something like this 👇</p><pre id="8e037059-8714-42a0-b5a0-e649f0ff99d3" class="code code-wrap"><code>{
+shirts: 3,
+pants: 2,
+socks: 523
+}</code></pre><p id="cc720199-b823-4bd8-84c0-64f037060999" class="">In order for us to get that, we need to pass an object.</p><p id="2b47e0b5-a2e9-491b-9704-b2741155a104" class="">We could pass an object like this 👇</p><pre id="732e5565-d911-4e2b-a561-b75815a89ec4" class="code code-wrap"><code>const inventoryCounts = inventory.reduce(inventoryReducer, {
+  shirts: 0,
+  pants: 0,
+  socks: 0,
+});</code></pre><p id="1169158e-ad27-4cca-a036-d2c24e26058a" class="">That would start everything off at zero.</p><p id="7e76db62-f89c-4c5d-97ae-40e4762df2e3" class="">However, more often then not, you are not aware of all of the different types that will be coming in so there is no way for you to go in and make a huge list of everything ahead of time. Or -- you might be aware of it and there are 50 different things so it doesn&#x27;t make sense to do that.</p><p id="dc38bb57-3d97-4b8a-96f1-4f9b5f91451b" class="">What we will do instead is we will start of with an empty object and then add the keys and set them to one as they appear, otherwise if they already exist, we will increment them by one.</p><pre id="0b73f8a7-626e-4425-beb1-fdf76194da95" class="code code-wrap"><code>const inventoryCounts = inventory.reduce(inventoryReducer, {});</code></pre><p id="d4d1e7b2-c145-4dc7-81fe-077a944cb23f" class="">Shown above is how you pass an empty object as the accumulator</p><p id="5d4cd370-ab4d-4f92-9afb-e84380e339d6" class="">Our reducer takes two things:</p><ol type="1" id="0e7ecc41-884d-4c08-886a-3e5192d47b51" class="numbered-list" start="1"><li>our accumulator which we will call <code>totals</code></li></ol><ol type="1" id="064cce5b-f245-4308-b78d-3563b7956ee2" class="numbered-list" start="2"><li>our item which we will call <code>item</code></li></ol><p id="9556d5a4-2050-4eba-b8b4-03423cc7dcb8" class="">Let&#x27;s add a log to our reducer function which logs the item&#x27;s type like so 👇</p><pre id="c4433ee6-f008-40fa-9c9b-7ff4e5e5276d" class="code code-wrap"><code>function inventoryReducer(totals, item) {
+console.log(`Looping over ${item.type}`);
+}</code></pre><p id="619d985b-9bf8-415f-98b3-7764f54b1480" class="">Inside of the reducer we need to increment the type by 1 and then return the accumulator or return the totals so the next loop can use it.</p><p id="245637cf-c2a5-41c1-8a4f-d9c2f3059e69" class="">To increment the type, let&#x27;s try the following code.</p><pre id="9caa1039-9f0d-43a9-9900-b7693aba2b03" class="code code-wrap"><code>function inventoryReducer(totals, item) {
+console.log(`Looping over ${item.type}`);
+totals.shirt = totals.shirt + 1;
+return totals;
+}
+
+const inventoryCounts = inventory.reduce(inventoryReducer, {});
+console.log(inventoryCounts);</code></pre><p id="0f0da820-f822-4fbe-ba32-58869cebf8c3" class="">Hm.. shirt is equal to <code>NaN</code>. Why would that be?</p><p id="3df48127-0bd7-423d-a145-1f11a0a12817" class="">That is because if you are trying to add one to something that doesn&#x27;t exist, it will give you <code>NaN</code> (not a number).</p><p id="046a5a53-2d07-4580-bf04-37fd4746111e" class="">What we can do is check if the shirt already exists on <code>totals</code> and if it does, we increment it by one, but if it doesn&#x27;t, we will set it to 0.</p><p id="f55e90d4-ce5d-4447-a111-caaec3e77eba" class="">Instead let&#x27;s set <code>totals.shirt</code> to equals itself plus 1 or 1 like so 👇</p><pre id="e5218d46-7bb1-48ee-bfc8-ca8551deae3e" class="code code-wrap"><code>totals.shirt = totals.shirt + 1 || 1;</code></pre><p id="9dfd40f8-eb3e-4484-aad2-3733baf0ff4b" class="">Lets try it.</p><p id="4322af49-985b-4505-9128-e1b3898b0342" class="">Why did that work? This is an example of <strong>taking advantage of conditionals</strong> or <strong>abusing conditionals</strong>.</p><p id="778ef5ca-36cc-497d-bd74-dc32dba7cf19" class="">If we were to write that as an if statement, it would look like this 👇</p><pre id="e0a8a4b0-9198-4284-8690-a10f37aba85a" class="code code-wrap"><code>if (totals.shirt) {
+totals.shirt = totals.shirt + 1;
+} else {
+totals.shirt = 1;
+}</code></pre><p id="6de4b521-c879-4915-9911-bdfb7ab90d9e" class="">Note you can also increment totals.shirt like this <code>totals.shirt++;</code> Both work!</p><p id="1046dffb-039c-4cb1-97ee-a2ca49b488d3" class="">So what is happening there is if the property doesn&#x27;t exist, we first need to add it, and set it to 1, and then we can start incrementing it.</p><p id="fe22b06d-805a-4b28-a824-e8546d87d2cb" class="">In this statement <code>totals.shirt = totals.shirt + 1 || 1;</code>, if <code>totals.shirt + 1</code> turns out to be <code>NaN</code>, then that is falsy and it will fall back to 1.</p><p id="78377739-e26c-4506-a0ee-9f9dcd3c157b" class="">It&#x27;s a bit harder to read which in a lot of cases isn&#x27;t ideal, but it is nice to do it in a one liner.</p><p id="a4dfd182-b8c5-4f02-8756-591197deeeef" class="">Shown below is yet another way 👇</p><pre id="e1b57999-3d3c-4fac-a358-728d43ae567b" class="code code-wrap"><code>totals.shirt ? (totals.shirt += 1) : (totals.shirt = 1);</code></pre><p id="e68f0512-ecd3-4d15-b4e5-9eb5b4f898a3" class="">We are checking if <code>totals.shirt</code> exists, if it does, we increment it by 1, if it doesn&#x27;t we create the property and set it to 1.</p><p id="a414be95-b311-4022-8b21-f5a66df798df" class="">One thing you may have noticed is we have been hard coding shirt, which we shouldn&#x27;t be doing because there are a few different types.</p><p id="0593c55f-13a8-4c21-8891-b29089ac5a16" class="">We can change it to a variable lookup item using square brackets like so 👇</p><pre id="5507bbd1-4912-4faa-a4dc-c0a9ae244423" class="code code-wrap"><code>totals[item.type] = totals[item.type] + 1 || 1;</code></pre><p id="c7c4b456-4dcf-4675-9c8a-b280ef2dd11c" class="">As you can see, now our accumulator has the 2 shirts, 2 socks and 3 pants.</p><p id="7c5ed928-160d-40ff-ac13-3953ba45fa1a" class="">Pretty often a reduce can be done in an arrow function, a really quick one.</p><p id="858ab13c-22b7-41cb-91ce-1f058fcb11a9" class="">In our case, we just want to add up the inventory <code>price</code> on each of them.</p><p id="02978875-6406-4883-aa0f-9c8d10514161" class="">We will start with 0 as our accumulator because we want to add up the total prices.</p><pre id="9beb04dd-3e66-44e3-87ef-e7caeb2f3802" class="code code-wrap"><code>const totalInventoryPrice = inventory.reduce((acc, item) =&gt; acc + item.price, 0);
+console.log(totalInventoryPrice);</code></pre><p id="7cb324e4-b0d8-4723-82b7-bf3fcbaf1e99" class="">We loop over every single item and then we return the accumulator plus the current item price.</p><p id="d5d2d1d5-14f1-40cb-8228-4258dd4d4267" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="5dd42833-0c7f-4b11-9e08-701719826ee1" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="7bc070de-fd79-423e-8028-c7d25cc0b597" class="">Edit on Github</p></details></li></ul><ul id="097b7adf-4cce-4229-a433-31613c1dc6d7" class="toggle"><li><details open=""><summary>53 - Looping and Iterating - Reduce Exercise</summary><p id="fdc6405e-6e0b-46b3-8ace-214082e738dc" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/53-looping-and-iterating-reduce-exercise">https://wesbos.com/javascript/09-gettin-loopy/53-looping-and-iterating-reduce-exercise</a></p><p id="243b08be-e6f6-4773-b676-5da66d558f7c" class="">
+</p><figure id="2e3a2590-47ba-4711-a219-bdff9836764a" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%204.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%204.png"/></a></figure><p id="e923f158-dd05-4bc3-9db5-44d22fa74f01" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="0addc21b-2fc6-4539-ab1e-e2c8bba84c30" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="986bc9d0-fb4d-429f-b847-4b6d0d77fb9f" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="effc16e6-3beb-45f2-aecd-2438524d1834" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="b1a38ffb-4240-4ba4-a5bb-92dc59546f6c" class="">JavaScript, Iterating, ReduceEdit Post</p><p id="348038d5-ece1-4247-9448-9aa501a3b6b3" class="">This lesson is an exercise where you have to use <code>map</code>, <code>filter</code>, and <code>reduce</code> all in one exercise.</p><p id="8667f7a6-3afe-4927-b9f2-a2b8ceda6237" class="">The task is to go to any webpage, like the Mozilla Developer Docs for reduce, copy every single piece of text like Wes is doing in the screenshot below by pressing <code>Cmd</code> + <code>A</code> and <code>Cmd</code> + <code>C</code> and then counting how many times every letter and number occurs on the page.</p><figure id="b74b244d-1bdf-4092-9b63-df0ff0a0f0e6" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/684.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/684.png"/></a></figure><p id="4fbea3f0-16be-4bd3-aed9-de2a4e92d504" class="">Here are a couple of tips:</p><ul id="79e2aeeb-20db-4ce0-9823-dddcf779fe1b" class="bulleted-list"><li style="list-style-type:disc">first grab all the text</li></ul><ul id="76920a69-74ef-4079-8f20-2230d8cc58a6" class="bulleted-list"><li style="list-style-type:disc">then convert the text to an array of letters</li></ul><ul id="e1be484b-6ad7-4da0-bbb9-194bce529e4b" class="bulleted-list"><li style="list-style-type:disc">then we need to filter the text to grab only letters and numbers and ignore other text content like parenthesis, question marks, white space etc.</li></ul><ul id="8412b742-e14a-44ef-b46e-ad4db604ab2c" class="bulleted-list"><li style="list-style-type:disc">we want to make sure that whether the letter is uppercase or lowercase, we still only count it once. For example <code>a</code> and <code>A</code> would could as two &quot;a&quot;s, not one uppercase A and one lowercase a.</li></ul><p id="07f3fa9f-dfbb-40f9-94bf-3f9d455b0a7c" class="">This is going to use <code>filter</code>, <code>map</code> and <code>reduce</code> all in one go.</p><p id="1a032ba0-b67c-4c08-807e-2199b2a57597" class="">Open up the file <code>reduce-challenge.html</code>.</p><p id="5f17e8cd-334e-4a56-a6b7-9d04551013db" class="">The first thing we will do is get the text in there.</p><p id="1bdddc7c-dd27-4ba6-be8a-122d0a93f013" class="">Create a variable called <code>text</code> and use backticks for the value because we are going to paste the text we copied between the backticks and backticks allow our text to be multi line.</p><p id="cc0ba7ee-b031-4e2b-a24c-c013d57830ee" class="">Note: the text within the <code>text</code> variable has been shortened for demonstration purposes in the following code examples.</p><pre id="35616db6-d8c4-4cd4-b064-fba7dd733059" class="code code-wrap"><code>const text = `
+[0, 1, 2, 3, 4].reduce( (accumulator, currentValue, currentIndex, array) =&gt; accumulator + currentValue);
+If you were to provide an initialValue as the second argument to reduce(), the result would look like this:
+The value returned by reduce() in this case would be 20.
+
+Examples
+Sum all the values of an array`;
+
+
+console.log(text);</code></pre><figure id="8a6c6ff1-1e4c-4415-b24e-e183a5d862a3" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/685.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/685.png"/></a></figure><p id="aa4f4412-411f-4bb4-a1c7-fa7bee00a746" class="">As you can see, we have over 31.1 KB worth of text.</p><p id="0356ba10-4901-4c97-a6f5-3ce53c9d6f0a" class="">How can we convert all of the text into an array of every single letter?</p><p id="e469e6e9-07ba-4993-94fd-2a5a176a69a8" class="">You can call <code>split()</code> or spread it into an array.</p><p id="505377b6-ee38-457f-8054-9888b91f31be" class="">For example we can call split on our <code>text</code> variable and pass it an empty string so that we split it on nothing like so 👇</p><pre id="2d505f9a-f672-4b75-956c-72f5f9b4736d" class="code code-wrap"><code>const everything = text.split(&#x27;&#x27;);
+console.log(everything);</code></pre><figure id="1c8fc1ee-0bc0-43a7-ad97-8e5daee09548" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/686.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/686.png"/></a></figure><p id="a4345b90-3257-411e-8bd8-c6e7a9a76eba" class="">As you see, now we get an array with 15,911 letters that are in it.</p><p id="6653add4-c9d2-498b-b764-c79077eca771" class="">Next we need to deal with ignoring the case when counting letters.</p><p id="1a69b03d-f9d1-4934-a9ca-530b62213f60" class="">There are 2 ways we can do that:</p><ul id="cd0f536e-7303-4095-a76f-5bd94562cba2" class="bulleted-list"><li style="list-style-type:disc">we can either lowercase everything immediately or</li></ul><ul id="2ad16b2f-87f4-4999-add5-98f12c900976" class="bulleted-list"><li style="list-style-type:disc">we could filter the things out for what we want</li></ul><p id="749c80b0-0de6-4d14-9178-6612d14edec6" class="">If we do lowercase first, we will be unnecessarily lowercasing things that do not have lowercase and uppercase, such as symbols like the question mark and numbers etc.</p><p id="31827ce1-c45b-4544-82da-6cc941f18c6c" class="">However, if we filter first, then our matcher will have to match both uppercase and lowercase.</p><p id="67f4e35e-df31-4ee7-9c4e-540599a3b3dd" class="">Let&#x27;s get rid of the junk by using <code>.filter()</code> before lowercasing.</p><pre id="9096bf44-a572-4f19-8c94-2c69db36bc44" class="code code-wrap"><code>const result = everything.filter(char =&gt; )</code></pre><p id="c6610003-44d8-4cc7-aa29-45905d702653" class="">We pass our filter a <code>char</code>, which is an instance of the item from our array, and then we want to filter out any items that are not letters or numbers from a-zA-Z and numbers 0-9.</p><h2 id="91e9eb88-fc61-4b95-bd04-849382ab46b3" class="">Regular Expression</h2><p id="c3ed583b-2b42-4217-994b-3f8999ee503b" class="">So how do we check if a character is from a-z, A-Z or 0-9?</p><p id="91945f54-ab37-454f-a698-8384f2a15ad6" class="">We can use a <code>.match()</code> function.</p><p id="6f69b170-5618-428e-a9cc-58b8388382bd" class="">Let&#x27;s look at these docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions</p><p id="5a5eb5a0-7684-40c2-8abc-76f2e067f249" class="">A <strong>regular expression</strong> is a way to use what is called a <strong>Regex pattern</strong> to match characters within a string.</p><p id="66b74622-4363-4010-ba52-f7e4c6fb3fa4" class="">There are a number of different methods that take a Regex like <code>match</code>, <code>matchAll</code>, <code>replace</code>, <code>search</code>.</p><p id="de6d301f-8023-415d-85c2-8402f5359187" class="">So if we wanted to filter for the letter a for example, we use a matcher.</p><p id="ed9bc1a7-cdc6-4f1a-8751-4dd0bcf26fd8" class="">The way you pass a regular expression to the <code>.match()</code> method is you put two forward slashes like <code>//</code> and then put the matcher in the middle.</p><p id="da0904dc-eac3-4190-88e6-1578a95cc758" class="">To check for a match with the letter <code>a</code> you would do <code>char.match(/a/)</code>, like so 👇</p><pre id="ad5413a2-965f-4c8b-9082-62bc2d4e925d" class="code code-wrap"><code>const result = everything.filter((char) =&gt; {
+// if that characer is a-zA-Z0-9
+if (char.match(/a/)) {
+return true;
+}
+
+return false;
+});</code></pre><p id="8825c59f-939b-4baf-9f5b-a06b28760e7f" class="">As you can see, when we checked if it is a match with the letter <code>a</code>, it returned the value with a bit more information like where we found the word.</p><p id="4b64182f-c224-4bcb-b92d-354519b48cd9" class="">However when we check if <code>&#x27;a&#x27;.match(/b/)</code>, it returned false because &#x27;a&#x27; clearly does not match the letter &#x27;b&#x27;.</p><p id="4f774250-fbf0-4fc3-becf-e65e9b271b93" class="">In our case, we need a Regex that will match all letters, so we can do that using groups like so <code>/[a-z]/</code>.</p><p id="6e8470db-a0f3-438d-938f-9b73b2d05e84" class="">Let&#x27;s try that to see how we are doing.</p><pre id="c8a26f03-93b1-49fa-bcc7-9cef575065a9" class="code code-wrap"><code>const result = everything.filter((char) =&gt; {
+// if that characer is a-zA-Z0-9
+if (char.match(/[a-z]/)) {
+return true;
+}
+
+return false;
+});
+
+console.log(result);</code></pre><p id="8d3d5faa-f642-4691-a69e-f738dba7ff88" class="">We have over 10,000 letters in our filtered array now. If you look closely, you will see they are all lowercase.</p><p id="e78b5946-7c17-46c0-84cf-aeaa6572cb64" class="">Let&#x27;s fix that by modifying the group in our Regex like so 👇</p><pre id="c5a53ef2-aa56-409c-99bc-1fd578a7f97c" class="code code-wrap"><code>char.match(/[a-zA-Z]/)</code></pre><p id="8c863e34-287d-4364-b1db-a94b5b10abb1" class="">As you can see, our array now contains letters as well.</p><p id="5475d2e9-b836-4f17-b1cc-e750b06f06b1" class="">Now we need to get numbers so we can add 0-9 to our group, as shown below.</p><pre id="3eac5987-9508-4f71-abfe-08715a56d8c1" class="code code-wrap"><code>char.match(/[a-zA-Z0-9]/)</code></pre><p id="966e6a2b-5f24-4c08-a4c3-995a79408943" class="">Wes knows this off the top of his head from years of writing regex&#x27;s.</p><p id="eee095f8-449e-4781-ab77-12855eb74ec7" class="">However you can use the website https://regexr.com to find lots of patterns there and cheat sheets to help you match any character except a new line.</p><p id="b8a6dfe6-f024-4d45-9b33-cb50679f9436" class="">Another thing you could do is pass the case insensitive flag like so 👇</p><pre id="ac4d9477-d96a-406c-ab38-0459941a2dda" class="code code-wrap"><code>/([A-Z])/i</code></pre><p id="1d1aebed-6f5a-406c-bea7-b564df8df5e0" class="">What that will do is it won&#x27;t care about upper or lowercase. So in our case we could have done the regex like this 👇</p><pre id="0a2c82a9-3606-485a-9373-e3d251a1480e" class="code code-wrap"><code>char.match(/[a-z0-9]/i)</code></pre><p id="09069f28-8c03-409e-a280-37aea0d5007b" class="">The <code>i</code> flag will make it case insensitive.</p><p id="4473aee8-88d6-4dd1-b2ea-4cb59fc258ae" class="">Let&#x27;s refresh to mak sure that still works.</p><p id="0360f7a4-db92-49ae-981e-6baed029b3a3" class="">As you can see, it does work, and we also getting numbers now.</p><p id="fab82fe6-5751-418d-a105-80c9abbf1fbd" class=""><em>(You might notice in the dev tools that when you expand a large array, it breaks them up into groups as displayed in the image below.)</em></p><p id="2a275534-27b1-49b9-a76f-3b0290c9f02b" class="">So that is our first filter. The next thing we want to do is to lowercase everything.</p><p id="6f81cb71-96ed-4e48-b090-4f0cbbc696df" class="">One way we can do that is using <code>.map()</code>.</p><p id="5b60b410-6c47-4bc1-a2fe-3f943e70c22c" class="">We can chain the <code>.map()</code> directly on the <code>.filter()</code>, however the code is getting to be a little bit hard to work with so let&#x27;s first refactor a bit.</p><p id="29821c6b-e26c-4e1f-8df6-6694c4827a82" class="">Refactor the inline function we pass to <code>filter</code> to an external function we will name <code>isValidChar</code>.</p><pre id="f11c7bbe-abe9-47b3-bba3-dfd84c5185a0" class="code code-wrap"><code>const everything = text.split(&quot;&quot;);
+
+function isValidChar(char) {
+return char.match(/[a-z0-9]/i);
+}
+
+const result = everything.filter(isValidChar);
+
+console.log(result);</code></pre><p id="4829ef74-bd3a-4055-8fff-1278bfbfa007" class="">That already looks much neater.</p><p id="98d2f576-9445-46b0-bc28-f6b1f598b965" class="">We can make the code even more concise by chaining the <code>.split()</code> instead of assigning it to a variable, like so 👇</p><pre id="7dc2c30f-4542-448e-aa43-fb6238d8837a" class="code code-wrap"><code>function isValidChar(char) {
+return char.match(/[a-z0-9]/i);
+}
+
+const result = text.split(&quot;&quot;).filter(isValidChar);
+
+console.log(result);</code></pre><p id="956895d6-c429-4cc0-aa32-acec1f2b1d02" class="">Often developers like to put each method that is chained on it&#x27;s own line as shown below.</p><pre id="f9e4e2cb-285b-4c50-9a13-aa72cc6fe6d5" class="code code-wrap"><code>const result = text
+.split(&#x27;&#x27;) // split each char into an item of an array
+.filter(isValidChar);
+
+console.log(result);</code></pre><p id="588d66c5-7525-49cc-ae2c-d0a341d4f58d" class="">Now let&#x27;s chain the map over a function we will call <code>lowercase</code>.</p><pre id="80323f55-75bc-4b00-abdd-d6fabb2590b2" class="code code-wrap"><code>function lowercase(char) {
+return char.ToLowerCase();
+}</code></pre><p id="e0b260a2-a4f4-4f31-9ce8-bdb897f33c7e" class="">You could also write that as an arrow function, which we will use instead so comment the <code>lowercase</code> method we just added out and add the code below</p><pre id="ee75012f-4fb7-4a87-bcc4-b92e34a1eca0" class="code code-wrap"><code>const lowercase = char =&gt; char.toLowerCase();</code></pre><p id="29ed00ff-0af0-4d3c-8915-db98a76d80f8" class="">If you refresh the page and open the array in the console, you will see that now there are only lowercase letters.</p><p id="3ece6dce-d530-497e-af05-fcc92d9469f3" class="">The last step in this exercise is to count the instances of each letter and number using a reduce.</p><p id="75b939a9-07fe-4418-9d2e-6a894630199e" class="">Let&#x27;s create an external function which we will pass to the reduce method.</p><p id="4fd67da7-7c5d-47e8-b6e2-6824a0ec9cf7" class="">We want to start with an empty object so we will pass that as the second argument.</p><pre id="e385c8f9-e009-4cb5-9226-990dacc7ffa9" class="code code-wrap"><code>function instanceCounter() {
+
+}
+
+const result = text
+.split(&quot;&quot;)
+.filter(isValidChar)
+.map(lowercase)
+.reduce(instanceCounter, {});</code></pre><p id="4375a6a7-0296-4f88-a13f-9b083388ff38" class="">We will name the accumulator parameter <code>counts</code> and the individual character instance <code>char</code>.</p><p id="9b600687-5141-47aa-a881-0ed5f01a3d0a" class="">Inside of the function, we will check whether the character already exists in the array using square brackets and a ternary function.</p><p id="c7a33402-a04a-4ceb-ab4b-1e10dcfbb421" class="">If the character does exist, we will increment it by 1.</p><p id="b61d2b7a-f02f-45e8-bf41-5604b48f9e55" class="">If it does not, we will add it and set it to one.</p><pre id="63ec606a-4505-4ef4-a3ec-c19a765582ef" class="code code-wrap"><code>function instanceCounter(counts, char) {
+counts[char] ? counts[char] + 1 : (counts[char] = 1);
+}</code></pre><p id="6925bb59-0621-4758-9842-0a606944e2ff" class="">If you refresh the page, you might see something like the following error 👇</p><p id="c3b2315f-bce2-49a4-9969-b2cb686fa1cb" class="">In Wes&#x27; example, <code>k</code> is the second character.</p><p id="96ff15e2-5e7e-4785-a87c-588ed2c7ab01" class="">Why is it telling us it&#x27;s <code>undefined</code>?</p><p id="33f6f1e8-0c54-4276-b48a-61cb6e6a16a7" class="">It&#x27;s because the first time it works, the first time our reducer accumulator is an object. However, because we didn&#x27;t return anything from this line, then the second time the return is <code>undefined</code>.</p><p id="1c0cabed-2219-49b7-a132-8ee214c27ddd" class="">To fix the issue, we simply need to add <code>return counts;</code> to the end of our <code>instanceCounter</code> method, as shown below.</p><pre id="24b782e3-d681-4ce5-9eaf-f734861201e9" class="code code-wrap"><code>function instanceCounter(counts, char) {
+counts[char] ? counts[char] + 1 : (counts[char] = 1);
+return counts;
+}</code></pre><p id="42f8a0dd-d3d0-4b06-ac9f-bb02aa2ba17d" class="">If you refresh the page and open the console, you will see it is showing a count of 1 next to each character.</p><p id="7c4ac2fb-6af8-44b9-b9ce-2dd7a596d1b2" class="">That&#x27;s not right!</p><p id="ee9f4a6a-78c3-4c9f-8c1f-171d288b0d52" class="">Let&#x27;s debug this by looking at our ternary operator in <code>instanceCounter</code>.</p><p id="afdc2f90-2086-482a-bc48-eb9135c7ff41" class="">So first we check if the letter exists in the array with <code>counts[char] ?</code>.</p><p id="db134eb3-3555-47d2-b558-8b3795d86df4" class="">If it does exist, then the count of that character should be equal to the existing count plus one.</p><p id="33cf7ebe-590f-4583-b8d1-72186fe969cc" class="">We forgot the equal sign!</p><p id="47ff6f35-a150-46c0-8514-ad21276212c6" class="">Modify the code like so</p><pre id="ba9c76f4-9c9c-4ee0-ae64-a69a59aa1a99" class="code code-wrap"><code>counts[char] ? counts[char] = counts[char] + 1 : counts[char] = 1;</code></pre><p id="e07fa23a-d2da-496e-a3ea-b9f12fb4ea44" class="">You could even put the ternary operator on separate lines as shown below.</p><pre id="ce48d823-e47b-4f9f-ae4e-6852fe1aa2ad" class="code code-wrap"><code>counts[char] ? (counts[char] = counts[char] + 1) : (counts[char] = 1);</code></pre><p id="6daa5f68-8f2d-4372-a281-0bbf8dd161df" class="">It looks like we are getting real values!</p><p id="7bb52514-4252-4021-b95f-c6f06de73db4" class="">A fun thing you could do now with the object we get back is figure out how to sort the characters from the most popular to the least popular.</p><p id="0d66bf59-9eda-4340-a8dc-c3ad61b17f26" class="">Let&#x27;s do it together.</p><p id="de1eac0d-57b7-4e24-ae38-cd262cf80ced" class="">What if we try using <code>Object.entries(result);</code>?</p><p id="7da8a9c7-2c8a-459f-8324-208606baea97" class="">It gives us an array of arrays with each arrays first item being the key and the second item being the count.</p><p id="078a8319-73a5-449e-a395-3623d5324801" class="">Next, we can use <code>.sort()</code>.</p><p id="302eab76-6ea5-4965-81df-b4eb92686c7a" class="">Create an external function <code>sortByValue</code>, and name the two parameters <code>a</code> and <code>b</code>.</p><p id="24957cf3-72f6-4f47-ba16-63df5d6530e1" class="">Within the function, we will compare the second items in the array because the first item is the key and the second item is the count. We want to compare the count.</p><p id="fb3eea2e-c259-4711-8d20-559691d08a2b" class="">If you recall, the way that sort works is that you can take the previous item and the next item and compare their values.</p><p id="6eaceaaf-c665-42d6-bde9-7268aa2bda2e" class="">You can return any of these from a sort:</p><ul id="0a2d71ac-cd97-4bac-8e97-bedf3e870807" class="bulleted-list"><li style="list-style-type:disc"><code>0</code>, stay where you are.</li></ul><ul id="129f8603-e4e7-438f-b1eb-bf1e487168af" class="bulleted-list"><li style="list-style-type:disc"><code>1</code>, go forward</li></ul><ul id="4156071b-eee8-4daf-a32d-a52fdb49f3bc" class="bulleted-list"><li style="list-style-type:disc"><code>1</code>, go backward towards the end of the array</li></ul><p id="d3c20829-fdc9-4f7e-a883-8f4a4cb752f5" class="">So instead of saying if it&#x27;s greater or less than (go back to the sorting video if you want to see that), we can simply just return whatever the value is.</p><p id="1266e3db-348c-4524-8761-6168cfce1103" class="">It might be a positive value, it might be a zero value, that&#x27;s just the benefit of doing that.</p><pre id="b1b8a81f-27ac-40d6-bf9b-f7c759532d9d" class="code code-wrap"><code>function sortByValue(a, b) {
+return a[1] - b[1];
+}
+
+const sortedResult = Object
+.entries(result)
+.sort(sortByValue);</code></pre><p id="2d22f8fd-35da-4458-8af8-667372fcb9dd" class="">It is possible to do all of the work we just did in one single reduce function, but it&#x27;s much easier to read and better for re-usability to split it up into separate functions and chain them along.</p><p id="9c89bc3d-d109-4c66-8f32-6f90da99d507" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="3ff84194-7974-4143-9a6b-8035d850748c" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="fdd6f30d-e145-417c-bd40-1514dd190f7a" class="">Edit on Github</p><p id="e104d46d-7659-4712-b0b0-7da54916ef83" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/52-looping-and-iterating-reduce"><strong>← Prev</strong></a></p><p id="cddccac6-1feb-492e-9791-43e52b01dcdc" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/52-looping-and-iterating-reduce">Looping and Iterating - Reduce</a></p><p id="fbdea2ce-617a-4340-8f51-6ff6930ea331" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/54-looping-and-iterating-for-for-in-for-off-and-while-loops"><strong>Next →</strong></a><a href="https://wesbos.com/javascript/09-gettin-loopy/54-looping-and-iterating-for-for-in-for-off-and-while-loops">
+</a><a href="https://wesbos.com/javascript/09-gettin-loopy/54-looping-and-iterating-for-for-in-for-off-and-while-loops">Looping and Iterating - for, for in, for of, and while Loops</a></p></details></li></ul><ul id="34b37066-2f6f-43ad-8cf1-e43089cd3ba6" class="toggle"><li><details open=""><summary>54 - Looping and Iterating - for, for in, for of, and while Loops</summary><p id="624f75dd-c450-48c5-b77d-12787a96a75c" class=""><a href="https://wesbos.com/javascript/09-gettin-loopy/54-looping-and-iterating-for-for-in-for-off-and-while-loops">https://wesbos.com/javascript/09-gettin-loopy/54-looping-and-iterating-for-for-in-for-off-and-while-loops</a></p><p id="61bc38ee-8fbd-40ef-97f0-9242f6d8e141" class="">
+</p><figure id="267c4c59-0625-4f0b-bd13-fd09f33afe15" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%205.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/bjs%205.png"/></a></figure><p id="090253ac-b338-43b0-bff8-abfe36d6e698" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="afed75fa-0c30-438b-bd89-1c6268b3d406" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="4dd331d9-d9de-4265-a76e-12b2c9fe89e2" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="9a3dd9f7-d3f2-471e-a05f-276200e9a1fe" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="46a0988f-d807-4575-8f67-12a3b0e696cf" class="">JavaScript, Iterating, For Loops, While LoopsEdit Post</p><p id="60a6ca1c-9cbc-400c-933e-d3d1c35d348f" class="">We are going to talk about 4 types of loops in this video:</p><ol type="1" id="1d84aa74-766f-4f4f-a60d-0ad01e431a74" class="numbered-list" start="1"><li>for loops</li></ol><ol type="1" id="7146d18c-13b0-4996-91a7-e8f3d943ee30" class="numbered-list" start="2"><li>for in loops</li></ol><ol type="1" id="2ad36e04-4ffa-447c-ad5b-a8e67465b077" class="numbered-list" start="3"><li>for of loops</li></ol><ol type="1" id="7185d9a2-d8f8-4ef0-aae9-2a3329f0f823" class="numbered-list" start="4"><li>while loops</li></ol><p id="d8d8e27f-b4ca-45c1-ac8c-1fb75c371b81" class="">They are not as popular as the array methods that we are working with. However, you should still know them because you will run into them from time to time.</p><p id="7d5a4b1b-18f4-43b9-b761-2d8447a91a54" class="">We will be working out of the <code>for-loops.html</code> file.</p><h2 id="37cc3591-bdb6-4dfb-9571-390ca17125f0" class="">The for loop</h2><p id="525e6719-31d6-4d4e-8f36-ed62c6264144" class="">Let&#x27;s start with the for loop. The way it works is you type <code>for</code> with parenthesis and then you open and close a block.</p><p id="a80aa918-ffce-4150-90a0-288099642d95" class="">Let&#x27;s look at the for loop docs really quickly.</p><figure id="e223d7c8-e72c-452a-b7d6-f07e05e348c7" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/703.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/703.png"/></a></figure><p id="b2b4c520-1782-4fe5-a826-4d829d747078" class="">The for loop requires three things:</p><ol type="1" id="f7cf31f6-3b75-4744-8a68-a506b19714e6" class="numbered-list" start="1"><li>an initial expression</li></ol><ol type="1" id="f9d9ebe5-58c6-4dd2-86e1-19cb5ffe9256" class="numbered-list" start="2"><li>a condition</li></ol><ol type="1" id="1d6f3769-f3c3-4626-a736-fb15d4a6f287" class="numbered-list" start="3"><li>an increment expression</li></ol><p id="f4fe76d2-53bd-4081-a892-f72b1edd3256" class="">The plain for loop is great for running a block of code a certain number of times for example 5 times.</p><p id="cbf42acc-f8c1-46c4-a8d5-71c3bf8539f8" class="">Let&#x27;s start with an extremely basic example.</p><p id="95d948b0-9514-4a0c-bfe5-f6e19aa1cd40" class="">Add the code below.</p><pre id="8cc333f1-da73-4f8e-bc4a-1c63a72c09df" class="code code-wrap"><code>for (let i = 0; i&lt;= 10; i++) {
+console.log(i);
+}</code></pre><p id="32bb3e7f-d631-47fd-bb4b-d7e6e1058557" class="">What we did above is:</p><ul id="749ba91a-b519-4b47-b96f-134bb070f5c5" class="bulleted-list"><li style="list-style-type:disc">we added the initial expression <code>let i = 0;</code> within the parenthesis</li></ul><ul id="d8c2b1f7-deb7-4e7c-b0a5-96db866ff6b1" class="bulleted-list"><li style="list-style-type:disc">then we added the condition if <code>i</code> is less than or equal to 10, <code>i &lt;= 10;</code></li></ul><ul id="8568c286-19ba-497d-908d-bd699fa8cbba" class="bulleted-list"><li style="list-style-type:disc">finally we have the increment expression which is <code>i++</code></li></ul><p id="613ae31f-911c-47ef-81f2-695380351a2f" class="">If you open up the page in a browser and look at the console, you should see 0 through 10 logged, just like in the image below.</p><figure id="c1e158d0-7a03-4deb-9359-c559aa0bb360" class="image"><a href="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/704.png"><img style="width:700px" src="9%20-%20Loops%20afb7cb64ad784c319527bc1b92f3f8ce/704.png"/></a></figure><p id="d6a71453-0da0-4167-8241-db02029e9e69" class="">What has happened in the code is we looped from 0 to 10, so we looped 11 times over, and logged what the <code>i</code> variable equals.</p><p id="68a076b9-56c3-4433-816c-e76563329f51" class="">Let&#x27;s go through this piece by piece to make sure we understand it.</p><p id="4af60967-7579-460d-a159-bb6f875db4f0" class="">You can think of the first piece, the initial expression, as sort of a setup for the code you are about the write.</p><pre id="fec105ff-b157-417e-a38c-aaa8964b37e0" class="code code-wrap"><code>let i = 0;</code></pre><p id="fedc9d2d-1187-4679-a94e-c7507473475e" class="">The second piece, the condition, will run each time before the loop runs. In our example the condition is <code>i &lt;= 10</code>.</p><p id="2b6fabc5-557a-4551-8d69-4b5c800fdee8" class="">If the condition is true, then the loop will run one more time, and so on until the condition is false.</p><p id="b5a07f2d-ed3b-4ccf-8122-36a8bfee173a" class="">Once the condition is false, the loop will no longer run and it will just move on to the next lines of code underneath it.</p><p id="7e53c33d-d577-420f-8e37-251e73359565" class="">Finally, the last piece is the increment, which in our example is <code>i++</code>.</p><p id="df57024d-5d40-47fe-9936-17af28101196" class="">In this example, we are taking <code>i</code>, which we have set to 0, and incrementing it by 1 every time our loop runs. That lets us access this variable, <code>i</code>, inside of the loop.</p><p id="9ca67a71-2df8-45f6-99e6-abf7a4e39b61" class="">You might be wondering why we made the <code>i</code> variable a <code>let</code> instead of a <code>const</code>.</p><p id="587b4a42-e6f0-4ca7-bc50-e3e1adba30a2" class="">As you can see, it logs 0 then returns an error.</p><p id="93ecfa86-e844-4b1e-a966-df7c854fd81a" class="">Let&#x27;s go over why.</p><p id="9cc09eae-4fdd-465c-bca1-af0f561a5ecb" class="">The first time the loop runs, the setup is run (the initial expression) which assigns a variable called <code>i</code> and sets it to 0.</p><p id="a992b300-b529-4534-921b-e69dfcfe7f6a" class="">Then we check if it is less than 10 (the condition), which is true then the code moves onto the loop block, which logs <code>i</code> which is 0 the first time it runs.</p><p id="ac619856-c9cf-4de0-8540-67ab0a82780e" class="">Once the loop block has finished running, it comes back and increments the <code>i</code> variable (the increment) by 1 like so <code>i++</code>.</p><p id="8216dad9-702a-43d9-9931-bd9de513537d" class="">The error we get in the console is</p><blockquote id="2d971acd-f4f9-4e4e-b5cf-03e0c5c84fb6" class=""><p id="56dc2103-35c1-4ee1-a3c8-cf0c75b77313" class="">Uncaught TypeError: Assignment to constant variable.</p></blockquote><p id="a4deb350-5faa-497a-bae0-384c5c7742b9" class="">You cannot increment a constant variable, so that is a bit of an issue, which is why we use a <code>let</code> instead.</p><p id="207b603c-ed56-4628-a5db-8e4b7b0c6fc0" class="">What else can you do with <code>for</code> loops?</p><p id="dc103e17-c355-4565-a3ed-63e75b185da4" class="">They are helpful for if you want to start at say 100, go until <code>i</code> is greater than or equal to 120 and increment by 2.</p><pre id="6d1ca40b-ea43-4932-8cd0-f364b892ce96" class="code code-wrap"><code>for (let i = 100; i &lt; 120; i += 2) {
+console.log(i);
+}</code></pre><p id="d5c4f689-d797-4f76-99db-c3393162ac61" class="">As you can see, this loop is fairly flexible in incrementing the way that we want.</p><p id="2a60c64a-4a1a-4552-b9f4-ce9ae8616d2b" class="">One thing to note is the last part of the loop, the increment part, doesn&#x27;t have a semi colon.</p><p id="811cd108-ca32-4678-b921-fcfbbb381680" class="">If you try to add it like so <code>for (let i = 100; i &lt;= 200; i += 2)</code>. You will get an exception of &quot;Uncaught SyntaxError&quot;. Thankfully your ESLint should catch that for you and yell at you.</p><p id="ea8c4562-5103-4646-89c0-4a764278d998" class="">Traditionally, for loops were used to loop over something, like an array of numbers.</p><p id="112fa203-a260-4bc4-8d0d-ec09a4ed9079" class="">It very well may be that you see this in the wild so Wes is going to show us how it works.</p><p id="bb9c51b2-2e99-4275-bfe4-7d0443282730" class="">You might notice that we are using a variable named <code>i</code> again in this example and wondering how that is possible because we have already used it. That is the beauty of <code>let</code>. Even though the assignment of the variable <code>i</code> is the in parenthesis, it&#x27;s actually scoped to it&#x27;s body so you are able to reuse it.</p><p id="6ffcfcdf-505a-4ffe-ab69-a2d31453dfce" class="">When we used to just have <code>var</code> variables, that was not the case.</p><p id="84216474-1990-4687-8038-8395b0f43098" class="">Let&#x27;s demonstrate how it used to work with <code>var</code>.</p><p id="f47e8660-4608-44e3-a094-d37120f2a19b" class="">Add the following code 👇</p><pre id="935ef975-0fcc-4e70-b51c-6d1585619c2b" class="code code-wrap"><code>for (var i = 0; i &lt;= 120; i += 2) {
+console.log(i);
+}
+
+console.log(i);</code></pre><p id="5b634530-b637-4cac-ba47-29e25275a14b" class="">Our code logged 100-120 but then suddenly we see 22.</p><p id="9a3cbe47-d700-41fd-ad9f-0a580520aad6" class="">Why is that?</p><p id="2e8e5112-4cf4-465f-86ef-833cb9283421" class="">Because the last time the loop ran, that variable was incremented, so the condition was no longer true but the value of the <code>i</code> variable was globally scoped so it remained 22.</p><p id="85179e21-0218-4c53-aed4-238deea90049" class="">So if we wanted to make another loop and we had used <code>var i</code>, we would have to find another variable name.</p><p id="b059016d-811d-4e57-b552-73c746d610ea" class="">If you wanted to loop over the array the old fashioned way, you could do this. 👇</p><pre id="14c1adf1-44bc-4a5c-bf1a-897249836813" class="code code-wrap"><code>for (let i = 0; i &lt; numbers.length; i++) {
+console.log(i);
+}</code></pre><p id="45b0c4c1-2149-4b2f-88d8-a0febbef20d8" class="">As you can see, it logged 0 to 11 because there are 12 numbers in our <code>numbers</code> array (you can check the length by typing <code>numbers.length</code> in the console).</p><p id="8005247e-2f0a-4395-858a-76e4d5145fbd" class="">Now to access the individual number, you would have to use the index to retrieve it using square brackets like so 👇</p><pre id="a10c3dc8-53a9-44bf-a56a-a876c3775306" class="code code-wrap"><code>for (let i = 0; i &lt; numbers.length; i++) {
+console.log(numbers[i]);
+}</code></pre><p id="c84ffef2-cf22-4962-8a00-ef210aa839cf" class="">That is the way loops used to be done. It is much easier now with a <code>foreach</code> and <code>map</code> and <code>reduce</code> methods. If you do see the old way, maybe ask yourself can I refactor that?</p><p id="e3647744-88f1-4dc2-bcba-367e41f23db1" class="">Another place that <code>for</code> loops are useful is when you are working with canvas.</p><p id="ce17c02d-4a13-4e0c-810e-3abec2c8062d" class="">If you remember back to our Etch-a-Sketch exercise, the canvas element actually has a method on it called <code>getImageData</code> that will allow us to pull the stuff out of that canvas.</p><p id="29675849-f0ca-49d5-bc4b-9cf48a9a5a74" class="">If you open the <code>etch-a-sketch.html</code> html file, draw in the top left hand corner of the etch-a-sketch and then inspect the canvas, if you click on the canvas element in the inspector and then flip to the console and type <code>$0</code>, you should get the canvas element returned.</p><p id="5cb108b9-436f-436c-bba9-04e6029e03fe" class="">You should be able to access <code>ctx</code> which is the canvas context in the console. Call the following code from the console: <code>ctx.getImageData(0,0,100,100)</code>.</p><p id="d5babec1-d3f7-48e6-8356-d7082a2898a7" class="">That returns a data array with a lot of items, 40000 in our case.</p><p id="60aa3f8e-5de7-48b2-9b1c-7286ba0c40c6" class="">It is a special kind of array called a <strong>ClampedArray</strong> which is used when you have very, very, very large arrays.</p><p id="41e9029e-402c-42f1-9460-704eb5e4776b" class="">The contents of the array are numbers like 255, 0, 119, and they represent RGBA values.</p><p id="dfae9a7a-c364-4961-b2dd-c13ab913d483" class="">What that code did is it pulled the raw data from the canvas element, and for each pixel on the canvas, it is returning 4 values.</p><p id="8dccc72f-482f-4b69-b7a6-be8c4be14100" class="">The red is 255, the green is 0, the blue is 119, and then it returns to us an alpha channel which is if it&#x27;s transparent or not. 255 would be totally not transparent and then 0 is totally transparent.</p><p id="1bfc592d-8f0e-47c4-9221-77220c8b7bba" class="">That is a pretty common thing to do, and if you want to loop over that data, you would have to loop over every single pixel, meaning that you would have to take 4 at a time.</p><p id="d81e9489-ae47-43d2-ab60-cf0f61b37d06" class="">In that scenario a <code>for</code> loop that can increment itself by 4 instead of by 1 is very handy.</p><p id="73657ae7-9af4-4249-8887-0422c3751811" class="">That is the only place that Wes still uses a for loop.</p><h2 id="0e93e6d3-dd8a-4356-a5c8-e090bd9b50d0" class="">for of Loop</h2><p id="8292908f-e093-4262-9b89-4dc98b76720a" class="">The <code>for of</code> loop is fairly new to the language and it is actually pretty nice.</p><p id="54a3ae8b-65c3-4760-9784-b25e22fe3d3f" class="">So what is it?</p><p id="258de317-d8fa-457d-b0bf-72d755156467" class="">It is used for looping over iterables. If you recall, an <strong>iterable</strong> is anything that has a length, so something like an array or a string.</p><p id="56175c1b-692f-466f-a26b-091a841aba05" class="">Let&#x27;s say you wanted to log all the letters in the <code>name</code> variable. You could do that with the following code 👇</p><pre id="fba14c9c-c15f-4817-b9e3-10a779465b40" class="code code-wrap"><code>const name = &#x27;Wes Bos&#x27;;
+
+for (const letter of name) {
+console.log(letter);
+}</code></pre><p id="ddcd74c8-df49-4cf7-8a06-56d57bc1ebb1" class="">Why would that be better than splitting the string into an array and using <code>forEach</code> like we have learned in a previous exercise?</p><p id="fda7c2e0-8622-4ea9-8d80-73a008b0a3f1" class="">One thing is it can handle emojis.</p><p id="c06cd2ad-8ff3-446d-aafb-b6347668a63b" class="">For the family emoji, if you log it, you will see we get the family emoji and then the modifier, which is peach skin.</p><p id="6f5940d9-3835-4e18-bacc-f3d36cec0109" class="">If you tried that with <code>name.split(&#x27;&#x27;)</code>, you would see something similar to the image below.</p><p id="218e00d2-0bd8-4686-9db2-7e91522a4f9a" class="">As you can see, it doesn&#x27;t know how to handle the emojis.</p><p id="4a102395-2601-4d07-9cba-886882ff0280" class="">Another way you could do it is using the spread operator like so:</p><pre id="b585fa7b-5ad5-483a-b675-e66e94b0f09b" class="code code-wrap"><code>[...name]</code></pre><p id="038d8e08-8c53-47fa-81a3-4d88bdf2573e" class="">That is one use case.</p><p id="53cd0699-9001-4fca-98ae-e802c2713c0d" class="">The other use case is something to do with <strong>promises</strong>, which we have not covered yet.</p><p id="7f97cef8-f626-49d2-9ce7-6d900bef4666" class="">If you ever need to sequence a bunch of data, meaning you have to do one thing after another in a loop, the <code>for of</code> loop will allow you to do something called <strong>await</strong> inside of it.</p><p id="0c8f74c6-269a-4777-903f-85c16edf0455" class="">We will come back to this when we learn about promises later in the course, but now what you need to know is that <code>for of</code> loops are very handy for sequencing promises, and that is really the only use case that Wes uses it for.</p><p id="f30f062e-7154-4cf0-a7e8-ac27de485fb2" class="">The <code>for of</code> loop can be used with an array as well.</p><p id="a11b1b56-185a-4ae0-b7b9-191168dd2ad7" class="">Take the following example 👇</p><pre id="5777ec4b-836a-41e9-8c87-868255924ecd" class="code code-wrap"><code>for (const number of numbers) {
+console.log(number);
+}</code></pre><p id="7f4ddbec-18f1-4600-b1ae-92c4132270eb" class="">The downside of the <code>for of</code> loop compared to a <code>forEach</code> loo is that it doesn&#x27;t give us the index. It just gives us the raw value. It also doesn&#x27;t allow us to filter or anything like that.</p><h2 id="8686adb8-0900-46c5-97e4-e01c013514d9" class="">for in loop</h2><p id="cdfdf1f8-7d80-4182-a532-f1c36df3a7a1" class="">Next we have the <code>for in</code> loop, which works similarly.</p><p id="5d072f61-d0fb-4d4b-acf9-4e65fdd2349d" class="">Let&#x27;s use the <code>numbers</code> array for this example.</p><pre id="9f27a212-fe30-4b04-a196-524f48372544" class="code code-wrap"><code>for (const number in numbers) {
+console.log(number);
+}</code></pre><p id="52bc3278-06ea-4c4b-b45b-a75c7fd28eab" class="">As you can see, we get 0 through 11.</p><p id="93334df1-9b81-4faf-b4d1-150243f657ab" class="">What is actually happening there is it is giving us the keys of the object.</p><p id="d67bc084-43b3-48ac-b9ac-7740a13a744d" class=""><code>for in</code> is used for looping over keys of an object.</p><p id="55cff215-dfd4-4d21-8971-21f8278a2d15" class="">Create the following object.</p><pre id="afa7c88a-dcd3-4097-8fc2-b7071bddfc2a" class="code code-wrap"><code>const wes = {
+  name: &#x27;wes&#x27;,
+  age: 100,
+  cool: true
+}</code></pre><p id="82817157-a455-4c2c-8313-dff1908e44ca" class="">Use the <code>for in</code> loop with that object.</p><pre id="c06a2b93-ee1d-4bac-b931-baa137420046" class="code code-wrap"><code>for (const prop in wes) {
+console.log(prop);
+}</code></pre><p id="78fece28-6ebd-46c4-b4a8-93c21577d8f5" class="">You might be asking, how is that better than using <code>Object.entries</code>, <code>Object.key</code> or <code>Object.values</code>?</p><p id="ada42aa1-5ff0-42b7-9332-b00318208e6b" class="">It is not.</p><p id="5c1d0f31-cbc8-4c32-b24a-7dc17147c9fb" class="">Wes prefers to use those over the <code>for in</code> loop, but it is still here if you prefer to use it.</p><p id="6b531ccc-960c-4e13-bd06-21bc8e60f8fa" class="">There is one gotcha with the <code>for in</code> versus <code>Object.entries</code>, which we will demonstrate with an example right now.</p><p id="ccfc64ed-f0bf-4469-b812-3095f72c44d7" class="">It looks ahead to this thing called <strong>prototypes</strong>.</p><p id="415f521d-1a39-44e7-b4f0-de8fe3e231db" class="">Let&#x27;s make a <code>baseHumanStats</code> object as shown below.</p><pre id="89ab9600-c9ca-460b-9278-bfa9e756b63b" class="code code-wrap"><code>const baseHumanStats = {
+  feet: 2,
+  arms: 2,
+  eyes: 2,
+  head: 1
+};</code></pre><p id="5039cc67-a2ea-4fa5-9142-23846af5e166" class="">Create a function <code>Human</code> that takes in a <code>name</code>, and then within that function add <code>this.name = name;</code>.</p><p id="840db31f-1df9-4764-8c24-58a27cfbd3ca" class="">This is getting a bit ahead of ourselves, but we can now use this <code>Human</code> function to make a <code>wes2</code>?</p><pre id="cab3c682-5dc3-4def-bd8a-a6fdaddfb4da" class="code code-wrap"><code>function Human(name) {
+this.name = name;
+}
+
+const wes2 = new Human(&#x27;wes&#x27;);</code></pre><p id="b9c46251-5f8c-411a-b094-4697d507a38a" class="">If you go ahead and take a look at <code>wes2</code> by refreshing the page and typing it into the console, you will see that it has a <code>type</code> of human with a <code>name</code> that is equal to &quot;wes&quot;.</p><p id="13e3999c-7e7e-4d96-b319-c23717aa99d1" class="">If you were to try typing in <code>wes2.arms</code>, however, you would get <code>undefined</code>.</p><p id="a6a971d2-e1f5-456b-ab1a-95a398f82b7e" class="">However if we take the <code>Human</code> function and set the prototype to be the <code>baseHumanStats</code> like so 👇</p><pre id="23e2134c-2057-4bfb-9109-61c43a5f70f7" class="code code-wrap"><code>Human.prototype = baseHumanStats;
+const wes2 = new Human(&#x27;wes&#x27;);</code></pre><p id="04de8909-a4e8-4306-a649-fe70a30a067a" class="">If we take a look at <code>wes2</code>, it still looks the same, but if you were to look at <code>wes2.feet</code> or <code>wes2.arms</code>, you will see that it is referencing the values from the prototype.</p><p id="c4b5781d-0da4-478f-92a4-01d3aee6f16d" class="">What does that mean?</p><p id="4699fbce-c98e-434a-a019-8301bef17c39" class="">What happens with a prototype is that when you try to access a property, it first checks on the object itself for a property on that. If it is not on there, it will look up the prototype chain.</p><p id="0863134c-92d7-47da-aa58-67751bcb35ef" class="">It will say &quot;okay that is not on here, but maybe the thing that created me has a prototype that has that value&quot;, and it will look it up.</p><p id="e8dd3523-28ac-4f23-8449-c4ab67fca0d0" class="">In our case this prototype has some sort of base values that it will pull it from.</p><p id="b78278a8-4b5e-47e5-90ef-a0eb86dcdf2b" class="">We will get into this more when we get into classes but the point of all this is the following..</p><p id="d32873dd-c6d4-4c20-9e8d-effb5e18db83" class="">What would happen if you call log <code>Object.keys(wes2)</code>? Will it log the <code>name</code> property only? Or will it also log the properties that are on the prototype (feet, arms, eyes, head)?</p><p id="2efc7f9c-a10c-493c-99ee-726a8727613c" class="">We only get <code>name</code>.</p><p id="7f2ab35f-7c0f-45ff-b016-3d190f07284d" class="">Let&#x27;s try entries.</p><pre id="713aee2d-204c-4ff9-9e7a-c5efc573b7de" class="code code-wrap"><code>console.log(Object.entries(wes2));</code></pre><p id="e2386a51-9166-48b2-a38b-c1e60a3f8f01" class="">We only get the <code>name</code> property and value returned to us as you can see above.</p><p id="10403c91-cc13-4d1b-9eb7-1c73d9edfd6a" class="">Now what would happen if we tried that with a <code>for in</code> loop?</p><pre id="8e9315ea-24bb-4777-87e0-58cca7acc310" class="code code-wrap"><code>for (const prop in wes2) {
+console.log(prop);
+}</code></pre><p id="9c69293c-1ee1-4c74-bda6-436d2940ff65" class="">As you can see, it does grab the properties from the prototype that it was made from.</p><p id="8a5b434d-463f-484a-9c5f-bc3bb2ca8a75" class="">So, if you need to grab the prototype properties and methods, then you can use a <code>for in</code> loop to grab those.</p><p id="b69f84fe-e3c9-4f84-b50a-c6b6c355048e" class="">However if you do not need to grab those, you&#x27;re fine with just using <code>Object.entries</code>.</p><h2 id="316b470f-cd7a-45a8-b09a-d735b9526364" class="">while and do while loops</h2><p id="fc666087-d315-4166-b6cc-053cd9d3d8d0" class="">Next we have the <code>while</code> and the <code>do while</code> loops.</p><p id="4c41f07c-94de-433f-8451-61be8b8c515d" class="">These are loops that Wes doesn&#x27;t use all too often but they are still good to know.</p><p id="a83b7385-7a03-4145-b0ea-84ff90068a16" class=""><code>while</code> takes a condition and run infinitely until the condition is false.</p><p id="aded46c8-fa64-45b4-818c-95ffccf73c07" class="">The syntax looks like this 👇</p><pre id="055577e3-ae03-4e45-bc83-73f29eb03a01" class="code code-wrap"><code>while() {
+
+}</code></pre><p id="09a20c75-bfbd-4a0e-b94c-ef11b5f1488e" class="">Within the parenthesis, we include the condition that we need to check for.</p><p id="457ae38e-7348-44d7-b430-f7430446874e" class="">In our example we will check whether the variable <code>cool</code> equals true. If it does, we will log &quot;you are cool&quot;.</p><p id="5c698eea-c119-4ad8-8edc-9cb69df4da1b" class="">Now be careful if you run this code because it will cause an infinite loop and might crash your computer.</p><pre id="b9ceea2d-548c-4694-9326-5bd3104ad2dd" class="code code-wrap"><code>let cool = true;
+while (cool === true) {
+console.log(&#x27;You are cool&#x27;);
+}</code></pre><p id="36e8385d-b76f-4b73-88f7-7dd44cab379f" class="">As you can see, that log is happening all the time, just constantly running in the infinite loop we created.</p><p id="72ff2b4d-623e-4bb9-8174-8d0e56ba0022" class="">A <code>while</code> loop needs an <strong>exit condition</strong> that will set <code>cool</code> to false, or else the condition will never evaluate to false.</p><p id="6b10fc6f-8f69-4ce3-85ba-4bb095c5fdd3" class="">Here is an example of an exit condition we could add 👇</p><pre id="bb042cd2-2b8d-4793-bad1-a065cdf1aee4" class="code code-wrap"><code>let cool = true;
+let i = 1;
+while (cool === true) {
+console.log(&#x27;You are cool&#x27;);
+i++
+if (i &gt; 100) {
+cool = false;
+}
+}</code></pre><p id="832aa4a5-961f-4244-94a3-3b498dd81e77" class="">What should happen is after this loop has run 100 times, <code>cool</code> will be set to false, and then the condition will evaluate to false and the loop will no longer run.</p><p id="e72df414-32b2-4f4b-ba22-223dc819278f" class="">As you can see, it ran 100 times before exiting.</p><p id="e2f52f86-73e2-4f4f-8543-65edb9d329e7" class="">It is important to note that someone could set this <code>cool</code> variable in another piece of JavaScript code and then the next time it runs, it would check whether it is true or false, so that is one way to do it.</p><p id="62db0104-2f06-4685-8ac2-0e392c55e426" class="">The only different between the <code>do while</code> and the <code>while</code> loop is that we have a <code>do</code> with a block and then a while with a condition on the end, like so 👇</p><pre id="534bef53-b0a7-4c4c-aca2-57ac3a4e71a1" class="code code-wrap"><code>do {
+
+} while()</code></pre><p id="d7e6b4e7-33d6-4128-ba30-a2c45dc95b94" class="">The <code>do</code> block will run first, and then it will check the condition after the first run.</p><p id="ecabddc5-3555-4d0a-837e-7f3c2b2a8586" class="">With the <code>while</code> loop, the condition will always be checked before the first run.</p><p id="686a45da-ebc6-4e7f-a697-d539bc1d4f9d" class="">While loops are not that popular, but good to know.</p><p id="93705095-0f8a-4d5a-87de-16a1318a7500" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="7b54f044-9b8a-410a-b774-e434e85be1a6" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="e2e4f416-4f8f-4f45-b54d-1be7b8a8f125" class="">Edit on Github</p></details></li></ul></div></article></body></html>

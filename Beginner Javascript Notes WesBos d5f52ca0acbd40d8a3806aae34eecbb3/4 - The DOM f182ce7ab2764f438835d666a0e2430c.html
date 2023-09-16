@@ -1,0 +1,935 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>4 - The DOM</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f182ce7a-b276-4f43-8835-d666a0e2430c" class="page sans"><header><h1 class="page-title"><em><strong>4 - The DOM</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="3c2c589c-146d-4196-9c44-858a93166c17" class="toggle"><li><details open=""><summary>20 - Introduction to the DOM</summary><p id="71fdd9b8-d2e2-49db-ab30-b71d017a5ab0" class=""><a href="https://wesbos.com/javascript/04-the-dom/introduction-to-the-dom">https://wesbos.com/javascript/04-the-dom/introduction-to-the-dom</a></p><p id="7211197d-1ef2-4a51-b95f-1778fdd140fa" class="">
+</p><figure id="0cb13732-87f5-4476-9cef-a61d6cb3d8a0" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs.png"/></a></figure><p id="1855056d-a11b-4cfa-921c-2ed228af81ba" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="fd708a8a-d413-4ab0-bc43-dadebb14eb77" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="74c9282c-71ab-4767-a340-dd97a3034bb0" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="35e707a5-8a6c-4321-913f-a331f6eecd8b" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="aa0c27c9-b29d-4017-a2a7-41c36c1ce956" class="">JavaScript, DOMEdit Post</p><p id="8cea295f-ad5d-48fb-9adf-d800fbd75f9e" class="">So far, everything we have been learning has been JavaScript as part of the core languages.</p><p id="a773a149-975d-411d-beb5-885b74689110" class="">Although JavaScript can be run in many environments (browser, server, robots), a lot of places use JavaScript as a scripting environment.</p><p id="e2cbebee-c45a-4a7c-af17-f1043ffbdc28" class="">The most popular way to run JavaScript is through the web browser, and a big part of that is interacting with elements on a page.</p><p id="09a5f1d8-d305-468e-9f69-698b51d9d15a" class="">When you write HTML and view it in the browser, the browser turns your HTML into something that is called the <strong>Document Object Model</strong> or <strong>the DOM</strong>.</p><p id="7847a496-a9c4-4eee-905f-e37d484f3b40" class="">That is what you see when you go to the elements panel in the browser developer tools on any website.</p><p id="aacd170b-9bc2-42e3-a99f-5f5f3ca6bd68" class="">The DOM is not just the HTML you have written; the browser takes that HTML, converts it to the <strong>Document Object Model</strong>, and allows us to interface with the DOM via JavaScript.</p><ul id="83f41b3a-4d98-464a-bf0e-c0d18eb933c9" class="bulleted-list"><li style="list-style-type:disc">We can do things like listen for clicks and scrolls.</li></ul><ul id="f4a52988-b176-4e57-a08d-7251cbae2e2b" class="bulleted-list"><li style="list-style-type:disc">We can add, move, remove elements, text, images, etc. from that page</li></ul><ul id="3200b50a-d7b1-4f41-961b-4abb02ac806e" class="bulleted-list"><li style="list-style-type:disc">We can add and remove CSS classes from elements, which can trigger animations.</li></ul><ul id="c0b31679-ad07-4d92-b953-f7bb2a0be709" class="bulleted-list"><li style="list-style-type:disc">We can fetch new data.</li></ul><ul id="6c8eef52-8d12-4387-9395-ab5b8e92bc2f" class="bulleted-list"><li style="list-style-type:disc">We can play music and video.</li></ul><ul id="0f0a19a9-f710-40c9-a9df-066fbff2eedb" class="bulleted-list"><li style="list-style-type:disc">We can add any type of interaction to the page.</li></ul><p id="c161a614-9309-48e6-836a-bf35ca9a8e66" class="">All this is done by writing JavaScript that interfaces with the DOM - the elements on the page.</p><p id="04a6adeb-2ec1-4cc9-ba91-2bc3fe454a64" class="">The DOM is represented in a tree that looks very much like HTML.</p><p id="5c07e3c8-0df7-4592-b3e5-3886a1fd4293" class="">Even if you are using a framework like React, Angular or Vue, it&#x27;s very helpful to understand the core concepts of the DOM like events, elements and classes, because they underscore all of the different frameworks.</p><p id="16d70876-80b9-41d3-9447-039c01feb004" class="">Even if the frameworks help you do these things, you still need to know how they work under the hood.</p><h2 id="e4cad545-b5c6-44bc-9843-c4c3fd82a76a" class="">Window Object Refresher</h2><p id="5b41dcea-0461-4e12-bb82-00e225cf6d43" class="">A quick refresher on the Window.</p><p id="7a86efe1-9b58-4284-8d82-765d0b5ebddd" class="">In the scope video, we learned that the global scope in the browser is called the <code>window</code>.</p><p id="57a485ee-e3ae-4047-8fdc-4a62d4028c16" class="">The window is where our global variables are stored, as well as helpful properties like <code>window.location</code>.</p><figure id="5f1ce3d3-de16-4b46-9408-e97434cd16e8" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/window-location.gif"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/window-location.gif"/></a></figure><p id="5de30822-92f6-449a-abc5-0f6adc1c7424" class=""><em>👆 Aside: if you go to any website and in the console type in </em><code><em>window.location</em></code><em> or </em><code><em>location</em></code><em>, it will return the website&#x27;s url and a whole bunch of information, as demonstrated above.</em></p><p id="26f56c96-626a-4ebb-b50b-3739017c8b3d" class="">The console returns an object full of information like the current page you&#x27;re on, the host name, what the protocol is, which port we&#x27;re on, etc.</p><p id="d9bbdd19-c6be-4eab-8f3f-a8837c597de2" class="">We can also find things like <code>innerWidth</code>, which will tell us how wide the browser is if you type it in the console.</p><p id="cbd60710-8e32-427b-9b53-96ecc8c8d72d" class="">You can think of the <code>window</code> as everything about the currently opened window.</p><p id="a509523e-30b3-4d41-b4e4-2519db803dba" class="">That includes:</p><ul id="e94bb4f8-7c12-4639-beed-ea6c4043dcae" class="bulleted-list"><li style="list-style-type:disc">the browser bar</li></ul><ul id="403ccd1f-6fe2-4963-80e1-cc72ec13180c" class="bulleted-list"><li style="list-style-type:disc">the tabs</li></ul><ul id="a375979d-14cc-4594-9c76-13d05efe6d90" class="bulleted-list"><li style="list-style-type:disc">the scroll bar</li></ul><p id="f0596877-af6d-4925-8a46-cbe5d08ac1ab" class="">Basically all of the things about your browser window are generally stored inside of the window object</p><h3 id="a9d48008-f263-4873-a4e0-a2121b803405" class="">The Document Object Introduction</h3><p id="7cd9e4b9-8e37-4b8b-885f-a9694e9d03a7" class="">The <code>document</code> object is responsible for everything from the opening HTML tag <code>&lt;html&gt;</code>, the doctype as well, to the closing HTML tag(<code>&lt;/html&gt;</code>).</p><p id="526c7acb-20f1-4932-b9dd-23e34373fd61" class="">The difference is the document is not concerned with other browser tabs, or anything else outside the page, it&#x27;s just concerned with the entire <code>DOM</code>. The entire document will be available to us with the <code>document</code> keyword.</p><p id="73a2bad5-aef8-47ed-a554-ea3b65cac108" class="">If you type <code>document</code> into the console and hover over what it returns, you will see that it highlights the entire page.</p><figure id="8b3d705d-72e3-4147-a20f-ac115b801c66" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/document.gif"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/document.gif"/></a></figure><h2 id="48027b16-466f-4adc-991b-260955c2edea" class="">The Navigator Object</h2><p id="7b8e2a01-74fa-4f1f-8845-24b6aaf1d6e1" class="">There is also something called the <code>navigator</code>.</p><p id="a6088b54-23cc-46ad-92a5-94d1e0f801f2" class="">The <code>navigator</code> is a property on the window object that gives you information not just about the browser, but also the device that it is on (also called the &quot;user agent&quot;). Device-specific things like web cam and audio access, battery level, GPS coordinates, etc. can be requested or accessed from the Navigator.</p><p id="74b4e5ef-a98f-4cbc-8c75-d23f62b82a31" class="">Right now you just need to know that there is the <code>window</code> which contains a lot of information about the browser and the <code>document</code> which contains everything about the current web page from the opening <code>&lt;!doctype HTML&gt;</code> to the closing HTML tag.</p><p id="4f35225c-45d2-49a2-87b0-c9b56900a47a" class="">In the next video we will get into selecting elements on the page.</p><p id="d000c06b-62be-44ab-bb7d-83db94fa6505" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="f3992007-3acb-43b5-97da-6359c63a1e1c" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="578eb6eb-edeb-4438-af7d-5ada0ed978a7" class="">Edit on Github</p></details></li></ul><ul id="e419b618-01b6-4bb2-ae82-960b0b83c6bb" class="toggle"><li><details open=""><summary>21 - Selecting Elements</summary><p id="7995a605-7585-4f5f-a8db-53063d34bb67" class=""><a href="https://wesbos.com/javascript/04-the-dom/selecting-elements">https://wesbos.com/javascript/04-the-dom/selecting-elements</a></p><p id="67af022c-4a32-45cf-b62d-c3a2b0d8fda8" class="">
+</p><figure id="5ba989dc-4a3c-48d4-9b7f-5e2058c86404" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%201.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%201.png"/></a></figure><p id="39eed483-4a3a-456c-9718-6fe0fabab293" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="69999f6e-f903-49fd-958a-f63d5b218be1" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="37fe8d28-c1a0-46b1-a2c3-e0f597822d1b" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="7818a5a9-405d-49c7-9d3d-55a18a216fd8" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="4bc15de7-b607-4f9e-8bcb-36e93b851151" class="">JavaScript, DOMEdit Post</p><h2 id="c517a08d-cd5c-48bc-984c-e11532850f9b" class="">Setup</h2><p id="3b369691-f0b5-4864-9941-88c361faa962" class="">For this lesson, we will be working out of the <code>/exercises/20 - The DOM/</code> folder which Wes has already created for us.</p><p id="c35b23ee-43a3-4275-ac68-583c56d38539" class="">Within that folder there are two files:</p><ul id="26cd62fa-4c99-4e5e-a38b-f99b1d07da33" class="bulleted-list"><li style="list-style-type:disc"><code>index.html</code></li></ul><ul id="55f38f45-8cee-4f87-8aae-f438eaf902e6" class="bulleted-list"><li style="list-style-type:disc"><code>the-dom.js</code> <em>(the JavaScript file should be empty)</em>.</li></ul><p id="e00193a7-87ca-469c-975b-f9837c44cefa" class="">Open up <code>index.html</code> in the browser.</p><h3 id="07658e4c-67f7-411b-9295-fd0ce6b6bc24" class="">Where to Load JavaScript When Selecting Elements</h3><p id="214295c9-e328-470c-9efe-7475a5b1b664" class="">The first thing we need to talk about is where to load our JavaScript if we are selecting elements.</p><p id="921baafa-1510-47d4-bb42-fec92e911181" class="">To demonstrate this, we are going to jump ahead of ourselves briefly and grab an element from the page.</p><p id="7df46d1f-16fb-4c95-bc83-38c11df7dba4" class="">Add the following the the JavaScript file 👇</p><pre id="432c1203-f226-4d15-b3d6-3ac5fdfbd371" class="code code-wrap"><code>const p = document.querySelector(&#x27;p&#x27;);
+console.log(p);</code></pre><p id="a272c1ec-e2ae-433b-be45-0428e0122bf9" class="">If you wanted to load this JavaScript into the <code>index.html</code>, you might think you want to add it inside of the <code>head</code> tag, as shown below 👇</p><pre id="fbd37c0f-a695-4e20-99c9-5d41b5e9e03e" class="code code-wrap"><code>&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+&lt;title&gt;The DOM&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../../base.css&quot;&gt;
+
+  &lt;script src=&quot;./the-dom.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre><p id="bb55bb30-0151-4d00-9f1b-6d96ada82628" class="">Let&#x27;s try that. Reload the page, which will cause the JavaScript to run, then open up the dev tools and take a look at what was logged in the console. It should be <code>null</code>.</p><figure id="7642b262-c1d4-404b-8fa6-8f44818243c6" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/223.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/223.png"/></a></figure><p id="b16aa855-0295-48cf-9112-c1b3c16d0239" class="">What we are doing in the JavaScript code we just added is we are trying to select something on the page, and then log it.</p><p id="fb959749-d1fc-48f5-8e54-04b25ac21010" class="">If you try to run <code>document.querySelector(&#x27;p&#x27;)</code> in the console, it will return an element like so 👇</p><figure id="d979214c-5d9d-4e46-b53a-a5acf74f3bf6" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/224.png"><img style="width:273px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/224.png"/></a></figure><p id="f25b3353-5696-4116-9d80-032dd2bd0837" class="">Why does it work in the console, but not when we loaded it via JavaScript?</p><p id="37babae5-fe05-4d9d-9deb-42ca4b3779b7" class="">It is not working because our JavaScript is being loaded before our HTML is created. That causes the JavaScript to be downloaded and run before the actual elements have been created on the page.</p><p id="0fad8d99-e6e1-47cb-8e4a-4e8ca2078106" class="">There are ways to get around like <em>(such as </em><code><em>async</em></code><em> and </em><code><em>defer</em></code><em> attributes)</em>, but it&#x27;s better to just put the script tag right before the closing body tag.</p><p id="2b49de61-4fbe-4643-a64b-03f4c9f08db8" class="">That will ensure that all your HTML is first downloaded and parsed to the page before the JavaScript is run.</p><p id="4f2f0c5b-edf5-491b-8827-11f251b1057a" class="">If you move your script tag to right before the closing body tag and refresh the page, you will see the exact same code works.</p><p id="2c57110d-07e3-4343-aaee-0ae4d146fb26" class="">There are other ways around it.</p><p id="e87a1d31-017e-442a-8c80-80c08a683c9b" class="">One of those ways is putting all the js code inside of a function, and then adding an event listener that listens for the DOM content loaded event and runs the <code>init()</code> function we created when that happens. 👇</p><pre id="588f579c-82bc-4d0c-9dbb-7600ef60db96" class="code code-wrap"><code>function init() {
+const p = document.querySelector(&#x27;p&#x27;);
+console.log(p);
+}
+
+document.addEventListener(&#x27;DOMContentLoaded&#x27;, init);</code></pre><p id="2124c227-62b4-4c69-881b-77d568ad3f40" class="">Move the script src back inside the <code>&lt;head&gt;</code> tag.</p><p id="b199f080-fd5a-4494-b1ac-c555d4d7e151" class="">This is getting ahead of ourselves but if you refresh the page, you will see that it works now even though the script is in the head.</p><p id="3088ad6f-b6f0-4545-9f1b-3d8962403b19" class="">What we are doing is delaying the code that actually runs until all of the DOM content has been loaded to the page.</p><p id="6b81eb5e-df61-4532-9115-7e2e721d73fe" class="">If you move the script back to right before the closing body tag, you will see that it still works.</p><p id="1de13956-3209-4730-9e96-f190847d2eb8" class="">It&#x27;s easier to not need to use an event listener like that and just include the script tag before the closing body tag so that is what we will be doing!</p><h2 id="b05b7aca-4c9d-4be9-b138-439b5158dc66" class="">Selecting DOM Elements</h2><p id="e50f686a-0532-4c45-aa74-d64ec694138b" class="">Before you actually work with elements on the page, you will need to go get them, which we refer to as selecting them.</p><p id="7fe380fa-d34a-49f0-8c71-6b566822ff1c" class="">You need to be able to access the specific element on the page (whether an <code>h2</code> tag, <code>div</code>, <code>button</code>, <code>image</code>).</p><p id="48fda20b-13d1-4743-8692-71a82efd6066" class="">Once we have it we can do things like listen for clicks, change the content, add content to it.</p><p id="7f53f0bf-a79e-488d-ae61-b710667c20c7" class="">There are sort of two main ways of selecting elements, which are the only two that Wes uses:</p><ol type="1" id="659dd306-1f46-4cbb-bf8f-9cd981609c10" class="numbered-list" start="1"><li><code>querySelector()</code></li></ol><ol type="1" id="a4128fc1-49df-472f-9d72-fa689a09a59b" class="numbered-list" start="2"><li><code>querySelectorAll()</code>.</li></ol><p id="3e9ec405-1037-41cc-a349-6cfe6cf8c55a" class="">Generally you are using them on the <code>document</code> although that is not always the case.</p><pre id="363e791a-3c41-408c-a6db-be0b08e5a7db" class="code code-wrap"><code>const p = document.querySelector(&quot;p&quot;);
+console.log(p);</code></pre><p id="7bb4aae9-9c05-46c3-be1a-534d290d8607" class="">In the example above 👆 we have selected something with a <code>p</code>.</p><p id="6b7694db-d28a-441e-bbd4-988af74e4b29" class="">Both <code>querySelector()</code> and <code>querySelectorAll()</code> take one argument, which is the CSS selector. Those are almost the exact same selectors used in CSS.</p><p id="b4bae50f-aab9-4f84-94ed-ec2808153055" class="">If you open up the <code>index.html</code> in the browser, you will see we have grabbed a paragraph tag. When we log it, you will see we have the item there.</p><p id="179b1b60-d892-4b98-b732-6fc9feb86b04" class=""><code>querySelectorAll()</code> will give you multiple elements, whereas <code>querySelector()</code> will give you the first matching one.</p><p id="3999eb06-8173-48c0-b67a-aeeb2bcbb794" class="">Let&#x27;s demonstrate that by making another variable called <code>divs</code>. Add the code below 👇</p><pre id="74bb572d-7596-4a73-a5b7-e77dc17864c3" class="code code-wrap"><code>const p = document.querySelector(&quot;p&quot;);
+const divs = document.querySelectorAll(&quot;div&quot;);
+console.log(p);
+console.log(divs);</code></pre><p id="d7ed26a4-b2eb-49e4-8057-a5251f5f088a" class="">If you reload <code>index.html</code> you will see that we get something in the console called a <strong>NodeList</strong>.</p><p id="bfdb5dfb-d3e7-4810-92da-9af373a11b78" class="">We will be learning about arrays in the future and NodeLists look a lot like arrays. It is a frequent interview question that you might hear, that a node list is not an array.</p><p id="ebbf7364-7ef0-4e13-b5e2-02dc470d449c" class="">It is a list of things, but there are a few differences which we will go through in the future.</p><p id="08179f52-f06c-41b5-8cb9-b4f84db6388f" class="">The short and skinny is that it does not have all the methods that an array does like <code>map</code>, <code>filter</code> and <code>reduce</code> built into it.</p><p id="724abda6-5798-4b80-abff-1733c31b6d73" class="">If you hover over the NodeList in the console, you will see that it is grabbing everything that matches the selector (<code>div</code>).</p><p id="28733fc7-fae1-4dff-8a2b-89418ae5313b" class="">You can get more specific than using elements as selectors.</p><pre id="a01fa875-d78a-47e9-bae0-cddd9e6f71e5" class="code code-wrap"><code>document.querySelectorAll(&#x27;.item&#x27;);</code></pre><p id="111b2ae7-ac9c-47af-a0a1-4986930c8d52" class="">You could say give me anything with a class of <code>.item</code>, as shown above 👆</p><p id="ee1c4f8d-7b67-4fff-bc8c-1fa333cce662" class="">Let&#x27;s say you only wanted <code>divs</code> with a class of <code>item</code>. You would then use 👇</p><pre id="010560c3-a3dd-4066-a3f4-230c87f523db" class="code code-wrap"><code>document.querySelectorAll(&quot;div.item&quot;);</code></pre><p id="462cc47c-88a4-472e-9a7d-218fe6011523" class="">You can also do parent child selectors.</p><p id="aa62a0aa-76c2-4b31-9ea3-e37d020ef74f" class="">If you only wanted to grab an image inside of an <code>item</code> div, you could achieve that using the code below. 👇</p><pre id="917911c2-5322-4b50-b3a3-a21d74b8eb0f" class="code code-wrap"><code>const divs = document.querySelectorAll(&#x27;.item img&#x27;);</code></pre><p id="92865a93-f71d-4949-ac63-4520a297a2aa" class="">If you wanted to just select the first <code>item</code> and then the image inside of it, you could add the code below instead, which will return the first match. 👇</p><pre id="26d59da2-a415-41f5-a5f3-c209a857a0bd" class="code code-wrap"><code>document.querySelector(&#x27;.item img&#x27;)</code></pre><p id="fbb30743-403c-4e0b-85e9-fb21ea7d5ced" class="">Let&#x27;s say the other item div also has a class of <code>item2</code>.</p><p id="0cdefe02-68e5-42eb-9c1a-eaf3b33d6334" class="">You could add the following code 👇</p><pre id="6cb8c85e-cb56-4705-8de7-71257322652e" class="code code-wrap"><code>const item2 = document.querySelector(&#x27;.item2&#x27;);</code></pre><h3 id="bb4e8577-39a3-4afe-b6e9-534f33d0ed31" class="">Searching Inside Already Selected Elements</h3><p id="aeed5a51-3c74-4409-baab-c155bf9788fe" class="">If you want to search inside of an element that you already selected, you can use querySelector on any other element like so 👇</p><pre id="164a4318-b03e-4209-9e32-2c66a9aeff11" class="code code-wrap"><code>const item2Image = item2.querySelector(&#x27;img&#x27;);</code></pre><p id="18ba11a6-01b8-4cc5-8929-288b47a74e29" class="">If you ever need to narrow down your focus as to where you are searching, you can do that in your selector, but you can also run <code>querySelector()</code> and <code>querySelectorAll()</code> on any other element and only search within it to limit the scope.</p><pre id="049423c4-b946-48d6-b1e3-2eb3250df16f" class="code code-wrap"><code>&lt;h2 id=&quot;wes&quot;&gt;Sub Div&lt;/h1&gt;</code></pre><p id="7999dd7e-9f1f-42ee-b5d7-0e03014c52ad" class="">If you have an element with an id, as shown in the code above 👆, you would be able to grab it using <code>document.getElementById(&#x27;wes&#x27;);</code>.</p><p id="a95a6ae1-5250-4bfb-a15b-7ccd2aa479a8" class="">Notice how you don&#x27;t put the <code>#</code> sign before &#x27;wes&#x27;?</p><p id="fee0b662-cd20-4b71-9a5f-10bfa8d556e0" class="">That is because if you&#x27;re using anything that&#x27;s not query selector, you don&#x27;t have to pass <code>.</code> or <code>#</code>.</p><p id="4497b563-820e-49d6-a7ed-8f45214b3ecf" class="">The same works with <code>document.getElementsByClassName()</code>, but you don&#x27;t pass the <code>.</code> from the classname.</p><p id="9aac3f2f-d759-4b16-a274-8c25d155f29b" class="">You can get all the work done with <code>document.querySelector()</code> and <code>document.querySelectorAll()</code> however, and they are much more flexible.</p><p id="9dbc5ff2-e8ab-4a58-a4f5-8c8c20cb7a7c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="e9fb52ef-e38f-43ed-bf0b-173362bce513" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="28d36bb6-c258-4de8-9a20-e1caf18f34e7" class="">Edit on Github</p></details></li></ul><ul id="aa157610-c284-4d12-ae4b-6af2854ac134" class="toggle"><li><details open=""><summary>22 - Element Properties and Methods</summary><p id="22dfb53d-9ba7-43c2-b01b-52582d98e840" class=""><a href="https://wesbos.com/javascript/04-the-dom/element-properties-and-methods">https://wesbos.com/javascript/04-the-dom/element-properties-and-methods</a></p><p id="e090fd40-dc44-4405-ab9d-c192bab5db9d" class="">
+</p><figure id="05a1941e-5a53-4d52-a0dd-d3c9086745fb" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%202.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%202.png"/></a></figure><p id="c89ce6ae-aa58-43d4-bb12-867fadeb1d47" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="9c883ab1-48de-4b68-be7e-53683196ca52" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="42196312-216e-405e-9f2e-a5154c6b4576" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="2b1a8ec8-cca7-45e8-ab16-6696372102b4" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="ad0e9285-5e8a-4c3b-9417-1a6ad7943436" class="">JavaScript, DOMEdit Post</p><p id="d81c9f48-6f3a-416e-b5cc-0bc3406695e2" class="">Now that we know how to select elements, let&#x27;s go over what we can do with them.</p><p id="6720ad87-a89d-4f1f-9ec4-687073ce1fbb" class="">Start by selecting an <code>h2</code> element from the page and logging it. 👇</p><figure id="c9c99d98-2e7c-43f5-8289-12c3be891610" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/229.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/229.png"/></a></figure><p id="e1ec384e-2c09-45e6-bff9-6b44f7bd1d3c" class="">Although in the console it looks like the <code>heading</code> variable is the actual element, in reality it is an object that has a lot of properties and methods inside of it.</p><p id="f7ce9d44-ff55-4214-80bd-71eb30b29201" class="">If we change the <code>console.log()</code> to a <code>console.dir()</code>, that will show us the object properties instead of the actual element itself.</p><p id="0c97b414-da8e-4a3f-a3e3-b02a8e6e90ea" class="">It&#x27;s still the same <code>h2</code> tag, but you can see all the properties on it.</p><p id="8ff1530b-de4a-4c0e-a46d-98eb7201ddc7" class="">One example of that is <code>parentElement</code> which shows you what the parent element is.</p><p id="d3f08372-87d4-4a56-99f4-14b906008d03" class="">There is <code>outerText</code> <code>textContent</code> <code>outerHTML</code>, and many other properties.</p><h2 id="a41a1b5a-ac5e-4974-865e-43bb8f73b3df" class="">Getters and Setters</h2><p id="4e3e0674-72e2-444c-9f7b-34330cc03a5b" class="">We can use those properties as getters to get the data from the element that we need, or we can use them as setters.</p><p id="52dd3dcf-ef52-4a0c-b022-18be610e9098" class="">We will demontsrate this using <code>textContent</code>.</p><pre id="74a7889d-0f6b-4627-984a-dcd1286f845c" class="code code-wrap"><code>const heading = document.querySelector(&#x27;h2&#x27;);
+console.dir(heading.textContent);</code></pre><p id="207014ed-6ba5-4211-92b8-e02b090acf73" class="">The code above is an example of a getter.</p><p id="0ba61e5d-2883-4cd2-ab34-0e7a065c63d8" class="">A setter is when you update the property.</p><p id="20d83ad2-9dae-45c9-beff-87de013d2d26" class="">An example of that would be <code>heading.textContent = &#x27;Wes is cool&#x27;;</code>.</p><p id="1f3b7e77-b394-459a-9b81-5cc20a607b7f" class="">Now when you reload the page, you will see Wes is cool in the console.</p><h3 id="a609e567-e2c4-4f56-a2bb-30ba76964e83" class="">textContent and innerText</h3><p id="9574cdb6-aaf4-4cc4-8ac5-f434ca188751" class=""><code>textContent</code> and <code>innerText</code> are very similar properties, <code>textContent</code> is the newer one.</p><p id="96310d3e-f90a-491b-83e4-a96593875dbc" class="">The only difference is that <code>innerText</code> returns only the human readable content whereas <code>textContent</code> will get the contents of all of the elements, including script and style elements.</p><pre id="e45b37de-bd58-4473-b060-599692b02783" class="code code-wrap"><code>&lt;h2&gt;
+  I am a heading
+  &lt;style&gt;
+    h2 {
+color:red;
+}
+&lt;/style&gt;
+&lt;/h2&gt;</code></pre><p id="2fb47b8c-075a-4d39-a443-f0a012346afc" class="">Let&#x27;s say your <code>h2</code> looked like the code above for some reason 👆</p><p id="36da6dd3-e51b-4e50-afbe-5626db00f675" class="">If you log both the <code>heading.textContent</code> and <code>heading.innerText</code>, you will see that <code>textContent</code> includes the content within the style tag whereas <code>innerText</code> only returns the text <code>I am a heading</code>.</p><p id="bc328d47-6c93-4137-9783-75c74130f6ce" class=""><code>textContent</code> returns every element in the node.</p><p id="4f31ea6f-fb96-4c86-ae39-50ffa752a1b0" class=""><code>innerText</code> is aware of styling and won&#x27;t return text of hidden elements.</p><p id="9a9e7374-ea06-43a6-a350-5ffb333a4143" class="">Let&#x27;s say you have the following code 👇</p><pre id="c1c4e2a8-42f9-468c-a868-efa318349950" class="code code-wrap"><code>&lt;h2&gt;
+  I am a heading!
+&lt;span&gt;I am hiddden!&lt;/span&gt;
+&lt;/h2&gt;
+&lt;style&gt;
+  h2 span {
+display: none
+}
+&lt;/style&gt;</code></pre><p id="f4c8f3e0-25e3-4422-aa36-f988d33f37a3" class=""><code>textContent</code> will return the &quot;I am hidden!&quot; text, however <code>innerText</code> will not.</p><figure id="fd2468cc-7945-4c7b-af37-8421d4d8edba" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/230.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/230.png"/></a></figure><p id="e28b842f-d038-4b1a-a03e-dd15f5cf5cda" class="">We have a set of properties when working with HTML. If we were to log the <code>innerHTML</code> of the <code>h2</code>, you would see 👇</p><p id="3d787e60-3ef6-4b0a-8f30-66ba5d5d9bac" class="">There is also <code>outerHTML</code>, which should include the <code>h2</code> tag and whitespace that goes inside of it.</p><p id="9dcfca09-31f1-4cfe-899b-f03ddb5910e2" class="">If you ever want to add text onto something is another useful thing to learn.</p><h2 id="f7946b67-fcda-4824-ab48-0dfd2bc5460b" class="">Exercise</h2><p id="10f9580c-b821-48db-92ba-a180e53f1b34" class="">Go to <code>index.html</code> and modify the code as shown below 👇</p><pre id="4edbf5ba-6e85-45d5-afe3-ed5e435ca934" class="code code-wrap"><code>&lt;article class=&quot;item&quot;&gt;
+&lt;h2&gt;Im an article&lt;/h2&gt;
+&lt;p class=&quot;pizza&quot;&gt;This is how many pizzas I ate! 🍕&lt;/p&gt;
+&lt;/article&gt;</code></pre><p id="d0b51227-50ad-48bb-b130-4d81a0917e04" class="">What we are going to do is build something to add more pizza emojis to the end of it.</p><p id="b7e099d8-df45-4bdf-9024-d74139714dbb" class="">First we need to select it.</p><pre id="d46e0609-27a5-4a50-9139-f8e2cc9d86dc" class="code code-wrap"><code>const pizzaList = document.querySelector(&#x27;.pizza&#x27;);
+console.log(pizzaList.textContent);</code></pre><p id="0fec3dba-9d45-4631-9660-bd910ef7592d" class="">To update the <code>textContent</code> we could use the code below 👇</p><pre id="dba891a5-d252-48fd-9d18-a3eadc9e194c" class="code code-wrap"><code>pizzaList.textContent = `${pizzaList.textContent} 🍕`;</code></pre><p id="e4973cd1-224a-43b3-80e4-c19e209212ec" class="">That will take what was already there and adds a pizza emoji to the end.</p><p id="bcca8756-939d-4e89-98c4-5da7ea06c56d" class="">That method can be slow in some applications that have lots of text and html, because it causes the browser to re-render the entire list.</p><h2 id="f1eab679-08a0-48f8-8053-70ff85cbb27b" class="">insertAdjacentText and insertAdjacentElement</h2><p id="daefff76-15e3-4749-b178-502bd8192974" class="">To fix that, what we can do is add text onto the end using a different method, either <code>insertAdjacentElement</code> or <code>insertAdjacentText</code></p><p id="0be73cce-d9d5-4722-8646-54a77bd767ae" class="">That will give us the ability to add stuff to the back or the front of it.</p><pre id="7b673236-4a39-4d05-94bc-0c2029442b0c" class="code code-wrap"><code>pizzaList.insertAdjacentText()</code></pre><p id="e743f025-d859-4cc9-a78b-bd95b1e60686" class="">If you go to MDN and search for <code>insertAdjacentText()</code> you will see that it is not a property, it is a method, meaning it is a function that we run <em>against</em> the element, like we do for <code>querySelector</code> and <code>querySelectorAll</code>.</p><p id="9c4bc000-32a9-4b4d-9624-48965636881f" class="">It takes two arguments:</p><ol type="1" id="e4658c33-9921-40cd-8c95-db10479e933e" class="numbered-list" start="1"><li>the position (<code>beforebegin</code>, <code>afterbegin</code>, <code>beforeend</code>, <code>afterend</code>)</li></ol><ol type="1" id="7d901758-e527-48e8-9ab4-c7e330bba03f" class="numbered-list" start="2"><li>the text that you want to pass it.</li></ol><p id="9bb2ed25-d4d2-432c-9a5b-6eb0a5466d08" class="">MDN says the second argument is element but it&#x27;s actually just the raw text you want to add.</p><p id="a05064c9-cdda-4d4e-8719-121b3534d6eb" class="">Add the following code 👇</p><pre id="d70cddd3-c6a0-4eaa-81e1-21563c6d84df" class="code code-wrap"><code>pizzaList.insertAdjacentText(&#x27;beforeend&#x27;,&#x27;🍕&#x27;);</code></pre><p id="39f153f5-c08c-42f9-ba8a-1e9b68b7d8a6" class="">If you refresh <code>index.html</code> you should see two pizza emojis now.</p><p id="251a2199-e86b-4a4b-965c-f10cf4ba38a8" class="">It works the same as the other way we tried earlier, however this is the best way to attach text to the end of something.</p><p id="101b6378-d498-44ba-8443-7fa84517b84f" class="">If you were to try 👇</p><pre id="9d8d2556-a122-4f31-a198-68d870994e30" class="code code-wrap"><code>pizzaList.insertAdjacentText(&#x27;beforebegin&#x27;,&#x27;🍕&#x27;);</code></pre><p id="2211aa27-5396-4cd4-b905-270f08128fd4" class="">That will put the pizza emoji before the paragraph entirely, it&#x27;s not inside of that element. We would want to use <code>afterbegin</code> to add the pizza in front of the text.</p><p id="54641e8a-2036-45d8-a218-7c4ab02de884" class="">The browser actually knows that the pizza emoji was added later, because the text is split up between what we used to have and what we inserted.</p><p id="9e3218a1-4539-4b03-9c03-d3f9498559f3" class="">That is actually the difference between elements and nodes.</p><p id="5a779d7e-8fe6-4723-b1cc-e6d4ce1fbb37" class=""><strong>Nodes</strong> can be anything, but an actual <strong>element</strong> is something that is wrapped in a tag.</p><p id="2c6ba582-9542-44b2-824a-13242d5dbbc5" class="">It is a little bit confusing because everything is a node, and it only upgrades itself to an element if you have wrapped it in a tag.</p><p id="9b372194-b1d6-4db4-9fe3-4edc3b8fc24f" class="">If you are wondering what all the possible methods are, we will stumble upon different properties and methods as we build out our exercises.</p><p id="7e8f6f66-d057-4f50-b716-22ed6585242d" class="">You can go to the MDN docs and go to element, it will tell us what all the properties are of elements.</p><p id="95748162-2e10-43c3-b053-05b4ea25b609" class="">That wraps up elements. We covered how to get properties from an element, how to set properties on an element and how to use more powerful methods on each of our elements or nodes.</p><p id="21233a6a-86a7-46e4-8f54-30f2e30887ef" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="11f053a0-df48-464d-b0b4-6d7cccd5a57a" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="eb028419-f23f-400b-bb31-f622ff4f4cc5" class="">Edit on Github</p></details></li></ul><ul id="95eb2c89-ad6d-45b0-8253-4747521a40ed" class="toggle"><li><details open=""><summary>23 - Working with Classes</summary><p id="7461cba1-120f-4e7f-aab7-423bbed7b8f7" class=""><a href="https://wesbos.com/javascript/04-the-dom/working-with-classes">https://wesbos.com/javascript/04-the-dom/working-with-classes</a></p><p id="4bc81103-9bc5-4ac1-8860-a7d79b05d89b" class="">
+</p><figure id="956c966e-fd53-461c-a8aa-eeb2e8589526" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%203.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%203.png"/></a></figure><p id="04457360-6250-455e-bdaa-43b2af23edaa" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="8041043f-5258-4986-ae7f-77ac9c20cfee" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="4f920513-c8e9-4af1-a699-a2a750560d2d" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="9e3f7f2b-ddc8-4457-a16e-b4f4a890e36e" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="2eb8cbd7-3195-46e1-a3a8-3f2b8aece97c" class="">JavaScript, DOMEdit Post</p><p id="b2febe2d-9665-4735-bd6e-e7e7d446ac46" class="">In JavaScript, it is common to need to add and remove classes.</p><p id="c9ba089d-d0a0-4116-b043-c3327ca73818" class="">Let&#x27;s demonstrate how to do that, starting by commenting out all the code within <code>the-dom.js</code>.</p><p id="469242ce-41c9-4f08-b616-9d1382aa3bfe" class="">When you select an element, it will have a <code>classList</code> attribute on it, and that attribute has methods on it for adding and removing multiple classes.</p><p id="063eb9d0-79a9-4050-8607-7a0b93ad3bb7" class="">We will do an example with animation.</p><p id="84da9710-fc38-4ecb-930b-21b66eb7d201" class="">Duplicate one of the image tags and add it right after the opening body tag, and give it a class of nice. 👇</p><pre id="b517ee2b-60de-431b-aec5-278108cf4d13" class="code code-wrap"><code>&lt;body&gt;
+&lt;img class=&quot;nice&quot; src=&quot;https://picsum.photos/500&quot; /&gt;</code></pre><figure id="b2bcb690-749a-401b-84c5-8d5c1121e310" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/1443.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/1443.png"/></a></figure><p id="8b9248af-8992-44ae-83d6-c17386cfc18f" class="">Within <code>the-dom.js</code>, add the following code to select the element using the class of <code>nice</code>, and then we will log the <code>classList</code> attribute of the element.</p><pre id="423fc9d1-de07-4447-9e55-bf1bcf831192" class="code code-wrap"><code>const pic = document.querySelector(&#x27;.nice&#x27;);
+console.log(pic.classList)</code></pre><figure id="e2a972b2-6b43-4bea-a35c-e16a2a4520ff" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/237.png"><img style="width:438px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/237.png"/></a></figure><p id="f85c147f-c4b9-4ba3-8b47-7d6c88da5c6b" class="">In the console we get a <strong>DOMTokenList</strong> which is kind of like an array of all the classes that are on that image.</p><p id="e36b28a8-442e-41c3-8d2c-66e7fd3eb456" class="">In the HTML file, add a class of <code>cool</code> to the image as well.</p><p id="cfb99383-44a3-4035-9382-eeb7a21b91e2" class="">When you refresh the page, you will see that we get both of them as well as a value of all of the classes. 👇</p><figure id="1c514051-e03d-4ec1-9880-da777081b6b1" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/238.png"><img style="width:532px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/238.png"/></a></figure><p id="22ff01d9-1254-4436-b0dd-4f5bdd680ea7" class="">If you look into the <strong>prototype</strong> <em>(we haven&#x27;t learned what that is yet)</em>, you can see which methods are available to call against the thing we have.</p><p id="beb7d3b0-ce3c-457a-b2c0-29e1bdd64119" class=""><code>classList</code> has many methods.</p><p id="03fab319-090d-4a43-8083-d4f93c5365c3" class="">To name a few, there is</p><ul id="06ee6cac-86d9-43a5-ba95-e9c76b3589b6" class="bulleted-list"><li style="list-style-type:disc"><code>add</code></li></ul><ul id="350a16d2-3c2f-4235-9291-2935dcf3b366" class="bulleted-list"><li style="list-style-type:disc"><code>remove</code></li></ul><ul id="df3e700e-29cf-4967-b60d-7cf847290c01" class="bulleted-list"><li style="list-style-type:disc"><code>contains</code></li></ul><ul id="6c7f6d8d-142e-4296-98d6-d87f5fe670fd" class="bulleted-list"><li style="list-style-type:disc"><code>foreach</code>.</li></ul><p id="8b3ff73e-c32e-477c-97fb-48258ea6be1f" class="">A lot of those are methods for working with classes which is exactly what we are going to do.</p><figure id="7a3cb585-ab77-4cac-b85e-06fbe7a4a295" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/239.png"><img style="width:258px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/239.png"/></a></figure><p id="62112bfc-042b-483e-95e2-f1984d8dafc1" class="">Within VS Code, as you type, you may have noticed that you get a dropdown of methods available to you. 👇</p><h2 id="3d8eeb3f-4031-43dc-a28a-420a5b659ce5" class="">Adding a class</h2><p id="96d6a648-399f-4323-9f57-b770e2b1992a" class="">We are going to use <code>pic.classList.add()</code> to add a class of &#x27;open&#x27;.</p><pre id="2456e3c8-e457-4b12-8c48-578a99921259" class="code code-wrap"><code>const pic = document.querySelector(&quot;.nice&quot;);
+pic.classList.add(&quot;open&quot;);
+console.log(pic.classList);</code></pre><p id="d0f51c9f-c1cd-4d71-b9a4-65d0bb5cf138" class="">Refresh the page, and inspect the image element. You will see the image now has a class of open.</p><h2 id="6d6a4955-3e1f-42c5-a748-3020f2d4783f" class="">Removing a class</h2><p id="c2c561d9-b06d-4cf9-b509-eb1b97321367" class="">What if we wanted to remove the class of &quot;cool&quot; which already exists on the element?</p><p id="bfd0ac77-3f22-45bb-9ea1-988864dfaf3e" class="">You could do that with the following code 👇</p><pre id="83aa5cbc-b87d-4760-bb67-c53073a864ce" class="code code-wrap"><code>pic.classList.remove(&#x27;cool&#x27;);</code></pre><h2 id="587ef4d0-061d-45ff-995b-83e43a512edf" class="">Toggling a class</h2><p id="d3f866a5-4919-4d73-ab67-c8623a70f912" class="">There is also <code>toggle</code> which is pretty cool.</p><p id="58441fa9-5556-42e6-91ce-259ca74f5176" class="">Let&#x27;s write a bit of CSS so we can visually see what is going on.</p><p id="cdc4f565-ff6d-49ab-9c48-0106a110a418" class="">In our <code>index.html</code> add a style tag somewhere on the page with the following styles 👇</p><pre id="4442b5d5-49ec-41fb-ba49-15b788ffd0c7" class="code code-wrap"><code>&lt;style&gt;
+.round {
+border-radius: 50%;
+}
+&lt;/style&gt;</code></pre><p id="4adb0ce7-5704-41c4-992c-efa130f4434b" class="">Now using JavaScript, we will add a class of <code>round</code>.</p><pre id="f2847428-d95d-4573-9045-fe3a1f368f5b" class="code code-wrap"><code>pic.classList.add(&#x27;round&#x27;);</code></pre><p id="2b5a1c40-28a2-4130-b418-781ebceae9e6" class="">Now the element has the class of round and makes the image circular.</p><p id="fb98ed74-db30-430b-9f13-342d9e0d4af3" class="">We can add and remove that class either by pasting it into the console or on click.</p><p id="a86b75c0-82cf-444f-bca1-e4d1b4f945d8" class="">We will go over both.</p><p id="fc12d996-2c9f-4934-9c77-04764376033a" class="">Replace the <code>add</code> method used above with <code>toggle()</code>.</p><p id="79a9424a-9234-4b75-86c5-4b13f62afa50" class=""><code>toggle</code> will add the class if it is not there, and remove it if it is.</p><pre id="ca6a1526-c37f-4d40-978a-f3fb3809f2d6" class="code code-wrap"><code>pic.classList.toggle(&#x27;round&#x27;);</code></pre><p id="c8780cb8-446d-40d4-815b-c96e86001a22" class="">If you copy and paste that line of code into the console, you will see that the class is being added and then removed.</p><figure id="84893fda-ddb6-409a-a720-af8693c2a59e" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/round.gif"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/round.gif"/></a></figure><p id="38d25b1a-12c2-4433-9cbc-61bebb90dff7" class="">If we go into our CSS and add a transition all for .2 seconds, that will give us an animation when the class is toggled.</p><pre id="940c3eaf-accd-48cc-990b-e6741b55f816" class="code code-wrap"><code>img {
+transition: all 0.2s;
+}
+
+.round {
+border-radius: 50%;
+transform: rotate(1turn) scale(2);
+box-shadow: 0 0 10px black;
+}</code></pre><figure id="9a8bb649-62da-4d99-adf8-dbb018fac0b3" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/round-transition.gif"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/round-transition.gif"/></a></figure><p id="09d9d89e-0666-4f42-93a1-058ca8f79ba4" class="">Quick peak ahead <em>(we will be learning about events later)</em>, you can do something like the following 👇</p><pre id="55d98332-d465-4e05-8853-bd779e5b25ab" class="code code-wrap"><code>function toggleRound(){
+pic.classList.toggle(&#x27;round&#x27;);
+}
+
+pic.addEventListener(&#x27;click&#x27;, toggleRound);</code></pre><p id="968e0659-5cce-4717-bc7c-c9851f2a4c73" class="">What we are doing there is saying when the pic element is clicked, we want to the trigger the function called <code>toggleRound()</code>, which will toggle on and off the class of <code>.round</code> for the image element.</p><p id="7e44f644-289f-4056-a2db-8177bc824771" class="">You can add the following styles to the <code>.round</code> class also for a rotation transition...</p><pre id="134193dd-7ca5-4aae-8754-55f98f591920" class="code code-wrap"><code>.round {
+border-radius: 50%;
+transform: rotate(20deg);
+}</code></pre><p id="f50f5c55-dd40-4917-84b2-d832468e27f4" class="">The CSS added 👆 above will give you the transition shown below 👇</p><figure id="d0c0e492-aeb5-4003-ba58-eaaad1fbbe9b" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/transition1.gif"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/transition1.gif"/></a></figure><pre id="c5ed8698-08ff-4a4d-aac5-20b6de7563e0" class="code code-wrap"><code>.round {
+border-radius: 50%;
+transform: rotate(2000deg);
+}</code></pre><p id="5ecd97e8-94cc-4bb1-a88e-ee704f73e228" class="">To get the transition effect below 👇 add the code shown above 👆</p><figure id="d744ba8d-4222-4e86-849e-0ab17c6e6f0f" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/transition2.gif"><img style="width:591px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/transition2.gif"/></a></figure><pre id="0bdef5a8-7fa3-435f-9d06-60a4a31c342e" class="code code-wrap"><code>.round {
+border-radius: 50%;
+transform: rotate(1turn) scale(2);
+}</code></pre><p id="255ae92c-db70-47e5-a168-dc4fe7f03d5e" class="">The code above 👆 gives you the effect below 👇</p><figure id="7b20bfbf-23f8-404c-9126-48fa4a2ba14d" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/transition3.gif"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/transition3.gif"/></a></figure><p id="c57bafa9-4631-400e-a30f-61b01858ded6" class="">A lot of JavaScript interaction is just adding and removing classes at different points in time. That allows JavaScript developers to use CSS to add and remove transitions.</p><p id="d3f69413-47e0-4233-9806-477ff46b0f8a" class="">That is common with modals and navigation which open and close, and we will be going over lots of examples of that throughtout the class.</p><h2 id="7e9775c1-1af9-4cc7-80eb-b3dad2a5317d" class="">The contains method</h2><p id="8ab8623c-65b4-4cef-951d-48d9b68956fa" class="">There is also the <code>contains()</code> method, which you would use like so 👇</p><pre id="bfd24c9d-8d92-4fad-b950-df353fb37755" class="code code-wrap"><code>pic.classList.contains(&#x27;open&#x27;);</code></pre><p id="8f2f16d6-89e9-44fd-9beb-c95d71724d13" class="">It will return a boolean value of <code>true</code> or <code>false</code> based on whether that element has the class or not.</p><p id="35b6e1e7-e1f7-4180-bf83-bef492ab7dc4" class="">That is useful when you want to check the current state of an element by looking at it&#x27;s class list.</p><p id="c0fd8134-b1eb-4775-9893-b57ddcb49729" class="">In the next video we will go over regular attributes.</p><p id="be3cb045-e31f-41cc-b3be-880f8d94241e" class="">Even though <code>class</code> is an attribute, <code>classList</code> gives us some utility methods for working with it.</p><p id="993faafb-46f1-45ab-af50-7cfe4ec3f8ec" class="">Whenever Wes needs to work with classes, he uses <code>classList</code> which is a few years old but fairly newer.</p><p id="9c022bf5-6e32-4d50-b5b9-f6f3634689b7" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="cafcfafe-13c1-4184-a9cd-a2d7a09e1752" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="5b92aa9b-5676-4776-b389-3aae722dfe30" class="">Edit on Github</p></details></li></ul><ul id="9a4ef824-cc71-4d37-9bcb-8798d160ff05" class="toggle"><li><details open=""><summary>24 - Built-in and Custom Data Attributes</summary><p id="bb9a641b-3ed2-4a12-aab5-309847300d4a" class=""><a href="https://wesbos.com/javascript/04-the-dom/built-in-and-custom-data-attributes">https://wesbos.com/javascript/04-the-dom/built-in-and-custom-data-attributes</a></p><p id="9d1281f0-6ca4-4145-9b5e-d7babbfd11aa" class="">
+</p><figure id="5b00f6d7-4fe6-49b5-b8d6-2f760aaf250e" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%204.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%204.png"/></a></figure><p id="60fc5f38-84be-4f71-afe2-bc927c2d68f1" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="33c01882-d12d-431a-8b31-08eb4e9c72e6" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="01caa97c-5041-406f-b2cf-e7b63708beda" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="4df33914-f97b-4b7d-94c8-168685765f8b" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="7ec821f1-24f5-44f7-8d71-d5112e52158d" class="">JavaScript, DOMEdit Post</p><p id="0c6b9e7d-05eb-46e9-80e3-235e388f7f39" class="">When you are working with HTML elements, those elements have something called <strong>attributes</strong>.</p><p id="819646a6-ff90-48f9-9df1-b74bb2087e4d" class="">Attributes are anything provided to an element as additional information. Things like <code>classes</code>, <code>src</code>, <code>alt</code> are all attributes.</p><p id="e321f7ff-4a63-4237-a396-a95950f08433" class="">Attributes work the same way as the other properties that we have been working with, so we will go over it quickly before getting into custom and data attributes.</p><p id="f04fcbcb-8a27-4ff8-8a11-4b9faafdcc97" class="">To add an alt attribute to the image element we were using in the previous video, you would add the following JavaScript code 👇</p><p id="df63404c-92af-456c-b1c3-03b5b0b4519d" class=""><code>pic.alt = &quot;cute pup&quot;;</code></p><p id="c0a4dba0-6aba-4543-a49b-663944036d65" class=""><em>TIP: When adding alt attributes to images, the value of the alt text should describe the image. You do not need to include in the text that it is a photo, because screen readers will specify that.</em></p><p id="da4df2c0-824c-4634-b1fa-4948d5945960" class="">Although we did not add the alt attribute when we authored the element, when we added it via JavaScript, you can now see it on the element.</p><figure id="0be535cf-9d3f-493e-8021-03f5b4e6ee6b" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/243.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/243.png"/></a></figure><p id="0be167ee-1632-4c07-a794-12d318104b81" class="">We can also set the width of the image this way, by adding the code below 👇</p><pre id="f6a5432a-f780-43a3-9c83-2e895c1584fe" class="code code-wrap"><code>pic.width = 200;</code></pre><p id="d4976492-7922-42f9-ac34-ea2f1c11f172" class="">Most attributes are both <strong>getters</strong> and <strong>setters</strong>, meaning we can set the attribute, and retrieve the attribute value. That allows us to do both of the following 👇</p><pre id="fcd2137b-30a2-49ad-9c28-2c9aff69bcc9" class="code code-wrap"><code>pic.alt = &#x27;Cute pup&#x27;; //setter
+console.log(pic.alt); //getter</code></pre><p id="69ac4907-d70e-4a5f-ba2a-42ba778df647" class="">Some attributes however are only getters, such as <code>naturalWidth</code>.</p><p id="0635fd73-5ffa-4714-a93f-70a18bc5c00c" class="">If you add the code below, we get zero 👇</p><pre id="8370808d-26f9-4666-936a-01076fbbf5f2" class="code code-wrap"><code>console.log(pic.naturalWidth);</code></pre><p id="9f8088a1-2658-4d27-90e5-7ad149a9c5a6" class="">However, if you copy and paste that in the console and run it, you get a value of 600 back.</p><figure id="973348cd-c6f7-4f73-8831-d69036a5c577" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/245.png"><img style="width:688px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/245.png"/></a></figure><p id="ca8bea1c-b647-4f7e-98ae-cf165937c09c" class="">Why is it zero when we log it from the JavaScript file, but running the code in the console returns 600?</p><p id="c304b3e9-022e-4ca6-9cbb-6fcbe9a3beb6" class="">This is a problem that you frequently run into, which is that we have to wait for the image to actually be downloaded for us to know how large it is.</p><p id="4b982ac1-a1c9-420c-bcb0-1051744a2e00" class="">This is a big problem when people were building slideshows.</p><p id="06ada4dc-5d9b-481c-b034-12dea3503842" class="">How can you overcome this? One option is to add an event listener on the load event.</p><p id="f7dcde5c-bcb1-4eec-895d-97644d0450e0" class="">What that will do is wait for all the images, resources, CSS, JavaScript, and anything that needs to be loaded to load before calling the function.</p><pre id="a8ce09f9-2390-4ed3-94ac-8e607d9991e0" class="code code-wrap"><code>window.addEventListener(&#x27;load&#x27;, function(){
+console.log(pic.naturalWidth);
+});</code></pre><p id="210af43a-89da-43a6-9751-17ef8e11f4d3" class="">When you refresh your HTML page now, after a split second, you should see the naturalwidth value logged in the console.</p><p id="9e73883f-85a8-43cf-8a19-45115b35aacf" class="">You can also use the event listener specifically on an image.</p><p id="9e53b025-209f-4581-aa33-f394f5539e72" class="">Modify the code we added like so 👇</p><pre id="f529bb9f-a7b5-48c7-a925-665c8a528a16" class="code code-wrap"><code>pic.addEventListener(&#x27;load&#x27;, function(){
+console.log(pic.naturalWidth);
+});</code></pre><p id="ad238a8e-8039-451a-811e-8a00fe7d5452" class="">That still works, because once the image is loaded, the event listener will fire.</p><p id="cf782e33-7ce4-4391-9b58-dffee77fb0fe" class=""><em>(All of that event listener stuff is a bit ahead of ourselves, we will be covering it later in the course, but it&#x27;s good to know some of the gotchas that you may encounter.)</em></p><p id="e108b3fe-f2fc-47c7-82b2-d7a9192936c3" class="">You might be asking yourself</p><blockquote id="ec8cef18-e0b4-44b8-920d-f5a7702bd1ed" class=""><p id="0b46e7cf-ddc5-479d-86d6-0a89b853a759" class="">&quot;We added our JavaScript script src tag at the end of the html file, doesn&#x27;t that mean that is waits for everything to be loaded?&quot;</p></blockquote><p id="d2b50bed-d2db-4545-afe0-c35e2114cbf9" class="">Yes, putting the script at the bottom of the HTML page waits for all the HTML to be loaded. However, if the HTML goes ahead and makes additional requests like downloading images, it doesn&#x27;t wait for those.</p><p id="97e93cdc-557b-4ee1-85c3-8c94cb300283" class="">Getting back on track, we were discussing how <code>naturalWidth</code> is only a getter.</p><pre id="d5d0ac24-58aa-44c3-b3cd-076e33be0423" class="code code-wrap"><code>pic.naturalWidth = 200;</code></pre><p id="2e096b1e-0487-453a-a995-d72bc77fb8d8" class="">If you try to set it with the code above 👆, it won&#x27;t error out, but it won&#x27;t do anthing.That is because it is an attribute that you cannot change.</p><p id="c52b3636-569f-49b7-9337-a678d4aa26ae" class="">All attributes on an element are done via getters and setters.</p><p id="b0adf9a8-f7c9-4428-8a54-137d4f970577" class="">You can use the <strong>dot notation</strong> to access them.</p><p id="181b2635-d196-4efe-a3d3-7a7cdff8f15d" class="">You may have run into these methods already:</p><ul id="5fbda6ec-20bb-4459-b9c0-95ff612b283a" class="bulleted-list"><li style="list-style-type:disc"><code>getAttribute</code></li></ul><ul id="bd9fc78c-1594-42aa-a08c-56e83ec44b25" class="bulleted-list"><li style="list-style-type:disc"><code>setAttribute</code></li></ul><ul id="9f646335-7440-41d7-9d19-740e84ddba81" class="bulleted-list"><li style="list-style-type:disc"><code>hasAttribute</code></li></ul><p id="511a39d3-dd11-42b2-baae-9cd11506539f" class="">You can use <code>getAttribute</code> like so 👇</p><pre id="3699e833-8b06-4614-97fd-1ca0f329cd6c" class="code code-wrap"><code>console.log(pic.getAttribute(&#x27;alt&#x27;));</code></pre><p id="87b24cd3-f38d-4e69-beda-bd76bced8c01" class="">You can use <code>setAttribute</code> like so 👇</p><pre id="a09279c3-eecf-479f-b6fb-d2a554214407" class="code code-wrap"><code>pic.setAttribute(&#x27;alt&#x27;, &#x27;REALLY CUTE PUP&#x27;);</code></pre><p id="a4c86d4f-3fec-430d-a199-688c6b88488c" class="">And there is <code>hasAttribute</code> which will return true or false based on whether that attribute is set on an element or not.</p><pre id="d139e012-836c-4567-adc8-a8fef7b6d5dd" class="code code-wrap"><code>console.log(pic.hasAttribute(&#x27;alt&#x27;));</code></pre><p id="773d67cf-53a6-44bc-bec0-d6d4ebe7c1d4" class="">What is the difference between using <code>getAttribute</code> and using the dot notation to grab the attribute?</p><p id="661b5bd5-ce9e-4921-a2a0-1aa52274fce3" class="">The difference is that <code>setAttribute()</code> will also work for things that are non-standard.</p><p id="9c2e6c03-aaba-4dbe-b796-63fdecef4710" class="">We have HTML as a spec, and you have all of your standard attributes in the spec like <code>alt</code>, <code>title</code>, <code>width</code>, <code>src</code>, and all of those things.</p><p id="d7bb01c4-c0d9-41da-a6f0-142f420227d9" class="">But if you want to set an attribute that is non standard (<em>which you shouldn&#x27;t do, more to come regarding that)</em>, you can use setAttribute to make something.</p><p id="a4b97756-fdb9-4628-bd19-a48387b5e5a7" class="">For example, 👇</p><pre id="3d785282-385c-4e67-8ebd-dfe1c7f651e5" class="code code-wrap"><code>pic.setAttribute(&#x27;wes-is-cool&#x27;, &#x27;REALLY CUTE PUP&#x27;);</code></pre><p id="125d1ab8-a130-4f06-982e-f934fe1694d2" class="">You should not go making your own attributes whenever you want because it is possible that in the future, an HTML standard attribute will be introduced with the same name as one of your custom attributes.</p><p id="c0f5b4ee-ec41-4ec5-9343-549dca622ddc" class="">Then you would end up with a situation where you have legacy code that is clashing with the standards which will lead to bugs.</p><h2 id="2acbbefe-48e0-401e-ac2f-84d2e60434fd" class="">Data Attributes</h2><p id="2b819df1-67a4-4c48-bcc2-0a9ab255fec9" class="">If you do want your own custom attributes, you want to use <strong>data attributes</strong>.</p><p id="70325acd-71c7-4b98-8b5d-10c7842cdf60" class="">To demonstrate what data attributes are, we will do an example.</p><p id="4a381b1e-f42f-4da0-a770-6948e5682fd6" class="">In the HTML page, duplicate an image tag 3 times and add a <code>data-name</code> attribute to each, like so 👇</p><pre id="3fc05ff1-c767-41a9-bca2-e4c2598ca098" class="code code-wrap"><code>&lt;img class=&quot;custom&quot; data-name=&quot;wes&quot; src=&quot;https://picsum.photos/200&quot; /&gt;
+&lt;img data-name=&quot;kait&quot; src=&quot;https://picsum.photos/200&quot; /&gt;
+&lt;img data-name=&quot;lux&quot; src=&quot;https://picsum.photos/200&quot; /&gt;</code></pre><p id="03456bfb-08e4-481a-98d1-42294fa0ffd8" class="">In this example, we wanted to attach a piece of metadata to each of the images.</p><p id="cb97653e-ce00-46f3-ad6a-250b19fc7a31" class="">If you want to attach metadata or something to an element that does not have any sort of standard attribute like a name attribute, then you can use <code>data-</code> anything.</p><p id="b2b87316-3d6b-4993-bbeb-86d21839bfc9" class="">For example: <code>data-dog</code>, <code>data-name</code>, <code>data-description</code> are all valid data attributes.</p><p id="52d36f92-08b5-4c45-9f9b-a3e0ec839950" class="">That will allow you to attach metadata to an element.</p><p id="a835b5d0-6037-4b65-bce8-28537de6c496" class="">Let&#x27;s say we wanted to grab the image with the class of <code>custom</code> and access the data attributes on that image.</p><p id="d89fa417-3943-4f3f-8d14-8850801ec6e8" class="">You might mistakenly think we do something like this 👇</p><pre id="2fe198ce-5b57-4cec-b393-a0f00887998b" class="code code-wrap"><code>const custom = document.querySelector(&#x27;.custom&#x27;);
+console.log(custom.data);</code></pre><p id="26cec589-adb1-454f-99de-3600fec5e391" class="">However, that will not work, and will return <code>undefined</code>.</p><p id="6f5dcd05-1baa-46fb-aa83-0e5842b005cc" class="">If you want to access the data attributes on the element you would call <code>dataset</code> like so 👇</p><pre id="16019262-f8f6-4b2b-8a9b-2bfa122fc6d8" class="code code-wrap"><code>const custom = document.querySelector(&#x27;.custom&#x27;);
+console.log(custom.dataset);</code></pre><p id="39ddf105-46fd-4cf9-9760-18681cf38f10" class="">That gives us an object that is full of all the property values that you have.</p><p id="c990aef5-fb59-4ee4-91d2-2db395a18815" class=""><code>data-name</code> shows up as the <code>name</code> property in our object, and if we had multiple data attributes on the same image, as shown in the code below, they would both be present in the object. 👇</p><pre id="7edd04eb-1638-49a9-829a-bd2ac699be18" class="code code-wrap"><code>&lt;img class=&quot;custom&quot; data-name=&quot;wes&quot; data-last=&quot;bos&quot; src=&quot;https://picsum.photos/200&quot; /&gt;</code></pre><p id="16608403-6b09-4eb5-bd3d-9590bdc441b2" class="">Why would this be useful?</p><p id="2d863669-c85c-443b-ba65-f13ec825d753" class="">This is useful because we can do things like listen for a click on an element, and when someone clicks on it, we can alert them.</p><p id="9eb17236-375e-4ab9-8e5a-c690f6a89fe3" class="">Take the following code for example 👇</p><pre id="e33bdc07-bf51-484d-9f70-684b729fb120" class="code code-wrap"><code>custom.addEventListener(&#x27;click&#x27;, function(){
+alert(`Welcome ${custom.dataset.name} ${custom.dataset.last} `);
+});</code></pre><p id="3c70cf13-22e0-4e6f-9471-661fd63d8c30" class="">If you add that, and then click on the image, you would get an alert, similar to the one shown below.</p><p id="10213db7-a60c-454b-94b4-af1f818645e8" class="">Wes loves using data attributes when coding <strong>vanilla JavaScript</strong>.</p><p id="df234c32-00db-4946-80a6-4a66b3d55628" class="">To recap: anytime you need a custom attribute, such as when you need to associate some sort of information with an element, use the custom <code>data</code> attribute.</p><p id="8c80ff0c-91ff-4cd2-b021-f525a2f90c94" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="2e32e298-1373-4aa0-9809-fc008034b3d7" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="e6521a4d-176e-4b50-9500-a7de6d4d2dda" class="">Edit on Github</p></details></li></ul><ul id="4f7793e0-9dad-4a52-8c99-39f3905b4cb7" class="toggle"><li><details open=""><summary>25 - Creating HTML</summary><p id="10ffa388-b8b8-4085-a8d9-b0033e0bca65" class=""><a href="https://wesbos.com/javascript/04-the-dom/creating-html">https://wesbos.com/javascript/04-the-dom/creating-html</a></p><p id="3d956078-f2f2-4735-9ead-f02a143efc64" class="">
+</p><figure id="3d7f34be-a302-4682-acc5-2697e2bdc7b3" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%205.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%205.png"/></a></figure><p id="f87bfe4d-11d6-4d68-806b-a3dd363116d8" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="557d3efd-5ceb-4ed6-8590-746718555eaa" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="26b3c018-3422-4cfd-af91-b911901983c7" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="66e0b340-b223-429a-aba7-2bc60eca4230" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="099ce9ca-d59f-43c7-9346-18dead27ac1d" class="">JavaScript, DOMEdit Post</p><p id="cbf4bac8-20b0-4155-9d26-b8c0d51b8a5e" class="">In this lesson, we will learn about creating elements.</p><p id="0e083f08-c1be-42cd-8bb2-d5a96266bf7d" class="">Create the file <code>creating.js</code> within the <code>20 - The DOM</code> folder.</p><p id="c64e1672-ff64-4e83-aa7e-084f1fd8775a" class="">In the <code>index.html</code> file we have been using so far, replace the script source to point to <code>creating.js</code> instead of <code>the-dom.js</code>, as shown below 👇</p><pre id="1052aa2a-3ed5-40a9-80d3-b380d9fa59eb" class="code code-wrap"><code>&lt;script src=&quot;./creating.js&quot;&gt;&lt;/script&gt;</code></pre><p id="ba27927b-e38d-45c5-b84c-1b023a5a330c" class="">There are a few ways to create HTML in JavaScript. The main way is using <code>document.createElement()</code>.</p><p id="4d2e1cb6-1bff-4265-9d3a-ba2d82528682" class="">Let&#x27;s look that up in MDN.</p><figure id="6a8c9fd4-956c-4ddf-b551-487371d5d8a4" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/251.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/251.png"/></a></figure><p id="50245b81-0b65-4e33-9e3d-4638d7b4304a" class="">To use this method, you pass it a tagName and then there are optional options you can pass <em>(you can tell it&#x27;s optional because of the square brackets)</em>, which we won&#x27;t be using.</p><p id="59a4f2e5-7c5f-4d53-a3f1-ee0f211eab91" class="">Let&#x27;s try to make a paragraph tag using this method.</p><pre id="2a2365ae-3943-452e-b572-c406fcea1f2d" class="code code-wrap"><code>const myParagraph = document.createElement(&#x27;p&#x27;);
+console.log(myParagraph);</code></pre><p id="eb8c68ec-c346-4ea7-924b-63f6f58f1d33" class="">When you open the HTML file, you will see the paragraph in the console but it is not visible on the page.</p><p id="0a010abc-cd52-4a3a-9003-cbdf6dc92e85" class="">That is because we haven&#x27;t actually put it on the page yet, we just created it and it&#x27;s living in what is called <strong>memory</strong> right now.</p><figure id="fd9d4f42-90b3-416e-ab87-eba4ccc86569" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/252.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/252.png"/></a></figure><p id="0cce94bd-080c-4068-a36f-28b49895ef11" class="">There is no shortcut to create an element with a class or with a set attribute, so something like the code below would <strong>not</strong> work 👇</p><pre id="544b5ef9-cac2-4acb-8bca-ea7f6a13c148" class="code code-wrap"><code>const myParagraph = document.createElement(&#x27;p.special[title=&quot;hey&quot;]&#x27;);</code></pre><p id="1ff3c6e0-5a87-486d-9080-386f4b983763" class="">If you want to add or get attributes from it, you must instead do it the way we have learned, as shown below 👇</p><pre id="45a1f065-0420-4fc1-95d2-e9d2161ea09b" class="code code-wrap"><code>const myParagraph = document.createElement(&#x27;p&#x27;);
+myParagraph.textContent = &#x27;I am a p!&#x27;;
+myParagraph.classList.add(&#x27;special&#x27;);
+console.log(myParagraph);</code></pre><p id="c58334a3-de39-46b4-a622-29d86935fbac" class="">We now have that paragraph with a class of <code>special</code> and the text content that we supplied it with.</p><p id="cbbb5657-4629-4f3f-96e5-e26a368eb3e3" class="">Let&#x27;s create a few more elements before we get into how to actually insert them into the DOM.</p><p id="916650e1-bceb-4f45-b746-7893da52f63f" class="">First create an image element as shown below 👇</p><pre id="aae56485-153e-4c5d-b810-8bc42963a098" class="code code-wrap"><code>const myImage = document.createElement(&#x27;img&#x27;);
+myImage.src = &quot;https://picsum.photos/500&quot;;
+myImage.alt = &quot;Nice photo&quot;;
+console.log(myImage);</code></pre><p id="ba1c845d-4731-4231-89ce-4c6f639d8a51" class="">Next, create a div with a class of <code>wrapper</code> and log it.</p><pre id="1e571c4d-dcc7-42d0-b32f-99b45bc9f573" class="code code-wrap"><code>const myDiv = document.createElement(&#x27;div&#x27;);
+myDiv.classList.add(&#x27;wrapper&#x27;);
+console.log(myDiv);</code></pre><p id="762a7f51-2340-40e0-80df-10adb2c4ef1a" class="">Now we have created 3 elements:</p><ul id="db5ee039-60cb-4fb7-93b7-5b3e158dffdc" class="bulleted-list"><li style="list-style-type:disc">a paragraph</li></ul><ul id="133e0d15-7865-4ed2-80ca-31cfc44008da" class="bulleted-list"><li style="list-style-type:disc">an image</li></ul><ul id="0f545b64-f818-4e42-9453-67821f9df6cc" class="bulleted-list"><li style="list-style-type:disc">div</li></ul><p id="1f1aa677-6928-44d7-a0fd-f7b382f78195" class="">How do we add it to the page?</p><p id="135ff8d2-627c-4067-9918-d29437569b5a" class="">We use another API called <strong>appendChild</strong>. To use it, you have to first select an element to call <code>.appendChild()</code> against.</p><p id="d039c3a0-e490-459b-84b6-0ab54340aa83" class="">If you want to add the element directly into the body, you can grab the <code>document.body</code> and insert it.</p><p id="5c119f35-0e56-479f-9e51-5d3462313e65" class=""><code>document.body</code> is available to us because the <code>document</code> element gives us access to the <code>body</code> element quickly via a property. Not every element is as easily accessible to us like <code>body</code> is.</p><p id="09e1eff5-1a3c-4896-b51e-a2c38f23440f" class="">Let&#x27;s look up <code>appendChild()</code> in MDN.</p><p id="b401ff6b-1701-4ea1-9f9b-fc1589d09825" class="">It takes in one parameter, which is a child reference.</p><pre id="8a12c0c7-a1c0-4c53-93e0-a62cb5c66188" class="code code-wrap"><code>document.body.appendChild(myParagraph);</code></pre><p id="e9b2697c-abff-46fe-afcb-4bfb1930a068" class="">This gives us a <code>p</code> tag right before the closing <code>body</code> tag.</p><p id="bd1a01c6-2e97-488e-bd0d-91cb7a1b9348" class=""><code>appendChild()</code> can be called against any node, so we can do something as shown in the code below 👇</p><pre id="7b5b08a1-cd08-4937-8605-467b3aec2f9c" class="code code-wrap"><code>document.body.appendChild(myDiv);
+myDiv.appendChild(myParagraph);
+myDiv.appendChild(myImage);</code></pre><p id="b5ea08a0-0730-4942-8b4d-23ccc73e4818" class="">It is probably better to do that in reverse order. Why?</p><p id="0dcf04f5-ab05-472e-9a64-6f2d88eb8d68" class="">Everytime you use <code>appendChild()</code> you are modifying the DOM, which causes something called a <strong>reflow</strong> in the browser, which tells the browser that something has changed and that the browser needs to repaint the HTML.</p><p id="bb46ce4a-ed11-4929-95ce-d8b88f08a549" class="">This means that if you call <code>appendChild()</code> 3 times in a row, you are causing the browser to re-render 3 times in a row.</p><p id="cc5fdedb-eb99-4baa-abce-79aa2625a410" class="">That can start to eat into other things on the page and degrade the user experience.</p><p id="19480e22-59cc-4dc3-b783-1c9508807ef7" class="">To solve that, you could modify the code like so 👇</p><pre id="cd339da2-082e-4039-a53f-e42d8f833b52" class="code code-wrap"><code>myDiv.appendChild(myParagraph);
+myDiv.appendChild(myImage);
+document.body.appendChild(myDiv);</code></pre><p id="d4c38f26-b6eb-45cd-9134-2b9c7716c231" class="">What we are doing here is:</p><ol type="1" id="51ec4987-4372-4c56-97dd-49b6b40d1539" class="numbered-list" start="1"><li>we are creating the elements and inserting the paragraph inside of the div</li></ol><ol type="1" id="8d5de0b5-51a6-4806-a40e-0f0f04b250a9" class="numbered-list" start="2"><li>then we are inserting the image inside of the div as well</li></ol><ol type="1" id="9e8fa604-a71e-445c-b5fa-155ca936a766" class="numbered-list" start="3"><li>finally, we call <code>document.body.appendChild(myDiv)</code> last to modify the DOM</li></ol><p id="d515b774-32c2-4a5b-8c16-18c972ef1e2b" class="">This approach causes the browser to re-paint only once as opposed to 3 times in the earlier approach.</p><p id="33bced24-7c8e-4e6a-80c9-9c38a9de280c" class=""><em>(Technically, the browser is doing 2 repaints, once when you dump the div in and the second time when the image loads, that&#x27;s not the end of the world, that is how the browser works.)</em></p><p id="10fe5a9b-d227-4481-ab8c-b300ff8b381e" class="">That is one way to go ahead and create elements, using the <code>createElement()</code> API.</p><h2 id="68afeea4-3d93-44a4-b2c5-2a394ba351bc" class="">append method</h2><p id="650c9840-22d4-4950-826a-940065fcf960" class="">You may come across the <code>.append()</code> method when searching for how to add an element to the DOM, which works very similarly to <code>createElement</code>. However, <code>append()</code> doesn&#x27;t seem to be fully supported in Internet Explorer so Wes suggests holding off on using it.</p><h2 id="18345205-b3f9-45b8-b676-6ec3467aa7e3" class="">insertAdjacentElement method</h2><p id="c897041d-8568-46d8-af83-da2fc5bd9aed" class="">There is another API, <code>insertAdjacentElement</code>, that Wes is fond of using. It works similarly to <code>insertAdjacentText()</code> which we looked at in a previous lesson and is used to add text before, after and inside elements.</p><p id="5d022ec1-4d2d-4780-a02e-78c47adc726a" class="">The difference is <code>insertAdjacentElement</code> is used to insert elements before, after and inside other elements.</p><p id="fa675044-1cac-4bad-84ca-69242a231f38" class="">This is handy when you need to do something like insert an element before a paragraph in a div.</p><pre id="8088726b-8c87-42d7-8cac-fcf5275da2ea" class="code code-wrap"><code>const heading = document.createElement(&#x27;h2&#x27;);
+heading.textContent = &#x27;Cool things&#x27;;
+myDiv.appendChild(heading);</code></pre><p id="c12b14b5-9dd0-47ed-946c-6df7c6552b59" class="">If you try using <code>appendChild</code> as shown in the code above 👆, you should see that the heading is inserted after the image <em>(as shown below 👇)</em> which is <strong>not</strong> what we want.</p><p id="1fd976c7-b4e4-48c9-ad1d-9b0a45fc043b" class=""><code>insertAdjacentElement()</code> takes two parameters:</p><ol type="1" id="d08ca6ef-31fd-4c70-a8a8-9234333036fa" class="numbered-list" start="1"><li>the position of where you want to insert the element</li></ol><ol type="1" id="18a95af8-6988-4595-a445-1f95520cba61" class="numbered-list" start="2"><li>the element you want to insert.</li></ol><pre id="ed562de6-e797-41c6-a21d-f57583bf6c5b" class="code code-wrap"><code>myDiv.insertAdjacentElement(&#x27;afterbegin&#x27;, heading);</code></pre><p id="8e26a4e3-9d83-45a8-916c-d08aa7703d42" class="">That will put the heading before the paragraph and image tag.</p><p id="067e163d-83ef-4f12-94e7-73fd5b07f407" class="">If you were to use <code>beforebegin</code>, it would insert the <code>header</code> before the <code>div</code> tag, as a sibling to the wrapper.</p><p id="8c6c8a39-cf1b-469b-847a-083ae47799fe" class="">That may be something you will need to use.</p><p id="066658c9-52fb-4179-9910-f30469cd708a" class="">Let&#x27;s say you have a few cards and you need to add something after the first card. You can grab the second card and use <code>beforebegin</code> to insert an element before it.</p><h2 id="7b77f830-1590-4252-929c-4016946cc8b1" class="">Generating An Unordered List</h2><p id="cd134b31-0327-4597-b421-d99fd40a5fe0" class="">Let&#x27;s do one more example. In this example, we will create an unordered list with 5 items in it, using all the APIs we have learned so far.</p><p id="f2bce7c3-c11e-467a-ac32-bf545658eeda" class="">The outcome should look like the code shown below 👇</p><pre id="fe607de8-d927-430f-97ee-4a25b689e314" class="code code-wrap"><code>&lt;ul&gt;
+&lt;li&gt;one&lt;/li&gt;
+&lt;li&gt;two&lt;/li&gt;
+&lt;li&gt;three&lt;/li&gt;
+&lt;li&gt;four&lt;/li&gt;
+&lt;li&gt;five&lt;/li&gt;
+&lt;/ul&gt;</code></pre><p id="ad9005ea-905d-49e5-aef3-0fb2ca0808f7" class="">Start with the middle one and then try to insert one before, however you can make use of all the APIs that we have gone over.</p><p id="452128ca-2be8-4a5e-9a79-e7320a8ab9fc" class="">Pause the video here and try to create that and inject it into the DOM.</p><p id="b523677e-78b4-49f6-9287-19021339c3e9" class="">Once you have tried that, continue on.</p><p id="710c7587-c3b5-4056-9e71-68c27075a072" class="">First, create the unordered list.</p><p id="a9b7a165-d2b6-453a-b72a-59914ebf05d3" class="">Next, create the third list item and append it to the list.</p><p id="55dead58-6e88-4cb8-8dba-2bebd0e1100b" class=""><em>NOTE: If this seems like a lot of code to make an unordered list, well it is, we will go over in the next section how we can write a bit of html in a string and inject it in.</em></p><pre id="6ab794d3-f1af-4b22-a9e0-5557afd07926" class="code code-wrap"><code>const list = document.createElement(&#x27;ul&#x27;);
+const li = document.createElement(&#x27;li&#x27;);
+li.textContent = &#x27;three&#x27;;
+list.appendChild(li);
+
+document.body.insertAdjacentElement(&#x27;afterbegin&#x27;, list);</code></pre><p id="593664a1-f3c8-4588-89f2-4cfde174b411" class="">Next, create the other list item which we will add using <code>append()</code>, like so 👇</p><pre id="1ff86965-ad72-4d19-81e1-cb8d31a570d4" class="code code-wrap"><code>const li5 = document.createElement(&#x27;li&#x27;);
+li5.textContent = &#x27;Five&#x27;;
+list.append(li5);</code></pre><p id="b14d8ec4-6be1-4bc2-bf04-7f9208ae14ea" class="">There is the ability to clone a Node which we could do as shown below 👇</p><pre id="e6fc5f4f-16ed-4a91-b3dd-13920d80e540" class="code code-wrap"><code>const li1 = li5.cloneNode();
+list.insertAdjacentElement(&#x27;afterbegin&#x27;, li1);</code></pre><p id="65106c1a-caa2-4d15-a4fc-c20176efc2d4" class="">What that code will do is it will create a clone of the <code>li5</code> Node, and then insert that clone adjacently.</p><p id="617985ed-efec-4c12-90fe-f3c418313c03" class="">If you reload the page, you will see that we added the element but it is empty.</p><p id="c4b62482-3a18-4df0-9289-e8e512604c98" class="">If you take a look at the docs for <code>cloneNode()</code>, you will see that it accepts a parameter of &quot;deep&quot; which specifies whether to clone the child nodes or not.</p><p id="628d18d8-40cb-42e6-818e-8a35a7203edc" class="">You may be wondering &quot;well isn&#x27;t text part of the element?&quot;, and no, it is actually a child of the element.</p><p id="4cae4645-ba38-4f8d-9f4c-8aca3c62205e" class="">Since the text is not wrapped in a separate element (like a <code>span</code> or <code>p</code> tag), that makes it just a regular node.</p><p id="666dd4ab-fc91-4ebc-9a40-77630bc1e483" class="">That means we need to pass true when using <code>cloneNode</code> to include the text, as shown below 👇</p><pre id="ba163460-6331-4503-abac-7baf4b9bfed6" class="code code-wrap"><code>const li1 = li5.cloneNode(true);
+li1.textContent = &#x27;one&#x27;;
+list.insertAdjacentElement(&#x27;afterbegin&#x27;, li1);</code></pre><p id="5b19aefd-c118-4a3d-a6ee-7cbccef7c560" class="">In this instance <code>cloneNode()</code> wasn&#x27;t much more efficient to use, but it generally is.</p><p id="d76d3b46-202a-4f52-9b2f-eb9d9cb6ce7b" class="">If you are trying to clone an element that has a lot of attributes set on it, and want to copy those over as well, it is much more efficent to use <code>cloneNode</code>.</p><p id="753fea80-5410-426e-b887-cc2eb76c91b2" class="">Now that we have 1, 3 and 5, how do we inject 2 and 4?</p><pre id="17850012-d9fe-49ea-b8f6-9264328d98af" class="code code-wrap"><code>const li4 = document.createElement(&#x27;li&#x27;);
+li4.textContent = &#x27;Four&#x27;;
+li5.insertAdjacentElement(&#x27;beforebegin&#x27;, li4);</code></pre><p id="9f4abb8c-f7f8-48ea-aa0b-c4af54c29a38" class="">We will use <code>beforebegin</code> 👆because we want four to go beside the 5th one.</p><p id="eb2d090b-9707-4d71-bda1-c43886678dcf" class="">FInally for two, we can use <code>afterend</code> to insert it after the first list item, as shown in the code below 👇</p><pre id="7737cefa-cf81-4420-a11d-a4b088136af5" class="code code-wrap"><code>const li2 = document.createElement(&quot;li&quot;);
+li2.textContent = &quot;Two&quot;;
+li1.insertAdjacentElement(&quot;afterend&quot;, li2);</code></pre><p id="eeaa82d3-3339-4616-be86-590f15ece17a" class="">That was a good practice exercise because we used all the different APIs available to us to create elements, set the contents and insert them in different ways.</p><p id="52e78e00-a457-477f-a194-35a29da0207b" class="">In the next video, we will look at how we can use backticks and strings to generate the HTML.</p><p id="e023df1f-3857-41ea-8ae9-173ffec50648" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="43094be4-ac5f-4968-a7c8-70f7d08a68da" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="136ccace-7585-4b32-9fec-37072015029d" class="">Edit on Github</p></details></li></ul><ul id="22ae6c94-7751-41bd-a213-038aed44e2f8" class="toggle"><li><details open=""><summary>26 - HTML from Strings and XSS</summary><p id="2e13e028-a5aa-448b-8e49-c29f9898e143" class=""><a href="https://wesbos.com/javascript/04-the-dom/html-from-strings-and-xss">https://wesbos.com/javascript/04-the-dom/html-from-strings-and-xss</a></p><p id="726261b5-5a81-48b6-ba47-d1f51b69df49" class="">
+</p><figure id="006daff1-11e6-4506-b510-3e4a02c9acc7" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%206.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%206.png"/></a></figure><p id="1228dfbc-3458-4478-b976-f07f37f9726f" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="7d2e7470-e892-4471-a196-c161165e3c65" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="3dd50533-7791-4d77-8d59-b39d2f6a22b1" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="4e9b8d86-1afa-455a-acb3-b8c37dccb725" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="d487c035-9fe3-4bd6-8904-312726128a41" class="">JavaScript, DOM, XSSEdit Post</p><p id="e534049e-c9c2-4f54-baec-d36092173a4a" class="">We are going to learn about creating HTML with strings, using <strong>backtick</strong> strings, which Wes showed us earlier.</p><p id="58278b86-d8fc-4c67-aa94-a1cacad5693c" class="">This approach is Wes&#x27; favourite, but make sure to watch the video all the way through, because at the end Wes will show a potential security hole that comes up when using this method.</p><p id="8aef9d68-c93c-4d34-81eb-d0fdc35cbb20" class="">The main security flaw with this method is something called <strong>XSS</strong> which stands for <strong>cross-site scripting</strong>.</p><p id="85a2e001-1f20-419d-96e1-98841aa4d205" class="">Create a new JavaScript file <code>creating-with-strings.js</code> and change the script src in the <code>index.html</code> file to point to our new file.</p><p id="02761b74-1dcf-4f51-a426-de132c296006" class="">There is a property <code>innerHTML</code>, which is similar to <code>innerText</code>, which we can get off an element.</p><p id="b563cb2a-a5ce-45c5-a2a5-5ab8a300a1ff" class="">Select the element with the class of <code>item</code> and log it. 👇</p><pre id="74a4b5c7-f4aa-4769-814e-4fd4b6814a2b" class="code code-wrap"><code>const item = document.querySelector(&#x27;.item&#x27;);
+console.log(item.innerHTML);</code></pre><figure id="08857882-4f91-4518-9849-e6c0b31bd8d8" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/264.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/264.png"/></a></figure><p id="6fd29651-1c23-4c03-a711-cef8bec4682a" class="">You can see that <code>innerHTML</code> is a string of all the HTML that makes up what is inside of it.</p><p id="5b0a5174-d88b-40cd-abd8-ef967436abfe" class="">That is a getter.</p><p id="76f4a439-3644-4dab-b17e-f04aabad2416" class="">What if we try to use it as a setter, as shown below? 👇</p><pre id="4b9a0b54-8561-4201-a49a-0f36114de815" class="code code-wrap"><code>item.innerHTML = `&lt;h1&gt;Hey How are you?&lt;/h1&gt;`;
+console.log(item.innerHTML);</code></pre><figure id="154fa93b-f3f4-460a-96fb-791b2008c623" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/265.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/265.png"/></a></figure><p id="60840053-78a1-4cf8-a765-b238ad9f087d" class="">The inside of the <code>div.item</code> has been updated with some HTML.</p><p id="e12c8f9e-456f-476a-8bde-214f4547f6bb" class="">That works because if you set the <code>innerHTML</code> of an element with just a string, it will take the text and dump that HTML into the item. This can be used instead of te <code>document.createElement</code>, or <code>document.cloneElement</code> methods we used in the previous lesson.</p><p id="9ae6d79f-fc98-4b39-80e7-944964fd50a5" class="">If the string it is valid HTML, the browser will take the string, parse it and turn it into all the items.</p><p id="48456ef6-e3c5-4d30-be85-5e4f8cdc66b7" class=""><em>TIP: You may have noticed that in Wes code editor, he has the ability to type the first few letters of something and then expand it. He is using an extension called Emmet to get those expansions and using a command called Expand Abbreviation to expand them. It lets you write things like </em><code><em>div.item.item</em></code><em> which will expand out to </em><code><em>&lt;div class=&quot;item item&quot;&gt;&lt;/div&gt;</em></code><em>.</em></p><p id="f785480c-07f7-4845-814f-e00e5529ab6a" class="">One benefit of using backticks for single or double is that you can have a string that spans multiple lines, like so 👇</p><pre id="c3da18bd-1b72-409e-87de-3a9438b981cf" class="code code-wrap"><code>item.innerHTML = `
+  &lt;div&gt;
+    &lt;h1&gt;Hey How are you?&lt;/h1&gt;;
+  &lt;/div&gt;
+`;</code></pre><p id="f2261683-dd3b-40c6-9f06-8f9acadf500a" class="">It doesn&#x27;t matter if you indent or put it all on one line, but having it on multiple lines does make it easier for you to read it when you code typically.</p><p id="b527388e-e694-49f9-9b89-fd07854582af" class="">To recap: setting the <code>innerHTML</code> of your element is one way to dump a string of HTML in and have the browser create all the elements for us.</p><p id="a54a9176-6f3b-45dd-a1bb-022e7a746e3d" class="">This method of inserting elements is useful not only because it has less steps than using <code>document.createElement</code> or similar methods, but it also gives you the ability to easily <strong>interpolate</strong> values.</p><p id="c4114d1f-0a33-4054-ac69-782aa852d292" class="">Below is an example of that 👇</p><pre id="4be7434e-c589-4821-bc56-8fffcb3542fb" class="code code-wrap"><code>const src = `https://picsum.photos/200`;
+const desc = &quot;Cute pup&quot;;
+const myHTML = `
+  &lt;div class=&quot;wrapper&quot;&gt;
+    &lt;h2&gt;Cute ${desc}&lt;/h2&gt;
+    &lt;img src=&quot;${src}&quot; alt=&quot;${desc}&quot;/&gt;
+  &lt;/div&gt;
+`;</code></pre><p id="cf127282-a714-40cf-8ec5-072a2ba5f342" class="">We are able to use the backtick syntax like <code>${variable}</code>, which allows us to pop variables right into the string template that we have.</p><p id="d69a1177-53f6-41fe-aeb8-474690d10937" class="">This is similar to templating that exists in almost every programming language, although they all look a little different. The general idea is the same.</p><p id="10ff7d9e-947b-4f36-b25d-d0839102b123" class="">When we set the <code>innerHTML</code> of an element to equal <code>myHTML</code>, all the variables will have been populated. 👇</p><pre id="0d50d67f-68e8-4fbd-9aa9-c3fd50c86069" class="code code-wrap"><code>item.innerHTML = myHTML;
+console.log(item.innerHTML);</code></pre><p id="40494a3e-9228-41ac-ab85-9e054c01c8cd" class="">We could go a step further with the following code.</p><p id="2fa08848-86a4-48cf-a65f-9a385588208d" class="">Take a look at the <code>width</code> variable and how we are interpolating the <code>width</code> variable in the <code>src</code> variable declaration.</p><pre id="c5922ea9-cf2a-4b7d-ab73-ee780bddc813" class="code code-wrap"><code>const width = 500;
+const src = `https://picsum.photos/${width}`;
+const desc = &quot;Cute pup&quot;;
+const myHTML = `
+  &lt;div class=&quot;wrapper&quot;&gt;
+    &lt;h2&gt;Cute ${desc}&lt;/h2&gt;
+    &lt;img src=&quot;${src}&quot; alt=&quot;${desc}&quot;/&gt;
+  &lt;/div&gt;
+`;</code></pre><p id="27419efa-0f0d-4641-94de-76dd9737f956" class="">If you refresh the page, the image link will now return a much larger photo of 500px.</p><p id="f3928569-272d-4e30-b68b-485400398db4" class="">Besides security, one of the downsides to using this method to insert HTML is that the contents of the <code>myHTML</code> variable are not elements, they are just strings.</p><p id="861a2edc-e6cb-4eef-8243-a9907aa92a3f" class="">You can see that in two ways.</p><p id="57b13946-f87c-486d-baa9-cf1469148511" class="">First, you can log the value of <code>myHTML</code> and you can also check and log it&#x27;s type, like so 👇</p><pre id="9645d012-f802-4e09-ac5f-2ed73558401f" class="code code-wrap"><code>console.log(typeof myHTML);</code></pre><pre id="b5494d8a-822e-4e9b-92a0-5ae46b5640e8" class="code code-wrap"><code>myHTML.classList.add(&#x27;special&#x27;);</code></pre><p id="9935764d-714e-401b-8d81-e6490ded4f89" class="">That means we cannot do things like add the code above 👆.</p><p id="b71943f8-2d64-478b-95e8-857a8922dd1e" class="">If you try to do that, it will give you the following error 👇</p><blockquote id="e7158445-77e9-49f9-b9a7-afa25e7ac55e" class=""><p id="f9c3751a-11cd-4297-91e7-448c66025140" class="">Cannot read property &#x27;add&#x27; of undefined</p></blockquote><p id="a3be8813-bfa1-4865-9f84-2d5828e8ed56" class="">Similarly, if you try to do log <code>myHTML.classList</code>, you will see that it is also undefined.</p><p id="a2205ade-cd31-4ef4-aac2-8171c18ad72e" class="">Why?</p><p id="a1e7d9ca-5aa9-45b8-846e-f37fa0187d5f" class="">Because it is only a string.</p><p id="0d76f9b9-be4a-44ce-9062-df814047de52" class="">It only becomes an element once we dump it into the DOM by setting the <code>innerHTML</code>.</p><p id="f56f7246-9766-417e-b131-401d1372a508" class="">If you want to do things like add event listeners, add to the <code>classList</code>, dynamically change any attributes, like <code>title</code> or <code>alt</code> or <code>src</code>, it is not possible until you first dump it into the DOM.</p><p id="a27a266e-6fd7-474c-a192-3058a3bd5d73" class="">Once you dump it into the DOM, you have to go ahead and pull it out.</p><p id="853a2833-f0b8-4be1-aaa9-3587a7c2ea90" class="">Here is an example.</p><p id="f192479c-22fd-433a-a9bc-9884b90dae7a" class="">Let&#x27;s say we wanted to add a class to the image within <code>myHTML</code>.</p><p id="bb18fe00-ad83-482b-a063-a5ab03f2a7c2" class="">We would have to do that like so 👇</p><pre id="a98d0bce-40de-4428-be67-402013f1a42f" class="code code-wrap"><code>const itemImage = document.querySelector(&#x27;.wrapper img&#x27;);
+itemImage.classList.add(&#x27;round&#x27;);</code></pre><h2 id="4b4efee8-fc3e-487e-a61d-ee96653eaa5f" class="">document.createRange() and document.createFragment()</h2><p id="79990147-b38d-4221-91a7-81b0fa8d3ac2" class="">There are a few ways you can get around that and do the best of both worlds which is using <code>document.createRange()</code> and <code>document.createFragment()</code>.</p><p id="a8f47222-d611-46dc-bee6-6d2bb8fa0c32" class="">Remove everything below the <code>myHTML</code> declaration within <code>creating-with-strings.js</code>.</p><p id="ec17f689-7179-4573-bb58-48052241b3be" class="">Next, let&#x27;s now turn the string into a DOM element.</p><pre id="7f890a36-b0ab-451f-bd43-1cee20183441" class="code code-wrap"><code>const myFragment = document.createRange();
+console.log(myFragment);</code></pre><p id="b9f86905-580a-49f6-8675-1da4fbcb8674" class="">This code creates something called a <strong>range</strong>.</p><p id="3191103e-ecf2-4de9-a246-91fbf0748da3" class="">A range is essentially a collection of elements or part of HTML that we can then work with. That is exactly what we want, we want to take the <code>myHTML</code> string and create a couple of fragments.</p><p id="82fde2c5-58ea-44fd-8e43-a77c777b40f1" class="">We can call another method directly on <code>document.createRange()</code> called <code>.createContextualFragment();</code> which takes in a string as a parameter, like so 👇</p><pre id="94e0995f-f26b-4db3-8e2f-e82447cd4e73" class="code code-wrap"><code>const myFragment = document.createRange().createContextualFragment(myHTML);
+console.log(myFragment);</code></pre><p id="9dda01c6-fddf-4602-a3a9-6308d6b31032" class="">If you open the page in a browser and view the console, you will see that we have this thing called a <strong>document fragment</strong> (which is just a way of saying some HTML).</p><p id="61fc10e0-c98a-40db-8d90-aaef53d82714" class="">Now, from within this fragment, we are able to access all of the elements that live inside of it.</p><p id="baf68971-0359-4a46-b9fa-7f1bf0cb6064" class="">What we have done is turned our HTML into true elements, that are still not on the page anywhere, but we have them as DOM elements and do do things like look for an image inside of a fragment using the following code 👇</p><pre id="72ca2d2d-42e3-48a4-b632-cc65ff370f8f" class="code code-wrap"><code>myFragment.querySelector(&#x27;img&#x27;);</code></pre><p id="fd95d162-9e8a-4d03-bb10-b215e071bd61" class="">Let&#x27;s now try to append the fragment to the document.</p><p id="d481b808-1c7d-400e-88e7-4cd69ce0854e" class="">Let&#x27;s try <code>appendChild()</code>.</p><pre id="60e58908-733e-4726-9702-28880ec8941d" class="code code-wrap"><code>document.body.appendChild(myFragment);</code></pre><p id="79481408-eda6-4f85-826f-63f3bcd7775b" class="">That works! You could also do 👇</p><pre id="4bff99b6-e030-4414-96fd-156a53777c44" class="code code-wrap"><code>document.body.appendChild(myFragment);</code></pre><p id="fca4ea81-e76d-466e-ad81-c9fa452de3f4" class="">You could also use <code>insertAdjacent()</code> which we learned about previously.</p><p id="18501526-379a-4f80-98b5-c0408e6870fb" class="">To recap:</p><p id="5e52d625-3aa5-4e8f-90a0-ad690f30d2fe" class="">When you want to create HTML from a string, you can dump it into the document using <code>innerHTML</code>, OR when you need to do things with the elements in JavaScript, you can turn it into DOM Nodes before it is dumped into the document with <code>createContextualFragment()</code>.</p><h2 id="5ce7b83f-264c-4ccf-8dbb-be729cab804c" class="">Security and Sanitization</h2><p id="b6ae1560-711c-449a-affe-f1a0662f033a" class="">We will have an entire video on security later in the course, but for now, we need to talk about the potential pitfalls of inserting HTML using strings.</p><p id="f2cfade8-fbea-4990-9f57-0e2782b8820c" class="">One scenario you might run into is let&#x27;s say you have an application where users have a profile which they can edit and customize such as changing their name or adding a description.</p><p id="08be15b0-232b-4417-95f0-2af31cfcc903" class="">If a user were to put HTML where the description input is, what could happen is the HTML in turn could be rendered on to the page.</p><p id="5b5efcf0-d18e-40bf-b52a-d167a7790254" class="">Let&#x27;s demonstrate with an example.</p><p id="6151ed67-0b86-4aac-87c3-1ab11ed5184d" class="">Let&#x27;s say we are taking this <code>desc</code> variable from somebody.</p><p id="738a1969-bae2-4820-81fc-09acb836ae56" class="">They could put add the following in their description 👇</p><pre id="99e3a0db-7489-45c2-a3b1-f7d274441076" class="code code-wrap"><code>const desc = `Cute pup &lt;h1&gt;LOVE THIS GUY&lt;/h1&gt;`;</code></pre><p id="fd6000b2-1ab8-40b2-80d8-7796dcd5a607" class="">Add the code about where it says <code>Cute Pup</code> and refresh the HTML page.</p><p id="71751610-1ec8-46a7-9a20-586187288a0d" class="">You should now see that there is actually an <code>h1</code> tag that wasn&#x27;t created from us.</p><p id="ad5e646c-8088-498e-9c80-25ed81ecd4a8" class="">Remember, in this example scenario, the description value would be coming from a database, from someone&#x27;s editor when they typed it in. They just started to put some HTML.</p><p id="e56bebcd-167f-4269-95a4-c90377d586f0" class="">They could also something like 👇</p><pre id="b7dbba6b-b073-411a-a309-7417cb94db63" class="code code-wrap"><code>const desc = `Cute pup &lt;h1&gt;LOVE THIS GUY&lt;/h1&gt;&lt;style&gt;*{display:none;}&lt;/style&gt;`;s</code></pre><p id="da83cd15-1b21-4ad3-97b2-bae5a048a738" class="">If you refresh the HTML page, you will see all the content is gone.</p><p id="f9d8363c-09b5-4c27-bb19-af5210e4fc4b" class=""><em>Aside: This is what MySpace allowed you to do. You used to be able to put in your own style tags. So did Neopets.</em></p><p id="1264f33c-ef01-4d3a-ad39-e6e09daa94d7" class="">In this scenario, we were just expecting the user to enter in text but they hijacked it and added whichever HTML they wanted to.</p><h2 id="e9a47601-a814-470d-bc8f-d8d51f6069d4" class="">XSS (Cross Site Scripting)</h2><p id="ed976880-6dfe-4ae0-8a89-2d075ba83245" class="">That is all fun and games until you get into <strong>XSS</strong> which is shortform for <strong>cross-site scripting</strong>.</p><p id="dc593126-1094-4f14-ae71-6f47dbdeaeba" class="">XSS is where people try to insert script tags using a method like entering an HTML string in a text input such as your profile name.</p><p id="e8094473-4035-457e-a20e-06d926f8b8d5" class="">The browser will then run the script tag, and you can do anything you want with that, like drain someone&#x27;s bank account.</p><p id="111ac597-146a-4474-b7a2-cab6afe39571" class="">Imagine you were signing in to your online banking and your bank asked you to enter your name, and you included a script tag. You could do anything you want outside of that including deleting things, sending money, any type of malicious acting.</p><p id="f39e3c39-aa90-4f85-9481-4d5454f2a9bf" class="">A very simple example of that is let&#x27;s say you want to allow someone to include an image in the description of the picture from the example above.</p><p id="8c6d92b2-7eba-4a3b-984e-ae783ba99328" class="">Something like the following 👇</p><pre id="9ba667e3-5c1e-4828-88c1-907d69a88f16" class="code code-wrap"><code>const desc = `Cute Pup &lt;img src=&quot;https://picsum.photos/50&quot;/&gt;`;</code></pre><p id="0a0e9b2b-07f4-4d75-a1d8-829ac1ba8b46" class="">That is okay, but let&#x27;s say someone hijackts the <code>onload</code> event that is accessible via an attribute on the <code>img</code> element? That will run whatever JavaScript is supplied to it when the image loads.</p><p id="91a74118-bfd9-434e-806f-9fb9c0eaebeb" class="">For example 👇</p><pre id="2b1df143-cd63-4983-9089-5690361bb1db" class="code code-wrap"><code>const desc = `Cute Pup &lt;img onload=&quot;alert(&#x27;hacked&#x27;);&quot; src=&quot;https://picsum.photos/50&quot;/&gt;`;</code></pre><p id="57da05cf-156c-4e05-84ef-3df3fc5b4dbd" class="">If you refresh the HTML page, you will see an alert.</p><p id="f7aea2d5-2143-4a4c-9553-e68b0eb3e96a" class="">What happened there is you took data from the user and allowed them to run any JavaScript that they want on your website, which is a potential security hole.</p><p id="38f5df3d-859e-4894-898f-bb7e198e1a28" class="">Imagine that on Facebook you allowed someone to run any JavaScript, you could have your friends unfriend everyone, send malicious messages etc. Anytime you allow a third party to run JavaScript on your page, that is a huge security hole.</p><p id="d22566d2-330a-4d48-a178-0be9353cfc25" class="">The only JavaScript that should be running on your page is JavaScript that you, the developer, authored, and from approved parties like Google Analytics.</p><p id="580e0654-dbde-4376-867c-9e1b9e74d103" class="">To recap:</p><p id="55b85888-54e0-4531-b92a-139f1c913904" class="">Cross Site scripting is when a third party injects a script tag through a security hole like this.</p><p id="16734cea-2216-49fe-9ee7-5b3a83cc28cf" class="">In the security video, we will go over how to scrub your HTML of any potential security vulnerabilities like this before you dump it.</p><p id="060ff8ba-adec-4c91-ac4d-01d473134207" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="3c02d221-0f0d-4c70-8c22-928ed7d160a9" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="ac2375d6-3ee4-4a0a-a879-90e1760b2e05" class="">Edit on Github</p></details></li></ul><ul id="b7d2e978-9d36-472b-a1d2-45702c2b5988" class="toggle"><li><details open=""><summary>27 - Traversing and Removing Nodes</summary><p id="aaacb059-d8c3-402e-a2ac-86576aaf59be" class=""><a href="https://wesbos.com/javascript/04-the-dom/traversing-and-removing-nodes">https://wesbos.com/javascript/04-the-dom/traversing-and-removing-nodes</a></p><p id="67bd3c34-35bf-4335-abbb-55b3622bf1c1" class="">
+</p><figure id="7961d4b9-0d00-41a1-8895-d9daae49ad19" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%207.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%207.png"/></a></figure><p id="db649950-6a1e-48d0-9204-b175e84929da" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="013db729-d381-461c-beeb-1b79e841e2d7" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="b8020752-e45b-447e-ab3f-d43fb567d071" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="29d7acff-a43d-480d-8dd5-93bc3ea3b32b" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="d5ebc04c-53f2-4101-bbb7-0a31cef3f6d9" class="">JavaScript, DOMEdit Post</p><p id="97ec72e2-6831-4d3a-99ef-ed653f9d72be" class="">In this video, we will learn about traversing through our DOM element and removing elements from the DOM.</p><p id="827ba1ab-1358-497a-b95b-ef10587319b7" class="">Create a file name <code>traversing.js</code> and go into our <code>index.html</code> and modify the script source to point to the new file.</p><p id="0e1650d2-4b09-4daa-a270-b61aedc684bf" class=""><strong>Traversing</strong> means going up, down, over etc. When you have an element, you often need to select an element based on it&#x27;s position.</p><p id="60009e8d-9f32-47e1-8844-ad84c8302689" class="">For example, sometimes you are working on a <code>button</code> and need to select the parent <code>div</code>, or you need to look inside of the <code>button</code> for all the elements inside of it.</p><p id="6e0113bb-8038-4313-b5f8-9160708bea06" class="">There are lots of properties for that, and they all revolve around node and elements.</p><h2 id="9c648ec3-1faf-44df-b1b9-f028394bede2" class="">The difference between a Node and an Element</h2><p id="3c2664e1-8b2f-4d37-abf3-85e1519f617e" class="">We will do an example to demonstrate the difference.</p><p id="a048306d-7315-4f92-ad72-49f7b38776d5" class="">In the <code>index.html</code> file, create a <code>p</code> tag with the class of <code>wes</code>, and within the paragraph tag add a few elements, as shown below 👇</p><pre id="d228515c-99aa-466b-96ff-8f913d89e2a4" class="code code-wrap"><code>&lt;p class=&quot;wes&quot;&gt;I am Wes, I &lt;em&gt;love&lt;/em&gt; to bbq&lt;/p&gt;</code></pre><p id="045f5fef-3fa6-46ec-b9fc-093924af5b47" class="">In the JavaScript, select that paragraph.</p><pre id="5a79f83b-034f-4086-9c45-c2ccc9e3e89c" class="code code-wrap"><code>const wes = document.querySelector(&#x27;.wes&#x27;);
+console.log(wes);</code></pre><figure id="08834932-15d3-4c13-afe1-5960208d4e6d" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/276.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/276.png"/></a></figure><p id="070e14fa-4358-4d3f-bd1e-1a9aad8f9afb" class="">If instead you log <code>wes.children</code>, it will return a collection of one thing in the console, which is the <code>em</code> tag we just added.</p><figure id="8e55c18a-0640-429a-9020-951a2a5824fd" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/277.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/277.png"/></a></figure><p id="455a96f7-b1e2-4a1e-a862-e9e747455847" class="">If you log <code>wes.childNodes</code> instead, you will see that it returns a NodeList of three things:</p><ul id="0621664d-afc4-48a0-b88f-26dbb4edcd39" class="bulleted-list"><li style="list-style-type:disc">text</li></ul><ul id="72a6e835-0830-412e-a57a-ebcb46a36598" class="bulleted-list"><li style="list-style-type:disc">em</li></ul><ul id="73a2f9de-adc3-4ff5-b2e3-29712f2260c2" class="bulleted-list"><li style="list-style-type:disc">text</li></ul><p id="13aa8c1d-621d-4369-8637-0bce1f8cb3e5" class="">In the HTML collection, only the <code>em</code> element was returned.</p><figure id="953243e7-e779-43ee-b636-fd12c27e1ab6" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/278.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/278.png"/></a></figure><p id="c0c9f965-6339-449c-8ff8-cb259e0654ad" class="">If you hover over the nodes in the console one at a time, you will see it highlighting the corresponding node on the HTML page.</p><p id="e067a15f-a8d5-4d15-b8ec-7c5a2d0ab229" class="">This is the first <code>text</code> node.</p><figure id="b0d5cb38-170a-4ef4-99f7-a2f5bf802f38" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/279.png"><img style="width:614px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/279.png"/></a></figure><p id="d22ad43a-6c78-4052-ac9e-fd3b36a0b689" class="">Then the <code>emphasis</code> node.</p><p id="258a480b-e1b9-452f-993d-6fb7704ff8c1" class="">Then the rest of the text.</p><p id="c568d087-4687-46f1-a4b5-abefdf0941ae" class="">Everything in our <code>NodeList</code> in the console is a <code>Node</code>, and if it is wrapped in a <code>tag</code>, it is also an <code>element</code>, but it doesn&#x27;t work the other way around.</p><p id="47ad0809-575f-44b6-941d-3df53fdcb99b" class="">If you only select elements, you won&#x27;t have nodes returned. But if you select the nodes, you get all of the three different pieces.</p><p id="2828182f-cb2f-4521-bc82-24fabbc2bb68" class=""><em>VS Code TIP: You can do multi-cursor in VS Code. The way you use that is you hold down command or control and click wherever you want the cursors to go. In this video Wes used multicursor by selecting an element and then doing command + D to grab other occurences</em></p><h2 id="e1531132-db21-4607-a132-0478f2007265" class="">Properties to work with Nodes and Elements</h2><p id="5460b72a-1cda-414b-8e8a-a0fcf0ca5e4a" class="">We already looked at children, which gives you child elements or child nodes.</p><p id="d30ef40a-99aa-4f68-b93f-eac0180cfa59" class="">Let&#x27;s add a few more elements to work with.</p><pre id="ca515585-e4a2-4e77-be34-c55a882fe56b" class="code code-wrap"><code>console.log(wes.firstElementChild);
+console.log(wes.lastElementChild);
+console.log(wes.previousElementSibling);
+console.log(wes.nextElementSibling);
+console.log(wes.parentElement);
+console.log(wes.children);</code></pre><p id="1886ebb5-cc41-461e-9be0-8d2f765fbd63" class="">Here is the result when you refresh the index.html page.</p><p id="b3f29287-e6ff-4c4f-9127-c6a8523f169a" class="">3:59</p><p id="f6e9ddd7-b865-46ce-8005-0891774ced87" class=""><code>children</code> gives you the children.</p><p id="1e8a3568-566a-4880-94f9-6679be66dad6" class="">Let&#x27;s add a few more elements inside of the p tag.</p><pre id="72eb47ad-e1f0-4a8a-82be-930f8f30082b" class="code code-wrap"><code>&lt;p class=&quot;wes&quot;&gt;
+  I am Wes, I &lt;em&gt;love&lt;/em&gt; to bbq and &lt;strong&gt;Make websites!&lt;/strong&gt;
+&lt;/p&gt;</code></pre><p id="9bbdc052-a575-4429-bdac-80d6b31db920" class="">If you refresh that page, you should get the following results:</p><ol type="1" id="e68f248e-3882-4127-b2d2-e70ef8a83154" class="numbered-list" start="1"><li><code>firstChildElement</code> returns the emphasis element.</li></ol><ol type="1" id="dbefecf7-2882-4653-8f0f-7db6970759d1" class="numbered-list" start="2"><li><code>lastChildElement</code> returns the strong element.</li></ol><ol type="1" id="cb7e9a85-b970-4656-a3bd-21ed6303c45f" class="numbered-list" start="3"><li><code>previousElementSibling</code> is null.</li></ol><p id="f2079ca9-510d-460c-a456-6185c3b0fbee" class="">Why is <code>previousElementSibling</code> null?</p><p id="324432d3-301a-4796-9c6f-22024f0d8d20" class="">If you look at the HTML page, you will see that a few elements with the class of <code>item</code> are next to each other.</p><p id="a0a03e8a-262f-44cd-a199-0b968146a9be" class="">If we were to grab the second item by clicking it in our developer tools and then using <code>$0</code> to reference it in the console, we can take it and run the following code in the console:</p><pre id="91caaebf-5d86-4502-a538-934fa269edb6" class="code code-wrap"><code>$0.childrenElementCount</code></pre><p id="a15bba06-e057-40a9-bad3-ed27de5cbab6" class="">👆That will tell us the number of children elements.</p><pre id="4e3f85df-82fc-488c-9c6a-9eff2834e4aa" class="code code-wrap"><code>$0.children</code></pre><p id="dc848ae9-fc55-499d-b586-39aa30081de7" class="">👆 That will return a collection of three elements.</p><pre id="2049530e-c368-4331-a729-cf2ec0f56e1e" class="code code-wrap"><code>$0.previousElementSibling</code></pre><p id="d7158983-20a7-42ca-8ea4-5dfae126b25a" class="">👆 That will give you the item that is before it.</p><p id="2bd29820-17a8-4e94-ae82-d6e5e9d678ee" class="">We were on <code>item2</code>, and the previous element sibling is the first item. In the code we wrote in our JavaScript file, we selected the first item, which has no previous sibling, thus it returned null.</p><p id="aec3e0e2-8321-448c-a2b6-70278e9482c6" class=""><em>jQuery used to make this easy with syntax like </em><code><em>.prev()</em></code><em> </em><code><em>.next()</em></code><em>. All of that is still doable with these properties. They are not named the nicest things but they work and you can figure it out.</em></p><p id="bf4a5588-4164-416a-b5db-ab51cf6d9d6e" class="">There is <code>nextElementSibling</code> which will grab the sibling element after the currently selected element.</p><p id="c4891139-824f-469d-8716-4baf2aae7e2f" class="">And then there is <code>parentElement</code> which will go up and give you the parent element of the currently selected element.</p><p id="b03a7508-97b1-4c05-9a9d-f82509f71af2" class="">If you take an element that is really low in the document like one of our image elements, you can chain calls to <code>.parentElement</code> like so 👇</p><p id="fc5c1714-e025-4080-98ce-63538c18fe7a" class="">How high can you chain?</p><p id="20256499-daf1-467e-ad36-ba0392ac5293" class="">To find out, add one more <code>.parentElement</code>, which will return HTML, and if you add one more, it will returns null. That means we have reached the top most element.</p><p id="12ebafa7-e91b-4997-9c63-516cced61279" class="">In the elments tab in the dev tools, select the span within <code>item2</code>, and in the console write <code>$0</code>, which should return the span.</p><ul id="9773d6cb-fe1a-444f-b066-3742677839fc" class="bulleted-list"><li style="list-style-type:disc"><code>$0.parentElement</code> will return the <code>h2</code> and chaining one more,<code>$0.parentElement.parentElement</code> will return <code>item2</code>.</li></ul><ul id="22580a3c-563d-4a39-b516-d3ea6a5188d3" class="bulleted-list"><li style="list-style-type:disc"><code>$0.parentElement.parentElement.nextElementSibling</code> will return the first item.</li></ul><p id="cee57c3f-0f91-43e6-9cb7-45f75108f307" class="">Now you can go down again using <code>.children[1]</code> to select the paragraph with a class of <code>pizza</code>. We will talk about the <strong>square bracket notation</strong>(<code>[]</code>) shortly, but essentially that is how you reference items that are indexed.</p><p id="4a7925f5-b641-4ffc-9f60-ca663008d208" class="">In the code above, we started with the <code>span</code> in <code>item2</code>, we went up, up, over down and selected the second element.</p><p id="f492e49f-c853-462c-b1bf-187e60a2ad59" class="">That is probably not something you would do because assuming that the structure of the HTML is the best way to move around elements is probably not a good idea because if someone adds an extra <code>div</code>, then everything is ruined.</p><p id="07fbe01b-025f-4420-96ea-d6c755a3ee64" class="">Using <code>querySelector</code> is better to use to search for what we want. There is also another method <code>.closest()</code> which will allow us to search.</p><p id="74d4cd09-901e-468f-b7a9-da48428a59cd" class="">We also have a bunch of different properties for Nodes as well.</p><pre id="19e44556-b208-44e5-97d9-a4f91e45d72f" class="code code-wrap"><code>el.childNodes
+el.firstChild
+el.lastChild
+el.previousSibling
+el.nextSibling
+el.parentNode</code></pre><p id="0e81796a-0537-417e-83c0-6ae24bf70faa" class="">Unlike the element properties, these will not ignore text nodes, so it&#x27;s important to know the difference.</p><p id="b43f16a1-830b-45f5-81f8-75dfeaf17d8a" class="">In most cases, you probably want the element selectors but in some instances you want the node selectors.</p><h2 id="30c32237-4e17-4792-9537-49269228257a" class="">Removing Elements</h2><p id="1019493f-5852-414b-8439-acdeadfffec9" class="">There is a method on every single element on every single node which is the ability to remove something.</p><p id="ea63b14b-3ab7-4c88-84af-5be310f1f871" class="">Let&#x27;s do it from the dev tools.</p><p id="86ebb0d0-54b5-4329-a68d-083887e66917" class="">Grab the <code>h2</code> by clicking the element in the element pane and then in the console write <code>$0.remove()</code></p><p id="875a0c3f-8d36-4483-87f1-9b77ae75d54c" class="">That removes the element completely from the DOM.</p><p id="e0f56ba2-a0b7-4bba-a0a3-30e629fd697f" class="">The only kinda gotcha is what happens if you were to create an element, add it to the DOM and call <code>.remove()</code>?</p><p id="e0a3756b-a03f-4265-b8c5-5407447f90a7" class="">Let&#x27;s try it with the code below 👇</p><pre id="393c1cd6-0026-41eb-8cc2-4fdce723dde5" class="code code-wrap"><code>const p = document.createElement(&quot;p&quot;);
+p.textContent = &quot;I will be removed&quot;;
+document.body.appendChild(p);
+p.remove();</code></pre><p id="009e9e6f-7bf0-4a06-812a-1bba9c89cb0d" class="">If you open the index file in the browser, you won&#x27;t see the <code>p</code> tag because we added it and then immediately removed it.</p><p id="18390020-5ede-4b0b-8fd4-d42adfa4825f" class="">The question now is what if you log <code>p</code> after you call <code>remove()</code>, will it be null, <code>undefined</code>?</p><p id="8574202b-e93e-44d4-8d70-3e8697ed66a1" class="">It is still there!</p><p id="1328135d-0697-4bdd-88bf-61d2bc8007e4" class="">The fact that we had created that element and it exists in our JavaScript memory means that we do still have access to that paragraph element and we could add it back in to the DOM.</p><p id="70b695a2-643a-4fb7-8bd8-fcbec38ea3e8" class="">If you have reference to that element in JavaScript, and you&#x27;ve created it in your JavaScript, you can add it again.</p><p id="2f6b7ba6-1a06-493c-a697-6b50dbd0b93b" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="75f01c60-1c5c-4e9c-85cd-4c88661921dc" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f1606ff1-adf5-4249-bbf9-91a33f2f8e2a" class="">Edit on Github</p></details></li></ul><ul id="1eb33e7e-7b70-4ea1-861d-1b80b7494b60" class="toggle"><li><details open=""><summary>28 - Cardio</summary><p id="10c856f6-55fa-460a-9c5d-4ff3e80f50f1" class=""><a href="https://wesbos.com/javascript/04-the-dom/cardio">https://wesbos.com/javascript/04-the-dom/cardio</a></p><p id="3f6265ac-20a5-48b3-8697-3d0d65e761da" class="">
+</p><figure id="3b803d52-86a4-4836-8e11-9d2eca6ff49d" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%208.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/bjs%208.png"/></a></figure><p id="feab1336-b6eb-49f8-b668-6f7983ea278f" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="d717e920-c8bf-4e0f-a5d9-f2c086219beb" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="e4ea3ef8-8897-426b-8415-7cf9b4c389e4" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="36c7c050-71a4-48e9-bfe2-b3c3e417e7af" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="c6abcb32-f542-4278-a77d-68a180c696fc" class="">JavaScript, DOM, CardioEdit Post</p><p id="028bd60d-fb20-461d-a392-93726e51581f" class="">This video will all be &quot;cardio&quot; which is what Wes likes to call exercises that are all related to one another.</p><p id="a8a0d47e-279b-41c9-9be0-b2c81a6bfbff" class="">The purpose of these exercises is to practice the material we have learned by putting yourself through the exercises and hopefully improving.</p><p id="f88124ad-7ed1-4544-bf0c-503518c16ae9" class="">We want to nail down the fundamentals before we start building real stuff with interfaces etc.</p><p id="7bc0348a-a7f9-4e69-93fb-bec3550b3ec1" class="">What you should do now is pause the video and go through all the exercises in the <code>DOM-CARDIO.js</code> file and try to do as much as you can.</p><p id="a6c0022c-f10c-410a-8b23-e13571b9efd4" class="">There is no right answer, there is a bunch of different ways that you could solve it.</p><p id="b12183e3-eee1-4f7c-bd76-9158250e3256" class="">Then come back and watch the video to see how Wes would approach it.</p><p id="8c499e59-d555-490e-ba14-537ee2bff348" class=""><strong>WHEN YOU ARE READY...</strong></p><p id="ddf8a86f-863a-4775-9871-7a78b689dfbc" class="">The <code>DOM-Cardio.html</code> file has no HTML in the body at all, and <code>DOM-Cardio.js</code> is just a blank JavaScript file with comments explaining the different exercises.</p><p id="605fe0df-0126-47dd-a388-b2276e6af814" class="">The first one is to create a div, then add a class of wrapper to it and then put it in the body.</p><p id="d35750a2-f713-4219-9e52-a7b7f1878296" class="">Start by creating a div 👇</p><pre id="693b9868-aed9-457b-a18c-b2e5aebb65ec" class="code code-wrap"><code>const div = document.createElement(&#x27;div&#x27;);</code></pre><p id="e8436a87-3f5a-42b9-b7d3-6ab93198d0ca" class="">Add a class of <code>wrapper</code> to it.👇</p><pre id="1845fb29-b791-4b08-80e1-9f2cd6748a0f" class="code code-wrap"><code>div.classList.add(&#x27;wrapper&#x27;);</code></pre><p id="dd5b4cf1-f03e-44a0-ae35-e27694a4054a" class="">Then, append it to the body 👇</p><pre id="8c91946f-8334-441c-b9bd-01f8098212ef" class="code code-wrap"><code>document.body.appendChild(div);</code></pre><figure id="0e0ab7c6-f374-4a93-842c-0b2dbdc9799b" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/297.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/297.png"/></a></figure><p id="a9690566-b816-4d77-b4df-4bac70ead7c1" class="">As you can see, the works!</p><p id="fa54f8f8-7ca7-48a0-b616-aa85255c735a" class="">The next exercise is to make an unordered list, which should be familiar to you since we have gone over how to do it together previously.</p><p id="8b528f82-3019-49db-9983-5e4b6afa94f9" class="">Add the following code to do so 👇</p><pre id="f8604928-6f61-4ca4-9f6d-4c5f06771040" class="code code-wrap"><code>const ul = `
+  &lt;ul&gt;
+  &lt;/ul&gt;
+`;</code></pre><p id="e1895f48-a584-4b62-9f50-fb5c792d945d" class="">To add the 3 list items with the words &quot;one&quot;,&quot;two&quot; and &quot;three&quot;, modify the <code>ul</code> variable declaration, as shown below 👇</p><pre id="a52505ee-8616-40db-bca9-bad9e2289a8a" class="code code-wrap"><code>const ul = `
+  &lt;ul&gt;
+    &lt;li&gt;one&lt;/li&gt;
+    &lt;li&gt;two&lt;/li&gt;
+    &lt;li&gt;three&lt;/li&gt;
+  &lt;/ul&gt;
+`;
+// add three list items with the words &quot;one, two three&quot; in them</code></pre><p id="c23901cb-f81f-44d8-bbf9-070f7c1301c2" class="">Next we need to put the list in the <code>wrapper</code> div we created a few steps ago.</p><p id="1ac7545d-dac1-4990-8203-2ea0abfd249d" class="">There are a few ways you could approach this.</p><p id="c5e4b512-e4ee-4bf0-b110-1a07ed700e82" class="">One way is like so 👇</p><pre id="8c64fda5-7e01-4375-9276-762821fe6e63" class="code code-wrap"><code>div.innerHTML = ul;
+console.log(div);</code></pre><figure id="62f78fd3-5c30-4024-af0d-ad3a03546fae" class="image"><a href="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/298.png"><img style="width:700px" src="4%20-%20The%20DOM%20f182ce7ab2764f438835d666a0e2430c/298.png"/></a></figure><p id="27eed638-c8c8-449e-9364-6668ce74b9f7" class="">That works well. You could have add it as a fragment, but because there was nothing in the body already, it was simple to use <code>innerHTML</code>.</p><p id="3b7d36a7-f5bc-40ff-b4d3-ed7ee9a2fdf2" class="">Next you need to create an image. Add the following code to do so 👇</p><pre id="30f82c06-aac3-4257-ab4c-1d0fadac0a3a" class="code code-wrap"><code>const img = document.createElement(&#x27;img&#x27;</code></pre><p id="aa1e816f-c060-4fdf-9ee2-a11153f47ecf" class="">Then you have to set the image source.</p><pre id="d3dbdd46-c877-41d3-8f29-7048c2bfab25" class="code code-wrap"><code>img.src = &#x27;https://picsum.photos/500&#x27;;</code></pre><p id="81782634-b842-46c2-bb30-2507ebf7e16a" class="">Then you need to change the image width to 250. Do so with the following code 👇</p><pre id="47413c19-5602-46c6-86dd-f83178addb4e" class="code code-wrap"><code>img.width = 250;</code></pre><p id="8a6e4b4f-c372-4e07-bc67-219e3605d369" class="">Then you need to give the image a class of <code>cute</code>, like so 👇</p><pre id="c6b487fe-b862-4e86-b92b-682993801504" class="code code-wrap"><code>img.classList.add(&#x27;cute&#x27;);</code></pre><p id="df56c656-7b3e-4d98-b785-ccc3854d0a63" class="">Next you need to add an alt of cute puppy, which you can achieve with the code below.</p><pre id="03345ef9-9cb1-47de-a6b2-cd50857d2bb0" class="code code-wrap"><code>img.alt = &quot;Cute Puppy!&quot;;</code></pre><p id="c1ef74f8-0043-4f45-9ff9-d6733d3cda51" class="">Then you need to append it to our <code>wrapper</code> div.</p><p id="e1e230ce-5a8a-4aec-a90e-8c3bbd00ca7f" class="">We will take the div and call <code>appendChild()</code> on the image.</p><p id="e93d1edf-3be2-4beb-81f7-37fba17bf753" class="">We do not need to call <code>insertAdjacent()</code> because it will go to the bottom of it.</p><pre id="ede258d9-0c4c-4288-947e-00c93db8eaf6" class="code code-wrap"><code>div.appendChild(img);</code></pre><p id="afed6de7-fdfb-44dd-82a6-ef82e9d0191a" class="">You may notice that every time you refresh the image, the image is sort of jumping.</p><p id="e4e773fd-7a49-4b4c-a1f8-86a0004fc20d" class="">If you add <code>img.height = 250;</code> to the JavaScript code as well and then refresh, it should not jump as much anymore.</p><p id="7f06f4e5-6883-4b28-bf0a-600389785411" class="">That is because if you give it a width and height attribute, it will maintain it&#x27;s spot while it loads the image, which is great.</p><p id="e88416a0-e083-4704-b5f6-d289fd7d8e53" class="">Next, you need to use HTML strings to make a div with two paragraphs inside of it.</p><pre id="fd18789d-74d9-45a6-84a2-6711d5f99ad9" class="code code-wrap"><code>const myHTML = `
+  &lt;div&gt;
+    &lt;p&gt;Paragraph One&lt;/p&gt;
+    &lt;p&gt;Paragraph Two&lt;/p&gt;
+  &lt;/div&gt;
+`;</code></pre><p id="f26054c8-db62-418e-b065-771107ba56b8" class="">Then you need to insert the div above the unordered list that we created earlier.</p><p id="fb34e69d-3a10-4d15-9f04-abac45bda8f8" class="">To do this, grab the <code>ul</code> which you may still have reference to.</p><p id="318ba6cb-ec30-4d76-a2bb-f5bed2c9f44f" class="">To check if you do still have reference, add <code>console.log(ul);</code></p><p id="c81d74b1-2cb9-4310-a946-4b005c30adf3" class="">Wes was wrong -- it does not look like you already have access to the <code>ul</code> element because it shows up in the console as a string, rather then an element object.</p><p id="83ec6c65-bdb0-4a41-b816-a39bea841b3b" class="">So you need to somehow grab that.</p><p id="16b008c4-a812-45b1-8ba9-95405458a7c7" class="">Since you already have the div element, you can look within it to grab the ul element like so 👇</p><pre id="698ea372-6d04-4ec1-92fe-91c4b807bc09" class="code code-wrap"><code>const ulElement = div.querySelector(&#x27;ul&#x27;);
+console.log(ulElement);</code></pre><p id="338f808c-7c8c-4b23-8dbc-b172815c1f3b" class="">Next you need to add this div to the unordered list from above.</p><p id="8e1a76b0-7e04-42f6-af6d-40bd7084a8a7" class="">Try the following code 👇</p><pre id="4193128a-7af5-4429-9272-95d94dd75cdf" class="code code-wrap"><code>ulElement.insertAdjacentElement(&#x27;beforebegin&#x27;, myHTML)</code></pre><p id="fb4f475a-9d28-487d-9a97-a70b866cff3c" class="">If you refresh the HTML page, you will see an error that says</p><blockquote id="73d1904d-d12f-4726-8035-7a0c49451015" class=""><p id="74cda675-adf0-4353-9ef4-723f7b32a51e" class="">Uncaught TypeError: Failed to execute &#x27;insertAdjacentElement&#x27; on &#x27;Element&#x27;: parameter 2 is not of type &#x27;Element&#x27;.</p></blockquote><p id="cf6d20a3-e74a-4dc4-bd77-f19935846de1" class="">So because you have created it as a string, how can you insert it adjacently?</p><p id="a5b6380d-bc4f-4e53-9561-8adc56fb6997" class="">You could try using <code>insertAdjacentHTML()</code>.</p><pre id="50ba0363-d5f1-4d0f-b790-5c70cac2f693" class="code code-wrap"><code>ulElement.insertAdjacentHTML(&quot;beforebegin&quot;, myHTML);</code></pre><p id="191d0458-23fb-47dc-9d0b-18ce74ed367e" class="">That works great! You could have also done <code>createRange()</code> and then added it as a document fragment.</p><p id="0409bea0-0886-4286-923a-0bc446355905" class="">Next, you need to add a class of <code>warning</code> to the second paragraph, and then select it.</p><p id="79e02763-d0a5-45ba-9b78-867dcdebfb0c" class="">If we look at the HTML in the dev tools, you will see the following code 👇</p><pre id="f5ab61f6-98b3-4bbc-aacc-d0f906ea6e3c" class="code code-wrap"><code>&lt;div class=&quot;wrapper&quot;&gt;
+&lt;div&gt;
+&lt;p&gt;Paragraph One&lt;/p&gt;
+&lt;p&gt;Paragraph TWo&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</code></pre><p id="1cde8a35-516e-4724-b53f-d4a102790217" class="">Select the first div within the <code>wrapper</code> using <code>querySelector</code>, like so 👇</p><pre id="c500e12c-5699-4612-9956-b2114c6afb21" class="code code-wrap"><code>const myDiv = div.querySelector(&#x27;div&#x27;);</code></pre><p id="9d50f551-a2d2-4a79-a1c4-cbd9cde12ca4" class="">Or you could use <code>firstElementChild</code>.</p><pre id="5eebed54-b49b-448f-b681-eb046d0dbb24" class="code code-wrap"><code>const myDiv = div.firstElementChild;
+console.log(myDiv);</code></pre><p id="13bafaef-aaef-46dc-bb3e-78983131812c" class="">That is working, however, let&#x27;s not use that because if you were to insert anything else, the div could no longer be the first element child, which makes it a pretty unstable solution.</p><p id="ff5461f8-6c3f-42ce-8c1e-90c8d89722c1" class="">Instead, go into the <code>myHTML</code> variable declaration from above and add a class to the div that you inserted called <code>myDiv</code>, like so 👇</p><pre id="d4e16d85-20c4-4b89-b316-e943d437ca43" class="code code-wrap"><code>const myHTML = `
+  &lt;div class=&quot;myDiv&quot;&gt;
+    &lt;p&gt;Paragraph One&lt;/p&gt;
+    &lt;p&gt;Paragraph Two&lt;/p&gt;
+  &lt;/div&gt;
+`;</code></pre><p id="99e876b2-5ff1-4cc1-921d-b13340c6c10d" class="">And then you can select the div using it&#x27;s class name. This makes the code more resilient.</p><pre id="ae8629f1-1343-4fc0-95da-8ed1bf00b13e" class="code code-wrap"><code>const myDiv = document.querySelector(&#x27;.myDiv&#x27;);</code></pre><p id="e55db1b6-36fe-4870-a1ce-7dd03a09a8b2" class="">Next you need to add a class of <code>warning</code> to the second paragraph.</p><p id="ec2ca08a-0f0c-41b5-a1b0-edb346909138" class="">Let&#x27;s try using <code>myDiv.children</code>. First, log it to see what you are working with 👇</p><pre id="1ebd6118-bb39-4b37-bc88-b372c467b5e7" class="code code-wrap"><code>console.log(myDiv.children);</code></pre><p id="e227ec98-f90a-4b66-aae3-6b38d31eff7f" class="">As you can wee, that gives you both of them. To select the second paragraph, you can reference it like so 👇</p><pre id="ebb7c4ad-bfc1-4f51-ac7e-d4fd4e26feeb" class="code code-wrap"><code>myDiv.children[1]</code></pre><p id="a74028d6-fb11-47cc-93e2-3871834383fe" class=""><code>myDiv.children[0]</code> would be the first <code>p</code> tag and <code>myDiv.children[1]</code> is the second one.</p><p id="9f2c3818-dc29-4e21-a254-836314743d78" class="">That allows you to do the following 👇</p><pre id="03a0f5e6-f202-420d-bd33-ca9445387200" class="code code-wrap"><code>myDiv.children[1].classList.add(&#x27;warning&#x27;);</code></pre><p id="d4926d0e-c250-40f5-83ec-d5b250c6ecea" class="">Then, remove the first paragraph like so 👇</p><pre id="dc645b50-b91b-420a-967a-46dd6c12cc26" class="code code-wrap"><code>myDiv.firstElementChild.remove();</code></pre><p id="ee89bcd0-3e59-414a-90cc-4cbf5f8ca70d" class="">Next you need to create a function, <code>generatePlayerCard</code> that takes in 3 arguments:</p><ul id="f8d5a3db-2a89-4dc1-ad4d-ab90c4b393b1" class="bulleted-list"><li style="list-style-type:disc">name</li></ul><ul id="46a2d43e-7fae-425e-874a-434012cf1803" class="bulleted-list"><li style="list-style-type:disc">age</li></ul><ul id="46895baa-453b-4550-b895-944832741cad" class="bulleted-list"><li style="list-style-type:disc">height</li></ul><p id="0d4b784b-00c5-4eea-8e67-f152d06261de" class="">The function should return HTML that looks like the following 👇</p><pre id="71b637df-ad8c-4002-8baf-5b8a6b507e83" class="code code-wrap"><code>&lt;div class=&quot;playerCard&quot;&gt;
+&lt;h2&gt;NAME — AGE&lt;/h2&gt;
+&lt;p&gt;They are HEIGHT and AGE years old. In Dog years this person would be AGEINDOGYEARS. That would be a tall dog!&lt;/p&gt;
+&lt;/div&gt;</code></pre><p id="28d1561f-eaa5-4335-bfac-1bf7f9bcc5d2" class="">So first, create the function that takes in those 3 parameters:</p><pre id="c87fcc60-93ae-405a-949a-eaa905ac8368" class="code code-wrap"><code>function generatePlayerCard(name, age, height){
+}</code></pre><p id="f28ac811-c9fd-4a2f-8b04-b0274bae5cd7" class="">In order to have the function return a div with the structure mentioned above, you could approach it in one of 2 ways:</p><ol type="1" id="d62af2bc-1662-4ab6-a9df-182bf78d5a6e" class="numbered-list" start="1"><li>return the HTML directly, like so 👇</li></ol><pre id="df34717f-9ac7-4c17-b954-7e8d711074d9" class="code code-wrap"><code>function generatePlayerCard(name, age, height) {
+return `
+    &lt;div class=&quot;playerCard&quot;&gt;
+    &lt;/div&gt;
+  `;
+}</code></pre><p id="33664bf0-8639-4112-a538-2d49c6d3cae8" class="">or</p><ol type="1" id="ed13e116-4379-4a37-ad32-b959beb99ce3" class="numbered-list" start="1"><li>stick it in a variable and then return it, like so 👇</li></ol><pre id="8d79c382-8502-4fdd-b7f4-28c78453b639" class="code code-wrap"><code>function generatePlayerCard(name, age, height) {
+const html = `
+    &lt;div class=&quot;playerCard&quot;&gt;
+    &lt;/div&gt;
+  `;
+return html;
+}</code></pre><p id="a1afc37d-388c-405c-846b-f974ba17143d" class="">Let&#x27;s stick with the second way for now.</p><p id="bc6789d9-8b32-4cb2-9acd-91460f5d48e5" class="">You now need need to build out the rest of the HTML string and interpolate the parameter variables that have been passed to the function, like so 👇</p><pre id="9ffe89ae-f2d1-4746-8b66-831f289174b9" class="code code-wrap"><code>function generatePlayerCard(name, age, height) {
+const html = `
+    &lt;div class=&quot;playerCard&quot;&gt;
+      &lt;h2&gt;${name} - ${age}&lt;/h2&gt;
+      &lt;p&gt;They are ${height} and ${age} years old. In Dog years this person would be ${age * 7}. That would be a tall dog!&lt;/p&gt;
+    &lt;/div&gt;
+  `;
+return html;
+}</code></pre><p id="ac92d6db-2e6e-4dce-af49-6c1c7f68426f" class="">Refresh the HTML page and try calling the function from the console.</p><p id="3076f6ae-e0d2-472a-bbcc-e02f52518ca9" class="">It works!</p><p id="9d7d29e7-c647-404a-a7ad-7bc90df14440" class="">The text doesn&#x27;t make the most sense but that is okay.</p><p id="a4a51115-b354-4fb9-8291-ec8ebe632cfa" class=""><em>(If you want an extra challenge, you could take the height value that was passed in centimeters and if you&#x27;re from America, you could convert it to feet and inches. You could write a little function that takes in a parameter of centimeters, converts it to feet and inches and returns the value.)</em></p><p id="a0b4bb17-1528-4f6e-baee-6e9a6ea3f8b6" class="">Next step in the exercise is to make a new <code>div</code> and give it a class of <code>cards</code>, like so 👇</p><pre id="d033e491-6efb-43c5-8990-e3b6a9e96687" class="code code-wrap"><code>const cards = document.createElement();
+cards.classList.add(&#x27;cards&#x27;);</code></pre><p id="2d998482-0195-4a14-b837-0277cbf99dd2" class="">Next you need to have that function make 4 cards and append those cards to the div.</p><p id="ea6f47d7-739e-4bf2-bf96-ad069d1e1d25" class="">There are a few ways you could do this.</p><p id="56c2ca6f-21d7-475f-97f3-1185e1ad0fd2" class="">Because the function returns a string, you could loop over it 4 times and create 4 cards of HTML.</p><p id="8dc0015f-48d0-493d-ae21-d7d0308582d3" class="">Let&#x27;s demonstrate a few different ways to do this.</p><p id="e8bd0c2d-7a90-450c-b409-11b115920313" class="">Declare a variable and have it generate the first card&#x27;s HTML, like so 👇</p><pre id="7def3b09-29ce-4e48-ab6f-dbe15de27330" class="code code-wrap"><code>const cardsHTML = generatePlayerCard(&#x27;wes&#x27;, 12, 150);
+console.log(cardsHTML);</code></pre><p id="4adce4b9-b055-499d-bef1-e260ef608602" class="">If you refresh the HTML page, you will see the following error 👇</p><blockquote id="2f5f9846-b880-402a-bd6f-6c6a7f3e5102" class=""><p id="826561e2-862e-472f-81cb-26b9a8f2e0f2" class="">Uncaught TypeError: Failed to execute <code>createElement</code> on <code>Document</code>: 1 argument required, but only 0 present. at DOM-Cardio.js:68</p></blockquote><p id="0dfa23d1-d10e-4565-a5e2-7206bfa33c10" class="">That error is being thrown because when you called <code>document.createElement()</code> above, we forgot to specify what kind of element to create.</p><p id="f102f470-4f6f-4194-8a0b-69691601bddf" class="">Modify that code like so 👇</p><pre id="1d30de69-55b2-4f29-b7ae-889a8f4132b6" class="code code-wrap"><code>document.createElement(&#x27;div&#x27;);</code></pre><p id="14abaa0e-ee45-4159-b700-37ebc8cfe218" class="">Now it works.</p><p id="5cc93887-394c-4630-9aa1-b251fe07c174" class="">But how do we keep tacking onto that?</p><p id="89605bdb-95c9-4ea5-8f5c-c428e32bb016" class="">We could change <code>const cardsHTML</code> to <code>let cardsHTML</code> and then do something like the following 👇</p><pre id="abafc628-b4e0-4609-8e4b-206783c745b8" class="code code-wrap"><code>let cardsHTML = generatePlayerCards(&#x27;wes&#x27;, 12, 150);
+cardsHTML = cardsHTML + generatePlayerCard(&#x27;scott&#x27;, 12, 150);
+cardsHTML = cardsHTML + generatePlayerCard(&#x27;kait&#x27;, 12, 150);
+cardsHTML = cardsHTML + generatePlayerCard(&#x27;snickers&#x27;, 12, 150);
+console.log(cardsHTML);</code></pre><p id="16988f81-6583-404d-ab1a-b4f5c71e8bb5" class=""><em>NOTE: if you save the code above, Prettier might re-format that to use the shorthand code below which is fine because the 2 ways of typing it out are equivalent.</em></p><pre id="cb1b4efd-a72c-4d1f-9986-4ca1c9009ba4" class="code code-wrap"><code>let cardsHTML = generatePlayerCards(&quot;wes&quot;, 12, 150);
+cardsHTML += generatePlayerCard(&quot;scott&quot;, 12, 150);
+cardsHTML += generatePlayerCard(&quot;kait&quot;, 12, 150);
+cardsHTML += generatePlayerCard(&quot;snickers&quot;, 12, 150);
+console.log(cardsHTML);</code></pre><p id="555c9381-5dfb-4987-a359-ff57d01b0c10" class="">Another way would be to create 4 separate variables for each of those.</p><p id="baf369bb-6863-4f7c-b469-582b0a8bc287" class="">Another way would be to create an array of names and loop over them.</p><p id="286233bf-daec-4c06-afed-51fb26134c72" class="">We haven&#x27;t gone over arrays just yet but we will doing lots of examples with those in the near future. That is the way Wes would probably go about approaching this.</p><p id="d697f890-1fd5-49ef-ae03-10f56eaa5075" class="">Another way is you could take the <code>cards</code> div and call the following method on it 👇</p><pre id="67e3d38d-41fb-404a-8a9b-e1a760d7c0a9" class="code code-wrap"><code>cards.insertAdjacentHTML(&#x27;afterbegin&#x27;, generatePlayerCard(&quot;snickers&quot;, 12, 150));</code></pre><p id="0241ae29-470f-471b-bfeb-46061b6c0c58" class="">And then you could just call that multiple times, but passing different arguments to <code>generatePlayerCards</code>.</p><p id="852ab613-5cc9-4b10-987b-8510c7c2b67e" class="">Let&#x27;s stick with the method you already have.</p><p id="c46a1253-c184-4183-9833-0dcc6d110218" class="">Next you need to append those cards to the div.</p><p id="77e14fd0-fd70-4462-8e72-bb0330af769b" class="">Do that with the following code 👇</p><pre id="27e75984-3431-4b99-9bdf-44e5c8808802" class="code code-wrap"><code>cards.innerHTML = cardsHTML;</code></pre><p id="4a1b66f1-7bb5-4bbc-b9e3-365e4631589f" class="">Now you need to put the div into the DOM just before the <code>wrapper</code>.</p><p id="c6ef8103-50c3-44df-a0b4-d93a25b47b35" class="">Use <code>insertAdjacentElement</code> because <code>cards</code> is a proper element, like so 👇</p><pre id="bfefe6d3-76b8-477f-b181-2d50914bf542" class="code code-wrap"><code>div.insertAdjacentElement(&#x27;beforebegin&#x27;, cards);</code></pre><p id="12c9074c-0590-4eb2-9fa6-289e259dbaa2" class="">If you refresh the HTML page you should see the following 👇</p><p id="b6dd111a-4d51-47da-857d-119f632fdb37" class="">Really quickly, we will add some styles in the HTML page.</p><p id="ff475d19-58b2-4ef3-b368-d9b424820e8b" class="">Add the following: 👇</p><pre id="92ddf697-a05a-444a-87ec-b4cc6a406be1" class="code code-wrap"><code>&lt;body&gt;
+  &lt;script src=&quot;./DOM-Cardio.js&quot;&gt;&lt;/script&gt;
+
+  &lt;style&gt;
+.cards {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+grid-gap: 20px;
+padding: 20px;
+}
+
+.playerCard {
+background: white;
+padding: 20px;
+}
+
+.playerCard h2 {
+color: black;
+}
+&lt;/style&gt;
+&lt;/body&gt;</code></pre><p id="bb6b6776-ac34-4aa3-a1f8-5e886009bc23" class="">The bonus step in the exercise involves putting a delete button on each card so when you click it, it is removed.</p><p id="11a0476a-2c0d-4d15-8d4a-818e389977b3" class="">We haven&#x27;t gone over how to do this yet, but let&#x27;s give it a try.</p><p id="e3a6e17d-87c7-4970-bbf7-e030aab2b175" class="">Go to where we generate the card and add a button, as shown below 👇</p><pre id="a7306bc1-8c8a-46ee-922a-506e29ee5058" class="code code-wrap"><code>const html = `
+  &lt;div class=&quot;playerCard&quot;&gt;
+    &lt;h2&gt;${name} - ${age}&lt;/h2&gt;
+    &lt;p&gt;Their height is ${height} and  they are ${age} years old. In Dog years this person would be ${age *
+7}. That would be a tall dog!&lt;/p&gt;
+  &lt;button class=&quot;delete&quot; type=&quot;button&quot;&gt;&amp;times Delete&lt;/button&gt;
+  &lt;/div&gt;
+`;</code></pre><p id="f7759527-7b60-4cd4-94e9-aded75301d88" class="">When that button is clicked, we want to delete the card.</p><p id="996257bb-723d-4f9a-9330-c5a8d1c280a2" class="">To achieve that, select all the buttons 👇</p><pre id="4aa9e979-9afe-4c59-b900-f4af5f7dfec3" class="code code-wrap"><code>const buttons = document.querySelectorAll(&#x27;.delete&#x27;);
+console.log(buttons)</code></pre><p id="a5cecea7-b276-43bf-82ed-dbd065c92c77" class="">Make the delete function 👇</p><pre id="e9df3a15-3566-40a9-b0a9-0d7f9e0e0813" class="code code-wrap"><code>function deleteCard() {
+console.log(&quot;DELETE CARD! TODO&quot;);
+}</code></pre><p id="b3087ab2-ceb3-4a4e-b43b-e0c70679e1b5" class="">Now loop over each card and attach a click event listener which will call <code>deleteCard()</code>, like so 👇</p><pre id="c829d739-a1aa-4e08-b94c-1d3aa5fc1fc5" class="code code-wrap"><code>buttons.forEach(button =&gt; button.addEventListener(&quot;click&quot;, deleteCard));</code></pre><p id="a10c0361-dc41-43a9-8141-8be737afa847" class="">Modify the <code>deleteCard()</code> function to accept the event as a parameter and inside of the function, log the event&#x27;s current target.</p><p id="dc24e993-fb0b-4129-acb3-f8b6f624545f" class=""><em>NOTE: we haven&#x27;t gone over how to do some of this but it&#x27;s just bonus! We will go over this in future videos.</em></p><pre id="0ddb452f-3db1-4c8a-8a4e-2c3bef3ee056" class="code code-wrap"><code>function deleteCard(event) {
+console.log(event.currentTarget);
+console.log(&quot;DELETE CARD! TODO&quot;);
+}</code></pre><p id="ac550416-5e44-42f2-8a39-d3b92a193ec3" class="">Inside of <code>deleteCard</code>, you can assign the button that is the event&#x27;s current target to a variable, like so 👇</p><pre id="256ea369-196d-401f-8425-0fc81fe20515" class="code code-wrap"><code>const buttonThatGotClicked = event.currentTarget;</code></pre><p id="00ad9db3-6650-4841-a874-77b45f0008b6" class="">Now you need to grab the parent element.</p><p id="fcbdc0c5-d7ab-4d87-b4a2-28e9665f58d5" class="">There are a few ways to do this.</p><p id="09024526-a98b-420b-9c05-df17c78a596a" class="">One way is using the following code 👇</p><pre id="ab5bd793-9ff5-489c-be98-c3782bb42625" class="code code-wrap"><code>function deleteCard(event) {
+const buttonThatGotClicked = event.currentTarget;
+buttonThatGotClicked.parentElement.remove();
+}</code></pre><p id="739b0cce-e757-406f-835d-6ce5990a9ae6" class="">If you refresh the HTML page and click one of the delete buttons, you will see that is removed.</p><h2 id="19e2d5d0-ae36-45f0-b15c-cd5b8811741a" class="">closest method</h2><p id="94e33ba0-61cb-4689-89aa-51092f955801" class="">Another way you could have done it is using <code>closest()</code>, like so 👇</p><pre id="ebc16fc5-9e74-4a31-81da-d0a31ab38586" class="code code-wrap"><code>buttonThatGotClicked.closest(&quot;.playerCard&quot;).remove();</code></pre><p id="4cb9a890-6f14-41c6-87ef-3ae03a2787e1" class="">What does <code>closest()</code> do?</p><p id="ec5fd612-e99f-4748-9ea9-48161cafaad1" class="">It will look at an element and move itself up the tree until it finds something that matches the parameter you pass it.</p><p id="5629df52-b3de-494e-9e10-010c70d055f5" class="">That is cool because right now, both of those work, but let&#x27;s say you where to change the position of the button.</p><p id="3d90873c-503c-42f8-b833-edd949a6b958" class="">If you moved it inside of the paragraph tag instead of directly inside of the div, only the second method would work because the first method would delete the paragraph, not the div.</p><p id="e23e7aca-f77f-4a46-b8a1-42b652a3e709" class="">The second method will search for the div or any element with a <code>playerCard</code> class and remove that. Even though the button has moved, it still works.</p><p id="6355f5fe-aa05-487c-b2af-a76f5bd61003" class="">That&#x27;s a wrap for this lesson.</p><p id="d237967d-d049-4009-9d47-d96dfd5e6dd5" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="56043895-0e00-406b-9b88-cc6845a9bd2a" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="bc8b6296-efaf-46ea-87c0-db2a56341e37" class="">Edit on Github</p></details></li></ul></div></article></body></html>

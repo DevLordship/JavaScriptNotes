@@ -1,0 +1,1277 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>13 - Ajax and Fetching Data</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f86d9f2c-07e6-4ce0-b688-faa8f655d643" class="page sans"><header><h1 class="page-title"><em><strong>13 - Ajax and Fetching Data</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="9a7e48a0-8e89-4b48-8592-8e5e3a5bef00" class="toggle"><li><details open=""><summary>74 - AJAX and APIs</summary><p id="cc870d6c-e08b-44f5-8430-fa35471c9acf" class=""><a href="https://wesbos.com/javascript/13-ajax-and-fetching-data/74-ajax-and-apis">https://wesbos.com/javascript/13-ajax-and-fetching-data/74-ajax-and-apis</a></p><p id="016472c9-923c-4f69-911b-9a3fc3c4a9dd" class="">
+</p><figure id="cfd98282-a7f0-44b1-be7d-e4a5dc054daa" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs.png"/></a></figure><p id="471398dd-c479-42ac-bb46-32e9d26e351b" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="4ca8ef3f-f2e6-44aa-917c-1129e241ff10" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="264870a0-2cd4-4fed-a6c5-9a7ce33d1971" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="9bb83ea7-63cd-44f6-8e72-9998d7d07462" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="a7b51aa5-e524-4ba1-94f3-5b9246ac4592" class="">JavaScript, AJAX, Async/Await, PromisesEdit Post</p><p id="3a2a9623-ccbe-4de5-82a6-78a8046f0ea9" class="">Using <strong>async/await</strong> and <strong>promises</strong> is very useful when fetching data from an <strong>API</strong>.</p><h2 id="2a088065-82ac-42f1-8031-32bc6e6052b9" class="">What is an API?</h2><p id="a3c530a6-435b-4cf7-9de8-ccad7fa88b05" class=""><strong>API</strong> is a term that is thrown around a lot. It stands for <strong>Application Programming Interface</strong>, and it is a way to talk to a machine in a somewhat standardized procedure.</p><p id="63249b7a-40cf-4e9e-93b6-aaf00adaf45b" class="">When you are building any type of app, that app, the client, needs to talk with server that exists somewhere. It does not matter if you are building a web app, mobile app etc. If you are building a web app, the app (the client) would be the web browser.</p><p id="7aa43abc-d3b6-4acd-878e-15d15a64aae0" class="">For example, if you had a twitter app, you would need to be able to pull down your most recent tweets, send tweets, like tweets, reply to tweets etc. All that functionality is based upon what is called an API.</p><p id="a3bbc037-dd7b-4d78-9251-b7428c0fd53f" class="">Most services with a public facing website will try to surface their data and functionality via an API.</p><p id="172275d8-8165-439e-8642-134d3ec4df12" class="">As a developer, a lot of our work is just pulling data from APIs.</p><p id="95eeab44-6a12-4355-89c7-9400c614f766" class="">Let&#x27;s start by taking a look at how we can go to another service and pull that data into our application in order to display it.</p><p id="5505193c-01fd-444e-b2ec-533259e65615" class="">We will go over two examples, one with pizza and one with GitHub.</p><p id="71cf39b6-7dc4-46c0-aa8d-8b57b6ecdd5b" class="">The most popular way to pull data from an API is using a URL that you can hit with some associated data, like we are doing with &quot;wesbos&quot; in the url https://api.github.com/users/wesbos used in the Github example below.</p><h2 id="0a2cb4bc-97bb-4da0-af2e-9ef94da1aa4a" class="">JSON</h2><p id="69ae4cff-a02f-416b-8d0f-f1c5fb344ea2" class="">In the example below, the API will respond with what is called <strong>JSON</strong>.</p><figure id="183503d2-ad4f-42e2-a274-1cff65ab8040" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1113.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1113.png"/></a></figure><p id="407f0fd8-32e1-4541-9f98-2a9437bd792b" class="">We have discussed <strong>JSON</strong> a few times. It stands for <strong>JavaScript Object Notation</strong>, and it is a good way to transport JavaScript objects between servers and clients.</p><p id="698dcc4e-fd02-4f87-98e4-ecf982e7f11f" class="">Open a browser and navigate to this endpoint: https://api.github.com/users/wesbos</p><p id="13e16891-41b0-4c86-8226-33500db0989e" class="">That is part of the Github API.</p><p id="2f57510b-e392-49f0-83be-7a9c49cfa044" class=""><em>Note: in the videos, Wes is using a chrome extension that makes viewing JSON files easier called JSONViewer. If you are going to be working with JSON or APIs,Wes recommends downloading it.</em></p><p id="8ac88ea4-e8aa-4591-841d-f9f93eb3a72e" class="">Although what is returned looks like an object, it&#x27;s actually just a string.</p><p id="346b02cd-caa3-4cda-9637-88c47db00a38" class="">If we copy that string into the console and assign it to a variable called <code>data</code>, we can log it and access it from the console like so.</p><figure id="b706fd80-20a1-4771-a268-7161276b00d3" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1114.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1114.png"/></a></figure><p id="c644a021-7735-48eb-8d3c-0004e699879d" class="">As you can see, it is just a huge string.</p><p id="44ba10d8-7d48-4a57-be1f-952bc77e1f32" class="">If you do <code>typeof data</code> it would return string.</p><p id="2d14e957-0067-41ac-956a-7cf88161ce5e" class="">That means that if you wanted to grab one of the properties from the data returned such <code>company</code>, if you try to use <code>data.company</code> it will return undefined because it&#x27;s just a string.</p><p id="ba008f2b-e935-4948-ae43-b42d29dbc829" class="">The server returns a string, and it is up to us, the developers, to turn it back into a JavaScript object.</p><p id="9cbdb98e-bd6f-43fc-a2a3-c734a7e5f22c" class="">To do that, we can wrap <code>data</code> in a <code>JSON.parse()</code> and that will return to us a proper object, which we can then store in a variable.</p><pre id="8876ab8d-9fb0-4820-8571-217c120bb32f" class="code code-wrap"><code>const dataObj = JSON.parse(data);</code></pre><p id="83e716f4-1a69-4bca-9bc9-a69d04dde6cb" class="">Now we can access the object properties using <strong>JavaScript dot notation</strong>.</p><p id="a9bdc7cf-d5d2-441d-b421-3eb1f243c224" class="">Lots of APIs allow you to pull data from their server onto your own. There are many that do not allow it and many that require API keys (which we will go into later). For now, we will be working with wide open APIs that do not require any authentication.</p><p id="e3eee07c-2e6b-45ce-a7eb-dfc6b915e90a" class="">In the <code>playground</code> folder and create a new file called <code>apis.html</code>.</p><h2 id="3c1440f5-41aa-459d-b765-2375b7f78272" class="">AJAX</h2><p id="e6b738d4-5d66-41eb-8757-7e2d3c1e8415" class="">You will often referred to what we are doing in this video as <strong>AJAX</strong>, which stands for <strong>Asynchronous JavaScript and XML</strong>.</p><p id="c9d9d7ff-9dc4-4f0a-850a-63cfe6985beb" class="">We know what <strong>asynchronous</strong> is and JavaScript, but you may not know what <strong>XML</strong> is.</p><p id="b5a18ac8-03eb-4e6b-b741-7313f778a3c0" class=""><strong>XML</strong> is another way that you can receive data and it looks a lot like HTML but is not HTML.</p><p id="983cbfeb-dd01-46d7-880b-8e5c82372baf" class="">XML was used in the past but has generally been replaced with JSON as the preferred way to send data via APIs, but you might still encounter it. Wes has only had to work with XML once during his 12 year career.</p><p id="69c070f2-bdc7-48a8-ada5-ed703c2b45dd" class="">When people say &quot;AJAX&quot;, they mean fetching data from an API and displaying it on the page.</p><p id="95ec4fb6-f7a9-4ca3-accf-6d004b4ec3b3" class="">Open up the HTML page we created and give add the base HTML and a script tag within the body tag.</p><pre id="028d5aff-72a9-4a21-9ec8-5da34b4183de" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;APIs&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../base.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;script&gt;
+&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre><p id="8c0ad4eb-2120-4bfb-aa08-4793896b0f07" class="">The first thing we will do is store the URL in a variable. That is not necessary but is much easier.</p><p id="d4c70c68-b883-4aad-8005-369cad6841b7" class="">Name the variable <code>endpoint</code>.</p><p id="fad8c8b6-8960-43c2-a307-0ea37bda3db7" class=""><strong>Endpoint</strong> is a fancy word for the URL that you need to visit in order to get the data.</p><pre id="41492fa6-0bdd-4ad2-8f13-cf9279b739af" class="code code-wrap"><code>const endpoint = &quot;https://api.github.com/users/wesbos&quot;;</code></pre><p id="b85d8f0c-b4fa-4404-ac37-a48cc152efe2" class="">In order to get that data, we will use <code>fetch</code> which exists within JavaScript. <em>(There are some other libraries that are used, specifically Axios but the fetch library is very good and comes built in to all browsers).</em></p><p id="59630582-0326-4252-a796-790549da6de5" class="">To grab that data we will call <code>fetch</code> and then pass it the endpoint that we want to call, which will in turn return a Promise.</p><pre id="1e96ad63-400e-4362-a61f-9572f48b3d0d" class="code code-wrap"><code>const wesPromise = fetch(endpoint);
+console.log(wesPromise);</code></pre><p id="a7f2587d-49f6-4d2d-861c-817644504ec1" class="">To check if it worked, you can go to the network tab and refresh the page. When you do that, you will see all the requests that have happened on the page. This allows you to see when a request was sent out, and when it came back with the data.</p><p id="5c83a48a-ab8e-4eae-bcbe-cca4c6d6d810" class="">If we want to get that data back into JavaScript, how do we do that? We can use <code>.then()</code>.</p><p id="c737a35c-f951-4d6b-be0a-d35951e1c787" class="">Before we do that, let&#x27;s make a quick error handler first.</p><pre id="5b37b857-44cd-4963-9481-14fecd3319b0" class="code code-wrap"><code>function handleError(err) {
+console.log(&quot;OH NO!&quot;);
+console.log(err);
+}</code></pre><p id="92a85910-b31c-4f84-bd24-ec549699e01a" class="">Fetch that data and log it to the console. 👇</p><pre id="c2004616-da05-418d-82c7-639ab6be1dbf" class="code code-wrap"><code>const endpoint = &quot;https://api.github.com/users/wesbos&quot;;
+const wesPromise = fetch(endpoint);
+
+wesPromise
+.then((data) =&gt; {
+console.log(data);
+})
+.catch(handleError);</code></pre><p id="8702eae6-714b-4df8-8101-4b5917242767" class="">Now when you refresh the page, you will see that we no longer get a promise. Instead we get the response object you see above 👆</p><p id="262472a0-0de3-44cc-8111-e9c8fadafa85" class="">The response tells us the type is <strong>CORS</strong> which we will talk about in a second. We also have all these properties on the response object but where do we get the data?</p><p id="dab2ce9b-616a-475b-8d42-2a6bef543a30" class="">If you expand the properties like <code>headers</code> and <code>body</code>, you won&#x27;t find it.</p><p id="dd273aa9-c963-47c8-9874-d1d0bd2e9ce8" class="">As you can see, the data is nowhere to be found.</p><p id="d1043a03-8055-47ae-8383-53d232c2e282" class="">Before we can access the data, there is another step that needs to happen.</p><p id="8fdea369-dca4-4862-bd55-a2c27d0a2a3c" class="">Right now we have the data streaming into the browser and we have assigned it to the variable <code>response</code>. At this point, the data is not fully downloaded and the data type is unknown.</p><p id="d94bba29-5966-4be3-b637-93a3592b230c" class="">The <code>fetch</code> API can be used to fetch any type of data, whether it is JSON, an image or raw text. It does not assume the response type of the data returned.</p><p id="2be8f1b9-46c0-49f6-84c6-fba8b8fc7acd" class="">To actually get the data, you must tell the browser to convert the data from JSON to a JavaScript object once it is finished downloading.</p><p id="6249f0bc-d469-4f46-9293-343c30cbd87f" class="">Take a look at the prototype of the response object, and you will see that there is a number of methods on the response.</p><p id="636321d5-2d68-4eed-ab5f-505a3f2c54ee" class="">In our case, we want to use <code>json()</code>. We will return <code>response.json()</code> which will return another promise.</p><pre id="f6b7391c-636b-41b0-a387-d29a2ab747be" class="code code-wrap"><code>wesPromise
+.then((response) =&gt; {
+return response.json();
+})
+.catch(handleError);</code></pre><p id="68a3cba5-88ce-4b98-8f9d-4210e6346905" class="">To get the actual data, we must chain on another <code>.then()</code> and then we can log the data.</p><p id="b27df79a-317e-4b7e-b1e6-fbef769cacda" class="">When the page refreshes, after a split second, you should see that we have the full object logged to the console. There is no need to run <code>JSON.parse()</code> on the data because <code>response.json()</code> will take care of that.</p><p id="9126f46d-30e4-4e3d-8559-c2d3d9973d49" class="">Remember: When using <code>fetch</code>, you need to use a double promise to actually get the data. The first promise gets the response and the second one takes the response and converts it into JSON.</p><p id="ab097484-9528-4624-80ec-1e82b926ef51" class="">Now we can log information from the data we fetched.</p><pre id="65a5c00d-db54-4740-ab36-e923d62683fb" class="code code-wrap"><code>wesPromise
+.then((response) =&gt; {
+return response.json();
+})
+.then((data) =&gt; {
+console.log(data);
+console.log(data.blog);
+console.log(data.name);
+console.log(data.location);
+})
+.catch(handleError);</code></pre><p id="22869124-5b10-47f9-84a2-2df89775929a" class="">Let&#x27;s go ahead and display some info about the user.</p><p id="64126e2a-5381-4450-b6c2-6f7b177136e9" class="">A paragraph tag to the HTML with a class of &quot;user&quot;, and then go ahead and select it in the script tag.</p><pre id="017e220b-e7b1-44cb-a564-73b4c87e0796" class="code code-wrap"><code>&lt;body&gt;
+&lt;p class=&quot;user&quot;&gt;&lt;/p&gt;
+  &lt;script&gt;
+function handleError(err) {
+console.log(&quot;OH NO!&quot;);
+console.log(err);
+}
+
+const userEl = document.querySelector(&quot;.user&quot;);
+const endpoint = &quot;https://api.github.com/users/wesbos&quot;;
+const wesPromise = fetch(endpoint);
+
+wesPromise
+.then((response) =&gt; response.json())
+.then((data) =&gt; {
+console.log(data);
+console.log(data.blog);
+console.log(data.name);
+console.log(data.location);
+userEl.textContent = `${data.name} - ${data.blog}`;
+})
+.catch(handleError);
+&lt;/script&gt;
+&lt;/body&gt;</code></pre><p id="52008e31-6788-4fd6-8f37-1327bf2af708" class="">As you can see, it pops up.</p><p id="629f7fb3-f906-4b89-9a22-515b06081653" class="">One other thing you can do is set the text content of the element as loading before we replace it with the data, so for a split second you will see &quot;loading...&quot;.</p><p id="91c1e3bc-176a-4b2d-acd5-1ddcf5aa22ef" class="">Add the following code 👇</p><pre id="8788431f-5fe2-477e-8619-a4a5e26ede98" class="code code-wrap"><code>userEl.textContent = &quot;loading....&quot;;
+const wesPromise = fetch(endpoint);</code></pre><p id="c2b30276-1a88-4b29-ac60-37b857568792" class="">Now let&#x27;s refactor this to use <strong>async/await</strong>.</p><p id="97b7aec9-e7d1-40c8-88b3-19413c0a20f9" class="">Create an async function called <code>displayUser</code> which takes in a <code>username</code>. Take all the code we wrote after selecting the element and put it into the <code>displayUser</code> function.</p><p id="ec14fd3c-69fa-4fc2-aca9-d56e3e728872" class="">Now let&#x27;s go line by line. Leave the first line as is.</p><p id="a9500f2b-3c23-4efc-b831-e7e385bd8ea5" class="">The promise where we fetch the endpoint can now be switched to <code>await</code> and that no longer is a Promise but is a response. Then we can get the data by awaiting <code>response.json()</code> like so 👇</p><pre id="752246ff-f78e-455b-8ffb-50b6d8f9d29a" class="code code-wrap"><code>async function displayUser(username) {
+userEl.textContent = &quot;loading...&quot;;
+
+const response = await fetch(endpoint);
+const data = await response.json();
+
+console.log(data);
+console.log(data.blog);
+console.log(data.name);
+console.log(data.location);
+userEl.textContent = `${data.name} - ${data.blog}`;
+}</code></pre><p id="eb68f8ef-bb28-47d1-9556-a9749cd4aadb" class="">The only thing left is to call <code>displayUser</code> on page load.</p><p id="15ef5593-5608-4e47-bff1-c6db3648aa4f" class="">Let&#x27;s go ahead and do that to display the user.</p><p id="a842b962-0411-49f8-9f3b-5d39e989c6f9" class="">Replace the <code>endpoint</code> variable with <code>baseEndpoint</code> and make another variable for the <code>usersEndpoint</code> like so 👇</p><pre id="a9eaff66-f0e5-4bf7-894f-0a0010719853" class="code code-wrap"><code>const baseEndpoint = &quot;https://api.github.com&quot;;
+const usersEndpoint = `${baseEndpoint}/users`;</code></pre><p id="921f4f7f-23f1-47b9-96cb-0e072b07444f" class="">To fetch the username that was passed in, modify the code like so 👇</p><pre id="9861f13b-6403-49a5-8883-ee28cddbca67" class="code code-wrap"><code>const response = await fetch(`${usersEndpoint}/${username}`);</code></pre><p id="d447f0e0-368b-4e81-bb41-f9e7673e22c0" class="">That modification allows us to generate the endpoint on the fly based on what username was passed in as an argument.</p><p id="74cc2846-128f-4808-ad7a-277aa5470ce7" class="">To test this, let&#x27;s try calling it from the bottom of our script tag with the user <code>stolinski</code>.</p><pre id="ba7447c3-db79-4206-b2c1-3821e6689068" class="code code-wrap"><code>&lt;script&gt;
+const baseEndpoint = &quot;https://api.github.com&quot;;
+const usersEndpoint = `${baseEndpoint}/users`;
+const userEl = document.querySelector(&quot;.user&quot;);
+
+async function displayUser(username) {
+userEl.textContent = &quot;loading...&quot;;
+
+const response = await fetch(`${usersEndpoint}/${username}`);
+const data = await response.json();
+
+console.log(data);
+console.log(data.blog);
+console.log(data.name);
+console.log(data.location);
+userEl.textContent = `${data.name} - ${data.blog}`;
+}
+
+function handleError(err) {
+console.log(&quot;OH NO!&quot;);
+console.log(err);
+}
+
+displayUser(&quot;stolinski&quot;);
+&lt;/script&gt;</code></pre><p id="7946e79a-93b6-44ec-9913-c9a84ef1aef0" class="">One thing we are not doing is catching the error so if something went wrong, such as a typo in the url assigned to <code>baseEndpoint</code>.</p><p id="f4d02b6b-3a1c-46de-a879-de0a0f280b65" class="">To fix that, let&#x27;s add a catch and pass it our error handler function like so 👇</p><pre id="42fea8ef-8945-4d18-856d-62cdc79cdf65" class="code code-wrap"><code>displayUser(&quot;stolinski&quot;).catch(handleError);</code></pre><p id="10f6fa56-03b7-41bb-8793-14b9fd477173" class=""><em>🔥HOT TIP: You can filter out just AJAX request from the Network tab by clicking XHR. 👇</em></p><p id="e4f4c3e1-d8b0-4c2c-87c7-96f7a2c5358b" class="">Next let&#x27;s modify the <code>handleError</code> function to show the error by replacing the paragraph text content.</p><pre id="af043e43-a632-4edd-93ed-1730de6cdfca" class="code code-wrap"><code>function handleError(err) {
+console.log(&quot;OH NO!&quot;);
+console.log(err);
+userEl.textContent = `Something went wrong: ${err}`;
+}</code></pre><p id="d91c2718-3c2c-4d8d-8931-29a03ddbd54c" class="">We wil do one more example in the next lesson.</p><h2 id="925eaf4f-a3d4-42c7-ad36-4f28bd5bac52" class="">Public API list</h2><p id="d3b58db4-a8a9-49cd-93b9-c810d0e723c1" class="">It is hard to find good APIs that are public and don&#x27;t require API keys. There is a good list of them in the github repo https://github.com/public-apis/public-apis</p><p id="cd5d5481-10cf-4f6a-b696-c6c9d5c75747" class="">You can scroll through and find different APIs for all different things.</p><p id="0f815e26-b63e-4eea-bf37-b0786f92922f" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="4b64fe7a-d223-4181-a1af-71ad9fbadc86" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="4c3f6e58-01aa-470a-828d-a5efa98125e5" class="">Edit on Github</p></details></li></ul><ul id="0a7c8345-8a79-4708-8fe4-ea092970759a" class="toggle"><li><details open=""><summary>75 - CORS and Recipes</summary><p id="393af145-b01e-44d8-9834-28d66a90c72e" class=""><a href="https://wesbos.com/javascript/13-ajax-and-fetching-data/75-cors-and-recipes">https://wesbos.com/javascript/13-ajax-and-fetching-data/75-cors-and-recipes</a></p><p id="1d5929fd-a86c-4359-a214-9e1b8ae61a62" class="">
+</p><figure id="b70abfd7-6d33-4e18-9959-1a43cbe892c8" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs%201.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs%201.png"/></a></figure><p id="8270d173-2886-444a-9157-91a12ad83e50" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="c78b2f6e-9297-481f-8297-6712b5e38b6e" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="5f05166b-5be3-4c58-8232-1632748cdde4" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="3639dbdd-8218-4000-8063-ac65dc9ae0b8" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="b83f1580-4318-4da2-86a2-c5d9bfe8484f" class="">JavaScript, AJAX, CORSEdit Post</p><p id="76c16cb7-394d-438d-8780-65e8913cea5f" class="">In this video we are going to build an app that searches for a recipe based on a keyword and then we will display the data.</p><p id="95ed47ea-e196-4862-bbf8-bb25e80bd2e6" class="">We will use a real API in this example so Wes can show us how to overcome common hurdles you will face when working with APIs. Working with APIs can be frustrating so it will be helpful to know how to approach the common pitfalls when you try it yourself.</p><p id="b1a353f0-5982-4a39-9ff1-28131df46650" class="">We will be using the API at the website www.recipepuppy.com.</p><figure id="af49a7fa-b6df-4ae2-bcbb-7555068e00db" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1131.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1131.png"/></a></figure><p id="00929402-adeb-4ec3-ae2d-2bb52228a4f6" class="">If you look at the docs, the way this API works is you go to the url and pass <code>i</code> (which is ingredients), pass <code>q</code> ( which is your omelet) and pass <code>p</code> (which is your page). On the homepage, you can see that there are additional parameters you can pass.</p><p id="acad4be3-cee5-498b-92d3-b673daad4011" class=""><code>http://www.recipepuppy.com/api/?i=onions,garlic&amp;q=omelet&amp;p=3</code></p><h2 id="ddd267a0-e0eb-4797-b9cf-db16f32ec4d0" class="">Query Parameters</h2><figure id="39479652-3fbf-44a5-9722-89ee9f73f399" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1132.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1132.png"/></a></figure><p id="bf64732f-71c5-4360-99c2-b7f758c4efd7" class=""><code>i</code>, <code>q</code> and <code>p</code> are all parameters. Let&#x27;s talk about <strong>parameters</strong>.</p><p id="e716507f-8b48-441d-88a1-7fec586c5eb1" class="">Sometimes when you got to a URL, you see these question marks on the end.</p><p id="726e7bd6-7f80-42e0-b3bd-551e2864b50b" class="">Even when you submit a form they are there. 👇</p><p id="3374c2c2-d9de-4c1d-a7ed-c0e50864c0bb" class="">Those are referred to as <strong>query parameters</strong> or <strong>query params</strong>. Let&#x27;s break down the query params from the url above.</p><pre id="e0b2bfdb-3aae-4d59-8786-bfb4f215be46" class="code code-wrap"><code>?i=onions,garlic&amp;q=omelet&amp;p=3</code></pre><p id="2c01bd7b-d289-4bf2-97f2-95c9bb8284ce" class="">The query parameters portion of a url will <em>always start with a question mark</em> and is followed by the first parameter. Additional parameters are separated by an ampersand <code>&amp;</code>. That is how you can pass multiple parameters.</p><pre id="0e36eddc-dba9-4be1-95d3-ede65fda0321" class="code code-wrap"><code>?
+i=onions,garlic
+&amp;
+q=omelet
+&amp;
+p=3</code></pre><p id="c3e2771c-4a54-4b3c-bda8-4e2ba329e819" class="">In the query string above...</p><ul id="e3e1599f-82b6-4f53-841f-d7e5c533b1f1" class="bulleted-list"><li style="list-style-type:disc"><code>i</code> is being passed multiple ingredients. <em>Note: using commas to separate the multiple items is not a standard thing, it is just how that API works.</em></li></ul><ul id="b5296efd-0103-4e62-840c-68019febf935" class="bulleted-list"><li style="list-style-type:disc"><code>q</code> is the recipe you are looking for.</li></ul><ul id="bfb56474-70a8-4759-a54b-a0f161046c86" class="bulleted-list"><li style="list-style-type:disc"><code>p</code> is page, which is how this API handles pagination.</li></ul><p id="ce63ee13-85ec-4500-8713-a68c5c4553a6" class="">Parameters are never standard, every API implements them a little bit differently so you always have to go and read the docs.</p><p id="37ed7d5f-ed0d-47e4-87a9-c4e383b6ca81" class="">We will be working out of the <code>/exercises/75 - CORS and Recipes/</code> directory.</p><p id="42822ae6-c351-4827-b69e-160133f2dada" class="">This example will include a form with an input where the user can type a keyword, and they should be returned a list of recipes, their ingredients and a thumbnail image.</p><p id="ca32f16c-32e0-4fae-845b-a6bb9f3d874b" class="">We won&#x27;t worry about the UI just yet, let&#x27;s just getting it working.</p><figure id="d49e78ec-53b1-4a52-9385-c0972d495bd7" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1134.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1134.png"/></a></figure><p id="8a79c94d-0ef8-4636-869a-f5a3a73d52ec" class="">In the empty <code>scripts.js</code> file, let&#x27;s add the base url.</p><p id="6173936d-0394-4907-bebf-c971bbd45739" class="">Next, create an async function that takes in a parameter and fetches that from the endpoint, and call it on runtime.</p><pre id="312f3d58-7a1c-4315-9e6f-87a999d5d60d" class="code code-wrap"><code>const baseEndpoint = &quot;http://www.recipepuppy.com/api&quot;;
+
+async function fetchRecipes(query) {
+const res = await fetch(`${baseEndpoint}?q=${query}`);
+const data = await res.json();
+}
+
+fetchRecipes(&quot;pizza&quot;);</code></pre><p id="5afc5b0b-db0b-4110-86dd-aa8b1a9b688b" class="">Let&#x27;s start fetching the data.</p><p id="76ffc464-5462-4320-84a9-8b9c67e1dbf3" class="">Open up the dev tools and then refresh the page. You should see the following error 👇</p><blockquote id="1b8816d1-c987-4b50-94c7-7c230b84c93d" class=""><p id="3e13fbae-921a-4176-b799-91bb4b57972f" class="">Access to fetch at &#x27;http://www.recipepuppy.com/api?q=pizza&#x27; from origin &#x27;null&#x27; has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource. &gt;If an opaque response serves your needs, set the request&#x27;s mode to &#x27;no-cors&#x27; to fetch the resource with CORS disabled. www.recipepuppy.com/api?q=pizza:1 Failed to load resource: net::ERR_FAILED scripts.js:6 Uncaught (in promise) TypeError: Failed to fetch</p></blockquote><p id="4f880a3e-9ebb-4ea8-8640-f1bd27612577" class="">If you look at the network tab, and filter for XHR, you will see the request but there is no response data.</p><h2 id="934f6cf1-ec06-4133-9979-e4e354bc59fc" class="">CORS</h2><p id="c9fdebf0-7752-417b-8317-9cddf6ac693c" class="">What happened there is the browser blocked it because of something called <strong>CORS</strong>.</p><h3 id="2eae99bd-4b7a-40c3-97a1-053cb9fc8a8e" class="">What is CORS?</h3><p id="2a5a5e5a-5092-4844-a6e2-f35a6d881df2" class="">CORS stands for <strong>Cross Origin Resource Sharing</strong>. The &quot;CO&quot; in CORS stands for <strong>cross origin</strong>.</p><p id="ddbd5a1b-ee4a-42f1-bae8-21a317ef03f7" class="">What are <strong>origins</strong>? Take the two websites: wesbos.com and github.com. Those are both origins. Domain names are origins.</p><p id="d07b7e05-0ef5-43bd-8c34-9c550da96bc4" class="">If you want to share data between two origins like wesbos.com and github.com, by default you cannot.</p><p id="7269afb5-31c4-4009-a3a2-431f16781e82" class="">You are only permitted to share data between the same domain name. For example it would be fine to share data from wesbos.com to wesbos.com/about.</p><p id="7d35b016-ea4d-4375-8b50-65cf2ea5ba05" class="">As soon as you go cross origin from one domain name to another, then you start getting in trouble because that is a security issue in the browser.</p><p id="ba59d123-e7a8-4f60-97b2-93c36750a06f" class="">For example, let&#x27;s say you were logged into your bank at bank.com while you were also running code from wesbos.com. The JavaScript you are running on wesbos.com should not be able to reach into bank.com, because that would be a security issue. So by default, websites cannot talk to each other from one domain to another.</p><h3 id="77653d49-aad8-4750-8887-7d5bc60cb80f" class="">CORS policy</h3><p id="0f7e231c-5683-470a-a76e-6b0ba972b023" class="">What happens if you do need to pull data from one website to another, like we need to do with recipepuppy.com? How can we get those two websites to talk?</p><p id="b8588039-77c1-445a-b629-eb85af773924" class="">In order for the two websites to talk, the website from which the data is being pulled has to implement something called a <strong>CORS policy</strong></p><p id="70707265-3cf3-4628-afef-4c7263487a7c" class="">A <strong>CORS policy</strong> is something that happens on the server, there is nothing you can do in the browser about this.</p><p id="cd929be2-703a-4cc8-b49b-5c8b838a3128" class="">The server will have a CORS policy that has some rules such as &quot;wesbos.com is allowed to ask for data and we will return it&quot;.</p><p id="1084b3ca-587f-4719-8f5e-00f362977033" class="">In our example, the recipepuppy.com server must specify which domain names are allowed to transfer data from it, and that has to happen on the server of the person that has the data.</p><p id="f0551507-5b3d-4114-8efc-3fa1a2d08b8b" class="">Before we can get use CORS, we need an origin. If you look at the error we got in the console, it says 👇</p><blockquote id="5b52503e-bb41-478d-9480-d88688848d91" class=""><p id="484c7b0c-2fa1-48a1-94e4-2007bef47f38" class="">origin &#x27;null&#x27; has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource.</p></blockquote><p id="9d2dc550-3a63-4f83-8642-8bdb7d9dce3d" class="">That error is occurring because we are accessing and running the code off of file access.</p><p id="dac88777-93f8-478d-819d-e3af55a2f003" class="">Whenever you see an error like the one above, the first thing you need to do is no longer run the code from the file. Instead, you need to run it on a server.</p><p id="06117b94-cf37-482b-949b-55f5f2946d2e" class="">Let&#x27;s get a server up and running, so we can see if that fixes the problem (in most cases, it will).</p><p id="35aa12d4-514a-4d4d-ad26-896f6c1972ad" class="">In the terminal, navigate to our <code>exercises/75 - CORS and Recipes/</code> directory.</p><p id="b1135547-064e-43f5-ac40-fb831563cd00" class="">Let&#x27;s select a server to use, which could be any server. You could use:</p><ul id="60881d08-70a4-4b9e-b4c9-d7d2580c280e" class="bulleted-list"><li style="list-style-type:disc">you could use browsersync</li></ul><ul id="055b22c7-fdcd-4508-8c8c-95eccfb83283" class="bulleted-list"><li style="list-style-type:disc">upload the code to CodePen</li></ul><ul id="7fbf8039-b5f6-4bc6-851b-3a1014460adb" class="bulleted-list"><li style="list-style-type:disc">use Parcel</li></ul><p id="700df72c-e2b8-4935-8a3f-3daf52867e0a" class="">Let&#x27;s start by getting Parcel running. In the terminal, run the <code>npm init</code> command.</p><p id="4587ee2b-52a8-4b92-a4c7-d07cb0c86065" class="">You need to put a package name (which you can call anything, Wes chose <code>dogrecipes</code>) and then you just keep hitting enter to accept the default for the next few questions, as shown above.</p><p id="cbdd0d1b-b90a-43cb-a05e-cdef073ffc36" class="">Once the package is finished installing, run <code>npm install parcel-bundler</code> in the terminal to install Parcel.</p><p id="12225cff-4c8b-4aab-9ac2-df519a8da8ca" class="">Once that is complete, there should be a <code>packages.json</code> file in your folder (there will also be a <code>packages-lock.json</code> file). This packages file is where we can go and change our scripts, just like we have in previous lessons.</p><p id="e07a8677-d09b-4722-8aa7-392760fc5a4d" class="">Open the file and modify the scripts start command like so 👇</p><pre id="9213b775-3a5c-4db1-bcdf-ccf99400ce35" class="code code-wrap"><code>&quot;scripts&quot;: {
+&quot;start&quot;: &quot;parcel index.html&quot;
+},</code></pre><p id="ee21a0f0-b086-4366-a8be-b02fced42ece" class="">When we run <code>npm start</code>, you should see a message in the terminal that a server has been started on localhost:1234 or another port.</p><p id="90a74159-80cd-4f87-9986-4de6b434bb04" class="">Open that server in the browser and take a look at the error we are now getting in the console. 👇</p><p id="df3f274a-a79a-4f54-876d-eaf50adb0268" class="">It is complaining that &quot;regeneratorRuntime is not defined&quot;.</p><p id="c2249d4d-0aa2-452f-a22f-d0b952f1892b" class="">This issue has nothing to do with CORS. _(Note: If you do not have this issue, and instead see another CORS issue, skip ahead to that section)</p><h2 id="7c783bba-65d9-46c6-9009-7f5f31d3e015" class="">Babel</h2><p id="3f9b4dd1-852d-497f-b611-6cf56d88e8f1" class=""><code>regeneratorRuntime</code> is a thing called <strong>Babel</strong>. Some JavaScript functionality, like async/await and backticks are relatively new to JavaScript, and older browsers do not support those functionalities. However, sometimes you need to support older browsers.</p><p id="098932b8-51e3-4765-abce-f7aabcd6b6db" class="">Babel helps with this.</p><p id="80fc1007-3c90-4beb-9935-9e6503ffa636" class="">It will take your modern JavaScript code and transpile it into JavaScript that is runnable on older browsers like IE or older Safari. That will give you JavaScript that works the same way. It has just been transpiled into the equivalent in older JavaScript with callbacks and things like that.</p><p id="c50d6d58-b154-41eb-9e00-916e663f2917" class="">The weird thing about Babel is it wants to compile async/await, even though in most cases you don&#x27;t need to because it is available in almost all browsers and has been for a few years.</p><h2 id="0f5b6a2e-c263-42ba-823b-c2366cafa47c" class="">Browserlist</h2><p id="8e62ae3f-b8a5-43ee-8e0e-f3bcb8428449" class="">Since it&#x27;s unnecessary, we need to tell Babel not to transpile async/await. The way we can get around that is to go to the <code>package.json</code> and somewhere in there we will add a <code>browerslist</code> property to the JSON file.</p><p id="57b5289d-4898-47dd-9660-f52942b1c29e" class=""><code>browserslist</code> is a package that allows you to define which browsers you are currently supporting.</p><p id="44d008ee-28b2-4d39-bbd1-bcc2113f2be8" class="">There is a huge list of filtering options like less than 1% usage, blackberry 7, etc. You can just write them in plain english and that will convert them. That is what tells babel what to transpile, and what to just leave as is.</p><p id="fc8692a7-b893-494a-9d0b-1dfd04bc15ae" class=""><em>Note: Within </em><code><em>package.json</em></code><em> you must use double quotes instead of single because it is JSON.</em></p><pre id="c0393c95-6222-48ba-9139-5f2bc988244f" class="code code-wrap"><code>&quot;browserslist&quot;: [
+&quot;last 1 chrome versions&quot;
+],</code></pre><p id="378d3446-b246-46f2-b5af-9635f45cf191" class="">Wes likes to use the filter above because it tricks babel into thinking you are supporting the latest and greatest and then it won&#x27;t actually transpile it.</p><p id="8079dc96-73f1-4d19-8feb-c961dd99a7ff" class="">Now when you look at the page the error should be gone (you may see other errors which is fine).</p><p id="c2170570-1c22-4fbe-8549-4d91b8e5c937" class="">If you do have issues, kill the server by pressing Ctrl + C while focused in the terminal. Then open the folder up in your finder, and find the <code>cache/</code> and <code>dist/</code> folders within there and just delete those.</p><p id="8ce74bad-9f8d-4b13-9adf-e62462b5c173" class="">Now run <code>npm run start</code>, and that will fire it up again.</p><p id="de238590-9ff2-44b0-a0e1-a683d89285e1" class="">Problem number two, we have solved by using browserslist (you might not need to do that in the future).</p><p id="42aa17b8-f312-4baa-a557-42cf42f24d70" class="">The next problem is kind of the same error we had in the first issue.</p><p id="8900d532-2639-4334-96d9-c9d413b499d7" class="">As you can see, even though we are now running our code on a server instead of access it right from the file, we are still getting an error except this time it is complaining about localhost:1234 not origin.</p><p id="a756dc8a-9b43-44c3-8386-ff525d46bfc5" class="">It seems like recipepuppy is complaining and saying, nope, you cannot use this in the browser.</p><p id="84a243e0-aaab-4161-a5ab-f2d4a8219454" class="">Let&#x27;s take a look at the docs because sometimes they will offer solutions such as use a callback. However, if you take a look yourself, you will see there is nothing on the page that suggests that we should or shouldn&#x27;t use it with JavaScript, which is a bit of a bummer.</p><p id="aaa82e41-1cb2-4dad-8bc7-c5fe2014fbf4" class="">So what are you supposed to do if the CORS policy doesn&#x27;t work or they don&#x27;t have a CORS policy on it? It&#x27;s not like they are explicitly blocking websites from accessing it, it&#x27;s more likely they just have never implemented a CORS policy.</p><p id="8a392689-b5de-4906-950a-cb9712904d2f" class="">If you look at the website, you can see it has a link to &quot;Recipe Puppy for iPhone&quot;, and if you were using this in an iPhone app, you are not restricted to CORS because there are no multiple tabs open and things like that.</p><h2 id="a8834dca-a1d5-4275-85f0-eb23bb63c9c2" class="">Proxy</h2><p id="e3756ed6-9d35-4da6-944c-fb6e422f1f34" class="">So what is the solution?</p><p id="f0dce79b-18ea-414f-9bcd-c453e15f695d" class="">The solution is that the request would work if it was made from anything other than a browser.</p><p id="83f200ad-ebb1-4c99-b91a-bd77d5e3b938" class="">If we were to request the same data from the API using Node.js, PHP, Ruby on Rails or anything else, than it is totally allowed.</p><p id="c4bfced0-2b74-4f9b-abcd-906539a92d18" class="">So the solution is instead of going directly from localhost to recipepuppy, we need to put something in between called a <strong>proxy</strong>.</p><p id="c26449c3-23ad-4d37-ba82-2f75341b2f9f" class="">It will work like this: localhost will send the data to the proxy. Then the proxy will do a request to recipepuppy on the server side, which recipepuppy allows so it will send data back to the proxy, and then the proxy sends it back to the localhost.</p><p id="6351f93e-e730-44ce-911a-75c64e60b472" class="">To use a proxy you either have to build one yourself which requires building an entire server that handled your requests and locked it down or in some cases, where it is something silly with no usernames, passwords or nothing sensitive being sent, you can use a <strong>CORS</strong> proxy that people have provided and you can just stick in front of your url and it will proxy the data for you.</p><p id="2ca098d6-61d2-4193-b7e0-f72d310f8113" class="">To find one, just google CORS proxy.</p><p id="000f5ddb-f386-478c-874d-38c84424ca6c" class="">Wes has found that the https://cors-anywhere.herokuapp.com one works the best.</p><p id="022bd5c2-7b0e-469b-bb46-c94808c23d56" class="">If you go to the website you will just see the text above, but the way that it works if you take the url and paste it in front of your urls and that will proxy that data for you.</p><p id="5fa5bb8a-98b5-487c-900f-5cb4033b672d" class="">Modify the code like so 👇</p><pre id="9d2322c9-0b3f-4161-ae84-8443a71d38b4" class="code code-wrap"><code>const baseEndpoint = &quot;http://www.recipepuppy.com/api&quot;;
+
+async function fetchRecipes(query) {
+const res = await fetch(
+`https://cors-anywhere.herokuapp.com/${baseEndpoint}?q=${query}`
+);
+const data = await res.json();
+}
+
+fetchRecipes(&quot;pizza&quot;);</code></pre><p id="31361d9a-b504-450e-aa24-e662ce480e45" class=""><strong>To be absolutely clear here: you are sending you data through a random web server that is controlled by who knows who.</strong> Never use this for something that has sensitive data like passwords, emails or login information. If that is the case, you have to run your own server.</p><p id="c7a8b100-1504-4175-8712-baacad28b7f2" class="">In our case, we are just using it to learn and look up recipes so it doesn&#x27;t matter that someone random may have access to that data.</p><p id="60ed08b0-4b82-48f2-9ef9-0f6d352870ed" class="">Let&#x27;s refactor the code slightly to the put proxy url in it&#x27;s own variable like so 👇</p><pre id="498e75b9-d57d-416a-bbf4-e973daf241e9" class="code code-wrap"><code>const baseEndpoint = &quot;http://www.recipepuppy.com/api&quot;;
+const proxy = &quot;https://cors-anywhere.herokuapp.com/&quot;;
+
+async function fetchRecipes(query) {
+const res = await fetch(`${proxy}${baseEndpoint}?q=${query}`);
+const data = await res.json();
+}
+
+fetchRecipes(&quot;pizza&quot;);</code></pre><p id="c85da266-f865-4ced-bc1c-43e265398e89" class="">Now when you refresh the page, the error should be gone. Let&#x27;s also console log the data.</p><p id="ba8ab10b-dd29-4514-9790-c0c747fd037b" class="">Now that we finally have the data working, we need to loop through the data and show them based on what the user has searched for.</p><p id="04aa59d9-38e3-4adf-9015-96f4acb81086" class="">Let&#x27;s make an event listener and handler for the submit event when the user enters a keyword and hits the submit button.</p><pre id="e39f4b38-87eb-47a7-aa65-aad339711003" class="code code-wrap"><code>function handleSubmit(event) {
+event.preventDefault();
+console.log(event.currentTarget);
+}
+
+form.addEventListener(&quot;submit&quot;, handleSubmit);
+fetchRecipes(&quot;pizza&quot;);</code></pre><p id="3114849c-65d0-44c6-8cdb-cb067dbd9ceb" class="">To grab the value of the query we can modify the code to use <code>event.currentTarget.query.value</code> because the input has a <code>name</code> attribute of <code>query</code>.</p><p id="64fe1016-d764-4f79-ba5a-1e382be36a0d" class="">If you were to refresh the page, you should see pizza logged.</p><p id="ab6589bc-7794-4ccb-9d44-d91af6196171" class="">Next, we will some sort of loading screen because we don&#x27;t want the user searching for many things over and over again while the API is still searching.</p><p id="f481178f-a88e-4780-82a6-8b09ab3072be" class="">There are a couple of ways to do that.</p><p id="bdfea11f-0c2d-400a-bfa3-59d9ece1f5f8" class="">The easiest is if you go to the input button and add a <code>disabled</code> attribute. That will stop the user from actually clicking it.</p><pre id="720b71cc-4efd-41ae-b55f-31bc4c2bc292" class="code code-wrap"><code>&lt;button disabled type=&quot;submit&quot;&gt;Submit&lt;/button&gt;</code></pre><p id="1a56a89c-da3b-4073-a74a-04bc0847164a" class="">There is no visual different there, so let&#x27;s add a style for buttons with the disabled attribute</p><pre id="1c7483b0-d4e9-48b8-8807-cba82a1debfb" class="code code-wrap"><code>button[disabled] {
+opacity: 0.2;
+}</code></pre><p id="b9c2ff6d-ceb5-4191-93fe-4430a7a2db33" class="">Now it is clear that the button is disabled.</p><p id="6d1f57bf-1e97-4a3a-b769-4bea2b31e9aa" class="">Another trick you can do is take a fieldset and wrap all your inputs in that fieldset and then put a disabled attribuet on the fieldset itself. That will prevent someone from being able to type in the box or click on the buttons as well.</p><p id="dac60e40-9a4a-4ded-a695-cf37ed964cab" class="">Either one is totally fine, as long as the user is prevented from making multiple requests at the same time.</p><p id="1d9b90b3-04d6-4d28-81bf-d571ae656952" class="">Add a name attribute to the button of <code>name=&quot;submit&quot;</code>.</p><p id="928d4348-66fb-4f9a-be34-0a955c6cf2cb" class="">Now in the script file we can access the submit button within the <code>handleSubmit</code> function, disable it, and then call <code>fetchRecipes</code> and pass it what the user searched.</p><pre id="0cb60258-c1d4-40e1-b0ea-c79393e5b04a" class="code code-wrap"><code>function handleSubmit(event) {
+event.preventDefault();
+const form = event.currentTarget;
+// turn the form off
+form.submit.disabled = true;
+// submit the search
+fetchRecipes(form.query.value);
+}</code></pre><p id="a775e341-4276-4203-842b-adb5edd53a38" class="">Next, modify the <code>fetchRecipes</code> function to return the data instead of just logging it.</p><pre id="0fe7bdfc-9d92-40e3-9741-8ad0f78dc1f8" class="code code-wrap"><code>async function fetchRecipes(query) {
+const res = await fetch(`${proxy}${baseEndpoint}?q=${query}`);
+const data = await res.json();
+return data;
+}</code></pre><p id="aa84343f-7337-4e18-9b5e-78a955998c15" class="">Now we can await the fetchRecipes by marking our <code>handleSubmit</code> function as async.</p><pre id="0c7ea9b7-1095-4d94-be5f-41c88c8c9e96" class="code code-wrap"><code>async function handleSubmit(event) {
+event.preventDefaut();
+console.log(form.query.value);
+const el = event.currentTarget;
+// turn the form off
+el.submit.disabled = true;
+// submit the search
+const recipes = await fetchRecipes(el.query.value);
+console.log(recipes);
+el.submit.disabled = false;
+}</code></pre><p id="64e71da6-7b4c-4df3-84ad-9e8344017c73" class="">When we submit the form now and search for something like &quot;chicken&quot;, it will disable the button, fetch and log the recipes, and finally re-enable the button.</p><p id="bf2c1d92-d3b7-4965-af9d-3f5fe0c99524" class="">Next, make another function called <code>displayRecipes</code> which takes in the array of recipe and returns the HTML that will be used to display those recipes.</p><p id="00bb68f2-9b47-43b9-8473-a08fc0834eed" class="">How can we pass the recipes array from the <code>handleSubmit</code>?</p><p id="d12eb928-c27e-4f1b-b688-14d927f4a9ed" class="">If you log <code>recipes</code>, you will see that it actually return an object and the recipes array lives on the <code>results</code> property of the <code>recipes</code> object. We can use that property to pass the array like so <code>displayRecipes(recipes.results);</code>.</p><p id="d070f2cf-b8a7-4e14-b703-e9b2b7cbfa8f" class=""><code>displayRecipes</code> will loop through each recipe and return some generated HTML, such as the title, ingredients and a thumbnail image if there is one (which we will check for with a conditional).</p><p id="7d5b5de8-d325-4184-98b2-1674c9acffd2" class="">This might look a little confusing because you can nest template tags within template tags as deep as you want.</p><p id="4dea2228-d2a2-4fdf-80d3-251bf3170b58" class="">Below we have one template tag and inside of that template tag we can run JavaScript logic, and also return another template tag which in turn will have template tags inside of them.</p><pre id="0023f844-9462-4fee-a03f-c72e49384eea" class="code code-wrap"><code>function displayRecipes(recipes) {
+console.log(&quot;Creating HTML&quot;);
+
+const html = recipes.map((recipe) =&gt;
+`&lt;div class=&quot;recipe&quot;&gt;
+      &lt;h2&gt;${recipe.title}&lt;/h2&gt;
+      &lt;p&gt;${recipe.ingredients}&lt;/p&gt;
+${
+recipe.thumbnail &amp;&amp;
+`&lt;img src=&quot;${recipe.thumbnail}&quot; alt=&quot;${recipe.title}&quot;/&gt;`
+}
+    &lt;/div&gt;`
+);
+
+recipesGrid.innerHTML = html.join(&quot;&quot;);
+}</code></pre><p id="7c6b13e7-c555-429b-9131-7056de7f6618" class="">As you can see, for each recipe we had returned we have some HTML generated for them.</p><p id="1b7f5317-0963-4930-9c25-ba8abbd92289" class="">At this point let&#x27;s go back to the HTML page and make a div <code>&lt;div class=&quot;recipes&quot;&gt;&lt;/div&gt;</code>. Inside of that div we will display the grid of recipes.</p><p id="3134d295-e0d5-41a2-a530-91e858fc5ff4" class="">Start by grabbing the div. 👇</p><pre id="407268aa-c8a6-431b-b720-e8fbf745a990" class="code code-wrap"><code>const recipesGrid = document.querySelector(&quot;.recipes&quot;);</code></pre><p id="13473993-28ca-4b51-8f1f-e3d7b2cb6ddf" class="">At the bottom of displayRecipes, set the innerHTML of the recipes grid to be equal to our array of HTML, which we will join (if we did not join them, there would be a comma between each of the elements). 👇</p><pre id="b0dca541-21b6-47cb-92a0-58f0b533e67f" class="code code-wrap"><code>recipesGrid.innerHTML = html.join(&quot;&quot;);</code></pre><p id="a8edbbcd-d795-43d6-9442-961c7925fc14" class="">When you refresh the page, the HTML should look similar to the image below 👇</p><p id="7c74c7e0-2f2f-41ff-a01a-ce5a762499e7" class="">For each item, we have:</p><ul id="24faee5e-089d-4641-9116-e72741d117da" class="bulleted-list"><li style="list-style-type:disc">created a div</li></ul><ul id="4e0c85cd-6064-403e-a3de-6247fa2bd9f9" class="bulleted-list"><li style="list-style-type:disc">added the title</li></ul><ul id="c2414e1d-6910-4a81-8e1d-53b2087cc512" class="bulleted-list"><li style="list-style-type:disc">the ingredients</li></ul><ul id="ea87bf21-d12d-4bd9-9a82-c993028a578e" class="bulleted-list"><li style="list-style-type:disc">show the image if avaialble</li></ul><p id="ba45327c-9864-4e0b-964e-5d1487cd8800" class="">Add the following css to make it look better:</p><pre id="f543b426-90ca-4825-bc82-3cdad3ff8a47" class="code code-wrap"><code>.recipes {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+grid-gap: 20px;
+}
+
+.recipe {
+border: 1px solid rgba(0, 0, 0, 0.1);
+padding: 20px;
+}</code></pre><p id="a4854239-e215-4563-a994-309922a0dc3b" class="">One thing we forgot to do was link each recipe using an <code>href</code>.</p><p id="cca8867e-3977-45ce-93a7-f16d137a1da8" class="">Go back to the <code>displayRecipes</code> function and modify it like so:</p><pre id="1c20baea-0b8b-4a6c-b221-dad3aa52a47e" class="code code-wrap"><code>function displayRecipes(recipes) {
+console.log(&quot;Creating HTML&quot;);
+
+const html = recipes.map((recipe) =&gt;
+`&lt;div class=&quot;recipe&quot;&gt;
+      &lt;h2&gt;${recipe.title}&lt;/h2&gt;
+      &lt;p&gt;${recipe.ingredients}&lt;/p&gt;
+${
+recipe.thumbnail &amp;&amp;
+`&lt;img src=&quot;${recipe.thumbnail}&quot; alt=&quot;${recipe.title}&quot;/&gt;`
+}
+      &lt;a href=&quot;${recipe.href}&quot;&gt;View Recipe →&lt;/a&gt;
+    &lt;/div&gt;`
+);
+
+recipesGrid.innerHTML = html.join(&quot;&quot;);
+}</code></pre><p id="6ab07894-06ba-4db1-a3c9-7347545b2d09" class="">The one issue we have now is it&#x27;s not running on page load.</p><p id="73b1b3e6-bf4b-458b-be93-6f0c2823a48b" class="">Why is that? If you look, a lot of our logic is tied to the submit event, so we can&#x27;t just run that on page load unless we were to fake a submit event.</p><p id="160c0dbe-d4a4-4e5c-bddc-1677dbcbadd5" class="">To solve that issue, let&#x27;s make another async function called <code>fetchAndDisplay</code> which will take in a parameter <code>searchTerm</code>.</p><p id="87ddbb09-226f-42f1-8f70-a4aca4ddb63b" class="">Take all the logic from the <code>handleSubmit</code> function below where we log the search term and we will move it to <code>fetchAndDisplay</code>. Let&#x27;s modify the code slightly amd also add a call in <code>handleSubmit</code> to <code>fetchAndDisplay</code> which will take in the search term as a parameter.</p><p id="d0c186b1-7306-4e3b-8cba-af38e067bae7" class="">One thing we need to change is that we no longer have access to the <code>el</code> function in <code>fetchAndDisplay</code>. The element would need to be either globally scoped or passed the function.</p><p id="82b67f6a-40e4-41b5-bee1-e31be5120d37" class="">Luckily we do have the form globally scoped.</p><pre id="5ba871c8-10e3-4bb9-b719-c33a6f68044c" class="code code-wrap"><code>async function handleSubmit(event) {
+event.preventDefault();
+const el = event.currentTarget;
+console.log(form.query.value);
+fetchAndDisplay(form.query.value);
+}
+
+async function fetchAndDisplay(query) {
+// turn the form off
+form.submit.disabled = true;
+// submit the search
+const recipes = await fetchRecipes(query);
+console.log(recipes);
+form.submit.disabled = false;
+displayRecipes(recipes.results);
+}</code></pre><p id="d991dd23-3617-4fd3-8f58-c8370240aa50" class="">Next we just need to include a call to run it on page load. Replace the last line of code from <code>fetchRecipes(&quot;pizza&quot;);</code> to <code>fetchAndDisplay(&#x27;pizza&#x27;);</code>.</p><p id="ce712b64-e53e-4fc9-8c1a-c5797f0d33be" class="">Now when you refresh the page, you will see it is running on page load with the default term &quot;pizza&quot;. If you type in another search term and hit submit, it will work.</p><p id="cc1a5857-1116-4409-8723-c0c77a51d3d6" class="">That is the basics.</p><p id="a5c86682-d101-49e4-9bf1-e501f92b88d5" class="">It would be an interesting to take this exercise even further and have it so people could have an input box for ingredients and that would get passed along for the ride.</p><p id="e3565961-b0a1-4423-aadb-3535e51cea7c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="2f69aeaf-92d0-4229-9d09-e56ad784cce5" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="56a343e0-bd7a-4c7a-ab9e-3e2d4ae9b963" class="">Edit on Github</p></details></li></ul><ul id="098c2755-4d71-4d7d-8b5f-822c956788f7" class="toggle"><li><details open=""><summary>76 - Dad Jokes</summary><p id="87f9803e-3cd0-4783-bd26-673b105872e5" class=""><a href="https://wesbos.com/javascript/13-ajax-and-fetching-data/76-dad-jokes">https://wesbos.com/javascript/13-ajax-and-fetching-data/76-dad-jokes</a></p><p id="3b405955-9404-482e-b06f-bc48097d75c8" class="">
+</p><figure id="6f1838d9-dec4-4942-8660-dfc382a95485" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs%202.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs%202.png"/></a></figure><p id="1a97ae09-d417-4456-a311-daa4ec1b1686" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="e49adbd4-e132-4ff7-b868-a240f9b36df2" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="51e084c9-67b4-448f-8dcd-7c96cd1ea0e3" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="a605e54c-6862-4878-a3f5-e195ccdc8bc5" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="cc64f42f-9f62-4611-8e1e-49f44fcda246" class="">JavaScript, AJAXEdit Post</p><p id="325c4758-30f4-43cd-ae1b-9c866877392d" class="">We will be doing another AJAX example in this video, but this time using a Dad Joke API.</p><p id="cb3a2f37-acb9-4772-826c-963a6f79aefb" class="">Every time you click the button, a new random dad joke should be fetched from the API and displayed and the button text will change occasionally.</p><figure id="5b65b066-ea3a-4d64-b457-492ea8e91149" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1155.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1155.png"/></a></figure><p id="71d6701a-17b7-43a6-b824-9efb9930595e" class="">We will be using the endpoint &quot;get a random dad joke&quot; from the API https://icanhazdadjoke.com/api.</p><figure id="8cbb96da-28fa-42f2-a570-5e7dc752d840" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1156.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1156.png"/></a></figure><p id="03df5e39-21cc-499a-ab80-d79aacbbb713" class="">This example will require <strong>custom headers</strong> which is a good thing to learn.</p><p id="7b0f49fb-2a73-4b35-a27c-3f761bcde5fa" class="">We will also be learning how to ensure that the button text never uses the same text twice, because sometimes random is not random enough.</p><p id="5c45b880-ec61-4f77-b278-bd8da1f83ad3" class="">Navigate to the <code>exercises/76 - Dad Jokes/</code> directory and open up <code>index.html</code>.</p><figure id="89381ea5-6217-4e65-ab30-45319eb5d9ea" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1157.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1157.png"/></a></figure><p id="71410a8f-6010-4284-bc21-aced78247492" class="">We have some basic HTML to start. We have a div div that contains a paragraph tag in which to display the joke, a button with a class of <code>getJoke</code> and a script tag.</p><p id="83d1349d-d0f3-4f8d-8af0-90fb6804f697" class="">Start by selecting the button and paragraph tag inside of the joke div.</p><pre id="1292ca43-acba-4116-ae2e-045afb6fedb6" class="code code-wrap"><code>const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+const jokeHolder = document.querySelector(&quot;.joke&quot;);</code></pre><p id="473ee7e7-023e-434f-9016-1ab96a698ab4" class="">Next create a function that will be responsible for fetching the joke.</p><p id="25af88e3-a56e-484f-990b-5b50ffb3fd56" class="">Let&#x27;s look at the API docs for fetching a random joke.</p><figure id="9cdf66f6-3682-48b7-8210-64af46bc156b" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1158.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1158.png"/></a></figure><p id="4153f70d-3c3f-4ed6-b751-86e8a97a1e45" class="">No authentication is required. There is this one note however..</p><blockquote id="8b317b7b-aa0f-4f99-83ba-b49566c1583a" class=""><p id="1cba6356-cb3c-45e9-b58f-e8ac932f5510" class="">All API endpoints follow their respective browser URLs, but we adjust the response formatting to be more suited for an API based on the provided HTTP Accept header.</p></blockquote><p id="4170f60c-112b-4163-9142-35c45ce77405" class="">What that means is we can get the joke back as HTML, JSON or plain text. That is interesting because the endpoint is going to be the same for everybody, but depending on what we pass, it will return different values to us.</p><p id="c14b91f1-a5aa-4162-893e-3c276e50ee0c" class="">Let&#x27;s start by writing the function that will fetch the joke. We will fetch the joke using the endpoint, and then just log the response for now. We will then call <code>fetchJoke</code> on runtime. 👇</p><pre id="24a0afce-0c37-451c-8b8c-2edd00c9a0cc" class="code code-wrap"><code>const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+const jokeHolder = document.querySelector(&quot;.joke&quot;);
+
+const buttonText = [
+&quot;Ugh.&quot;,
+&quot;🤦🏻‍♂️&quot;,
+&quot;omg dad.&quot;,
+&quot;you are the worst&quot;,
+&quot;seriously&quot;,
+&quot;stop it.&quot;,
+&quot;please stop&quot;,
+&quot;that was the worst one&quot;,
+];
+
+async function fetchJoke() {
+const response = await fetch(&quot;https://icanhazdadjoke.com&quot;);
+console.log(response);
+}
+
+fetchJoke();</code></pre><p id="a9506d7b-9ab8-4901-9502-42866ad310b3" class="">If you refresh the page, you should see the response is something similar to what you see below.</p><h2 id="43894751-b61c-47ff-af60-f80aeea5b6cf" class="">Headers</h2><p id="06e48785-dee9-4146-9ff3-0ffa5a81f0ef" class="">Now we need to turn that stream into something that is human readable. Let&#x27;s try to do <code>response.json()</code> like we have used in the past and log that. 👇</p><pre id="69c7d218-2639-4165-af76-cd5afe592021" class="code code-wrap"><code>const joke = response.json();
+console.log(joke);</code></pre><p id="b5f32037-198b-4d81-a566-71f4bb6e0884" class="">However, if you try that, you will see an error like the following:</p><blockquote id="77f52d8e-6f48-41b5-b58f-cda9093fa36d" class=""><p id="c7510032-be5f-42da-bc20-aa3225260f0b" class="">Uncaught (in promise) SyntaxError: Unexpected token &lt; in JSON at position 0</p></blockquote><p id="7a5a1792-24a7-43e0-86f6-081bcec655c4" class="">What that errors means is that you have most likely been returned some HTML (since it returned an open angle bracket <code>&lt;</code>) and while it is trying to parse that, JSON it is complaining.</p><p id="9572d738-79a3-46d5-a14e-5911663d03a1" class="">The way we can check for that is to go to the network tab and find the actual request and click through it, you will see that the response is just an HTML document that came back.</p><p id="4bf97375-eedf-4f35-b2e0-d37ccffa9474" class="">Not all websites allow you to fetch HTML but since this API has a CORS policy setup, we are able to do it.</p><p id="449625d8-5337-4dd1-8638-85d6ad1e6e02" class="">So the API is telling us we need to pass an <strong>Accept Header</strong> which is either:</p><ul id="f4d65fe4-8cc2-48d6-b3ae-73276b69a3f0" class="bulleted-list"><li style="list-style-type:disc">text/html (this is what we just saw)</li></ul><ul id="3d06f852-7121-469d-8d41-a1342ed768f7" class="bulleted-list"><li style="list-style-type:disc">application/json</li></ul><ul id="77fd4316-6ff1-4771-9001-e41db7df7bed" class="bulleted-list"><li style="list-style-type:disc">text/plain</li></ul><p id="dcac2eb3-13dd-498d-acc2-2febede9733f" class="">We need to pass that option along a header.</p><p id="9e3de2f8-366f-466b-a097-63dcaf8114a0" class="">What is a <strong>header</strong>?</p><p id="c2d5971a-9900-4871-9e27-2c20e1427ba9" class="">A header is some additional information that comes along with a request, kind of like when we pass query parameters, but headers are passed in a different way.</p><p id="cb7377ad-53f9-434d-9934-fa2748f9fbfc" class="">If you look at our dad joke API fetch request in the network tab and click it, you can click the headers tab and see the headers that were passed along with the request, and the ones that were passed along with the response.</p><p id="2c2360e8-3b0e-448f-b1b0-38fab0fb5ddd" class="">We need to pass along this additional information with <code>fetch</code>. The way you do that is you pass a second object to fetch, which can take in a whole bunch of different arguments. 👇</p><pre id="bac602e1-ca06-403f-baf0-da5c9eb76413" class="code code-wrap"><code>const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+  headers: {},
+});
+
+const joke = response.json();
+console.log(joke);</code></pre><p id="9c1fbefb-46a5-4270-8a68-83dcd406b4e3" class="">The documentation said the API requires an <strong>Accept Header</strong> so let&#x27;s go ahead and add that.</p><pre id="dc13b55f-037f-47b1-93bd-714db49c3003" class="code code-wrap"><code>const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+  headers: {
+    Accept: &quot;application/json&quot;,
+},
+});</code></pre><p id="74ed2781-deec-4c33-96f1-c26105d24960" class="">If you refresh the page now, you will see a promise.</p><p id="ecf6e542-c7d9-4494-bb6d-a0c10a543ad6" class="">That is because we forgot to await the response. Modify the code like so:</p><pre id="5e20823d-83cf-4fc4-be75-1775d1900f2b" class="code code-wrap"><code>const joke = await response.json();
+console.log(joke);</code></pre><p id="9979637c-5717-4ad6-ae58-2114af803586" class="">Now what comes back is the actual data.</p><pre id="d7a50cb2-256f-41f7-976c-a04be2f70724" class="code code-wrap"><code>const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+  headers: {
+    Accept: &quot;application/json&quot;,
+    Accept: &quot;text/plain&quot;,
+},
+});</code></pre><p id="d175cfa6-a432-4b65-8114-dc83db1a96d6" class="">Now if we change that to text/plain (it is fine to have two, the one further down will overwrite the earlier ones, we will see a similar error about unexpected token W). If you look at the response, it says &quot;Unexpected W&quot; because it returned to us text and our application was expecting JSON.</p><p id="ea531371-4a30-442f-b4a4-e787a146b77a" class="">This shows us that we can accept HTML, plain text or JSON, not because we changed the accept headers, but because we are sending a request to a server that offers up those three kinds of response formats.</p><p id="b93b95f7-48fc-40bb-8f5a-b1c3b7b322d8" class="">Change the format back to json and return it from the <code>fetchJokes</code> function.</p><pre id="8bcfb845-7099-4fde-a3bd-8c6773627071" class="code code-wrap"><code>async function fetchJoke() {
+const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+const data = response.json();
+return data;
+}</code></pre><p id="f58d4913-7bfa-4400-a543-f74ed754e809" class="">Similarly, you could also just return <code>response.json()</code> directly.</p><pre id="b73c9b2c-217a-4d17-aac6-8e4ce6f3e203" class="code code-wrap"><code>async function fetchJoke() {
+const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+return response.json();
+}</code></pre><p id="24d3dec2-4c21-4006-a077-c0476dc338a5" class="">That still works because we are in an async function so we will just be awaiting the fetch joke either way.</p><p id="b8a2798a-bf99-45ac-8d3c-3083ca6c8ebd" class="">Wes prefers to do it the way we originally coded it so that if we needed to log the response, it&#x27;s as easy as adding a log.</p><p id="cdf64a01-500d-42d0-a874-7ee1d3070871" class="">Next we want to wire up the button so that when someone clicks it, we will fetch a joke.</p><p id="a7017946-b2de-4587-8aeb-7fed4bd9692d" class="">Get rid of our call to <code>fetchJoke</code> on runtime and instead let&#x27;s make an async function called <code>handleClick</code> which will be responsible for fetching a joke.</p><pre id="5604dff4-cccd-40de-aa97-a7ed2f0197a5" class="code code-wrap"><code>async function handleClick() {
+const { joke } = await fetchJoke();
+console.log(joke);
+}</code></pre><p id="cda3c268-3cde-4e74-bb67-93939d294166" class="">The reason we are using destructuring is that <code>fetchJoke</code> will return an object to us with properties of <code>id</code>, <code>joke</code> and <code>status</code>. We only want the joke property for now so we are destructuring the joke property to it&#x27;s own variable.</p><p id="c4a322c4-3c3f-4bbc-af7c-1c8a927cce7d" class="">Next add an event listener for the click event, and pass it the <code>handleClick</code> function to run on the event.</p><pre id="2f545206-7a28-49b7-b440-8762ed2c2946" class="code code-wrap"><code>jokeButton.addEventListener(&quot;click&quot;, handleClick);</code></pre><p id="4b2e2938-1b5e-45b1-bceb-7fea78a09cf1" class="">Now when you refresh the page and open the console, you will see that every time we click the button, a new joke is logged.</p><p id="879cdb5b-da2c-421f-8e62-ac910d902b7d" class="">Now within<code>handleClick</code>, take the <code>jokeHolder</code> and set it&#x27;s <code>textContent</code> to be the joke 👇</p><pre id="2e2815af-f101-41b1-8b5f-b3b7787517e7" class="code code-wrap"><code>async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+}</code></pre><p id="84d76243-d184-4696-a440-bd0be03f0bec" class="">When the button is clicked now, the joke should populate and change within the paragraph tag.</p><p id="729a3542-26c4-4211-a693-5860318180a9" class="">Next we want to take the button text and replace it with one of the strings in the <code>buttonText</code> array shown below.👇</p><pre id="b962b5dd-b0e6-490f-b139-2ddeb01db2fd" class="code code-wrap"><code>const buttonText = [
+&quot;Ugh.&quot;,
+&quot;🤦🏻‍♂️&quot;,
+&quot;omg dad.&quot;,
+&quot;you are the worst&quot;,
+&quot;seriously&quot;,
+&quot;stop it.&quot;,
+&quot;please stop&quot;,
+&quot;that was the worst one&quot;,
+];</code></pre><p id="425ef7cd-741d-4b89-8ff8-9fcbbb2f4f1d" class="">To do that, call the function <code>getItemFromArray</code>, which will accept two arguments:</p><ul id="781069df-4045-4b32-badb-e08f95e0a482" class="bulleted-list"><li style="list-style-type:disc">the array</li></ul><ul id="45970379-1cb2-4c07-8581-848420511a73" class="bulleted-list"><li style="list-style-type:disc">then what to not be (we will implement that second param in a sec).</li></ul><h2 id="5b880238-c23b-4bf1-8ca9-5b5201ecbd45" class="">Getting a Random Index</h2><p id="813b8b18-a7e6-4890-b77c-55883899db3a" class="">If the array is 5 items long, then to find a random index between 0 - 4 we can use <code>Math.random() * 5</code>.</p><pre id="9a7f9708-2291-4c15-9f28-0e17c9a1529f" class="code code-wrap"><code>function randomItemFromArray(arr, not) {
+const item = arr[Math.floor(Math.random() * arr.length)];
+return item;
+}</code></pre><p id="0b50f416-5bc7-4ae9-a377-68b88c411024" class="">The reason we are using the passed in array to calculate the length and not the <code>buttonText</code> variable is that we want this function to be a utility function, and to be able to use them for anything, not just with the <code>buttonText</code> array. This allows it to be more generic.</p><p id="f3b662a0-23cd-434a-aa1b-75bf42c6e7fe" class="">Let&#x27;s try to run it from the console.</p><p id="081a91cb-8de8-4a97-aa6b-1cc88f17fa30" class="">Refresh the HTML page and pass the <code>buttonText</code> array to the function we just created.👇</p><pre id="c8775bc9-ddbe-4f0d-b95c-94133533a5e6" class="code code-wrap"><code>randomItemFromArray(buttonText);</code></pre><p id="ae434782-2768-4239-b63c-0c9e359b93a4" class="">Now whenever we run it, we get a random item returned.</p><p id="34f1cc7b-b274-4bd2-a975-7e39cd0427c0" class="">However, sometimes it will randomly return the exact same thing, which makes it seem like nothing happened.</p><p id="37092157-a1e8-4dda-8846-6be1c165e763" class="">That is why we have that <code>not</code> parameter that we are passing. Within the <code>randomItemFromArray</code> function, we will use that <code>not</code> parameter to ensure the same text isn&#x27;t selected twice.</p><p id="21677b37-60e2-4e25-9c8a-6e70b0195c6b" class="">To do that, we will add a check for whether the randomly selected item matches the <code>not</code> argument, and if it does, we will call the function again. That is an example of <strong>recursion</strong> because the function is calling itself.</p><pre id="4d187437-ee93-44cc-b69f-75895b9e0fcd" class="code code-wrap"><code>if (item == not) {
+console.log(&quot;Ah! we used that one last time, look again&quot;);
+return randomItemFromArray(arr, not);
+}</code></pre><p id="0eb43880-76db-49e0-a620-1cd9ef332197" class="">It is possible that this code will run a few times and call itself before it finds one that is not the same.</p><p id="cda46994-c356-44aa-a3dc-1d1877b8ed4d" class="">Let&#x27;s try running it in the console but this time passing the <code>not</code> parameter.</p><p id="2dbefa56-15e1-435a-a285-e8bba5c16513" class="">!</p><p id="dbc15677-1380-4b01-8eee-e99bdd02ed8a" class="">As you can see, when we got &quot;please stop&quot;, we logged &quot;Ah we used that one last time look again&quot; to the console and the method called itself again and the next time it returned different text.</p><p id="0f0ff5f3-4ba1-499a-a3ae-d0cbdfa8eb5b" class="">So now we can do the following.. 👇</p><pre id="5bf8174b-8e84-4972-aecf-7fe0e675f947" class="code code-wrap"><code>async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButton.textContent = randomitemFromArray(
+buttonText,
+jokeButton.textContent
+);
+}</code></pre><p id="e802f2cb-3807-4c03-9425-ce6a2bd9c2dc" class="">We are ensuring that the button text never stays the same using this line of code <code>jokeButton.textContent = randomitemFromArray(buttonText, jokeButton.textContent);</code>. We get the &quot;not&quot; argument from the text that currently exists on the button when it is clicked.</p><p id="205a8ba9-1723-489f-bf61-8299577e36c8" class="">If you refresh the page, you will see it is working very well, and if you just keep clicking it, eventually we will get a log that states &quot;we already used that one&quot;.</p><h2 id="f28f29f2-91dd-49d7-9167-fddc12482bea" class="">Loading State &amp; CSS Loader</h2><p id="3b70b5a8-35e1-4e02-8c94-725a85dfa149" class="">This is working, but one thing we are going to do is add a loading state. Feel free to leave this lesson now if you are not interested in loaders.</p><p id="57b42808-ee9c-4154-bf26-f92d97599f51" class="">Let&#x27;s make a CSS loader.</p><p id="808557b7-1ab2-4e0d-bcaa-27699f82b824" class="">In the HTML, right before our paragraph tag that will contain our dad jokes, add the following div <code>&lt;div class=&quot;loader&quot;&gt;&lt;/div&gt;</code>.</p><p id="ebad7917-bf9b-4755-a0a8-239c6c56a28d" class="">Google &quot;CSS loader&quot; and select <code>loading.io</code>.</p><p id="f39fcdbc-eeb0-4886-b010-65d79dec6f5f" class="">Click on whatever loader you would like to move and it should show you the markup you need to add to the page.</p><p id="1b9a8060-5bab-4732-b66c-70e4d141b9fb" class="">Then let&#x27;s actually replace the div we just added with the HTML supplied to us for the loader.</p><pre id="adc39bfe-289c-42e8-8adb-0ae0a045751f" class="code code-wrap"><code>&lt;div class=&quot;wrapper&quot;&gt;
+&lt;div class=&quot;joke&quot;&gt;
+&lt;div class=&quot;lds-ripple&quot;&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Dad Jokes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;button class=&quot;getJoke&quot;&gt;
+&lt;span class=&quot;jokeText&quot;&gt;Get A Joke&lt;/span&gt;
+&lt;/button&gt;
+&lt;/div&gt;</code></pre><p id="8d8c9704-c3be-4f8a-b1e1-5c2d6b516bb7" class="">Copy the CSS and add it.</p><pre id="170aa512-e4ad-4632-a0f3-915b7120c8a0" class="code code-wrap"><code>.lds-ripple {
+display: inline-block;
+position: relative;
+
+width: 80px;
+height: 80px;
+}
+
+.lds-ripple div {
+position: absolute;
+border: 4px solid white;
+opacity: 1;
+border-radius: 50%;
+animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+0% {
+top: 36px;
+left: 36px;
+width: 0;
+height: 0;
+opacity: 1;
+}
+
+100% {
+top: 0px;
+left: 0px;
+width: 72px;
+height: 72px;
+opacity: 0;
+}
+}</code></pre><p id="d1d5b915-e954-4d8d-8335-816be06df0df" class="">If you refresh the page, you will notice we don&#x27;t see anything.</p><p id="da78cf80-aff0-470c-aa5b-dd068f38bf9f" class="">Let&#x27;s inspect the element and see what is going on.</p><p id="a2c38e9b-c2a3-4ab1-be91-74fd7b7397bf" class="">If you look at the styles, you will notice the loader is set to the colour white. Let&#x27;s fix that.👇</p><pre id="b80381da-020e-4699-847e-1059e293fa20" class="code code-wrap"><code>.lds-ripple div {
+position: absolute;
+border: 4px solid var(--yellow);
+opacity: 1;
+border-radius: 50%;
+animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}</code></pre><p id="284a06d9-acb2-4351-8639-294bc62f768f" class="">Now you can see the loader, it was always working, it was just white so we could not see it.</p><p id="83d30624-ee78-40b9-95c8-f25bea8cac44" class="">Add a class of &quot;loader&quot; to the loader on top of the existing <code>lds-ripple</code> class.</p><pre id="b75b71e8-79b0-419e-a86d-43cbbed8f92c" class="code code-wrap"><code>&lt;div class=&quot;lds-ripple loader&quot;&gt;</code></pre><p id="e55932a2-3428-4e3c-a3d8-236b37d8cf34" class="">At the top of the script, select the loader.</p><pre id="cc620017-0499-42cd-8472-0bb31c6e299e" class="code code-wrap"><code>const loader = document.querySelector(&quot;.loader&quot;);</code></pre><p id="0b493631-f965-425a-9b7b-53bc35afa2a2" class="">When we fetch within the <code>fetchJoke</code> function, let&#x27;s turn the loader on. By default we will make the loader set to <code>display:none</code>.</p><p id="36afbfa7-2d79-4ee9-8a3c-0145d21decf4" class="">To do that, create a class of <code>hidden</code> and set it to <code>display:none;</code> and then add that class to our loader like so: 👇</p><pre id="fd620010-abaa-4cec-b693-e872093d407a" class="code code-wrap"><code>&lt;div class=&quot;lds-ripple loader hidden&quot;&gt;</code></pre><p id="dbdd8a9a-f890-4e52-bbd7-defb36225b45" class="">Now when we want to turn the loader on, we will call 👇</p><pre id="535b7277-db5c-4b89-a526-92f6cc783bc2" class="code code-wrap"><code>loader.classList.remove(&quot;hidden&quot;);</code></pre><p id="76a9859a-0cdb-41c4-8820-b6d10faaac33" class="">When the data comes back, we want to turn it off using 👇</p><pre id="88e6fa3b-b5f1-4e8d-b854-0670875bdb73" class="code code-wrap"><code>loader.classList.add(&quot;hidden&quot;);</code></pre><p id="1b148468-5157-49ec-8ad1-b1f795e15e38" class="">Modify the code like so 👇</p><pre id="37d636b6-44b4-449c-b332-a4850f63debf" class="code code-wrap"><code>async function fetchJoke() {
+loader.classList.remove(&quot;hidden&quot;);
+
+const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+const data = response.json();
+loader.classList.add(&quot;hidden&quot;);
+return data;
+}</code></pre><p id="f380afb6-1d8f-44ef-b38b-abe0d6c2188f" class="">Also hide the button while that is happening.</p><pre id="9a063fa0-375e-493f-be09-86e95b062913" class="code code-wrap"><code>async function fetchJoke() {
+loader.classList.remove(&quot;hidden&quot;);
+jokeButton.classList.remove(&quot;hidden&quot;);
+
+const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+const data = response.json();
+loader.classList.add(&quot;hidden&quot;);
+jokeButton.classList.remove(&quot;hidden&quot;);
+return data;
+}</code></pre><p id="c92c3a52-e50a-4c58-823d-99faec6c20b1" class="">However, that looks a bit jarring.</p><p id="e033bd4b-f4a6-4baf-891a-c6fa6780cc7d" class="">Let&#x27;s try to put the loader inside of the button instead.</p><pre id="8f9facba-146a-4691-945a-9c7b3b158d59" class="code code-wrap"><code>&lt;button class=&quot;getJoke&quot;&gt;
+&lt;span class=&quot;jokeText&quot;
+&gt;Get A Joke
+&lt;div class=&quot;lds-ripple loader&quot;&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/span&gt;
+&lt;/button&gt;</code></pre><p id="638774e2-5fe0-47ba-bc9d-799db154e200" class="">It is showing up because we removed the class of <code>hidden</code> from the HTML. Modify the CSS to make the loader white again.</p><pre id="bac70780-ffdb-4f14-8de4-9a086200e72f" class="code code-wrap"><code>border: 4px solid var(--yellow);</code></pre><p id="2b420cca-90aa-49a2-9d4c-21f332fbae5f" class="">Let&#x27;s also change the size.</p><p id="875cc49a-3942-46b0-815c-448ee29452e0" class="">We will make a size variable and set it to <code>20px</code> and then modify some of the other CSS to use that variable instead.</p><pre id="92d59640-ed5c-42b0-aeba-a39daff903d0" class="code code-wrap"><code>&lt;style&gt;
+  html {
+    --size: 20px;
+}
+
+.wrapper {
+text-align: center;
+}
+
+.joke {
+font-size: 5rem;
+font-weight: 900;
+}
+
+.lds-ripple {
+display: inline-block;
+position: relative;
+
+width: var(--size);
+height: var(--size);
+}
+
+.lds-ripple div {
+position: absolute;
+border: 4px solid var(--yellow);
+opacity: 1;
+border-radius: 50%;
+animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+0% {
+top: calc(var(--size) / 2);
+left: calc(var(--size) / 2);
+width: 0;
+height: 0;
+opacity: 1;
+}
+
+100% {
+top: 0px;
+left: 0px;
+width: calc(var(--size) * 0.9);
+height: calc(var(--size) * 0.9);
+opacity: 0;
+}
+}
+
+.hidden {
+display: none;
+}
+&lt;/style&gt;</code></pre><p id="2dd2e082-67ac-4c38-88c0-08f9715ebd30" class="">As you can see above, it is working although it doesn&#x27;t look great. Our sizing was a bit off.</p><p id="43e8dc0a-65ac-4421-b706-42fda2877e9c" class="">Let&#x27;s put the loader back to hidden on page load by adding back that class.</p><p id="191712f5-e519-4fce-bdef-b0c3cb82d3d9" class="">Now we need to modify our buttons to not hide it anymore, so remove that code from <code>fetchJoke</code>.</p><pre id="98d4c37e-d852-4000-a51f-232421ad64c7" class="code code-wrap"><code>async function fetchJoke() {
+loader.classList.remove(&quot;hidden&quot;);
+
+const response = await fetch(&quot;http://icanhazdadjoke.com&quot;, {
+    headers: {
+      Accept: &quot;application/json&quot;,
+},
+});
+
+const data = response.json();
+loader.classList.add(&quot;hidden&quot;);
+return data;
+}</code></pre><p id="37b856bc-6f1c-4e9f-9589-0e9aa74e4fff" class="">If you refresh the page and try that now, it will work the first time but not the second time because we overwrite the loader with the text this time.</p><p id="33524915-9391-45dc-8578-6feb8f521ffa" class="">What we need to do is grab the <code>span</code> element within the joke button so we only replace that portion of the button, instead of the entire button.</p><p id="0735bb50-af04-4966-9016-a849dc11678c" class="">At the top of the file add <code>jokeButtonSpan</code> like so:</p><pre id="b74fa282-451a-45ec-b9ef-5df0bd31e043" class="code code-wrap"><code>const jokeButton = document.querySelector(&quot;.getJoke&quot;);
+const jokeButtonSpan = jokeButton.querySelector(&quot;.jokeText&quot;);</code></pre><p id="dae4f037-1cab-44a3-9476-d849a6c5b351" class="">Let&#x27;s find where in our code we are updating the button text and instead update the <code>jokeButtonSpan</code> instead. 👇</p><pre id="f719e101-5617-403c-9dea-3b3080c98627" class="code code-wrap"><code>async function handleClick() {
+const { joke } = await fetchJoke();
+jokeHolder.textContent = joke;
+jokeButtonSpan.textContent = randomItemFromArray(
+buttonText,
+jokeButtonSpan.textContent
+);
+}</code></pre><p id="edaa21c0-f42d-456c-97e3-3d07bc1c35ef" class="">That works! Let&#x27;s move onto the next lesson.</p><p id="e6c94e9d-1f83-418a-bc78-1afafc7694a1" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="6d7198fa-aed1-4fc8-bfad-e61cbf5bd29f" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="9f00eaa3-b77b-4411-a3ea-0a13f335b65a" class="">Edit on Github</p></details></li></ul><ul id="6e45e5e9-3315-428f-93c8-20b01071940c" class="toggle"><li><details open=""><summary>77 - Currency Converter</summary><p id="03e16ab4-131c-4ea9-b641-ae208924afd1" class=""><a href="https://wesbos.com/javascript/13-ajax-and-fetching-data/77-currency-converter">https://wesbos.com/javascript/13-ajax-and-fetching-data/77-currency-converter</a></p><p id="9d966834-edb4-4c08-b7de-cb6a0ab8abcc" class="">
+</p><figure id="c0ecf94e-a783-455e-a3ec-c68063b55eeb" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs%203.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/bjs%203.png"/></a></figure><p id="14452263-e9c2-4634-b86e-a9dca318740a" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="cc612b26-ff17-480e-b0ac-89cd26234970" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="de681bf7-b1a9-49eb-885f-3483ee9f6375" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="88200f01-a4ae-4c41-842f-011375c038b5" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="015673bc-6a1f-4e22-a459-367ae7db1457" class="">JavaScript, AJAXEdit Post</p><p id="a41ad792-1cf0-4c91-9670-613209602f83" class="">In this video we will build a currency conversion app.</p><figure id="bd9a3425-b3c1-4b7d-81a9-bc7451e3a79b" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1179.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1179.png"/></a></figure><p id="a6dcf096-fcdc-4cd8-9045-840965111c14" class="">The app allows you to enter an amount to convert, specify it&#x27;s currency and then specify which currency to convert it to.</p><p id="492f2a1c-1284-4553-b16d-8e1c4afdf3a4" class="">We will be using the https://exchangeratesapi.io API to accomplish this, which is free and open source and will be working out of the <code>exercises/77 - Currency Converter/</code> folder.</p><p id="69fc36e6-a1a3-438f-b6e6-9ad1a3ed4516" class="">Let&#x27;s start by opening the HTML to see what we are working with.</p><pre id="6ae181ff-cfe9-4622-a600-61ba071176a9" class="code code-wrap"><code>&lt;body&gt;
+&lt;div class=&quot;app&quot;&gt;
+&lt;form&gt;
+&lt;input type=&quot;number&quot; name=&quot;from_amount&quot; /&gt;
+&lt;select name=&quot;from_currency&quot;&gt;
+&lt;option&gt;Select a Currency&lt;/option&gt;
+&lt;/select&gt;
+&lt;p&gt;in&lt;/p&gt;
+&lt;select name=&quot;to_currency&quot;&gt;
+&lt;option&gt;Select a Currency&lt;/option&gt;
+&lt;/select&gt;
+&lt;p&gt;is&lt;/p&gt;
+&lt;p class=&quot;to_amount&quot;&gt;$0&lt;/p&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+  &lt;script src=&quot;./money.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p id="d4dd0546-a2e0-4d34-90f5-f03a042efce8" class="">As you can see we have a form with..</p><ul id="e6bd34a5-48e7-4629-a04c-e5433537cc42" class="bulleted-list"><li style="list-style-type:disc">an input named <code>from_amount</code></li></ul><ul id="b1ddac69-075d-4a1e-a187-09a22310bde6" class="bulleted-list"><li style="list-style-type:disc">a selectbox named <code>from_currency</code> and one named <code>to_currency</code></li></ul><ul id="fbb65f8a-bc37-42fa-b548-773852671c27" class="bulleted-list"><li style="list-style-type:disc">a paragraph tag with the class of <code>to_amount</code></li></ul><p id="07fc1a96-9a09-47d5-a440-bf39c9e19265" class="">You will notice there are no options currently for the <code>from</code> or the <code>to</code> currency, because that will be populated on page load.</p><p id="4725c8d1-fbb9-472b-af81-52008e375c48" class="">We have a script source tag right before the closing body tag.</p><p id="b0ab9fd1-59bd-4f43-8437-98b6fa6afbc4" class="">If you open up <code>money.js</code>, you will see that Wes has already given us just a list of currencies, which is the currency code translated to their English version.</p><figure id="b25395e3-626d-4379-a928-428b226890fe" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1180.png"><img style="width:700px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/1180.png"/></a></figure><p id="63e0bd88-29c0-4c24-b4b3-5f26418fd813" class="">Let&#x27;s start by converting those currencies so we can populate them.</p><p id="1dd7a008-a068-423f-98fc-252830beba0c" class="">In <code>money.js</code>, after the <code>currencies</code> object, make a function called <code>generateOptions</code> which will accept one parameter, <code>options</code>, which will be an object.</p><p id="13fa5aa9-65ce-46f3-bae3-57c95cc4336e" class="">Add the following code so it runs on page load and refresh the page.</p><pre id="40399dd7-17bf-440a-af88-3745b164d9d3" class="code code-wrap"><code>const optionsHTML = generateOptions(currencies);
+console.log(optionsHTML);</code></pre><p id="81fe69cf-299a-43b7-aced-eab4cab35484" class="">Let&#x27;s go back to looping. How do you loop over an object?</p><p id="e22f5110-bec2-46a9-9f79-159f98c0632a" class="">We can use:</p><ul id="c70421cc-029a-44fe-99e8-907595c4076f" class="bulleted-list"><li style="list-style-type:disc">the <code>for of</code> loop</li></ul><ul id="dc2b1ea2-da8e-4022-9b50-49805ef69ca5" class="bulleted-list"><li style="list-style-type:disc"><code>Object.entries</code></li></ul><ul id="3105f0dc-104f-4a6d-b098-f2518a1389eb" class="bulleted-list"><li style="list-style-type:disc"><code>Object.keys</code></li></ul><ul id="bdcdb539-1664-4836-b4e3-cea9adf9317d" class="bulleted-list"><li style="list-style-type:disc"><code>Object.values</code></li></ul><p id="f7d15093-34b3-45d8-8565-b34510ad4e01" class="">Let&#x27;s use <code>.entries</code> to turn this object into an array, like so 👇</p><pre id="a2b042de-385a-4b8a-a1fc-6da585c1765e" class="code code-wrap"><code>function generateOptions(options) {
+return Object.entries(options);
+}</code></pre><p id="8c752b66-c969-4107-8149-8b794fdba7b5" class="">If you refresh the page, you will see that gives us an array, where each item inside of the array is another array, the first time of which is the currency code and the second item being the label.</p><p id="8cc2b3b9-a9e7-47d9-bfdd-f370662dc11f" class="">Let&#x27;s take that array and map over it so we get the nested array, and then log it. 👇</p><pre id="28a4d593-0538-4fc8-bf5c-6ca0be6bad36" class="code code-wrap"><code>function generateOptions(options) {
+return Object.entries(options).map((arr) =&gt; {
+console.log(arr);
+});
+}</code></pre><p id="70fd2ce8-75fd-47a5-95e1-ae454528e592" class="">We can destructure each sub-array to two variables:</p><ul id="f829f957-4e8f-4c60-a1b2-00f174ac4dfd" class="bulleted-list"><li style="list-style-type:disc"><code>currencyCode</code></li></ul><ul id="2904ddd2-0470-4e79-ad26-84a4911e1dc7" class="bulleted-list"><li style="list-style-type:disc"><code>currencyName</code></li></ul><pre id="37eaf9ad-050c-43b8-ab1e-4b7121e3fef3" class="code code-wrap"><code>function generateOptions(options) {
+return Object.entries(options).map(([currencyCode, currencyName]) =&gt; {
+console.log(currencyCode, currencyName);
+});
+}</code></pre><p id="3ae1c02e-2713-4d0d-b023-00b255e5afdd" class="">As you can see, it is looking good, except the array is undefined because we are not returning anything, so let&#x27;s change that and return some HTML using backticks.</p><pre id="caab35fb-2e0e-40a0-aad5-c4a4139acd7f" class="code code-wrap"><code>function generateOptions(options) {
+return Object.entries(options).map(([currencyCode, currencyName]) =&gt; {
+return `&lt;option value=&quot;${currencyCode}&quot;&gt;${currencyCode} - ${currencyName}&lt;/option&gt;`;
+});
+}</code></pre><p id="6d6af69a-9292-44af-a66a-65c746ce7397" class="">Now the <code>optionsHTML</code> variable contains an array of HTML options.</p><p id="0c159615-86d1-4e8c-8959-260281892b3c" class="">At the end of <code>map</code>, add <code>.join(&#x27;&#x27;)</code>, which should turn the array into one long string of HTML. 👇</p><pre id="68eb6ed4-160f-40aa-9296-12f4d2005e98" class="code code-wrap"><code>function generateOptions(options) {
+return Object.entries(options)
+.map(([currencyCode, currencyName]) =&gt;
+`&lt;option value=&quot;${currencyCode}&quot;&gt;${currencyCode} - ${currencyName}&lt;/option&gt;`)
+.join(&quot;&quot;);
+}</code></pre><p id="25c6731b-7240-4333-8a4e-594815731153" class="">On page load, let&#x27;s populate the option elements.</p><p id="0e28e3d3-7814-4112-a663-f4c065d5f04e" class="">First go to the top of the page and select those elements.👇</p><pre id="0eb8b411-5888-413c-aa14-3c4973db64ac" class="code code-wrap"><code>const fromSelect = document.querySelector(&#x27;[name=&quot;from_currency&quot;]&#x27;);
+const fromInput = document.querySelector(&#x27;[name=&quot;from_amount&quot;]&#x27;);</code></pre><p id="14b77062-de77-4265-b9c1-c243433931f9" class="">At the bottom of the page, add the following code.</p><pre id="09bb7121-cec4-44e7-adb9-d2b5629cc8e6" class="code code-wrap"><code>const optionsHTML = generateOptions(currencies);
+// populate the options elements
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;</code></pre><p id="635186c3-4adf-4a86-a617-8769eff8501f" class="">We are populating both options with the exact same list. That is why we put <code>optionsHTML</code> in a variable, so that we would not unnecessarily run that function twice.</p><p id="9a3e3783-b3f0-46ba-a954-290ccff4dc59" class="">Now when you refresh, you will see that each option has a dropdown. 👇</p><p id="1a226626-d664-4f19-87d0-ff12b6cdd48b" class="">Let&#x27;s switch to working on some of the functionality before we continue coding the UI any further.</p><p id="762f4d33-875d-466c-bcd2-89c4df60739a" class="">Start with the function that will go fetch the rates from the exchanges API. It will accept one parameter, <code>base</code> which we will default to &quot;USD&quot; as the base currency.</p><p id="2ff3dccf-0732-41de-abfd-4e53707d1619" class="">Inside of the function, we need to fetch the latest rates from https://api.exchangeratesapi.io/latest.</p><p id="35da6178-2a12-4859-8c51-771f6a274422" class="">Stick that endpoint in a variable at the top.</p><pre id="392160b9-848e-495d-9430-aef0f2cf4d61" class="code code-wrap"><code>const endpoint = &quot;https://api.exchangeratesapi.io/latest&quot;;</code></pre><p id="dbbb0276-0ca5-4a54-94f0-e589da60cac1" class="">The way this endpoint works is we need to pass it a query parameter of our base currency, as shown in the image below.</p><p id="7b509618-d1a7-4f3b-b08d-865cc870b10d" class="">That will return the exchange rates to us as well as the base currency.</p><pre id="6ac39d27-9481-43f7-a8ac-9324599506dd" class="code code-wrap"><code>async function fetchRates(base = &quot;USD&quot;) {
+const res = await fetch(`${endpoint}?base=${base}`);
+const rates = await res.json();
+console.log(rates);
+}</code></pre><p id="6f10a753-6f92-4b1b-be0f-34a1021f18ef" class="">If you open the browser and try to run <code>fetchRates()</code> from the console, it will return to us a promise immediately because it is an async function, and then it will resolve and log our rates.</p><p id="1c9c00ef-bcfa-4e52-bfda-92848f9e1579" class="">You can try passing the base currency as &quot;CAD&quot; and it should still work.</p><p id="ad7cecb3-a2d6-4352-9880-2c0019210255" class="">Let&#x27;s wrap that function up by returning <code>rates</code> from it.</p><pre id="703aa107-0a68-499a-9de5-58e27f305b4f" class="code code-wrap"><code>async function fetchRates(base = &quot;USD&quot;) {
+const res = await fetch(`${endpoint}?base=${base}`);
+const rates = await res.json();
+return rates;
+}</code></pre><p id="bd1909b6-b5a5-4637-925d-64c06888a49b" class="">The next thing that we want to do is make a convert function. The function will take in:</p><ul id="233aa772-9bca-4b3a-9e21-85f2a749685a" class="bulleted-list"><li style="list-style-type:disc">a raw number</li></ul><ul id="ce17c5fe-cadc-4a6c-abff-b47f2d4d1bb1" class="bulleted-list"><li style="list-style-type:disc">a &quot;from&quot; currency</li></ul><ul id="e0c76a1a-f417-4322-96b4-dee812a7b341" class="bulleted-list"><li style="list-style-type:disc">a &quot;to&quot; currency</li></ul><p id="beffcc68-8f71-4c6e-8d07-0d47ebee7cba" class="">If we do not have the rates for that specific currency, we will have to use <code>fetchRates</code> to go ahead and fetch it.</p><p id="d6f7950a-9988-4d11-a104-4847f645192f" class="">Make that <code>convert</code> function like so 👇</p><pre id="ea3951a4-89df-43bb-8488-5f01ea1acad4" class="code code-wrap"><code>function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+}</code></pre><h2 id="31b2ce6a-3ba1-4cbb-bcca-831e04e5b765" class="">Caching the Rates</h2><p id="2c1cf674-cd8f-46d6-ab26-73ce92ebf538" class="">Here is where that exercise gets a little tricky.</p><p id="5ed7a4d1-fdf5-491c-b9f6-e5049fb3378e" class="">We could fetch the rates each time, but that could be a bit slow, because every time we type into the <code>amount</code> input box, we will call <code>convert</code> function.</p><p id="342b33ff-44a5-4789-9595-2b24a4fb0db5" class="">In the demo, you can see that the conversion is happening almost instantaneously.</p><figure id="4a600340-0693-44b7-8bdc-3f8d70700b85" class="image"><a href="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/rates.gif"><img style="width:605px" src="13%20-%20Ajax%20and%20Fetching%20Data%20f86d9f2c07e64ce0b688faa8f655d643/rates.gif"/></a></figure><p id="784a5c12-6493-4390-9e94-023bdbada211" class="">If we had to fetch the rates every single time someone typed into the box, for the number 57887 alone, we would be fetch the rate 5 times unnecessarily, and often APIs will rate limit you.</p><p id="ad34108c-64d8-4a18-bcac-e6625f147558" class="">So what we need to do to get around that is cache the rates, meaning you need to hold on to them, if you already have them. There are different techniques you can do like delete rates every minute to ensure we have the latest data.</p><p id="b53879da-41d7-4dcd-b514-76e026500d53" class="">What we are going to do is we will make an object at the top of our script where the rest of our variables are and right below the endpoint let&#x27;s add this empty object 👇</p><pre id="e27d7d6e-5708-420e-ad16-152ff70ba0ba" class="code code-wrap"><code>const ratesByBase = {};</code></pre><p id="7c5e82b8-6e5b-4e1e-b90e-6bd087fb5c09" class="">We will store all of the rates within that object/ Every time a currency is selected to be converted, we will check whether we already have the rates within our <code>ratesByBase</code> object. If we do not, we will fetch it and save it to our object.</p><p id="498b7473-df79-42ab-b3c2-e3149f5aefc9" class="">If we were to cycle through all the currencies, our <code>ratesByBase</code> object would be massive because it will contain all of the rates by their from value. So by default we start with nothing because we have nothing.</p><h2 id="11a4a586-616f-4e19-98c0-0a258b547038" class="">Converting</h2><p id="7203880a-f28f-4cb1-a3eb-58b28e66298b" class="">Let&#x27;s go back to our <code>convert</code> function.</p><p id="d4c626e9-ca47-4955-9d65-7257615b9036" class="">We will use the square brackets to check if the currently select currency coded already existing within our object.</p><pre id="d4685766-54cb-400a-bae6-3f01f54ed9a7" class="code code-wrap"><code>function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(`Oh no! we don&#x27;t have ${from} to convert it ${to}, so let&#x27;s go get it!`);
+}
+}</code></pre><p id="05ff16c6-624f-4402-967d-1d4fba64ceea" class="">If you refresh the page, you can try running what we have so far from the console.</p><p id="d16aa890-f715-4649-8353-9d53527b9608" class="">Back to our <code>convert</code> function, we want to mark it as <code>async</code> because we will need to fetch the rate if it does not already exist.</p><p id="ec781ff8-ed06-49a6-8c82-10d9566f0294" class="">Within that function let&#x27;s add a request to <code>fetchRates</code> and pass it the currency the user is converting from. We will save the result to our <code>ratesByBase</code> object.</p><pre id="1fe61e62-d7e8-4c27-9eda-9d9e545f19ea" class="code code-wrap"><code>async function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(`Oh no! we don&#x27;t have ${from} to convert it ${to}, so let&#x27;s go get it!`);
+const rates = await fetchRates(from);
+console.log(rates);
+// store them for next time
+ratesByBase[from] = rates;
+}
+}</code></pre><p id="42c99c4c-8237-4338-9633-bc19e24ce42f" class="">Let&#x27;s demo step by step how that works.</p><p id="397da741-10ad-4fa4-a639-247d8085ac9f" class="">Start by logging <code>ratesByBase</code> in the console, which you will see is an empty object.</p><p id="99f732db-a58c-4e93-9a0c-c18ed74a3850" class="">If we run <code>convert(100, &#x27;CAD&#x27;, &#x27;USD&#x27;)</code> in the console, we will see the message stating we don&#x27;t have it but are fetching it.</p><p id="4dee7f48-6df0-463c-9bb8-d9b4b4cf11da" class="">Now if we check the <code>ratesByBase</code> object, we will see those rate values within the object. If you were to run the same convert function again, you will see it does not refetch them because the values already exist within <code>ratesByBase</code>.</p><p id="5b33e1ba-5e02-458a-942d-23b58b27d145" class="">As soon as you refresh the page, they will be gone. You could use local storage to save those but we will just do page load for this exercise.</p><p id="57eeb324-04e7-4c2a-9781-e44ba1b41239" class="">Next, we need to convert the amount the user passed in.</p><pre id="25b7a604-35dc-4bc7-b57d-6d4fabab81fe" class="code code-wrap"><code>function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(`Oh no! we don&#x27;t have ${from} to convert it ${to}, so let&#x27;s go get it!`);
+const rates = await fetchRates(from);
+console.log(rates);
+// store them for next time
+ratesByBase[from] = rates;
+}
+
+const rate = ratesByBase[from].rates[to];
+}
+</code></pre><p id="a9c565ef-74ad-45c7-95f7-2ebe75d2bfc2" class="">That may look weird so let&#x27;s explain what is going on in this code.</p><pre id="ec1c32f4-0605-444b-b60f-c5f1a8ce6b76" class="code code-wrap"><code>const rate = ratesByBase[from].rates[to];</code></pre><p id="a46ce017-1ad6-42a2-a1b2-60a3deeaa579" class="">If we look at our <code>CAD</code> property on <code>ratesByBase</code>, that is going to be our &quot;from&quot; .</p><p id="bfa1fc65-5c39-4ada-865e-a375d08c272d" class="">Inside of that, we need to grab the rates and the find the rate that they are converting to. You could do that like so: <code>ratesByBase.CAD.rates.USD</code>.</p><p id="a81a821f-f2fb-4133-ac58-e0fe863fa534" class="">But because those property keys are variables within our function, we need to use square brackets to access those object properties.</p><p id="8db3851c-9b2b-48a1-bdef-ccbfada67009" class="">Now we will take that <code>rate</code> and calculate the <code>convertedAmount</code> like so 👇</p><pre id="8d4338b6-4801-4354-9bd2-ec92ca81a156" class="code code-wrap"><code>function convert(amount, from, to) {
+// first check if we even have the rates to convert from that currency
+if (!ratesByBase[from]) {
+console.log(`Oh no! we don&#x27;t have ${from} to convert it ${to}, so let&#x27;s go get it!`);
+const rates = await fetchRates(from);
+console.log(rates);
+// store them for next time
+ratesByBase[from] = rates;
+}
+
+const rate = ratesByBase[from].rates[to];
+const convertedAmount = rate * amount;
+console.log(`${amount} ${from} is ${convertedAmount} in ${to}`);
+return convertedAmount;
+}</code></pre><p id="aa06c0d0-9a37-4087-ac52-5db068406350" class="">If you refresh the page and try that, you should see something like the following..</p><p id="b882e233-13ff-44d5-87e6-6ce6cc2ed458" class="">At this point, we have built the main functionality of the app so at this point we can start hooking it up to our UI.</p><h2 id="3e573763-9229-4cb0-8b64-abbe12cf3139" class="">Hooking Up The UI</h2><p id="55aec8b2-cd55-4704-b8c4-a854cbd3ea60" class="">There are three inputs that we need to listen on:</p><ul id="7d9ebbbe-6a9b-4c0a-b970-7a221221a36a" class="bulleted-list"><li style="list-style-type:disc">the amount,</li></ul><ul id="76add595-130b-4b98-a5bf-d08923158628" class="bulleted-list"><li style="list-style-type:disc">2 currency select inputs</li></ul><h3 id="b5ff9934-d810-4bca-849d-80b49d2c4e64" class="">Input Event on a Form</h3><p id="298775b2-a3d9-4e2b-ad7a-29e30a7b4062" class="">There is a trick we can use here, which is listening for an input event on the form. That one event will cover all of them, which is pretty cool.</p><p id="5b07ae03-651b-4f64-acf8-ac5cb91822ea" class="">Let&#x27;s go up to the top of our script file and select the form.</p><pre id="571369ff-d5ec-4700-bb13-521bb6b4e8b0" class="code code-wrap"><code>const form = document.querySelector(&#x27;.app form&#x27;);</code></pre><p id="988d79cd-06b4-43f5-bb17-e12c5e4eafe7" class="">At the very bottom of the script tag, add an event listener which will listen for the <code>input</code> event and handle it in a function we will define called <code>handleInput</code>, like so 👇</p><pre id="fbc1d7ee-4e54-4657-a859-a05997026ad2" class="code code-wrap"><code>form.addEventListener(&#x27;input&#x27;, handleInput);</code></pre><p id="ca990993-6d86-4d6b-b103-9df25bd753dd" class="">Let&#x27;s define that <code>handleInput</code> function, and for now just log <code>e.target</code> and <code>e.currentTarget</code> to see what we are working with.</p><pre id="4ed0dfac-0607-4fac-927e-af535bab0ce4" class="code code-wrap"><code>function handleInput(e) {
+console.log(e.target);
+console.log(e.currentTarget);
+}</code></pre><p id="dca4a3e8-70c7-4c0a-9dea-0f4332f09543" class="">If you refresh the page and try typing into the amount input or selecting an item from the drop downs, you will see that <code>e.target</code> is changing every time but <code>e.currentTarget</code> which is the form stays the same.</p><p id="6340a768-ce76-4b2c-9242-aea3a34c35b9" class="">That is because we are listening to the event on the form, but the actual event happens on the input or select box.</p><p id="ad5c5406-2ab1-48c0-a6df-90056db16df5" class="">Those events bubble up to the form where we handle them in our <code>handleInputs</code>.</p><p id="25ca5d84-0db2-47e0-99f1-8fc532b5779b" class="">So remember that trick, you can listen on the &quot;input&quot; event on a form and that will cover all of your inputs that are inside of that form.</p><h3 id="070ec815-6f9a-4731-bee6-791a399d4eef" class="">Wiring up Handlers</h3><p id="c51cd3c9-a3bc-43c3-888a-a2c96d7170ec" class="">Let&#x27;s start wiring up the handler to call our functions.</p><p id="898520f5-c938-442d-9133-171259d8ec69" class="">We forgot to grab our &quot;amount&quot; input, so let&#x27;s go ahead to the top of the page and add that.</p><pre id="4ec70de5-eda2-4416-8a0b-3867cd4e0905" class="code code-wrap"><code>const fromSelect = document.querySelector(&#x27;[name=&quot;from_currency&quot;]&#x27;);
+const toSelect = document.querySelector(&#x27;[name=&quot;to_currency&quot;]&#x27;);
+const fromInput = document.querySelector(&#x27;[name=&quot;from_amount&quot;]&#x27;);</code></pre><p id="a3b1a2d4-fa83-4642-b6e6-8c842c3e4fad" class="">Now let&#x27;s make <code>handleInput</code> an async function so we can call <code>convert</code>. We can pass the variables easily using the value of the three inputs like so 👇</p><pre id="f408aefa-778c-407e-aedb-968e91171a99" class="code code-wrap"><code>async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+console.log(rawAmount);
+}</code></pre><p id="13663d01-0e0f-49e5-b731-023699dd4b4a" class="">If you refresh the page and try entering an amount into the &quot;from_amount&quot; input, you should see something like shown above 👆 logged in the console.</p><p id="201b6f6b-808a-4abd-931f-a52326b74924" class="">Now we need to actually show that amount in the <code>to_amount</code> paragraph tag.</p><p id="5dd0b71b-a36a-4417-9a5d-95acef19272e" class="">Let&#x27;s go back to the top of our page and select that element and name it <code>toEl</code>.</p><pre id="18a3ff53-7f88-4c23-a71e-a7491a6b47cc" class="code code-wrap"><code>const fromSelect = document.querySelector(&#x27;[name=&quot;from_currency&quot;]&#x27;);
+const toSelect = document.querySelector(&#x27;[name=&quot;to_currency&quot;]&#x27;);
+const fromInput = document.querySelector(&#x27;[name=&quot;from_amount&quot;]&#x27;);
+const toEl = document.querySelector(&#x27;.to_amount&#x27;);</code></pre><p id="143c3020-3078-416f-af46-955fb94d6d2a" class="">Now within <code>handleInput</code>, let&#x27;s update the element to show the converted amount. 👇</p><pre id="c4010a9e-aef8-4eee-91eb-2123e61f9497" class="code code-wrap"><code>async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+toEl.textContent = rawAmount;
+}</code></pre><p id="cba78ae9-bce3-44b5-8c32-944ad7a1a0c6" class="">If you refresh the page and test it out, you should see the <code>to_amount</code> value updating.</p><p id="3665ab31-22d7-4bc2-bad2-41f1fbae534d" class="">Try changing the &quot;to currency&quot; and the &quot;from currency&quot; to ensure the value is still updating.</p><h3 id="46c1aaf0-793e-4dee-98a9-a84e37d74686" class="">Formatting Currency using Number Format API</h3><p id="7cf14d36-9215-4aa8-9b02-a1c53a179134" class="">The problem we have now is that it is not formatting it accordingly to what the locale is.</p><p id="139806af-2249-4f63-8bd0-1193d23d522b" class="">Money is New Zealand Dollars (NZD), or money in Indian Rupee (INR), may be formatted differently. Some currencies support cents, some do not.</p><p id="2d0ec4ee-4251-4cda-b33f-f7d0b2603a47" class="">We will use this really cool API called Number Format, and it knows how to handle currency formatting, which is really cool.</p><p id="f4a70274-97e1-479e-bdac-0bc17d8b0bc2" class="">Make a function <code>formatCurrency</code> which will take in the amount and the currency and return a formatted number.</p><p id="346ad7d2-d79b-49b7-a095-b151c9b2cc47" class="">We will be using the <code>Intl.NumberFormat()</code> method which takes in an argument of the language of the reader <code>Intl.NumberFormat(&quot;en-us&quot;)</code>, or if you leave it blank it will detect the language based no the browser, which is almost always what you want.</p><p id="67634961-a4cc-4c41-97a5-aa08acdf7ba7" class="">We will leave it blank.</p><p id="df9f21b4-3775-45da-bfca-859aa0e74dbc" class="">And as the second argument you pass it an options object.</p><p id="16647d69-22aa-407c-b02d-ac882173bc02" class="">Within that object we will pass a value for the <code>style</code> property which will be <code>&#x27;currency&#x27;</code>, since we want to format the amount as a currency, and then we need to pass the currency argument which we can do using the shorthand since both the property and value have identical names.</p><p id="8d47a1ca-f351-4f06-9df2-f5128ba04333" class="">The code highlighted above is the &quot;formatter&quot;, and then the method is just a <code>.format()</code> method on the formatted to which you pass your amount like so:</p><pre id="b5ad0779-fe93-4416-a439-e64779c628b8" class="code code-wrap"><code>function formatCurrency(amount, currency) {
+return Intl.NumberFormat({
+    style: &#x27;currency&#x27;,
+currency
+}).format(amount);
+}</code></pre><p id="29c35146-2679-460f-a5e2-12afafd84e23" class="">So now instead of just setting the <code>toEl</code> value to <code>rawAmount</code> we will modify it like so:</p><pre id="70fd6802-d230-4b37-89fa-dc8a1370fa8e" class="code code-wrap"><code>async function handleInput(e) {
+const rawAmount = await convert(
+fromInput.value,
+fromSelect.value,
+toSelect.value
+);
+
+toEl.textContent = formatCurrency(rawAmount, toSelect.value);
+}</code></pre><p id="2132a8e8-4089-4df1-bf46-e3e53d4d0a62" class="">Refresh the page and check whether that works.</p><p id="2372e2ae-3967-45cc-9aaf-8018b87e119c" class="">Unfortunately that does not seem to be working. Let&#x27;s look at the console to debug.</p><p id="8b181ce2-7bd1-44ad-80ca-f4181aecde13" class="">When Wes runs into a problem like this, when there are many things calling each other, he just works on them one by one.</p><p id="5ae6e673-cce8-4afe-a8e4-0e3a4f1e147b" class="">Lets start by testing <code>formatCurrency</code> in the console.</p><p id="a02bf97d-4918-4c7c-8376-61fc64b8e025" class="">We do not get the formatted amount back. Try manually passing the locale to <code>Intl.NumberFormat</code> method.</p><p id="6c0ce8d4-1d15-4c1f-ad70-dceed04d0037" class="">Modify the code like below to include it.</p><pre id="468afdc9-1483-43e3-95ef-a11dea486e9b" class="code code-wrap"><code>function formatCurrency(amount, currency) {
+return Intl.NumberFormat(&quot;en-US&quot;, {
+    style: &#x27;currency&#x27;,
+currency
+}).format(amount);
+}</code></pre><p id="6a7a28df-937c-4116-b90e-518147fe27b2" class="">Now if you refresh it, it should be working.</p><p id="8fe76086-8e2f-4477-82c1-8cf826f77dd4" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="00d74b8f-1e32-47ac-8670-9aadcc4a7ef3" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="817dba78-af21-4e06-8792-b04e240952f0" class="">Edit on Github</p></details></li></ul></div></article></body></html>

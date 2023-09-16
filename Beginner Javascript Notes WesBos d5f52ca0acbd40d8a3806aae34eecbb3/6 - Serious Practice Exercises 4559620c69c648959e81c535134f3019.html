@@ -1,0 +1,865 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>6 - Serious Practice Exercises</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4559620c-69c6-4895-9e81-c535134f3019" class="page sans"><header><h1 class="page-title"><em><strong>6 - Serious Practice Exercises</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="ce363015-d1c6-4a3f-b2bb-e1beaad58193" class="toggle"><li><details open=""><summary>33 - Etch-a-Sketch</summary><p id="bf9811df-9ce5-4a8b-9285-7517cb3caa12" class=""><a href="https://wesbos.com/javascript/06-serious-practice-exercises/etch-a-sketch">https://wesbos.com/javascript/06-serious-practice-exercises/etch-a-sketch</a></p><p id="1db90fae-6d29-41a8-8347-cb7043dcb977" class="">
+</p></details></li></ul><ul id="fd4f2784-3202-4a8b-9c54-0f6cf9f6e411" class="toggle"><li><details open=""><summary>34 - Click Outside Modal</summary><p id="db74a50e-9853-4f65-ab10-0efaa000e51a" class=""><a href="https://wesbos.com/javascript/06-serious-practice-exercises/click-outside-modal">https://wesbos.com/javascript/06-serious-practice-exercises/click-outside-modal</a></p><p id="9b9bd8cd-e1fe-4e79-b6f9-bb85390c949e" class="">
+</p></details></li></ul><ul id="e61ae755-4ac9-44b3-8d9a-d86ea13f52b2" class="toggle"><li><details open=""><summary>35 - Scroll Events and Intersection Observer</summary><p id="42d8056d-f75f-48d4-ae74-736790a893b3" class=""><a href="https://wesbos.com/javascript/06-serious-practice-exercises/scroll-events-and-intersection-observer">https://wesbos.com/javascript/06-serious-practice-exercises/scroll-events-and-intersection-observer</a></p><p id="09ac853c-9e64-492f-b56b-47bbf9eb2dce" class="">
+</p><figure id="94ab42e1-cf87-40c5-9ef9-5ba7462b7489" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/bjs.png"><img style="width:700px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/bjs.png"/></a></figure><p id="078fe54c-8b2b-4e40-a1e1-a52aa21b2435" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="2bf2c8cc-8b2b-4533-b80a-2d04f90cd8f6" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="4c405814-54c6-43a6-94db-18e12d2bb7db" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="ec1dfd0c-0f94-4b54-9dfb-26198668cd95" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="a7908f32-0641-4694-90b2-8b4294d79fb5" class="">JavaScript, ExercisesEdit Post</p><p id="d86a9e13-a01b-4601-ae07-c3c34b09dcfd" class="">In this video we will learn about scroll events.</p><p id="04937150-d17e-4761-8978-e338d5fad7af" class="">A <strong>scroll event</strong> is when someone goes ahead and scrolls on the page or the inside of an element.</p><p id="aca9788a-e2df-465c-9678-1a072d43e4bb" class="">One thing you are likely to encounter in your career as a developer is building a terms and conditions scroll to accept.</p><p id="315f2e34-f56e-466c-a92b-be595954c186" class="">That is where the user is forced to scroll all the way to the bottom of the text before the accept button will work.</p><figure id="d3759990-41fc-44b1-ad8c-264aa803e675" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/scroll-terms.gif"><img style="width:459px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/scroll-terms.gif"/></a></figure><p id="fec74dad-fa00-4e1e-b18e-a604f6bdc655" class="">First we are just going to dive into scroll events, and then Wes will show us why a scroll event is maybe not what you want, and there is this newer thing in the browser called <strong>intersection observer</strong> which actually might be what we want.</p><p id="ebfbab08-7852-4d4c-b2c5-b24bbce162ae" class="">In the <code>exercises</code> directory, find the <code>35 - Scroll To Accept</code> folder and open up the HTML page.</p><p id="ec2a003f-e3ca-4ad4-87fb-7945878155bb" class="">You should see &quot;IT WORKS&quot; in the browser.</p><p id="16c96b99-90fd-44b1-9895-5c6c93082f39" class="">In the example shown in the gif above, you can see it&#x27;s not a window or document scroll.</p><p id="16f923d3-70ad-409a-9d34-c6eb30fbfe6a" class="">If you want to listen for a window scroll event you just listen for <code>window.addEventListener()</code>.</p><p id="d9933932-a70d-4d9e-a69f-3738ac964472" class="">If it&#x27;s the case of another element that has an overflow scroll set on it, like Wess has done in the following style that is on the <code>scroll-to-accept.html</code> 👇</p><pre id="be2e3576-3de8-40ce-b6f8-77d7e600aef0" class="code code-wrap"><code>.terms-and-conditions {
+overflow: scroll;
+}</code></pre><p id="d7eb41ac-212c-4b95-ad89-c78223d6c73c" class="">Select that element and listen for a scroll on it by selecting the <code>terms-and-conditions</code> class</p><pre id="ea17a51e-0e6b-4192-b2c1-90dc86d99b94" class="code code-wrap"><code>const terms = document.querySelector(&#x27;terms-and-conditions&#x27;);</code></pre><p id="45107ed2-1330-48d4-aeda-addfaa584a82" class="">Add an event listener to terms on the scroll event and just log the event with the handler. 👇</p><pre id="fbb98a1a-4cb0-4d83-b6b5-f23188fb0bf9" class="code code-wrap"><code>terms.addEventListener(&#x27;scroll&#x27;, function(e) {
+console.log(e);
+});</code></pre><p id="ecd723d6-366a-4c1a-9e29-60d93e2bee7f" class="">If you refresh the page, you will see the following error in your console</p><blockquote id="a678463f-8ad2-4114-bcd0-fe3f6d505029" class=""><p id="becc41ad-b976-4467-bf77-0a413db71d00" class="">scroll-to-accept.js:3 Uncaught TypeError: Cannot read property &#x27;addEventListener&#x27; of null at scroll-to-accept.js:3</p></blockquote><p id="838126da-d21c-416d-a5b7-c44882220b31" class="">This is a problem you will run into often. What it means is that the selector is null.</p><p id="df198ba4-998d-4674-8c56-a73b8e32ecd2" class="">Go ahead and log <code>terms</code> to see whether anything is returned for our selector.</p><pre id="f7615790-accc-4fbf-94c3-424c9a274adf" class="code code-wrap"><code>const terms = document.querySelector(&#x27;terms-and-conditions&#x27;);
+console.log(terms);
+terms.addEventListener(&#x27;scroll&#x27;, function(e) {
+console.log(e);
+});</code></pre><figure id="22779751-213c-4093-90a1-1897cbd18c33" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/1341.png"><img style="width:700px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/1341.png"/></a></figure><p id="242510e7-c5d8-4f30-9b36-01f49b1e59da" class="">As you can see, it did not find anything. When that is the case, your selector is probably wrong.</p><p id="ce71b70b-9285-42af-a547-341a85ab4e39" class="">Another <code>querySelector</code> issue you might run into is that it&#x27;s pretty common to have some JavaScript that only runs on specific pages.</p><p id="1f22fcf1-af9d-4cf0-9a14-95f7ef8a2cec" class="">If you were to run this code on your homepage for example, it will break.</p><p id="b65aad65-cc84-49cd-b897-c2c8f31de034" class="">What do you do about that?</p><p id="92794f70-9596-4d22-a577-709f2a8c9951" class="">Wes deals with that scenario like this: he creates a function like <code>scrollToAccept</code> and he puts all of his code inside of that function.</p><p id="99ab22cf-6f18-4029-ba82-66ad81065299" class="">Then within that function, after he grabs the selector, he will check if that element exists using a bang, and if it doesn&#x27;t, he will return so the function exits.</p><pre id="41d82069-14c9-415b-a5c9-4ede5b127904" class="code code-wrap"><code>function scrollToAccept() {
+const terms = document.querySelector(&#x27;.terms-and-conditions&#x27;);
+
+if(!terms) {
+return; //quit this there isn&#x27;t that item on tha page
+}
+
+terms.addEventListner(&#x27;scroll&#x27;, function(e) {
+console.log(e);
+})
+}
+
+scrollToAccept();</code></pre><p id="fa3938a7-139c-4e76-9530-58e6be958e77" class="">What that will do is check whether something is found by the <code>querySelector</code>, and if it is, the rest of the code will run as expected and if not, you return from the function which will stop it from running and then it will never run.</p><p id="584d9e39-5016-4295-bc1e-b5a2f702b4ad" class="">If you try screwing up your query selector now, you won&#x27;t get an error because the function will exit instead of running the code.</p><p id="2cd59a33-883e-417b-a99b-6c11ed58509d" class="">Open up the scroll event that you are logging in the console.</p><p id="241cb12e-6ebb-478d-bc5a-3c9e663487b0" class="">The <code>currentTarget</code> is <code>null</code> at this point but if you were to log it, you would see it.</p><p id="af15ec63-f3d9-49fa-a83b-df6e3a876df0" class="">Previously, to figure out if an element has scrolled all the way to the bottom, we used <code>e.target</code> or <code>e.currentTarget</code>.</p><p id="a4475ac3-ee35-4107-95aa-8343c182fefa" class="">Either of them work in this case because a scroll event does not bubble like a regular click would. So if you scroll on the terms and conditions element, you are not unintentionally scrolling anything else.</p><p id="c0fd4669-e378-4ac3-89e5-2e238be1cc74" class="">Use <code>e.currentTarget</code>, then you can take the <code>scrollTop</code> value which is a property on elements that will tell you how far you have scrolled from the top.</p><pre id="cd43a030-8fee-4488-a7b0-bc65fb7297e2" class="code code-wrap"><code>terms.addEventListener(&#x27;scroll&#x27;, function(e) {
+console.log(e.currentTarget.scrollTop);
+});</code></pre><p id="7e3d9afb-59f0-485b-8302-9e20c37a990e" class="">How do you know if you are scrolled to the bottom? How would you know that 1,828 pixels is the bottom for example?</p><p id="4632fe3b-6cf1-4238-bc78-cb03a9619a47" class="">You need to also grab the <code>scrollHeight</code> to figure that out.</p><p id="740a633f-ec52-4117-a25c-a4d71d8e85c5" class="">The scroll height will tell you how high the scrolling thing is.</p><pre id="7ea59f9f-a70f-4e2d-b3df-c147731f7778" class="code code-wrap"><code>terms.addEventListener(&#x27;scroll&#x27;, function(e) {
+console.log(e.currentTarget.scrollTop);
+console.log(e.currentTarget.scrollHeight);
+});</code></pre><p id="82092f77-0403-4d56-9e24-1df6e8492835" class="">Now when you log that, you will see how far from the top you are scrolled and the second number is how high the actual scroll-able div is.</p><p id="1fcdc20f-5267-44e6-8f54-b6f0b42b75e6" class="">When you reach the very end, you should see the values are close.</p><p id="d5c41f9a-3139-4206-9443-6568d763d3ef" class="">They are not perfectly close and that is because the elements have different CSS styles, one of them has margins and padding.</p><p id="1bcd5ccc-bcfb-420b-a9fc-863c31c68ff4" class="">That becomes a pain to work with because you have to work with offset heights and that is a thing of the past.</p><p id="eaf1c2e3-3d85-4511-8e42-dad2cd9448ca" class="">You do not need to do it that way anymore.</p><h2 id="f618032d-14af-428b-af1d-b6fe4d768c36" class="">Intersection Observer</h2><p id="8158a1e1-0f95-452e-ae28-192d0e833a6e" class="">The way to do it now is called <strong>Intersection Observer</strong>. Rather than figuring out how far along the page the user has scrolled, you can use intersection observer to figure out if something is currently viewable on the page.</p><p id="99b5c42c-4dd6-4def-9b3e-c0edbd1aa9df" class="">You can do that with the <code>terms</code> div but first let&#x27;s go over a simple example first to demonstrate how that works.</p><p id="8cb839c6-3897-4291-9f23-ef3c4fd5578c" class="">Inside of the <code>terms</code> HTML, between one of the paragraphs, Wes will add a strong tag with a class of <code>watch</code></p><p id="88b0fe87-468f-4c36-ba61-d8645e5592b4" class="">We want to know when that strong tag is visible on the page.</p><p id="81cf66a6-9d77-4ba4-85f3-a4be5f86a0aa" class="">Grab the watch element at the top of the file.</p><pre id="8f7592f0-865e-4526-a2c8-492fb269e8d4" class="code code-wrap"><code>const watch = document.querySelector(&#x27;.watch&#x27;);</code></pre><p id="d6f56402-aba3-4cb1-9474-7cd12d6bfdff" class="">Next we need to create this thing called an <strong>Intersection Observer</strong>. An intersection observer will watch if an element is on or off or partway on or off the page.</p><pre id="68659feb-ad1a-440a-86fd-0773bf0331b2" class="code code-wrap"><code>const ob = new IntersectionObserver()</code></pre><p id="e8415b5d-f542-409a-84a1-26c2191e7e39" class="">Do not worry about the <code>new</code> keyword for now, we will talk about it in future lessons.</p><p id="be7a4d68-1f20-4347-9ab0-07369b8ffed8" class="">The intersection observer is going to take a <strong>callback</strong>, which is a function that gets called at a certain point.</p><p id="b720dccf-e659-47b6-865f-cbbf96c32b5c" class="">It is different than a click callback or a scroll callback because this callback will be fired every single time that it needs to check if something is running on the page.</p><pre id="6482a452-2e1a-4258-bf68-fac669b9996c" class="code code-wrap"><code>function obCallback(payload) {
+console.log(payload);
+}
+
+const ob = new IntersectionObserver(obCallback);</code></pre><p id="be1e77ab-0f79-4396-8b57-e7dfd99dd79c" class="">Now that is not going to do anything if you refresh the page yet because the intersection observer is just a watcher and we haven&#x27;t told it to watch any elements yet. It works a bit differently than our click handlers.</p><p id="ecc585d8-2e6f-46fc-b75f-d761286ca886" class="">Let&#x27;s get rid of the scroll event listener that you have on this page as well.</p><p id="855d38b5-dfff-4dff-b814-6bcecec0fc54" class="">Take the observer and call the <code>observe()</code> method on it, and then you pass it something to watch for, such as the strong tag.</p><pre id="19bb5d34-6040-4ad1-a762-433440e1c96e" class="code code-wrap"><code>function obCallback(payload) {
+console.log(payload);
+}
+
+const ob = new IntersectionObserver(obCallback);
+ob.observe(watch);</code></pre><p id="a1a1ab3a-2b65-4ccf-83e4-68b270d651c5" class="">Now, every time we go ahead and scroll, you will notice that you get this IntersectionObserver entity logged.</p><p id="a91fbfc3-aa46-402a-b869-80f21ca7ea8a" class="">As you can see, it is full of information about all of the items that have come our way.</p><p id="bc64e8d2-1928-410d-8279-1ec408ab4bee" class="">You will notice that after a bit of time when you scroll, it doesn&#x27;t fire every time, it only fires when there is new information to be given to us.</p><p id="612eb3b7-cc12-4408-b9e3-32362e558905" class="">Right on page load, it tells us that the strong tag is off the page. But then as soon as you start to see it, even when it&#x27;s just peeking out, the intersection observer entry is logged.</p><p id="163bb9e6-8d50-4c8b-b65a-78acfa5c0b62" class="">If you take a look at what is in there, you will see some interesting things like the time that has passed from when you started observing it. That can be handy for games.</p><p id="f5004c49-1b54-41d2-90d6-cbea162112e7" class="">There is also the boolean <code>isIntersecting</code> which will tell you if it is on the page or off.</p><p id="38ef8419-a5fa-45cf-8a39-0896e8e1f55c" class="">There is other information about the size of the element and what size it is on the page.</p><p id="6b4bffe7-c3c0-4111-a3c5-62eb807e426e" class="">That is helpful information in helping us determine whether that thing is on the page or not.</p><p id="c8168b73-4b49-449f-a6eb-4d82189a3cf3" class="">Take that strong tag which is the first thing in the <code>payload</code> because you can watch for multiple items. 👇</p><pre id="6760b1d8-d64d-49aa-8ab7-af0c20e9c21e" class="code code-wrap"><code>function obCallback(payload) {
+console.log(payload[0]);
+}</code></pre><p id="8193cc02-d463-480e-b980-0b658bd8a1b5" class="">Now if you refresh the page and scroll the strong tag into view, you will see that an <strong>IntersectionObserverEntry</strong> is logged.</p><p id="8339bede-a27a-41a6-b142-08a86d60c196" class="">On that object there is a property <code>isIntersecting</code>, which is a boolean.</p><p id="68011243-611b-40fa-a513-6bd5e4d7a6bf" class="">Log that properties value, 👇</p><pre id="2bb8e6cb-3fb6-4b2e-b0c6-17b6cc644a43" class="code code-wrap"><code>function obCallback(payload) {
+console.log(payload[0].isIntersecting);
+}</code></pre><figure id="7cc8511a-05f8-4ccf-bf44-d779641b7d36" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/intersecting.gif"><img style="width:700px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/intersecting.gif"/></a></figure><p id="b27e2087-9b50-4530-bb9e-04160c408f15" class="">As you can see it tells us when it is on or off the page.</p><p id="ea547729-53db-490e-bc7d-29d3ac6aa698" class="">What is cool about that is it will also tell us how much on the page it currently is by looking at the <code>intersectionRatio</code> property.</p><pre id="2a696306-244f-4d72-a9be-63bf09d9efc3" class="code code-wrap"><code>function obCallback(payload) {
+console.log(payload[0].intersectionRatio);
+}</code></pre><figure id="3fade9f4-e7d1-4a89-bf60-036295b86275" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/ratio.gif"><img style="width:700px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/ratio.gif"/></a></figure><p id="657789b9-3212-4feb-ae5e-88cfce3e984c" class="">As you can see, the properties value changes based on what percentage of the element that is being watched is visible on the page.</p><p id="fdcaf79a-6faf-4731-a271-b9605291913e" class="">0 means not visible at all and 1 is visible. When it&#x27;s partially visible it&#x27;s 0.068402.</p><p id="cb3c5d09-02c0-4872-94ac-d613cbcfff50" class="">You can make use of that ratio to tell you if you have scrolled all the way to the bottom of the terms.</p><p id="7dd3c26b-77e7-4782-b6af-52157c43e043" class="">How will you know if you scrolled to the bottom?</p><p id="0b6a01c9-11e4-4f29-9d81-d64626c5da5c" class="">Take the terms and conditions and try to find out what the last thing inside of that is, because you want to wait for that element to be 100% on the screen before enabling the button.</p><p id="85c86bf3-621e-448a-bb25-1a2f95f687ad" class="">That is how you will know if the user has scrolled to the bottom.</p><p id="4cce0fb0-07d6-4246-9605-b4943ec5f5b5" class="">Stop watching for the strong tag, and instead watch the last paragraph on the <code>terms</code> like so</p><p id="ef6053d6-3dc8-4e5d-badd-b091ef6b003a" class="">Replace 👇</p><pre id="73705b9a-c95a-4a97-868f-970a5f3d0ade" class="code code-wrap"><code>ob.observe(watch);</code></pre><p id="3a957c16-1b48-4fc4-9fe0-eae4615370d4" class="">with 👇</p><pre id="45440b6f-a82e-4f53-aece-2dfafc75320b" class="code code-wrap"><code>ob.observe(terms.lastElementChild);</code></pre><p id="8b05bace-def9-4138-91f9-c187475508a2" class="">Now you are observing the last paragraph in the terms div.</p><p id="e82c6189-019b-4e97-9869-a98cb9685119" class="">If you refresh the page and scroll to the bottom of the page with the console open, you should see something like the following 👇</p><p id="beb78a43-00cc-4aee-a898-9d85b23c75ed" class="">How do you get it to tell us when it is 100% on the page?</p><p id="c282b3a5-21a2-4d19-aa17-50bd03875b2b" class="">You can pass a second argument to our <code>IntersectionObserver</code>, which can be an <code>options</code> objects and you need to tell it 2 things.</p><ol type="1" id="c5f1583a-99a1-4fc4-9312-08a1355027c1" class="numbered-list" start="1"><li>that the root of the thing you are scrolling with is the terms and conditions (by default it will be the <code>body</code>)</li></ol><ol type="1" id="aaed3833-139c-4517-84d4-04d6ca6e53e3" class="numbered-list" start="2"><li>the threshold, which you can either give an array like <code>threshold: [0, 0.5, 1]</code> which would then tell you when its off, halfway on and the on, or you can say only tell me when it is fully on the page, like so 👇</li></ol><pre id="30044b22-2b86-4b9e-a961-bac7b70d744b" class="code code-wrap"><code>function obCallback(payload) {
+console.log(payload[0].intersectionRatio);
+}
+
+const ob = new IntersectionObserver(obCallback, {
+  root: terms,
+  threshold: 1,
+});
+
+ob.observe(terms.lastElementChild);</code></pre><p id="814bcbc2-f129-44af-93a7-a39c86c2529f" class="">If you refresh and open the console, you will see 0 which tells us it is off the page and if you scroll to the bottom... uh-oh, we have an issue here.</p><p id="fb1da6cf-597c-4dee-9fd4-ed4f9410b3d4" class="">Even when we scroll to the very bottom it&#x27;s not firing.</p><p id="d0f0786c-09c0-45d6-ae17-aabe00bdbf8b" class="">If you change the threshold to something like 0.11497, it will fire.</p><p id="68c70355-8a9d-4dd4-b341-4516bc8f8b39" class="">What is happening here is if you give it a threshold of 1, but we are so cramped on the screen because Wes has to fit the browser and editor into one video, what is happening is the paragraph is so tall it&#x27;s never 100% on the page because by the time you get to the bottom, part of it is already being hidden.</p><p id="dbe7181f-65ef-469c-a7c1-ee9113d1ac02" class="">A way to solve that is by putting another element at the bottom of the page like an <code>hr</code> or an <code>image</code>. Anything that will be small enough to fit even on the smallest scrolling viewport.</p><pre id="543e30e1-c478-4830-a9b7-ee48acac2a8d" class="code code-wrap"><code>&lt;hr /&gt;
+&lt;/div&gt;
+&lt;button class=&quot;accept&quot; disabled&gt;Accept&lt;/button&gt;
+&lt;/div&gt;</code></pre><p id="eceda6d7-941e-4bdc-9624-0331400c8ffd" class="">Set the threshold to 1 and within the <code>callback</code>, instead of logging the ratio, add an if statement that checks whether the intersectionRatio is 1.</p><pre id="8060437d-019c-480a-883e-6b1340a79065" class="code code-wrap"><code>function obCallback(payload) {
+if (payload[0].intersectionRatio === 1) {
+
+}
+}</code></pre><p id="04befeec-f461-4984-baee-5a43f966bcb1" class="">At the top of the file and select the button 👇</p><pre id="079a4b26-5e36-4876-8eae-8fefc066da73" class="code code-wrap"><code>const button = document.querySelector(&#x27;.accept&#x27;);</code></pre><p id="43f4c062-b8cb-4a68-9400-c430e8f6aef9" class="">Now within that if statement, you can remove the disabled attribute from the button.</p><pre id="be2bd7ed-fdec-4711-8368-5240a25b86d9" class="code code-wrap"><code>function obCallback(payload) {
+if (payload[0].intersectionRatio === 1) {
+button.disabled = false;
+}
+}</code></pre><p id="158c08aa-4b82-4699-85ff-560cfab9d6be" class="">The CSS for the disabled attribute on the button gives it an opacity of 0.1.</p><p id="9eed40eb-86fc-46e6-83b7-602099d4c3c1" class="">You don&#x27;t have to do anything with pointer events here because HTML will prevent the button from being clickable due to the disabled attribute.</p><p id="397b0d46-8d34-47d9-acf0-727320af66a8" class="">Wes has also put a transition on the button of two seconds so it fades in once you hit it.</p><p id="a732a2ea-9764-4195-9d9f-ce7bedb4e1e0" class="">Add a log after you disable the button, like so 👇</p><pre id="6dbf5e8e-8eb5-45fc-9ab9-0bac5dc1950b" class="code code-wrap"><code>if (payload[0].intersectionRatio === 1) {
+button.disabled = false;
+console.log(&#x27;REMOVING DISABLED&#x27;);
+}</code></pre><p id="9c820f23-8620-4845-ae9a-80da8ba5caf4" class="">Now if you scroll to the bottom, you will see it runs.</p><p id="7df55c11-527f-46c8-bcde-c9cd84ec226c" class="">But if you scroll back up and down a couple of times it keeps getting triggered.</p><p id="b6bee1ea-f2b8-4760-9e1d-e84249fe63fc" class="">That is good for some use cases.</p><p id="28ade635-995e-4cbb-843d-0329a464b52c" class="">Let&#x27;s demonstrate by modifying the CSS like so 👇</p><pre id="8ee82c88-9f57-47e6-99da-6cefe152a17b" class="code code-wrap"><code>button {
+background: #ff0060;
+color: white;
+font-size: 1rem;
+padding: 20px;
+transition: all 0.2s;
+}
+
+button[disabled] {
+opacity: 0.1;
+transform: translateX(-200%) scale(0.5);
+}</code></pre><p id="5f94ddf6-225a-469b-8b5b-1a00f1df54ba" class="">Add an if statement to disable the button when it&#x27;s not fully scrolled.</p><pre id="d725a6be-328c-4e63-b3c8-291b9647823d" class="code code-wrap"><code>function obCallback(payload) {
+if (payload[0].intersectionRatio === 1) {
+button.disabled = false;
+console.log(&#x27;REMOVING DISABLED&#x27;);
+} else {
+button.disabled = true;
+}
+}</code></pre><p id="ac6b5177-f7f6-4c43-894a-a2d7dab9c5c0" class="">That might be what you want.</p><p id="cbc2225f-0ae9-4711-8d00-6a8a6bd556e4" class="">But in our case once it is accepted, we don&#x27;t care so we will stop observing the button.</p><pre id="782d6c64-4f8a-4047-9d54-dfa8910e3c40" class="code code-wrap"><code>function obCallback(payload) {
+if (payload[0].intersectionRatio === 1) {
+button.disabled = false;
+// stop observing the button
+ob.unobserve(terms.lastElementChild);
+}
+}</code></pre><p id="0c8a4142-07db-432b-9f0a-fc6adf607b51" class="">That will stop it from doing any unnecessary work.</p><p id="165775e2-59b4-4c09-b1a2-af056c077988" class="">That is scroll to accept.</p><p id="be9f830c-9fa7-488f-940a-74633fbc7921" class="">You don&#x27;t see the observer pattern too much.</p><p id="bf0ca16b-3481-4c51-b4a9-7430b6476615" class="">The only 2 ways currently in the browser is <code>IntersectionObserver</code> which tells you when something is currently scrolled into view, and another one called <code>ResizeObserver</code> which will tell you when an element is resized.</p><p id="b3ceffcd-980f-4cb1-8dd9-9c231853e0fc" class="">That concludes this lesson!</p><p id="0e0721d4-d2dd-48a4-8882-7525adbc953c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="c8223003-e70c-47f7-a70f-4eb7f35efd07" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="db542e2e-fb96-4011-8552-25fcf442db59" class="">Edit on Github</p></details></li></ul><ul id="ebf79834-b2bd-4748-b790-79206535705e" class="toggle"><li><details open=""><summary>36 - Tabs</summary><p id="dc4fbbf5-93e1-4858-801a-19a30b80eddc" class=""><a href="https://wesbos.com/javascript/06-serious-practice-exercises/tabs">https://wesbos.com/javascript/06-serious-practice-exercises/tabs</a></p><p id="eba54e49-1650-4286-a44a-d6e82ab2827d" class="">
+</p><h1 id="e8afa7cf-976e-47dc-be1f-bd442aba7f69" class="">Tabs</h1><figure id="1492736c-139a-4fcd-a0b5-eebfb7eb1ec0" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/bjs%201.png"><img style="width:700px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/bjs%201.png"/></a></figure><p id="b9f29e4f-6209-4fcd-963d-5e9f0b8233a6" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="55754786-36d5-4d23-9200-450f55c194c7" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="77ea7053-623b-4006-90c1-b8b7378e2e6b" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="a7470384-e4ba-4014-81a8-eca7a8290b44" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="4b43eeb4-230c-4268-bcf7-f5486bc3d1ee" class="">JavaScript, Exercises</p><figure id="fbc19e93-f371-47c4-9135-e188d2468bcb" class="image"><a href="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/1355.png"><img style="width:700px" src="6%20-%20Serious%20Practice%20Exercises%204559620c69c648959e81c535134f3019/1355.png"/></a></figure><p id="e4aab2ce-41a2-4f60-9735-13c53ea408b6" class="">In this example we are going to build tabs.</p><p id="9b053e40-9f21-495b-976d-0f0eeef9c7c2" class="">Tabs are pretty simple, you click on the tab you want and it shows the content associated with it.</p><p id="2df49910-02ae-444f-9714-ffd7bc77d7c0" class="">In this example we will practice showing/hiding things, event listeners, looping before we even learn and wee will learn how to make it accessible.</p><p id="df7f3273-5653-453c-ae0c-7bc20a0e0663" class="">The user should be able to use their keyboard to move between tabs without touching mouse.</p><p id="f0239a37-0032-4b6c-ac20-0751d9cfe86c" class="">Let&#x27;s start by looking at the HTML we will be working with.</p><pre id="771c83bc-a1f1-4b41-9fd3-bc1e32deb8b6" class="code code-wrap"><code>&lt;body&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+&lt;div class=&quot;tabs&quot;&gt;
+&lt;div role=&quot;tablist&quot; aria-label=&quot;Programming Languages&quot;&gt;
+&lt;button role=&quot;tab&quot; aria-selected=&quot;true&quot; id=&quot;js&quot;&gt;
+          JavaScript
+&lt;/button&gt;
+&lt;button role=&quot;tab&quot; aria-selected=&quot;false&quot; id=&quot;ruby&quot;&gt;Ruby
+&lt;/button&gt;
+&lt;button role=&quot;tab&quot; aria-selected=&quot;false&quot; id=&quot;php&quot;&gt;
+          PHP
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;div role=&quot;tabpanel&quot; aria-labelledby=&quot;js&quot;&gt;
+&lt;p&gt;JavaScript is great!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div role=&quot;tabpanel&quot; aria-labelledby=&quot;ruby&quot; hidden&gt;
+&lt;p&gt;Ruby is great&lt;/p&gt;
+&lt;/div&gt;
+&lt;div role=&quot;tabpanel&quot; aria-labelledby=&quot;php&quot; hidden&gt;
+&lt;p&gt;PHP is great!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+  &lt;script src=&quot;./tabs.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><p id="db9ddc4d-2535-4e72-b1c8-8ce4c855c68d" class="">We have a wrapper div with a class of &quot;tabs&quot; and nested within div is another div but this one has a role of <code>tablist</code></p><p id="c5107370-ef32-43ec-9ae4-4a601c5e4884" class="">You will notice a lot of role and aria labels in the HTML and that is important because it is how you make your tabs accessible to everyone and that search engines can easily read it.</p><p id="9dec2b1f-79a5-4cfb-9f1f-ca7b27437d71" class="">When you use proper markup, it is good for both <strong>accessibility</strong> and <strong>SEO</strong>.</p><p id="3929856a-f2d1-48e7-b967-61afb9e670d9" class="">We tell the browser that the div is a tab list using the <code>role=&quot;tablist&quot;</code> attribute.</p><p id="046fbef6-3152-4047-913a-ac23ece271cd" class="">That div also has an <code>aria-label=&quot;Programming languages&quot;</code> attribute. That is for screen readers to know what the list is about.</p><p id="e0679992-25d5-4692-b99f-e06a87060321" class="">Inside of the <code>tablist</code> there are 3 buttons. Each of those buttons has a role of tab and an id that contains the name of the programming language.</p><p id="6b36cec7-e6bb-4563-a29a-bb698b471302" class="">One of the buttons also has an <code>aria-selected=&quot;true&quot;</code> attribute.</p><p id="46cdc996-d3d6-4571-8e25-ccf6fb8a6d25" class="">That is how you are going to maintain whether the tab is currently active.</p><p id="00452ae5-b024-4277-aa6d-b41f2ab22aa5" class="">If you take a look at our <code>tabs-style.css</code> you will see that whenever a button has an attribute of aria-selected we change the background color, the text color and remove the box shadow. 👇</p><pre id="91660589-4ed7-417b-92cc-7fca0733595d" class="code code-wrap"><code>button[aria-selected=&quot;true&quot;] {
+background: var(--yellow);
+box-shadow: none;
+color: rgba(0, 0, 0, 0.7);
+}</code></pre><p id="6fd567ab-0206-4294-a555-526a74443a84" class="">You don&#x27;t have to worry about where to put the tabs and buttons because they are sort of clicked together by the <code>id</code> and the <code>aria-labelledby</code> of the actual tab panel.</p><p id="22eca0fa-7adf-40ea-931a-20dc683aa24c" class="">Further down in the HTML we have each all of our different tab panels.</p><pre id="98c22971-4ab5-40cb-9d6a-f0ce5b2a4210" class="code code-wrap"><code>&lt;div role=&quot;tabpanel&quot; aria-labelledby=&quot;js&quot;&gt;
+&lt;p&gt;JavaScript is great!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div role=&quot;tabpanel&quot; aria-labelledby=&quot;ruby&quot; hidden&gt;
+&lt;p&gt;Ruby is great&lt;/p&gt;
+&lt;/div&gt;
+&lt;div role=&quot;tabpanel&quot; aria-labelledby=&quot;php&quot; hidden&gt;
+&lt;p&gt;PHP is great!&lt;/p&gt;
+&lt;/div&gt;</code></pre><p id="de1de405-39ae-49a0-9d6a-55ff9f156fdd" class="">We can associate a tab panel with a specific button by giving it an <code>aria-labelledby</code>.</p><p id="0ac66034-50ec-4bfa-97b9-55fbfd085d61" class="">That is just descriptions, this aria-labels we are adding is not giving us any sort of functionality. It is just a good way to describe markup in the browser.</p><p id="d5cd3d8e-4fe3-4bbb-81d3-7759eb9294a8" class="">Npw you can apply an attribute of <code>hidden</code> to the non-selected tab.</p><p id="6433e7fc-0e6d-42e9-8674-aecf48a2d218" class="">The <code>hidden</code> attribute is great because you don&#x27;t have to write any CSS classes to hide it. You just pop that attribute on or off and it will show and hide it.</p><p id="369817ca-f506-462b-bad2-83886442bcd3" class="">Our default state is to show the first tab button as selected and to show the first tab panel content.</p><p id="8e328ba3-3c39-45f8-b266-7ff3cf4d211d" class="">Let&#x27;s start writing the code, beginning with selecting:</p><ul id="f7caa410-f6fd-4067-9871-4b5d16e900be" class="bulleted-list"><li style="list-style-type:disc">the tabs div</li></ul><ul id="6347ca09-0bef-4f1f-9960-1d6ddbe322d7" class="bulleted-list"><li style="list-style-type:disc">the tab buttons</li></ul><ul id="1cbc9fad-980f-4686-ac4b-371f08398fba" class="bulleted-list"><li style="list-style-type:disc">the tab panels.</li></ul><p id="d286b33b-e2ea-46ce-b461-28030e755b2b" class="">To grab the tab buttons, you will look inside of tabs instead of the document because you may have more than one set of tabs on the page, so you should write JavaScript to support that.</p><pre id="a62b72e7-ad2c-42b7-9867-2b01c435cc5e" class="code code-wrap"><code>const tabs = document.querySelector(&#x27;.tabs&#x27;);
+const tabButtons = tabs.querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;);
+const tabPanels = tabs.querySelectorAll(&#x27;[role=&quot;tabpanel&quot;]&#x27;);</code></pre><p id="226f84d5-daa2-4d86-a44a-81376336c970" class="">Next, loop over the buttons using a <code>foreach</code> and add a click event listener to each.</p><p id="d8ae0bab-dce2-470a-88b3-66a36341d5d6" class="">Because they are buttons, the click event will fire when you use the keyboard as well so there is no extra keyboard work you need to do.</p><p id="846e76b3-ccfe-4b6d-b890-d2df2c91863b" class="">Pass it a function <code>handleTabClick</code>, like so 👇</p><pre id="216e8ae4-1bf7-43f3-ac3a-b401441f16fb" class="code code-wrap"><code>const tabs = document.querySelector(&#x27;.tabs&#x27;);
+const tabButtons = tabs.querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;);
+const tabPanels = tabs.querySelectorAll(&#x27;[role=&quot;tabpanel&quot;]&#x27;);
+
+tabButtons.forEach(button =&gt; button.addEventListener(&#x27;click&#x27;, handleTabClick));</code></pre><p id="1c7d4bea-a1f8-4b95-bc3d-72a09a2bd1a6" class="">Add the <code>handleTabClick</code> function, like so 👇</p><pre id="c0bb959e-3482-460b-b5ce-1aea1587d38f" class="code code-wrap"><code>const tabs = document.querySelector(&#x27;.tabs&#x27;);
+const tabButtons = tabs.querySelectorAll(&#x27;[role=&quot;tab&quot;]&#x27;);
+const tabPanels = tabs.querySelectorAll(&#x27;[role=&quot;tabpanel&quot;]&#x27;);
+
+function handleTabClick(event) {
+console.log(event);
+}
+
+tabButtons.forEach(button =&gt; button.addEventListener(&#x27;click&#x27;, handleTabClick));</code></pre><p id="9aada032-b7d3-4c6e-889e-5d981688972d" class="">Now when you click on one of the tabs it gives you the event.</p><p id="f2c065d5-6732-41e8-b867-a30ad9bf6546" class="">If you logged <code>event.currentTarget</code> and then clicked different tabs, you would see each of the buttons logged.</p><p id="97a83b06-d4e3-4a2b-9c41-40fcc9519243" class="">Now let&#x27;s get into looping which you haven&#x27;t learned yet but it&#x27;s good to preview it before you hit the looping lesson and to see some examples of where you might use it in real life.</p><p id="feaf3456-4ad4-47c5-a8e5-959d8b3bc249" class="">When somebody clicks a tab, the first thing you need to do is hide all the other tabs and mark them as unselected.</p><p id="33d13996-a7f5-4251-b740-f218ab59c87e" class="">Then you have to mark the clicked tab as <code>selected</code>, and then find the associated <code>tabPanel</code> and show it.</p><p id="665aa848-dc4b-4a0a-aa29-d98bf088fd4f" class="">Let&#x27;s add all those steps as <strong>pseudocode</strong>, which is just putting into words what you are trying to do so you can grasp the steps that need to happen when someone clicks it.</p><p id="22f2f807-ef1b-489e-8c1b-e0babbd11af5" class="">We will go one by one and write the code for it.</p><pre id="ebd0cc6f-221a-4c6e-91e2-5e86b17e5b72" class="code code-wrap"><code>function handleTabClick(event) {
+// hide all tab panels
+// mark all tabs as unselected
+// mark the clicked tab as selected
+// find the associated tabPanel and show it!
+}</code></pre><p id="4f9377e7-a148-4373-8630-9557d4eed185" class="">We have already selected all the tab panels at the top of our file.</p><p id="fdcb3569-7c90-4e52-b0b8-e4879e36bf4d" class="">If you were to log them within the <code>handleTabClick</code> event, you would get a node list with the 3 divs.</p><p id="5a236222-bbbe-4b4e-af35-5a02dd86798a" class="">The tab panels are getting hidden by the <code>hidden</code> attribute.</p><p id="4abdc219-4cac-49f1-8d6a-d6a436a43513" class="">What you can do is loop over each of them using <code>.forEach</code> and for each item hide it, like so 👇</p><pre id="dec7e6c2-3d57-4cb1-80b7-93637d52c42b" class="code code-wrap"><code>tabPanels.forEach(function(panel) {
+console.log(panel);
+})</code></pre><p id="22c48ad8-d5b1-45fb-9c4a-672f885ece1b" class="">That code will take the node list of the 3 panels, loop over each one, and for each item, you get a variable called <code>panel</code>, which is how you reference each instance. Log it.</p><p id="3f513c17-e44c-433f-8cf6-dad989116c2b" class="">If you click on one tab, you get 3 separate console logs of each of them.</p><p id="a29c252b-405f-408a-baeb-9339c5257945" class="">Modify the code like so to set each panel to hidden. 👇</p><pre id="489b9ec6-4768-4daa-bb02-4fc87a33f01e" class="code code-wrap"><code>tabPanels.forEach(function(panel) {
+panel.hidden = true;
+})</code></pre><p id="ec9f1503-534c-40b6-8cbc-2e87ca6d7be9" class="">As soon as you click on any tab, all the panels turn to hidden.</p><p id="599ed87a-4158-4407-aca7-5d3bc630ba18" class="">To refactor that to an arrow function, you would simply modify the code like so 👇</p><pre id="dd01d898-fd2e-4b8d-b6f1-1964df060364" class="code code-wrap"><code>tabPanels.forEach(panel =&gt; {
+panel.hidden = true;
+});</code></pre><p id="b173373c-9e94-4254-9dc3-fbfdb060ecb0" class=""><em>Note: you could have made that arrow function a one liner but it&#x27;s better to make your function as readable as possible rather than try to make them as short.</em></p><p id="4998bb73-a686-4f89-8cde-50815e5fc46f" class="">In a future step, you will go back and show one of those <code>tabPanels</code>.</p><p id="d2febf2d-e03a-4fac-94f7-cb3fdb7044b1" class="">You could just filter out the selected <code>tabPanel</code> when hiding them, but in Wes&#x27; experience it is much easier to just hide them all and then show the one that we want.</p><p id="1974ca8e-2e5e-4f39-b65e-d8904727fd95" class="">The next step is to take the tabs and mark them all as unselected.</p><p id="d7053262-bb50-46d2-a85f-ad1e3e8e6ab8" class="">As you can see, we are using the <code>aria-selected</code> attribute to set whether it is selected or not.</p><p id="d403fe99-2e22-47d4-9630-5f8419060db9" class="">So how do you set that? Would <code>tab.aria-selected = false</code> work?</p><p id="f1d601e7-34c6-45c7-9d51-4045064a084c" class="">It does not, because you can&#x27;t put dashes in it.</p><p id="20b5dce7-6bc5-4bca-b5e8-21e413445ddc" class="">So how do we access a property when the property has a dash in it?</p><p id="db3a1085-0027-4649-a831-d624154f47d9" class="">If you go to the HTML page, click on one of the buttons in the Elements tab of the dev tools, then flip to the console and use our $0 trick, you can access it like so 👇</p><pre id="367f5ff4-e798-4ebb-8533-7962968f1835" class="code code-wrap"><code>$0.ariaSelected</code></pre><p id="b1f4920b-d816-4f5f-997a-e3b89903eed0" class="">Anytime that you see an attribute with a dash on an HTML element, you can almost always access that with the camel cased version of that.</p><p id="569975ca-b78f-4694-8847-8b0fa38df08f" class="">Let&#x27;s try that.</p><pre id="fce60e67-ba1f-4cca-b8ef-71be417935cb" class="code code-wrap"><code>tabButtons.forEach(tab =&gt; {
+tab.ariaSelected = false;
+});</code></pre><p id="d781a0ab-c7b0-468f-be01-79f99208ac4a" class="">If you refresh the page does that work?</p><p id="09b0bf7d-cee0-432e-94ce-2d7cf350e950" class="">No. You will see a tab is still selected.</p><p id="713b0a41-0eaf-446b-b3a0-b921f72fffad" class="">If you click on the JavaScript button which still looks selected, and flip to the console and do <code>$0.ariaSelected</code>, it will return false.</p><p id="758d5989-4bbd-4fbe-ad4c-709346acce9c" class="">So why is it not updating?</p><p id="1088a4a0-61b7-43e5-8ef1-e40421e2513c" class="">If you flip back to the elements tab, you will see the attribute value equals true. It never updated. What happened!?</p><p id="a141c2be-1917-416c-a24d-8d7da9130023" class="">What happened is that with most properties in JavaScript, you can just access the property on the element directly.</p><p id="596f94ee-dde0-4409-b304-d415e21ec248" class="">However for some properties, including custom properties that you just made up, as well as <code>aria</code> properties, it looks like you cannot use that method.</p><p id="05738c6b-8603-42bb-81e1-9f7ad58d193e" class="">The only other way is to use the <code>.setAttribute()</code> method.</p><p id="ccd388c0-e3bd-4bc3-a6bb-c91dc1bc4849" class="">Wes looked at some docs and for <code>aria</code> properties, you should always use the <code>setAttribute</code> and <code>getAttribute</code> method on the element instead of on the property.</p><p id="6f9ac1f8-a568-43b1-8684-c0eb9ee9ea94" class="">So some properties like <code>.alt</code> or <code>.src</code> or <code>.title</code>, those things can be done via properties on the element, but not for aria attributes.</p><p id="4d10c883-99b9-4952-ae7a-b0365dad5f6b" class="">Modify the code like so 👇</p><pre id="3333152c-d560-464e-a6cb-7010b916d8d6" class="code code-wrap"><code>function handleTabClick(event) {
+// hide all tab panels
+tabPanels.forEach(panel =&gt; {
+panel.hidden = true;
+});
+// mark all tabs as unselected
+tabButtons.forEach(tab =&gt; {
+// tab.ariaSelected = false;
+tab.setAttribute(&#x27;aria-selected&#x27;, false);
+});</code></pre><p id="95b31558-3f78-45e6-88f7-05759a04a742" class="">If you were to refresh the page and click one of the tabs, all the tabs will no longer be selected.</p><p id="7207e0f8-9240-4845-a6dc-fbddfd9c48fb" class="">Now, mark the clicked tab as selected.</p><pre id="8e3103e0-9b82-4373-bab1-e3842e5abda6" class="code code-wrap"><code>event.currentTarget.setAttribute(&#x27;aria-selected&#x27;, true);</code></pre><p id="a4266e19-ce2e-49a2-b916-06f737946db5" class="">When you click one, you will see it will set and remove the aria selected.</p><p id="d660901f-3a93-43ba-adae-6d8f3d52a39f" class="">You might have noticed that we are not using any classes here and the reason for that is if you can reach for an accessibility attribute over a class then do that so you can kill 2 birds with one stone.</p><p id="be831ee3-6365-4d42-9eb7-5d6a0b5304a4" class="">Next, you need to find the associated tab panel and show it.</p><p id="bb208bba-be13-4eac-b0f5-594c6fe56fcd" class="">They are associated using the button <code>id</code> and <code>aria-labelledby</code> attribute of the tab panel.</p><p id="b22f521a-fbfe-444c-9321-a851ff559949" class="">So if someone clicks on the button below, we need to find the tabPanel with <code>aria-labelledby=&quot;js&quot;</code> attribute value. 👇</p><pre id="3f56161f-f224-4dd8-8131-bdf51c8649ba" class="code code-wrap"><code>&lt;button role=&quot;tab&quot; aria-selected=&quot;true&quot; id=&quot;js&quot;&gt;
+  JavaScript
+&lt;/button&gt;</code></pre><p id="5a480c8f-bf7f-4685-bfb4-4e02d713ec43" class="">You could do this a couple of ways.</p><p id="8c69b91a-7fae-439c-b4a7-e88758876fbf" class="">First grab that id.</p><pre id="4b8ccb83-31c8-446a-be63-86735b86b6b9" class="code code-wrap"><code>const id = event.currentTarget.id;</code></pre><p id="cffd9537-4816-4f86-be55-921a498c2f8e" class="">You might notice that when you save the code, the editor modifies that line like so 👇</p><pre id="924f1fa1-24a1-4004-8f55-a43dbb6d24dc" class="code code-wrap"><code>const { id } = event.currentTarget;</code></pre><p id="7b73cfb9-9882-402f-ad9d-395c1bd65b98" class="">That is because instead of saving the variable the same as the property on something, you can destructure it to create an <code>id</code> variable from that thing.</p><p id="5a156cb7-51d7-43fb-b504-48ce1668d5e8" class="">That is handy if you ever want to pull other properties like an <code>alt</code> or a <code>src</code>.</p><pre id="217668de-64e2-4008-9ec8-63b56c4b9bdf" class="code code-wrap"><code>function handleTabClick(event) {
+// hide all tab panels
+tabPanels.forEach(panel =&gt; {
+panel.hidden = true;
+});
+// mark all tabs as unselected
+tabButtons.forEach(tab =&gt; {
+// tab.ariaSelected = false;
+tab.setAttribute(&#x27;aria-selected&#x27;, false);
+});
+// mark the cli cked tab as selected
+event.currentTarget.setAttribute(&#x27;aria-selected&#x27;, true);
+// find the associated tabPanel and show it!
+const { id } = event.currentTarget;</code></pre><p id="c2d4ef29-48ea-4bb1-a9f2-0019b05bbeef" class="">Now you need to find the associate tab panel.</p><p id="f86aff18-a7b6-463a-a042-315c7641b30f" class="">There are a couple of ways you can do that.</p><p id="774da396-1da3-4012-a367-c024ef4d3f81" class="">You can simply use the id in a selector.</p><pre id="e6529b6f-d436-4528-a379-7a357e30fc46" class="code code-wrap"><code>const tabPanel = tabs.querySelector(`[aria-labelledby=&quot;${id}&quot;]`);
+console.log(tabPanel);
+tabPanel.hidden = false;</code></pre><p id="1da80373-8544-4e5f-ba6d-9d97096e3689" class="">If you refresh the page, you will see that works.</p><p id="a347b204-f91a-4e4e-bba0-122b2f873d63" class="">Comment that code out and try another method, this time using <code>find()</code>.</p><h2 id="6eae554f-b234-4664-8ec5-de3396bc84f8" class="">Converting a NodeList to an Array</h2><p id="f2207703-bbc6-4576-b965-669ab58cb958" class="">Take the <code>tabPanels</code> and just loop over it until you find the one you want.</p><p id="85de3190-97ac-42fc-ad29-d92a8869c03d" class="">If you added the following code, would it work?</p><pre id="1d278595-d8d5-4693-9b86-752c8ea890fb" class="code code-wrap"><code>tabPanels.find()</code></pre><p id="936d1924-1061-4897-8715-4200917fd713" class="">No, it does not.</p><p id="92eba4f1-bce4-4da1-af7a-94b2b0cd17fb" class="">Why not?</p><p id="7e0d3499-b255-4409-b67c-844d8daf6571" class="">That is because the <code>.find()</code> method is only a method on arrays.</p><p id="6e788834-7c4f-4048-ad7c-053746230ae8" class="">If you recall from when we logged <code>tabPanels</code>, it is not an array, it is a NodeList, and it doesn&#x27;t have all of those array methods.</p><p id="1335c255-2f28-44de-8fde-47c639bdede1" class="">You can convert the NodeList into an array by wrapping it in <code>Array.from()</code> like so 👇</p><pre id="1756a45a-6771-44c9-8e90-0d6c23e0296a" class="code code-wrap"><code>const tabPanels = Array.from(tabs.querySelectorAll(&#x27;[role=&quot;tabpanel&quot;]&#x27;));</code></pre><p id="0596dd42-b714-41c4-9cb7-58525fb546e0" class="">Now using the find, you can check for each of them whether the <code>aria-labelledby</code> attribute equals the id.</p><pre id="89c9db50-f47a-4d22-bf20-5ab1b3168ade" class="code code-wrap"><code>const tabPanel = tabPanels.find((panel) =&gt; {
+if (panel.getAttribute(&quot;aria-labelledby&quot;) === id) {
+return true;
+}
+});</code></pre><p id="05303dab-7ae3-4eb8-a40a-509eb7028c3f" class="">You can actually refactor that to use an implicit return to return the outcome of the condition.</p><pre id="2c0845e0-3b3d-4c56-9817-77c594034ae6" class="code code-wrap"><code>console.log(tabPanels);
+const tabPanel = tabPanels.find(
+panel =&gt; panel.getAttribute(&#x27;aria-labelledby&#x27;) === id
+);
+console.log(tabPanel);</code></pre><p id="c43e4cbf-e761-4317-849b-241027d3b961" class="">So what you did is you used find to find the tabPanel that matches the id we passed and you stored the result in a variable called <code>tabPanel</code>.</p><p id="91990aff-3cb2-421a-ab9d-1eebffb99e7d" class="">Now when you click on a tab, you will see the associated panel.</p><p id="d7cb1031-7ccf-4168-aeda-11263d0c2de9" class="">Replace the log with <code>tabPanel.hidden = false;</code> so it is no longer hidden.</p><p id="0f1c7f6e-0aeb-4224-9754-2d3beac7ac5a" class="">Now your tabs should be working!</p><p id="b7b59950-9d6b-45aa-b633-1d24a0c07fe4" class="">Both those methods are valid, it&#x27;s up to you which you prefer.</p><p id="f1000b91-57ea-4905-b34f-eba7dda552c6" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="1b761099-3597-4ef0-9497-ea0f14b169f3" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="6cc02745-99ff-4cae-95c7-ab04b815d6d1" class="">Edit on Github</p></details></li></ul></div></article></body></html>

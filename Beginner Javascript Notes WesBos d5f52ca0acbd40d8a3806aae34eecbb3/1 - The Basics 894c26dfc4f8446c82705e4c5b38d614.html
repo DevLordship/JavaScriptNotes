@@ -1,0 +1,822 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1 - The Basics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="894c26df-c4f8-446c-8270-5e4c5b38d614" class="page sans"><header><h1 class="page-title"><em><strong>1 - The Basics</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="0c103d36-7f65-418d-ae65-cebf109cf094" class="toggle"><li><details open=""><summary>01 - Welcome</summary><p id="7abdf4b1-ed0e-463a-8702-966bfed7d2d6" class=""><a href="https://wesbos.com/javascript/01-the-basics/welcome">https://wesbos.com/javascript/01-the-basics/welcome</a></p><p id="89d0bee8-bd84-41e0-8743-66d3bfc304df" class="">
+</p><figure id="645eef70-a5de-40c5-ae8b-2b910e3211c6" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs.png"/></a></figure><p id="1ac9a698-f7bc-4c55-b0bb-64a89a472898" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="7f9590b4-fe7a-47cb-87e2-ee2f0b71a545" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="c79c6573-7954-4120-b1ef-8a23319590ea" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="2a0a5664-9fbd-4cf5-9c39-85c49fa5da1e" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="d396c248-2005-4cee-a543-7b74899074f0" class="">JavaScriptEdit Post</p><p id="84f23dfc-c6ad-4658-bdd6-28818761e57f" class="">This course is all the stuff Wes wishes he had known over the last 10 years of him doing JavaScript. It is a big course but it does a good job of distilling the information down into the things you need to know, and making it easy and fun!</p><h2 id="93d44224-5a35-4b2b-8b6a-64bd5313b32e" class="">House Keeping</h2><p id="e469c8d9-880e-4410-8c88-beb29a437a58" class="">This video is for housekeeping items that need to be addressed before we can get into writing code.</p><h3 id="995dc882-3039-46f4-aff3-d64713d2a75f" class="">Starter Files</h3><p id="075b0b71-0ce2-4a8b-8cfb-f29dd6adcfcb" class="">First one is the starter files for this course can be found at http://courses.wesbos.com/. Click through to <code>My Account</code> and there will be a link to the starter files.</p><p id="2ca5f7fb-0a7b-4aab-8eb8-8367608d4bcd" class="">The starter files link will bring you over to Github which has all of the starter files as well as all of the solutions for this course.</p><p id="8bf27e5b-ccae-43fb-bd6a-04738dd706ab" class="">Please star the <a href="https://github.com/wesbos/beginner-javascript/">Beginner JavaScript Github repo</a> to help Wes up!</p><h3 id="ce94e9e8-c611-4878-859d-b80b90c6145f" class="">Slack Channel</h3><p id="974980e4-cddb-4e76-940d-d961f5042757" class="">If you are also taking the <a href="https://beginnerjavascript.com/">video version of this course</a>. On the course platform there is also a link to the Slack channel, where you can jump in and get help, maybe join up with a buddy and do a course together with someone.</p><h3 id="11767964-7b8d-449b-9cdd-74c168468a94" class="">Structure of Starter files</h3><p id="b4347d78-b51f-4108-a257-d0261802fe2a" class="">There are 3 folders in the <code>Beginner-JavaScript</code> repo.</p><ol type="1" id="74eced9d-9839-479f-876f-abab182cfc4c" class="numbered-list" start="1"><li>snippets</li></ol><ol type="1" id="2687149e-ca53-47a7-905d-86596867d4b0" class="numbered-list" start="2"><li>exercises</li></ol><ol type="1" id="c352ab03-48fa-42c2-810f-53d4ef605b14" class="numbered-list" start="3"><li>playground</li></ol><figure id="18f8cc06-3d6d-48e1-922a-d2cfa360d295" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/beginner-javascript-github-repo.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/beginner-javascript-github-repo.png"/></a></figure><p id="71fe0235-67c8-4a9e-a9cd-712409ef062d" class="">The <code>snippets</code> folder that has some base HTML snippets in there with instructions on how to get them into your HTML editor (we will talk about the editor in the next video).</p><p id="afde81a5-e77d-4e52-86b3-72fb264da43e" class="">There is also a <code>/playground</code> folder, which has some HTML files Wes uses to explain concepts throughout the course. He will often provide a <code>-FINISHED.html</code> file, which will include what Wes has written in the video, whereas the starter file itself, Wes will either ask you to create it yourself or he will provide an empty state.</p><p id="39cc6cc4-564f-4e6e-b9fb-b411e1c65a91" class="">The <code>/exercises</code> folder contains all the proper, full blown exercises that we will be doing throughout the course.</p><p id="aef7d072-01bb-4c55-b9aa-0af7968a5140" class=""><em>Note: Sometimes the numbers of the exercise folders are going to be a little off from the video number is, so just make sure to line up the file with the name of the video, not necessarily the number.</em></p><h3 id="28ca02de-9b53-4509-bc49-1435efbd2a4e" class="">How to Do the Course</h3><p id="d9a3dc66-58f3-4a07-862b-a9eed506c8a8" class="">Another thing is how should you do this course? Should you watch it, should you code, should you code while you watch?</p><p id="ddb7b1cb-c96b-4b2b-a57a-b3e545df95c7" class="">About half the people prefer to watch it and then do it after, and the other half prefer to do it as they watch.</p><p id="15d491f0-e3d8-47ab-8b57-56320c9edb91" class="">Try both methods and see what best works for you! You&#x27;ll fall into whatever feels best for you pretty quickly.</p><p id="555f097e-934c-4089-9f29-d760fe561741" class="">Last thing is grab a buddy if you can.</p><p id="c9426885-ed47-43d2-9007-7e77bd91d9fc" class="">Jump into the Slack chatroom and see if there is anyone willing to do it with you, you can team up, or team up with someone in person. It&#x27;s always better if there is someone to hold you accountable.</p><p id="56ec3b57-d64a-435c-a6de-7b5ee4e7fad2" class="">It&#x27;s a long course, 28 hours long, you can jump around.</p><p id="27c202db-5f34-49b0-b824-f604e31cd0c4" class="">If you understand certain concepts, such as what functions or parameters are, feel free to skip those videos.</p><p id="5e309614-7324-480c-a7c5-703c13816ed6" class="">The whole idea is that it is reference-able.</p><p id="445783d8-6c43-491e-9be8-3ac6c646860d" class="">We are not building a huge app here that we build on in every video, instead, every video pretty much stands on its own and if we reference something from a previous video, Wes will mention it.</p><p id="da7fd2c7-b669-4754-8f1f-89896f075d40" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="c8b0487f-4ad7-4c01-89b1-14709fa45f37" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="13de9fed-2522-42f3-9af8-bc9b322087ac" class="">Edit on Github</p></details></li></ul><ul id="aab5d3e9-7714-4724-873c-979343542f49" class="toggle"><li><details open=""><summary>02 - Browser, Editor and Terminal Setup</summary><p id="418b6a87-956b-4eed-9292-895777428f65" class=""><a href="https://wesbos.com/javascript/01-the-basics/browser-editor-and-terminal-setup">https://wesbos.com/javascript/01-the-basics/browser-editor-and-terminal-setup</a></p><p id="0c10a64a-82b8-42c7-95aa-8add39b3d0ce" class="">
+</p><figure id="a348a421-b5a0-4e31-95a5-167956b7abec" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%201.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%201.png"/></a></figure><p id="1d2486a9-4e8e-4991-81a1-4cef8f91dfe2" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="58165d6e-b253-4a34-b409-5a9aced01f47" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="d31388b3-7aa2-489f-9baf-d4c545625907" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="22e7eb31-7c65-44d1-8830-4515d5b17ea7" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="d8f7593e-3993-4d8e-a3b6-5799c2e2f39c" class="">JavaScript, Browser, TerminalEdit Post</p><p id="e24d6694-b372-4497-83c3-d25484792e8d" class="">Let&#x27;s talk real quick about setup and the tools you need.</p><p id="393d0cce-84c3-41a1-818c-67d63e7dfbbc" class="">You can skip this video if you know the three things:</p><ol type="1" id="8fc36699-7585-4480-89b7-177b47f8cc6a" class="numbered-list" start="1"><li>Which browser you would like to use (as well as how to open the dev tools)</li></ol><ol type="1" id="cd3cda68-5826-404c-ae3e-40c794998f98" class="numbered-list" start="2"><li>You already have Node.js and NPM installed.</li></ol><ol type="1" id="f543327f-afbb-433a-a79e-f0a2f4c385cd" class="numbered-list" start="3"><li>You have an editor that you like (such as VSCode).</li></ol><p id="4f631c02-dd1c-4590-90cd-9171a0ec934f" class="">If you already have those things in place, skip this video and move onto the next one. Wes will just be introducing all three of those and talking about his personal choices behind them.</p><h2 id="d2a74380-e75a-4b2c-93e6-69ad94483ada" class="">The browser</h2><p id="02305d3d-646b-4921-852e-508f62cf84d0" class="">Let&#x27;s get into the browser.</p><p id="faaf8b33-7458-48a8-b188-02fabfd3205b" class="">You can use Firefox, Chrome, any browser you like because we are just writing JavaScript.</p><p id="f20d0957-a7ea-429f-b467-1cd545d97f73" class="">The important thing here is that we will be using the developer tools. Both Firefox and Chrome have very good web developer tools. Wes will likely be using Chrome throughout the course.</p><p id="2268ffd9-5faf-4b12-abe3-50b13aeb5559" class="">Things you need to know is how to do open the dev tools. You can just right click and select &quot;Inspect Element&quot;, which will show you the DOM, and you can click over to the console.</p><h3 id="c6d42349-41ef-4edf-ba08-94e1234e7001" class="">Shortcuts</h3><p id="2cdeb5b9-b77b-474a-9acb-bdf0887c2e8e" class="">It&#x27;s worth learning the shortcuts to quickly open up developer tools, inspect element and the console. That way you can really quickly open it.</p><p id="9ef159bc-3c15-41eb-937b-8fcb3e59a61c" class="">To find the shortcuts, in Chrome you go to <em>View</em> &gt; <em>Developer</em> and then you can see the shortcuts.</p><p id="98fd16d8-9e4f-46d7-8de8-dc18345656a5" class="">In Firefox, you click on the hamburger menu and go to <em>Web Developer</em> &gt; and then you will see the shortcuts for Inspector and Web Console, which is the two we will be using.</p><h2 id="a393f21b-8717-4014-976d-09180d52b689" class="">Node.js</h2><p id="eba69548-993c-49f5-a1fc-a4a712a89ccb" class="">Next up, we need Node.js. In order to install Node.js, go to https://nodejs.org and install the latest version.</p><figure id="0bd5c661-97cd-466c-81e8-87988024f890" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/node.js-website.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/node.js-website.png"/></a></figure><p id="d0d9ae5c-04b0-48fa-8366-c3a455ce31f2" class="">Don&#x27;t pay attention to the version numbers, those will change depending on when you take the course. <em>The stuff that we are covering is not dependent on what version of node you use.</em></p><p id="a0239aab-4e36-4954-a161-585f20f1a1bd" class="">We aren&#x27;t writing Node.js websites in this course, instead a lot of tooling, bundling, formatting, etc. uses Node.js under the hood so we need to have it installed.</p><h3 id="610e1d2c-6b47-427e-b2e3-4fbed9941f8b" class="">Checking if Node.js is installed</h3><p id="89eda02a-2d14-4ced-9e11-b8b9db79de96" class="">How do you know if you have it installed or not?</p><p id="d4610574-b94a-4dc9-9296-84cad70080a8" class="">You can go ahead and install it again and all that will do is update your Node.js to the current version if you already had it installed.</p><p id="4cb012ed-0bba-4b8b-b07c-676bfc6bb5d7" class="">Another way to check is to open up a terminal window.</p><h3 id="75b5bb98-1c72-49e9-a72e-81f5836bbf00" class="">Which Terminal to Use</h3><p id="290fbe4a-f30e-488e-a6b6-315abc9478ca" class="">You can use the built in terminal application which on a Mac you can find under <em>Applications</em> &gt; <em>Utilities</em> &gt; <em>Terminal</em>.</p><p id="57fe9185-81fc-4629-9b8b-f1e47bc32da5" class="">Wes is using a terminal called Hyper for his terminal. You can also use the terminal in VSCode.</p><p id="8413cf2d-e7a7-4fb3-b00b-8fe72f70431c" class="">You can use iTerm. They are all the same terminal at the end of the day.</p><p id="fe566298-f646-4232-b098-cf68176e8c26" class="">If you want to know what theme Wes is using, you can go to https://wesbos.com/uses and that will give you the links to all of the different themes and things he is using.</p><p id="859c5265-6570-49fc-8b9d-f0b3eddaee97" class="">On Windows, the terminal is called Command Prompt. You can access this by going to <em>Start</em> &gt; <em>All Programs</em> &gt; <em>Accessories</em> &gt; <em>Command Prompt</em>. There is another terminal for Windows called Cmder.</p><p id="753a64af-87b4-4881-8698-c1aab7ce3af6" class="">How do you know once you have a terminal open?</p><p id="001b8f67-b038-4af3-adce-211c5f8a08c9" class="">You can go ahead and type <code>node -v</code> in the terminal and press enter.</p><p id="0c71241f-7076-4de2-b097-2b34f8433450" class="">That will let you know what version you have installed.</p><h3 id="334a3029-d80a-46da-be91-8fa63e3a55bb" class="">Checking if you have npm installed</h3><p id="e2edc9ef-4a7f-44d0-a023-50e92f7a87ba" class="">You need to also check that you have NPM installed. You can do that using <code>npm -v</code>, which will tell you what version of NPM you have installed.</p><p id="d23c6a89-5eb8-49ec-82e6-8b549100595e" class="">As long as you have something greater than 10 for node and 6 for npm, you should be fine.</p><p id="7c485b6b-ec0f-4958-a3fe-532fe4c2889c" class="">Wes wants to avoid going down any rabbit holes regarding complex tooling and best ways to do things. You just need to have it installed and it will be working.</p><h2 id="01ec8c1e-e542-4fd7-8f0f-7855a1910f6f" class="">Command Line Basics</h2><p id="8d809710-e64b-4a2c-86f7-faf58d6a8cf1" class="">Now we will do some command line basics in case you are not familiar with working in the command line.</p><p id="8822d342-0135-4777-aca3-1bcd479ca8d9" class="">There are a couple of commands you need to know in order to run our JavaScript and bundles.</p><p id="808d4a7d-328a-4879-a8fa-19484d4ab438" class="">Basic Commands</p><ul id="41cd6ae8-635c-4487-9f6a-4f2e6863b313" class="bulleted-list"><li style="list-style-type:disc"><code>cd</code> - this means change directory</li></ul><ul id="3b43b6e2-e5e6-4c2f-8ed9-6b2f3f0bf9da" class="bulleted-list"><li style="list-style-type:disc"><code>ls -l</code> (mac), <code>dir</code> (windows) - this will list out all of the files and directories under the current directory</li></ul><ul id="230e5b22-b0ab-4e15-906d-dca7265c13dc" class="bulleted-list"><li style="list-style-type:disc"><code>pwd</code> - print working directory will give you something like <code>/Users/wesbos/beginner-JavaScript/exercises</code></li></ul><ul id="dd4baf89-fddf-4bc8-bf16-b17507661e1f" class="bulleted-list"><li style="list-style-type:disc"><code>cd ..</code> - go up a level in the current directory</li></ul><p id="22d5c3b3-6392-4790-a369-4401c497cf8a" class="">(examples of the above commands visible in image below)👇</p><p id="7d64fe14-68dd-4cc9-9f53-99ba46e34793" class="">In this example, Wes is in the <code>beginner-javascript</code> directory, and he uses the command <code>ls -l</code> to see what other directories he has nested inside his current directory.</p><p id="13116e52-1153-405b-a8da-e73acd2723c3" class="">He can use the <code>cd</code> command to change directories into the <code>/exercises</code> directory by typing in <code>cd exercises</code>.</p><p id="de0ca371-3ad9-4c4b-b9b7-cd12bbeb45de" class=""><em>Note: If you want to learn how to customize your terminal, you can go to https://commandlinepoweruser.com to take a quick course of Wes&#x27; to get you up and running with a cool terminal that shows the prompt and current working directory like Wes&#x27; does. That is not part of this course, just for those who are curious.</em></p><p id="15c186e6-c323-4525-b8ad-c2d17d987128" class="">Other things to know is how to go up a level in a directory. You can do that using <code>cd ..</code>.</p><p id="dda3f242-684a-46a0-811c-816c38123711" class="">That is all we need to know right now.</p><h2 id="fae49aeb-6084-4ed0-b4be-291b3f0f8eb0" class="">Check that Node.js is working</h2><p id="feb4e199-4198-49da-be8a-697a9f8ee358" class="">If you want to see if your Node.js is working, you can type <code>node</code> in the terminal and that will give you a caret which will load up a <em>REPL</em> which is a <em>read-eval-print loop</em>. That is essentially the console. You can do <code>1+1</code> and press enter and the console will evaluate that to <code>2</code>.</p><p id="863a9868-480e-4dbc-bc66-decb4591ce8b" class="">Once you have run the <code>node command</code>, to get back to the terminal you have to press <code>CTRL + C</code> a few times.</p><p id="5605e0cc-cf91-4057-bba4-8323f1671bdc" class="">Other helpful things are:</p><p id="4efd07aa-9f99-4ba3-9ef5-197aefe33388" class=""><code>cmd + k</code> or <code>cmd + r</code> (mac) or <code>ctrl + k</code> or <code>ctrl + r</code> (windows) - <em>will clear out the console. (this works in Chrome dev tools console as well)</em></p><h2 id="a4667cd0-3ff9-4735-883c-18f08ea026ce" class="">Code Editor</h2><p id="8bd32e65-e096-47c0-9f8b-84a0b7c9f131" class="">Finally we are on the topic of the editor.</p><p id="61e8f1e9-08f7-46c3-974b-42c905463ba6" class="">Wes highly recommends you use VSCode because he thinks it&#x27;s the best editor for writing JavaScript in.</p><p id="fee65aa9-efaa-4a4e-a740-527178ce822f" class="">You may have different opinions.</p><p id="a1c2c5f5-608f-413c-ae1c-59ee3228e0e5" class="">In terms of tooling, Wes feels that VSCode is the best.</p><p id="a876aa36-d8a6-4bda-802d-387ea97f6ec6" class="">We will be looking at some extensions to use to format JavaScript properly. Again if you want to know what theme Wes is using, refer to https://wesbos.com/uses.</p><p id="43004694-b3db-437e-82e7-8b4519b6416c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="0e0580cb-ff3d-4323-85b1-0587d46b45a3" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="145a686d-bb8f-4758-893c-e81a2b1ec032" class="">Edit on Github</p></details></li></ul><ul id="ee112531-ab74-4850-b147-e2bab05acdd6" class="toggle"><li><details open=""><summary>03 - Running and Loading JavaScript</summary><p id="55560d1a-d08e-499d-a244-49a9581ae05e" class=""><a href="https://wesbos.com/javascript/01-the-basics/running-and-loading-js">https://wesbos.com/javascript/01-the-basics/running-and-loading-js</a></p><p id="eaea508d-e339-44dc-8eb2-06deb3a7190f" class="">
+</p><figure id="4df5e3c8-373c-4d9f-85c7-eacca7a68ecf" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%202.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%202.png"/></a></figure><p id="c4c210be-11df-4780-9a36-42e9e8804488" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="076273f6-2a87-402b-971e-4c7edb06e62f" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="ba881bdc-61b5-48fd-86b9-2021be7a1681" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="7d5c9a87-d5e9-4abf-90c8-9f4871175d9e" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="38c31929-5def-4749-a469-d191d3107566" class="">JavaScript, Browser, Node.jsEdit Post</p><p id="1d4ebe4d-f47b-4898-9639-b7f8e83ba193" class="">Let&#x27;s talk about how to actually run JavaScript.</p><p id="bfb8ea84-0000-476f-8f97-9c644248b6c7" class="">There are a couple of ways we can run JavaScript:</p><ul id="51b61be5-047b-4bf1-a32a-a2f96008baf8" class="bulleted-list"><li style="list-style-type:disc">in the browser console</li></ul><ul id="8ce4ed5c-0ee7-4407-a42b-31faf22f2978" class="bulleted-list"><li style="list-style-type:disc">in node</li></ul><ul id="4e2d0242-a47f-417a-856d-8bf12f3f2cba" class="bulleted-list"><li style="list-style-type:disc">via a script tag</li></ul><ul id="09366e0f-13f9-4ed4-869e-6e23a1ceb082" class="bulleted-list"><li style="list-style-type:disc">we can also have an external script.</li></ul><p id="9dfccb21-4407-4fb3-b8e7-b52ad16e3609" class="">We will talk about how we can actually run those.</p><p id="d5de05c9-0fdb-41e2-9fa0-d2af967738d8" class="">The simplest is to open up your browser dev tools and go to your console.</p><p id="68e36735-1ee3-4308-8172-1996e69f64fe" class="">If you want to run some JavaScript to see how it works, like here Wes has typed <code>1 + 1</code> and hit enter and the console returned <code>2</code>.</p><figure id="89aeba9b-d92a-4d56-9ac3-b10dc864464a" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/browser-console.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/browser-console.png"/></a></figure><p id="adf8dd00-3fb1-4ca5-b4c4-9772aec50e2b" class="">This right here is a JavaScript console and it&#x27;s a nice way to quickly noodle on some JavaScript</p><p id="502ac494-fba2-4c0a-9407-f157653865e6" class="">To see how it works, just pop open a browser console. The neat thing is if you are on any websites, say https://github.com, the JavaScript that you type into your console runs on the actual page that is loaded and existing.</p><p id="e02c5bb0-931a-44fc-8bb8-8de70e4d4c9e" class="">For example You can type the following to grab all the paragraphs from the github page that you are currently on. 👇</p><pre id="5c68dbab-421b-4b3c-87e5-c7e9bfd8c980" class="code code-wrap"><code>document.querySelectorAll(&quot;p&quot;);</code></pre><p id="160c2b1c-b1b2-4853-a855-c9750b7ee97d" class=""><em>(Don&#x27;t worry about what document.querySelectorAll() does, we will cover that in a future video).</em></p><figure id="ccfe698c-bae7-44a9-b802-557c5017d4ea" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/console-showing-queryselector.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/console-showing-queryselector.png"/></a></figure><p id="ab0006f3-cc0f-47b9-b4e1-330064ff1334" class="">The code that runs in your dev tools console is running in the context of the page that is loaded in your browser tab.</p><p id="1434ec9e-8a2e-4159-9b4c-f233c7027358" class="">The next way to do it is a script tag.</p><p id="12882972-50b5-486d-bc16-c552add5b538" class="">Go into the <code>/playground</code> folder and create a new file <code>running-js.html</code>.</p><p id="553bb094-ba82-4e7e-8774-703018c9e177" class="">Wes has an Emmet extension in VS Code so he is going to hit <code>!</code> and <code>Tab</code> to scaffold out some HTML for us.</p><p id="56c49092-c512-4074-9c63-07b1c78ec1b3" class="">In the body, we can have a script tag in which we will add <code>console.log(&#x27;hey&#x27;)</code>.</p><p id="7fa0d90a-e2ed-40d8-ba5e-88189acdb099" class="">What that will do is when the HTML is loaded, it&#x27;s going to say &quot;OH! This is a script tag, I am changing languages from HTML over to JavaScript, and it will run any code inside of the opening and closing script tag as JavaScript.</p><p id="b656f1b7-a4cc-4327-b4e0-aa6aa8cd1d7c" class="">If you go ahead and open the <code>running-js.html</code> file in the browser, and open the console, you will see that it says &quot;hey&quot;.</p><p id="24c7f2bf-8b79-40a1-b1b2-4080be9cf664" class="">Don&#x27;t sweat this too much, we will be explaining what console.log() and everything does shortly.</p><figure id="5373295f-02b8-498b-b968-f7327ba32467" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/console-hey-message.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/console-hey-message.png"/></a></figure><h2 id="3aa17c4f-8fd6-4d94-807c-3a9f23151bec" class="">Run scripts before closing body tag</h2><p id="932d6b94-1e0c-4f60-91bf-6315344579f9" class="">One thing to keep in mind is that it&#x27;s almost always worth running scripts just before the closing body tag.</p><p id="feecd186-a95f-4260-a5d0-32e6d14f3d41" class="">So if we were to modify <code>running-js.html</code> to include a paragraph tag that says Hey right after the body tag, and then we wanted to grab that paragraph via JavaScript, we could if our script is right located right before the closing body tag, like below: 👇</p><pre id="9d328024-2911-4743-8d5c-857c6778e912" class="code code-wrap"><code>&lt;body&gt;
+&lt;p&gt;Hey&lt;/p&gt;
+  &lt;script&gt;
+const p = document.querySelector(&quot;p&quot;);
+console.log(p);
+&lt;/script&gt;
+&lt;/body&gt;</code></pre><p id="3bd999ca-bb74-4b80-8f2b-4cc975069776" class="">If you were to move the script tag above the paragraph element (or move the paragraph element below the script tag), and refresh the page, the console will show <code>null</code> because that means it found nothing.</p><p id="786b6286-9d8e-4b1c-b8dc-5c9bfd9438b9" class="">In order for your script tag to access the elements on the page, the elements must first be on the page before you select them. If we try to select something that doesn&#x27;t yet exist (because it gets created later), we won&#x27;t have access to it.</p><p id="a0917a81-7995-42c7-b6be-35096afc9549" class="">For your own sanity, always put your JavaScript right below the closing body tag. <em>(We will talk about loading in future videos when we get a little bit more into the DOM).</em></p><h2 id="25da38eb-7dd4-4975-ab3d-f64f41f89911" class="">External JavaScript Files</h2><p id="af951d57-b5fa-4743-ae14-82adaeb14b83" class="">Another way we can do it is via an external JavaScript file.</p><p id="705dc5c5-f358-4e88-86f5-22454ee9ef97" class="">Go into the playground and make an external JavaScript file, called <code>some.js</code>. In that file, add the following code 👇</p><pre id="c2b95052-5a06-41b9-9234-623ccff6b6c9" class="code code-wrap"><code>console.log(&quot;I am in another file&quot;);</code></pre><p id="b559a59f-e937-4fb1-8fe6-bbddba596393" class="">In the <code>running-js.html</code> file, remove the existing script block and instead add a script tag with a <code>src</code> attribute. <em>(You do not need a </em><code><em>type=</em></code><em> attribute until we hit ECMAScript Modules.)</em></p><p id="0e36397e-0afe-4bf2-a02f-e62742ca92b6" class="">Inside of the <code>src=</code> attribute, you need to give it a relative path, like so 👇</p><pre id="2fb48dd1-a58c-47ea-951d-bea6c5693d64" class="code code-wrap"><code>&lt;script src=&quot;./some.js&quot;&gt;</code></pre><p id="e0c12b02-8f83-43f8-b91c-0001dd00a294" class="">That works because the HTML file is in a folder where the sibling file is <code>some.js</code>.</p><ul id="fa726639-9996-4811-a2db-9546bbcaba7a" class="bulleted-list"><li style="list-style-type:disc"><code>./</code> means in this folder.</li></ul><ul id="468ae015-5b0b-471d-87a3-0d10132abd6f" class="bulleted-list"><li style="list-style-type:disc"><code>../</code> would mean go up a folder level.</li></ul><p id="47bee87e-552e-48fd-b212-aa5b7e392982" class="">In our case, it&#x27;s in the same folder so <code>./some.js</code> is the relative path to our file.</p><p id="8f29e38d-e1d9-4fec-a0dd-114e50d52ee6" class="">Now if you run that, it will say in the console <code>I&#x27;m in another file</code>, and it will even show you which file and line number of where that JavaScript had been run. 👇</p><p id="54b0e230-b413-4a43-88b7-6c540e3e4384" class="">Again, if you were to put the script inside the <code>head</code> element, it will still work.</p><p id="ce5e3dd0-b10f-4fc7-9836-b8316dd66020" class="">However, if you were to try to select some things on the page, such as the paragraph tag, you will get <code>null</code>.</p><p id="0793cd89-66bc-4b79-b9e2-c4aa5357174c" class="">Why? Because of the same reason, the script will run before the actual HTML is finished building on the page. Leave the script tag right before the closing body tag for the best performance and to save yourself future debugging headaches.</p><p id="0cb33917-221e-49d4-b270-ce333c770154" class=""><em>(There are some options like the </em><code><em>async</em></code><em> and </em><code><em>defer</em></code><em> attributes you can add to your script tags that will delay the actual running of the JavaScript, and it will download it asynchronously and then run it once the HTML has been loaded, however that is a more advanced topic which we will get into once we discuss async. But first we will need to understand what does asynchronous mean, etc)</em></p><p id="f81e4762-9aea-4a32-ba78-38981ccd9525" class="">Another thing you may have noticed is why is there a closing script tag if there is no content in between the opening and closing tag?</p><p id="242d2ccc-4c83-4c76-830e-82c222583c7e" class="">That is a quirk with the script tag. It cannot be self closed.</p><p id="0d4fce64-fbeb-463b-a1a5-078fbe42b4b5" class="">You also cannot add extra JavaScript between the script tag like so: 👇</p><p id="c547f29e-52ef-41d0-a392-263a27b3c125" class=""><em>That will not work.</em></p><p id="ec54b046-4608-4d1b-8bb1-9ff5dcde277d" class="">You can have multiple script tags in an HTML file, if you like.</p><p id="f4be29ce-d1b1-4503-b41f-de2af2caa033" class="">The only downside to that is that every single time that it hits one of those script tags, it will go off and download the JavaScript file and parse that for you.</p><p id="1d261581-5dd4-4cf3-945e-a5316fac3348" class="">When we hit modules, we will look at how we can bundle those multiple files into one. Or you can do something called code splitting, which is split them into multiple, smaller JavaScript files, and have them load on demand.</p><h2 id="cfaa21fa-55c9-4f85-9e55-86c0d1600e07" class="">Running it in Node.js</h2><p id="d5d23e89-aade-42af-a69a-eb6835c88c88" class="">One more is actually running it in Node.js.</p><pre id="e785e386-68fc-4401-b934-0d1b8764e688" class="code code-wrap"><code>console.log(&quot;I&#x27;m from node&quot;);</code></pre><p id="ce8c232e-9138-44ac-bb7d-c975e2878f66" class="">Node.js is JavaScript that can run in the server. Instead of running JavaScript on a website, we run it on an actual machine (like many other programming languages do).</p><p id="517ec35c-147c-46d0-8559-05e0ed36b582" class="">The way we do that is we open our terminal and <code>cd</code> into the <code>playground</code> directory.</p><p id="4b74c8f2-67d2-4e66-bf6b-f6dd31c48e2b" class="">You can run the script in Node by entering the following in the terminal and hitting enter 👇</p><pre id="15334ab4-a2e9-4bee-a03d-da0621701425" class="code code-wrap"><code>node node-example.js</code></pre><p id="d049eebb-85b4-432d-b450-0c9634b6c686" class="">That will run whatever code is in the script file, and once it&#x27;s done, it will exit out of node and return you to the terminal.</p><p id="2bf79421-1551-43eb-950c-50ba2b0cea3a" class="">That&#x27;s the short of how to load JavaScript.</p><p id="4250e2a0-7645-4ac7-8e96-8f75f52b88be" class="">We will be using a mixture of running JavaScript in the console, in a script tag and in external JavaScript files.</p><p id="0bd9258e-a9d7-4631-b960-4ac6baa9c2f0" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="06cc1382-0c27-424d-8990-f8cf4cf98e5c" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="df76e8bc-5b97-444c-9121-961368ff3ff7" class="">Edit on Github</p></details></li></ul><ul id="fbcf412a-09c0-46d3-a9ad-97dbeee0ccc2" class="toggle"><li><details open=""><summary>04 - Variables and Statements</summary><p id="a497b87b-5b46-43b0-93c9-3dac4fb0d723" class=""><a href="https://wesbos.com/javascript/01-the-basics/variables-and-statements">https://wesbos.com/javascript/01-the-basics/variables-and-statements</a></p><p id="4b365796-9672-4433-b91c-2cdea9fbbc9a" class="">
+</p><figure id="a122b941-83da-4223-922f-1182e0b87d21" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%203.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%203.png"/></a></figure><p id="4ed3c58e-1b75-40a1-b139-d97e3639b87b" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="62c1feb1-87e6-41cd-8505-f84c7565db32" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="47b8b383-e53a-4ea2-9ed6-5528ad87a287" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="d6b4b3d4-0950-46cc-9d84-3a8f2c8548ca" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="ba1f3127-829b-45ff-8293-837ffbc61897" class="">JavaScript, VariablesEdit Post</p><p id="e02bcad0-706e-431b-b492-361542b4aa78" class="">This video is going to teach you an introduction to variables.</p><p id="947aded3-75d5-4275-aaaa-40e0ff49abb2" class="">Variables are a building block of JavaScript, and you can&#x27;t use JavaScript without knowing variables.</p><p id="cefeb180-bc3d-4e5c-9aa4-999868d9299b" class="">We will cover what they are, what the different types of them are, what declaration means as well as what a statement is in JavaScript.</p><p id="734f6e86-973b-478a-aafa-5521ed1a6e59" class="">Go into the <code>/playground</code> folder and make a new file <code>variables.html</code>.</p><p id="7c27b3a3-ea9e-4587-93a9-0ad7dde6a426" class="">Use the <a href="https://github.com/wesbos/beginner-javascript/tree/master/snippets">HTML base snippet</a> and add a script tag within the body.</p><p id="464c2a9e-4777-4356-831d-88350e261b67" class="">To make sure everything is working, add a <code>console.log(&#x27;hey&#x27;);</code> within the script tag. Wes will explain the use of the semi colon shortly.</p><p id="62beeee3-8d54-4dfe-a045-0cff07687bf8" class="">If you open up the <code>variables.html</code> file in the browser, you should see &#x27;hey&#x27; in the console.</p><figure id="a19d925c-d283-4322-ae99-c2204301cf4a" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/variables-html-console-hey.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/variables-html-console-hey.png"/></a></figure><p id="64fd7e47-778a-40e4-a2bb-c265dfc7e0d9" class="">There are three different ways to make a variable, which in JavaScript we refer to as declaring a variable. They are:</p><ol type="1" id="9a6451d2-b5a2-4ab7-8ffa-b980089c21d7" class="numbered-list" start="1"><li>var</li></ol><ol type="1" id="fa40c141-422d-42df-aac0-bb52fac4a5bd" class="numbered-list" start="2"><li>let</li></ol><ol type="1" id="c858beea-8d77-4b35-a440-d82c3551e030" class="numbered-list" start="3"><li>const</li></ol><h2 id="e728739a-5bb9-441b-b926-2858d77a78db" class="">var</h2><p id="f148ab13-b754-48f1-894b-95805fbc15de" class="">Let&#x27;s start with <code>var</code>.</p><p id="648502a6-54aa-4f38-af4a-893a829011e0" class="">To make a variable you type <code>var</code> and then you make a name of the variable. You can use almost anything for a variable name <em>(we will discuss the restrictions shortly).</em></p><pre id="ea544cc1-bfa6-4b6c-bce4-17a87e86115f" class="code code-wrap"><code>var first = &quot;wes&quot;;</code></pre><p id="275236a3-5fc3-497d-acda-f89f01afc489" class="">What we have done there is created a new variable called <code>first</code> and we set it to a string of <code>&quot;wes&quot;</code> <em>(we will discuss what a string is in a second).</em></p><p id="70ec0f7e-8cfe-4326-bdd0-8ab99707abbc" class="">Now, if you refresh the <code>variables.html</code> page, and type into the console <code>first</code>, you will see that we actually get the value that is inside of that variable.</p><figure id="3f75b8b4-f1e4-4824-a4c6-f294e881861e" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/browser-console-showing-variable-first.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/browser-console-showing-variable-first.png"/></a></figure><p id="ed86e7af-6875-43dc-8e6a-2c2841a6a98c" class="">You can also do it by doing adding a <code>console.log()</code> statement like so:</p><pre id="c68d1f4a-029a-4f24-875f-f94d0e2dfe3e" class="code code-wrap"><code>&lt;body&gt;
+  &lt;script&gt;
+var first = &#x27;wes&#x27;;
+console.log(first);
+&lt;/script&gt;
+&lt;/body&gt;</code></pre><h2 id="7c9f55a2-c39a-45a2-9761-1107a9c39d33" class="">let</h2><p id="4ae618da-8d79-4dca-8d6e-c55fc9ab393f" class="">The second way to declare a variable is with <code>let</code>.</p><p id="ab63d4ce-d252-4dd4-90ac-b93e0bd4ca5a" class="">Below the declaration of the variable <code>first</code>, add 👇</p><pre id="6b1d1da9-002c-4f13-937f-6cf5e6763840" class="code code-wrap"><code>let age = 300;</code></pre><p id="45379fb1-5b59-40f4-914a-9c46acb8f12a" class="">If you refresh the <code>variables.html</code> page, and type in <code>age</code>, you will see 300 returned in the console.</p><h2 id="bcc6dd4c-edb5-4673-b160-e5ad07f5c903" class="">const</h2><p id="8111f21e-0166-46d8-a8fe-89f1f6b6142b" class="">The third way is with <code>const</code>. Below the <code>age</code> variable, add the following: 👇</p><pre id="dd02a076-0178-4a80-ad1e-ce2d4f1a8ff7" class="code code-wrap"><code>const cool = true;</code></pre><p id="e0b5cbe3-eb67-4a26-8b9e-cf03c9caf6aa" class="">That is what is called a constant variable.</p><p id="563d41c4-e73b-41e9-bd15-013e2ae7d5b5" class="">The naming of these things aren&#x27;t great. Const means constant, but it&#x27;s still called a variable.</p><p id="068aa5e3-dcb0-456a-bf68-89286c455167" class=""><code>var</code>, <code>let</code>, <code>const</code> are all different types of variables, and there are different ways to declare the variables and we will talk about the pros and cons to all of them in just a second.</p><h2 id="968075c6-f0eb-494f-8e9a-8a14a0871d02" class="">Statements and Semi-Colons in JavaScript</h2><p id="8fad6ebe-b9d1-4d23-9b9e-18ba46cee4aa" class="">Before we do that, let&#x27;s discuss the <em>semi-colon</em> Wes is adding after each JavaScript line.</p><p id="519cf99b-20fe-4111-9c7a-d12969160fa9" class="">Semi-colons are used to terminate the line of code in JavaScript. Below is an example of what is referred to as a <strong>statement</strong> in JavaScript.</p><pre id="46b4c388-5be9-4bcd-8c69-3b8dc823d0ce" class="code code-wrap"><code>var first = &quot;wes&quot;;</code></pre><p id="b9df7635-ccd5-4bd8-8270-6c4647ee72a7" class="">A <strong>statement</strong> is an instruction to the computer, browser, the JavaScript interpreter to do something.</p><p id="5c9a9bd4-5ee7-4770-a2b8-96e8dc7683ea" class="">This can usually be summarized as a variable that was declared, a variable that was updated, a function that was called, or something was logged to the console.</p><p id="9c9879d3-96a6-4f34-b945-6c3a8b115d91" class="">Anytime you want to do something in JavaScript, that is referred to as a statement.</p><p id="8890170b-5c82-41bd-8f3a-3806d1d022a0" class="">When you are done writing your statement, you add a semi-colon to the end of the line.</p><pre id="736ae548-69c4-430e-93a9-6623f7145fa4" class="code code-wrap"><code>var first = &quot;wes&quot;; // variable declaration statement
+let age = 300;
+const cool = true;
+console.log(first); // function call statement</code></pre><h2 id="e68afd14-8160-4346-87b5-933ddbe714e6" class="">Code Blocks</h2><p id="b72e1156-72ad-4c48-a0ac-a9765835f103" class="">One thing that we will run into in JavaScript is something called a code block.</p><p id="77dddb45-938d-4440-9e3e-4db0191943c6" class="">For example, add the following line of code to <code>variables.html</code> and refresh the page.</p><pre id="67345a1a-9980-43fd-ab29-190917a973b5" class="code code-wrap"><code>if (age &gt; 10) {
+console.log(&quot;you are old&quot;);
+}</code></pre><p id="d761e3f9-17b5-4e04-850a-6c209b6a575d" class="">You should see the message &quot;you are old&quot; in the console.</p><p id="4820155c-d0b6-4be2-ad29-064b99367169" class="">The question is how come we <em>didn&#x27;t</em> put the semi-colons after each line like this 👇</p><pre id="3b49bb04-b71e-4a95-98bd-6a5db4d69cf2" class="code code-wrap"><code>if (age &gt; 10) {;
+console.log(&quot;you are old&quot;);
+};</code></pre><p id="13ff872b-fb9b-4427-bd2f-8a53c69888cc" class="">That is because it&#x27;s something that is referred to as a code block.</p><p id="832490b8-502b-4466-a5b4-a378a0091b5b" class="">Code blocks are things that are bound by these curly brackets <code>{</code> and <code>}</code>.</p><p id="852728e2-afbe-4f1e-b66c-d2897bfef8fd" class="">Things like function definitions, if statements, loops do not need a semi-colon at the end because you aren&#x27;t telling the computer to do something. In those instances, you are just running some code and telling the computer to do something inside of the block.</p><p id="f8c0ee77-8254-416b-b081-df42621518df" class="">Throughout the course Wes will continue to mention why we do and do not use the semi-colon so you can get the hang of it.</p><p id="a9a42cd7-00a8-4904-9a55-99840bc0b26b" class="">It is possible to get away <em>without</em> writing semi-colons in JavaScript because there is something in JavaScript called <em>ASI</em>, which is <strong>automatic semi-colon insertion</strong>, but we are not going to cover that because it&#x27;s a much more advanced topic.</p><h2 id="ad6439f5-97d3-4010-9959-44ea40a32f92" class="">Differences between var, let &amp; const</h2><p id="4906fe3e-83da-4896-a087-bf3210033acd" class="">Let&#x27;s talk about the difference between the three types of variables.</p><p id="295f524f-6824-4f6d-91a8-68fa118641dd" class="">Remove all the extra JavaScript code within <code>variables.html</code> except for:</p><pre id="e7e1b20f-6df8-45bc-a01b-ec46eb3835b9" class="code code-wrap"><code>&lt;script&gt;
+var first = &quot;wes&quot;;
+let age = 300;
+const cool = true;
+&lt;/script&gt;</code></pre><p id="35a0a18c-7d45-4ec2-aac0-ed5d2bf12fe8" class=""><em>The values of the </em><code><em>var</em></code><em> and </em><code><em>let</em></code><em> variables can be updated.</em></p><p id="08fa1e55-6cec-4b7d-b91e-c7990fd8a507" class="">If you ever wanted to change what the value is of one of those variables, you can simply just change it.</p><p id="5b452fc5-1143-46f2-9b53-344f9d4f1b6c" class="">For example, if you add the following line of JavaScript, refresh <code>variables.html</code> in the browser and type <code>first</code> in the console, you should see the value <em>&#x27;westerhoff&#x27;</em> returned.</p><pre id="9e3c6e3c-172d-4ac7-a8f0-ff69f629c34b" class="code code-wrap"><code>first = &#x27;westerhoff&#x27;;</code></pre><p id="2443da11-24e0-4e6b-a581-647ad68e9833" class="">The same can be done with the <code>age</code> variable.</p><p id="f83ea496-d924-4162-b98c-93834c553c25" class="">For example type in the console <code>age = 400</code>. That updates the value of the <code>age</code> variable.</p><p id="e98084fc-1eed-4af3-8100-5aca264f1e29" class="">You can either run the JavaScript from the <code>variables.html</code> page, or you can run it from the console. Because the variables in <code>variables.html</code> are <strong>global variables</strong> <em>(which we will cover in a future video)</em>, we can modify them either in the script tag within <code>variables.html</code> or directly from the console.</p><p id="8a3c2bd5-011b-460d-838d-ab0868c642d0" class="">Notice that we do not have to redeclare the variable. We did <em>not</em> have to do something like this:</p><pre id="75e7ad3b-1669-48d6-8896-ed2f6a30a14b" class="code code-wrap"><code>var first = &quot;wes&quot;;
+let age = 300;
+const cool = true;
+
+var first = &quot;westernhoff&quot;;</code></pre><p id="c7cffda0-218e-48d8-9bbe-c452128322db" class="">That is actually a bad practice and in most cases, won&#x27;t even work.</p><p id="104acc4a-4f52-4dbe-9761-63b98320871c" class="">You only need to declare the variable with <code>var</code>, <code>let</code>, or <code>const</code>, and then whenever you want to update the value, you don&#x27;t need to put the variable keyword in front of it, you can just go ahead and set it to it&#x27;s new value.</p><p id="fa3da49e-38ec-4bfa-80c4-27441f3d0a82" class="">You <strong>cannot</strong> set a <code>const</code> variable to be something else <em>(there are instances where you can change a const variable, that will be handled later)</em>. If you were to go <code>cool = false</code>, you will see the following error: 👇</p><p id="6ff347c9-f73a-4a0d-bb2e-00bc8579fa6c" class="">Errors in JavaScript will tell you what went wrong and where it went wrong. Here it says 👇</p><blockquote id="6d6814e3-92d4-4c26-aa34-88aee7a2186e" class=""><p id="ce513f2c-f9eb-432f-9c0b-0fc0ef7545d0" class="">Uncaught TypeError: Assignment to constant variable on Line 18.</p></blockquote><p id="e3dd8654-0eea-46ba-be83-2b9f09104227" class="">That error is describing exactly what we did, which was that we tried to change a boolean value that was set to a <code>constant</code> variable.</p><p id="df85de17-56a8-4c0d-98fd-6c1a1f0e0bbc" class="">Constant variables cannot be changed, so think of them like an API key or something that you never want changed. You set those to a constant, and the value of that variable can never be changed.</p><p id="97c1adbd-a892-4c70-9287-8324d51af715" class="">It is not completely true that it can never be changed, which we will follow up on when we get to arrays and objects <em>(meaning that there is a difference between the array or object that it is bound to and the values that live inside of it).</em></p><p id="42615177-708a-40af-ab2d-cb6c3c0e362c" class="">What we need to know right now is just that <code>var</code> and <code>let</code> variables can be changed or updated, and <code>const</code> variables cannot.</p><h3 id="fdd53fe9-d149-40a9-8961-cdfc377d788f" class="">Strict Mode</h3><p id="c6cb25e4-1da7-4def-add3-a1aae635ed63" class="">The next thing you need to know about variables is this thing called <strong>Strict Mode</strong>.</p><p id="4de419ac-0e6c-44b4-8316-ba0a30b29e95" class=""><em>🔥 Tip: While in your code editor, you can select a block of text and on your keyboard press Command + / (Ctrl + /, Windows and Linux) to comment out your code. Commenting out code makes your browser skip that code. It&#x27;ll still be there, but the browser will not run it.</em></p><p id="a11d637a-7baa-4023-9a81-6858ec7af153" class="">If you put this code in the script tag, refresh <code>variables.html</code> and write <code>dog</code> in the console, the console will return the value of <code>&quot;snickers&quot;</code>.</p><pre id="60e59fb6-b942-4f88-b7a7-d380878e3edc" class="code code-wrap"><code>&lt;script&gt;
+// var first = &#x27;wes&#x27;;
+// let age = 300;
+// const cool = true;
+
+// first = &#x27;westerhoff&#x27;;
+// cool = false;
+
+dog = &quot;snickers&quot;;
+&lt;/script&gt;</code></pre><p id="efe2bf39-8898-4a67-9017-dbc006291bd5" class="">We made a variable even though we did not use <code>var</code>, <code>let</code>, or <code>const</code>.</p><p id="e7ac17a6-8d53-452e-b435-30e0e8be3b4e" class="">What is going on? How can that happen?</p><p id="01eb1e62-eda0-4dc9-b901-3eb689803b3d" class="">Now if we go to the top of our opening script tag, and add <code>&quot;use strict&quot;;</code> and then refresh the page, we will see this error:</p><blockquote id="0d70e7d7-6168-43c1-b40e-053f307a1c20" class=""><p id="f5c235fd-9883-49f1-a42d-4f3d8b13dcbe" class="">dog is not defined</p></blockquote><p id="299367ae-f971-45d7-8bd8-a070303326c6" class="">In the early days of JavaScript, it was possible to create a variable without first declaring it, and the browser would just add the <code>var</code> on behalf of the user.</p><p id="b3831e3e-d7fc-48bb-a488-ad4e8b5f258b" class="">That leads to bad code down the road, it&#x27;s pretty sloppy and it&#x27;s not something that you want to do. So what happened?</p><p id="0c04772f-4680-4b7e-acbb-d14ea27becec" class="">JavaScript still supports the old method of not declaring a variable because it has to be backwards compatible with early JavaScript code.</p><p id="b342d038-838d-4c26-9b4e-58d717ccaa14" class="">But they introduced a new mode into browsers named <strong>strict mode</strong>, which will throw an error if you try to do something like not declaring a variable properly.</p><pre id="1234e569-1135-4d80-8ddd-e14f36f02890" class="code code-wrap"><code>dog = &quot;hugo&quot;; // will throw an error in strict mode</code></pre><p id="26edfbd2-c5d4-45e9-99d3-8a8c6c9d0458" class="">Another thing you can do is to declare a variable and then update it on the next line like so 👇</p><pre id="80e9b79c-d6d1-4cdc-876b-e9492ba6b8d1" class="code code-wrap"><code>var dog;
+dog = &quot;snickers&quot;;</code></pre><p id="20b7d7e1-3047-4595-92f7-3911addf0845" class="">That will work because what happens here is if you comment out the second line so it&#x27;s just <code>var dog</code>; and refresh <code>variables.html</code>, when you type <code>dog</code> into the console you will have the value of <code>&quot;undefined&quot;</code> returned to you.</p><p id="1ebefd2f-811f-4026-81f1-61bef9ee8ef3" class="">Strict mode is useful but we won&#x27;t be typing it every time in this course because we are going to be following best practices and it is enforced by default when you are using <strong>ECMAScript Modules</strong>, and modules are probably how you are going to be writing all of your modern JavaScript.</p><h3 id="aa99dd6a-12a6-40f7-896d-37b77f211ff1" class="">Scoping</h3><p id="3feadd69-07c9-48a2-944e-dc99803dafb5" class="">Now let&#x27;s talk about the second difference between <code>var</code>, <code>let</code>, and <code>const</code>, which is scoping.</p><p id="5f0b1cd0-3b7d-4077-8ef8-19bddbe1f396" class="">Clear your JavaScript code until it&#x27;s back to the three variables we had at the beginning.</p><pre id="a5966b87-1011-4f83-a13a-cfee023e8b4f" class="code code-wrap"><code>var first = &quot;wes&quot;;
+let age = 300;
+const cool = true;</code></pre><p id="b7251b5f-b05d-46a4-81ea-cf0762771b41" class="">Scoping in JavaScript answers the question <em>&quot;Where are my variables available to me?&quot;</em></p><p id="4dde30d7-01a6-444a-aaf9-a0992150d4cc" class="">We are going to have an entire section of this course focused on scoping because it&#x27;s such a fundamental part of JavaScript, but for now we need to know that:</p><ul id="80512fed-eefe-45b0-b3fa-a36e0708adae" class="bulleted-list"><li style="list-style-type:disc"><code>var</code> variables are scoped differently than <code>let</code> and <code>const</code> variables.</li></ul><ul id="e96d4966-6cbe-46d6-b135-dc3e299f13ac" class="bulleted-list"><li style="list-style-type:disc"><code>var</code> variables are what we refer to as <strong>function scoped variables</strong> <em>(they are only available within the parent function).</em></li></ul><ul id="231860cd-8133-49ce-8e64-41c2a5de0ae9" class="bulleted-list"><li style="list-style-type:disc"><code>let</code> and <code>const</code> variables are what we refer to as <strong>block scoped variables</strong>.</li></ul><p id="316abbdb-cbc2-40f4-b1e9-a7abd7316b7c" class="">What does this mean?!</p><p id="a089a694-9cd3-4d87-ae7c-a987e0d418f2" class="">We are going to learn what blocks and functions are in the future. Since we haven&#x27;t covered that yet, just put that on pause temporarily until the functions and blocks video. We will continue on in the functions and block video about this.</p><p id="ec1adb00-64c4-4170-a67d-2e759742cf86" class="">The question is, what are we going to be using in this course?</p><p id="359b3dc3-0c72-41f8-865b-76b2a084e14e" class="">They are all valid.</p><p id="ea2f3c19-f8be-4121-94fd-629bcc99ab65" class=""><code>let</code> and <code>const</code> were introduced as part of what is called <code>es6</code>, which is only a couple of years old. <code>var</code> has been around since JavaScript was invented.</p><p id="f67af866-726b-45a8-9956-de0863aa66f8" class="">You may sometimes see people say <code>var</code> variables are old or deprecated, but they are not.</p><p id="f5fa37d8-9e65-4a65-874d-e03b2a4b9745" class="">It&#x27;s just that some developers (Wes included) prefer to use <code>let</code> and <code>const</code> because the block scoping makes more sense as well the benefit of assigning a constant value to these variables and not accidentally overwriting a variable which can lead to bugs.</p><p id="5058d924-19a0-4477-b92d-27d0781ee049" class="">Here is how Wes approaches deciding which of the three to use:</p><ul id="2cf64273-2402-4fbd-abe8-21ec15048f7e" class="bulleted-list"><li style="list-style-type:disc"><em>He uses </em><code><em>const</em></code><em> by default.</em> Anytime he is assigning a new variable, he just defaults it to <code>const</code> because he doesn&#x27;t know if he&#x27;ll need to update that value or not.</li></ul><ul id="1aabb9a6-2ec9-47e7-a750-605afbb85edc" class="bulleted-list"><li style="list-style-type:disc"><em>If he needs to change a value of a variable, he will use a </em><code><em>let</em></code><em>.</em> Sometimes he will make a variable <code>const</code> and then realize he needs to update it so he will make it a <code>let</code> variable.</li></ul><ul id="ba18334c-45d7-4d30-a666-a6c3270c2dde" class="bulleted-list"><li style="list-style-type:disc"><em>Wes almost never uses a var variable.</em> There are some exceptions like when declaring a variable outside of a block but we will go into more detail about that shortly.</li></ul><h2 id="56a79762-4f6a-4d08-9aad-1a42b5c43890" class="">Naming Conventions</h2><p id="6bba1053-97b6-4e29-ad67-4cb8c6289615" class="">Last thing we need to talk about is <strong>naming conventions</strong>.</p><p id="f9f2f92c-af0e-4d92-beb8-b99ab4f13781" class="">What can you call your variables?</p><p id="3edb0e8e-89d2-4a3a-bd69-2f95a5ccf30a" class="">As a convention, variables should <em>not</em> start with a capital.</p><p id="fcd5d90f-d875-42d7-9303-9ab7fa9c84b0" class="">For example, this code below will work in the browser. It is not wrong or broken JavaScript, but it&#x27;s a convention that variables should not start with a capital unless they are a class <em>(we will get into what classes are in the future)</em>.</p><pre id="577bc95b-990d-4c4c-98e0-3fb87dc68828" class="code code-wrap"><code>const Dog = &quot;bowser&quot;;</code></pre><ul id="bdf707d1-0dc3-4125-b085-695984f21a36" class="bulleted-list"><li style="list-style-type:disc">Variables must start with either a letter <em>(a,b,c,D,X, etc)</em>.</li></ul><ul id="b76a988b-b8bb-415b-82f6-ca642651bb48" class="bulleted-list"><li style="list-style-type:disc">They can also start with or contain an underscore <code>_</code> or dollar sign <code>$</code>.</li></ul><ul id="78774f61-2eac-44ac-94de-091b89922e51" class="bulleted-list"><li style="list-style-type:disc">They can also contain but may not start with a number.</li></ul><p id="6a0e8ac6-37cb-4e56-8fcb-9c57fc01cfa1" class="">For example you could create the variable below and it would work. A variable like <code>$_$</code> would also work.</p><pre id="89455dd4-c646-4755-be1e-c2be84f7948e" class="code code-wrap"><code>const $$$$$$$$ = 100;</code></pre><p id="5425d3e4-9613-4552-87b0-23c9c5a6d88f" class=""><code>$</code> and <code>_</code> are the only non a-Z characters that can be used at the start of a variable name.</p><p id="1faf1799-49ae-4f2a-ad34-c3ab1a556a5b" class="">Tip: the <code>_</code> symbol is sort of synonymous with a library called <code>lodash</code>, and the <code>$</code> symbol is sort of synonymous with a library called <code>jQuery</code> so you don&#x27;t normally make your variables called <code>$</code> or <code>_</code> because they have sort of been taken as a convention. You can however certainly include them if you want.</p><h3 id="1ad1e3aa-6e9c-4da2-8ca4-84f50a73af12" class="">Camel Casing</h3><p id="c382805a-8752-4fb6-8d53-a9cea7c8f915" class="">Sometimes a variable is made up of two words, for example 👇</p><pre id="2d3f1982-452a-4332-a81f-c390b224416b" class="code code-wrap"><code>const iLovePizza;</code></pre><p id="80f78a7f-e4f5-48de-8f46-398108bec7cf" class="">This is referred to as <strong>camel case</strong>. With camel case, every word inside of your variable will contain an uppercase letter except for the first one, for the reasons we just talked about.</p><p id="c098dd6c-b77f-4f2a-ac95-3f819a0dbb6b" class="">Upper camel case is where you do start it with a capital <em>(ILovePizza)</em>, however that is almost never used in JavaScript unless you are defining a class.</p><h3 id="57de50c9-6abe-47af-aaab-2e61c39d8f5b" class="">Snake Case</h3><p id="d51f148d-e5aa-44af-92bc-1a51cf79b917" class="">There is also something called <strong>snake case</strong>.</p><p id="61ee17be-8039-4ead-9690-d7bb9c3f6746" class="">Instead of using capitals between words, you use <em>underscores</em>. For example <code>const this_is_snake_case = &#x27;cool&#x27;;</code>.</p><pre id="86f6d518-55c6-4025-b5fe-db8d46975264" class="code code-wrap"><code>// camel case
+const iLovePizza = true;
+// UpperCamelCase
+const ILoveToEatHotDogs = false;
+// snake case
+const this_is_snake_case = &quot;cool&quot;;</code></pre><h3 id="d2ec344f-ab2e-4ad3-9845-30a1c25c5ca1" class="">Kebab Case - Not Allowed</h3><p id="d5cfeed4-608b-4098-8c79-bf1bd4eab6bd" class="">There is also something called <strong>kebab case</strong>, for example <code>const this-is-kebab-case;</code> but this is not allowed in JavaScript.</p><p id="4ecdeda3-382a-4085-8feb-cf25be6db4bb" class="">Most developers will always use camel case (UpperCamelCase if you are building a class). Some people like using underscores, and kebab case is not allowed.</p><p id="9bc2b1fd-f969-4a75-89d7-19b59fdb70bb" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="52d26e5a-7347-43ce-8b57-b1df3e3cbed7" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="2697c34b-ec6d-4475-842e-f4e2743a5804" class="">Edit on Github</p></details></li></ul><ul id="69921048-6979-4562-9187-6cfff5d7b0f9" class="toggle"><li><details open=""><summary>05 - Code Quality Tooling with Prettier and ESLint</summary><p id="a7f7ffc7-ecf6-4e0f-8896-4aa2fe3e0d50" class=""><a href="https://wesbos.com/javascript/01-the-basics/code-quality-tooling-with-prettier-and-eslint">https://wesbos.com/javascript/01-the-basics/code-quality-tooling-with-prettier-and-eslint</a></p><p id="dfc4523f-ddfe-4b3c-b0e5-182d9731824a" class="">
+</p><figure id="9957b3fa-681d-46e2-b0bd-d219f2195cea" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%204.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%204.png"/></a></figure><p id="c005335b-2995-4266-b9f8-8506ecb2878b" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="9280089e-818b-4f69-b40a-85a60564b19f" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="3564429a-8d29-4d70-a4a1-753dd84f03fd" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="19031dd3-b3ec-4280-89ca-dff675862920" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="f8ccf119-56b4-41a2-a81d-7a1aa1093695" class="">Tooling, ESLint, PrettierEdit Post</p><p id="a731f603-1830-4e27-abce-d9bc2efb16bb" class="">Whether you are a solo developer looking to follow best practices or catch potential bugs, or you are a member of a team that has a specific way of writing JavaScript, there are many use cases for using code quality tooling.</p><p id="b0caf9c7-fb0f-4039-914e-81e401cda2f5" class="">There are two tools that are extremely helpful in code quality and formatting of your JavaScript:</p><ol type="1" id="fd75a014-4eb1-4cee-a396-9fe88bad7a4f" class="numbered-list" start="1"><li>ESLint</li></ol><ol type="1" id="a21d0f67-67a3-4959-8a6c-8d2e55b9927c" class="numbered-list" start="2"><li>Prettier</li></ol><p id="61c8f5a3-d5fd-4ff7-9cf0-2521593f306f" class="">Before we jump into those, let&#x27;s start by looking at some code and opinions people have about formatting in JavaScript.</p><figure id="9704d0e8-bf42-4167-89e0-99df2d463b8f" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/initial-code-to-assess-quality.png"><img style="width:694px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/initial-code-to-assess-quality.png"/></a></figure><p id="21590822-a390-409c-90a2-c032c7d37139" class="">In the code above 👆, we are using single quotes <code>&#x27;&#x27;</code> rather than double quotes <code>&quot;&quot;</code>, which is an opinion that some people have. Some people prefer one over the other.</p><p id="6e970097-6be3-4b39-b880-ce775ec0dc05" class="">The fact that there is a space between the variable name and the equal sign is actually not necessary in <code>const p = document.querySelector(&#x27;p&#x27;);</code>, that is an opinion that people have in their JavaScript. <code>const p=document.querySelector(&#x27;p&#x27;);</code> would work the same way.</p><p id="94f8ed76-e36c-42c5-95cf-fcd5acf14467" class="">Those are just two example of things that have the potential to cause issues in your code, or are formatting preferences that people have opinions about.</p><p id="d09f4a74-21f2-4cea-b87e-b5fe948feeb3" class="">The tools we mentioned earlier will help you fix those issues by either fixing it for you, or by alerting you if you are doing something that is a bad practice, or causes an accessibility issue, along with a whole lot of other things.</p><h2 id="6c592d16-9b05-4b98-a9d2-1d5ea1cb22eb" class="">ESLint &amp; Prettier</h2><p id="f3afea38-841e-4600-bf28-0fd476ce1e2a" class="">I recommend that you go to https://eslint.org and go to the demo in the navigation.</p><figure id="34307ece-21d0-4458-987f-3a44ea05911f" class="image"><a href="https://wesbos.com/static/0480045bfcb40cfaa8fa0d362460b56f/aa440/eslint-homepage.png"><img src="https://wesbos.com/static/0480045bfcb40cfaa8fa0d362460b56f/aa440/eslint-homepage.png"/></a></figure><p id="b7b86950-8658-415e-a77c-cc13948a20f5" class="">For Prettier, there is a link on the homepage that says &quot;Try it&quot;.</p><figure id="6ed80ba8-5f06-4c9d-b28c-48da651d1c8f" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/prettier-homepage.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/prettier-homepage.png"/></a></figure><p id="22d04f37-cdea-4c25-83c7-a82cf75a8de5" class="">We will cover the following about these tools:</p><ol type="1" id="e2a712c3-69c5-484e-be2e-312a0471d551" class="numbered-list" start="1"><li>what they are</li></ol><ol type="1" id="c5a01288-69c9-4d1f-b454-88f2c357fb6a" class="numbered-list" start="2"><li>how they work</li></ol><ol type="1" id="4327bc80-8d74-4f5c-ae34-378b06816f61" class="numbered-list" start="3"><li>the steps you need to go through to install them</li></ol><h3 id="f2c22b24-c827-4c35-b30a-e33dcf960b20" class="">ESLint</h3><p id="96ea8487-059c-4c2c-9b03-f32590f90201" class="">ESLint, is a JavaScript linter for identifying and reporting potential issues in your JavaScript. Some examples may be bad practices or design patterns, or identifying unused variables in functions.</p><p id="d8ad97da-38c7-4bd4-b924-bf1e7f16f5dd" class="">If you go to the ESLint demo, select the &quot;Rules Configuration&quot; section and choose the latest version of JavaScript.</p><figure id="527a6cb2-9883-46fb-a57c-2898e075d24f" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/eslint-demo-page.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/eslint-demo-page.png"/></a></figure><p id="3ba728a0-831a-4bd5-9f84-4bf79a2e68cd" class="">If you type into the demo <code>const age = 300;</code>, you will see the following linting rule 👇</p><blockquote id="d470f3ed-db27-448f-b937-6e66d8fffa89" class=""><p id="75920473-dbde-4431-99e7-a1997908720b" class="">&#x27;age&#x27; is assigned a value but never used.</p></blockquote><p id="ab14ccf8-9651-42ea-9cb0-e7ee38130877" class="">If we go ahead and use it by adding a line below of <code>console.log(age);</code>, we will get the following errors 👇</p><blockquote id="9b7d6bf0-494e-4e97-9da9-87f3bdf552f2" class=""><p id="982aa9e3-63f3-4203-9f1c-7d34f5205d76" class="">3:1 - Unexpected console statement 3:1 - &#x27;console&#x27; is not defined.</p></blockquote><p id="cc4a78b9-9b43-471a-a1a2-d14c800767e9" class="">One of the rules that are set in the demo version of ESLint is to not use <code>console.log()</code>, which is sometimes a production rule that developers use because you don&#x27;t want to ship code to production that include console logs.</p><p id="9a6ec37f-8c73-424a-8eb6-194a4bc6c915" class="">With ESLint, you can turn specific rules on or off. Wes will show us his own config shortly.</p><p id="fb41130b-0646-416a-8f36-5a2e3f1f1353" class="">If you scroll down on the ESLint site, you will see a list of all of the rules that you can set using ESLint.</p><p id="11a593b6-6ff6-4afa-91e2-b8c848866d0e" class="">Sometimes as you are writing code, ESLint will throw an error and you might not know why it is being thrown. Thankfully, ESLint provides a link to the documentation of the rule so you can read through and understand what it means.</p><p id="ef7331bf-a063-4e46-8fda-c5d6c2de1bb7" class="">Some other things ESLint helps us with is code that is broken or confusing scoping.</p><p id="b50e556e-7e5b-4504-a455-3ba46b4e53bf" class="">Let&#x27;s say you add the following code in the ESLint demo page 👇</p><pre id="33253713-ace4-421e-9f5a-02f41a7b584a" class="code code-wrap"><code>function hi() {
+age = 300;
+}</code></pre><p id="fd05158e-585a-461d-9982-f57f1ef96d3f" class="">You should get the following errors: 👇</p><blockquote id="711d5447-23b1-4580-b257-7d1700bcc2cc" class=""><p id="b5c34075-b222-4628-a5fd-07dd326d1da3" class="">1:10 - &#x27;hi&#x27; is defined but never used.</p></blockquote><blockquote id="0238007c-fe84-43ab-83ff-54e56b524a20" class=""><p id="b9e6eae6-38ba-4d80-9805-d533cb01b7d3" class="">2:3 - &#x27;age&#x27; is not defined.</p></blockquote><p id="be90dab2-9d34-4c15-9e04-29149a30e6f5" class="">If we add a <code>let</code> before the age variable, it will still complain that <code>hi</code> is defined but never used.</p><p id="d7e46950-b696-42d4-8f1b-14d864c268f7" class="">If we call <code>hi();</code> in our code, it will complain that <code>age</code> is assigned but never used.</p><p id="c2023200-f480-43c0-a234-a0bd764105a0" class="">ESLint is always giving you feedback on your code.</p><p id="ddf5dbb2-cdff-436e-b0be-360587225b64" class="">Initially, this can be very frustrating because it tells you that all your code is wrong.</p><p id="cad9c902-c516-4401-b5de-6d47238ed9c6" class="">Over time, you will be able to modify your own config that fits your own coding style as well as understand as to why some of those things might be bad practices.</p><p id="a6053f8d-c520-4b04-b5bb-19494856f42d" class="">ESLint is also plug-able.</p><p id="c84f06df-4428-40c0-a9fb-4ef23fd97fba" class="">This means you can have many different plugins with it, there are many of them, for different styles of JavaScript, such as a React/Vue/Angular plugin.</p><p id="81b25c3a-6939-4d63-b450-f5bb83258a91" class="">That is a high level overview of what ESLint is. We will talk more about configuring it in just a second.</p><h3 id="6938db94-8539-4365-876e-707d1acd3c8e" class="">Prettier</h3><p id="98237c5f-9b86-405e-b07d-3fe05f9d5bf2" class="">The next tool that we have is Prettier.</p><p id="4ad80ee4-f22e-4f95-91af-958614e44ad3" class="">Whereas ESLint will yell at you about things that are causing potential issues in your code, Prettier focuses entirely on just the formatting of your code.</p><p id="2e5885ea-f665-4d7b-a30f-6cde0f3d7c01" class="">Navigate to https://prettier.io/ and select the &quot;Try me&quot; link which should open up the playground.</p><p id="517b7e51-3fc5-4e33-9575-ae943ede872e" class="">Paste the following code in it 👇</p><pre id="5ff99a39-621b-4565-97c9-5e15418e37cb" class="code code-wrap"><code>const age = 100;
+
+alert(&quot;hey&quot;);</code></pre><p id="c5257e19-1c5a-435f-a05d-d85d723f6267" class="">The output should give you:</p><pre id="f0549b78-5327-4d4e-8a54-099abef2b629" class="code code-wrap"><code>const age = 100;
+alert(&quot;hey&quot;);</code></pre><p id="513c8ded-35b6-4c00-ba1b-fa6f94e316f7" class="">The input code is technically valid JavaScript, however it is messy and harder to read. Those are annoying things, such as indentation or spaces between lines of code.</p><p id="46fd34df-f0cc-4322-a66a-22c70f99a8b0" class="">Prettier will take in all of your code.</p><p id="6e8dab02-023e-41d3-96af-53dc4c766fd4" class="">For example if you are mixing your quotes, using single quotes <code>&#x27;</code> sometimes and <code>&quot;</code> double quotes at other times, Prettier will always just format the code to use one or the other, for consistencies sake, depending on the settings you have.</p><p id="f4a9b721-2bbf-4267-a793-c8487a7f60a7" class="">Prettier is pretty opinionated.</p><p id="a5922044-edc4-4bfd-a434-d15eb6dec045" class="">There are a few settings that we can toggle here or there, but mostly you just have to let it figure out how you want it to format your code.</p><p id="90e1927b-814f-46d5-9293-4e593415f525" class="">You can use ESLint and Prettier separately.</p><p id="147bd639-1a02-4505-ad5d-d1662d746229" class="">What Wes likes to do is use ESLint and then use the Prettier plugin for ESLint. That way, all of his code goes through ESLint which will tell him what is wrong with his code, as well as any possible issues that ESLint can fix, including Prettier fixes, and then it will go ahead and fix those for us.</p><p id="3c9d1b73-f0a4-45ce-ba7e-f00bdc1989b6" class="">One bad thing about ESLint is after you install it, you can spend the rest of your life configuring it based on the hundreds of possible rules.</p><p id="e79f4e02-28bc-47aa-9bea-93c7ce822b05" class="">It is likely that the rules you want have already been chosen well by someone else, so often you just want to pick someone elses settings that you already like.</p><p id="c5844e58-9493-4222-b5c7-cf19ee5a3b29" class="">That is exactly what Wes did for this course.</p><p id="cd51561a-0c46-4f13-aa22-ae45676c3d36" class="">He made a config that is a set of ESLint rules, as well as the Prettier plugin which will do the formatting for you, all bundled into one so you can hit the ground running with that config.</p><p id="d8ab38db-aabe-4b86-ada1-8a6402293a4b" class="">As you start to develop your own opinions for what you like, you can sort of overwrite those ESLint rules one by one.</p><h2 id="09dbfdb6-4d98-4599-bd2f-af9c29c3a000" class="">Installing ESLint &amp; Prettier</h2><p id="5215f25f-8eab-4ac3-9f60-f21f70b65a5c" class="">Let&#x27;s get into installing Prettier and ESLint.</p><p id="7df7d43c-17f7-4665-b8de-ced693e7223e" class="">Go into the terminal, and use it to navigate to the <code>beginner-javascript</code> directory. <em>(refer to the Welcome page if you don&#x27;t have that directory).</em></p><p id="7ee15f26-8fed-44ff-b959-069df713d444" class=""><em>Tip: If you don&#x27;t know which directory you are currently in, type </em><code><em>pwd</em></code><em> in the terminal and it will return the directory that you are currently in.</em></p><p id="90c8e2a4-7d83-4c86-aa62-c7dc622806a6" class="">There are a few things we need to do before we can get going.</p><p id="8c5b117f-54f6-402a-a658-b32ea0ab6567" class="">We are going to follow the instructions located at https://github.com/wesbos/eslint-config-wesbos.</p><p id="2a51839c-84bf-4cd0-ae15-89cf753fe6f6" class="">The ESLint config can only be installed locally per project due to changes that were made to ESLint v6 that removed global installs.</p><h2 id="303d82cd-907b-4e19-8c4d-e074512ae420" class="">Installing npm packages locally</h2><p id="dc4fee13-5826-4cdb-a3f7-6553804f1140" class="">If you don&#x27;t already have your <code>package.json</code>, create one running the command <code>npm init</code> by typing it into the terminal <em>(make sure you are in the beginner-javascript folder)</em>.</p><p id="86067f0a-8a2c-4f6c-b524-74fba7a7838d" class="">We will be talking about <code>npm</code> later in this course, but essentially npm allows us to download what are called dependencies, which is other people&#x27;s JavaScript packages that allow us to do things. We need other people&#x27;s JavaScript packages for this lesson, specifically we need ESLint, Prettier, and we need Wes&#x27; config.</p><h2 id="81d4910f-0f6b-4947-b176-ea1578e0888f" class="">Creating the package.json file</h2><p id="f4afe727-d450-40a6-943b-e054bcb91d70" class="">In order for that to work, we need what is called a <code>package.json</code> file which is going to hold a list of all of the other things in JavaScript that we need.</p><p id="a9ce50c4-ebda-41c6-9345-ba125ccc3604" class="">To create the <code>package.json</code>, you simply just type <code>npm init</code> in the terminal and press <code>enter</code>.</p><p id="fd91b9ef-40c3-431e-928b-868e6073f66b" class="">You will now be prompted to enter a <code>package name</code>, <code>description</code>, <code>keywords</code>, etc. but you can just press enter to skip setting those values for now.</p><p id="4aa9797d-042a-4eda-acca-810a71dd27ee" class="">Then we need to go ahead and install all of our dependencies.</p><p id="6a8b3fae-f808-4027-ba78-ef3d751166cb" class="">Go ahead and copy this line of code and paste it in your terminal to install the dependencies.</p><pre id="b1a90a9b-3352-4db2-ab47-971483af3eab" class="code code-wrap"><code>npx install-peerdeps --dev eslint-config-wesbos</code></pre><p id="3d934e27-97b4-40c9-b584-8b93801c367b" class="">After about a minute or so, it will go ahead and install all of your packages.</p><p id="2c10c54f-91a4-47a9-a1c0-898ea954781f" class="">If you take a look at your filesystem, you will see that there is this new folder called <code>node_modules</code> and inside there are a whole bunch of dependencies.</p><p id="4abe09e4-a9b7-4346-91b5-1d21092f1c84" class="">We&#x27;re not going to get into what that is just yet, that will be coming in our modules lesson. For now, all we need to know is it contains all of the npm packages that makes ESLint and Prettier work.</p><h2 id="5f8b6c3b-e4c7-4e1a-8a39-1cefdf4ba3e8" class="">Configuring ESLint and Prettier with VS Code</h2><p id="6dd418e9-50c0-4707-8730-b975f4f10c4d" class="">Next we need to make a new file within the <code>beginner-javascript</code> folder called <code>.eslintrc</code>. This is what is called a <em>dot file</em>.</p><p id="6d68a44d-c610-4902-b820-7b37a5546a0f" class="">Sometimes your computer will hide dot files from you because they are typically just files that developers use under the hood. Since we are developers, we do not want to hide those files.</p><p id="2a4599a8-5106-4872-8423-0fa2f237f860" class="">If you have trouble seeing that file in your file system, do a quick google of &quot;Showing hidden files Mac&quot; or &quot;show hidden files Windows&quot; and it will show you how to flip that setting on.</p><p id="cda272dd-4efd-4302-aeef-eabefc541578" class="">Inside of your <code>.eslintrc</code> file, copy the following:</p><pre id="287e77e2-57b1-4f41-a3bd-ba99a6c540e4" class="code code-wrap"><code>{
+&quot;extends&quot;: [&quot;wesbos&quot;]
+}</code></pre><p id="bac9b6a0-ec72-4f58-8c82-521daa8e78a1" class="">We are going to extend <code>&quot;wesbos&quot;</code>, which means we are going to extend all the settings and plugins that Wes has packed into his own config. That is really all we need right now.</p><p id="574fe41b-b914-48c6-858a-e50db7b2df85" class="">Next, what we need is to get it running with VS Code.</p><p id="a4125b93-77a7-4d92-b394-32d8249e6d11" class="">Scroll down in Wes&#x27; instructions to the <em>With VS Code</em> section.</p><p id="05afc0ec-8ba4-4510-901c-aa98d22208ba" class="">First thing you need to do is install the ESLint extension for VS Code.</p><p id="f1b41171-47ad-4507-8a49-7ad2b4d5ce5b" class=""><code>Ctrl</code> + <code>Shift</code> + <code>x</code> (<code>cmd</code> + <code>Shift</code> + <code>x</code> / MacOS ) will get you to the list of extensions in VS Code.</p><p id="43144822-bc51-4725-859c-c0bc505890b9" class="">You want to search for ESLint, and you will see a whole bunch of different ones, but the one you want is just called ESLint. You&#x27;ll know it&#x27;s the right one because it has billions (just kidding, millions) of installs.</p><p id="e97059c1-cb8a-41f0-a70d-f197675ec5dd" class="">Go ahead and click the <code>install</code> button.</p><p id="6bc0b70c-0fc0-441e-a13b-1154b240077b" class="">Now what we need to do is set up some VS Code settings. Within VS Code, in the right hand corner, navigate to <code>Code</code> &gt; <code>Preferences</code> &gt; <code>Settings</code>.</p><p id="a90b4191-8836-4e5d-bb99-1857f5c376b8" class="">If you&#x27;re on Windows, that would be <code>File</code> &gt; <code>Preferences</code> &gt; <code>Settings</code>.</p><p id="d19b737e-4dec-4606-a677-2352e351e83b" class="">That should open up the settings section in VS Code like so 👇</p><p id="7d51bf0f-986f-4c11-979f-8b87e5322147" class="">What you want to do is click on the symbol in the top right hand corner that looks like a page with a curved arrow 👇</p><p id="c0da57c4-0b66-4adc-b743-0386d6218377" class="">That will open up the text based version of your settings.</p><p id="8374d64d-3d1a-45f4-a980-3aa3064b20c6" class="">Simply just copy all of the settings from Step #2 of the <em>&quot;With VS Code&quot;</em> instructions found here https://github.com/wesbos/eslint-config-wesbos.</p><p id="fde318d6-34a6-4dc0-944e-f8d0d334870d" class="">Go to the very end of your <code>settings.json</code> file in VS Code, and after the last value, add a comma and then paste in the settings we just copied. <em>(If you don&#x27;t have any previous VS Code custom settings then you will have an empty object).</em></p><p id="393207fa-69a2-4a0d-9efa-36db57c21557" class="">Let&#x27;s go through the settings really quickly.</p><p id="5860fbb8-7660-4936-a432-7a1b10b1aa99" class=""><code>editor.formatOnSave: true</code>: turns on formatting on file save.</p><pre id="72d0f7a6-6cf6-4fc0-9d5f-6dd697c1da2f" class="code code-wrap"><code>&quot;[javascript]&quot;: {
+&quot;editor.formatOnSave&quot;: false
+}</code></pre><p id="b7806a43-91a1-47e5-b4a2-a6a323493ff8" class="">The setting above 👆 is responsible for turning off formatting on save for JavaScript. We will format JavaScript code using ESLint.</p><p id="753e4a84-2587-4e82-9397-c76ef4650e89" class="">This setting below is responsible for telling the ESLint plugin to run on save. 👇</p><pre id="6029c9aa-1775-4bf3-8077-084ee6b3d996" class="code code-wrap"><code>&quot;editor.codeActionsOnSave&quot;: {
+&quot;source.fixAll&quot;: true
+},</code></pre><p id="093114d5-49d2-4ed4-936f-01b58df9cab6" class="">You need to do that to prevent other built-in plugins in VS Code from clashing with our ESLint plugin.</p><p id="6e6caedd-942c-4ace-b7d1-1071f1bfd8eb" class="">The built-in plugin in VS Code for formatting is called Beautifier and it doesn&#x27;t do as good of a job as ESLint and Prettier, so what that setting is doing is turning off the editor format on save for JavaScript and for javascriptreact and using the ESLint fix on save instead.</p><p id="b92e41c1-058c-49d4-b4a2-f070e30fa1c2" class="">Finally, this is important: if you already have a prettier extension enabled, you want to disable it for JavaScript and javascriptreact using the following setting 👇</p><pre id="8bca12d4-dfde-4d62-9983-b0d212f69eec" class="code code-wrap"><code>&quot;prettier.disableLanguages&quot;: [&quot;JavaScript&quot;, &quot;javascriptreact&quot;],</code></pre><p id="0e8c0281-6371-4f9d-8957-a5046efd2785" class="">Why? Because we are not using Prettier directly through the Prettier plugin. We are using Prettier through ESLint as a ESLint plugin.</p><p id="5c6d7aed-edec-4b7b-9670-eb8dfc49e6d3" class="">This stuff can get confusing and be a real bummer, so if you get stuck or have trouble, watch the video again and check out the &quot;troubleshooting tips&quot; in the <code>eslint-config-wesbos</code> Github repository.</p><p id="1a09af2d-92fe-4109-8129-5197fdebb428" class="">To check if Prettier is working, you can open a JavaScript file in VS Code and some add extra whitespace between variables and equal signs and then save the file.</p><p id="badb546c-f219-41a3-9724-02c4a82a4007" class="">If it isn&#x27;t working, you can click on ESLint in the bottom corner and it will often tell you what the issues are and why it isn&#x27;t workig.</p><p id="69853117-e739-41a8-8ac6-b7623f8beaea" class="">Another thing you will notice with ESLint is these squiggly underlines in VS Code👇</p><p id="d453d8a8-5405-43f4-a127-24c48812eccb" class="">That is actually ESLint giving you information about a warning or error.</p><p id="64f2db99-6569-47a3-9f81-d0c10a6c609f" class="">ESLint won&#x27;t automatically fix these problems for us on save, it just explains what the issue is and then it&#x27;s up to you to make a decision on how to solve it.</p><p id="dd8e1c73-2f81-44dc-ad9c-de9d9f9f6681" class="">If you modified the code to be <code>let age = 100;</code> ESLint will give you a warning saying you used a <code>let</code> variable but never modify the value, maybe you want to use a <code>const</code> variable instead.</p><p id="010bc7c9-8160-42af-b6bd-99efbe1c707e" class="">If you modify the code to be <code>const age = 100;</code>, the underline under the age variable will be yellow and the warning will say:</p><blockquote id="0d5befd7-9e28-445c-9da3-7f8dba0433ca" class=""><p id="ccccacad-1b7d-47bf-98b9-034f1c7c0336" class="">&#x27;age&#x27; is assigned a value but never used. eslint(no-unused-vars)</p></blockquote><p id="857ed01b-3580-427f-a42b-93f2e9cfcff2" class="">Red squiggles represent an <code>error</code> and yellow is just a <code>warning</code>.</p><p id="cf4a1f0e-11db-4436-b33b-59999da46e25" class="">We will be seeing that a lot during this course.</p><p id="ae788e39-1820-4118-9fa3-dab7b7b7b865" class="">If throughout the course there is a setting you really don&#x27;t like, you can go ahead and modify the <code>.eslintrc</code> file to disable that rule.</p><p id="0f7dde90-e24c-4c5f-89be-75e80af4ad1d" class="">That works by creating a <code>rules</code> property like so 👇</p><pre id="2d058ef5-7267-4a77-b836-7a49fdbd2c4f" class="code code-wrap"><code>{
+&quot;extends&quot;: [&quot;wesbos&quot;],
+&quot;rules&quot;: {
+&quot;no-console&quot;: 2,
+&quot;prettier/prettier&quot;: [
+&quot;error&quot;,
+{
+&quot;trailingComma&quot;: &quot;es5&quot;,
+&quot;singleQuote&quot;: true,
+&quot;printWidth&quot;: 120,
+&quot;tabWidth&quot;: 8
+}
+]
+}
+}</code></pre><p id="54ce6c05-7eb8-420e-8f47-8cb1336b269f" class="">You can set the values of the rules to:</p><ul id="ed048c25-a3f4-418d-8b49-20b2be8fdd48" class="bulleted-list"><li style="list-style-type:disc"><code>2</code> if you want them to error</li></ul><ul id="82ec692e-64fc-484a-80ed-5c7c71a76d8a" class="bulleted-list"><li style="list-style-type:disc"><code>1</code> if you want them to warn</li></ul><ul id="51599f16-3656-48dc-8668-e6e1c0ab066b" class="bulleted-list"><li style="list-style-type:disc"><code>0</code> if you want to ignore that rule entirely</li></ul><p id="592a289e-a104-4fee-88a4-ae30b7e95503" class="">If you get stuck, try fixing it yourself for about 20 minutes and if you are still stuck, jump into the Slack chatroom and join the #beginner-javascript channel and ask for help.</p><p id="746d754e-dc2c-473a-aeb8-eb3372eda5a3" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="22c2638c-6da1-4d05-a950-ba559890f53f" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="46deecc9-09b5-4c4d-a604-ed36f92fe399" class="">Edit on Github</p></details></li></ul><ul id="1d5b244c-4f7b-4956-9e2b-bf1ed0006a21" class="toggle"><li><details open=""><summary>06 - Types - Introduction</summary><p id="04fc3837-acf6-434d-a62e-7abf28f0b2cc" class=""><a href="https://wesbos.com/javascript/01-the-basics/types-introduction">https://wesbos.com/javascript/01-the-basics/types-introduction</a></p><p id="a04b01c9-a785-440a-8c40-e35d44b42726" class="">
+</p><figure id="a47df498-4bb9-4331-8361-355584a876cf" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%205.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%205.png"/></a></figure><p id="3db715c0-09e6-4241-9ae4-73eaeb2008a1" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="1240a0a0-1ee6-4f12-8da2-74820878478a" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="cf5b180a-7b93-493f-b71d-084669a885f0" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="180ad523-6369-4bcf-baab-68d4b825124f" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="9ca46abc-ed7f-46b4-8101-bf270f21d88f" class="">JavaScript, TypesEdit Post</p><p id="142ef1cd-e96d-4541-b09f-901d0bc68577" class="">So far, we have just been assigning values to variables, such as numbers, text, true or false. What are all those things, and what are all of the different possible options that we have? These are referred to in JavaScript as Types.</p><p id="59f71065-307b-4d3e-a69a-2c411d76cd74" class="">Anytime that you have a value (a value is something that can be stuck inside of a variable, or passed to a function), it will fall into 1 of the 7 JavaScript types.</p><p id="f9441af0-4001-4e13-9f0a-46b86e91a3d1" class="">The types in JavaScript can be remembered using the word <code>SNOB&#x27;N&#x27;US</code> <em>(just kidding, that is pretty hard to remember).</em></p><p id="ac740928-6433-4797-a5ee-dd8997b2914d" class="">The 7 different types in JavaScript are:</p><ol type="1" id="0d96bb0a-dba4-445a-b598-5c6087b7b777" class="numbered-list" start="1"><li><strong>String</strong> - <em>a string is anytime that you have some text (you will often see that in a single or double quote or a backtick)</em></li></ol><ol type="1" id="d0b1b199-5229-4e39-b278-37a202a22f52" class="numbered-list" start="2"><li><strong>Number</strong> - <em>a number (regardless of whether it has a decimal place in it. Some programming languages have multiple types to deal with numbers, but JavaScript only has the one.)</em></li></ol><ol type="1" id="df474db7-482c-47fa-a30f-59fe48301968" class="numbered-list" start="3"><li><strong>Object</strong> - <em>this is a special one, we will go over this one last. Everything in JavaScript is an object, and we will understand what that is when we start to hit methods. Everything that we use like functions, dates, and arrays are just objects at the end of the day. All the other types except for object are referred to as the &quot;primitive types&quot;.</em></li></ol><ol type="1" id="832662db-bcb1-415b-8f88-b76bb7fa62e6" class="numbered-list" start="4"><li><strong>Boolean</strong> - <em>true or false</em></li></ol><ol type="1" id="47204fae-ea94-4ffb-a04d-fba89ec4c2ce" class="numbered-list" start="5"><li><strong>Null</strong> - <em>can be used to set a variable to nothing (we will discuss difference between undefined and null shortly)</em></li></ol><ol type="1" id="fdf7b586-ef3e-4935-99af-de836fa50591" class="numbered-list" start="6"><li><strong>Undefined</strong> - <em>can be used to set a variable to nothing (we will discuss difference between undefined and null shortly)</em></li></ol><ol type="1" id="e6e86b08-0186-4ead-803f-2c06f657c27d" class="numbered-list" start="7"><li><strong>Symbol</strong> - <em>this is a new one to JavaScript, and it will always give us a guaranteed unique identifier. This is useful for when you are trying to come with a unique identifier inside of an object and you want to make sure you are not also overwriting something that already exists with that id.</em></li></ol><p id="c46fd9f6-d535-43c8-86fd-34805a326948" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="85c2969b-984e-40a6-8e9e-d7da1258cee4" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="9a485eec-4d8b-4d17-a108-724f89aab915" class="">Edit on Github</p></details></li></ul><ul id="2014201b-e546-45b3-8d06-5a01f0b4c161" class="toggle"><li><details open=""><summary>07 - Types - Strings</summary><p id="1953a421-950d-462f-b8cb-d3be70dfc848" class=""><a href="https://wesbos.com/javascript/01-the-basics/types-strings">https://wesbos.com/javascript/01-the-basics/types-strings</a></p><p id="1faa7d72-1c66-4398-9ec3-d0371aa830c3" class="">
+</p><figure id="893f6b41-6c70-4b46-ba6a-cde759a816a0" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%206.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%206.png"/></a></figure><p id="2d976cd4-1976-452c-b85f-d855885b08ad" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="1bb307db-1381-4b7a-a841-706e360f0fa0" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="40ffd438-2d68-42b2-b0f5-555731dfd8b2" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="ce663835-131a-4e8d-95bf-dad8ea494d42" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="caa33478-9214-48f7-875f-0bc0479c36cc" class="">JavaScript, Types, StringsEdit Post</p><p id="98b78f26-2213-4721-b786-e404ade12487" class="">Create a new file called <code>types.html</code> and we will use our HTML base snippet.</p><p id="97a8efcb-1bc8-4277-9f54-2da1315fc854" class="">Add the following code 👇</p><pre id="543a1a52-93d1-4ae4-9914-9c0dfd409457" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot; /&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../base.css&quot; /&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script src=&quot;./types.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="17deb8e9-9a3b-4734-b016-f5d0a4acdaa4" class="">Create a new file <code>types.js</code>.</p><p id="ecf5482d-b4dc-4a26-96f9-92e224304a7d" class="">Add a console log such as <code>console.log(&#x27;it works&#x27;);</code> and save the file.</p><p id="5df783b3-02cc-4837-988d-5fcf5a1f47a9" class="">Once you have done that, open the <code>types.html</code> page in a browser and take a look at the console to test if you get a <code>&quot;it works&quot;</code> message.</p><p id="4aaf8841-c625-4edc-8cb3-d673da2f94ab" class="">Strings are used for holding text. There are three different ways to create strings in JavaScript:</p><ol type="1" id="5f8d4235-0023-4e53-90e8-8ea85ed4e825" class="numbered-list" start="1"><li>Single Quotes <strong>&#x27;text&#x27;</strong></li></ol><ol type="1" id="25732aca-e457-4244-a6d2-b267a5ac52a9" class="numbered-list" start="2"><li>Double Quotes <strong>&quot;text&quot;</strong></li></ol><ol type="1" id="0a832e6e-18b3-43d7-ad1e-876b66511fab" class="numbered-list" start="3"><li>Backticks <strong>`text`</strong></li></ol><p id="207a0238-89b1-4d75-b7f5-902f34530ed0" class="">Add the following to your <code>types.js</code> file 👇</p><pre id="4942d790-09c0-4d96-a8ae-abf80df1dfbd" class="code code-wrap"><code>const name = &#x27;wes&#x27;;
+const middle = &quot;topher&quot;;
+const last = `bos`;</code></pre><p id="42364382-06ef-437d-9e30-175b052b4b3a" class="">When you save the file, you might notice that our double quotes were replaced with single quotes because of our ESLint rules.</p><p id="dfd4cf95-f3e2-4946-83e5-04bf551e5521" class="">We want to disable the ESLint change on file save, which you can do by adding a comment.</p><h2 id="207a2c81-8181-42f3-a36c-5c8808b58300" class="">JavaScript Comments</h2><p id="dd65684f-e8be-43e5-a743-1cc8ef825ede" class="">This is a different kind of comment than this style <code>//comment</code> which Wes&#x27; has already showed us. The two forward slashes comments out the entire line. You can also put a double slash comment at the end of a line.</p><p id="2aa0bc40-ecc9-46c7-a76a-b384335ddea8" class="">A <code>/*</code> comment will open up what is called a <strong>block comment</strong>. You can close the block comment anywhere you wish to close it <em>(it can be multiple lines or only a single line)</em>.</p><p id="b793d2b7-1ba6-4bd5-b31b-43a5d5498f37" class="">To disable ESLint for the file, we will use a block comment even though the comment only spans one line, because that is what ESLint is looking for.</p><p id="f2b63071-bd77-4fe7-a5c5-eb23fb836442" class="">On the <em>first</em> line of <code>type.js</code> add the following block comment 👇</p><pre id="e3a45858-f05b-4ead-95cb-ba3c03b90a4a" class="code code-wrap"><code>/* eslint-disable */</code></pre><p id="014cefd6-8def-46dc-8a4e-0ed898e9581f" class="">Next take the value of <code>&#x27;topher&#x27;</code> in the <code>middle</code> variable and put the double quotes back around <code>&quot;topher&quot;</code> and save the file.</p><p id="87591466-2fcb-472b-a93d-7de2ffdeb312" class="">The double quotes should remain because we have disable ESLint for the entire file. <em>(It is also possible to disable ESLint for just one line.)</em></p><p id="275b69d8-3152-4408-aed2-14bc4d3fa14a" class="">For Wes&#x27; Prettier settings, he usually sticks with single quotes or backticks. He has been considering switching to just using backticks entirely.</p><h2 id="d60a165a-563e-431b-8ad5-9b341f77e29e" class="">Difference between Single Quotes, Double Quotes and Backticks</h2><p id="7755b576-feea-4c8a-80cb-405bfe0401cb" class="">What is the difference between single quotes, double quotes and backticks?</p><p id="eef2c082-de24-4299-85c6-6fefea755e48" class="">Single quotes and double quotes are exactly the same thing.</p><p id="7eb43586-720d-4a66-a5e2-80189f895266" class="">The only reason that we have them both is because if you had a sentence like <code>const sentence = &#x27;she&#x27;s so cool&#x27;;</code>, it would break your JavaScript because the JavaScript interprets the apostrophe as closing the string.</p><p id="aea9b132-a7a7-481f-85ca-132fc3f20d74" class="">If you were to make that change, save the file and then refresh <code>type.html</code>, you will see an error that says</p><blockquote id="1faffdd7-4eac-4150-9fca-b44e69568c19" class=""><p id="7b1b3708-2bd9-4d0d-9e44-96b7ff5e8d1a" class="">Unexpected identifier</p></blockquote><figure id="29a6c22e-5046-4bea-9ffc-dfdba76188d2" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/unexpected-identified-apostrophe.png"><img style="width:460px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/unexpected-identified-apostrophe.png"/></a></figure><p id="6c6531f2-2e66-4877-83ae-38512399600d" class="">In that case, there are a few things we can do.</p><p id="29876d18-55a6-4c90-b0e3-0291d85d2821" class="">First, we can do something called <strong>escaping</strong>. Escaping in JavaScript allows you to tell JavaScript &quot;No, I actually want this character, don&#x27;t interpret it as JavaScript syntax, interpret it as text.&quot;</p><p id="cd90f8f9-b832-4c11-b546-4c89c3339f68" class="">Escaping is done with a backslash.</p><p id="f7d41150-d27c-4445-9f01-8efd03966d44" class="">For example, change that line of code to be <code>const sentence = &#x27;she\&#x27;s so cool&#x27;;</code> and refresh the page. This can get annoying. Another challenge is what if you actually want a back slash in your text? You would have to escape it like so 👇</p><pre id="d31f157c-663c-455a-87e1-e26a067b48a1" class="code code-wrap"><code>const sentence = &#x27;she\&#x27;s so cool \\&#x27;;</code></pre><p id="eab9ee80-d5ec-4c6f-997f-aaa70bd4847d" class="">The other better option is to just use double quotes instead, so the apostrophe doesn&#x27;t get interpreted as the end of the string.</p><p id="1610aa12-2744-4141-8372-c0d8c692a0c3" class="">Another bummer is sometimes you want to use both, for example let&#x27;s say you wanted text that said 👇</p><pre id="75cd1a29-6858-4ef1-b28b-c349d53e4f01" class="code code-wrap"><code>const sentence = &quot;she&#x27;s so &quot;cool&quot;&quot;</code></pre><p id="f5294327-30b2-43cf-9fc2-5dc6badf41a9" class="">You would have to escape the double quotes like so 👇</p><pre id="09355dfe-7520-4850-a9f7-3aa322f95628" class="code code-wrap"><code>const sentence = &quot;she&#x27;s so \&quot;cool\&quot;&quot;;</code></pre><p id="ac57f9e6-cc9a-4c55-a005-b92906ccb586" class="">The third option is using backticks. With backticks, you could simply do 👇</p><pre id="19ff7f5f-0e83-4044-b461-3ec793c99498" class="code code-wrap"><code>const sentence = `she&#x27;s so &quot;cool&quot;`;</code></pre><p id="34116144-37b4-4bc1-ac7c-2d2a004e8e60" class="">The only downside to this approach is if you needed a backtick in your string, you would need to escape it like so 👇</p><pre id="8351d27f-329b-44e5-8fba-10e6dc9b6564" class="code code-wrap"><code>const sentence = &quot;shes&#x27;s so \&quot;cool\&quot;&quot;;
+const sentence2 = `she\`s&#x27;s so &quot;cool&quot;`;</code></pre><p id="4c1a80e7-e08d-413e-992f-660653fff6d3" class="">That is one of the benefits to using backticks.</p><h3 id="f1c86099-46a0-46e7-b051-de86eb6985bb" class="">Putting String on Multiple Lines</h3><p id="75f1012e-7552-4d26-b4c3-86c8f98cc0f1" class="">The next thing is putting strings on multiple lines.</p><p id="d54bf8e4-883c-489d-9c4c-9ead6fca25d3" class="">Let&#x27;s say you wanted to add the following song as multiple lines of text 👇</p><pre id="e22df837-cd98-4e14-97df-a368ba6ff3d6" class="code code-wrap"><code>const song = &#x27;Ohhh
+
+ya
+
+I like
+
+pizza&#x27;;</code></pre><p id="83b47085-a0ac-45c5-b532-440caac90a51" class="">You can see that the editor is complaining about the string not being closed properly. How do you do multi-line strings?</p><p id="65d8eee2-f79f-4b08-9cae-638d2ac5e9f3" class="">If you want to, you have to put a backslash at the end of every single line, and that will allow you to put a string on multiple lines.</p><pre id="d2da1068-eadf-4bdc-bad7-fce2e597f5ac" class="code code-wrap"><code>const song = &#x27;Ohhh\
+\
+ya\
+\
+I like\
+\
+pizza&#x27;;</code></pre><p id="9cf677ee-9c3b-451a-9bc8-0c521e17d722" class="">The benefit to using backticks is you can have multi-line strings and they maintain the line breaks inside of them.</p><pre id="4f2b8871-cc0f-478f-a6dd-ade5ea12b39a" class="code code-wrap"><code>const song = `Ohhh
+
+ya
+
+I like
+pizza`;</code></pre><p id="c3649084-8dc9-4c5d-99ce-13885cc44a06" class="">Sometimes the console will return the value like <code>&quot;Ohhh↵↵ya↵↵I like↵pizza&quot;</code>. Those arrows indicate a new line.</p><p id="90242333-0d80-4d88-9bed-88b51ed37a61" class="">Backticks will be extremely helpful when we want to write HTML code in our JavaScript variables.</p><p id="0e9160e0-fd88-4b85-9bb5-e78bb84e1f18" class="">For example, using backticks allows you to do something like this 👇</p><pre id="22b23b88-42e0-45d9-afe7-ddf7d40bfa71" class="code code-wrap"><code>const html = `
+  &lt;div&gt;
+    &lt;h2&gt;&lt;/h2&gt;
+  &lt;/div&gt;
+`;</code></pre><h2 id="b8be9b06-9c73-4996-b4a2-36e788a4e38c" class="">Concatenation and Interpolation</h2><p id="0a5a060f-d5db-43eb-9269-a75eb63650d6" class="">Before backticks were introduced, the only thing you could use to achieve that is <strong>concatenation</strong>.</p><p id="47709369-5d86-4ae8-bd4d-5976e442ea0c" class="">Another benefit of backticks is interpolation and concatenation. Let&#x27;s define those.</p><ul id="05b28cf0-4787-459d-9f81-4ae0db47d293" class="bulleted-list"><li style="list-style-type:disc"><strong>Concatenation</strong> <em>is when two or more strings are combined into one</em>.</li></ul><ul id="81979e34-ecd0-42e6-8cae-31ce3d9e2116" class="bulleted-list"><li style="list-style-type:disc"><strong>Interpolation</strong> <em>is when you put a variable inside of a string.</em></li></ul><p id="c23617bf-9653-4d40-b95f-21268c41ec60" class="">In <code>types.js</code> add 👇</p><pre id="84136189-ea24-4caf-9c01-6373bb13342b" class="code code-wrap"><code>const hello = &quot;hello my name is. Nice to meet you&quot;;</code></pre><p id="3086cf37-6d4f-4737-9653-5167da4a16b9" class="">Let&#x27;s say we wanted to add our name to the end of the &quot;hello my name is.&quot; sentence.</p><p id="6237f7ad-d28f-4f0d-b4f5-e30e72934030" class="">Previously, with single and double quotes, what you have to do is close the quote, put a plus symbol <em>(which is concatenation)</em>, and then you put your variable, and then another plus like so 👇</p><pre id="11060d28-620b-44af-9b9f-e445093e382f" class="code code-wrap"><code>const hello = &quot;hello my name is&quot; + name + &quot;. Nice to meet you.&quot;;</code></pre><p id="7845a655-0970-4678-8da0-31ceb6e32432" class="">That is one way of interpolation (using concatenation). <em>You could do the same thing with single quotes, like mentioned previously, there is no difference between the two types of quotes.</em></p><p id="d1894401-773e-47d0-9122-9122642257b3" class="">Here is yet another way to do this 👇</p><pre id="9647260c-e097-4e9a-be91-667911f6a765" class="code code-wrap"><code>let hello2 = &quot;hello my name is &quot;;
+hello2 = hello2 + name;
+hello2 = hello2 + &quot; Nice to meet you&quot;;</code></pre><p id="90199d08-b8af-49c3-979b-3a1f98f46731" class="">That is just annoying, because we are just overwriting the variable each time <em>(we are overwriting it with the value of the variable, plus an addition of more characters).</em></p><p id="73f6809d-01f1-4369-a6e0-edcc60c37853" class="">Both approaches to interpolation are not the greatest.</p><p id="617b565b-b053-4313-bff6-29d798bd62f7" class="">The <code>+</code> sign does two things in JavaScript.</p><p id="3ae19f48-ea12-405f-b992-78f0e19a6d41" class="">If you use it with a string, it is used for concatenation. But it is also used to add numbers like so 👇</p><pre id="718eb929-eee5-4b3e-acb0-e424c554dfc5" class="code code-wrap"><code>1 + 1 = 2;</code></pre><p id="5e4165e0-e052-4c81-870a-f6c9332c9862" class="">But if you do <code>&quot;1&quot; + &quot;1&quot;</code>, it will evaluate to <code>&quot;11&quot;</code>.</p><p id="5e0d3025-f110-488c-a1f6-cd40b5fd4a47" class="">If you do <code>&quot;1&quot;</code> + <code>1</code>, it will also evaluate to <code>&quot;11&quot;</code>.</p><p id="bd685b21-dc9a-4577-86f1-dd54044cfb1d" class="">That is ripe for bugs, so that is where backticks come in with a much nicer solution.</p><h2 id="4f7edd6d-7031-4849-9b58-c0dbab79e1ac" class="">Backticks</h2><p id="b2ecb571-2fa5-4750-b18d-e293bf1da2bf" class="">With backticks, you can interpolate the string like so 👇</p><pre id="055eb830-1042-4ce4-a1c0-d0fcd85635c4" class="code code-wrap"><code>const name = &#x27;Wes&#x27;;
+const hello = `hello my name is ${name}. Nice to meet you`;</code></pre><p id="c635fc8a-9c3f-4ce0-b8b8-2a154f87eb6b" class="">The <code>${}</code> syntax can only ever be used in backticks. It is the easiest way to pop a variable into a string.</p><p id="1f366679-249b-4b9b-b400-968653da069c" class="">Almost anything can go between the curly brackets <code>{}</code> in that syntax. For example, you can do math. 👇</p><pre id="d4320e9b-a020-49b9-b5b1-51863132be3c" class="code code-wrap"><code>const hello = `hello my name is ${name}. Nice to meet you. I am ${1 + 100} years old`;</code></pre><p id="843f88ad-9dde-45d9-b10d-9766a087722c" class="">JavaScript will run whatever is inside of the curly brackets in that syntax (whether it is a variable or an actual statement) and it will return the value that&#x27;s inside of it.</p><p id="e372a641-a7ac-4576-9c66-c1fd50128143" class="">To reiterate: you can do multiple lines with <strong>backticks</strong>, <strong>variable interpolation</strong>, and then there is something a little more advanced that is called a <strong>tagged template literal</strong>, but we are not going to get into that because we haven&#x27;t got into functions just yet.</p><p id="9c7fedd2-e8aa-4652-91ac-07a41cad23a2" class="">Finally, this will be very helpful for creating HTML in our JavaScript code.</p><p id="6a13adcb-efee-4231-aa68-42a2dfd89af9" class="">We can do something like:</p><pre id="76366534-bca6-4ef6-99f1-bcf8b5f948c3" class="code code-wrap"><code>const html = `
+  &lt;div&gt;
+    &lt;h2&gt;${name}&lt;/h2&gt;
+    &lt;p&gt;${hello}&lt;/p&gt;
+  &lt;/div&gt;
+`;</code></pre><p id="f2393e1f-0a6a-44cf-917c-5ebb0b625f8f" class="">Now we have all of this html that we have made, and if you add a <code>console.log(html);</code> and reload <code>types.html</code>, you will see 👇</p><p id="6bfd78ba-c00d-4211-85f0-53f3fe404364" class="">We can actually do something like this with the html we just created <em>(we will discuss what this code does in future videos)</em>.</p><p id="a119907c-0fef-4475-9ee7-7b35e149947c" class="">Add the following code below the html variable:</p><pre id="82ea606c-ff95-4aaa-8b64-5ce213e28d16" class="code code-wrap"><code>document.body.innerHTML = html;</code></pre><p id="08e14a32-0b97-42dc-9b80-aa931402efb5" class="">When you refresh <code>types.html</code> you should see something like the following in your browser 👇</p><p id="759cc836-64a2-464a-9cd3-1fad4dc405d9" class="">We have just made some HTML! If you inspect the html using the browser dev tools, you will see it&#x27;s regular html.</p><p id="0a8f001d-0f6f-445d-b316-256c3ff50582" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="5b78952f-2ff3-42de-98d4-eebe0055c1e6" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="58ec2a6b-b5a4-4069-9d9b-522a60b4c6e5" class="">Edit on Github</p></details></li></ul><ul id="d890b170-c5ff-43dc-8515-1ed528db09f0" class="toggle"><li><details open=""><summary>08 - Types - Numbers</summary><p id="61d66126-28e6-48a1-8890-aaa44aa77187" class=""><a href="https://wesbos.com/javascript/01-the-basics/types-numbers">https://wesbos.com/javascript/01-the-basics/types-numbers</a></p><p id="0ecb3642-3b84-45fa-b191-32bde028a8d8" class="">
+</p><figure id="f27c4d3a-130a-4eb8-9dd8-603d9acde4c8" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%207.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%207.png"/></a></figure><p id="b5862b9d-a702-4252-a5d1-a03876669ac7" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="ec8aaea3-a2ce-476c-8854-3d47772b3470" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="2195cb4f-90c4-4ac5-918e-543d771eccd1" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="e5484c29-e788-485b-b5aa-934887a33753" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="403d0c27-9a3e-4c56-ae40-e68f63635293" class="">JavaScript, Types, NumbersEdit Post</p><p id="754b0886-b489-44f7-91c5-11eb111c2cab" class="">There is only one type of number in JavaScript, which is simply number.</p><p id="af369b39-ccdd-497b-aec7-77df0661e556" class="">Comment out all the code in <code>types.js</code> and add the following 👇</p><pre id="4bd988b6-5092-4e0d-8f3b-4576f29dd4b4" class="code code-wrap"><code>const age = 100;
+const name = &quot;wes&quot;;</code></pre><p id="de5786c0-fc72-443e-96d8-1f6b9f357aca" class="">Open <code>types.html</code> in the browser and then open the console and type <code>typeof age</code> and hit enter. The console should return to you &quot;number&quot;.</p><figure id="f976299b-43a1-47aa-9124-c0bc868926ac" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/typeof-operator-in-console.png"><img style="width:504px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/typeof-operator-in-console.png"/></a></figure><p id="a16e3530-8eae-42a3-9eae-f25ed4ba1845" class=""><strong>typeof</strong> is a keyword in JavaScript that allows you to check the type of a value.</p><p id="f13a7bcd-c43e-4b2d-8feb-668034c99839" class="">You use it by writing <code>typeof</code> followed by a space and a variable or value. That will tell you whether it&#x27;s a number, a string, or any of the other types.</p><h2 id="9ad7942f-11f7-41d6-a48a-804fe750b9c8" class="">Numbers in JavaScript</h2><p id="9afc808d-1b51-4bfd-9039-675d25a48653" class="">Numbers in JavaScript are pretty simple.</p><p id="61d9458a-bf0c-4921-84f1-5eff45f1753e" class="">You can create an integer, which is a whole number (100), or you can create a float which is a number that has a decimal (100.5).</p><p id="b30ade20-9f1d-4e33-8ae1-93ffbd2dc966" class="">Both are used in the same type of number.</p><p id="9718515f-d564-49ae-b7ad-961cf58cae61" class="">There is multiplication, division, addition and subtraction available to us.</p><p id="215a849c-50ca-4dcc-aa97-11b7558d1a4d" class="">Add the following code to <code>types.js</code> and refresh the html page in the browser.</p><pre id="2a504607-fa24-4bb8-a091-0c68ba74d160" class="code code-wrap"><code>const a = 20;
+const b = 10;</code></pre><p id="0a9288a8-81e8-460d-8f48-df3b3f14b46d" class="">You can perform the following calculations in the browser 👇</p><figure id="ed54ddb6-8757-491a-9261-612eadf93d7f" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/arithmetic-calculations-in-console.png"><img style="width:322px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/arithmetic-calculations-in-console.png"/></a></figure><p id="000dea6c-1e27-44b9-a89b-a1fcc4131f2e" class="">The only thing to be aware of is when you are mixing types.</p><p id="5e7e1fb6-cf40-4361-90cd-2dabc1a5b89c" class="">If you try to do math with a string type for example, you start getting into <strong>concatenation</strong>.</p><p id="30265217-6de1-4850-ac45-d28ef19f1ad4" class="">That is what we refer to in JavaScript as <em>&quot;the plus sign is loaded&quot;</em> meaning the plus sign can be used with numbers to add, with strings to concatenate, and then there is a lot of room to run into bugs.</p><p id="08d386c8-63a9-4a9d-afe9-c6edd34af948" class="">If you try to do math with strings, it will convert them for you if you are doing subtraction, division or multiplication, but not for addition.</p><p id="9672d6ae-1627-4acb-9ad4-eb88d81c1d03" class="">Whenever we are doing math, we need to make sure we are dealing with true numbers and not mixing types.</p><p id="d40482b9-2c8e-4417-aef4-e6280e145e2d" class="">Along with numbers we also have what we call helper methods.</p><p id="202dcc6d-ceea-4643-b99b-8d684739f26c" class="">If you go into the browser console and type <code>Math.</code>, you will see a lot of built in helper methods.</p><h2 id="1976bcb5-3bba-4665-a97a-f6cf6090c07f" class="">Helper Methods</h2><p id="b163e608-cd5a-4b28-aeff-400fa0a9394a" class="">There are four you are most likely to use.</p><ol type="1" id="cfca2bc3-bab4-40db-a2a3-f022f68435bc" class="numbered-list" start="1"><li><code>Math.round()</code></li></ol><ol type="1" id="e3646902-3048-433c-9f5c-a9e971e8e44f" class="numbered-list" start="2"><li><code>Math.floor()</code></li></ol><ol type="1" id="8f5e7890-4898-4b71-ae33-35f9483aaa90" class="numbered-list" start="3"><li><code>Math.ceil()</code></li></ol><ol type="1" id="dbeca34c-c034-43cb-84a3-09d2efff110a" class="numbered-list" start="4"><li><code>Math.random()</code></li></ol><p id="fc686ba7-c677-46e6-96ae-6d798e6b7515" class="">Let&#x27;s go through each one, starting with <code>Math.round()</code>.</p><p id="e52cd1de-0b02-44ae-b664-4486e5a1a334" class="">To use <code>Math.round()</code>, you pass a value in between the parenthesis <code>()</code> <em>(that is referred to as passing a value, which we will go over in a future video).</em> It will return to you the number that was passed in, rounded up or down depending on the number.</p><p id="a6f65cce-6f9c-4424-8c4f-ad9013c1f2c0" class="">There is also <code>Math.floor()</code> which will give you the lower end of that number.</p><p id="7ec33c4f-affa-451c-97e2-be1ad04d6bdb" class="">We have <code>Math.ceil()</code> and that will give you the upper number.</p><p id="5ac97d71-dc09-4104-b0b6-01b476f8d2a6" class="">Then there is <code>Math.random()</code> which will give you a random number every time between 0 and 1 (in a future video we will go over how to get a random number between 1 and 10).</p><h2 id="6cf865c2-2c22-4882-a3d2-2f7d5d72d54d" class="">Modulo and Power Operators</h2><p id="e66a2f48-aecc-4fec-a39b-4b8400fb014b" class="">Along with multiplication, division, subtraction and addition, we have two more operators which are called the modulo and the power.</p><p id="5ac2b86d-c46d-4dda-9d73-c2e8c5f5d2ce" class="">Let&#x27;s use the example here where you have a box of 20 Smarties (a Canadian candy), that you need to split up between your 3 kids.</p><pre id="7f2e01d0-7855-4c2e-a651-0e173aa35c99" class="code code-wrap"><code>const smarties = 20;
+const kids = 3;
+const eachKidGets = smarties / kids;
+console.log(`Each kid gets ${eachKidGets}`);</code></pre><p id="7039e17c-a35a-4f5f-8e2d-c7cc78cc136c" class="">In the console, that evaluates to <code>Each kid gets 6.66666666667</code> 👇</p><p id="5effb097-7e6b-4164-8d7f-f5868374baac" class="">That is obviously not going to work because you aren&#x27;t going to split a smartie into a 0.6666.</p><p id="94090eb4-2928-48f1-8810-da1b858bda5d" class="">Instead, what we can do is specify that it is a whole number of smarties that we need and we can&#x27;t round up because we don&#x27;t have extra smarties so that is one instance in which we can use <code>Math.floor()</code>.</p><p id="040df81b-7f13-4f61-bf63-abea6ff485e8" class="">Modify the code to use the following instead 👇</p><pre id="c28e8820-3644-42bb-b993-6c7600ed7017" class="code code-wrap"><code>const eachKidGets = Math.floor(smarties / kids);</code></pre><p id="6c6a64c8-c099-47e5-8335-ca640628d6d9" class="">Now in the console you should see that each kid gets six.</p><p id="04f29e42-0413-4f90-a436-886365109286" class="">Now how many smarties do we have left over?</p><p id="c297a326-5a32-4379-8a7e-3f523b43a429" class="">When you can no longer evenly distribute them, there will be some left over (for dad!). How can you figure that out?</p><p id="404615c5-9039-4d3f-b4d6-e1077d8542d8" class="">You can use the <strong>Modulo operator</strong> to tell how many are left after they have been evenly split up.</p><p id="0db31074-d644-4905-8aa3-7a7c48e7868d" class="">In the console type the following, and you should see the value 2 returned. 👇</p><pre id="67a4c9d1-131f-41e3-bc0f-dec4015c56ff" class="code code-wrap"><code>smarties % kids;</code></pre><p id="ea39042d-77f7-490c-9414-b83864786d39" class="">and you should see the value 2 returned. 👇</p><p id="62f6327f-c088-4620-891a-3dce3a5e48a8" class="">After the smarties have been evenly distributed between the kids, there are 2 smarties left over. The modulo operator <code>%</code> will tell you how many are left after you evenly divide them.</p><p id="2db1c987-93d4-4ef2-8a3c-f46fd3cc34fd" class="">Add the following to <code>types.js</code> 👇</p><pre id="9b0c20a0-9689-4667-950b-330212cc57d5" class="code code-wrap"><code>const dadGets = smarties % kids;</code></pre><p id="9d972071-0a02-4620-b1fa-455b761d95ff" class="">Another example would be there are 10 smarties and 3 kids. If you divide the smarties evenly, there will be one left over.</p><pre id="3af5c55a-6e2f-4e8c-abb0-1d15bad651fd" class="code code-wrap"><code>10 % 3 = 1;</code></pre><h2 id="d86ae518-c1cd-4ab5-b446-817b16de3110" class="">Things to know about Math in JavaScript</h2><p id="d1210095-ed82-47ee-974c-86b4d7e5dfb6" class="">Other things you need to know about math in JavaScript is that if you do <code>0.1 + 0.2</code> in the console, it will return <code>0.30000000004</code>.</p><p id="9a71138c-266c-431c-a92b-1d1b266d8890" class="">When people who are learning JavaScript encounter this, they often think that JavaScript is buggy.</p><p id="33c7cdfb-04d6-4b13-808f-dc9d496cd5c4" class="">Wes suggests trying the following in the browser console: 👇</p><pre id="7849e928-9301-43c8-acd0-45628e095181" class="code code-wrap"><code>window.location = `https://${0.1 + 0.2}.com`;</code></pre><p id="e1b3fda2-5ea2-4e63-a647-49ff95d94334" class="">That will take you to the following website https://0.30000000000000004.com, that will explain why this occurs in JavaScript.</p><p id="af2094e8-86fc-4dac-be84-462d382ce69b" class="">This happens in almost every programming language, and it&#x27;s the reality of working with floating point numbers on computers.</p><p id="8a8aebce-d092-4a80-93c8-a5cd9435d2c5" class="">One takeaway is that if you are ever working with money, don&#x27;t store it in dollars and cents.</p><p id="3dbcd7ff-5ebd-480e-9cc6-3448dd243a1c" class="">For example don&#x27;t do this: 👇</p><pre id="6e61384b-2bc7-4c16-b664-d95a1033f98b" class="code code-wrap"><code>const price = 10.34;</code></pre><p id="c954dcdc-064d-4cbf-b3ae-5fc5df1641c5" class="">That is because if someone gives you a 20 dollar bill, you can run into issues with the long rounded number and you have a half cent left over you aren&#x27;t sure what to do with. That is ripe for bugs.</p><p id="57cd2fad-59e9-458c-97cb-6c09e00b4d47" class="">What Wes does is he stores all of his prices in cents, so he is always working with whole numbers and doesn&#x27;t have to deal with fractions. When he needs to display the price, just divide it by 100 and round the cents <em>(we will look at examples of displaying money soon)</em>.</p><h3 id="349ef368-0561-4935-8da8-1cbb1a7d4ba3" class="">Infinity and Negative Infinity</h3><p id="1b41e556-c13a-4852-8c23-4d73a0a7098e" class="">Another thing you should know is JavaScript also has <code>infinity</code> and <code>negative infinity</code>. At the end of the day, there is a max that computers can calculate with numbers. If you try to calculate something that is too high, it will return to you infinity or negative infinity.</p><p id="c8847d10-352f-4b56-a90f-445356adc2aa" class="">We will go over an example.</p><p id="8836c93f-5ab6-4743-9916-b88255118021" class="">If you do <code>10 **</code>, the double <code>**</code> actually means <em>&quot;to the power of&quot;</em>. So <code>10 ** 2</code> returns 100 and <code>1000 ** 2</code> returns 1000000.</p><p id="dd6a52b7-1bdb-45e1-b1d5-89c6ad412981" class="">Negative infinity is also a number. Wes has never run into this in his programming, unless you have goofed something up.</p><h3 id="467fb11f-a1c1-49e3-b42b-98e23860c627" class="">Not a Number</h3><p id="aaedd9c7-8730-4e0d-ae56-ea82bfcab98d" class="">Another thing to know is <code>NaN</code>. NaN means <em>&quot;not a number&quot;</em>.</p><p id="4829bcf4-1947-486f-8b67-91739a2d8d71" class="">If you try to do something like below, it would return NaN 👇</p><pre id="2f8185d9-92cb-499e-a253-003c00821237" class="code code-wrap"><code>10 / &quot;dog&quot;; // Return NaN</code></pre><p id="0b738e8d-61c0-4a9b-819c-b4ff02c696a9" class=""><strong>NaN</strong> is a type of &quot;number&quot;, which is confusing since it means not a number.</p><p id="60714dea-b989-4885-be15-b1a5545fdc1b" class="">That is something you will run into if you try to do math with something that is not a number. Instead of erroring out, it will just return NaN.</p><p id="a38f3ffc-1b25-4d7c-b173-943fffe10b02" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="88338822-66e6-43f5-8f0e-6a9a203438ae" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="285fee22-c824-4b7b-8c69-a029ef4a5ddf" class="">Edit on Github</p></details></li></ul><ul id="50c8b322-c675-4563-a230-2e91f9b807a2" class="toggle"><li><details open=""><summary>09 - Types - Objects</summary><p id="e8df2376-73cd-4bbc-9c54-b41160d56e90" class=""><a href="https://wesbos.com/javascript/01-the-basics/types-objects">https://wesbos.com/javascript/01-the-basics/types-objects</a></p><p id="0372b9d2-eafc-47c5-b125-b8d397a5fd59" class="">
+</p><figure id="8ed7ec82-c889-4419-bb5c-355b964573ff" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%208.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%208.png"/></a></figure><p id="7a19ca35-c5cb-4c2a-a2a8-cbbab6530081" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="4d17481e-df58-4659-b0d5-84a8de8d8333" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="35731059-fac7-48c2-a47d-78f9a02983a7" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="2d18857e-dba5-410e-889a-1bd1f5c621e6" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="4fceed8c-dfc2-4987-9d3f-5a8c14c73e5e" class="">JavaScript, Types, ObjectsEdit Post</p><p id="ef470ae0-a0a8-4ac8-bbb1-7b77caa3f5d8" class="">Objects in JavaScript are the biggest building block and <em>almost</em> everything in JavaScript is an object.</p><p id="8b7e8205-07be-4771-9bd3-ec6851fdd2df" class="">Objects are used for collections of data or collections of functionality.</p><p id="2acd6f85-7c26-4e94-b7f0-47f901cd8364" class="">We will be going through objects in depth in this course, there is an entire section dedicated to them and we will be using objects throughout all of our examples.</p><p id="7c587118-d20c-4967-a220-afcbbaad49a9" class="">For now, you need to know that when something is an object in JavaScript, it&#x27;s because we want to group things together.</p><p id="0ad92e71-f60f-41f7-9510-b4bb50d7be9e" class="">Up to now, we have been using random variables like <code>const name = &#x27;wes&#x27;;</code> or <code>const age = 100;</code>. That is not the best way to do things, because the values are not associated.</p><p id="517421e2-6a77-42be-80f1-721c1142eda2" class="">What we can do instead is create an object called person.</p><p id="cab90b7d-31ba-4eba-8706-ef3d48c59d42" class="">We will create it using two curly brackets and a semi colon. That is the most common way to make an object, but there are other ways that we will go over.</p><pre id="2b7c727f-b626-4594-9728-ccfbc7512fcc" class="code code-wrap"><code>const person = {};</code></pre><p id="cb4d9417-a693-4f9b-99b5-78bb9a35f5ef" class="">Inside of the person object, you have what are called properties and values. Add the following to <code>types.js</code> 👇</p><pre id="99dab557-0e5b-4e0c-9846-4736ec042859" class="code code-wrap"><code>const person = {
+  first: &quot;wes&quot;,
+  last: &quot;bos&quot;,
+  age: 100,
+};</code></pre><p id="37512447-92ef-42e6-a96e-068c53028664" class="">What we have done here is created an object that allows us to group together variables. In the example above we have first, last and age variables all contained within an object for a collection that is a &quot;person&quot;.</p><p id="8accde89-1648-43e1-a176-61c6c848b060" class="">In the console, if you type person it will return the value, which is the object. If you check the type of the person variable, it will return the object type.</p><figure id="58ef8182-ffcf-4ba6-a750-8cbe23de1de6" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/typeof-person-in-console.png"><img style="width:591px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/typeof-person-in-console.png"/></a></figure><p id="f3da056b-ed15-4851-8597-14356ff7ee52" class="">You can expand the object in the console to see it like so 👇</p><figure id="521ef8a2-7136-4ff0-8f12-5f9fa544b17a" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/expand-object-in-console.png"><img style="width:586px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/expand-object-in-console.png"/></a></figure><p id="4e8f5c72-9d43-42fa-baaf-e009e2c49d97" class="">You may notice that the object properties are in a different order then we put them in within <code>types.js</code>. We will go over that after. The short and skinny is that <strong>the order doesn&#x27;t matter in an object</strong>. If you need the order to matter, use an array or Map data structure.</p><p id="bb4110e3-d8a2-4cf0-913b-2844347eba6c" class="">To access the properties, there is a couple of different ways we can do it.</p><figure id="a9f92a56-abf8-4ed5-b4d5-c435463028bc" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/different-ways-to-access-object-properties-in-console.png"><img style="width:398px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/different-ways-to-access-object-properties-in-console.png"/></a></figure><p id="43cc88e0-50a7-42eb-bc70-1e0511f5973f" class="">We are using the <code>dot notation</code> in the examples above.</p><p id="ba9c3569-dfc8-42e3-b604-5fa86a6a8dd8" class="">When we get deeper into objects in the future, we will go over the other ways to do it as well as things like nesting objects and object vs reference and copying objects.</p><p id="0e5f3fbc-2c0b-4285-9b65-bdd141289a01" class="">The last type we need to talk is <strong>Symbols</strong>.</p><p id="56cf164e-7b3f-4dc5-9efb-7cf4d3771837" class="">What you need to know about it right now is that it is a way to do unique properties (or unique identifiers in general in JavaScript).</p><p id="91e4960f-c5da-4e0f-a022-2473bd55844e" class="">There is more to it, but it&#x27;s complex and typically used by more advanced users (Wes barely ever uses them) so that is all we need to know for now.</p><p id="11acb6fc-e042-4518-90c5-2e6ef4674a22" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="6911bed3-2320-4d09-bb31-36cfb5113815" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="2c9e9e59-bd08-4abc-96cc-86a457fcfa24" class="">Edit on Github</p></details></li></ul><ul id="04c6c086-590c-4299-996c-489c5cf4c603" class="toggle"><li><details open=""><summary>10 - Types - Null and Undefined</summary><p id="55ac1a58-ad7e-4e5c-8529-1dad930008e9" class=""><a href="https://wesbos.com/javascript/01-the-basics/types-null-and-undefined">https://wesbos.com/javascript/01-the-basics/types-null-and-undefined</a></p><p id="a8bc21fe-0505-4fba-8e18-4afeeb4fca56" class="">
+</p><figure id="805501a7-73dd-42f8-8ef8-c4e29aae8a67" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%209.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%209.png"/></a></figure><p id="16f9956f-a632-4bda-b501-da59768e75de" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="d32f4b2e-3c24-4ee0-bfe3-341113910fdd" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="72e9272f-9e36-4572-b009-db701d0f7547" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="8315f54b-a102-4193-ada6-9bdf678fc26d" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="ebed5996-9743-43e9-8f5f-feffadd3c5ad" class="">JavaScript, Types, UndefinedEdit Post</p><p id="ac0ef181-94b1-4000-b33f-c04e2ea7eba4" class="">There are two ways to sort of express &quot;nothing&quot; in JavaScript, and that is with <code>undefined</code> and <code>null</code>.</p><h2 id="f9fa4958-8720-4ab8-92b2-058f93ee58a0" class="">undefined</h2><p id="102b2902-d713-4ab6-a7bc-39e2efc3df71" class="">If you create a variable and don&#x27;t set anything to it, it will be <code>undefined</code>. 👇</p><pre id="923bf74b-b7c8-4125-bfbd-207a367369fa" class="code code-wrap"><code>let dog;
+console.log(dog);</code></pre><figure id="303508b3-a950-4dc9-ab95-2a68f6569e32" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/undefined-variable-in-console.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/undefined-variable-in-console.png"/></a></figure><p id="17b4cf88-8376-4155-a11f-9bb6e329c0f3" class=""><strong>undefined</strong> is something that has been created (a variable), but has not yet been defined (given a value).</p><p id="e48d83af-81dc-41f4-9b95-d596dfba74e7" class="">The same thing goes for properties on an object. If you type in the console <code>person.dog</code> it will return undefined.</p><p id="ecac7127-ec81-4b9b-86d0-cd30b901e4aa" class="">Why? Because there is nothing there. That is what undefined is.</p><p id="24edaf09-f76e-457a-9c5c-6ce80fd30471" class="">It comes about when you try to access a variable that has been created but not given a value.</p><p id="de11bf50-036f-4f9d-a214-cd3690bd5255" class="">If you typed in the console <code>wes</code>, you would see an error message returned that said <em>&#x27;wes is not defined&#x27;</em> which means that you didn&#x27;t create a variable called <code>wes</code>.</p><p id="e82ee89d-ae05-458c-8019-a67478ca2a92" class="">With the dog example we used above, we have created the variable but we have not set a value. That is the difference.</p><h2 id="a521b67a-8731-4de0-9cfb-635f773949e4" class="">null</h2><p id="9dfdd85b-6b8f-42d3-ba1c-8c2e3ac67fd4" class="">Now we will discuss the <strong>null</strong> type.</p><p id="1f194da8-92cb-48e6-acd1-30bb935c758a" class="">Null is a value of nothing, whereas undefined is a variable that has not yet had a value set to it.</p><p id="a69c0654-0a91-4bf1-a7a9-5174b5af9bc0" class="">We will go over some examples to demonstrate.</p><p id="d6c850f2-58fc-4ca3-8127-e2495c5ef37c" class="">In <code>types.js</code> add the following 👇</p><pre id="e523bc4c-550c-42ba-97e9-6336d279d0a6" class="code code-wrap"><code>let somethingUndefined;
+const somethingNull = null;</code></pre><p id="bd34f7aa-cdfa-48fb-829f-6a668b2cd274" class=""><em>NOTE: you cannot use a const variable without setting a value.</em></p><p id="6c214653-0770-4bd0-8da9-048dcf90a03b" class=""><code>somethingUndefined</code> is undefined because it does not have a value set, whereas <code>somethingNull</code> has the value of null, which is nothing. They are both nothing, but in different ways.</p><p id="0ccefaf4-8762-4981-abe6-fea689addb88" class="">Let&#x27;s say for example we have Cher and Teller (both of who are real people), who we will represent in objects like so 👇</p><pre id="203253c5-643b-429c-aa1b-f4e091b0b892" class="code code-wrap"><code>const cher = {
+  first: &quot;Cher&quot;,
+};
+
+const teller = {
+  first: &quot;Raymond&quot;,
+  last: &quot;Teller&quot;,
+};
+
+teller.first = &quot;Teller&quot;;
+teller.last = null;</code></pre><p id="95a804df-8be5-4c5f-8c46-609b3bef6efa" class="">In this example, Cher never had a last name, so she does not have the last property in her object.</p><p id="86e47978-d886-42ed-a2b1-6119e43f82c7" class="">Teller on the other hand, got rid of his last name, so we are explicitly setting it to null.</p><p id="1b0c7f48-f064-4639-845a-0edaa83c0183" class="">In the console, if you type <code>cher.last</code> you will see the value of undefined returned. When you try <code>teller.last</code>, the value of null will be returned.</p><p id="ec2e15c0-7a1d-4742-b586-6be353c55cb8" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="dd556014-11d4-42eb-9dcc-e5f7867225fd" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f7000d32-edec-4116-be7b-fbd6cbd990c6" class="">Edit on Github</p></details></li></ul><ul id="970b4f46-a05f-47d5-87e8-22fe7e3f44d2" class="toggle"><li><details open=""><summary>11 - Types - Booleans and Equality</summary><p id="4afadc46-77d1-4de0-87cf-30c11775f459" class=""><a href="https://wesbos.com/javascript/01-the-basics/types-booleans-and-equality">https://wesbos.com/javascript/01-the-basics/types-booleans-and-equality</a></p><p id="a41235da-e7ba-4ff4-874a-6d2f51b8f2fe" class="">
+</p><figure id="c33b87bb-2ffe-4841-a804-3bde26b56721" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%2010.png"><img style="width:700px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/bjs%2010.png"/></a></figure><p id="095c9701-8b3e-4962-87ed-697fa0f5ea4a" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="23b80e10-b478-41b5-bdf3-7c7cd9d2bd68" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="4d0e5be6-a75e-4b94-b3e0-167b49a055d9" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="39ebb424-e7e9-4702-96fd-e919ea16b872" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="37f71691-6964-4812-b211-53f82b43f9b9" class="">JavaScript, Types, Booleans, Equality CheckingEdit Post</p><p id="07b1a345-854e-4853-8f81-26fa615144df" class="">The final type in JavaScript is called a <strong>boolean</strong>. A boolean is either true or false, it&#x27;s like a light switch, it&#x27;s on or off and that is it.</p><p id="6394e637-294f-4be0-9512-8b17f18a7b8e" class="">We use booleans for logic such as if statements in our JavaScript code.</p><p id="e1560b86-44b4-4a19-bbf3-d7963d2b3679" class="">Booleans can be manually set or calculated.</p><p id="a2140554-ff2f-432e-abdd-accc63cf6c8c" class="">Let&#x27;s take a look at some examples.</p><p id="abec47a6-1d0c-4287-afbe-68390b4d3442" class="">Comment out all the code you have added to <code>types.js</code> so far and add 👇</p><pre id="10db5cbf-ad8b-43bc-87d1-5a0027e4998e" class="code code-wrap"><code>let isDrawing = false;</code></pre><p id="7e289b7a-1264-4268-8843-c2708e8c0fbe" class="">Let&#x27;s say we want to know if the user is moving their mouse and if they are currently clicking down or up.</p><p id="54986976-4668-4ac6-9d01-f27d4444afb7" class="">To do that, we can use a <strong>flag variable</strong>, which is a variable that is either set to true or false.</p><p id="1102995a-ebe0-4c3c-b3e4-b3d815fb2a8f" class="">When the user clicks down, we set it to true and when they click up, we set it to false. That is what a boolean is -- something that is either true or false.</p><p id="63904381-d54b-40ea-a57f-1790cc6bf45b" class="">We can also calculate booleans. For example, if we have an <code>age</code> variable that is set to 18, and another variable called <code>ofAge</code> that has the value of <code>age &gt; 19</code>, if you console log <code>ofAge</code>, it will return <strong>false</strong>.</p><pre id="31f9c666-44f3-460b-907e-675423170a70" class="code code-wrap"><code>const age = 18;
+const ofAge = age &gt; 19;
+console.log(ofAge);</code></pre><figure id="9681280a-8f71-4adc-b200-3be170a4ffe4" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/boolean-false-in-console.png"><img style="width:522px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/boolean-false-in-console.png"/></a></figure><p id="ecf101dd-4622-44fd-a225-c027c78cddb6" class="">Sometimes values are calculated, like for <code>ofAge</code>.</p><p id="47af24c4-a9b9-4a55-8c4b-948bb74183ad" class="">We will talk later about the <code>greater than</code>, <code>less than</code> and <code>equal to</code> operators.</p><h2 id="02682110-2834-4397-bd0e-43905919c7ee" class="">Equality (equal sign, double equal sign, triple equal sign)</h2><p id="afcbb461-c135-405f-9d44-191f6fce1fdf" class="">For now, we will just focus on equality which is the <code>equal sign</code>, <code>double equal sign</code> and <code>triple equal sign</code>.</p><p id="f7f606b4-1d1a-47d2-a152-d2af1aa7be24" class="">One equal sign <code>=</code> is used to assign a value to a variable.</p><pre id="b0d838fd-1fe1-448a-93b8-566d570da943" class="code code-wrap"><code>const age = 100;</code></pre><p id="61aec488-3677-400a-a582-916506b93047" class="">For double equals <code>==</code> and triple equals <code>===</code>, know that you should almost always be using triple equals.</p><p id="5e2ea74f-2700-4899-8f95-a96137683ffd" class="">There are some edge cases where you can use double equals, but almost all the time it&#x27;s better to use triple equals.</p><p id="a0b684b8-83e5-4bbc-bb33-a5c61353ea97" class="">If you take the age variable in the console and do the following</p><figure id="c8ae8dfd-a4e4-4642-9ac4-aa499cfbb5c7" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/triple-equals-comparison-in-console.png"><img style="width:246px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/triple-equals-comparison-in-console.png"/></a></figure><ul id="71963b03-b4d1-484d-8cae-24bef992d552" class="bulleted-list"><li style="list-style-type:disc"><code>age === 100</code> will return true</li></ul><ul id="a6b8a56b-e02e-4d2e-a74b-0414bf01b029" class="bulleted-list"><li style="list-style-type:disc"><code>age === 10</code> will return false</li></ul><p id="e5aebb90-af78-4cdc-a8b4-29163e0cc366" class="">That is what Wes means by booleans can be calculated as well.</p><p id="159be977-4084-422c-a0e7-13be690f8f1f" class="">You have 1 value, which can be a straight up value <code>100 === 10</code> or it can be a value that is stored in a variable <code>age === 100</code> or it can be two variables.</p><p id="522b9e91-d59e-43de-acf8-a2afc7290680" class="">Add <code>let age2 = 100;</code> in <code>types.js</code>, and refresh the HTML page in the browser.</p><p id="ffcdd0c4-4aaf-4882-989d-4bcf7bdd210d" class="">Now you can do <code>age === age2</code> which will return true. 👇</p><figure id="013d7283-2d97-42cd-b846-5a315181b1c6" class="image"><a href="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/triple-equal-operator-comparison-between-variables-in-console.png"><img style="width:270px" src="1%20-%20The%20Basics%20894c26dfc4f8446c82705e4c5b38d614/triple-equal-operator-comparison-between-variables-in-console.png"/></a></figure><p id="295107de-6fb5-4b6c-96b0-d7cd5f457e2d" class="">What is happening there is the browser is checking the value of the first variable and then it checks the value of the second one, to make sure they are exactly the same.</p><p id="954f8365-5fb7-4e02-b60f-e015aadfdc85" class="">What would happen if instead we did <code>10 == 10</code>, with a double equals? It would return true. 👇</p><p id="32c60e65-4075-4337-a067-0076dc8ece10" class="">Why are there two different ways to check for equality?</p><p id="ac13a15d-7e48-45b9-aa22-aafd64330313" class="">Triple equal will check that the value of the thing on the left hand side and the right hand side are the same, AND it will check that the types of the thing on the left and on the right are the same.</p><p id="fd2c807d-00a9-455e-abb1-86b575d6db8b" class=""><strong>Triple equals will always check for both value and type.</strong></p><p id="ddaea0f6-00dc-4611-b3c8-8189b856001c" class="">In the examples above, the types were numbers.</p><p id="bfa051da-c09b-4b4d-ba3c-940a8ad14640" class="">What if you were to do <code>&quot;10&quot; == 10</code>?</p><p id="ae7bfaf2-ff4d-47c4-a92c-d93b2c8f94d8" class="">The console would return true. Why?</p><p id="20ec9b27-98e5-4203-86a1-2f737904c2d5" class="">Because the value is the same, but the types are not.</p><p id="e99bf67d-4eb0-41bf-955b-c6e540ab3a51" class="">If you did <code>&quot;10&quot; === 10</code>, it would return false. 👇</p><p id="97587c8a-a957-4370-bcec-d19e4adf4aa5" class="">This is one of the examples where you can get into hot water by mixing strings and numbers when doing addition.</p><p id="f0f0b4df-fa28-4ff9-af3f-7d009ef70584" class="">You should almost always be working with the same type. The same is true with equality. It&#x27;s easy to get into hot water if you are checking if a string and a number are the exact same thing.</p><p id="0ee976b5-0775-4eb7-bf00-d3028bb44d6d" class=""><strong>=== always checks that the value and type are exactly the same.</strong></p><p id="9c8f4be2-5875-44f5-b36c-302ebe0c8df9" class="">In a future video, we will go over something called <em>&quot;flow control&quot;</em>, which is <code>if</code>, <code>ternary</code>, and <code>switch</code> statements. These booleans will be particularly helpful for those videos.</p><p id="00118f85-94a1-4d7f-8913-ef627c68cdf8" class="">We will also be extending what we learned here a little bit further into things like truthy and falsy values, as well as this thing called <strong>coercion</strong> which is where you have one type of value and you want to force it into another type of value.</p><p id="d5b3c166-d007-4e15-b52d-19da16ad739c" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="b8160684-32a9-460d-bcf8-3d2fca47f162" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="5a467cba-8256-4651-9d9b-1808cf10cd55" class="">Edit on Github</p></details></li></ul></div></article></body></html>

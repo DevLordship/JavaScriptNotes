@@ -1,0 +1,1508 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>12 - Advanced Flow Control</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c7990960-10ea-4c6a-bc45-605beeb420d2" class="page sans"><header><h1 class="page-title"><em><strong>12 - Advanced Flow Control</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="4a860376-ba47-455d-a0aa-7c0f3007f6d4" class="toggle"><li><details open=""><summary>66 - The Event Loop and Callback Hell</summary><p id="4fc96a14-c1f3-4e31-b2cb-a819edc89a8f" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/66-the-event-loop-and-callback-hell">https://wesbos.com/javascript/12-advanced-flow-control/66-the-event-loop-and-callback-hell</a></p><p id="7b0f0ceb-23bd-41e5-89db-d3117409fd21" class="">
+</p><figure id="3ea2e00c-98ca-40e2-ba9c-00d3b47dd7b6" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs.png"/></a></figure><p id="81174ff1-7a6b-4e1c-9f73-67ca1a1eaebb" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="45458afb-8826-4320-a4bb-b10168deb970" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="0ecd5c09-ae92-460e-9623-26496008dfc3" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="74ea8bca-db02-4fd1-b289-28210f77d1b3" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="4d871c4b-a1ed-416b-860c-d049a10411be" class="">JavaScript, Event Loop, CallbacksEdit Post</p><p id="4e768d1c-fda9-47ed-b3fc-caf7418e85bd" class="">Before we get into <strong>promises</strong>, we need to talk about how JavaScript is <strong>asynchronous</strong> and how the event loop works.</p><p id="0df25380-d548-4795-b907-68284ba627d6" class="">You may often hear that almost everything in JavaScript is <strong>non-blocking</strong> (asynchronous). What does that mean?</p><p id="566bd3e9-7730-4d0a-8d44-a6a48d6b6789" class="">For us to understand that, we need to first talk about how JavaScript events work.</p><p id="71691b83-677e-4725-8b3f-c088c2cf2c3d" class="">JavaScript is a <strong>single threaded language</strong>, meaning that only one thing can be run at a time. Some other languages are <strong>multi-threaded</strong>, which means they can run multiple processes at once.</p><p id="9e1bf679-da1c-430a-9558-dd17e12277a0" class="">Because JavaScript is single threaded, which means we can only run one thing at a time.</p><p id="6bd35097-2b07-461a-89a9-2fa9248e337c" class="">Let&#x27;s visualize that with some examples.</p><p id="ed5df069-4008-4c19-ac4c-0cff0fdbfeb7" class="">Open up the <code>event-loop.html</code> file within the <code>exercises/</code> directory. Add two logs within the script tag and then refresh the page to check them.</p><pre id="fa77fb5a-2a37-4230-8e7a-92be2bc7d312" class="code code-wrap"><code>console.log(&#x27;Starting&#x27;);
+console.log(&#x27;ending&#x27;);</code></pre><figure id="a84afe43-f022-46c6-9076-b25f1eb99172" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/993.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/993.png"/></a></figure><p id="855ac9f1-fd2b-4dd6-9f01-06978072bc26" class="">No one is surprised by that.</p><p id="0dc94286-8c3a-4bd2-873d-d3573517e0e6" class="">Let&#x27;s add some code in between the two logs. In this demo we want to wait for two seconds, which we could do with a timeout.</p><pre id="c2ea3333-e1f8-44eb-a9bd-0bb6876cf34e" class="code code-wrap"><code>console.log(&#x27;Starting&#x27;);
+
+setTimeout(function() {
+console.log(&#x27;Running&#x27;);
+}, 2000);
+
+console.log(&#x27;ending&#x27;);</code></pre><p id="77732d94-946a-489b-b754-35dd1122916c" class="">Now if you refresh the page, what will you see?</p><p id="ca2d158b-142a-486f-8c65-edbc5aaaea64" class="">You might expect to see starting, running, ending, but instead we get Starting, ending, and then running.</p><figure id="56e8a1f7-4622-415d-9b98-98940040ddd3" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/994.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/994.png"/></a></figure><p id="76165d08-fef9-4a74-97da-2902060b4d08" class="">Why is that not in the order that we coded it in? Shouldn&#x27;t the timeout cause the code to pause for two seconds, log running and then log ending?</p><p id="e7e5bedd-a4f9-4bd9-8e85-0df887d78712" class="">It doesn&#x27;t work that way. The way that JavaScript works is it will parse the first line and log Starting.</p><p id="33756fa0-4fc3-43a7-ab24-16d534bc436e" class="">Next, it will parse the next few lines which is the <code>setTimeout()</code> function. It will say &quot;okay I won&#x27;t do anything yet but after two seconds I will come back to this code&quot;. It moves on and logs &quot;ending&quot;. 2 seconds later, the callback that the <code>setTimeout</code> function queued up comes back and is executed.</p><p id="05e2ffbf-005f-49a8-9657-94afc7ccbd0d" class="">That is what is referred to as the <strong>call stack</strong>.</p><p id="699e519f-3988-4bac-9502-8aac3f9db3f5" class="">The <strong>call stack</strong> and <strong>event loop</strong> is a pretty complicated thing to understand.</p><p id="983f33e4-bc3b-436f-a145-93b694fcfec8" class="">Instead of Wes trying to explain it, he has some homework for us.</p><p id="a4c3bf2d-9fed-4175-b609-03e66e8fc51a" class="">Philip Roberts has an amazing talk where he explains the event loop. You do not have to watch it before continuing with the course but it&#x27;s probably one of the most popular JavaScript talks ever given and he does an excellent job of explaining the event loop.</p><p id="a6ba0696-8c2b-47c6-8d38-326faf3c6a1b" class="">https://www.youtube.com/watch?v=8aGhZQkoFbQ</p><p id="13257441-da3e-4f78-818a-53830e38247a" class="">Philip Roberts also built this cool little tool called <em>loupe</em> which will help us visualize the callstack.</p><figure id="229d0d0a-d1e8-4679-8d4d-953905e96667" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/995.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/995.png"/></a></figure><p id="b95d4fc7-1ce1-4392-afca-525802fe59d4" class="">We have already looked at the callstack in JavaScript and we have seen when you click something, it gives you a trail of what functions were called up to then.</p><p id="6f9f4598-2740-40c4-9357-61c7f03e7f7b" class="">However we know that the call stack can only ever run one function at a time.</p><p id="bafb000c-6b0a-4c65-8423-e8264cb95aaa" class="">So what happens in a scenario like our example where you have two logs between a <code>setTimeout</code>?</p><p id="a64d1bbf-2e76-4ce2-b1b5-df1cd8e96ad7" class="">JavaScript is asynchronous.</p><p id="fd8bd219-7a5b-4900-9863-bc09f1ed62df" class="">What that means is that JavaScript won&#x27;t stop running that code, instead it will put it off in what we call the web API, and when that comes back after two seconds, it is going to stick it in the <strong>callback queue</strong>.</p><p id="18bd4952-c642-4866-b609-c5267e2de15c" class="">When the call stack has a free second, when it&#x27;s not currently running anything, it is going to reach into the callback queue, grab the callback and run it for us.</p><p id="08ed2ee9-4eb5-4f57-97bf-275b5d50685d" class="">Let&#x27;s go ahead and take the code and paste it into the loupe page.</p><p id="18fc35d6-9ac8-467d-a41b-89f81eb03000" class=""><em>Note: at the time Wes is recording the video, the tool is a bit outdated and does not handle arrow functions, or back ticks so just use regular function declarations.</em></p><p id="8e399257-b2db-491c-ab0b-5a9ff7f5b729" class=""><em>(Wes is going to modify his timeout to 7 seconds instead of 4 so he can talk to us. Feel free to choose a shorter one for your example)</em></p><p id="51fb67b1-4dbb-4126-ae2e-04ec3db751be" class="">Once you have done that click save and run.</p><figure id="e4dd51f7-703c-432e-9b2e-6e0a50d4615f" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/loupe-gif.gif"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/loupe-gif.gif"/></a></figure><p id="d4c04df4-bf5c-4776-8d44-022a937baed2" class="">The first thing that it runs our log.</p><p id="f1f74c02-cf34-4fb9-9f49-6d55dd8f8e87" class="">Next it runs our time out function.</p><p id="f01c7552-901c-44e6-9a3d-5246ee202780" class="">It sees that there is a callback so it puts that in our Web Apis.</p><p id="86cbb22a-5c24-4444-bb1e-43431f7a8a2e" class="">When the callback is done waiting, it will stick it into the callback queue.</p><p id="fe63cb0e-bdc1-43fc-9146-2a054ff5514a" class="">If the call stack has nothing else to do at the time, it will reach into the queue and grab the next thing.</p><p id="357698ea-916c-4d05-bc33-bfb406bf5ecc" class="">So the callstack is what JavaScript itself is doing. The Web Apis are things that are waiting or things that we are listening for like event handlers (if we were listening for a click on a button, that would go in our web apis).</p><p id="06751548-39e0-4b10-ba25-880200d1096b" class="">When something happens in the Web Api (like the click of a button or a timer that has finished), it will stick the callback into the callback queue which the call stack will reach into when it has nothing left to do.</p><p id="1f7b62e0-4258-47a4-a9fd-bfdbdfda22ad" class="">Let&#x27;s say after the <code>setTimeout</code> we wanted to add an interval that logs BOOP every 100 milliseconds. Name the function <code>boop</code> so we can visualize it more easily.</p><p id="8c994818-3bc5-484d-8126-e1d5615f10fa" class="">The first log and <code>setTimeout</code> behave just like they did before. When it gets to <code>setInterval</code>, we already have a callback for <code>setTimeout</code> in the web apis.</p><p id="69ae044f-7ae4-4534-a89c-66d88550f79e" class="">Then it logs &quot;ending&quot;.</p><p id="f77c582b-f7df-4818-9564-71e8416d2f0c" class="">Next ,<code>setInterval</code> runs.</p><p id="f6e4bb7e-7c53-47b1-9784-eca31575541d" class="">Now every second you can see that it keeps going back to the <code>boop</code> function.</p><p id="67b4ebc3-93e7-4515-9e80-87bad8f136f0" class="">One thing Wes wants to show us is that even if the <code>setTimeout</code> duration was set to 0, you would still get the logs returned in the order of &quot;Starting, Ending, Running&quot;.</p><pre id="2cd76f0d-8342-45d7-8f5b-02bdf51146f1" class="code code-wrap"><code>setTimeout(function() {
+console.log(&#x27;Running&#x27;);
+}, 0);
+
+console.log(ending);</code></pre><p id="b85090bc-af9b-4549-ac28-5444c869f83b" class="">If you refresh the page and look at the console, you will see that we still get the following...</p><blockquote id="23df3e6c-681e-4d52-adf0-bc5d20a2a548" class=""><p id="ee9bcaf2-4eab-4067-9dc5-ed738da3df7b" class="">Starting ending Running</p></blockquote><p id="59713d05-daa7-49ce-9aba-a42f06af729b" class="">Even though the timeout happens after 0 seconds, what happens is JavaScript runs the first line, then runs the <code>setTimeout</code> and queues up the callback to happen after 0 seconds, then it runs the next line and even though the timeout is 0 seconds, it still adds it to the web api which in turn adds it to the callback queue. Because the browser was already busy with the log, it runs the callback after.</p><p id="69714846-6b98-4e01-8576-1e76b6434c4e" class="">Let&#x27;s demo that in loupe.</p><figure id="999e9801-2e12-4770-9c57-9f803bbfb355" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/loupe-0-timer.gif"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/loupe-0-timer.gif"/></a></figure><p id="451659fe-7e69-48a6-bb92-36e448be8b26" class="">It logs, runs <code>setTimeout</code>, puts running in the web api which puts it in the callback queue, and then when the &quot;ending&quot; log is finished executing, JavaScript grabs from the callback queue and runs it.</p><p id="0e41ac60-db3a-427a-a2c6-90614f9c3727" class="">As a beginner and intermediate web developer you don&#x27;t have to understand all the nitty gritty of the call stack and event loop.</p><p id="7ec32b9c-6078-42c0-99bf-b6fd8128f617" class="">What is really important that you understand is JavaScript is single threaded, meaning that the callstack can only ever run one thing at a time.</p><p id="717f6c71-5ce9-4915-929e-16a0b649fbd4" class="">Let&#x27;s run the default example on loupe that is supplied to demonstrate what happens when multiple things are queued up.</p><p id="b44a3446-923e-4b1a-9802-1724303d1f84" class="">The example is in jQuery but it&#x27;s the same idea.</p><p id="5f28031e-0ffc-4b56-8f7c-ca20c7351313" class="">When you click a button, we set a timer for 2 seconds that says you clicked me, then it logs &quot;hi&quot; then another timer is set for 5 seconds, and then it logs welcome to loupe.</p><p id="6467ce00-0057-46ff-999f-0c78889472ff" class="">How that works is first the click listener goes on the call stack and gets put into the web apis, then the event listener is added. The hi is run and logged, and after that the timer also gets put in the web apis, and then it logs welcome to loupe. Once the timer is finished, it will get moved to the callback queue.</p><p id="1efda92a-7d4f-49e0-8ef0-59bf50526cc6" class="">Now every time we click the button, it sticks an event handler in the queue and you can see the callstack is reaching in and grabbing the next callback to handle itself.</p><p id="8b0db09b-16a0-43b5-b5b1-586569684b94" class="">So how do we deal with a scenario in JavaScript where we do actually want to wait for something?</p><p id="864e0b58-f6c2-4149-bf15-c01d3eb06d01" class="">Let&#x27;s say we wanted to go off to an API and grab some data and then come back to it. We shouldn&#x27;t have to freeze up the entire browser, or we shouldn&#x27;t have to stop everything else in the browser while that goes and fetches it. Instead what we want is to send off the fetch request and to go and get the data and then carry on with the rest of our life. When the data does come back to us, we can deal with it, very similarly to how <code>setTimeout</code> will run the callback after the alloted time.</p><p id="7cbec1b9-ae5a-4f6a-aeb5-3ca754ce8c1b" class="">Callbacks are great, but it is very difficult to orchestrate multiple things at once.</p><p id="389620e1-e647-49d1-a4b3-403cd2e7d95f" class="">Let&#x27;s try with an example.</p><p id="f4502f40-4454-47c7-8275-77ebed999ee1" class="">What we want to do is make a div and do a few things to it:</p><ol type="1" id="9ccffd1f-81fe-4fa6-ad86-c03cc922a61a" class="numbered-list" start="1"><li>change the text to GO when clicked</li></ol><ol type="1" id="54498de2-396b-40b4-bc49-5313e1c3f031" class="numbered-list" start="2"><li>Make it a circle after 2 seconds</li></ol><ol type="1" id="f9aeb2e0-f4f5-4200-9ada-1575fccd4df4" class="numbered-list" start="3"><li>Make it red after 0.5s</li></ol><ol type="1" id="9f1eaf02-dae5-415f-80c7-5cd95a500827" class="numbered-list" start="4"><li>make it a square after 0.25 seconds</li></ol><ol type="1" id="e64aad40-2dfb-46aa-8f7f-483c4cfec2f0" class="numbered-list" start="5"><li>make it purple after 0.3s</li></ol><ol type="1" id="a2ab7ef1-9965-447a-a34d-c4d85a83b841" class="numbered-list" start="6"><li>fade out after 0.3s</li></ol><p id="5c6b388d-1080-4218-ab8b-fd3a078df19c" class="">That is not an uncommon thing in JavaScript, where you have to perform some things in a series, one after the other.</p><p id="1e736508-7c55-470d-8caa-58a65d05c7c0" class="">What we will do is make a div within the body tag and give it a class of <code>go</code>.</p><pre id="757f15fc-8ca5-428b-b44f-64bd3b559701" class="code code-wrap"><code>&lt;div class=&quot;go&quot;&gt;Click Me&lt;/div&gt;</code></pre><p id="c9941603-3e37-44ad-843c-42742376f008" class="">Comment out all the other code we have in the script tag and let&#x27;s start with selecting the div and changing the text to go when clicked.</p><p id="58890201-bf12-4195-aabb-769091060fd4" class="">When the div is clicked, we will grab the event and save the div element in a variable <code>el</code>. The reason we are saving that in a variable will make sense in just a second.</p><pre id="949a3d97-d4ae-485f-913a-f6489f00d9b6" class="code code-wrap"><code>go.addEventListener(&#x27;click&#x27;, function(e) {
+const el = e.currentTarget;
+console.log(el);
+})</code></pre><p id="91164813-578e-4568-9173-ca251eb1b81d" class="">As you can see, we have the div.</p><p id="305f37d9-64ef-4f7d-bf11-d48d7f2e0065" class="">Let&#x27;s add some default styling there. Add style tag on the page with some styling.</p><pre id="4697c93a-51e7-4c0f-bbe9-97a032952f69" class="code code-wrap"><code>.go {
+margin: 1rem;
+background: white;
+padding: 5rem;
+width: 25rem;
+}</code></pre><p id="bfb5e2b3-abf3-45df-8372-784d58865787" class="">Now when you refresh the page, your button should look like this:</p><p id="21f92d21-195f-42f2-a296-7436dbf537c8" class="">Next we have to make it a circle after two seconds. We can do that by adding a <code>setTimeout</code>.</p><pre id="ff2027b2-9b93-4ee4-b25b-a2a77c286a66" class="code code-wrap"><code>go.addEventListener(&#x27;click&#x27;, function(e) {
+const el = e.currentTarget;
+console.log(el);
+
+setTimeout(function() {
+el.classList.add(&#x27;circle&#x27;);
+}, 2000);
+});</code></pre><p id="084a62c8-672b-439f-8ca4-070107286ec0" class="">Now back in the style tag, let&#x27;s add a border radius of 50% for the class circle.</p><pre id="cb364629-8510-459c-8603-555190c0e2e8" class="code code-wrap"><code>.go.circle {
+border-radius: 50%;
+}</code></pre><p id="a86cf289-d7ca-4025-9c81-f27ab7909a0c" class="">If you refresh the page you will see that the div style changes to a circle after 2 seconds.</p><p id="3e4e43fe-563c-479d-a856-25f6cd3fa02f" class="">We forgot to change the text when clicked for step one so right before the <code>setTimeout</code> add 👇</p><pre id="d53ce37d-5ef4-4559-89ac-85217a516abb" class="code code-wrap"><code>el.textContent = &#x27;GO!&#x27;;</code></pre><p id="c83a338a-9d08-4bfd-96a5-73a332de1a23" class="">Let&#x27;s put a height on the go CSS style class as well so that it is square.</p><p id="d1c67cf7-fb7a-4c6c-9e06-ac9a1de80c0f" class="">We can add a transition on there too.</p><pre id="5db7e618-d3ae-4994-af1e-4869c0880122" class="code code-wrap"><code>.go {
+margin: 1rem;
+background: white;
+padding: 5rem;
+width: 25rem;
+height: 25rem;
+transition: all 0.2s;
+}</code></pre><p id="98ce8909-b64d-4cab-b882-ca99d4df6061" class="">After 0.5 seconds we need to make it red. Let&#x27;s add another <code>setTimeout</code> to do that.</p><pre id="b7964613-0dc8-470a-b234-56bf0b5d69f9" class="code code-wrap"><code>go.addEventListener(&#x27;click&#x27;, function(e) {
+const el = e.currentTarget;
+console.log(el);
+
+setTimeout(function() {
+el.classList.add(&#x27;circle&#x27;);
+
+setTimeout(function() {
+el.classList.add(&#x27;red&#x27;);
+}, 500);
+
+}, 2000);
+});</code></pre><p id="f8e6daf6-a10d-42b6-9097-0330e1940bc3" class="">Let&#x27;s add the following css styles to the css class red.</p><pre id="70ef0850-ffac-41c4-9a1b-171a993499a2" class="code code-wrap"><code>.go.red {
+background: red;
+}</code></pre><p id="d0cee02f-d4aa-49cf-a1a3-8e66a47fbea1" class="">Now after 0.25 seconds we need to make it a square.</p><pre id="0431b175-9416-416b-b073-fb90894a7998" class="code code-wrap"><code>go.addEventListener(&quot;click&quot;, function(e) {
+const el = e.currentTarget;
+console.log(el);
+
+// 1. make it a circle after 2 seconds
+setTimeout(function() {
+el.classList.add(&quot;circle&quot;);
+
+// 2. make it red after 0.5s
+setTimeout(function() {
+el.classList.add(&quot;red&quot;);
+
+// 3. make it square after 0.25
+setTimeout(function() {
+el.classList.remove(&quot;circle&quot;);
+}, 250);
+
+}, 500);
+
+}, 2000);
+});</code></pre><p id="739d011a-b00a-40d6-8b7f-653295c49614" class="">Now we need to make it purple after 0.3 seconds, and finally fade out after another 0.3 seconds.</p><p id="b9bff435-82af-4cd2-ae6c-6d48cda17f04" class="">Add these styles 👇</p><pre id="4f6569dc-fc42-46ad-a912-1460b8022833" class="code code-wrap"><code>.go.purple {
+background: purple;
+color: white;
+}
+
+.go.fadeOut {
+opacity: 0;
+}</code></pre><pre id="05bb1676-ead2-4eec-9cca-37f0720c11ed" class="code code-wrap"><code>go.addEventListener(&quot;click&quot;, function(e) {
+const el = e.currentTarget;
+console.log(el);
+
+// 1. make it a circle after 2 seconds
+setTimeout(function() {
+el.classList.add(&quot;circle&quot;);
+
+// 2. make it red after 0.5s
+setTimeout(function() {
+el.classList.add(&quot;red&quot;);
+
+// 3. make it square after 0.3
+setTimeout(function() {
+el.classList.remove(&quot;circle&quot;);
+
+// 4. make it purple after 0.3s
+setTimeout(function() {
+el.classList.remove(&quot;red&quot;);
+el.classList.add(&quot;purple&quot;);
+
+// 5. fade out after 0.3 seconds
+setTimeout(function() {
+el.classList.add(&#x27;fadeOut&#x27;);
+}, 300)
+
+}, 300);
+
+}, 250);
+
+}, 500);
+
+}, 2000);
+});</code></pre><figure id="1f75db5a-3768-409b-9b87-508ea256cfe7" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/loop-animation.gif"><img style="width:297px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/loop-animation.gif"/></a></figure><p id="ea9ea694-929b-442e-b940-828b4010c65e" class="">That was a really simple animation, but look if you look at the code the way it is now, that is what is referred to as <strong>callback hell</strong>.</p><p id="4baf2dc7-806a-4978-baf9-dc511d84b159" class="">Callback hell is when you nest things inside of each other because they all depend on the previous callback to being called before it can then go ahead and run, when you need to run things in sequence, one after the other. It is also rendered to as <strong>&quot;Christmas Tree&quot; code</strong> because of how indented the code is sideways. It&#x27;s not all that great.</p><p id="06b1f713-d7ed-4002-97ca-4a97ef80ca95" class="">The solution to call-back hell is the &quot;promise&quot; land.</p><p id="e9afd345-4e7b-424f-a0bc-144999bf5b41" class="">Promises are a sort of &quot;I owe you&quot; for something that will happen in the future. They allow us to write code that is much easier to look at.</p><p id="d468083c-4336-490c-af67-48bcaa87dbe7" class="">We will be looking at that in the next video.</p><p id="01289037-19f1-4e01-92a4-dd5d99e672dd" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="732080e3-0422-45a0-aee6-e0b6c4694b3b" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="7829b9e9-19ac-4a96-aecd-50cf093251a9" class="">Edit on Github</p></details></li></ul><ul id="bd459d8c-ab1b-4353-9775-3e1455e6f2cb" class="toggle"><li><details open=""><summary>67 - Promises</summary><p id="475ec6a4-d5a7-46e4-8d3d-f4131c1d5328" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/67-promises">https://wesbos.com/javascript/12-advanced-flow-control/67-promises</a></p><p id="0326d1a1-1f39-46f5-bcfd-148ed8bbe1f7" class="">
+</p><figure id="c2170142-6de8-40e6-a94e-eaeea3b81fe8" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%201.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%201.png"/></a></figure><p id="d12f8466-230b-4280-a5f7-bc207f8bd5e3" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="d7fa1c5d-5839-45bd-ace9-9d91c7aae7e7" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="1252633a-b9b9-48ca-861d-13865fe3a116" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="2b7f2740-6a3b-44fe-a767-cc8bc0a7148b" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="c8d0841d-eaef-45f3-a9be-44e6b5e20320" class="">JavaScript, PromisesEdit Post</p><p id="9055d7e4-3ac7-4f7e-85c7-854904c757f8" class="">The solution to callback hell is to use a <strong>promise</strong>, and although we haven&#x27;t covered that yet, we will now.</p><p id="ea06fe2f-bf07-4632-9866-7af639163f1a" class="">Promises are an IOU (I Owe You) for something that will happen in the future.</p><p id="70451f53-0a23-44b9-8269-12369480867b" class="">If you think of our timer, data being returned from an API or someone giving access to a webcam, when we request or start those things, what we often get in return is not the immediate data back, because those things take time. Instead of getting the immediate data returned, we get a promise.</p><p id="c4f8a2ca-d941-4ee0-9fff-a1aeb4c058ce" class="">You can think of a Promise as a little ticket you have in your hand that says &quot;I might get a timer, or some data at some point&quot; and eventually at some point we will get some data back (it can also fail which is called rejecting).</p><p id="cbadd676-91bf-404f-ad47-34a9ed7ed077" class="">Or, when we were asking for a user&#x27;s webcam, like we did in our Face Detection exercises, we used the code below.</p><pre id="6b42a150-9aa2-4f7a-985a-4ab917fc0cc4" class="code code-wrap"><code>const stream = await navigator.mediaDevices.getUserMedia({
+  video: { width: 1280, height: 720 },
+});
+
+video.srcObject = stream;
+await video.play();</code></pre><p id="7510c052-f244-42a6-873e-e8295310a3b0" class="">We had to wait for the user to give us access to their webcam before playing the video. That happens all the time in JavaScript, and that is what a promise is.</p><p id="8ff3cb00-a3b7-4391-9f48-8594081776fa" class="">In the <code>playground</code> directory, make a <code>promises.html</code> file. Add our base HTML and the following script tag.</p><pre id="23d557e2-3aab-40e6-976f-440e772b6690" class="code code-wrap"><code>&lt;script&gt;
+function makePizza() {
+
+}
+&lt;/script&gt;</code></pre><p id="de11a29f-f2e4-40ab-a9cf-59bb7d942156" class="">Inside of this script tag, we are going to make a pizza promise.</p><p id="53f8e980-6605-4c76-b92e-c737c14219de" class="">When you make a pizza, it takes time. You can&#x27;t make it instantly. You gotta put the toppings on, the pepperoni on, and that takes time.</p><p id="6eae3f1c-99a7-4aac-9fb4-d7c9195819ca" class="">If you were to order a pizza by phoning them or doing it online, they will immediately give you some sort of order number. That order number is not the pizza -- you cannot eat it, but you know that the order number or that receipt is a &quot;promise&quot; that they will give it to you when its finished.</p><p id="86a96259-88b9-49b5-9a66-bbc0cb6def47" class="">So what we need to do is to make a promise and then return it from our function immediately as shown below.</p><pre id="f3e105ef-336b-4610-9b16-c7b719a902ab" class="code code-wrap"><code>function makePizza() {
+const pizzaPromise  = new Promise();
+return pizzaPromise;
+}</code></pre><p id="30cfd992-9bc7-4ada-a5a6-87045beb5a62" class="">Promises are made immediately, but they do not resolve immediately (they resolve once the timer is finished or the data comes back).</p><p id="e2358c26-ff99-4429-9b1a-a0e4c98d3bf7" class="">That idea of returning happening immediately and resolving happening when it&#x27;s done is really important.</p><p id="e4a512f8-f61e-4b05-85db-bbd801577c0a" class="">A promise takes a callback function, and that callback function is going to give us 2 arguments:</p><ol type="1" id="170709be-1383-4978-866d-fed0da411997" class="numbered-list" start="1"><li>the <code>resolve</code> function</li></ol><ol type="1" id="4e30264d-462c-49ed-8a2e-38f25d5fe6a5" class="numbered-list" start="2"><li>the <code>reject</code> function</li></ol><p id="6a9be09c-4604-4071-bd6a-e8b7fb310951" class="">The first will always be resolve, second will always be reject.</p><p id="e603350e-9f9c-42f4-a0df-759910353d2e" class="">Now what you can do is when you are ready, you can resolve the promise or if something went wrong you can reject it, as shown below.</p><pre id="2e752a39-2560-4563-9610-f4920f937d4b" class="code code-wrap"><code>function makePizza() {
+const pizzaPromise = new Promise(function(resolve, reject) {
+resolve(&#x27;🍕&#x27;);
+});
+
+return pizzaPromise;
+}
+
+const pizza = makePizza();
+console.log(pizza);</code></pre><p id="22647780-6cbe-413f-afc5-d3774579b032" class="">Now if we refresh the page, what do you think we will get in the console? Will we get the pizza or something else, like a promise?</p><figure id="67c9a997-8467-432d-b8f9-28a653fdd9fc" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1020.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1020.png"/></a></figure><p id="b0a57ec6-7031-4a1a-b7ea-13620aeeaa46" class="">If you refresh the page, you should see the promise.</p><p id="fd6046fa-56c2-42ca-a050-ec29d8415c48" class="">What is important to note is that our <code>makePizza</code> function doesn&#x27;t give us the pizza, it gives us the promise of pizza, that at some point in the future, we will either resolve a slice of pizza or reject it if something went wrong.</p><p id="5b28f2cc-c335-4366-9d0b-db398c41c5da" class="">Let&#x27;s make the function a bit more robust.</p><p id="db63897a-0969-4b9a-8889-2d240d7d7c9f" class="">We will take in some toppings and will resolve using backticks. Modify the code as shown below to make a <code>pepperoniPromise</code> and a <code>canadianPromise</code>.</p><pre id="a88effc8-f729-480f-9c49-86604854d952" class="code code-wrap"><code>function makePizza(toppings) {
+const pizzaPromise = new Promise(function(resolve, reject) {
+resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(&#x27; &#x27;)}`);
+});
+
+return pizzaPromise;
+}
+
+const pepperoniPromise = makePizza([&#x27;pepperoni&#x27;]);
+const canadianPromise = makePizza([&#x27;pepperoni&#x27;, &#x27;mushroom&#x27;, &#x27;onions&#x27;])
+
+console.log(pepperoniPromise, canadianPromise);</code></pre><p id="0697f21f-5b01-4a7d-b333-3e6b8dc59838" class="">As you can see, we get our 2 promises. But how do we get the actual pizza itself?</p><p id="c7c78ca8-0704-4a1c-99ba-71760a10bee1" class="">This is a bit confusing because the dev tools will show you the value when it is resolved, but in JavaScript if you actually want to access the value of the pizza, you cannot say <code>pepperoniPromise.value</code> or anything.</p><h2 id="97f74049-80f4-40c6-a02f-a2d3e13809a7" class="">.then() method</h2><p id="49522c55-21bf-4493-bb49-0c45bfcf0376" class="">The way that we can access it by using the <code>then()</code> method, which takes in a callback method. The callback method will pass you the pizza, which we will then log.</p><pre id="0d5e69b5-14e5-4b3c-8354-1077b1459c1d" class="code code-wrap"><code>pepperoniPromise.then(function(pizza) {
+console.log(&quot;Ahh I got it!&quot;);
+console.log(pizza);
+});</code></pre><p id="88060e34-0154-4133-a741-0a875cd6ffa3" class="">Now when you refresh the page you should see the logs below.</p><p id="45909479-7ee1-4394-8fbd-6a18dc867a79" class="">At this stage, you might be wondering &quot;why are you doing it like this Wes? this seems like a much harder way to just return data&quot;.</p><p id="03a10b67-9030-4d06-9ae0-fc0ee8d2a97c" class="">The reason for that is we haven&#x27;t introduced any time delays in our example so let&#x27;s go ahead and do that.</p><p id="5b82b067-ca30-4ddd-8bd6-06b70eb09bde" class="">We will add a 1 second wait for the pizza to cook using <code>setTimeout</code> and then call <code>resolve</code> from within that timeout.</p><pre id="5586dd18-c091-4016-a992-e1ce29e37d80" class="code code-wrap"><code>function makePizza(toppings) {
+const pizzaPromise = new Promise(function(resolve, reject) {
+
+// wait 1 second for the pizza to cook
+setTimeout(function() {
+resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(&#x27; &#x27;)}`);
+}, 1000)
+
+// if something went wrong, we can reject this promise
+});
+
+return pizzaPromise;
+}
+
+const pepperoniPromise = makePizza([&#x27;pepperoni&#x27;]);
+
+pepperoniPromise.then(function(pizza) {
+console.log(&quot;Ahh I got it!&quot;);
+console.log(pizza);
+});</code></pre><p id="41a452af-01ac-43d4-8af5-c4eefc827fd4" class="">If you refresh the page, you will see in the console that we get our promise immediately and then a second after we actually have access to our pizza.</p><p id="f8eab712-213a-4de9-9d18-835aefc50f19" class="">That is a great example of how we sometimes have to wait.</p><p id="a857355a-0629-43a6-b477-b9fcd1c86104" class="">Often what you will see is instead of making a promise and then returning it, people will often just return the promise immediately.</p><pre id="c52a6ebd-9b1a-485e-b49b-abaeb1e59934" class="code code-wrap"><code>function makePizza(toppings) {
+return new Promise(function(resolve, reject) {
+// wait 1 second for the pizza to cook
+setTimeout(function() {
+resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(&#x27; &#x27;)}`);
+}, 1000)
+
+// if something went wrong, we can reject this promise
+});
+}</code></pre><p id="3c6655e8-07bb-4c81-b5a3-1cbaf7662c87" class="">The logic to how a Promise gets resolved is always inside of the Promise body, which in the example is the code below</p><pre id="6ed6dff6-a60f-4289-ba65-43e85b8a7acb" class="code code-wrap"><code>function(resolve, reject) {
+// wait 1 second for the pizza to cook
+setTimeout(function() {
+resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(&#x27; &#x27;)}`);
+}, 1000)
+
+// if something went wrong, we can reject this promise
+}</code></pre><p id="393c4d96-24b2-4e47-ab2b-b5fd445b04e1" class="">That function will resolve or reject whenever it feels ready. In our case, we feel like the pizza is ready after one second.</p><p id="6ed9bf24-debf-4b55-8ed8-c02536e3c1c0" class="">So what is happening here is when we declare our <code>pepperoniPromise</code> we can call <code>makePizza([&#x27;pepperoni&#x27;])</code>, which returns a promise of pizza. In order to get the pizza, the way we can access the resolved value is by chaining a <code>.then</code> onto it.</p><pre id="b967e38d-e151-43ee-91bd-8991c23c00ab" class="code code-wrap"><code>console.log(&#x27;Starting&#x27;);
+
+pepperoniPromise.then(function(pizza) {
+console.log(&#x27;Ahhh got it!&#x27;);
+console.log(pizza);
+});
+
+console.log(&#x27;finishing&#x27;);</code></pre><p id="d26e357a-5f55-455f-9753-471c5191a165" class="">When you refresh the page you will see that we get &quot;Starting&quot; then &quot;finishing&quot; then the &quot;I got it&quot; message.</p><p id="2d7f6530-5944-4b6d-a664-9b4595bd998e" class="">We will look at how we can use <code>async/await</code> to actually do that sequentially if we would like to, but for now we know we can chain a <code>.then()</code> onto it.</p><p id="b854f2c2-ed42-4b7a-93ca-9a2f4267e800" class="">Why is that any more useful than a regular callback?</p><p id="59b26c9f-97ad-402c-99d0-83d8580c6319" class="">That is useful because let&#x27;s say we wanted to make multiple pizzas one after the other, and we have an oven that can only cook one at at time.</p><p id="7fe031da-f176-4287-b5d5-5e15450e3675" class="">Delete our <code>canadianPizza</code> and <code>pepperoniPizza</code> declaration code and everything below it in the script tag and just leave the line below</p><pre id="a5b1116f-d3d9-474d-a0f1-733126aaee5c" class="code code-wrap"><code>makePizza([&#x27;pepperoni&#x27;]);</code></pre><p id="9e9ea0c7-d811-4285-abea-a53b089bade6" class="">We can chain a <code>.then()</code> immediately onto it (because <code>makePizza</code> returns a promise), which gives a function that has a pizza. Log the pizza so that we know that it still works.</p><p id="7e5b70d4-8997-4b7e-a322-cfbdabe33099" class="">The neat thing is if from this <code>then()</code> we return another <code>makePizza</code>, you can then chain another <code>.then()</code> on that function.</p><pre id="9dac28e9-a821-42e2-85bc-67dfc1673db0" class="code code-wrap"><code>makePizza([&#x27;pepperoni&#x27;, &#x27;ham&#x27;])
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;ham&#x27;, &#x27;cheese&#x27;]);
+}).then(function(pizza) {
+console.log(pizza);
+})</code></pre><p id="b15b2b88-3aad-4881-a35a-0eaab7018b8a" class="">As you can see first we get one pizza and then after a second we see the other pizza logged to the console.</p><p id="cea32865-eefb-45fc-af4b-1cb15c14b8b0" class="">You can chain as many as you want.</p><p id="01a67bee-34f3-4f7c-b6db-4c4a5c4e686a" class="">Often people like to organize the code so that each <code>.then()</code> is on it&#x27;s own line to make it more readable as you see below.</p><pre id="01013cd1-e2a8-462b-acb2-7ce54e1a06a1" class="code code-wrap"><code>makePizza([&#x27;pepperoni&#x27;, &#x27;ham&#x27;])
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;ham&#x27;, &#x27;cheese&#x27;]);
+})
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;hot peppers&#x27;, &#x27;onion&#x27;, &#x27;feta&#x27;]);
+})
+.then(function(pizza) {
+console.log(pizza);
+})</code></pre><p id="b0c732ea-ae4e-4016-9fdb-c254f3507af4" class="">Unlike what we were doing the lesson where we were adding and removing classes which were all nested in callback hell, this chaining of <code>then</code> is the promise land and it allows us to keep all of our logic one level deep.</p><p id="79c2bebb-5885-408f-94cb-f929758163d6" class="">The downside to that is if you had a log of First and After all our promise chaining, both logs would execute before any of our pizzas are logged.</p><pre id="c33d1e93-5ad6-4f46-895e-b4f5691d9791" class="code code-wrap"><code>console.log(&#x27;First&#x27;);
+
+makePizza([&#x27;pepperoni&#x27;, &#x27;ham&#x27;])
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;ham&#x27;, &#x27;cheese&#x27;]);
+})
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;hot peppers&#x27;, &#x27;onion&#x27;, &#x27;feta&#x27;]);
+})
+.then(function(pizza) {
+console.log(pizza);
+})
+
+console.log(&#x27;Right after&#x27;);</code></pre><p id="867b5608-bcdf-48d7-a9a2-edbb9dcc66e1" class="">We will look at how we can use async/await to get around that.</p><p id="b1fbed8b-0652-428e-9a72-f314f5142ad0" class="">If you look at the call stack, what we know is that it first runs the function <code>makePizza([&#x27;pepperoni&#x27;])</code> (highlighted in the image below), which immediately returns a promise.</p><p id="18eaf16d-7084-48fc-93ae-a1cc253e4d79" class="">Then it runs the bottom log, before jumping back up to the first <code>then()</code> we have when the promise is resolved, and then it keeps going down the promise chain.</p><p id="555678ae-b868-4a00-bcf0-cb10bc814745" class="">Let&#x27;s make our <code>makePizza</code> function a bit more resilient, starting with <code>toppings</code>.</p><p id="3e268259-5269-4f8f-8a86-612f3fc3f4e5" class="">Set an empty array as the default because sometimes people might order a pizza with nothing on it.</p><pre id="bc5c929c-54d8-433e-a829-24a241ed96fc" class="code code-wrap"><code>function makePizza(toppings = [])</code></pre><p id="0cb96e83-db02-43c7-ab58-8606e2053f99" class="">For every single topping that is added to the pizza, let&#x27;s add 200 milliseconds to the initial bake time which is 500. Let&#x27;s calculate that and save it in a variable as shown below 👇</p><pre id="1e5bea89-6da4-4aef-9dc7-853595b821fc" class="code code-wrap"><code>const amountOfTimeToBake = 500 + (toppings.length * 200);</code></pre><p id="061cd25f-6d02-43dd-8ae2-e0ffb640d7c5" class="">Now we will take that variable and pass it to our timeout.</p><pre id="42a75854-eda4-466b-bba7-89d1a57cfa98" class="code code-wrap"><code>function makePizza(toppings = []) {
+const pizzaPromise = new Promise(function(resolve, reject) {
+const amountOfTimeToBake = 500 + (toppings.length * 200);
+
+// wait 1 second for the pizza to cook
+setTimeout(function() {
+resolve(`Here is your pizza 🍕 with the toppings ${toppings.join(&#x27; &#x27;)}`);
+}, amountOfTimeToBake)
+
+// if something went wrong, we can reject this promise
+});
+
+return pizzaPromise;
+}</code></pre><p id="70c7c606-5380-40f4-89cc-33ed8984cf7c" class="">When we refresh the page and the above code is executed, what should happen is ham and cheese should be logged to the console faster than the pizza with 3 toppings.</p><p id="c177478b-6ecf-41ca-952a-b53534e4145a" class="">Let&#x27;s chain 2 more pizzas together, one with no toppings, the other with a lot of toppings. Then let&#x27;s resolve that last pizza and just log it using an arrow function as shown below.</p><pre id="306030f6-fb24-463f-b41c-f5b2823a6feb" class="code code-wrap"><code>console.log(&#x27;First&#x27;);
+
+makePizza([&#x27;pepperoni&#x27;, &#x27;ham&#x27;])
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;ham&#x27;, &#x27;cheese&#x27;]);
+})
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;hot peppers&#x27;, &#x27;onion&#x27;, &#x27;feta&#x27;]);
+})
+.then(function(pizza) {
+console.log(pizza);
+return makePizza();
+})
+.then(function(pizza) {
+console.log(pizza);
+return makePizza([&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;]);
+})
+.then(pizza =&gt; {
+console.log(&#x27;All done! here is your last pizza&#x27;);
+console.log(pizza);
+})
+
+console.log(&#x27;Right after&#x27;);</code></pre><h2 id="68601c85-870a-4d9f-bc39-70ece8e1e7a7" class="">Promise.all()</h2><p id="18d53f3b-2c74-4a1d-97c1-4e6349e0fd00" class="">Let&#x27;s say we have a big oven and we can make all the pizzas at once. You could run them all <strong>concurrently</strong>, instead of one after another like we are doing (which is referred to as <strong>sequentially</strong>).</p><p id="0eff28d2-544c-4bde-9b65-972022ce11d7" class="">If you have 10 employees and an oven big enough to cook all the pizzas at once, you can do it like so 👇</p><pre id="f7b15b94-5fc0-40be-900f-019d4a8999b6" class="code code-wrap"><code>// Run them concurrently
+const pizzaPromise1 = makePizza([&#x27;hot peppers&#x27;, &#x27;onion&#x27;, &#x27;feta&#x27;]);
+const pizzaPromise2 = makePizza([&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;]);
+const pizzaPromise3 = makePizza([&#x27;ham&#x27;, &#x27;cheese&#x27;]);</code></pre><p id="13d6219d-04cd-4036-9aac-02625120976b" class="">So how do we know when all of those promises are done? We could do <code>.then()</code> on each of them like so 👇</p><p id="fd2e744b-a60f-4d40-a460-272aa527ce99" class="">But those are going to pop into the console in whatever order they are done, which isn&#x27;t what we want. We can instead make it into a &quot;mega promise&quot; that we then wait upon.</p><p id="cc1665bb-71f3-495b-bbd2-cb86009c405d" class="">If you have a few promises and all you care about is when all 3 of them are finished, you can make a mega promise, which we will call a <code>dinnerPromise</code>.</p><pre id="85a84bf4-c132-418b-8a3f-36157a56a963" class="code code-wrap"><code>const dinnerPromise = Promise.all([pizzaPromise1, pizzaPromise2, pizzaPromise3]);</code></pre><p id="f4186c37-fc01-4e2c-b7c5-16014e3b3c60" class=""><code>Promise.all()</code> is a static method because it lives on the &quot;momma&quot; Promise directly.</p><p id="26d45a69-1865-4dc5-8e8f-e7b98557f373" class="">It takes an array of &quot;baby&quot; promises which are <code>pizza1</code>, <code>pizza2</code>, <code>pizza3</code>.</p><p id="0344d71c-4b3b-4ec7-ab3e-515bca95f188" class="">That makes one big promise which then you can call <code>.then()</code> on and we get passed the <code>pizzas</code> which we will log.</p><pre id="57257c98-4f2f-4b82-82cb-b7eabf162afe" class="code code-wrap"><code>dinnerPromise.then(pizzas =&gt; {
+console.log(pizzas);
+})</code></pre><p id="4a36a1f0-70af-4885-b70d-695ddc67f1e2" class="">Now we wait for all 3 to be finished, and we get an array of all 3 of them.</p><p id="9a1f9d94-46ca-4a06-9e29-f2d6d56e82ab" class="">If you wanted the first pizza it would be <code>pizza[0]</code>.</p><p id="c7c7adf4-8389-42ab-bc61-fe2933ce0b26" class="">A pretty common thing to do is destructure the pizzas.</p><p id="02bfd691-5e93-4cdd-91f4-af36b6adc631" class="">Let&#x27;s convert the arrow function to a regular function to make it clearer to understand.</p><p id="1ed84567-28fa-413c-98e5-6b74f42cbfb4" class="">We will use <strong>array destructuring</strong>. Let&#x27;s call the first pizza <code>hottie</code>, second one <code>garbagePail</code> and third one <code>hamAndCheese</code>.</p><p id="042f4d55-6e98-4a7b-9b4a-f0d564b3a2e3" class="">Those will now be equal to 3 variables which we can now log or use however we want like so 👇</p><pre id="14a02bfa-9e33-4424-ac42-28b48f76383a" class="code code-wrap"><code>dinnerPromise.then(function (pizzas) {
+[hottie, garbagePail, hamAndCheese] = pizzas;
+
+console.log(hottie, garbagePail, hamAndCheese);
+});</code></pre><p id="252735a2-ff8f-4dee-9461-f9b491cf3247" class="">You do not have to destructure those variables in the body of the function, you can destructure the argument directly with square brackets.</p><pre id="6a524b9f-f868-4b8e-b313-63a5fbbd5f8a" class="code code-wrap"><code>dinnerPromise.then(function ([hottie, garbagePail, hamAndCheese]) {
+console.log(hottie, garbagePail, hamAndCheese);
+});</code></pre><p id="f3160d40-8cb5-4a54-b9b7-7219a2e7230d" class="">That is saying take the first argument and destructure it into a variable named <code>hottie</code> , the second one into <code>garbagePail</code> and so on.</p><p id="be82f1cb-1f49-4055-8928-6dce976bcc85" class="">If you refresh the page you will see it still works.</p><p id="e174babc-6b45-4eac-ae81-2d54cfefbb42" class="">To reiterate, <code>Promise.all()</code> will take all of your promises and will only resolve when all 3 of the sub-promises have been resolved themselves.</p><h2 id="8f84b6d5-f001-41b6-b2f4-0bed14121534" class="">Promise.race()</h2><p id="59cc35dc-db06-4f21-994f-7efbd70505db" class="">Similarly there is <code>Promise.race()</code>. Let&#x27;s say someone is really hungry and they will take whichever pizza the first pizza is that is ready because they are very hungry.</p><p id="917ee2c7-fdb4-489f-8bcc-cc02f7f97ab2" class="">We could do this 👇</p><pre id="441b4873-6554-49a1-8db4-ea9553b3f220" class="code code-wrap"><code>const firstPizzaPromise = Promise.race([pizzaPromise1, pizzaPromise2, pizzaPromise3]);</code></pre><p id="6121121c-5713-44b0-9437-863e5254b50c" class="">Now we can log it.</p><pre id="b74315c0-c4c2-4607-8960-7f11759174ed" class="code code-wrap"><code>firstPizzaPromise.then(pizza =&gt; {
+console.log(&#x27;You must be hungry, here is the first one ready&#x27;);
+console.log(pizza);
+})</code></pre><p id="16f34361-7e22-4077-bb5a-4b992259d094" class="">To reiterate, <code>Promise.race()</code> will wait for the first one to finish rendering.</p><p id="11e813ac-c3fd-457e-846b-71558317dfab" class="">There are also a couple of other ones which we will get into when we talk about error handling.</p><p id="981555b8-aef9-41cf-a20a-62470c0f745f" class="">That is a high level overview of promises.</p><p id="2c254934-8f98-49fd-ad5c-43767ab49957" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="442f3232-49df-412d-bd53-e88d41ad2797" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="973de025-54b7-4a09-9329-3a1b425ce0d7" class="">Edit on Github</p></details></li></ul><ul id="bc15dcc2-744e-4e5c-9a81-c58ebc6662ab" class="toggle"><li><details open=""><summary>68 - Promises - Error Handling</summary><p id="2d99729b-3fab-4a6e-82a2-f3b5f5d06d39" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/68-promises-error-handling">https://wesbos.com/javascript/12-advanced-flow-control/68-promises-error-handling</a></p><p id="b5e2f775-a1cf-48af-bcaf-dc29e914a710" class="">
+</p><figure id="2a3c672d-9928-4638-9538-f1cd5c6f3766" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%202.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%202.png"/></a></figure><p id="143a085a-4f44-4e6d-8190-2aeb82da5cc2" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="97d61528-de33-4e16-b5db-e1ba99e79755" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="c7d9dbcc-c335-4bf3-8d9c-ba0318d8b250" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="a86f02e3-7b47-4ba4-8107-c5ed513d7d25" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="5b29765d-27c5-4f3f-a43a-0b33f9280b1e" class="">JavaScript, Promises, Error HandlingEdit Post</p><p id="0e3e848a-0f9d-4f00-9fe3-a1cb731a8323" class="">In this lesson we will talk about the opposite of resolving, which is rejecting.</p><p id="500b86ee-a6fa-4f72-92a5-ed09ce10d60d" class="">When a promise goes awry, and you want to bail on it, you can call the reject function.</p><p id="6b890712-1464-470b-a5b0-e5622611c10f" class="">Let&#x27;s go back to our <code>makePizza</code> definition and inside of our promise we need to check whether one of the toppings chosen for the pizza is pineapple.</p><p id="5de8f3d6-49c2-45c5-9236-dc882573e445" class="">If it is true, we need to reject the pizza from happening.</p><p id="65026d38-5d97-41ee-bb9b-11546eca3125" class="">For now will only check for lowercase &quot;pineapple&quot; but we will have to try to weed out people who uppercase it as well later. If that condition is met, then we will call reject and pass it &quot;seriously? get out&quot;.</p><p id="45927173-6c3f-490d-b0aa-f7620f45a186" class="">To do that we will add the code below.</p><pre id="39e53066-f410-4bc4-a1b8-acbad2123468" class="code code-wrap"><code>if (toppings.includes(&#x27;pineapple&#x27;)) {
+reject(&quot;Seriously? Get out 🍍&quot;);
+}</code></pre><p id="49b67a75-e28d-4d55-b1f2-c8e893d5c24e" class="">Now let&#x27;s go to the bottom of the script section and comment out the code we added in the previous lesson when we were doing an example on how to run promises concurrently.</p><p id="ca67cdcf-c904-4518-b996-5379bf2a38c6" class="">Below that commented out code add the following 👇</p><pre id="5fb1f235-8264-4578-8070-cb0b5530e02d" class="code code-wrap"><code>makePizza([&#x27;cheese&#x27;,&#x27;pineapple&#x27;]).then(pizza =&gt; {
+console.log(pizza);
+})</code></pre><figure id="ea96f952-341f-4ef4-ba6a-9bd8251a51cb" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1037.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1037.png"/></a></figure><p id="69ff0875-bbf9-4d73-9749-2606b3d6fd0d" class="">What does that log &quot;Uncaught (in promise)&quot; mean?</p><p id="1327d9b0-0d4d-486c-a693-6e203552e1f6" class="">It means that there was an error in one of our promises, but we did not write any code in order to handle that error and try to catch it.</p><p id="3f06d7f9-3993-4e18-9906-4ad553d45dff" class="">The way you catch an error in a promise is you chain a <code>.catch()</code> to it.</p><p id="bbd3024f-486c-49c8-acc0-d16335b1a7a5" class="">Catch will pass you the error as a parameter which we will use to log the error as shown below.</p><pre id="13647652-2087-4685-a938-6302e63b0c28" class="code code-wrap"><code>makePizza([&#x27;cheese&#x27;,&#x27;pineapple&#x27;])
+.then(pizza =&gt; {
+console.log(pizza);
+})
+.catch(err =&gt; {
+console.log(&#x27;Oh noooo!!&#x27;);
+console.log(err);
+})</code></pre><p id="678c781f-a89b-4779-b3a3-4a94159b8ff4" class="">As you see, we no longer get an error logged because we caught and logged the error ourselves.</p><figure id="863f67e3-da0a-4244-8eed-4e005c28eca5" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1038.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1038.png"/></a></figure><p id="a1bb90e8-ad1f-49fd-b265-e3e7d565611f" class=""><code>.then()</code> will only run when the promise resolves successfully, and the catch will only run if the promise doesn&#x27;t go successfully.</p><p id="b30bd2ae-0073-4fbd-a9a5-871ba0b7dd60" class="">Almost always with your promise built functions you must chain a <code>.then()</code> and a <code>.catch()</code> at the end so that if anything goes wrong, you are able to catch it and display it to the user.</p><p id="450a7f30-c02e-4099-97da-0894f1844f54" class="">What Wes will usually do is make a function called <code>handleError</code> which will take in the error and log it like so 👇</p><pre id="02c1283c-9aa1-49ed-8dd8-8f9780bc60df" class="code code-wrap"><code>function handleError(err) {
+console.log(&#x27;Oh noooo!&#x27;);
+console.log(err);
+}</code></pre><p id="625a1512-2b11-4809-8301-4da445e2ab38" class="">Now instead of catching the error using the code we had before we can simply replace it as shown below 👇</p><pre id="25de9428-383a-4a96-b0a3-4b5b2a000dd8" class="code code-wrap"><code>makePizza([&#x27;cheese&#x27;, &#x27;pineapple&#x27;])
+.then(pizza =&gt; {
+console.log(pizza);
+})
+.catch(handleError);</code></pre><p id="d51a544b-5c24-440c-a6d7-20bc51a0617e" class="">In the code above we are passing the reference to the function which will then handle the error.</p><p id="8edb9ee7-d133-499f-b631-b6034d055a45" class="">It&#x27;s important to note that not every single promise needs a catch on the end.</p><p id="50eb2f91-6a78-4158-88b8-d92b67e33b12" class="">Go back to our pizzas where we chained a bunch of promises together and modify the pizza with no toppings to instead pass the topping of &quot;pineapple&quot;,</p><p id="46e72f0e-3dea-4199-9a5e-a38e9225cca2" class="">What happens there is we go through the chain of promises and then as soon as we hit the code where we try to make a pizza with a pineapple we get the &quot;uncaught in promise&quot; error.</p><p id="88953543-c75e-46c8-8927-b953378c34df" class="">So how do we catch the error?</p><p id="3f08b450-ae43-4bac-b037-ccff5a845d7a" class="">Does it mean we have to add a <code>catch</code> after each <code>then</code>? That would be annoying. Thankfully, the answer is no.</p><p id="e7a9abea-511f-4798-8231-fc29f4c04542" class="">You just need to put one catch at the very end that will be able to handle our error.</p><p id="b2982c21-c49b-4850-a29c-4dca56602688" class="">The thing about an error happening in a promise chain is that where the error happens, it will then bail out of executing the rest of the promise chain.</p><p id="01cc636b-2637-465f-99ce-268019613d3c" class="">If you have 7 or 8 steps in the promise chain and they are all dependent on one another, then that is good because if step 3 in the breaks, you don&#x27;t want to continue to step 4.</p><p id="964d89ed-d913-40be-b65c-a16711a46ede" class="">But sometimes you want to continue even if one of the promises fails. If that is the case, then promise chaining is not what you want to use. Instead, you&#x27;d want to use some of the other Promise static methods like <code>Promise.all()</code> or <code>Promise.race()</code>.</p><p id="ce857ecf-42dd-43b4-9a2c-0ee8a4d52207" class="">Let&#x27;s do an example. We will start with 2 pizzas.</p><pre id="886ccd94-7c50-4b2e-953e-f1329bedae84" class="code code-wrap"><code>const p1 = makePizza([&#x27;pep&#x27;]);
+const p2 = makePizza([&#x27;pineapple&#x27;]);</code></pre><h2 id="b0d0bd09-120c-4ad3-8aeb-411221bfc4b8" class="">Promise.allSettled()</h2><p id="78cc7a68-73b4-493c-9d79-aba13aeb1d37" class="">We will use a new API that we haven&#x27;t learned yet called <code>Promise.allSettled()</code>.</p><p id="78cea867-cf98-4510-95a9-1ec83e4a6428" class="">Let&#x27;s start by making a mega promise.</p><pre id="e2fb2925-fceb-4e3a-832b-bcab6074f624" class="code code-wrap"><code>const dinnerPromise2 = Promise.allSettled([p1, p2]);</code></pre><p id="6a6d74b7-f06d-41c8-9f41-140e8c2053b3" class="">Let&#x27;s just get the results and log them for now.</p><pre id="45430987-9811-4e24-9c28-4e001c84bb64" class="code code-wrap"><code>dinnerPromise2
+.then(results =&gt; {
+console.log(results);
+})</code></pre><p id="37f5e36c-13ff-4a35-ad53-fc7dfd4e0d8f" class="">As you can see in our results we can see that the first one was <strong>fulfilled</strong> and the second one was <strong>rejected</strong>. Fulfilled is another word they use for resolved.</p><p id="85c5b4c5-a61a-45dd-b87b-65c6c18c7a1d" class="">If we tried that example but with <code>Promise.all()</code> like so, you will see that the code will break.</p><pre id="938cd420-1f3c-410d-b73d-651372adaa4a" class="code code-wrap"><code>const dinnerPromise2 = Promise.all([p1, p2]);</code></pre><p id="cea1052d-aa8b-4f29-a18f-92139b308705" class="">That is because <code>Promise.all</code> assumes that all of them will go successfully.</p><p id="67ac9578-1df1-490a-86ea-1f1445c14d95" class="">If you want to catch any errors that happen in <code>Promise.all()</code> you would have to catch them like so 👇</p><pre id="b8f01cbf-3da3-4a80-8033-6d94601bce1b" class="code code-wrap"><code>const dinnerPromise2 = Promise.all([p1, p2]).catch(handleError);</code></pre><p id="406bb38e-352b-4e37-9a9c-02bdd51c0e0f" class="">That is probably not what you want because if one of them breaks, you might still want the other one, because those other pizzas are still good.</p><p id="211281ee-e099-425e-8064-196c264e7009" class=""><code>Promise.allSettled()</code> will tell you when all the promises are done, regardless of whether they were rejected or resolved.</p><p id="3f565d43-4828-4993-8db8-fa5868dd9b09" class="">There are a few more error handling techniques that we need to use but they do not get introduced until we learn <strong>async/await</strong>.</p><p id="8786ee78-f920-41e5-8293-354152d88b93" class="">Let&#x27;s go back and refactor the last exercise we did to use promises instead of callback hell.</p><p id="8e5470c4-5d36-47d8-a98e-d348fb70f6f0" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="25387fbd-20d0-4f8c-a2d6-90be1de05b56" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="db56f83e-31c3-4477-aecf-b4db7fa772c5" class="">Edit on Github</p></details></li></ul><ul id="26246046-0225-4e3e-8917-a6153709a3c4" class="toggle"><li><details open=""><summary>69 - Refactoring Callback Hell to Promise Land</summary><p id="a8e30072-36db-4c27-b11b-1c55143855d6" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/69-refactoring-callback-hell-to-promise-land">https://wesbos.com/javascript/12-advanced-flow-control/69-refactoring-callback-hell-to-promise-land</a></p><p id="3519369c-fe3c-4b1c-aa76-5c6b9c42c36c" class="">
+</p><figure id="31682263-9258-45c0-b106-bdc5a2a27b3f" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%203.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%203.png"/></a></figure><p id="55614c33-279f-4201-8ff4-6b247d26dc30" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="0137daab-4e9c-45db-9706-74198494a7e9" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="d79b575f-33fe-4e65-bafc-aa420b51065a" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="859504e2-68f9-4c8f-91fc-9cbc7f30520d" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="1646d680-4031-4092-be5e-c56044ba7eb5" class="">JavaScript, Promises, CallbacksEdit Post</p><p id="3847e720-2a68-42b1-956a-15a2f3c861c7" class="">In this lesson we will go back to the event loop example, where we added the classes of <code>circle</code>, <code>purple</code> and <code>fadeout</code>, and we will refactor it to use promises instead.</p><figure id="06a577ed-7b3b-4f25-aeca-e46b4063dfb8" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1046.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1046.png"/></a></figure><p id="e8e05913-48a2-451b-9398-7fbed85be82d" class="">We will be coming back to this example one more time and refactor it after we learn <code>async/await</code>.</p><p id="c356e979-8911-4d62-8e5e-5fb596aff13c" class="">Take out <code>event-loop.html</code> file, duplicate it and rename it as <code>promise-chain.html</code>.</p><p id="d8b2fd36-01f4-4553-9a2c-bae44b29c5df" class="">The first thing we want to do is make a function that will simply wait for a certain amount of time. This is something Wes does in almost every single project because it is such a common thing.</p><p id="7c2ed87f-fe7c-44cb-9084-2b95e1143826" class="">Make a function called <code>wait</code> which will take in the number of milliseconds we want to wait using the parametetr <code>ms</code>, which we will default to 0 seconds, and then we will return a new promise which will resolve after the number of milliseconds that got sent in.</p><p id="870c3604-5ec4-46af-be16-3d403238f8b1" class="">Then we will just test our new method by waiting 2 seconds (2000 milliseconds) before logging &quot;DONE&quot;.</p><pre id="7e646287-1388-490d-9450-4ba2051ef8c0" class="code code-wrap"><code>function wait(ms = 0) {
+return new Promise(function(resolve) {
+setTimeout(resolve, ms);
+});
+}
+
+wait(200).then(() =&gt; {
+console.log(&#x27;Done&#x27;);
+})</code></pre><p id="eed0017b-34ca-4283-8098-32fc7542f448" class="">Now if you refresh the page, after 2 seconds you should see &quot;done&quot; logged to the console.</p><figure id="44b4dac9-598c-4cca-b019-49915658fd71" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1048.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1048.png"/></a></figure><p id="49479fa0-176e-4199-a6d6-49226b5b8aec" class="">That is such a common thing that Wes actually has an npm package called <strong>waait</strong> which gets around 75k downloads per week and all it does is return a promise that resolves after a certain number of milliseconds that have been passed in.</p><p id="53cdf427-e137-4aed-88e4-ea45c64422f6" class="">We can use the implicit return and arrow function to refactor the <code>wait</code> function as shown below to be on one liner 👇</p><pre id="6e463abe-6092-4ced-814d-f33e6f0ec546" class="code code-wrap"><code>const wait = (ms = 0) =&gt; new Promise(resolve =&gt; setTimeout(resolve, ms));</code></pre><p id="77acd366-b71d-4cec-9683-8f313a634ddb" class="">Now that we have this <code>wait</code> function, we can start to tackle all the callback hell.</p><p id="76e95e15-91ea-4042-b146-1d035b577e91" class="">Let&#x27;s just rewrite it starting at the beginning by taking all our <code>setTimeouts</code> and instead making them promise based.</p><p id="f45b2e7f-3884-4c30-831a-00a064a842ca" class="">The first thing we will do is make an external function called <code>animate</code> and when someone clicks the go button, we will run <code>animate</code>.</p><p id="1ab18e25-9e73-434d-b694-28d727db06bd" class=""><code>animate</code> will take in the event and let&#x27;s start moving logic up to it.</p><p id="5de8552d-8ccc-469c-9c41-1163185c5b2f" class="">For the event listener we already had on <code>go</code>, we will replace <code>click</code> with <code>clickXXXXX</code> so it doen&#x27;t actually trigger and we can refactor piece by piece.</p><pre id="5fbffeaf-66d5-41a6-bf75-253d8bc2b321" class="code code-wrap"><code>function animate(e) {
+
+}
+
+go.addEventListener(&#x27;click&#x27;, animate);
+
+go.addEventListener(&#x27;clickxxxx&#x27;, function go(e) {
+
+})</code></pre><p id="05fc6f0f-6182-43a8-9e2c-36f69b0c12f8" class="">The first thing we want to do is grab the element, then we want to change the text to &quot;GO&quot; when clicked, which is immediately so we can put it right into our animate function.</p><pre id="ddacc1ea-d4e7-4daa-9694-7f58ed56ec55" class="code code-wrap"><code>function animate(e) {
+const el = e.currentTarget;
+
+// 1. change the text to GO when clicked
+el.textContent = &#x27;GO&#x27;;
+}</code></pre><p id="0e9d667d-fbf4-49b9-861b-258f26be3dbf" class="">Now we want to make it a circle after 2 seconds so we can use the <code>wait</code> function we made. We will chain a <code>.then()</code>, although there is no piece of data that is resolved from the wait, it simply is just done.</p><pre id="89489ea8-1322-4c64-85bb-a3c68c557325" class="code code-wrap"><code>function animate(e) {
+const el = e.currentTarget;
+
+// 1. change the text to GO when clicked
+el.textContent = &#x27;GO&#x27;;
+
+wait(200).then(() =&gt; {
+el.classList.add(&#x27;circle&#x27;);
+})
+}</code></pre><p id="0419e708-1d25-4bc6-92c8-92c904252aae" class="">Now after 2 milliseconds, the GO square will turn into a circle. If you refresh the page, you will see it still works.</p><p id="2b353b38-8d7e-4a7b-9b1d-6c129f7beece" class="">Now how do we make it red after 0.5 seconds? We cannot just call it after the wait function because that will cause it to go red before it goes to circle.</p><p id="cd0385a1-da42-4b6f-8c27-5fd0a7d36594" class="">What we can do instead is we can return another <code>wait()</code> of 500 milliseconds and then chain another <code>.then()</code> onto it and put our third item in there, as shown below.</p><pre id="2802aeda-51ae-48a1-96a6-23bb37d14566" class="code code-wrap"><code>function animate(e) {
+const el = e.currentTarget;
+
+// 1. change the text to GO when clicked
+el.textContent = &#x27;GO&#x27;;
+
+// 2. make it a circle after 2 seconds
+wait(200).then(() =&gt; {
+el.classList.add(&#x27;circle&#x27;);
+return wait(500);
+}).then(() =&gt; {
+// 3. make it red after 0.5 seconds
+el.classList.add(&#x27;red&#x27;);
+})
+}</code></pre><p id="b708e08b-a569-4d4a-a4c8-b9938d73ee84" class="">To make this more readable you can format them each on their own line like so 👇</p><pre id="598f59e9-5092-41c8-9d8d-3f875500b024" class="code code-wrap"><code>function animate(e) {
+const el = e.currentTarget;
+
+// 1. change the text to GO when clicked
+el.textContent = &#x27;GO&#x27;;
+
+// 2. make it a circle after 2 seconds
+wait(200)
+.then(() =&gt; {
+el.classList.add(&#x27;circle&#x27;);
+return wait(500);
+})
+.then(() =&gt; {
+// 3. make it red after 0.5 seconds
+el.classList.add(&#x27;red&#x27;);
+})
+}</code></pre><p id="095cce13-bf37-401f-bb2e-923e7dca79c8" class="">Now we have to make it a square after 0.25 seconds by removing the class of circle.</p><pre id="583bffc5-d7ac-40fc-af4b-2e1b7ea8db48" class="code code-wrap"><code>.then(() =&gt; {
+// 3. make it red after 0.5 seconds
+el.classList.add(&#x27;red&#x27;);
+return wait(250);
+})
+.then(() =&gt; {
+el.classList.remove(&#x27;cirlce&#x27;);
+})</code></pre><p id="1c8d757c-6e0c-4b4b-a39e-cddc65eb3463" class="">Now after 500 milliseconds we want to remove the red class and add the purple one like so 👇</p><pre id="bfec56f5-02fc-44ee-9081-df33911f868f" class="code code-wrap"><code>.then(() =&gt; {
+// 3. make it red after 0.5 seconds
+el.classList.add(&#x27;red&#x27;);
+return wait(250);
+})
+.then(() =&gt; {
+el.classList.remove(&#x27;circle&#x27;);
+return wait (500);
+})
+.then(() =&gt; {
+el.classList.remove(&#x27;red&#x27;);
+el.classList.add(&#x27;purple&#x27;);
+})</code></pre><p id="8a633a25-5b33-49c6-8de8-414275ba5840" class="">Now finally, after half a second, we need to make it invisible.</p><pre id="855498b3-a421-4b02-bf79-c96446f9c1ea" class="code code-wrap"><code>.then(() =&gt; {
+el.classList.remove(&#x27;red&#x27;);
+el.classList.add(&#x27;purple&#x27;);
+return wait(500);
+})
+.then(() =&gt; {
+el.classList.add(&#x27;fadeOut&#x27;);
+})</code></pre><p id="1b4086e2-5bb8-4067-bff0-5a0f0693156e" class="">So what we have done here is taken the nested callback function and made it one level deep, which is waiting returning, waiting returning. That is chaining multiple <code>.then()</code>s onto each other.</p><p id="e33cbe1d-9b76-4560-8b7f-ccf27c1ca186" class="">That gets much better when we get to <code>async/await</code> but for now, this is the best way we can refactor these promises into a promise chain.</p><p id="582dfe62-bc61-4472-9b00-b9ef77c96fd1" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="429f2ceb-cee8-4d4d-9f76-bfa33da423dc" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="a059533b-ce20-4d68-868f-044e772a8260" class="">Edit on Github</p></details></li></ul><ul id="c0be5cd7-5a48-4528-a863-57a772a290ce" class="toggle"><li><details open=""><summary>70 - Async/Await</summary><p id="d24d3d1c-beee-4e16-911c-9ce1f410221c" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/70-async-await">https://wesbos.com/javascript/12-advanced-flow-control/70-async-await</a></p><p id="95d9a6c4-877e-44d9-b651-87cf3c9a428c" class="">
+</p><figure id="6492363c-5b96-4821-930f-aef7a7c2a7f3" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%204.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%204.png"/></a></figure><p id="e9ea253b-a5f1-4918-b7cc-a7f62680dcac" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="0c2f584a-4be2-4005-a507-d5740d22c567" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="6f55002c-1602-453d-97f4-20b0f587f9e9" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="b24b52b6-e732-4c08-89be-69502ee01c11" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="07b4b550-5386-4125-adb8-507c82f0119c" class="">JavaScript, Async/AwaitEdit Post</p><p id="c17f3a63-8bb4-4aef-a1de-97874c6df17d" class="">Although in the last lesson we refactored our callback hell example to use promises, the syntax still isn&#x27;t that great because we are nesting at least one level deep inside of callback hell with the <code>.then()</code> syntax.</p><p id="3543015c-a1ab-4150-8616-ca6e580954f8" class=""><code>async/await</code> is a new syntax that will allow us to use the keyword <code>async</code> and the keyword <code>await</code> for a much nicer, easier to read looking code and we will see how that works in just a second.</p><p id="3ffbaa79-017a-4c39-8b34-f87a48bd13e5" class="">Your functions that return promise still stay exactly the same way. There is nothing that needs to change about your promise generating functions. We need to change where we actually call the code to use <code>async/await</code>.</p><p id="2d758b81-b2a5-46b1-9b44-6c4c9dd837bf" class="">Go into the <code>playground</code> folder and make a new file called <code>async-await.html</code> and add our base HTML.</p><p id="27aef5d2-9e73-4e1c-aaf8-b4cc7b41d28c" class="">Add a script tag and create that wait function we have built a few times now.</p><pre id="59ddcf26-bd8e-4877-8151-84bafd0c48e4" class="code code-wrap"><code>&lt;script&gt;
+function wait(ms = 0) {
+return new Promise((resolve)=&gt;{
+setTimeout(resolve,ms);
+})
+}
+&lt;/script&gt;</code></pre><p id="bf05e526-15cf-4a7f-8150-8696d76d6842" class="">Now if we want to use the <code>async await</code> syntax there are a few things that need to happen.</p><p id="a3334315-56fb-44b8-a308-989c0b5e5eac" class="">First of all, you can only use <code>await</code> inside of a function that is marked as <code>async</code>.</p><p id="e6e3e70b-3b18-4932-9d8b-8fafa19162a1" class="">Make a function <code>go()</code> which logs &quot;starting&quot;, and &quot;ending&quot;. In order to make it wait for two seconds between the logs, you would add the following code 👇</p><pre id="efe3c310-c884-44ab-8301-ce3cce5695d5" class="code code-wrap"><code>function go() {
+console.log(&#x27;Starting&#x27;);
+wait(2000);
+console.log(&#x27;Ending&#x27;);
+}
+
+go();</code></pre><p id="e029da08-8762-42dc-8328-fca522ae111f" class="">Now we know if we run <code>go</code> on page load, we will get &quot;starting&quot; and &quot;ending&quot; immediately.</p><figure id="a894e27f-a9b7-4ff2-a38a-160c7ecd4184" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1050.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1050.png"/></a></figure><p id="a16d4bfb-18cf-4248-9006-bcaf18776ce4" class="">2:32</p><p id="042ddc97-5a97-4024-8392-b97c3adb5a9d" class="">What async await allows us to do is put the keyword <code>await</code> in front of a promise based function and it will sort of temporarily pause that function from running until that promise is resolved.</p><pre id="606fd6de-d887-4c56-9136-609be166fe7a" class="code code-wrap"><code>function go() {
+console.log(&#x27;Starting&#x27;);
+await wait(2000);
+console.log(&#x27;ending&#x27;)
+}
+
+go();</code></pre><p id="ab6b9830-dde6-4659-b9c4-421c3d6f3e9e" class="">If you modify the code as shown above and then refresh the page, you will see an error in the console.</p><figure id="f972d9c3-41c9-46b0-a2a2-fd84542655c4" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1051.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1051.png"/></a></figure><p id="eecba864-4a97-41b6-b149-ffaf7e8901c6" class="">To fix this, we need to mark our function as <code>async</code>. That tells the code that somewhere inside of the function, we will be doing some awaiting.</p><p id="fbff53ea-6b83-4069-8d25-08c5c2d90239" class="">Mark the function <code>async</code> as shown below.</p><pre id="04552f04-1a90-4781-8eaa-74221db8a18b" class="code code-wrap"><code>async function go() {
+console.log(&#x27;Starting&#x27;);
+await wait(2000);
+console.log(&#x27;ending&#x27;);
+}</code></pre><p id="8f9f6d0c-921e-4d95-b19c-9e068581f378" class="">Now if you go ahead and save the function and then refresh, we will get &quot;starting&quot; logged to the console and then two seconds later we will get &quot;ending&quot;.</p><p id="de0fd69a-e21e-468a-b30f-a0adc60886f7" class="">That is beautiful because we achieved that without chaining a bunch of <code>.then()</code>.</p><p id="ca3a2ddd-5051-4c4f-9268-f3599204197f" class="">If we wanted to wait for another period of time in the same function before executing something else, we can.</p><pre id="442453d6-9416-46fc-ad54-e5db2b853941" class="code code-wrap"><code>async function go() {
+console.log(&#x27;Starting&#x27;);
+await wait(2000);
+console.log(&#x27;running&#x27;);
+await wait(2000);
+console.log(&#x27;ending&#x27;);
+}</code></pre><p id="0a73e755-465f-4dcc-90b8-db1b53493e21" class="">We are now able to just stick these calls to our <code>wait</code> function wherever we want within our <code>go</code> function and the execution of that function will temporarily pause until the promise has been resolved.</p><p id="091b7bcf-970a-4800-8be7-f6cf8916a561" class="">Marking functions as <code>async</code> can work with any type of function.</p><p id="1e5c117d-d333-4053-b5c3-b0e0c7a72522" class="">Let&#x27;s go over all the functions just to demonstrate.</p><p id="184542ea-c381-48ef-bc40-d920c68ff0a4" class="">You can add <code>async</code> to a function declaration as shown below 👇</p><pre id="d5967c01-1012-4655-9b86-a819e206f732" class="code code-wrap"><code>// Function Declaration
+async function fd() {}</code></pre><p id="077b2095-031a-4946-9847-7d5777851cd3" class="">You can also mark an arrow function as async 👇</p><pre id="ffd8d333-0fd0-4536-8b24-845f268ff499" class="code code-wrap"><code>// arrow function
+const arrowFn = async () =&gt; {}</code></pre><p id="a3fb84f6-c041-4cc3-949c-9739e0a0a105" class="">You can also mark callback functions async.</p><p id="371ca8dc-92ee-41d2-aa6d-8b17aa6d1fa2" class="">For example, if you had an event listener, you could make the callback function async as shown below 👇</p><pre id="460451d6-00e7-49dc-88c2-c3b646cc5e04" class="code code-wrap"><code>window.addEventListener(&#x27;click&#x27;, async function() {
+
+})</code></pre><p id="a25406bb-eee4-4f5a-b53b-3732299d2178" class="">You can also make methods async.</p><pre id="323aeb10-49b3-4238-af41-3630a313797c" class="code code-wrap"><code>const person = {
+sayHi: async function() {
+
+}
+}</code></pre><p id="4b12a837-a32f-4e91-a79d-004e3f0d17c3" class="">You can also mark methods async using the method shorthand and function property, as shown below.</p><pre id="0eda7e15-e4b5-40d1-a989-0ec8cb0a076e" class="code code-wrap"><code>const person = {
+// method
+sayHi: async function() {
+
+},
+// method shorthand
+async sayHello() {
+
+},
+// function property
+sayHey: async () =&gt; {
+
+}
+}</code></pre><p id="74b3dda2-e696-46d5-861a-8741c5198de1" class="">Essentially whenever you have a function, put the word <code>async</code> in front of it and that will allow you to do awaiting inside of it.</p><p id="68b31c14-70a3-48f8-bcc8-3b7a758ab63f" class="">You cannot do what is referred to as top level await.</p><p id="406bd7ab-44c6-4110-82c9-311766d3dcee" class="">If you go take the code within the go function and try to run it directly in the script tag and try calling <code>wait</code> as shown below, it will not work 👇</p><pre id="4b48cbcd-ed5c-4626-9f92-b7bf69539e4d" class="code code-wrap"><code>console.log(&#x27;one&#x27;);
+await wait(200);
+console.log(&#x27;two&#x27;);</code></pre><p id="6583b1ad-369b-44b6-aebd-5c21f01d07f6" class="">We get an error in the console.</p><p id="93965528-a536-4c76-bb56-ea70d259b5b8" class="">You can however copy and paste the call to the wait function and call it directly from devtools console.</p><p id="37f4d6ef-7f6a-46ea-a9d0-c9e30f958e7a" class="">Let&#x27;s take a look at some other examples.</p><p id="591290a3-bec4-4203-a3c9-7226da2903f2" class="">Go to our <code>promises.html</code> file that we have and let&#x27;s grab the <code>makePizza</code> function, and move it over to the <code>async await</code> file.</p><p id="58901f60-d2a6-44fe-9a38-26ceafcaa873" class="">Both of those functions return a promise.</p><p id="166fb601-1f30-4689-af79-66c3a58944b5" class="">Go to the bottom of the script tag and make another async function <code>makeDinner</code>.</p><p id="add49d09-38ab-4b4b-881e-0be93e7740b6" class="">Within that function we will call <code>makePizza</code> to make <code>pizza1</code> and then we will log it.</p><pre id="44ef4ba3-d99d-48da-b39e-e70c207cdb8c" class="code code-wrap"><code>async function makeDinner() {
+const pizza1 = makePizza([&#x27;pepperoni&#x27;]);
+console.log(pizza1);
+}
+
+makeDinner();</code></pre><p id="e8299137-0591-4197-ae5a-c0348aacfe84" class="">If you comment out the <code>go</code> function and the code where we call <code>go</code> and instead just run the code we added right above, you will see that we get a promise logged to the console.</p><p id="7a652d53-84fa-4f29-8e1f-d6672fcab1b9" class="">That is because we are running the function and storing it in a variable, which will store the promise in the variable. Note that we call it &quot;await&quot; instead of &quot;wait&quot; because it is asynchronously waiting. Meaning it won&#x27;t actually pause all of JavaScript, it&#x27;s not going to block the rest of the JavaScript from running.</p><p id="15318fad-a6ad-4d1b-8e86-cfcf61bfa124" class="">If we instead put an <code>await</code> in front of our <code>makePizza</code> function, we will asynchronously be waiting for the pizza to be done, and when it is, we will simply log it.</p><pre id="b9d6d4ea-d956-45f8-a782-ad010670c939" class="code code-wrap"><code>async function makeDinner() {
+const pizza1 = await makePizza([&#x27;pepperoni&#x27;]);
+console.log(pizza1);
+}
+
+makeDinner();</code></pre><p id="b5284b1c-dea5-486f-b357-5b33c6ffa895" class="">Similarly we can do that with pizza2 as well.</p><pre id="1f5d7eef-65c4-454f-8acf-ccccc2988781" class="code code-wrap"><code>async function makeDinner() {
+const pizza1 = await makePizza([&#x27;pepperoni&#x27;]);
+console.log(pizza1);
+const pizza2 = await makePizza([&#x27;mushrooms&#x27;]);
+console.log(pizza2);
+}
+
+makeDinner();</code></pre><p id="decb5784-762b-4d10-9a75-0b9dba008d85" class="">Now let&#x27;s say we want to wait for both of those to be done because the way it is coded right now could be possibly inefficient.</p><p id="0473892c-99f6-4048-af46-c08524f1d90d" class="">This is what is referred to as a <strong>foot gun</strong> in the industry, when you give somebody the tools it is possible they could write code that is not performant.</p><p id="564cec39-f2d3-4365-b2db-ad7b3fb10169" class="">What that means is if you are making a pepperoni and a mushroom pizza, the way we have coded it, you have to wait for the pepperoni pizza to be created, baked and taken out before we even start making the next pizza.</p><p id="1f68b3d8-60ea-4ae2-b0c6-d6e74f392ae1" class="">It is likely that we could be making the pizzas concurrently, so what we can do is instead of waiting for one, then moving onto the next line and making the next one, we will remove the await from both of them, make them both into promises and then make one big promise which we can await.</p><pre id="15bfe897-bb3f-408a-a168-20972be3758a" class="code code-wrap"><code>async function makeDinner() {
+const pizzaPromise1 = makePizza([&#x27;pepperoni&#x27;]);
+const pizzaPromise2 = makePizza([&#x27;mushrooms&#x27;]);
+const pizzas = Promise.all([pizzaPromise1, pizzaPromise2]);
+console.log(pizzas);
+}</code></pre><p id="5a103f40-e3c1-4d65-b8f5-372d777086f4" class="">If you do it like above, we will still only get the big promise.</p><p id="ffce0466-23c1-4818-bbee-467adaaa6629" class="">We need to modify the code to await the mamma promise like so 👇</p><pre id="850887ae-a85d-4a74-add8-1e91553598af" class="code code-wrap"><code>const pizzas = await Promise.all([pizzaPromise1, pizzaPromise2]);</code></pre><p id="8f425956-c49a-4710-910d-ab165513e16a" class="">Now we get the actual pizzas instead of just the promises. Go ahead and destructure the two pizzas that are returned.</p><pre id="c36dcc5e-a812-4970-95bc-daae1c0b5de4" class="code code-wrap"><code>const [pep, mush] = await Promise.all([pizzaPromise1, pizzaPromise2]);
+console.log(pep, mush);</code></pre><p id="9e10f48f-e81b-4248-8185-41e35a98fa62" class="">What we want to do now is go back to the code that we wrote early on with our promise chain and rewrite it one more time into async await.</p><p id="062dab48-6160-438f-b60e-c269aa37dde9" class="">Take the entire animate function and copy it and rename it to <code>animate2</code>.</p><p id="2c4c5683-fc16-440f-803e-e969a7886af5" class="">Modify the click event to call <code>animate2</code> as shown below.</p><pre id="ca5fd0ac-cdf5-4593-9152-cfc58fb2e355" class="code code-wrap"><code>go.addEventListener(&#x27;click&#x27;, animate2);</code></pre><p id="24536d25-1db9-4e50-90f1-21f802cb3ced" class="">Go back to the <code>animate2</code> function.</p><p id="49d2f692-38d1-4b92-a378-5692e8e11969" class="">The first thing you need to do is mark the function as <code>async</code> and then to check that it still works.</p><pre id="ed700c75-a965-4669-9c6c-d311621a89c3" class="code code-wrap"><code>async function animate2(e) {
+
+}</code></pre><p id="9528b65b-4b0a-40ed-becf-581997a41556" class="">Open it up in the browser to make sure that it still works. Then refactor the animate function to instead await as shown below.</p><pre id="8a52915d-6803-4572-a5e8-469a55a2595a" class="code code-wrap"><code>async function animate2(e) {
+const el = e.currentTarget;
+// 1. Change the text to GO when clicked.
+el.textContent = &#x27;GO&#x27;;
+// 2. Make it a circle after 2 seconds
+await wait(200);
+el.classList.add(&#x27;circle&#x27;);
+await wait(500);
+el.classList.add(&#x27;red&#x27;);
+await wait(250);
+el.classList.remove(&#x27;circle&#x27;);
+await wait(500);
+el.classList.remove(&#x27;red&#x27;);
+el.classList.add(&#x27;purple&#x27;);
+await wait(500);
+el.classList.add(&#x27;fadeOut&#x27;);
+}
+
+function animate(e) {
+const el = e.currentTarget;
+// 1. Change the text to GO when clicked.
+el.textContent = &#x27;GO&#x27;;
+// 2. Make it a circle after 2 seconds
+wait(200)
+.then(() =&gt; {
+el.classList.add(&#x27;circle&#x27;);
+return wait(500);
+})
+.then(() =&gt; {
+// 3. Make it red after 0.5s
+el.classList.add(&#x27;red&#x27;);
+return wait(250);
+})
+.then(() =&gt; {
+el.classList.remove(&#x27;circle&#x27;);
+return wait(500);
+})
+.then(() =&gt; {
+el.classList.remove(&#x27;red&#x27;);
+el.classList.add(&#x27;purple&#x27;);
+return wait(500);
+})
+.then(() =&gt; {
+el.classList.add(&#x27;fadeOut&#x27;);
+})
+}</code></pre><p id="771bb8d1-a4a2-43dc-906f-6d53334317c8" class="">As you can see in <code>animate2</code> there are no <code>.then()</code> and no callbacks, we simply just pause the function from running with our <code>await</code> in front of a function that returns to us a promise.</p><p id="bf20cab4-25e7-4309-baa0-ab66c4d77247" class="">In the next video we will look at how to handle errors with <code>async await</code> and we will go over a lot of the browser APIs that come with <code>async await</code>.</p><p id="4e4588aa-987e-49ee-bbbf-e9123f29c97f" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="72b2192b-f164-4897-8632-1cc39263c2a9" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="f9df6c63-8bff-4407-9dc5-d5f3c826efe6" class="">Edit on Github</p></details></li></ul><ul id="80975ad8-bbcf-4ccd-8a85-0e8a96002736" class="toggle"><li><details open=""><summary>71 - Async/Await Error Handling</summary><p id="88251457-cd88-4aae-92c1-183e054b15a6" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/71-async-await-error-handling">https://wesbos.com/javascript/12-advanced-flow-control/71-async-await-error-handling</a></p><p id="cc7fa39e-058a-4b93-bcfd-24bf3bdac73d" class="">
+</p></details></li></ul><ul id="9d89a354-1c87-4fd1-8333-c59933889814" class="toggle"><li><details open=""><summary>72 - Async/Await Prompt UI</summary><p id="cd8b34b1-e018-4017-aa21-326b092d635a" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/72-async-await-prompt-ui">https://wesbos.com/javascript/12-advanced-flow-control/72-async-await-prompt-ui</a></p><p id="2a43afbb-7f68-478a-b037-a82c0a12e94c" class="">
+</p><figure id="e7ee6823-4488-45c8-9aa1-89f936faf348" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%205.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%205.png"/></a></figure><p id="7f1b8360-6038-4bc0-b64c-a129db76de74" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="2547ddb8-0e12-4648-910f-94dd4463b75c" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="c0376bb8-868b-4a89-8269-409eedd03b1f" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="8bb8f7c4-7046-4b66-8072-f5b752433aa0" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="83e9ee9c-d061-41cf-9f27-7843258d3354" class="">JavaScript, Async/AwaitEdit Post</p><p id="9edd07f1-40fc-4092-9e59-6ce64d608cd5" class="">In this lesson we will be working more with promises and async await to build a sort of prompt interface.</p><p id="bf736ec9-ed09-452d-b422-de88b0e6fa93" class="">A pretty common thing to do in JavaScript is when someone clicks a button or something happens on the page, you want to pop up a little box, ask them for something, and then go ahead and get that data back and display it on the page somehow.</p><figure id="77bc11b1-bb8a-494e-96b1-c78d9d01fc8c" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1076.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1076.png"/></a></figure><p id="771e3627-5ea5-4390-b04d-5fecf55118d7" class="">There is a prompt that is built into the browser, but the problem with that prompt if you can only have one input box.</p><p id="b3fdd02c-bb8a-4dbf-831a-1448d47a0a93" class="">If you wanted multiple input boxes or an image upload or something like that, you couldn&#x27;t do that with the built in.</p><p id="ffe1fb3a-77e8-4c0f-b838-e02714860167" class="">The built-in interface is also blocking, meaning that when it is popped up, you cannot do anything else on the page.</p><p id="562beb3d-92b7-471f-b7c9-53ae34ffda44" class="">We are going to see how we can re-implement this with promises and async/await.</p><p id="d84698e4-a954-4403-b7f2-5d3cbd126af0" class="">We will be working out of the <code>/exercises/72 - Async Prompts/</code> directory, and are starting with some very basic HTML.</p><pre id="12fb0189-ed3d-484a-9a55-ce670ae7d487" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Async Prompt&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../../base.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;./style.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;div class=&quot;wrapper&quot;&gt;
+&lt;button class=&quot;askMe&quot; data-question=&quot;What is your name?&quot;&gt;Enter Name&lt;/button&gt;
+&lt;button class=&quot;askMe&quot; data-cancel data-question=&quot;What is your age?&quot;&gt;Enter Age&lt;/button&gt;
+&lt;/div&gt;
+
+  &lt;script src=&quot;./scripts.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p id="90cb013d-2b78-4b78-aee0-900ce513c1de" class="">We also have some CSS that Wes will explain to us because we will be using CSS variables for animation, which is pretty nifty.</p><pre id="fdb1c9c2-a244-427a-b303-4e8d5bc748e2" class="code code-wrap"><code>.popup {
+background: hsla(0, 0%, 30%, 0.5);
+position: fixed;
+height: 100vh;
+width: 100vw;
+transition: all 0.25s;
+top: 0;
+display: grid;
+justify-content: center;
+align-items: center;
+pointer-events: none;
+  --opacity: 0;
+opacity: var(--opacity);
+}
+
+.popup fieldset {
+background: var(--grey);
+padding: 2rem;
+border: 3px solid var(--pink);
+border-radius: 5px;
+box-shadow: var(--box-shadow);
+transition: all 0.2s;
+  --scale: 0.3;
+transform: scale(var(--scale));
+}
+
+.popup.open {
+  --opacity: 1;
+pointer-events: all;
+}
+
+.popup.open fieldset {
+  --scale: 1;
+}</code></pre><p id="6d5f1be8-0e33-44e3-a2d7-116467fffdd2" class="">The buttons on the HTML page are there so that when you click them, they will invoke the prompt.</p><p id="b6743f4b-8aaf-488c-9d94-505be06046a3" class="">One more thing we will look at is how to open one prompt after the other and get all three pieces of data back, which is going to be in a <strong>synchronous map</strong>.</p><p id="4d934729-84ea-425b-bcea-7125b931c686" class="">That is pretty tricking to do, so Wes will show us how to do that, how to run something in series when you have promises in async/await.</p><p id="84ed23cb-6b80-4342-b79e-870d070bc8ae" class="">Open up <code>scripts.js</code> in your code editor and open up <code>index.html</code> in the browser.</p><p id="379c3c39-77e0-4f0f-9074-340d17f748ab" class="">Let&#x27;s get going on the JavaScript in our script file.</p><p id="210d5464-d2df-4a22-9e48-9ee3d716ebbb" class="">Let&#x27;s start by creating a function, <code>ask</code> which will take in some options.</p><p id="e85948e5-441d-4b0c-b8f4-039ef5b4838b" class="">The options will be 2 things:</p><ol type="1" id="22e923a8-371a-4eb6-a869-747c8810b622" class="numbered-list" start="1"><li>What will the text for the prompt be?</li></ol><ol type="1" id="c936f177-57ae-4f31-a819-33125e797c9b" class="numbered-list" start="2"><li>Are they allowed to cancel it with a cancel button?</li></ol><p id="78713adb-6c59-490c-9326-7be5d8c79c62" class="">Inside of the function we want to first return a new promise.</p><p id="f8b26c7f-3ece-4e2a-bb1b-59eb7f0181de" class="">Inside of that promise we will have a function that will accept <code>resolve</code> as the first argument. (It also accepts <code>reject</code>, but we won&#x27;t be rejecting it in this example.)</p><p id="dab334a7-d675-43c2-b9e8-1f70244572e7" class="">When somebody hits cancel, we will just resolve it with nothing instead of reject because that is how the one built into the browser works.</p><pre id="57801196-6e2c-41fb-ac8f-c68ea4f5495a" class="code code-wrap"><code>function ask(options) {
+// First we need to create a popup with all the fields in it
+// check if they want a cancel button
+// listen for the submit event on the inputs
+// when someone does submit it, resolve the data that was in the input box!
+// insert that popup into the DOM
+// put a very small timeout before we add the open class
+}</code></pre><p id="55b4c1dc-00fb-4c07-84f2-81b292a87318" class="">Now there are a couple of things that need to happen.</p><p id="161c78f9-33e3-4dbe-b4fd-53e1bdca5ab4" class="">First, we need to create a popup with all the fields in it.</p><p id="f00df5df-da93-403b-97b1-e32428e23961" class="">Then we need to check if they want a cancel button.</p><p id="04cd83b2-e014-4fa0-b60f-7410ecd3dff9" class="">Next we need to listen for a submit event on the input, and then when someone does finally submit it, we need to resole the data that was in the input box.</p><p id="8dd0c212-30f8-47e6-ba54-4c8c43ceac78" class="">Let&#x27;s start sequentially with the popup.</p><p id="fd61fbea-da08-4e0f-8fc0-a4578d1da392" class="">We will use a form tag for this so we can get the submit.</p><p id="13ba6232-9efe-43e9-bd19-75c6d529de49" class="">Use <code>document.createElement</code> because that will immediately return to us a DOM node, which allows us to add event listeners for things like submit on it.</p><p id="80e12ab3-97c3-462e-a34c-996f477b7c69" class="">If we just used backticks and a form tag, we wouldn&#x27;t be able to add event listeners inside of the function. We would have to wait until that thing was put into the page before we could add event listeners to it.</p><pre id="2f3e61f8-df14-4d65-b2f4-7bd8956426f5" class="code code-wrap"><code>const popup = document.createElement(&#x27;form&#x27;);</code></pre><p id="9579af5e-e997-4b17-aeff-4f841992b067" class="">Now we can add a class of <code>popup</code> to it, which just makes sure it has position of fixed, a specific background color, that the width and height are 100 percent of the viewport width and height.</p><p id="ec0f1568-1b2c-442e-858a-b39d11ac4992" class="">We set the opacity to 0 because we want to fade it in which we will do using a class of open.</p><pre id="0e56de7f-459a-4464-b46f-3332db529f05" class="code code-wrap"><code>popup.classList.add(&#x27;popup&#x27;);</code></pre><p id="ae00cae9-0bc9-42ec-8bfc-7de47867cc95" class="">Now we need to put some HTML inside of the popup.</p><p id="457e41e4-e0d3-4a70-a618-3bf63d8a5515" class="">We will use backticks in this case because there is nothing inside of it that needs an event listener added to it.</p><pre id="7072da8b-3204-4ec3-a00b-fdae95cc3442" class="code code-wrap"><code>popup.insertAdjacentHTML(&#x27;afterbegin&#x27;, `
+  &lt;fieldset&gt;
+    &lt;label&gt;${options.title}&lt;/label&gt;
+  &lt;/fieldset&gt;
+`)
+
+console.log(popup);</code></pre><p id="8e7d3ac0-e0a6-4526-bc4e-4340e7cbb3c6" class="">Refresh the page to check whether the code still works.</p><p id="9246ec39-bcc6-4adf-8b1f-a37f9953fbec" class="">Call <code>ask</code> directly from the console, and pass in an options object as an argument with 1 property in the option, the title.</p><pre id="5b2366b2-4de9-4add-a6bd-0b3b3e66e72e" class="code code-wrap"><code>ask({ title: &#x27;does this work&#x27; });</code></pre><p id="45f1f4d8-18aa-4f1e-8774-3e02ffceb620" class="">As you can see, we have the form, with a fieldset and label containing the title so we know that it works so far.</p><p id="2378cb18-98fd-4056-aa9b-7cdbc13b5856" class="">Now let&#x27;s check if they want a cancel button using the options object, and if they do, go ahead and create that button.</p><p id="007c88f9-1280-4df8-b72c-042eca746990" class="">You must specify the type of the button or else the browser will just assume it is a submit button and submit the form.</p><p id="2b65baac-2a96-4ff2-9aa3-f3a13fcf2d76" class="">We also need to listen for a click on the cancel but for now, just add a TODO and come back to that later to keep things more simple.</p><pre id="f5e28888-e62c-4a9b-8a8c-d085c988ba08" class="code code-wrap"><code>if (options.cancel) {
+const skipButton = document.createElement(&#x27;button&#x27;);
+skipButton.type = &#x27;button&#x27;;
+skipButton.textContent = &#x27;Cancel&#x27;;
+// TODO: listen for a click on that cancel button
+}</code></pre><p id="77ca9eca-2808-46c6-9a1b-a198c068ab34" class="">We still need to listen for the submit event on the inputs, and resolve the data that was entered into the input box and we need to insert that popup into the DOM.</p><p id="fb7353ed-b6fa-4484-bf8e-d65949e36825" class="">Let&#x27;s do that last step first.</p><pre id="be09148a-099d-475e-9756-31c84dac15ad" class="code code-wrap"><code>document.body.appendChild(popup);</code></pre><p id="64893e6e-3ee8-43ac-b5be-fc1df994ee6c" class="">Let&#x27;s get that popup showing up so we have a visual.</p><p id="dc8f6098-ce2a-4d77-8b72-4405eb2f579e" class="">If you go to our CSS, you will see that we have opacity of 0 on the <code>popup</code> class.</p><p id="bbbdc056-262c-4817-9000-07afac0ef662" class="">The reason Wes has created a <strong>CSS custom property</strong> (or variable as it is referred to in CSS) to store the opacity value which we can then reference using the variable.</p><p id="873bd902-7093-4d01-b5c9-8c7038d59151" class="">Now when we go to the popup with class of <code>open</code>, it will know to update the value of the opacity variable everywhere that it is used.</p><p id="7acb7540-afbb-4e3d-aec6-33c9d284e673" class="">So right after we append our child, we need to take the popup&#x27;s class list and add a class of <code>open</code>.</p><pre id="012e36dd-2d95-497a-a430-f734f85e02cf" class="code code-wrap"><code>document.body.appendChild(popup);
+popup.classList.add(&#x27;open&#x27;);</code></pre><p id="f0737268-2211-4633-8535-d670b2494c2b" class="">When we click it, as you see, it is not fading itself in, which is a bit of a problem. That is back to the whole event loop that we talked about a few videos ago.</p><p id="650a9448-b733-48dd-aabc-37a010b052ee" class="">The reason it is not animating itself in is because it queues up the &quot;add a class of <code>popup</code>&quot; and &quot;add a class of <code>open</code>&quot; sort of at the same time.</p><p id="58494aac-34da-46e6-8fcd-9abbe335e049" class="">There is no time for it to transition from regular popup <code>opacity:0</code> to popup open <code>opacity: 1</code>. There is no A to B to transition itself from one to another.</p><p id="c54b6570-4c81-44cf-89d5-079235f29326" class="">The solution there is to put a very small timeout before we add the <code>open</code> class.</p><p id="92bf3eea-a964-483e-953a-61f0ccc4db11" class="">That will stick the code that is beyond it at the end of the event loop and that is enough to give A and B a little time to transition itself.</p><p id="87c4a32b-b2ab-4f29-b525-f9e05f4fbf45" class="">Let&#x27;s add a timeout of 10 milliseconds and then add the class of <code>open</code>.</p><pre id="3de47e6a-a144-4624-a91f-860d06ed01b3" class="code code-wrap"><code>document.body.appendChild(popup);
+
+// put a very small timeout before we add the open clicks
+setTimeout(function() {
+popup.classList.add(&#x27;open&#x27;);
+}, 10);</code></pre><p id="7ac1df30-69b5-4a70-af4d-18f755522936" class="">Sometimes you can even get away with doing a 0 second timeout.</p><p id="cb7eee70-2f0e-4867-b3b2-4def8f4d8620" class="">Why does that work?</p><p id="ca02256f-2ba3-4d2b-a158-c4bceb27a822" class="">As we learned earlier how the event loop works is that when you have a timeout, it runs it, then sticks the callback in the Web APIs which puts it in the queue, and then the event loop will pull it back.</p><p id="7634c8c2-986c-4fdd-b114-71d04d906d48" class="">Sometimes you will see this where somebody puts something at a timeout of 0. All that is doing is it puts that at the end of the event loop so that the other code finishes running by the time we add our class list of open.</p><p id="d9682eb7-7e8b-4aa2-b7bb-f7f829313318" class="">Wes has tested that in a few browsers but it doesn&#x27;t work too great, so let&#x27;s change it to 50 milliseconds instead of 0.</p><pre id="f88afc9e-0780-4fbf-a9f1-0b36870ed646" class="code code-wrap"><code>setTimeout(function() {
+popup.classList.add(&#x27;open&#x27;);
+}, 50);</code></pre><p id="615055e3-23b2-415d-b385-b03d6a1fb9c0" class="">Now one thing we can do is instead of using <code>setTimeout</code>, we could use <code>async/await</code>.</p><p id="a058a1db-92ce-446c-ba7a-158f7a2a315c" class="">Let&#x27;s code that <code>wait</code> function again.</p><pre id="b5ba9f8d-c235-4dea-99b9-e9c14e37ccdc" class="code code-wrap"><code>function wait(ms = 0) {
+return new Promise(resolve =&gt; setTimeout(resolve, ms));
+}</code></pre><p id="390a04d5-ee7b-40f3-bfff-575b964bed25" class="">Go back to where we had added the timeout and replace it instead with the code below.</p><pre id="1407e5d4-6d02-40f3-9671-28b5bbb5ee68" class="code code-wrap"><code>document.body.appendChild(popup);
+
+// put a very small timeout before we add the open clicks
+await wait(50);
+popup.classList.add(&#x27;open&#x27;);</code></pre><p id="d37e2895-e7a2-4e97-899b-55240c143b80" class="">You might notice your code editor yelling at you that you have can only call <code>await</code> from an async function modify the function to make it async as shown below.</p><pre id="b1768702-b03c-417d-bc3f-10bcbb55452c" class="code code-wrap"><code>function ask(options) {
+return new Promise(async function(resolve) {</code></pre><p id="3e6396e1-5405-45ce-adb8-dba7c6e37b28" class="">The reason we did not mark the <code>ask</code> function itself as async is because you have to mark the parent function which is the promise callback.</p><p id="6725a4b7-0ecd-46ae-a8f9-26740f58653c" class="">Now that should work exactly the same way as it did before when you call <code>ask({title: &#x27; does this work&#x27;})</code> from the console.</p><p id="5d89e64c-05d7-4154-afa6-ee6a5060d320" class="">Try opening Firefox and testing it there to see if it works.</p><p id="6c53869c-9b78-40eb-a430-b10f27aef57c" class="">GO back to our fieldset and put the rest of the inputs there.</p><p id="5ccdf25d-52d6-4912-84bc-3d7ec3bf9126" class="">First we need an input with type of text, which we will name &quot;input&quot; and a button with type of submit.</p><pre id="77f69f39-5623-472a-b6d1-05475ac6330a" class="code code-wrap"><code>popup.insertAdjacentHTML(
+&quot;afterbegin&quot;, `
+    &lt;fieldset&gt;
+      &lt;label&gt;${options.title}&lt;/label&gt;
+      &lt;input type=&quot;text&quot; name=&quot;input&quot; /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/fieldset&gt;
+  `
+);</code></pre><p id="011658a1-2409-4fde-93b2-6dd911a59b40" class="">If you refresh the page, you should see an input with the button.</p><p id="a151b5c3-b85c-49ed-afb3-55cfa35df40a" class="">If you try to enter a value into the input and hit submit, you will see that the page refreshed and that we get the value entered in the query string of the url.</p><figure id="19d942ce-80b5-40fc-94ad-70c9e98bb481" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/submit.gif"><img style="width:517px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/submit.gif"/></a></figure><p id="85a63ba0-5ea2-4c1f-91fc-4cb1880c225e" class="">We need to use <code>preventDefault</code> to stop the form from submitting.</p><p id="8a6f6f81-4967-45da-ab5e-95e7af09c92c" class="">Before we do that, add the cancel button onto the popup if the option is passed, which we forgot to do earlier.</p><pre id="aaf62cb0-1e6e-452e-a9c0-d962fee3b463" class="code code-wrap"><code>// check if they want a cancel button
+if (options.cancel) {
+const skipButton = document.createElement(&quot;button&quot;);
+skipButton.type = &quot;button&quot;;
+skipButton.textContent = &quot;Cancel&quot;;
+popup.firstChild.appendChild(skipButton);
+// TODO: listen for a click on that cancel button
+}</code></pre><p id="de8cb4e3-9733-4b85-ba8b-56d5f5d9ea7a" class="">Run <code>ask({ title: &quot;does it work&quot; })</code> in the console to ensure the popup still shows up.</p><p id="66d8f6db-39b6-480e-ab80-2d8da1b8bdcb" class="">Also try running <code>ask({ title: &quot;does it work?&quot;, cancel: true })</code>.</p><p id="b8432d09-b1f3-49dd-99d0-00f7f69038fd" class="">We are getting an error.</p><blockquote id="615752c7-3a27-44c2-956b-4388676de73d" class=""><p id="e650cf77-fa2b-4db6-afc4-5e71ca983ae3" class="">Uncaught (in promise) DOMException: Failed to execute &#x27;appendChild&#x27; on &#x27;Node&#x27;: This node type does not support this method.</p></blockquote><p id="463151be-1465-4d41-8c8b-6a88d53c3ccf" class="">Why is that happening?</p><p id="aa97cf50-10ac-4972-a018-ba7425ffed9b" class="">Let&#x27;s debug by logging the value of <code>popup.firstChild</code> before we call <code>appendChild</code> on it.</p><p id="9521409e-6e1a-46c3-a81b-520303907a01" class="">As you can see, it is returning text node.</p><p id="82c0dd5b-ba22-4f30-bb25-b6a8d3e2bef8" class="">If you scroll up to our code, you will see that where we created the fieldset using backticks, we had the fieldset start on a new line.</p><p id="8d669a7b-690e-4a10-8863-b16003a36e47" class="">If you just modify the code so that the fieldset starts on the same line as the backtick, it will work.</p><p id="b4819c3a-7e0c-41b3-b32f-23f9d8c15a14" class="">What happened is when we had the fieldset start on a new line, the new line was treated as a text node.</p><p id="8b8e7d22-1d1f-4eba-bb63-fb5357749388" class="">If you recall <code>firstChild</code> will grab all the nodes, not just elements. As Wes has mentioned, if you want to just grab elements, you should use <code>firstElementChild</code> instead.</p><p id="bfe82323-b285-4575-a8eb-2b389376b352" class="">We were trying to append a DOM node to just blank text, which isn&#x27;t possible, you can only append it to actual elements.</p><p id="0cc047bc-9f08-4efc-898b-1cba606da1e2" class="">Leave the fieldset on the separate line and then modify the code to be <code>popup.firstElementChild.appendChild(skipButton)</code>.</p><p id="b9257e18-ec57-4598-8825-150b5efcf4c5" class="">That fixes it!</p><p id="07d85d5d-29a8-423e-a171-cf251612324a" class="">Let&#x27;s also fix the fieldset so it&#x27;s not on it&#x27;s own line because that was sloppy formatting.</p><pre id="e8b1f7d0-710f-4eb6-ac36-0ca238871444" class="code code-wrap"><code>popup.insertAdjacentHTML(
+&quot;afterbegin&quot;, `
+    &lt;fieldset&gt;
+      &lt;label&gt;${options.title}&lt;/label&gt;
+      &lt;input type=&quot;text&quot; name=&quot;input&quot; /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/fieldset&gt;
+  `
+);</code></pre><p id="697bc291-1ea5-42b9-a25a-17bf79c79c0a" class="">Now that we have both the buttons, let&#x27;s hook up the event listeners, starting with the submit button and preventing default on the form.</p><p id="237df2d4-ed0a-4ec3-a65c-ab3156e93c3c" class="">Pass an anonymous function to the event listener. You could make a separate function but keeping it inside of the <code>ask</code> function as an anonymous function is fine.</p><pre id="b937189b-9dc0-44c4-a6f0-6ebe149e226c" class="code code-wrap"><code>// listen for the submit event on the inputs
+popup.addEventListener(&quot;submit&quot;, function(e) {
+e.preventDefault();
+console.log(&quot;Submitted!&quot;);
+});</code></pre><p id="8473a7ff-85d3-45b9-9782-c8ff310b4512" class="">Next we want to take the value out of the input and resolve it. We have access to the <code>resolve</code> function bcause it passed as a parameter.</p><p id="9d877e9e-64a6-46b7-a4dd-f09f510637c9" class="">Because of the scope of our promise callback, the <code>resolve</code> function is available to us in the higher function.</p><p id="5633531d-0192-429a-a4e0-7f2c31b66425" class="">We will call resovle and pass in <code>e.target.input.value</code> but before we do that, let&#x27;s just log the target to see what we have.</p><pre id="056663bc-69f6-4db2-868b-c23c096c97a9" class="code code-wrap"><code>popup.addEventListener(&quot;submit&quot;, function(e) {
+e.preventDefault();
+console.log(e.target);
+});</code></pre><p id="66a031db-2ee0-4a5a-80e5-3da70edb815f" class="">As you can see, the target is the form.</p><p id="04969d8d-1ab6-4e72-829c-76b12480bf10" class="">Now let&#x27;s see what input is.</p><pre id="037d5e1f-6f4a-4878-9a4e-410e1d39db72" class="code code-wrap"><code>popup.addEventListener(&quot;submit&quot;, function(e) {
+e.preventDefault();
+console.log(e.target.input);
+});</code></pre><p id="a074fecb-e0fb-4353-a4e6-9bb5ac93e47e" class="">As you can see, it returns the input with a name of input.</p><p id="caa123de-bd1b-4762-803a-6a1d32ccec61" class="">Remember, anytime an input has a name property, it will be available via the property on the form.</p><p id="97f5f5fa-8595-4abb-931b-d217b812ba44" class="">To get the value from that input, we just tack on a <code>.value</code> and then resolve that data by passing it to our resolve function like so:</p><pre id="3dd9672a-890b-4667-8234-07ee5e8d3226" class="code code-wrap"><code>popup.addEventListener(&quot;submit&quot;, function(e) {
+e.preventDefault();
+resolve(e.target.input.value);
+});</code></pre><p id="b8538679-97f8-4d4b-a417-bf057774a9eb" class="">If you refresh the page and try it by calling <code>ask({title:&#x27;does it work&#x27;, cancel:true})</code> in the console, entering a value in the input and pressing submit, you should see the promise in the console with the resolved value.</p><p id="4c63a1c6-7a3a-4e17-9142-80ad47221120" class="">If we wanted to get the actual data from the input, we could just call <code>ask</code> with <code>await</code> in front of it from the console, as shown below 👇</p><pre id="8dc40422-a873-4e61-abc5-992575ad6d65" class="code code-wrap"><code>await ask({ title: &#x27;does it work&#x27;, cancel: true })</code></pre><p id="c9bf9d9e-085b-4bb7-b569-355b65101a47" class="">Now if you try pressing the submit button again, it doesn&#x27;t really do anything, but that event listener is still there. You can tell that it is still there by adding a log of &quot;Submitted&quot; to the handler.</p><p id="b81aef63-4d42-4c6f-b066-53e6bd3f0681" class="">One neat thing about <code>addEventListener</code> is you could remove the event listener for submitted as soon as it is resolved.</p><h3 id="2a826e54-2a39-487c-b608-4a86699e655d" class="">Running an Event Listener Only Once</h3><p id="251b93b9-9934-4f81-b4cf-d2e3f82054ed" class="">There is a shortcut we can use where the third argument of <code>addEventListener</code> is an <code>options</code> object, and we can pass it <code>{once:true}</code>. That will tell the browser to only listen for the submit event once, and then remove the event listener.</p><p id="bc5acd0d-9079-4f92-b361-e25d2a08deb8" class="">That is very handy for things that you only want to happen once.</p><p id="6d073c2c-9e79-40cf-8979-8a41e3d8dfb6" class="">We want to remove the popup from the DOM entirely.</p><p id="b777f4e9-e439-49e0-9cf5-7d330bf8784c" class="">To do that, we will create a function <code>destroyPopup()</code> because we need to run it on submit and on cancel.</p><p id="18b8d32b-f3ee-4834-984d-5442aa5eb151" class="">For now, in the code let&#x27;s just call the function which we still need to create and we will pass it the popup.</p><pre id="28a55980-975c-4d35-a8f9-504a0cc9f25d" class="code code-wrap"><code>popup.addEventListener(
+&quot;submit&quot;,
+function(e) {
+e.preventDefault();
+console.log(&quot;Submitted!&quot;);
+resolve(e.target.input.value);
+// remove it from the DOM entirely
+destroyPopup(popup);
+},
+{ once: true }
+);</code></pre><p id="f9c8d5c4-a701-44f2-be6f-6b04a4524390" class="">Let&#x27;s create that function above our <code>ask</code> function declaration.</p><p id="b401a584-bc34-4d78-bf7f-670d6ff24557" class="">Because <code>popup</code> is scoped to a different function, in order to access it within <code>destroyPopup</code>, we need to pass it as an argument.</p><p id="fc8da52b-4799-4224-b9b5-dcc5f65f6ad1" class="">Within the function, let&#x27;s remove the class of <code>open</code> from the popup and then wait one second because we want to wait for the thing to fade out before we remove it from the DOM.</p><p id="d5a40cdc-87e6-48da-b1f7-fe13416cb9bb" class="">In order to be able to use <code>await</code> within <code>destroyPopup</code> we will need to mark it as async.</p><pre id="df22e154-4fbe-4e24-81ce-8c51a3b63b23" class="code code-wrap"><code>async function destroyPopup() {
+popup.classList.remove(&#x27;open&#x27;);
+await wait(1000);
+}</code></pre><p id="23da6423-ae87-4d2a-a033-31b5a4d5594c" class="">Then we want to remove the popup entirely. Add the code below to the <code>destroyPopup</code> function.</p><pre id="d6a765e7-12f3-43be-bfc4-629ece2811cc" class="code code-wrap"><code>popup.remove();</code></pre><p id="c67dd348-aafc-4c86-9d12-61effecfdcbd" class="">Before we had the <code>.remove()</code> method, we used to grab the element one level up and call <code>removeChild</code> on it and pass the popup, as shown below 👇</p><pre id="65ce634d-3c03-473a-99cd-950a455496aa" class="code code-wrap"><code>popup.parentElement.removeChild(popup);</code></pre><p id="a5fa3792-bef3-4741-87a5-5c362e3f5302" class="">Thankfully there is now just a <code>.remove()</code> method that we can use.</p><p id="5a956911-15ef-4ea0-9ebd-56aa7ef820b6" class="">If you refresh the page and then click the button and submit a value into the input, you will see the popup fades out.</p><p id="9f73d94d-2213-4f5e-889b-3b7468a1a282" class="">Let&#x27;s check one thing.</p><p id="4fc35ca9-6501-436d-9a6c-092c0c632ebb" class="">If we try to log the <code>popup</code> even after we have removed it, is it still there?</p><pre id="1b082770-1484-4f3e-b1af-77ed12545230" class="code code-wrap"><code>popup.remove();
+console.log(popup);</code></pre><p id="3bf83e0d-af86-40a7-8bd4-3e1e9cd1329c" class="">As you can see, we still have access to the popup even though it has been removed from the DOM.</p><p id="a12be0bf-bc92-41ff-920f-0889e3bb2367" class="">That is a potential <strong>memory leak</strong>, because every time you pop something up, you add all these things to it, such as event listeners, and simply removing the element from the DOM does <strong>not</strong> remove it from JavaScript&#x27;s memory entirely (because it is possible you might want to add it back).</p><p id="c59c0b07-49f5-4e94-8aee-628ed0dacc61" class="">If you do want to get rid of it entirely, just destroy any evidence of it using <code>popup = null;</code>.</p><p id="6a83c9d3-7b76-4250-98c9-4122ad5bd2b1" class="">You may notice in the video that Wes&#x27; ESLint is yelling at him because he has a rule to not overwrite parameters. However, to get around that you could do something as shown below 👇</p><pre id="b64a6d60-4244-42c4-83db-92c30ae10cd2" class="code code-wrap"><code>async function destroyPopup(popup) {
+let myPopup = popup;
+popup.classList.remove(&#x27;open&#x27;);
+await wait(1000);
+// remove the popup entirely
+popup.remove();
+myPopup = null;
+}</code></pre><p id="a9cfdf0f-8583-49e9-a990-3beed364097a" class="">The reason that works is that it is all references.</p><p id="174bbccf-301f-49ac-b965-2cc9d3bf1ac5" class="">If we wanted to disable that rule in eslint we could wrap it in the following comment 👇</p><pre id="668ed7b3-ff3e-4e81-83fa-9e3147a0e3a4" class="code code-wrap"><code>/* eslint-disable no-param-reassign */
+/* eslint-enable no-param-reassign */</code></pre><p id="5610e1c3-5284-411b-b5b3-058bfe3d251f" class="">The next thing that we need to do is handle the cancel button. Let&#x27;s hookup the buttons because at this point, Wes is tired of running the code from the console.</p><p id="6a9e32a3-cf51-48ce-a2df-dd21e36ccd58" class="">Go to the very bottom of the script and grab all the elements with an attribute of <code>data-question</code>.</p><pre id="ab5211b8-aba0-444b-91d3-7c0afc8b1c51" class="code code-wrap"><code>// select all buttons that have a question
+const buttons = document.querySelectorAll(&#x27;[data-question]&#x27;);
+console.log(button);</code></pre><p id="19cf027a-9d7e-4b2c-a239-07fca5ab9391" class="">As you can see we get a node list of buttons.</p><p id="5a21437e-ec73-401f-9555-f64eb071ad8f" class="">Now for each button, we will listen on the click event and pass it a reference to a function <code>askQuestion</code>, which we will make soon..</p><pre id="284ce794-5e50-43d2-8adb-fe6b6057802e" class="code code-wrap"><code>buttons.forEach(button =&gt; button.addEventListener(&#x27;click&#x27;, askQuestion));</code></pre><p id="bf837ac1-46f7-4ecd-8bc4-fffbd9411fe5" class="">Inside of <code>askQuestion</code>, just log the event.</p><pre id="955ad37c-cf7e-4ad2-aad8-bda0bcb0a51e" class="code code-wrap"><code>function askQuestion(e) {
+console.log(e);
+}</code></pre><p id="91435350-fae8-4992-9012-ee6a4e3c676c" class="">As you can see, when we click the button we get the event.</p><p id="2b6da58b-8b77-4490-be57-1ba0087643b5" class="">Now let&#x27;s grab the button that was clicked, and then save the answer.</p><p id="f16bec24-53c2-4b00-99fd-d4a3007660a2" class="">We will need to use <code>await</code> so let&#x27;s mark the function as <code>async</code>.</p><p id="9465d707-2c6d-4686-835a-02a31cf69089" class="">For the question, we will want to pass the title whatever the button text is. To do that, we can use <code>button.dataset.question</code>.</p><pre id="68125fab-bfe9-4e6b-b371-2838fd27042f" class="code code-wrap"><code>async function askQuestion(e) {
+const button = e.currentTarget;
+const answer = await ask({ title: button.dataset.question });
+console.log(answer);
+}</code></pre><p id="d1246ed7-77d9-430b-b1d2-133046f055d7" class="">As you can see, when you click the popup for name and enter a name, we get the value back.</p><p id="841a975a-b3ac-48ea-9cf2-7171c6c958f5" class="">Now we need to check if someone has passed the <code>data-cancel</code> attribute. To do this, we need to pass <code>cancel</code> to the options object we are passing to <code>ask</code>.</p><p id="dfae04f1-0bc4-4e7d-80ea-277455814763" class="">How do we tell if the user has passed a <code>data-cancel</code> attribute?</p><p id="b2db37fa-472f-4513-9f0a-c6da80dac49a" class="">Let&#x27;s try logging the dataset.</p><p id="b44d4b64-3eb5-43da-8119-3fed7b5e5425" class="">Add the log within <code>askQuestion</code> shown below 👇</p><pre id="ac7c9edd-e212-4e23-9633-9fce0feca04a" class="code code-wrap"><code>const button = e.currentTarget;
+console.log(button.dataset);</code></pre><p id="7ccb4f80-e703-4efc-b202-f2a8dffc199d" class="">If you refresh the page and click the age button you will see <code>button.dataset</code> logged to the console.</p><p id="6e7ff763-b0ee-4d25-bf5a-bce040f8ed64" class="">Why is <code>cancel</code> an empty string?</p><p id="b54d9dc2-3250-4b3d-8ec3-1931751e6558" class="">Because we didn&#x27;t pass it as <code>data-cancel=&quot;true&quot;</code>.</p><p id="8b2678fa-513f-41b6-9c38-ebbf7a78fdfa" class="">The way HTML attributes work is that simply by existing, they&#x27;re true. By not existing, they are false.</p><p id="510ec1c9-8149-46ef-9d18-09e64203b570" class="">In addition, trying to convert a string of &quot;true&quot; and &quot;false&quot; is a bit of a nightmare, so instead we will just pass an attribute with nothing in it if it means we should have a cancel button.</p><p id="3bd3ec4b-d148-4871-b7f8-252a1c08de36" class="">To detect if it is there we can add the code below 👇</p><pre id="16fba27e-5414-46cf-8f82-d2d8088d0220" class="code code-wrap"><code>const shouldCancel = button.dataset.cancel;
+const answer = await ask({ title: button.dataset.question, cancel: shouldCancel });</code></pre><p id="207068cb-a414-4f3a-bca9-be330ac7f2c4" class="">If you refresh the page and try that, does it work?</p><p id="076771cd-e04f-4d22-bcb8-4adfe2970750" class="">The answer is no, because <code>shouldCancel</code> is going to give us an empty string.</p><p id="cc27e504-ed64-4cc1-b98e-fdac65b4ef27" class="">Is an empty string <code>true</code> or <code>false</code>? It is falsy!</p><p id="6e9ed568-b7dd-49ff-94b7-e57f62c11cf7" class="">So if we are passing an empty string, it is going to be falsy.</p><p id="d9fdc60c-140f-4ced-8fd5-86e3ef3474f1" class="">You might think you could just put a bang in front of it as shown below 👇 but we still have the issue with an empty string being falsy.</p><pre id="783c7fda-7d19-4036-b846-cb18ffe907d9" class="code code-wrap"><code>const shouldCancel = !!button.dataset.cancel;</code></pre><p id="b0f5f4ad-726a-47e1-a9b4-e0f18457434d" class="">So how do we detect if there is a <code>cancel</code> property within the dataset? We can check using the syntax below, because if it&#x27;s not true, it won&#x27;t exist .</p><pre id="96704276-3ff8-4c1c-a157-ea2a24738c15" class="code code-wrap"><code>const shouldCancel = &#x27;cancel&#x27; in button.dataset;</code></pre><p id="63aa967a-7575-47c3-aa6c-6a7dfabaaadf" class="">What is that syntax?</p><p id="f1ff814d-8231-4ab3-bd65-fb02941321cc" class="">Let&#x27;s say we have an object <code>const wes = { name: &#x27;wes&#x27;}</code>.</p><p id="c50284eb-a59b-4544-84e2-8aeed4adfd69" class="">We want to check if Wes has a name property. We are not checking that it is there, but simply that it has a name property.</p><pre id="d25f71bd-7a4b-42c7-8a65-7cb00be061c1" class="code code-wrap"><code>&#x27;name&#x27; in wes;</code></pre><p id="69043131-d195-42a4-8144-db503e4246cb" class="">To check for that, we can use the code above 👆 which would return true.</p><p id="c4f964d4-abd8-4db6-b8fc-64469a5cdba7" class="">If we check for a property that doesn&#x27;t exist like <code>&#x27;asfdas&#x27; in wes</code>, it would return false.</p><p id="e95ba103-a6c9-4e52-a4dc-6975b4fb789e" class="">That is how you check if a property is there on an object.</p><p id="72b55e52-e562-43d6-8ac5-1a66a40b1507" class="">We cannot use the other methods to check because sometimes a property is set to a falsy value such as an empty string or a 0. Using the <code>in</code> syntax solves that issue.</p><pre id="fed802d2-96b5-43ca-af55-0b79cf46f8e6" class="code code-wrap"><code>const button = e.currentTarget;
+const shouldCancel = &#x27;cancel&#x27; in button.dataset;
+
+const answer = await ask({
+  title: button.dataset.question,
+  cancel: shouldCancel
+});</code></pre><p id="652bc993-fe7e-45f3-8c18-ee0213dfd558" class="">Let&#x27;s refactor that and rename <code>shouldCancel</code> to just <code>cancel</code> so we can use the shorthand syntax.</p><pre id="1241c7a2-deda-4762-8463-09dd93126d09" class="code code-wrap"><code>const answer = await ask({
+  title: button.dataset.question,
+cancel
+});</code></pre><p id="97516bd5-8686-4e91-b7e3-34820c883d23" class=""><em>NOTE: In the video, Wes pauses it to specify that he could have used </em><code><em>button.hasAttribute(&#x27;data-cancel&#x27;);</em></code><em> to check for this but he decided to leave this in the video because it is a good lesson on how to check if a property on an object exists, regardless of which value it is set to.</em></p><p id="54b75204-574e-4e54-98c5-3128ceaa19df" class="">If you refresh the page, that should now work.</p><p id="322c3d6c-50d8-47d8-811a-24edf7c98ae1" class="">Let&#x27;s hook up the cancel button.</p><p id="be252aff-1812-4bd7-a340-e6e31579ea49" class="">Go back to where we created it and under the TODO comment we will create a callback function which resolves the promise with <code>null</code>, and then we will call <code>destroyPopup</code> because we want to completely remove the popup.</p><pre id="d83af532-92d3-4947-b57a-f01191a86fb2" class="code code-wrap"><code>skipButton.addEventListener(
+&#x27;click&#x27;,
+function() {
+resolve(null);
+destroyPopup(popup);
+},
+{once:true}
+);</code></pre><p id="30e78616-07e0-49cc-a2c5-986d2c2cf267" class="">If you refresh the page, you will see that it is still working.</p><p id="c363d162-2b61-4a85-bc1c-dba696ad677e" class="">That is the basics of the pop-up.</p><p id="98d72dcb-b900-4c60-a774-cc3e34f750ab" class="">The last thing we will cover is how to use the popup to ask questions in series.</p><p id="fd78ecf0-ad28-4814-a3c9-22b1e669d466" class="">For example, let&#x27;s say someone is going through a form and you want to popup something and ask three pieces of data before they can continue.</p><p id="874ae81f-903f-4f24-9ef6-25b523e74f9f" class="">Let&#x27;s say we had an array of questions like you see in the image below.</p><p id="541a0ff9-302c-4db5-a9f9-83ba6d451ecb" class="">How would we ask them in series?</p><p id="846d0d19-4343-46e5-ae84-fa70f4247dd7" class="">You might assume we could use <code>Promise.all()</code>.</p><p id="9b79b90e-918b-4d38-9784-6aad32a45078" class="">For each one, we want to pass the <code>ask</code> a different question from the questions array as shown below 👇</p><pre id="201ea5fa-92ca-479d-9e34-90151813dddd" class="code code-wrap"><code>const answers = Promise.all([
+ask(questions[0]);
+ask(questions[1]);
+ask(questions[2]);
+]).then(answers =&gt; {
+console.log(answers);
+});</code></pre><p id="4f89c3f5-5b35-4a65-8d16-26f3cdff8507" class="">This is not an uncommon thing to do, waiting for few promises to resolve and then getting the answers.</p><p id="5ca9c7dd-3510-460e-8fdb-4080aa24cfb1" class="">We have to use the promise syntax because we are not in an async function where we are calling <code>Promise.all()</code>.</p><p id="0facb6c4-d177-490a-a6c0-4b3d91b2c7a5" class="">If you refresh the page and try that, you will see that the questions are asked out of order. What s happening is there are actually three popups on the page at the same time.</p><p id="911a2fe7-5e7d-44b6-bbc6-f1cd4023de51" class="">That is not a good solution, we do not want to pop them all up at once.</p><p id="dfdfcff6-af58-4301-8acc-48c654675f9d" class=""><code>Promise.all</code> will fire them all off concurrently at the same time, which is often what you want but when you want to do it sequentially like we do, you cannot use <code>Promise.all</code>.</p><p id="24864ec1-3e6a-4f44-a455-38c14bdf88af" class="">A better way to do this would be to take your questions and map over each and pass in the <code>ask</code> function.</p><pre id="2f491898-cd3d-4765-a249-5075addae998" class="code code-wrap"><code>const qPromises = questions.map(ask);
+console.log(qPromises);</code></pre><p id="eb977ab8-d4c9-48de-9e62-bbba0f33b596" class="">If you refresh the page and look at that in the console, you will see we have an array of three promises which have not been answered yet.</p><p id="e66a5d9e-857b-41e6-98e2-62c1ac5edcd6" class="">What we can do is loop over the array and for each one return a promises to get an array of promises.</p><p id="06147507-270a-4258-ad83-0ca2be32f5b0" class="">Then you can wrap that in a <code>Promise.all()</code> as shown below.</p><pre id="6d927b95-a18a-4143-8e5d-5a6f8e2a9e55" class="code code-wrap"><code>Promise.all(questions.map(ask)).then(data =&gt; {
+console.log(data);
+});</code></pre><p id="6d2fe921-f1b6-4c20-b643-c9d3ef419bbc" class="">That will loop over each of the questions, pipe it into the <code>ask</code> function (which will return a promise), that will return to us an array. We wrap it in a <code>Promise.all()</code> and then listen with a then. This will actually work.</p><p id="7475a221-5044-4438-a467-6cc5a7abeed5" class="">We still have the problem of the UI popping up all the time so that is not what we want.</p><p id="e7541d13-ee96-4b18-9a89-37352b2e7221" class="">What we do want is to map over it, but asynchronously.</p><pre id="883f01d6-028f-4f98-8689-fda0cb8d6dc8" class="code code-wrap"><code>questions.forEach(async function() {
+console.log(&#x27;Asking a question&#x27;);
+console.log(question);
+const answer = await ask(question);
+console.log(answer);
+})</code></pre><p id="7f17825a-50bc-41a9-b08e-bc92418f7b2c" class="">That did not wait for anything right? They will resolve, but they all three ran at the same time.</p><p id="1a7a80df-1ffe-45ef-828e-cefc1b27e9ef" class="">So how do we make an async map function?</p><p id="5cf442fe-c8d1-48e3-abc4-a79324f9f97c" class="">We use a <code>for of</code> loop.</p><ul id="e805d3c6-771a-4077-8778-64931b667b80" class="bulleted-list"><li style="list-style-type:disc">Make an async function called <code>askMany</code>.</li></ul><ul id="55c2a8ed-fb43-4ba3-8c57-9ced46f65f3b" class="bulleted-list"><li style="list-style-type:disc">Within that function, we will have the <code>for of</code> loop which loops through all the questions.</li></ul><ul id="bac167f6-392b-4f6f-a4a8-bc3174d7d321" class="bulleted-list"><li style="list-style-type:disc">Inside of the loop we will have <code>const answer = await ask(question);</code>.</li></ul><ul id="be41b85a-8e95-4227-8c36-d31c5b884125" class="bulleted-list"><li style="list-style-type:disc">We will log the answer after it.</li></ul><pre id="050dd5fe-ec4b-4fb7-aceb-f827d5f2d1df" class="code code-wrap"><code>async function askMany() {
+for (const question of questions) {
+const answer = await ask(question);
+console.log(answer);
+}
+}
+
+askMany();</code></pre><p id="28a6d83a-ff12-45f7-8409-1f9449f37053" class="">Now when you refresh the page, you will see the questions come up one after the other and are submitted sequentially as well.</p><p id="e755d740-4873-4aae-970c-e2f49cd40a35" class="">The reason for that is unlike <code>map</code> and <code>foreach</code>, <code>for of</code> allows you to pause a loop by awaiting something inside of it, which is great.</p><p id="a62f76b9-96d6-499d-b069-75108f3de693" class="">One thing Wes likes to do is make a utility function called <code>asyncMap</code> which does exactly what our function does but returns to us an array, like a map does.</p><p id="7c665fee-2db5-4d47-9e4a-0f5c0b1b3947" class="">We will be using generic variable names here to make the function as flexible as possible.</p><pre id="4776efe9-6424-4c36-926a-281ceaaaaf89" class="code code-wrap"><code>async function asyncMap(array, callback) {
+// make an array to store our results
+const results = [];
+
+// loop over our array
+for (const data of array) {
+const result = await callback(item);
+results.push(result);
+}
+
+// when we are done the loop, return it
+return results;
+}</code></pre><p id="e7c6e3b4-8957-45d7-9b5a-3a9221bd14d1" class="">Now we should be able to replace the <code>askMany</code> code, and make a new function called <code>go</code> which we will mark as async to allow us to run an await.</p><pre id="445546d5-d6ec-425c-ae39-87a52761672d" class="code code-wrap"><code>async function go() {
+const answers = await asyncMap(questions, ask);
+console.log(answers);
+}
+
+go();</code></pre><p id="43a0ccc6-dd7a-46b2-b768-fdd87ec0e87b" class="">Now when you refresh the page and look at the results, you should see that we get our array back.</p><p id="453851d3-b0a3-4cae-ab29-432295738352" class="">We could take things one step further and refactor the function slightly to push the await of the callback directly.</p><pre id="22e3d5f7-9307-4896-a925-550e80904910" class="code code-wrap"><code>async function asyncMap(array, callback) {
+// make an array to store our results
+const results = [];
+
+// loop over our array
+for (const data of array) {
+results.push(await callback(item));
+}
+
+// when we are done the loop, return it
+return results;
+}</code></pre><p id="91ba57fd-6814-419f-bf85-930cb92aabae" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="f3e2c62d-60b8-4ee9-ba07-e51cda7eb042" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="9645c379-2eb1-413f-8633-0ab2d230cfc8" class="">Edit on Github</p></details></li></ul><ul id="a50aadd7-1d15-4815-bb2b-0a6582ebfba7" class="toggle"><li><details open=""><summary>73 - Async Typer UI - Two Ways</summary><p id="b3478e68-09a0-44dd-9541-7144311823a6" class=""><a href="https://wesbos.com/javascript/12-advanced-flow-control/73-async-typer-ui-two-ways">https://wesbos.com/javascript/12-advanced-flow-control/73-async-typer-ui-two-ways</a></p><p id="fbabb88d-473a-4a44-9db7-c4395959c965" class="">
+</p><figure id="8fb2b164-12dc-4ee1-b852-5973ec5196bc" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%206.png"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/bjs%206.png"/></a></figure><p id="ecb2c6b8-9239-4213-9679-0c530ffc7c09" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="17d47764-f80f-46fc-b1e8-c569f57973de" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="69303cc5-731e-4713-8ff1-e7b277463a0d" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="2583b4db-68f6-4ef1-ba8b-9bcbce2c7f07" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="79362a59-b0ed-4f42-bb94-3ca6b044cf78" class="">JavaScript, Async/AwaitEdit Post</p><figure id="a4cb341d-c56d-4419-b172-329410dbfe6d" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/typer.gif"><img style="width:700px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/typer.gif"/></a></figure><p id="a850005e-743b-440c-b4ac-151b3363a923" class="">In this video we will using <strong>async/await</strong> and <strong>recursion</strong> to create the effect of someone typing at different speeds.</p><p id="961694d2-37f3-4be7-8cda-f20cd07419f5" class="">We will do this by taking any element with a <code>data-type</code> attribute on it, and figuring out how we can make it look like it is being typed.</p><p id="f2dffe92-3063-4d60-971e-d8782d410bfd" class="">We will also support the ability to pass in a <code>data-type-min</code> and a <code>data-type-max</code> attribute to specify the amount of time between each letter being typed to make it look a little more human (so instead of always typing a new letter every 10 milliseconds, there is a range).</p><p id="48276c70-e9bd-45a1-a3d7-269b825045e3" class="">This is a great example of asynchronous code because if it was synchronous, it would need to wait for one element&#x27;s text to finish being typed before starting the next one.</p><p id="76375684-8cf8-44fd-bd7f-431f389735fe" class="">Using <code>async</code>, each element can wait for a certain amount of time without interfering with each other.</p><p id="061b7804-636b-4738-bba5-bbf11d44e575" class="">We will be working out of <code>73 - async typer</code> exercise folder.</p><p id="d08b1550-71d2-435b-8382-0bf0734032c4" class="">Open up the <code>scripts.js</code> file and let&#x27;s start by adding our <code>wait</code> function which we have used in the last few videos.</p><pre id="4dc55f1b-2e62-4cf4-8724-68f4dbda31e1" class="code code-wrap"><code>funciton wait(ms = 0) {
+return new Promise(resolve =&gt; setTimeout(resolve, ms));
+}</code></pre><p id="18214dbe-bb77-42bc-a5c6-a4e334c09941" class="">Next we need a function that will return us a random number between a max and min value.</p><p id="e620e49a-ca56-4f67-af68-9a0afb5ff388" class="">We already know that you can calculate a random number using a combination of <code>Math.floor</code> and <code>Math.random</code> like <code>Math.floor(Math.random() * 3)</code>.</p><figure id="f9bc899d-ab8d-48b3-8ab8-c0c385bc8fac" class="image"><a href="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1109.png"><img style="width:678px" src="12%20-%20Advanced%20Flow%20Control%20c799096010ea4c6abc45605beeb420d2/1109.png"/></a></figure><p id="c01fcfa4-f764-449a-9281-24b4ed43b7bd" class="">But what if you want a number between 10 and 15, how would we do that?</p><p id="bf31f70a-bf21-4f42-91b5-eda625bec74d" class="">It is basically the same thing, we just shift it up by the amount of the min.</p><p id="92861a0b-d819-4c3e-a622-14ad65642668" class="">Call <code>Math.random()</code> and multiply that by <code>(max - min)</code> and then add the min to that value.</p><p id="25cb729f-8810-44cc-8690-d1bace9a3281" class="">Add defaults of 20 milliseconds for the min and 150 for the max.</p><pre id="bae2b381-2877-458b-8904-7cae63a75f92" class="code code-wrap"><code>function getRandomBetween(min = 20, max = 150) {
+return Math.random() * (max - min) + min;
+}</code></pre><p id="02cd17c1-17a5-4b63-8ffb-615d410a806e" class="">If you refresh the page and try running the code, you will see that it gives us a random number between 0 and 100.</p><p id="34e63323-3ca0-46f0-9f98-89f4c2631202" class="">You can also wrap that in a <code>Math.floor()</code> and that will give you a whole number.</p><p id="75df615f-15d3-4924-8997-7a158348147f" class="">One thing that people do not like about functions that get random numbers is that it is not a <strong>pure function</strong>. Pure functions are functions where every single time that you run the function with certain parameters, you will always get the same result.</p><p id="5ad0b96a-04fb-4881-8158-e4b34a6bdd06" class="">A pure function is the idea that a function that takes in arguments will always, always return the exact same value. That makes testing your functions easy.</p><p id="a3d8642c-8a1b-4c35-a4c8-c4666dc68686" class="">So how do you write a pure function when the thing you are trying to do is implicitly random?</p><p id="ea18c04f-0e88-4a69-8239-902a7b5908de" class="">You can do that by passing in a random number so you can then test it. We will replace where we use <code>Math.random</code> in the function to instead use the <code>randomNumber</code> parameter we pass in.</p><pre id="9cdee448-056c-4c41-81af-08600f872b93" class="code code-wrap"><code>function getRandomBetween(min = 20, max = 150, randomNumber) {
+return Math.floor(randomNumber * (max - min) + min);
+}</code></pre><p id="3daa182f-f7a6-4002-a818-bb96a8d6ef01" class="">This way, when you pass the arguments to the function, we will always get the same value returned.</p><p id="49597af4-571e-400d-9d62-8a7442ca0322" class="">To use this in a production application, you could do <code>getRandomBetween(0, 100, Math.random())</code> and pass the random number using <code>Math.random()</code>.</p><p id="0925d056-dabb-42ea-ad45-eddafd2a7016" class="">One cheat you can do is set the default for <code>randomNumber</code> to be <code>Math.random()</code> as shown below.</p><pre id="6a986268-d575-4a8c-bff0-dda6a81698a2" class="code code-wrap"><code>function getRandomBetween(min = 20, max = 150, randomNumber = Math.random()) {
+return Math.floor(randomNumber * (max - min) + min);
+}</code></pre><p id="35a2b136-2fc0-4192-9ac1-ce5c1fc63f39" class="">Next we want to make a function called <code>draw</code> which will take in an element. Let&#x27;s just log the element within that function for now.</p><pre id="997d387c-abee-49f3-99e5-4deed3e861de" class="code code-wrap"><code>function draw(el) {
+const text = el.textContent;
+}</code></pre><p id="7efebc5c-aa7e-454a-b8a0-437d8f289b84" class="">Below that, grab the elements with a <code>data-type</code> attribute on it. For each one, we will all the <code>draw</code> method.</p><pre id="3535a209-5333-4b12-bc34-59db8e67bcb0" class="code code-wrap"><code>els.forEach(el =&gt; draw(el));</code></pre><p id="5231535d-f97d-4615-8e62-ac5fff44a905" class="">We can refactor that code to be even shorter like so, <code>els.forEach(draw)</code>.</p><p id="c14c3376-0d83-4d9d-852e-342e1825c45e" class="">That works because it will call the function for us, for each one. We can take that even one step further as shown below.</p><pre id="d75c0a50-8043-47c9-a2ee-5044fc4583db" class="code code-wrap"><code>document.querySelectorAll(&#x27;[data-type&#x27;]).forEach(draw);</code></pre><p id="a67b56f1-5e5d-4c16-82bf-71cd2ea72c47" class="">Next we want to start looping over it. We will do it twice.</p><p id="cedcef83-23ef-4832-9580-78efdb2ee066" class="">The first time we will use an async for of loop and then we are going to do it again with recursion.</p><p id="37f218b1-05c7-4d0a-b711-75fd16bb2945" class="">The way this <code>draw</code> function will work is we are going to erase all the text that is in the element and write it back in letter by letter.</p><p id="19c41921-7393-4dbe-a144-8358121f61ea" class="">First we will write <code>T</code>, then <code>Th</code>, then <code>Thi</code>, then <code>This</code> and so on for all the text within the element.</p><p id="1239ebc8-f595-4da4-b866-315defe5b06f" class="">Make a variable called <code>soFar</code> which we will set to an empty string. Then we will loop over every letter of the text.</p><p id="ed7b8ae5-619d-426f-9065-28548f7a9997" class="">Previously for looping over letters we used a spread or we split it. But a <code>for of</code> loop has the ability to loop over text one letter at a time.</p><p id="16312ed1-e7a7-487f-9f78-d612a2116a84" class="">We will call the variable that represents each letter in our text variable <code>letter</code>.</p><pre id="61b3caf3-d303-4fce-b855-a00d1370372c" class="code code-wrap"><code>for (const letter of text) {
+
+}</code></pre><p id="ada7e9b1-c1a0-47fb-a7ae-23f4d2cddbb5" class="">Now within the loop, we will log the letter and then on the next line we will tack the letter onto the <code>soFar</code> variable and then log that variable.</p><pre id="273d3a70-9742-4f4b-8c49-54aeff37b6cb" class="code code-wrap"><code>function draw(el) {
+const text = el.textContent;
+let soFar = &#x27;&#x27;;
+
+for (const letter of text) {
+console.log(letter);
+soFar += letter;
+console.log(soFar);
+}
+}</code></pre><p id="3b994704-7ccc-47c1-a7fe-f9eec400a9ea" class="">If you take the <code>data-type</code> attribute off of the paragraph tag in the HTML and then open the console, it is easier to visualize this and how the text is slowly building up.</p><p id="59183812-7602-402c-893d-d7dcf39a8c7d" class="">If we tried to set the text content of the element to <code>el.textContent = soFar</code>, when you refresh the page it happens so fast that you can barely see it.</p><p id="fd985f83-4522-4158-a04d-f60d408b3f4b" class="">To fix that, let&#x27;s wait for some amount of time. Make the <code>draw</code> function async and then add <code>await wait(10);</code>.</p><pre id="9129eb52-57fd-4557-a3c6-374d43e5c965" class="code code-wrap"><code>async function draw(el) {
+const text = el.textContent;
+let soFar = &#x27;&#x27;;
+
+for (const letter of text) {
+console.log(letter);
+soFar += letter;
+console.log(soFar);
+await wait(10);
+}
+}</code></pre><p id="592d8aee-f8dd-4f90-a8f1-00c1f29b992e" class="">That loops pretty cool but to make it seem more human, we will wait a random amount of time instead of 10 ms every time.</p><p id="8b6a5e76-76a1-4a57-bb1b-439e35ca9521" class="">Let&#x27;s do that using our random number function.</p><pre id="c9ca595b-2f7d-474f-8cff-fb600d0f7230" class="code code-wrap"><code>const amountOfTimeToWait = getRandomBetween();
+await wait(10);</code></pre><p id="ff990dd7-672d-4f36-a2d3-fe763c02c7f0" class="">We can now pull in the min and max values from the data attributes using <code>el.dataset</code> and destructuring. Pass the min and max values to our <code>random</code> function.</p><pre id="6dee43d8-1b62-4aa2-907d-ef4b5be27160" class="code code-wrap"><code>const { typeMin, typeMax } = el.dataset;
+const amountOfTimeToWait = getRandomBetween(typeMin, typeMax);
+await wait(amountOfTimeToWait);</code></pre><p id="7e8acab1-eac1-4467-b0d0-03b8e391da11" class="">We can get rid of all the console logs we have added and put the <code>data-type</code> back on our paragraph tag.</p><p id="bc4f92ef-040a-4fc4-84c5-cddb607dd543" class="">That is how you do it with a <code>for of</code> loop.</p><p id="1085546f-2a24-47e8-9731-12c4dc701172" class="">Next we will look at how we can do this with <strong>recursion</strong>.</p><p id="2a889551-9653-4214-bfb1-fe6a8b0b5029" class="">Recursion refers to this concept of a function calling itself until there is some sort of exit condition that tells it to stop.</p><p id="5f554feb-c8a8-4241-9700-06a3bd893178" class="">Let&#x27;s make a function we will also call draw <code>draw</code>.</p><p id="1fa18998-28fd-42be-b467-e309cacba744" class="">The way this function will work is we will keep an index variable inside of the function and increment it once each time.</p><pre id="6ff16400-0b7b-4244-a81d-23bf1ea0021b" class="code code-wrap"><code>function draw(el) {
+const index = 1;
+const text = el.textContent;
+const { typeMin, typeMax } = el.dataset;
+}</code></pre><p id="3c764eb1-9283-4c4c-94e9-be939b1ab9a9" class="">Add another async function, <code>drawLetter</code>, within <code>draw()</code> to take advantage of closures because we can run a function multiple times while still accessing the variables within the <code>draw</code> function.</p><p id="0d8c3dd3-ddec-4ad5-990b-2ca06c368835" class="">So the way this will work is we will start at the index and take 1 letter, then we will take 2 letters, and then 3 letters and so on using slice, and then we will update the element every single time.</p><pre id="b7558317-b417-45b5-8c4a-d120f8f82083" class="code code-wrap"><code>async function drawLetter() {
+el.textContent = text.slice(0, index);
+}</code></pre><p id="d8f3110f-54b0-426a-9c92-cceccb8a5975" class="">For a quick refresher of how slice works: you pass it a starting and ending index and it will return the charactres inbetween like so.</p><pre id="d5c4de72-90ec-4116-b7ed-93ad42aaef8e" class="code code-wrap"><code>function draw(el) {
+const index = 1;
+const text = el.textContent;
+const { typeMin, typeMax } = el.dataset;
+
+async function drawLetter() {
+el.textContent = text.slice(0, index);
+}
+}</code></pre><p id="24221f48-9761-44f9-80a8-828e6eb0794a" class="">Now when you run this, nothing actually happens. It doesn&#x27;t actually do anything but that is because we haven&#x27;t called <code>drawLetter</code>.</p><p id="0d5005cf-b508-4a85-9d9a-fd447629ea32" class="">Let&#x27;s go ahead and do that.</p><pre id="f7e6f448-9456-422c-8e9a-91c874fce54e" class="code code-wrap"><code>function draw(el) {
+const index = 1;
+const text = el.textContent;
+const { typeMin, typeMax } = el.dataset;
+
+async function drawLetter() {
+el.textContent = text.slice(0, index);
+}
+
+// when this function draw() runs, kick off drawLetter
+drawLetter();
+}</code></pre><p id="a06e1d2d-b7f5-4b8b-bc3d-ff28c25c536b" class="">If you refresh the page you will just see the first letter which is okay because we still need to increment the index using <code>index = index + 1;</code> or <code>index += 1;</code>. And then we need to call <code>drawLetter()</code> again.</p><p id="135d9cfe-0120-4141-80d0-e25b37a28c4b" class="">How do we do that?</p><p id="6e9f5065-f12d-439c-9bc7-27a3cce5f022" class="">Just call <code>drawLetter()</code> within our async function as shown below.</p><pre id="9b726a4e-aefb-4d3a-80e3-18cb0c95ff3b" class="code code-wrap"><code>function draw(el) {
+const index = 1;
+const text = el.textContent;
+const { typeMin, typeMax } = el.dataset;
+
+async function drawLetter() {
+el.textContent = text.slice(0, index);
+index += 1;
+drawLetter();
+}
+
+// when this function draw() runs, kick off drawLetter
+drawLetter();
+}
+
+document.querySelectorAll(&#x27;[data-type]&#x27;).forEach(draw);</code></pre><p id="f020c800-be13-49f2-b447-30996025cbed" class="">This is the recursive part, meaning that part of the logic of <code>drawLetter</code> is to call itself. The way the code is now will create an infinite loop and will probably break the browser.</p><p id="bdc49030-2001-491d-823d-5e16ff79c521" class="">When Wes ran the code he got the following error..</p><p id="8a100a10-d448-446a-bf10-97bc75313c72" class="">Remember when we discussed the call stack previously?</p><p id="90f3b7aa-0528-40a7-a6cf-896c6b83888f" class="">What is happening is <code>drawLetter</code> is calling itself over and over again and eventually the browser complains that you have added too many things to the call stack.</p><p id="85fd4be2-faa4-4339-9b7c-ef5e33617bee" class="">What we need to do is add an exit condition: we need to check if the index is less than or equal to the length of our <code>text</code> variable, the run it again.</p><pre id="0ed8e407-c1a7-410a-95b7-1c21ae2bc5c0" class="code code-wrap"><code>async function drawLetter() {
+el.textContent = text.slice(0, index);
+index += 1;
+
+// exit condition
+if (index &lt;= text.length) {
+drawLetter();
+}
+}
+
+// when this function draw() runs, kick off drawLetter
+drawLetter();</code></pre><p id="854fc5ca-748a-43ca-bce5-3206d01fef95" class="">Now when there are no more letters to draw, it will stop and the function will end.</p><p id="86507d05-c15a-4cbc-bcd7-455b44d9d32b" class="">If you refresh the page, it still works but it happens so quickly we don&#x27;t see anything. Let&#x27;s wait 10 milliseconds using the wait function which we will add above the if statement.</p><p id="fc358229-abd2-4c82-96eb-6abcf861bee7" class="">Now if you refresh the page you will see it&#x27;s adding the text at a rate of 10 milliseconds.</p><p id="5b569279-2212-49b2-8204-b84bf5bd186c" class="">We can do the same thing we did in the previous method and grab our min and max and pass it to <code>getRandomBetween</code>.</p><p id="bf50ea5f-c1ad-4a6c-9039-692558440fbf" class="">The reason why we do the calculation for the random amount of time inside of <code>drawLetter</code> is that we want every letter to be random. If we added that code at the top, the random value would only be calculated once.</p><pre id="6b78da67-dfdb-4f9f-bc87-446ceb10066d" class="code code-wrap"><code>function draw(el) {
+const index = 1;
+const text = el.textContent;
+const { typeMin, typeMax } = el.dataset;
+
+async function drawLetter() {
+el.textContent = text.slice(0, index);
+index += 1;
+const amountOfTimeToWait = getRandomBetween(typeMin, typeMax);
+
+// exit condition
+await wait(10);
+
+if (index &lt;= text.length) {
+drawLetter();
+}
+}
+
+// when this function draw() runs, kick off drawLetter
+drawLetter();
+}</code></pre><p id="5f9dacc8-7f3e-4117-aa89-9ef2c84ad2d8" class="">If you refresh the page, you will see that it still works. You could probably also do it with a While loop, but Wes would personally choose the <code>for of</code> loop but that is just a personal preference.</p><p id="1ba92fd1-0314-41ef-8f1d-ff7e2bb17f1b" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="c77ea7e2-3907-408b-a113-df1bbdce98aa" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="e06309f9-6b76-48a8-8d91-e92f53779fa1" class="">Edit on Github</p></details></li></ul></div></article></body></html>

@@ -1,0 +1,809 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>5 - Events</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="890ab898-8c8b-4184-a488-647de97096d2" class="page sans"><header><h1 class="page-title"><em><strong>5 - Events</strong></em></h1><p class="page-description"></p></header><div class="page-body"><ul id="275d252e-fc63-4fba-8867-d1f281ad30e1" class="toggle"><li><details open=""><summary>29 - Event Listener</summary><p id="a37c5cca-3f45-4d3f-9812-80d8de0972f8" class=""><a href="https://wesbos.com/javascript/05-events/event-listener">https://wesbos.com/javascript/05-events/event-listener</a></p><p id="d902af40-849b-4586-a945-7106a40271f7" class="">
+</p></details></li></ul><ul id="2ff7998b-a5c4-4c0e-a5d7-8f8348c78c58" class="toggle"><li><details open=""><summary>30 - Targets, Bubbling, Propagation and Capture</summary><p id="2f16e6f5-edf2-4993-ae7e-17086d6f800b" class=""><a href="https://wesbos.com/javascript/05-events/targets-bubbling-propagation-and-capture">https://wesbos.com/javascript/05-events/targets-bubbling-propagation-and-capture</a></p><p id="5551d229-2346-4624-b5b6-34728c91d29a" class="">
+</p><figure id="4a6dbf9a-a781-45a2-9776-b59f6331f265" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/bjs.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/bjs.png"/></a></figure><p id="491dfbb6-c076-4d96-8ee7-dbad22ed82b8" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="db800174-b45c-444d-b4cd-7e5906e91635" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="6d868882-53fb-43a1-b396-afabec40e327" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="9f93682b-5f75-458a-8237-f26e344225a3" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="46e2aaf6-9888-41ee-a01e-8780172918b4" class="">JavaScript, EventsEdit Post</p><p id="634b1b91-7fed-4a05-89fc-dc47c0f115d2" class="">The <strong>event object</strong> is a gold mine of information about what happens when an event fires.</p><p id="bb9c185e-1d56-4b11-b833-8bdc7bf65820" class="">Remove everything in the <code>events.js</code> file after the <code>buyButtons</code> variable declaration.</p><p id="0280c07f-354e-4505-8933-b5b9f825e30a" class="">We are going to loop over every single buy button and attach a handler to it.</p><p id="10a43498-6aad-4e8b-b162-aa3c33e50c71" class="">Create a new function, <code>handleByButtonClick</code> and log &quot;You are buying it&quot; to the console.</p><p id="b7001f36-1e8a-4756-bea5-2d170312c7d9" class="">Pass this function to each button&#x27;s click event listener, like so 👇</p><pre id="d9beb54a-d143-4adc-b1b7-26b76c79e43a" class="code code-wrap"><code>buyButtons.forEach(function(buyButton) {
+buyButton.addEventListener(&quot;click&quot;, handleBuyButtonClick);
+});</code></pre><p id="27bc0de0-e719-4359-8cb4-7d4293353fcb" class="">Now the question is, <em>when a user clicks one of the buttons, how do I get information about what button is being clicked?</em></p><p id="0ae3586c-d9e7-4758-933a-ea9867e837ca" class="">If I have one function that is being called by 10 different button event listeners, how do I know which of the 10 triggered the function?</p><p id="6b7def1b-8221-4e1a-9158-ebeb63e50a0b" class="">That information is hidden inside of the event object!</p><p id="8c39ed97-f9c3-40d1-b06a-8e7f7f4bd473" class="">The event object is filled with all sorts of information and methods to work with your event.</p><p id="023e9753-0480-48e1-b836-561fab717864" class="">To access the event object, we modify our callback function (our handler), to accept a param that is the event.</p><p id="5903b3bc-0d2d-431a-a1f5-63b4d5b5a4ad" class=""><em>Refresher from earlier: parameters are placeholders.</em></p><p id="186a5d9a-2596-42fb-aa9c-252df4a332e8" class="">So we can add the following parameter, <code>event</code> to <code>handleBuyButtonClick()</code>, like so 👇</p><pre id="45aa27d7-001c-486a-9418-5c040a9b5b36" class="code code-wrap"><code>function handleBuyButtonClick(event) {
+console.log(&#x27;You are buying it&#x27;);
+}</code></pre><p id="8ac33841-e1dd-40fd-8342-3a5a85e105ed" class="">We could call the <code>event</code> parameter anything, as long as it&#x27;s the first param in our callback function.</p><p id="4202960e-c605-4b5d-bc48-73c19c347b6f" class="">Why?</p><p id="6588d49a-1e4e-4435-93f5-7f54b8bf471b" class="">Because when the browser runs the <code>handleBuyButtonClick</code> function for us when someone clicks it, it will run the function and pass to us a number of arguments, the first of which is the event object.</p><p id="9855460a-0bd9-45fa-a7d6-126198c0e15f" class="">Within the <code>handleBuyBackButtonClick()</code>, log the <code>event</code> object, and refresh the HTML page.</p><p id="6cdc5081-a63f-44b2-a1f8-d5080fa4da0b" class="">Whhen you click on a button you should see the following in the console 👇</p><figure id="efa21ab6-1550-4cc8-a6a5-177613d75a9d" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/324.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/324.png"/></a></figure><p id="fea4a0f6-43de-4136-a24b-2801e2c11b0f" class="">What we have there is a pointer event, which we will get into more detail about later, but essentialy we have clicks, and touches and mouse movements and they are all consolidated into one event called a pointer event.</p><figure id="0a0511d6-d816-463e-b475-311ff3aaf297" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/1455.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/1455.png"/></a></figure><p id="58e9b791-e5de-48a9-94e7-b988a2281426" class="">If you expand the event, you will see all sorts of things.</p><p id="49d7f51a-1cfd-4a37-b2be-1f9331e62634" class=""><strong>isTrusted</strong>: this is a boolean that will tell you if the click was actually coming from someone&#x27;s mouse (because it is possible to fake event clicks). If you are making a game, you probably won&#x27;t want someone to programmatically click on items.</p><p id="199b2312-ed8e-4d08-a795-2ac9ed3f8359" class=""><strong>pressure</strong>: on newer iPads and other devices, there is pressure sensitivity.</p><p id="b73e18fc-fc2b-4cf0-afcf-607e385f8f52" class="">It tells us <code>screenX</code>, <code>screenY</code>, <code>clientX</code>, <code>clientY</code>, <code>pageX</code> and <code>pageY</code>. Those are details as to where in the screen and where in the page the person has clicked, as well as a bunch of other information like what element was clicked on.</p><p id="82825261-f9a3-49bf-a440-677c1b038cec" class="">The one we are interested in is <code>target</code> and <code>currentTarget</code>.</p><p id="15e7938d-c0e2-447f-ace3-293578cad762" class="">Within <code>handleBuyBackButtonClick</code>, log <code>event.target</code>.</p><p id="dc77b0b3-6538-4af8-9073-064396924633" class="">When you refresh and click on different buttons, it will show you which button the user has clicked on.</p><figure id="01c87d3b-b663-45a7-a4b2-d04869e0b396" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/328.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/328.png"/></a></figure><p id="dc304311-de1f-4df9-9896-4f8d860764bd" class="">That is very useful because we could do something like add a data attribute, such as <code>data-price=&quot;&quot;</code>, like so 👇</p><pre id="a4763133-c9b4-41cd-9c9d-b6d319e95516" class="code code-wrap"><code>&lt;button data-price=&quot;100&quot; class=&quot;buy&quot;&gt;Buy Item 1&lt;/button&gt;
+&lt;button data-price=&quot;200&quot; class=&quot;buy&quot;&gt;Buy Item 2&lt;/button&gt;
+&lt;button data-price=&quot;300&quot; class=&quot;buy&quot;&gt;Buy Item 3&lt;/button&gt;
+&lt;button data-price=&quot;400&quot; class=&quot;buy&quot;&gt;Buy Item 4&lt;/button&gt;
+&lt;button data-price=&quot;500&quot; class=&quot;buy&quot;&gt;Buy Item 5&lt;/button&gt;
+&lt;button data-price=&quot;600&quot; class=&quot;buy&quot;&gt;Buy Item 6&lt;/button&gt;
+&lt;button data-price=&quot;700&quot; class=&quot;buy&quot;&gt;Buy Item 7&lt;/button&gt;
+&lt;button data-price=&quot;800&quot; class=&quot;buy&quot;&gt;Buy Item 8&lt;/button&gt;
+&lt;button data-price=&quot;900&quot; class=&quot;buy&quot;&gt;Buy Item 9&lt;/button&gt;
+&lt;button data-price=&quot;1000&quot; class=&quot;buy&quot;&gt;Buy Item 10&lt;/button&gt;</code></pre><p id="4f07df7c-e162-4db9-984c-d409199272f8" class="">That allows you to go into the <code>handleBuyButtonClick</code> function and add the following code 👇</p><pre id="e1fefd2e-2a14-463b-8840-cc99e2e3b768" class="code code-wrap"><code>function handleBuyButtonClick(event) {
+console.log(&#x27;You are buying it!!&#x27;);
+console.log(event.target.dataset);
+}</code></pre><p id="601d5dab-7aef-46b9-a042-f77e8170ab7c" class="">Now when you click on a specific button, it should show you the <code>dataset</code> in the console.</p><p id="be7cc396-e6cd-40fe-86da-706254a1d270" class="">And if you do <code>dataset.price</code>, it will return the price.</p><p id="67de886c-57d7-4723-b38e-1f0f83f1ae14" class="">If you do log <code>typeof event.target.dataset.price</code>, you will see that the price is a string, so you need to convert it.</p><p id="774cb399-331f-43fc-ac0b-81144743eed6" class=""><code>parseFloat(price)</code> will keep the decimals whereas <code>parseInt()</code> will not.</p><pre id="b80b3c1f-a39b-405a-b25f-d0fbc437e93c" class="code code-wrap"><code>console.log(parseFloat(event.target.dataset.price));</code></pre><p id="82378d48-2151-40ae-be10-4d3963b3a64a" class="">Now you get a true number.</p><p id="417b187b-134f-4543-a8d7-33a31abaffb0" class="">To recap: the event object contains all this information about what happened in this event, such as what type of event it was (mouseclick etc), the target, and then once you have the target, you can access anything you want about that target.</p><p id="376791f6-5cde-427b-a974-097eb28a46fd" class="">What Wes likes to do is 👇</p><pre id="3c98ce2a-5e2f-4a79-a07f-d23924384aba" class="code code-wrap"><code>const button = event.target;</code></pre><p id="288a3975-4c43-4246-9e6d-c50c752f92ba" class="">This allows you to do 👇</p><pre id="1a6b7066-c0f9-49ce-bc26-57e395e4ef46" class="code code-wrap"><code>console.log(button.textContent);</code></pre><p id="462709de-e89f-4f21-af9e-4dd39db0f5cb" class="">You can access anything about that specific element using <code>event.target</code></p><p id="4012345c-d545-4b6d-8d35-0480acfa17c6" class="">There is also another property, which you should log</p><pre id="39e855a6-c300-4408-80ee-ab62c66c9f34" class="code code-wrap"><code>event.currentTarget</code></pre><p id="869305f1-4e9f-42e8-acb1-551e9e995420" class="">You might notice that you get the same thing.</p><p id="c07c8131-8b14-4f16-894c-536bc9c04319" class="">What is the diferent between <strong>event.target</strong> and <strong>event.currentTarget</strong>?</p><p id="ff0d7222-af95-4e48-a639-53e701f0d49b" class="">To demonstrate, log both and then also log a comparison of the two, to see if they are the same element, like so 👇</p><pre id="823c1c63-ba6d-4d10-9e09-5112d8379092" class="code code-wrap"><code>function handleBuyButtonClick(event) {
+const button = event.target;
+// console.log(button.textContent);
+// console.log(parseFloat(event.target.dataset.price));
+console.log(event.target);
+console.log(event.currentTarget);
+console.log(event.target === event.currentTarget);
+}</code></pre><p id="aad41152-414d-4392-bc89-2b40cd7e562c" class="">It returns true.</p><p id="d04989f1-406d-4994-96ca-406f39e40526" class="">So what is the difference?</p><p id="7affae90-a94c-45bb-ad2a-d30f20ddc8ba" class="">The difference come in when there are elements nested inside of the element that you are listening to.</p><p id="1d957efe-ef66-499d-99ca-feee681dccbc" class="">Take all the numbers in our buttons and wrap them in a strong tag like so 👇</p><pre id="1e1365ce-865d-4a98-81ee-4db21864b33d" class="code code-wrap"><code>&lt;button data-price=&quot;100&quot; class=&quot;buy&quot;&gt;Buy Item &lt;strong&gt;1&lt;/strong&gt;&lt;/button&gt;</code></pre><p id="8361c56f-e22f-48b8-9f4c-884907acc57f" class="">What happens if you click on the number in the button?</p><p id="69dc7499-0c38-4707-9c68-d16a95bc18b3" class="">In this instance we are clicking on the button and on the strong tag.</p><p id="595c309b-37b1-42e2-9252-1fd6d20696a4" class=""><code>event.target</code> is the thing that actually got clicked.</p><p id="e5740e34-7528-40a2-b933-b7c2cd3695a1" class=""><code>event.currentTarget</code> is the thing that fired the event listener.</p><p id="29b47804-36be-482c-9e2a-a2dfec2547b6" class="">In most cases, you probably want to reach for <code>event.currentTarget</code> rather than <code>event.target</code>. Although it is useful to know whether someone clicked an element inside of the element that the listener is on, or did they click on the actual element with the listener.</p><p id="78c96113-cea6-4622-8a2f-28996406d41f" class="">That happens very often (having click events on elements that contain other elements).</p><p id="301531be-e927-4e8e-b668-71ad07390fb5" class="">Let&#x27;s say we had this scenario:</p><pre id="17258a7b-2e14-4f45-ba43-214d89014d63" class="code code-wrap"><code>window.addEventListener(&#x27;click&#x27;, function() {
+console.log(&#x27;you clicked the window&#x27;);
+})</code></pre><p id="620ba1d8-db58-4cd4-9705-6f60e9fd81be" class="">Now, when you click anywhere on the HTML page, it will show YOU CLICKED THE WINDOW in the console.</p><p id="504d89c9-b57e-4197-8183-bc78b50c714a" class="">If you click on the <code>h2</code>, it will still show you clicked on the window. But if you click on one of the buttons, are you click on the window, or on the button?</p><p id="323ed121-0500-4f04-ba2e-351c2b4d2cd6" class="">What happened is that both the window event listener fired, and the <code>handleBuyButtonClick</code> fired. We technically clicked on both of them.</p><h2 id="1a42fe8e-8b4a-498d-a337-67b7820c6151" class="">Propagation</h2><p id="e05ccf6c-cd2b-4b9d-9ac2-f79baaf9a024" class="">It is possible to be clicking on multiple things as a certain time. That is what is referred to as <strong>propagation</strong>.</p><p id="6fedba98-2a08-429d-b5a3-b0fa8ee0af55" class="">When we clicked the strong tag, what happens is the event bubbles up.</p><p id="85531068-d005-4b2a-877d-efe0a1ccbd9a" class="">Meaning we clicked on the strong tag, but we also clicked on the button, and then we also clicked on the body, and the HTML tag, and the window, and the google chrome browser etc, etc.</p><p id="0872374b-0867-46b7-aa74-c362abe596eb" class="">Although we just clicked on the strong tag, the browser and operating system are also listening to that event.</p><p id="c61508cb-d2aa-4976-86de-df3c10d4e4ca" class="">The way you can prevent that is with a method on the event that is called <code>stopPropagation</code>.</p><p id="562f7342-d5ff-4057-9d52-64c427f13527" class="">Within <code>handleBuyButtonClick</code>, add the following <code>event.stopPropagation();</code>.</p><p id="28bec7e5-92df-4334-a930-4776459674e3" class="">Now when you refresh the HTML page, if you click anywhere on the window, the window click event will fire, but if you click on the button, it will not.</p><p id="aab001ac-0410-4ff7-9be0-554b868f6245" class="">The window listener doesn&#x27;t fire because we stopped it.</p><p id="8cdac9ee-de76-4666-9d88-f40b9b318ce2" class="">What is cool about that is we can modify the window event listener to log the <code>event.target</code>, like so 👇</p><pre id="aafd1d95-f2c6-467d-8ffc-46f4637b5050" class="code code-wrap"><code>window.addEventListener(&#x27;click&#x27;, function(event) {
+console.log(&#x27;you clicked the window&#x27;);
+console.log(event.target);
+})</code></pre><p id="7cbf83df-4f8f-4601-a9d2-85d0ba1ce9bd" class="">Now anytime we click on something, it will show us what we are actually clicking on.</p><p id="bee145dd-62dd-4c87-8caf-dcd6ee54863a" class="">So even though we are listening on the window, it will show what the actual element you clicked on is, whether it&#x27;s a <code>button</code> or an <code>h2</code>.</p><p id="e33cc4ab-60e2-4bbd-9f7f-5621d935dada" class="">Events bubble up, and if we want to stop them from bubbling up, we run <code>stopPropagation()</code> and there is a way to flip that: <strong>capture</strong>.</p><p id="01fc9171-d1b7-4974-9566-ce83b8e0647f" class=""><strong>Capture</strong> is kind of like the opposite.</p><p id="70a3d269-1171-4584-966e-ea9c77dc0942" class="">This is a diagram from W3 (those are the people who decide how Javascript works, how the browsers work, and how events happen) 👇</p><p id="c136d636-be15-449b-96ee-5799f33baa07" class="">If you have an element that is very low in the DOM, like a <code>td</code> (or in our case, a button), and we are listening on the <code>td</code>, when someone makes a click, we actually are clicking on the document, then clicking on the html, then the body, the table, and then finally end up clicking the button.</p><p id="a909aff7-9978-459e-ad7b-e164ab992562" class="">If there were divs and other things wrapped inside, the click would go through those as well because it goes through every single element along the way.</p><p id="5cf4aa48-5baa-49a7-b1e9-1f4269352881" class="">It doesn&#x27;t do anything, but it is keeping track of where it passed through.</p><p id="0abb5ada-dc31-44fe-9bd2-9e8be0d65d23" class="">Then, the event starts to bubble up.</p><p id="cb061cb3-c8b2-4440-a670-65010790ba3b" class="">Once it gets to the very lowest DOM node it can find (a raw buy button in our case or a strong tag), and then it begins what is called <strong>bubbling</strong>.</p><p id="ce94c157-0e63-4083-8270-001df8741edb" class="">What that means is it will trigger a click on the strong tag, then a click on the button, then on the body, the html and finally the document. That is what is meant by <strong>bubbling up</strong>.</p><p id="9d83413c-0068-42b7-bb5d-d55edd9f0e89" class="">We do have the ability to stop the event as part of the capture phase.</p><p id="fa38e513-90f4-469c-9e3c-90605510a020" class="">The <code>handleBuyButtonClick</code> function happens during the bubble phase (while it is going back up).</p><p id="88ff00e9-678b-4d26-9d2f-9adba2ad6ed3" class="">However, there is an option for when you listen to any event, to listen during the capture phase.</p><p id="6d5d0569-186a-4d77-b563-62b571067c37" class="">That means that if we want to listen for a click on the window first and then stop it from going any further, we can do that.</p><p id="2ff2549c-484b-40ac-a899-a0115aa63d87" class="">To do that, we need to add a third argument to <code>addEventListener</code>.</p><p id="22404f5c-987e-4676-9e84-db1257e5650b" class="">This can be confusing because <code>addEventListener</code> has 3 different ways to call it.</p><p id="2835dc99-4e0f-447e-8ed9-4d13f33f76da" class="">Typically, the first one is the most modern way to call it.</p><p id="6a334fa0-3fdd-415a-a866-86177702964b" class="">It used to be that <code>addEventListener</code> took a boolean as the 3rd parameter which specified whether to use capture or not. But now, they have an <code>options</code> object that needs to be passed through.</p><p id="635b2e15-8f56-4d7d-8079-5a772c6a3e55" class="">We will be passing the <code>options</code> object which has a few options such as capture.</p><p id="b2fbb08c-8a0a-4bf2-a2b4-2f064ed5b777" class="">Go to the <code>window.eventListener</code> and pass in <code>options</code> as the 3rd parameter.</p><ol type="1" id="9dcad454-e31f-48e0-8f2b-a799072e26da" class="numbered-list" start="1"><li>The first parameter is the event type</li></ol><ol type="1" id="be3d3f5e-9ca0-45e4-95e5-284e771ce96d" class="numbered-list" start="2"><li>The second argument is the function that should be run</li></ol><ol type="1" id="72edd10a-25e6-45e5-8004-9dd793803c05" class="numbered-list" start="3"><li>The third is the options object</li></ol><pre id="63f8dc3f-5178-408a-830b-410cce55a496" class="code code-wrap"><code>window.addEventListener(&quot;click&quot;, function(event) {
+console.log(&quot;you clicked the window&quot;);
+console.log(event.target);
+},
+// { capture: true }
+);</code></pre><p id="62d726e0-6cd2-45b5-8e8a-ecd0d910ba63" class="">We will really quickly comment out the <code>{ capture: true }</code> and refresh the HTML pages so we can see the order at which it happens.</p><p id="e19d7d62-5d8c-4770-a0b7-52b047e3b621" class="">Inside of <code>handleBuyButtonClick</code>, at the beginning of the function log &quot;You clicked a button&quot; and temporarily comment out <code>stopPropagation()</code>.</p><p id="14b668f3-3973-4b79-9d3f-76c9a08d87e4" class="">Now, if you click on the button, you will see that first it says &quot;You clicked on a button&quot; and then it says &quot;YOU CLICKED THE WINDOW&quot;.</p><p id="bb9586b8-b3e0-4472-bcd8-2f67b2d49e91" class="">If you uncomment <code>{ capture: true }</code> on the window eventListener, when you refresh the page and click the button, you will first get the window log and then the button.</p><p id="f9c78bcc-f38f-4760-94b7-3d42d8ab6f23" class="">The order at which the events are fired goes top down, rather than bubbling up.</p><p id="241ca573-bdaa-439a-a732-ea6afd3e357a" class="">Capture goes down. Bubble goes up.</p><p id="69b63e4e-b7fe-4af9-ab36-5d735a5e4a59" class="">Now within the window event listener, add 👇</p><pre id="8835ed0a-e84c-4aa3-8e34-daa410f51cc2" class="code code-wrap"><code>event.stopPropagation();</code></pre><p id="ee6b5b6f-2237-4b34-b639-5f67fd8d3fe7" class="">That will allow us to stop the event from propagating down, rather than bubbling up.</p><p id="97d9cb44-29e5-410b-af12-abd2420d3945" class="">Now if you click a button, you will see that the <code>handleBuyButtonClick()</code> will never be run.</p><p id="93325bcd-1196-44b5-8652-841066c50bc4" class="">All of that is good to know, but the capture functionality does not come up very often in day to day development, but it is often an interview question about how the intricacies of events work.</p><p id="e3e6a5cc-b0b0-4d45-bd89-cefc7f63dd0f" class="">Most of Wes&#x27; career has been spent listening to clicks on lower level elements and stopping the propagation from handlng when you click on the element so that things that are higher that are also listening for clicks do not also fire that specific thing.</p><p id="f14bf814-9a10-4f59-b88d-5c3c6d91a18c" class="">A few more things to go over again.</p><p id="f7836be8-5bf6-479b-b9a1-376e145a263e" class="">The event being passed the function here is just a placeholder, you could call it anything.</p><pre id="418df1c6-9f31-4fc3-9e5a-4919bc2aa0ad" class="code code-wrap"><code>function handleBuyButtonClick(event) {
+const button = event.target;
+// console.log(button.textContent);
+// console.log(parseFloat(event.target.dataset.price));
+console.log(event.target);
+console.log(event.currentTarget);
+console.log(event.target === event.currentTarget);
+// stop this event from bubbling up
+event.stopPropagation();
+}</code></pre><p id="eb48e3cd-b736-47bc-9410-0f0c6b492b51" class="">For example this would work exactly the same 👇</p><pre id="c9aee32f-1f13-4e33-afa4-4edb333113c3" class="code code-wrap"><code>function handleBuyButtonClick(e) {
+const button = e.target;
+// console.log(button.textContent);
+// console.log(parseFloat(e.target.dataset.price));
+console.log(e.target);
+console.log(e.currentTarget);
+console.log(e.target === e.currentTarget);
+// stop this event from bubbling up
+e.stopPropagation();
+}</code></pre><p id="01ab9240-c243-4cb7-a098-eb6c721c6254" class="">Now let&#x27;s look at the window&#x27;s event listener a little closer.</p><p id="35889e79-f80f-48aa-9818-90dd7db3925d" class="">Modify the listener like so 👇</p><pre id="d350d1fb-548e-4d2d-9278-2d1d2078b7e8" class="code code-wrap"><code>window.addEventListener(&quot;click&quot;, function(event) {
+console.log(&quot;you clicked the window&quot;);
+console.log(event.target);
+console.log(event.type);
+console.log(event.bubbles);
+},
+{ capture: true }
+);</code></pre><p id="0e774abd-b36f-4239-b530-2c42370ea444" class="">If you refresh the HTML page and click somewhere you should see something like the following 👇</p><p id="7a938f7f-7ec7-4926-bcb8-96bfee3daf88" class="">The properties we logged to the console tell us what we clicked, the type of event (a click) and if the event is going to bubble or not.</p><p id="bfcc6dd5-ab00-4cf0-b700-df3d7d98d7dc" class="">That specifies whether the event handler has a <code>stopPropagation()</code> call within it.</p><p id="edee1d10-369c-4578-b18e-95c8bc9d8087" class="">If you modify the window event to include <code>event.stopPropagation()</code> and then console.logged <code>event.bubbles</code>, it would return false.</p><p id="8487a993-f63d-4e25-8d68-0b94aa751bd2" class="">Let&#x27;s go over one last thing.</p><p id="deea43a3-f98f-4e95-b589-c2dc80680969" class="">In the HTML page, add the following image element right before the script tag 👇</p><pre id="a5056c8e-16d7-4526-bd4d-3406445bc22c" class="code code-wrap"><code>&lt;img class=&quot;photo&quot; src=&quot;https://picsum.photos/200&quot; alt=&quot;Nice&quot;&gt;</code></pre><p id="2238b980-e4da-4b3b-ab40-dc7a0139a805" class="">Now in our JavaScript, grab it and listen to the <code>mousemove</code> event.</p><pre id="e2dce731-43f6-4c6d-bc90-7e4b4ac61d13" class="code code-wrap"><code>const photoEl = document.querySelector(&quot;.photo&quot;);
+photoEl.addEventListener(&quot;mousemove&quot;, function() {
+console.log(e.currentTarget);
+});</code></pre><p id="927bae95-f5eb-45e2-8ded-1db09ac33fdf" class="">If you add the following, you will get an error in the console saying</p><blockquote id="d6c0ec20-1620-4e9d-a084-98201fa85b88" class=""><p id="0eadd427-da39-4401-9226-625bb42bdc8c" class="">Uncaught ReferenceError: e is not defined</p></blockquote><p id="22706c02-32b1-4311-ac93-65ec9c84131e" class="">That is because we forgot to pass the event parameter.</p><p id="064e2707-fd68-4c6a-a64c-66b6e03e8a95" class="">Modify the code as shown below so we are passing the event as a parameter to the anonymous function.</p><pre id="3afe733e-c3f3-425d-96ce-ce9e45c5f653" class="code code-wrap"><code>photoEl.addEventListener(&quot;mousemove&quot;, function(e) ...</code></pre><p id="de1d3641-0e04-42ed-bb80-ffe94f6eaa5e" class="">Now, whenever you move your mouse anywhere over the image, that event is fired millions of times because it is triggered on every movement of the mouse.</p><p id="cdffe3fe-fd40-42eb-9020-9519dcf2aa25" class="">Add <code>console.count(e.currentTarget);</code>.</p><p id="7dd08420-8868-4752-9f56-89f4043d5495" class="">That will tell us how often something has fired on that specific thing.</p><p id="5b493a99-f104-4d40-b9b5-3d05fdd830ed" class="">There is also <code>mouseenter</code> events which only get triggered when you leave and enter an element.</p><h2 id="7fa900c0-b0de-4188-9202-2a89d8104c43" class="">this keyword</h2><p id="9d6e4d97-e35d-4e4a-975f-85864e7c0846" class="">Now we are going to talk about the word <strong>this</strong>.</p><p id="876a9993-c7c6-4227-b305-f488eac24ede" class="">Within the <code>photoEl</code> event listener function, log <code>this</code>.</p><p id="7795c7d4-6ec0-440c-bdf7-3b9b81076c83" class="">What will that log? We have not passed in <code>this</code> as a parameter.. can we just use that variable?</p><p id="50e83fed-b412-4383-8b4b-950d049fd7c7" class="">You can.</p><p id="659b9c10-180e-44cb-acb7-4658ca20a479" class="">That is because <code>this</code> is a special word in Javascript, a &quot;reserved&quot; word.</p><p id="237f190d-755d-48f3-bad2-4480b9fb259c" class="">Add the following 👇</p><pre id="1c7f8ca9-dc84-4f1b-b2ec-5635665579f1" class="code code-wrap"><code>photoEl.addEventListener(&quot;mousemove&quot;, function() {
+console.log(e.currentTarget);
+console.log(this);
+});</code></pre><p id="415748b0-728e-458e-a364-255b9d6e57b7" class="">When you hover over the image, you should see 👇</p><p id="53656811-bcae-4eff-b35c-bb40fe4c7bce" class="">It is exactly the same thing.</p><p id="4559e65d-a44d-46f7-8c1f-12c738894961" class="">So if you have a callback function, and you want to reference the element that the event was called against, the <code>this</code> keyword will surface that for you.</p><p id="087b821e-222e-40ab-96d9-b022b1baac49" class="">We will go into the <code>this</code> keyword more in the future but for now, the way we can remember it is that the <code>this</code> keyword is going to be equal to whatever is to the left of the dot.</p><p id="5337eb62-1502-49a0-bded-582a6dfd57f7" class="">If we called a method called <code>addEventListener</code>, look to the left of it and that is what <code>this</code> will be equal to.</p><p id="2d87dd12-f7d5-4040-9b48-d720ffa12482" class="">Why are there two ways to reference the element (<code>e.currentTarget</code> and <code>this</code>)?</p><p id="b80d2ed9-9a89-4826-a0fa-ed874dedec9a" class="">And which should you use?</p><p id="07a63382-bf5f-40dc-a6ba-8f6886aaef89" class="">The <code>this</code> keyword has a bit of a downside which is that if you change the anonymous function we are passing to the <code>photoEl</code> event listener to an arrow function, the <code>this</code> keyword is no longer scoped to that element.</p><pre id="c715a4bd-efee-4489-b8e9-a75c0bb64431" class="code code-wrap"><code>photoEl.addEventListener(&quot;mousemove&quot;, (e) =&gt; {
+console.log(e.currentTarget);
+console.log(this);
+});</code></pre><p id="87a285bc-df5b-4a1f-bdb9-ffffe7318265" class="">That is an upside of arrow functions, meaning if you are in a scenario where you don&#x27;t want to change what <code>this</code> is scoped to (such as in a nested function), and you don&#x27;t want to change what the keyword <code>this</code> is scoped to and you can get an arrow function to get around that.</p><p id="f8c127d8-6d62-4403-a2a9-26335d11b6e7" class="">Because of that, Wes recommends not to use <code>this</code> in event listeners or callbacks, always use <code>e.currentTarget</code> or <code>e.target</code>.</p><p id="1e8ceadc-ad80-48a9-9d74-43914c8d1703" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="caec35e2-d20c-4429-b678-d26c622b5864" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="4df234b7-9632-46d2-8cd6-6336dbc28139" class="">Edit on Github</p></details></li></ul><ul id="c6d2bed6-a6d0-4ba8-9b1f-179d12cb6258" class="toggle"><li><details open=""><summary>31 - Prevent Default and Form Events</summary><p id="49018fa0-6dc6-435f-b834-30b87c7d3f69" class=""><a href="https://wesbos.com/javascript/05-events/prevent-default-and-form-events">https://wesbos.com/javascript/05-events/prevent-default-and-form-events</a></p><p id="9bf2d67a-d748-4321-a381-78e6fb49a080" class="">
+</p><figure id="8ac23536-1342-4ec2-ae11-5a0a9a3d90b6" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/bjs%201.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/bjs%201.png"/></a></figure><p id="b317b25a-a708-4644-8270-864f4c455542" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="c19a8167-cb00-4d23-8d86-9bb920653efe" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="1b0fd969-3b9a-498c-9e66-225b2b8d3209" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="bc20be23-8063-49f2-ad7e-9a110bb2d4a3" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="8d9f590c-d47f-494d-a3da-5d8347fcc6e1" class="">JavaScript, EventsEdit Post</p><p id="c903574e-13bb-49ab-9534-691216c752f6" class="">In this video, we are going to dive into the <code>preventDefault()</code> method that exists on the event (which you will likely use all the time) and working with forms.</p><p id="a0ad83ff-b844-4ba1-b804-3d0d0bc5a7af" class="">Working with forms, inputs, clicks and hovers will likely be things you spend a lot of time working with in JavaScript.</p><p id="c02680ae-9015-405c-bdea-25063f0afe01" class="">In our <code>/29 - Events</code> directory, we have a <code>forms.js</code> and <code>forms.html</code> file. The JavaScript file should be empty.</p><p id="7557b439-31d2-4006-a695-62fe41f0f4f5" class="">Add a log of it works and refres hthe forms page.</p><figure id="b35bb943-9f05-4794-978f-cfecc2d508f3" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/352.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/352.png"/></a></figure><h2 id="92c1d574-a713-4847-a6e4-026fcddacfe4" class="">preventDefault method</h2><p id="40b0c86b-8c56-4dad-b0c9-13280341f205" class="">There are a few HTML elements that have default functionality when they are used.</p><p id="9c580142-8898-480e-a1a6-f26a21fc2e37" class="">Let&#x27;s say you have an link to an html page, like so 👇</p><pre id="68042879-3c04-4cfd-bf84-de1283cf6932" class="code code-wrap"><code>&lt;a class=&quot;wes&quot; href=&quot;https://wesbos.com&quot;&gt;Wes Bos&lt;/a&gt;</code></pre><p id="b6119245-5dc5-4213-873b-240d09e6fa87" class="">When you click the link, it takes us to the <code>href</code>, like we would expect.</p><p id="e93d9b74-d2c0-4320-906f-a94c5107f8f0" class="">Now you we can do is stop the default action of the browser and instead handle the event with JavaScript.</p><p id="721daafa-87b0-4aa3-88bb-19e9135c4d7b" class="">In the JS file, select the link and then listen for a click on it, like so 👇</p><pre id="bdf27606-a430-4a2e-910a-0f48ba45e764" class="code code-wrap"><code>const wes = document.querySelector(&quot;.wes&quot;);
+
+wes.addEventListener(&quot;click&quot;, function(event) {
+console.log(event);
+});</code></pre><p id="056069bb-6b9b-4d7e-9105-6eff5f73de8a" class="">When you click the link, you will see the event in the console for a split second before you are redirected to the next page.</p><figure id="7bf11abd-5581-4e83-9b90-eaea5cba4554" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/353.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/353.png"/></a></figure><p id="ce969bc6-b8a2-407a-8750-c271ec554421" class=""><em><strong>Helpful Tip</strong></em><em>: If you need to log something but you are being redirected and the console is being cleared, you can click the &quot;cog&quot; icon in the chrome dev tools and check on &quot;preserve log&quot; to not clear the console when you navigate to another page.</em></p><p id="43f4db8f-bc2f-4d9a-8e15-b7a98502c8ad" class="">So the default of a link is to change the page, however if you call <code>event.preventDefault()</code> within the event listener, it will prevent the default thing from happening. In this case, the link will not redirect us.</p><p id="4c7046ca-0887-421d-8967-0427c01562f2" class="">Let&#x27;s do an example where before we redirect the user, we first wanted to ask them for some information.</p><p id="af2625bd-af72-46cb-a35e-042b88d57b56" class="">se <code>confirm</code> to confirm the redirect before you redirect them, like so 👇</p><pre id="26f24b49-dbd4-4871-aa0a-68c210192d73" class="code code-wrap"><code>wes.addEventListener(&quot;click&quot;, function(event) {
+console.log(&quot;YOU CLICKED IT&quot;);
+event.preventDefault();
+});</code></pre><figure id="87db5e07-cb37-4a39-9c9b-652868d716f7" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/354.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/354.png"/></a></figure><p id="bd9519bc-6009-42b2-b9a4-b1e2756f6d05" class="">Now when you refresh the page and click the link, you will get an alert asking you if you wish to proceed.</p><p id="d5f5b82a-4019-4318-926a-6530dc597b5f" class="">If you select OK, the console will show true which is the value of <code>shouldChangePage</code>.</p><p id="bcf601bf-2168-495e-8825-0b5eb2837b79" class="">Move the <code>preventDefault</code> call to the top of the anonymous function.</p><p id="e243b07c-ff72-4f83-8f8c-0b97f0151d7f" class="">That allows you to conditionally redirect the user based on the value of <code>shouldChangePage</code>, like so 👇</p><pre id="662bd024-b1a4-4028-9395-b0717152f43d" class="code code-wrap"><code>wes.addEventListener(&quot;click&quot;, function(event) {
+event.preventDefault();
+const shouldChangePage = confirm(
+&quot;This website might be malicious! Do you wish to proceed?&quot;
+);
+
+if (shouldChangePage) {
+window.location = event.currentTarget.href;
+}
+
+console.log(shouldChangePage);
+});</code></pre><p id="54ea4516-2519-44ba-b775-e81351738efd" class=""><code>event.currentTarget.href</code> will give you the value of the href attribute which is the url you need to redirect the user to manually.</p><p id="ec3a85bc-ad78-4c01-9fe9-fd0a1fd84dc1" class="">Now when you click the link, and hit okay in the alert dialogue that comes up in the browser, you will be redirected.</p><p id="897f9cf6-631b-4de8-9c9b-e4bc48ee3c51" class="">If you were to hit &quot;Cancel&quot; rather than OK, you would not be redirected.</p><p id="9fbb8e3f-1fa1-4f09-941f-c298fb517e37" class="">Another way you could achieve the same thing is if you moved <code>event.preventDefault()</code> like so, 👇</p><pre id="cc66781a-7397-4543-ae15-9412e5012789" class="code code-wrap"><code>wes.addEventListener(&quot;click&quot;, function(event) {
+const shouldChangePage = confirm(
+&quot;This website might be malicious! Do you wish to proceed?&quot;
+);
+
+if (!shouldChangePage) {
+event.preventDefault();
+}
+
+console.log(shouldChangePage);
+});</code></pre><p id="90428f0d-9b3d-40ad-a142-b4a607872010" class="">Now <code>preventDefault</code> will only be called if the user does not click okay, in which case you do not want to redirect the user which <code>preventDefault</code> will prevent from happening.</p><p id="1532c199-e6d7-4188-983e-2d0fef871e8d" class="">This gives us the exact same functionality, but this time you don&#x27;t need to touch <code>window.location</code>.</p><p id="35eb8224-81b7-4684-8e4b-854970ac0f22" class="">What other sort of defaults are there on a page?</p><p id="cf383c86-5741-4b6e-a5c2-3240f0509366" class="">Another common one is submitting a form element.</p><p id="e6c9b819-79a7-4d7e-9076-32e78b15168c" class="">Let&#x27;s add a name attribute to the form.</p><p id="a6dde04e-ab58-4fcb-9c10-99d638238355" class="">The best way to select a form via JavaScript is to give it a name, rather than a class.</p><p id="f54a390d-4e30-4272-9ee0-d52e0d934a21" class="">Call this form <code>signup</code> and select it in our JavaScript.</p><p id="96c1a026-8c2d-4e1d-8cfe-f37f0fd5d0a0" class="">If you want to select an element by it&#x27;s name in JavaScript, you use an attribute selector. This is standard in CSS as well.</p><pre id="05b5b0e9-fb78-42d8-86da-2b105aa9f922" class="code code-wrap"><code>const signupForm = document.querySelector(&#x27;[name=&quot;signup&quot;]&#x27;);</code></pre><p id="3a89268b-46fd-4df6-b548-9f791ae05128" class="">Take the sign-up form and add an event listener. However, instead of listening for a click, listen for a <code>submit</code> event.</p><p id="28e9cb5a-68c7-43d6-93ac-53395bb92964" class="">When someone submits a form, the event will fire and give you access to the form, like so 👇</p><pre id="1df36805-636e-403d-ad77-9fc5e009cff7" class="code code-wrap"><code>signupForm.addEventListener(&quot;submit&quot;, function(event) {
+console.log(event);
+event.preventDefault();
+});</code></pre><p id="b36a8083-a4a2-4511-a7d2-71dbc8c81f49" class="">Now if you put your name and email and click submit, you will see in the url the form values that you entered as parameters</p><p id="f47628e9-d99c-4715-af45-f334b0077b8c" class="">More often than not, you don&#x27;t want to submit the form to the server but you often want to stop the form from submitting, grab those details with JS and continue.</p><p id="d58c25c3-ad46-47f0-bb11-525d8c36530b" class=""><em>Note: When Wes is working with forms, he often gives the form inputs a default value so he doesn&#x27;t have to keep entering the values every time he wants to test it. You can do the same by modifying your email and name inputs to have attributes such as </em><code><em>&lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; value=&quot;Wes Bos&quot;&gt;</em></code><em>.</em></p><p id="80f65630-1a74-427b-937d-3475d3141d12" class="">Now when you submit the form, nothing is happening, you just see the event logged.</p><p id="c7015480-4b5c-4682-a51c-5668c7653c1f" class="">What you can do now is check whether the terms and conditions have been checked.</p><p id="b3c708b2-43fc-4c91-aabb-9a127bd57939" class="">You could just put a required attribute on the input boxes like so <code>&lt;input required type=&quot;checkbox&quot; id=&quot;agree&quot; name=&quot;agree&quot;&gt;</code>.</p><p id="39d18ba9-5391-44c3-add0-a95ce7ca2cca" class="">Now if you were to refresh and try to submit, you would see this little zerror.</p><p id="0c4b3651-360e-4190-b3fd-c7990e13d431" class="">In some cases however you want to do extended validation.</p><p id="ac48b1f3-238c-49c2-b718-aebf4d9974d5" class="">For example maybe you want to make sure the person&#x27;s name is not Chad.</p><p id="bf958003-0e65-4d1a-82ba-55f5d85769ed" class="">To do that you would do the following:</p><p id="062a3662-fc98-497d-bf38-41766d50297d" class="">Grab the name input from the form.</p><p id="ce15dda5-698c-4c70-ac27-4d7fd5b3fa93" class="">Within the listen, add the following log to the listener so you can see what you are working with, as shown below 👇</p><pre id="49ebcc2a-7941-4ba4-ab15-a329942c3fa5" class="code code-wrap"><code>console.dir(event.currentTarget);</code></pre><p id="3088cf02-beb4-414b-9005-f9876d6da24f" class="">Hit submit in the form. You should see something similar to what is shown below.</p><p id="2f6039be-ac89-4bf7-a7f0-3a1d3f2aa4a1" class="">You might notice that there are properties inside of the form object with each of input names.</p><p id="34c5e52b-e617-4430-9e85-af85d80356cf" class="">There is a name <code>property</code> and a 1 property.</p><p id="0a61d1c6-8d91-4fda-8d31-8b14663c3502" class="">There are two ways you can grab the fields from the form.</p><p id="7e148de2-0ece-40ff-9683-6a5883085c6a" class="">You can do the following 👇</p><pre id="80460141-b18e-443b-9e48-5ff28f4571ad" class="code code-wrap"><code>signupForm.addEventListener(&quot;submit&quot;, function(event) {
+event.preventDefault();
+console.log(event.currentTarget.name);
+console.log(event.currentTarget.email);
+});</code></pre><p id="d26ddbef-6219-4009-a5b5-a5aa5702ec41" class="">Now add <code>.value</code> to both of those inputs like so 👇</p><pre id="9cc989de-1d0a-415e-9fa6-0c3f9737e6a6" class="code code-wrap"><code>console.log(event.currentTarget.name.value);
+console.log(event.currenTarget.email.value);</code></pre><p id="6c4e3a50-b890-454f-9a8a-8890247246c3" class="">That will give you the actual values that are in the input boxes.</p><p id="d3a65641-cb4e-44a6-9572-a8bf5c474436" class="">The reason why those are available to us is because the inputs have a name attribute on them.</p><p id="99d055eb-e9c0-4dae-bf96-d09d06e02d56" class="">One has a name of <code>name</code> and the other of <code>email</code>. There is also one with <code>agree</code>.</p><p id="f3fe63f4-e5fc-4683-935e-88a88cceae9b" class="">With a checkbox, you don&#x27;t use <code>.value</code>, you would use <code>.checked</code> like so 👇</p><pre id="4db49155-5db8-4966-880d-4352e2703c61" class="code code-wrap"><code>console.log(event.currentTarget.agree.checked);</code></pre><p id="9edc3d2d-9dae-4681-8032-059bf355028c" class="">That will return true depending on whether it is checked or not.</p><p id="6a4ad587-cee6-46c2-88cb-05b794fd8011" class="">That is the easiest way to get the inputs off a form.</p><p id="4e070bed-78f5-4deb-8012-77c306b52987" class="">However you could have also done something like below 👇</p><pre id="68bf05a0-50b2-4b7f-b11a-d28b2f4d890e" class="code code-wrap"><code>event.currentTarget.querySelector(&#x27;[name=&quot;email&quot;]&#x27;);</code></pre><p id="77886d79-10a3-4bd5-8973-dda225cd2505" class="">However there is no reason to actually run <code>querySelector</code> if you are using proper names.</p><p id="e9208b8c-6fb9-4c4d-a259-7293c619f2db" class="">That is a good reason to have valid semantic HTML by giving your inputs proper names.</p><p id="91608d0e-16d6-4454-8a83-e74869fdfbf1" class="">Now put the name input value in a variable and check whether it contains the name Chad.</p><pre id="38537a80-ad92-4d68-b9de-d9f8f8d55cb8" class="code code-wrap"><code>signupForm.addEventListener(&quot;submit&quot;, function(event) {
+const name = event.currentTarget.name.value;
+if (name.includes(&quot;chad&quot;)) {
+alert(&quot;Sorry bro&quot;);
+event.preventDefault();
+}
+});</code></pre><p id="5dcb1fe4-274e-4e6f-b0e9-6cdaebc2f07c" class="">Now if you refresh the page and enter the name wes in the form and hit submit, the page will refresh and the form will submit.</p><p id="4a7372d8-8024-4b21-b850-e0e771e71052" class="">However if you change the name to Chad, you will see an alert and the form will not submit.</p><p id="1e064043-cf88-41bc-9cee-c4898abb6755" class=""><em>Aside: You might notice that even if you entered the name Chad with an uppercase C, it still works. That is because a string.includes() is not case sensitive. If you want it to be case sensitive, you have to use a </em><em><strong>regex</strong></em><em> which is something we will cover in the future.</em></p><h2 id="6bdea775-1771-42c9-b17a-4078af265c80" class="">Other Types of Events with Form Inputs</h2><p id="1f24b802-c1c7-4a58-89e6-f245e4140b7e" class="">You have <code>keyup</code>, <code>keydown</code>, <code>focus</code>, <code>blur</code> and a whole bunch of different types.</p><p id="a6cd62ca-a1a1-4999-90f5-082efabe0602" class="">Take the signup form name input, and add an event listener that listens to the keyup event.</p><p id="04e815b4-eff9-4853-bba8-820fea89a628" class="">Make a function called <code>logEvent</code> which takes in one parameter which will be named <code>event</code>. Inside of the function, log <code>event.type.</code>.</p><pre id="c07dd08c-319a-43d0-9f30-122b010e28d4" class="code code-wrap"><code>function logEvent(event) {
+console.log(event.type);
+}
+
+signupForm.name.addEventListener(&quot;keyup&quot;, logEvent);</code></pre><p id="0f7eab00-db56-4f5e-bc16-0de42da9f2df" class="">Now when you type anything in the name field, you will see <code>keyup</code> getting called many times in the console.</p><p id="948e106e-7fbf-4ae1-b132-e724d251fde2" class="">You can also log the <code>event.currentTarget.value</code> to get what the user has typed into the input.</p><p id="c636c2e0-604f-474a-8c18-485acb8fce8f" class="">This is useful if for example you don&#x27;t want to allow certain numbers or letters being used in the input, you can simply just prevent the default from happening. You would do that on the <code>keydown</code>.</p><p id="e55edf26-34d0-46bf-828c-9ebe9ed7cbb0" class="">Duplicate the <code>keyup</code> event listener and paste it right below and modify the event to <code>keydown</code> like so, 👇</p><pre id="2baacae3-a7e6-4e5a-9ea0-c36fa7666ab6" class="code code-wrap"><code>signupForm.name.addEventListener(&quot;keydown&quot;, logEvent);</code></pre><p id="02a08595-fb4f-4bc3-9375-a1b2c69a7579" class="">This logs the <code>keydown</code> event and the <code>keyup</code> event.</p><p id="351c19a5-04ba-42d4-904c-ade0868028e9" class="">The keydown event will tell us what the user had in the input, whereas the <code>keyup</code> event will tell us what the value is.</p><p id="769b2d40-3d52-473a-96a8-5f415e154628" class="">There is also <code>focus</code> and <code>blur</code>.</p><p id="773b8544-2fb0-48b0-84b2-7e9975718984" class="">Those are events that happen when you focus into an input and when you focus out of it.</p><p id="669d1979-a67c-4f45-a779-8d53e379dfd2" class="">The same goes with tabbing, it will trigger a focus and blur event as you go between inputs.</p><p id="64d8e615-40a0-4c7a-a40f-41ac5f9fda65" class="">That can be used for showing styling, or recording info like how long people spend on specific inputs.</p><p id="8258783b-4c9f-49b8-9d8c-502937c95f6c" class="">There are some more events on form elements that we will get into in the future but those are the ones that Wes finds himself using the most often.</p><p id="f702ea6d-3b8c-42d5-b74f-39c1afa8118a" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="48edca65-fdc9-40e2-8f83-b3accff8ffed" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="1a5d3d51-5872-4e24-a1f5-2e929c440dc7" class="">Edit on Github</p></details></li></ul><ul id="290e5402-f6e7-403d-a8db-03b48ad7ca21" class="toggle"><li><details open=""><summary>32 - Accessibility Gotchas and Keyboard Codes</summary><p id="9f3a8683-d8c9-4ce7-8d95-a251c0809f53" class=""><a href="https://wesbos.com/javascript/05-events/accessibility-gotchas-and-keyboard-codes">https://wesbos.com/javascript/05-events/accessibility-gotchas-and-keyboard-codes</a></p><p id="f12a2b3b-d4a0-45b5-9034-779d349ce82b" class="">
+</p><figure id="12bd6b8c-9bfb-4707-90ac-81eaa556b330" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/bjs%202.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/bjs%202.png"/></a></figure><p id="fb4d4467-7092-4bfb-ac31-de8de3944f66" class="">Enjoy these notes? Want to Slam Dunk JavaScript?</p><p id="0a7ac01a-7d37-41e3-a29f-afe93d795238" class="">These are notes based on my <a href="https://beginnerjavascript.com/">Beginner JavaScript</a> Video Course. It&#x27;s a fun, exercise heavy approach to learning Modern JavaScript from scratch.</p><p id="0c7e4034-1e1b-4236-9719-b91c8cbe7c22" class="">Use the code <strong>BEGINNERJS</strong> for an extra $10 off.</p><p id="fd717669-fda7-4c75-afed-7ee32e42a36f" class=""><a href="https://beginnerjavascript.com/">BeginnerJavaScript.com</a></p><p id="e810addc-059e-4c74-b047-c0a19f474b82" class="">JavaScript, Events, AccessibilityEdit Post</p><p id="e6aa9696-72cc-40fe-aa65-c675565ba61f" class="">Making a website accessible means that you are making it usable to everyone and anyone, regardless of what disability they may have, or what input device they are using, or what situation they are currently in.</p><p id="8fbbe22b-3d7f-46c9-b84f-aaa4cd98414d" class="">If HTML is marked up correctly, it will be accessible.</p><p id="f228060c-fb79-481e-8ff4-0a3e0e3f13ed" class="">However, what often happens is JavaScript developers will often add code that only works with the mouse for example, and therefore aren&#x27;t accessible to anyone.</p><p id="9df70a2d-267a-4224-bd12-135deb8749d3" class="">In this video, we will cover the common pitfalls that happen in JavaScript.</p><p id="41ca6895-8228-428b-aea3-8292ca37b1a3" class="">Most accessibility goof-ups happen not because someone is purposely trying to prevent a certain type of user from accessible the website.</p><p id="981de0cf-39ab-48d2-809a-1a7d7f46b568" class="">They are typically accidental and the developer just did not know what to look for or check to ensure it&#x27;s still accessible.</p><h2 id="fc19e15c-5b81-486c-a05d-4bada4ca615e" class="">Difference between Buttons and Links</h2><p id="22ddd751-7501-4d08-9187-986dbb541991" class="">The difference between buttons and link is a big accessibility issue.</p><p id="2b0f2127-21da-419b-85b1-8d5483eeefcc" class="">Buttons are meant to be used for actions that happen inside of an application.</p><p id="b830c276-c25d-4179-a8b1-18f9d069fc9b" class="">Links on the other hand are used to change the page.</p><p id="e6668f06-cb5f-402a-b9f7-e0aa2639e5db" class="">Do not mix those up. Links are not meant to be used where buttons are.</p><p id="441e29d6-6302-4293-b24b-94b10cd908a6" class="">Wes sees code like this all the time 👇</p><pre id="25e1d3d5-f261-4d8c-a349-652dd998643a" class="code code-wrap"><code>&lt;a href=&quot;#&quot;&gt;Save&lt;/a&gt;</code></pre><p id="0dbabc93-d7d9-4f3b-909c-fbda7b1f2e26" class="">Then the developer will add a click event via JavaScript to the a tag and <code>preventDefault</code>, and then perform some sort of action.</p><p id="3f8af5bc-ea2c-4c6c-9ded-85647c304736" class="">However, that is not a use-case for a link because that &quot;Save&quot; click doesn&#x27;t redirect you to anywhere, and thus is not a link.</p><p id="470914ed-01a6-4f26-bba1-1d481de0ac66" class="">That is a good use case for a button (an action within your application or website).</p><p id="c18933be-d1e0-48e6-9699-65f0d2a3b63d" class="">It&#x27;s still fine to prevent default on a specific link.</p><p id="41749dd6-5a23-42e9-94fc-b4fe6fe8efc2" class="">For example, on Twitter, if you try to click &quot;tweets and replies&quot; while not logged in, you will see a modal popup saying &quot;You are not logged in&quot;.</p><figure id="c673756f-680f-40f0-98da-5b71511ef3f6" class="image"><a href="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/367.png"><img style="width:700px" src="5%20-%20Events%20890ab8988c8b4184a488647de97096d2/367.png"/></a></figure><p id="8945f7c0-7982-445a-8f74-63b55c545297" class="">That is an example of a valid use case for using prevent default with a link.</p><p id="4ea4e029-fc2d-4e86-8fd9-70a6682bbd24" class="">When you need to do something, don&#x27;t mix up buttons and links.</p><h2 id="06f4300d-3baf-4b94-b6a7-21b61b218d20" class="">Keyboard Accessibility</h2><p id="d1da024a-c228-4bf5-b284-c0c150aab054" class="">Elements that are not keyboard accessible should not have clicks registered on them, unless you need to.</p><p id="1163a767-11e3-4856-a8f9-ec9c3730eee3" class="">For example, let&#x27;s say you have an image like so:</p><pre id="eba0fb13-0ff1-4c4a-9f68-0cdc507d14d8" class="code code-wrap"><code>&lt;img class=&quot;photo&quot; src=&quot;https://picsum.photos/200&quot; alt=&quot;Nice&quot;&gt;</code></pre><p id="de37219a-1b53-4ab6-85c8-53db1651efee" class="">Via JavaScript, select the photo and add a click event listener.</p><pre id="bb9f84e9-4afe-4fd3-b05f-ceb831b17195" class="code code-wrap"><code>const photo = document.querySelector(&quot;.photo&quot;);
+
+photo.addEventListener(&quot;click&quot;, function() {
+console.log(&quot;you clicked the photo&quot;);
+});</code></pre><p id="cc461035-7363-4ea0-9c81-84684f7d7ea7" class="">There are plenty of valid use cases for clicking on a photo.</p><p id="99e1bd95-0959-49ca-a087-dcbc7de56470" class="">For example, maybe it will open up a larger version of that photo, or you want to draw on the photo or zoom it in.</p><p id="6c131bda-c3e5-4267-b41c-8e5c86338236" class="">If you refresh the HTML page and click on the photo, you will see &quot;You clicked the photo&quot; logged every time you click it.</p><p id="8ca0457f-285a-45b4-847d-6b9c6d512b47" class="">If you threw your mouse away, using the tab button on your keyboard, you should be able to tab through everything on the browser.</p><p id="4090e774-5f3b-43ed-acb1-dca2c855f037" class="">However, you will not be able to click on the photo with only the keyboard.</p><p id="3ec1fb66-3595-4792-a71a-b64416affca0" class="">That is a problem because if the user doesn&#x27;t have a mouse or they are unable to use a mouse, then they can&#x27;t use that part of your website.</p><p id="036192c0-7f63-4791-aecb-2facf0be69a1" class="">An easy solution is giving the element the following attribute: <code>role=&quot;button&quot;</code>.</p><p id="7e1ecdff-6595-4992-accb-63547cf48b8a" class="">If you mean for something to be a button that is not a button tag, such as a div, if you mean for it to be used like a button, you should add the role attribute like so 👇</p><pre id="80ff46e1-b4b1-4653-a25b-3de4f8610843" class="code code-wrap"><code>&lt;div role=&quot;button&quot; tabindex=&quot;0&quot;&gt;click me&lt;/div&gt;</code></pre><p id="c7d2cbee-826d-48b7-8c2f-4efbe9d6f7de" class="">You also need to add the <code>tabindex</code> attribute when you add the <code>role=&quot;button&quot;</code>.</p><p id="0a83bb53-ea2d-4b86-aac9-b00073b0c1fb" class="">You will likely set that to 0, which will put that element in the flow so people can tab to it with their keyboards.</p><p id="ed2fba92-adeb-46bf-a43c-ec742f0cd210" class="">For the image, you could give it a role of button, but it&#x27;s easier to put the image actually inside a button, like so 👇</p><pre id="ebd88e8c-a84e-476c-be5e-4ebec94ad546" class="code code-wrap"><code>&lt;button&gt;
+&lt;img class=&quot;photo&quot; src=&quot;https://picsum.photos/200&quot; alt=&quot;Nice&quot; /&gt;
+&lt;/button&gt;</code></pre><p id="0e9b21d8-2bf3-4b52-a1aa-c102b5e8c107" class="">If you modified the code like so instead, like so 👇</p><pre id="586d5c59-6e0d-4d0b-af43-24b4977b87ed" class="code code-wrap"><code>&lt;div role=&quot;button&quot; tabindex=&quot;0&quot;&gt;Click me&lt;/div&gt;
+&lt;img class=&quot;photo&quot; tabindex=&quot;0&quot; src=&quot;https://picsum.photos/200&quot; alt=&quot;Nice&quot; /&gt;</code></pre><p id="af56b011-4423-498d-9f62-b6db24975f96" class="">Now if you tab using your keyboard, you can go back and forth between the image and the div with button role.</p><p id="06abf9e4-2e78-436e-a472-83394a2880df" class="">If you focus on the image like shown above and hit the enter key, unlike some other buttons and elements, it will not trigger a click.</p><p id="084c02d3-b459-42ae-9ead-27cf0d76b06a" class="">If that is the case, you have to go back to your JavaScript and move the anonymous function that you pass to the click event listener and make it named function.</p><p id="d9ce1861-c835-4a5d-ab3e-9ffa1d2dcdd8" class="">Modify the click event listener to call <code>handlePhotoClick</code> instead and then duplicate the event listener and add another listener but on the <code>keyup</code> event this time, like so 👇</p><pre id="7d82cd12-7ac8-47d7-ae07-47af766e38a2" class="code code-wrap"><code>function handlePhotoClick() {
+console.log(&quot;you clicked the photo&quot;);
+}
+
+photo.addEventListener(&quot;click&quot;, handlePhotoClick);
+photo.addEventListener(&quot;keyup&quot;, handlePhotoClick);</code></pre><p id="0c374949-cdf2-47e0-adc6-31ce2a9ecd89" class="">Now, when you go to the image, you can click on over to it.</p><p id="2f696aee-22f8-4b65-b66a-005f3d8e5ee4" class="">You might notice that when upi tab to the image, the console is logging &quot;You clicked the photo&quot;, even though you haven&#x27;t actually clicked it yet (we only care about the enter key).</p><p id="47d5af77-2a39-45a3-845b-250f508a50c1" class="">How can you only listen for the enter key?</p><p id="52b31f78-d859-4b53-91f0-da2a895eeb01" class="">The event has a bunch of information about this.</p><p id="b25b55e4-5dd8-497d-b91e-79175acc9c29" class="">The event object should have <code>event.key</code> and <code>event.keycode</code>. <code>event.key</code> is more modern and supported in more browsers.</p><p id="131c6420-ef9e-4d08-b315-ecdb4d3e6d6b" class="">Every single key on an event will give you a bunch of information.</p><p id="f53e1935-5892-4c32-bc96-19d52eda58d2" class="">Wes has a website, http://keycode.info, on which you can press any key and it will give you the meta information about that key.</p><p id="98346424-88d7-44b2-a396-cb1dfc1da427" class="">There is <code>event.key</code>, <code>event.which</code>, <code>event.code</code> and <code>event.key</code>. <code>event.key</code> is the best way to go about it.</p><p id="cd7657e1-860a-4aa8-a72e-d0e26827a9a8" class="">Now what we can say is if the event is a click or if the <code>event.key</code> equals enter like so: 👇</p><pre id="a3c91df2-2fd4-4682-a17b-1164ce33c256" class="code code-wrap"><code>function handlePhotoClick(event) {
+if (event.type === &quot;clicked&quot; || event.key === &quot;Enter&quot;) {
+console.log(&quot;you clicked the photo&quot;);
+}
+}</code></pre><p id="8da5a8b3-82f3-40f7-9507-62d9136fac45" class="">Now if you try tabbing and then pressing enter when on the image, you will see &quot;You clicked the photo&quot; logged, meaning it is accessible.</p><p id="54b275de-d10d-4169-b82d-1f0b29d36746" class="">Accessibility is something that people tend to forget about, but it only takes about 10 minutes of work to ensure it&#x27;s accessible.</p><p id="647fbd86-8d69-48cd-bae3-8ce07a9ea411" class="">Find an issue with this post? Think you could clarify, update or add something?</p><p id="1fddce13-44ed-4e83-b697-d6f7263c3038" class="">All my posts are available to edit on Github. Any fix, little or small, is appreciated!</p><p id="0042b935-3bab-41cf-a20c-368d08d7a69e" class="">Edit on Github</p></details></li></ul></div></article></body></html>
