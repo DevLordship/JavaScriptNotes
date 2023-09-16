@@ -1,0 +1,1115 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>05-iteration-array-methods-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d7b02434-bc04-489a-a75a-d9694d78e7d2" class="page sans"><header><h1 class="page-title">05-iteration-array-methods-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="9c526339-fc53-40d9-a1b7-4f3f0e04d775" class="toggle"><li><details open=""><summary><strong>For Loop</strong></summary><p id="cff96081-4735-47cf-acc9-25db4d6a8ee7" class="">A loop is a <strong>control structure</strong>. It provides a way to do <code>iteration</code> in programming. Iteration is a process where you repeat something over and over again until a certain condition is or is met. This can help automate tasks.</p><p id="5f76f9d4-33d6-4d11-8e09-8d64d88abe26" class="">There are many different kinds of loops in programming, and one of the most common loop is the <code>for</code> loop.</p><h3 id="52567632-c604-45cf-b185-2d5027897955" class=""><strong>For Loop Syntax</strong></h3><p id="cf6a0c11-a930-45d0-807d-77867c5d92fc" class="">The syntax for a <code>for</code> loop is very similar in many languages. The syntax is:</p><pre id="4558a100-7455-4edb-9df7-98313e7252cf" class="code code-wrap"><code>for ([initialExpression]; [conditionExpression]; [incrementExpression])
+  statement
+</code></pre><ul id="f8922027-9191-4bd8-a5d3-3c2aa3e9606a" class="bulleted-list"><li style="list-style-type:disc">The <strong>initial expression</strong> usually initializes a variable/counter</li></ul><ul id="22b39478-a609-4a45-b4db-5500293c4a7f" class="bulleted-list"><li style="list-style-type:disc">The <strong>condition expression</strong> is the condition that the loop will continue to run a long as it is met or until the condition is false</li></ul><ul id="d9d59480-aadf-40a1-bc80-43c9bf58d4de" class="bulleted-list"><li style="list-style-type:disc">The <strong>increment expression</strong> is the expression that will be executed after each iteration of the loop</li></ul><ul id="d1a6405e-229d-47d8-8d1f-139bdeb3a9e0" class="bulleted-list"><li style="list-style-type:disc">The <strong>statement</strong> is the code that will be executed each time the loop is run. To execute a <code>block</code> of code, use the <code>{}</code> syntax</li></ul><p id="6a97e2d5-4b47-474b-ad40-9545ecb01687" class="">It is important to not that we use semi-colons to separate the different parts of the loop and not commas.</p><p id="7bf601a7-71e4-4263-a4e4-cc14ba0a9669" class="">Here is a very simple example of a for loop that will print out the string &quot;Number X&quot; where X is the number of the iteration.</p><pre id="27714b2a-fccf-463a-9602-6868d81cbc29" class="code code-wrap"><code>for (let i = 1; i &lt;= 10; i++) {
+  console.log(&quot;Number &quot; + i);
+}
+
+// Output:
+// Number 1
+// Number 2
+// Number 3
+// Number 4
+// Number 5
+// Number 6
+// Number 7
+// Number 8
+// Number 9
+// Number 10
+</code></pre><p id="52c76360-ff28-419c-983a-b8696dd61cc1" class="">The variable <code>i</code> is initialized to 1, and the condition is that the loop will continue to run until the value of <code>i</code> is greater than 10. The increment expression is that the value of <code>i</code> will be incremented by 1 each time the loop is run.</p><p id="b3e91a02-9bcc-4830-a64f-0e7bd1772c8c" class="">We could change the initial expression to 5 and it will start from 5 instead of 1.</p><pre id="528b3a90-0f64-4595-8d88-986965a5cc98" class="code code-wrap"><code>for (let i = 5; i &lt;= 10; i++) {
+  console.log(&quot;Number &quot; + i);
+}
+
+// Output:
+// Number 5
+// Number 6
+// Number 7
+// Number 8
+// Number 9
+// Number 10
+</code></pre><p id="2b74e85f-b095-4b30-a178-b3e50387c858" class="">If I wanted to count up to 100 by 5s, I could change the initial expression to 0 and the increment expression to 5.</p><pre id="bced3e7c-c2a6-4556-b7bc-20577d0ce27d" class="code code-wrap"><code>for (let i = 0; i &lt;= 100; i += 5) {
+  console.log(&quot;Number &quot; + i);
+}
+
+// Output:
+// Number 0
+// Number 5
+// Number 10
+// Number 15
+// ...
+// Number 100
+</code></pre><h2 id="c6ba50a6-3fc5-44d9-963b-1684e2b83fcc" class=""><strong>Block scope</strong></h2><p id="95b99e4a-da91-4cb9-bcde-02142b200fd7" class="">Loops are considered a <code>block</code>, just like if statements. Remember that variables using <code>let</code> and <code>const</code> are scoped to the block they are defined in. So if we define a variable in a loop, we can not access it outside of the loop.</p><pre id="e5fed7fe-a430-475c-9b27-9524f4edb15c" class="code code-wrap"><code>for (let i = 0; i &lt;= 100; i += 5) {
+  const message = &#x27;Number &#x27; + i;
+  console.log(message);
+}
+
+console.log(message); // ReferenceError: message is not defined
+</code></pre><p id="55088b85-c1fd-4577-b675-a4592865a500" class="">However, if we use <code>var</code>, we can access the variable outside of the loop. This is not a good practice, but it is possible.</p><pre id="22b76b3c-d983-46a3-a297-bcd96e66d0af" class="code code-wrap"><code>for (let i = 0; i &lt;= 100; i += 5) {
+  var message = &#x27;Number &#x27; + i;
+  console.log(message);
+}
+
+console.log(message); // Number 100
+</code></pre><h2 id="0f85cc5e-e9b9-4d3a-b215-dd68719f940c" class=""><strong>Testing Conditions</strong></h2><p id="5353d6cc-2fd4-41e6-b625-7b7097f142be" class="">In many cases, you will be testing for a condition in a loop. Let&#x27;s look at a simple example:</p><pre id="a7bd9ac2-4135-4d4d-8711-0329e360a7e2" class="code code-wrap"><code>for (let i = 0; i &lt;= 10; i++) {
+  if (i === 7) {
+    console.log(&#x27;7 is my favorite number&#x27;);
+  }
+
+  console.log(&#x27;Number &#x27; + i);
+}
+</code></pre><p id="f916bfde-b6ca-4ba6-ad70-9c2d0cb5b0d5" class="">In the code above, we are testing the value of <code>i</code> to see if it is equal to 7. If it is, we will log the message &quot;7 is my favorite number&quot;.</p><p id="1463d66e-2601-464c-95f6-07cb0f8e8d51" class="">In the next video I will go over skipping an iteration and breaking out of a loop if a certain condition is true.</p><h2 id="32e70732-0ccc-4da1-ac62-c0c7eb9eaac1" class=""><strong>Nested For Loops</strong></h2><p id="5aab2232-9666-4122-938c-a795c90c8d33" class=""><code>i</code> is a common variable name for a loop counter. Sometimes you will have a loop within a loop. In that case, you need to use a different variable name for each loop. <code>j</code> is a common variable name for a nested loop counter.</p><p id="54db342f-d1d2-45fc-89c8-09188b000e2a" class="">Here is an example where we loop through 1-10 and then have another loop in each iteration that shows that number multiplied by 1 - 10.</p><pre id="4d46a8f5-fba0-41a5-afdf-32dc80b28ed3" class="code code-wrap"><code>for (let i = 1; i &lt;= 10; i++) {
+  console.log(&#x27;Number &#x27; + i);
+  for (let j = 1; j &lt;= 10; j++) {
+    console.log(i + &#x27; * &#x27; + j + &#x27; = &#x27; + i * j);
+  }
+}
+</code></pre><h2 id="9fd7a1d0-a4ce-4816-9bd9-24595db3e43e" class=""><strong>Looping Over Arrays</strong></h2><p id="c7c0a320-a454-4282-987c-2795b30973a2" class="">Arrays have a <code>forEach()</code> method that allows you to loop over them. This is the most common way to loop over an array and we will be looking at <code>forEach()</code> and other array methods soon, however I do want to show you that we can loop over an array with a <code>for</code> loop.</p><pre id="cd2bb554-10b1-478e-a77d-eef8ac8c32f4" class="code code-wrap"><code>const names = [&#x27;Brad&#x27;, &#x27;Sam&#x27;, &#x27;Sara&#x27;, &#x27;John&#x27;, &#x27;Tim&#x27;];
+
+for (let i = 0; i &lt; names.length; i++) {
+    console.log(names[i]);
+}
+
+</code></pre><p id="c83c5be2-8eba-4371-a237-d17087dda189" class="">We simply specify the condition expression as long as <code>i</code> is less than the length of the array.</p><p id="62a99e10-5e4a-4241-9b6d-370dd20e06df" class="">If you wanted to find a specific iteration and index, you could do something like this</p><pre id="9e53485d-5bde-4f3d-95a5-86b6c81060ed" class="code code-wrap"><code>for (let i = 0; i &lt; names.length; i++) {
+  if (i === 2) {
+    console.log(names[i] + &#x27; is the best&#x27;);
+  } else {
+    console.log(names[i]);
+  }
+}
+
+</code></pre><h3 id="98b3d147-f2f4-49d8-9bf7-6893adca55c8" class=""><strong>Infinite Loops</strong></h3><p id="902d946f-3cf4-4db6-ba62-2924ad5a9623" class="">Infinite loops are something that you will probably run into at one point or another. They are loops that will never stop running. One common cause of this is forgetting to increment the counter. Then the condition is always met. This happens more with while loops, because of the way they are formatted.</p><p id="94b4fe59-4137-40bb-8d7b-6aa1458d37b6" class="">To purposely create an infinite <code>for</code> loop, we could do this:</p><pre id="5a57dbfe-3361-4c8b-9dc7-ec21840793cc" class="code code-wrap"><code>for (let i = 0; i &lt; Infinity; i++) {
+  console.log(&#x27;Number &#x27; + i);
+}</code></pre></details></li></ul><ul id="6eb1caf8-4046-403c-a7ee-75d0f7168b59" class="toggle"><li><details open=""><summary><strong>Break &amp; Continue</strong></summary><h2 id="5c3c221c-e94f-4dc7-9892-b15685b5a653" class=""><strong>Break Statement</strong></h2><p id="e13f8af1-f370-4a5b-a657-72523e0f7539" class="">We can create conditions inside of a loop to test for different things within each iteration. There may be cases where you want to stop the loop from running if a certain condition is met. In this case, you can use a <code>break</code> statement to break out of the loop.</p><p id="f327ded1-405b-43ea-8d2d-46c3e961389d" class="">Let&#x27;s say we have a loop that prints Numbers 1 - 20, but if the number is 15, we want to exit the loop.</p><pre id="bac3b02d-d033-4bad-b5e0-9ec46de6a185" class="code code-wrap"><code>for (let i = 1; i &lt;= 20; i++) {
+  if (i === 15) {
+    console.log(&#x27;Found the number 15!&#x27;);
+    break;
+  }
+
+  console.log(&#x27;Number &#x27; + i);
+}
+</code></pre><h2 id="cc2ff22e-ed90-4f96-ada3-19ed8d05b58b" class=""><strong>Continue Statement</strong></h2><p id="70d74edc-f525-441b-aa4c-ac40adc484f8" class="">We can also use a <code>continue</code> statement to skip the rest of the code in the current iteration and continue to the next iteration.</p><pre id="d2b908c6-6e76-4682-9fa0-601710d7712c" class="code code-wrap"><code>for (let i = 1; i &lt;= 20; i++) {
+  if (i === 13) {
+    console.log(&#x27;Skipping 13!&#x27;);
+    continue;
+  }
+
+  console.log(&#x27;Number &#x27; + i);
+}</code></pre></details></li></ul><ul id="e85cda66-4474-4415-af2c-c701de0a0bcd" class="toggle"><li><details open=""><summary><strong>While Loops &amp; Do While Loops</strong></summary><p id="91674263-654a-4ba0-bbf0-734c1625c3d4" class="">In the last video, we looked at <code>for</code> loops, which are used to iterate over a block of code until a condition is met. A <code>while</code> and <code>do while</code> loop does the same thing using a different syntax. They work a bit different as well.</p><h3 id="b4fdb55c-dcba-4db6-b4a6-04f1cfbaa24f" class=""><strong>While Loop Syntax</strong></h3><p id="fd4df5af-131b-4bf9-bec7-3650bc498ab6" class="">The syntax for a while loop is very similar in many languages. The syntax is:</p><pre id="d99cfb7a-b731-49e7-bad6-12015d3db992" class="code code-wrap"><code>while ([conditionExpression]) {
+  statement
+}
+</code></pre><p id="5423f8d3-cd83-407f-94e2-8616e7cd70e3" class="">There are a few differences between the <code>for</code> loop, which we have already talked about, and the <code>while</code> loop.</p><p id="26cc7402-798f-4fc3-b22e-fe19bcb0a3e0" class="">In a <code>while</code> loop, the variable is initialized before the loop runs and it is initialized outside of the loop.</p><p id="33937f29-c8c4-45a4-bc89-198e539d70c3" class="">Let&#x27;s look at a simple example and print Number 1-10, like we did with the <code>for</code> loop.</p><pre id="d27cfb6b-ebcb-40d4-868e-3e635e22bfb4" class="code code-wrap"><code>let i = 0;
+
+while (i &lt;= 20) {
+  console.log(&#x27;Number &#x27; + i);
+  i++;
+}
+</code></pre><p id="49d8f2b8-471a-41e4-8a7f-bb0cedda744e" class="">For many cases, you could use a <code>while</code> or a <code>for</code> loop and achieve the same result, but a rule that many programmers follow is to use a <code>for</code> loop when you know the number of times you want to run the loop and use a <code>while</code> loop when the number of times the loop will run is unknown. That is not a mandatory convention, but something that a lot of people do.</p><h3 id="1b262cc5-fa83-4e1d-8296-825ca0d49dd9" class=""><strong>Looping Over Arrays</strong></h3><p id="5df109f5-e546-4a24-9c7d-f4393803dd5c" class="">We can loop over arrays with <code>while</code> loops as well</p><pre id="57df6b72-b0b1-442c-9915-13f8c9103a7a" class="code code-wrap"><code>const arr = [10, 20, 30, 40];
+
+let i = 0;
+
+while (i &lt; arr.length) {
+  console.log(arr[i]);
+  i++;
+}
+</code></pre><h3 id="be123ac4-276a-4b3d-bb8b-55249f7008e6" class=""><strong>Nested While Loops</strong></h3><p id="66340709-15f7-446f-9953-1b998cd93a43" class="">We can nest <code>while</code> loops to create a loop that runs a loop inside of a loop.</p><pre id="e2761682-e4e9-4c09-be07-1ab53bf4b5d9" class="code code-wrap"><code>let i = 1;
+
+while (i &lt;= 10) {
+  console.log(&#x27;Number &#x27; + i);
+  let j = 1;
+  while (j &lt;= 10) {
+    console.log(i + &#x27; * &#x27; + j + &#x27; = &#x27; + i * j);
+    j++;
+  }
+  i++;
+}
+</code></pre><h2 id="c44bdd1c-50e1-4789-a225-a0024b611877" class=""><strong>Do While Loops</strong></h2><p id="4729fd8e-373c-4e51-9275-8bbc2bc52c42" class="">The <code>do while</code> loop is a little different from the <code>while</code> loop. The <code>do while</code> loop will always run at least once, even if the condition is false.</p><p id="80080520-88d2-489e-a9dc-a6e2f683b1fe" class="">So the answer to the question, &quot;when would I want to use a <code>do while</code> loop?&quot; is when you <strong>always</strong> want to run the block of code at least once.</p><p id="9603ad26-9295-4d2e-a579-a29267220f6d" class="">The syntax for a <code>do while</code> loop is:</p><pre id="3bfe734e-8fc1-4fdd-8440-d882774d1a47" class="code code-wrap"><code>do {
+  statement
+} while ([conditionExpression]);
+</code></pre><p id="3484f484-0c7b-4e02-a50a-a28709f5d61c" class="">Let&#x27;s look at a simple example:</p><pre id="321ae072-b6a7-41c8-9d31-4ab0df5c65b0" class="code code-wrap"><code>let i = 1;
+
+do {
+  console.log(&#x27;Number &#x27; + i);
+  i++;
+} while (i &lt;= 20);
+</code></pre><p id="473518c2-d8eb-434a-a5ff-d45dee6ca7d3" class="">Now let&#x27;s change the <code>i</code> value to 21. This means that the condition expression is never met, however, the console.log() will run at least once, even if the condition is false.</p><pre id="eb69b254-4052-4244-81f3-d7f303cd91b3" class="code code-wrap"><code>let i = 21;
+
+do {
+  console.log(&#x27;Number &#x27; + i);
+  i++;
+} while (i &lt;= 20);
+</code></pre><p id="15f2a385-82e3-4115-af36-ac91eaa1a151" class="">You can also use the <code>break</code> and <code>continue</code> statements with while and do while loops.</p></details></li></ul><ul id="44561104-d486-426b-925a-48711f1b45ee" class="toggle"><li><details open=""><summary><strong>FizzBuzz Challenge</strong></summary><p id="0d2b0b82-7305-4dd5-87ef-3e8ddca0c9cc" class="">When you go to get a job as a web developer, you may be given specific programming challenges. It&#x27;s good to practice challenges like this not only for job interviews, but it sharpens your skills in general. You&#x27;ll find that most challeneges have some kind of iteration involved. One of the most common challenges is the FizzBuzz challenge. This has to do with loops and conditionals, so I think that this is a good challenge at this point in the course.</p><p id="7c90b5c9-afd3-4075-bd25-f87e7909e094" class=""><strong>Instructions:</strong></p><ul id="bdff1ba4-2d63-408b-bc14-3889a89bb3dc" class="bulleted-list"><li style="list-style-type:disc">Print/log the numbers from 1 to 100</li></ul><ul id="c87eef64-74b6-4c26-b985-49ce7ab79f95" class="bulleted-list"><li style="list-style-type:disc">For <strong>multiples of three</strong> print &quot;Fizz&quot; instead of the number</li></ul><ul id="8efdc5b2-fd2f-474c-9a44-62d680617472" class="bulleted-list"><li style="list-style-type:disc">For <strong>multiples of five</strong> print &quot;Buzz&quot;</li></ul><ul id="ad7d18e8-ecc7-4ec4-bec2-998edb2d4f52" class="bulleted-list"><li style="list-style-type:disc">For numbers which are <strong>multiples of both three and five</strong> print &quot;FizzBuzz&quot;.</li></ul><p id="2119497c-3b95-4e6e-be62-12a3968d60fe" class=""><strong>Hints:</strong></p><p id="2cdbfff2-3b64-4d4d-83b8-cacd428ba647" class="">If you have taken the course up to this point, then you know how to write a loop and output/log something for each iteration. You also know how to check for a condition with &quot;if/else/else if&quot;. You also know how to get a remainder of a number using the modulus operator (%). This is all you need to know to complete this challenge. Good luck!</p><ul id="d6227991-2867-4d54-a2ef-976e0e6d62ae" class="toggle"><li><details open=""><summary>Click For Solution</summary><h3 id="8a4b95e5-c44a-4bef-9287-c0930e5b0d9a" class=""><strong>Solution 1: </strong><code><strong>For</strong></code><strong> Loop</strong></h3><pre id="b21bdc17-d4cd-4fca-822d-321fa68bdd9d" class="code code-wrap"><code>  for (let i = 1; i &lt;= 100; i++) {
+    if (i % 15 === 0) {
+    	console.log(&quot;FizzBuzz&quot;);
+    } else if (i % 3 === 0) {
+    	console.log(&quot;Fizz&quot;);
+    } else if (i % 5 === 0) {
+    	console.log(&quot;Buzz&quot;);
+    } else {
+    	console.log(i);
+    }
+}
+</code></pre><p id="ccc9c2a0-479d-4faf-8f07-f94896065e1e" class="">In the above code, we set out initialize expression to <code>1</code>. We set the condition to <code>i &lt;= 100</code>. We set out increment expression to <code>i++</code>.</p><p id="74ee2af2-47ea-4c2d-80a7-afa11a07d223" class="">We first checked if <code>i</code> was divisible by <strong>15</strong>. Because this means <code>i</code> is divisible by both <strong>3</strong> and <strong>5</strong>. Since that is the case, we printed <code>&quot;FizzBuzz&quot;</code>. Then we checked to see if <code>i</code> was divisible by <strong>3</strong>. If so, we printed <code>&quot;Fizz&quot;</code>. Then we checked to see if <code>i</code> was divisible by <strong>5</strong>. If so, we printed <code>&quot;Buzz&quot;</code>. If <code>i</code> was not divisible by either <strong>3</strong> or <strong>5</strong>, we printed <code>i</code> (The current number).</p><h3 id="cc704bae-35cd-4a51-9bdb-b93faea98d20" class=""><strong>Solution 2: </strong><code><strong>While</strong></code><strong> Loop</strong></h3><pre id="9dd5fbe8-0bb6-45f2-b661-6a9129a9c4c5" class="code code-wrap"><code>  let j = 1;
+
+  while(j &lt;= 100) {
+    if (j % 15 === 0) {
+    	console.log(&quot;FizzBuzz&quot;);
+    } else if (j % 3 === 0) {
+    	console.log(&quot;Fizz&quot;);
+    } else if (j % 5 === 0) {
+    	console.log(&quot;Buzz&quot;);
+    } else {
+    	console.log(j);
+    }
+
+    j++;
+  }
+</code></pre><p id="2ea4cca5-7522-49db-8386-6ff9905ffd50" class="">We did the same thing here, just with a <code>while</code> loop</p></details></li></ul><p id="e76c5b5c-f6b7-4929-9493-121c0c3355ac" class="">⬆︎</p><p id="b81ddd05-60a9-4a07-b185-89c087fe3460" class="">⟳︎</p><p id="b6af1024-b2a2-49ad-bb83-b92d931c7e7b" class="">§</p></details></li></ul><ul id="9b894962-8a9e-4ea9-9d76-6f1b68d0a463" class="toggle"><li><details open=""><summary><strong>For Of Loop</strong></summary><p id="df8da885-9885-4214-94e3-7b303dd420c8" class="">The <code>for of</code> loop is used to loop through iterable objects, such as arrays and strings as well as some things that we have not talked about yet like maps and sets. They can replace <code>for</code> loops in many cases.</p><h3 id="853d535f-737d-48ff-9bd9-1b3c72f66365" class=""><strong>For Of Syntax</strong></h3><pre id="2d8dc4da-781c-4e40-89b6-2987b3f50a39" class="code code-wrap"><code>for (variable of iterable) {
+  // do something
+}
+</code></pre><p id="93e80ed7-8ccc-49d8-8e04-c1937c007a77" class="">Let&#x27;s look at a simple example that loops over an array.</p><pre id="0db42714-4037-4ea2-8a95-5b2296dfe150" class="code code-wrap"><code>const arr = [1, 2, 3, 4, 5];
+
+for (const number of arr) {
+  console.log(number);
+}
+
+// 1 2 3 4 5
+</code></pre><p id="d33aafa5-000d-4c0a-b9da-ce297b7b52bc" class="">This is cleaner than a <code>for</code> loop because we simply give the value for each iteration a name and then we can use that name to access the value, rather than creating a condition expression using the array length and then using <code>i</code> as the index.</p><h2 id="b99e01cf-dd5e-4692-acf0-1f67b615362e" class=""><strong>Iterating Over Strings</strong></h2><p id="e6450b62-a19b-431f-9572-570ec9cbe9c5" class="">You may not think of a string as an iterable, but it is. If you needed to loop over every letter in a string, you could.</p><pre id="2bf9dea0-bfe9-458b-99c8-3dfb5cc58e40" class="code code-wrap"><code>const greet = &#x27;Hello World&#x27;;
+
+for (const letter of greet) {
+  console.log(letter);
+}
+
+// H E L L O W O R L D
+</code></pre><h2 id="b1b96cb1-ef22-4d5c-bbe9-29e3fd96d3a5" class=""><strong>Iterating Over Maps</strong></h2><p id="cb1bc675-0b63-4154-8feb-97997049056b" class="">We haven&#x27;t talked about Maps yet, but they are very similar to arrays. I will go over Maps later, but just to show you a quick example:</p><pre id="cd236537-193a-4705-a48b-64bfafea7e2c" class="code code-wrap"><code>  const map = new Map();
+  map.set(&#x27;name&#x27;, &#x27;John&#x27;);
+  map.set(&#x27;age&#x27;, 30);
+
+  for (const [key, value] of map) {
+    console.log(key, value);
+  }
+</code></pre><p id="f833fa96-3005-46f2-9958-09bdbc83fc1a" class="">There are other objects like sets and generators that we can use with <code>for of</code> loops, but I will go over that stuff later on. I don&#x27;t want to overwhelm you with stuff that you won&#x27;t be using very often. At least right now.</p></details></li></ul><ul id="bdeccd8a-8adc-41b1-988c-5adc7466b883" class="toggle"><li><details open=""><summary><strong>For In Loop</strong></summary><p id="655cffd0-8d96-4720-bd63-d67c8774ad70" class="">The <code>for in</code> loop is used to loop through the properties of an object.</p><h3 id="33dfef85-663b-4ff0-8168-feefb078079b" class=""><strong>For In Syntax</strong></h3><pre id="ac15d822-fbe0-4e32-a5ac-733678eba2d7" class="code code-wrap"><code>for (let key in object) {
+  // do something
+}
+</code></pre><p id="7a01d78f-0ea1-4995-8280-3fcb2e4ca0e3" class="">Let&#x27;s look at the object below. It is a set of key/value pairs for colors.</p><pre id="e3830ba2-8b73-4f2c-83fe-61e9d0c24445" class="code code-wrap"><code>const colorObj = {
+  color1: &#x27;red&#x27;,
+  color2: &#x27;blue&#x27;,
+  color3: &#x27;green&#x27;,
+  color4: &#x27;yellow&#x27;,
+  color5: &#x27;orange&#x27;,
+  color6: &#x27;purple&#x27;
+};
+</code></pre><p id="635884e7-8f39-4b15-b55c-d03c1dc603af" class="">If we want to get a list of all the keys in the object, we can use the for in loop.</p><pre id="f2a43f1a-3aa3-4bcf-8dbe-530419ba7287" class="code code-wrap"><code>for (let key in colorObj) {
+  console.log(key);
+}
+// color1 color2 color3 color4 color5 color6
+</code></pre><p id="02b7ceae-8f97-46ce-87ed-4d42fa4d40d1" class="">If we want to get the values, we can simply use the key like so:</p><pre id="d5f5afc1-68fc-4b1d-bf5a-f326670c3a8d" class="code code-wrap"><code>for (let key in colorObj) {
+  console.log(colorObj[key]);
+}
+// red blue green yellow orange purple
+</code></pre><h3 id="4246931e-5c95-43d0-9820-8ff558141e43" class=""><strong>Using For In With Arrays</strong></h3><p id="9f0387f8-7924-4bbd-b50a-2ead9f77015e" class="">There are a few ways to loop through arrays. We could use a regular for or while loop as well as an array method called <code>forEach()</code>, which I will go over soon, but we can also use a <code>for in</code> loop.</p><pre id="c32eba02-158f-41fb-9af1-03266c3e9b46" class="code code-wrap"><code>const colors = [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;yellow&#x27;, &#x27;orange&#x27;, &#x27;purple&#x27;];
+
+for (let key in colors) {
+  console.log(colors[key]);
+}
+
+// red blue green yellow orange purple</code></pre></details></li></ul><ul id="224bc5d7-61e0-43c3-ac69-774dd8d90cb2" class="toggle"><li><details open=""><summary><strong>forEach</strong></summary><h3 id="4238fa75-dde1-444b-b0f3-d6b1e23b5da2" class=""><strong>High Order Array Methods</strong></h3><p id="05f65917-d6e7-4ddd-9415-0dfe23185771" class="">Now we are goinf to get into <code>high order array methods</code>, which are methods that we can use on arrays that take another function as an argument. These functions that we pass in are called <code>callback functions</code>. The callback will run once for every element in the array. This gives us access to each element.</p><p id="1d0cf88d-6d86-41dc-8808-648fdcd18874" class="">If we create an array and then look at the <code>prototype chain</code>, we can see all of the available methods</p><pre id="064dda3f-fc91-4e69-9211-0cef02fed365" class="code code-wrap"><code>const socials = [&#x27;Twitter&#x27;, &#x27;Facebook&#x27;, &#x27;LinkedIn&#x27;, &#x27;Instagram&#x27;];
+
+console.log(socials.__proto__);
+</code></pre><h3 id="b6e9d616-c868-4355-b28d-e8961bf1f6df" class=""><strong>forEach Method</strong></h3><p id="dd206e82-386a-4cc9-b863-449f6e5b2a5b" class="">The forEach method is simply a method to loop through an array. It does not return anything, we can just loop through and do whatever we want on each iteration. Let&#x27;s log all of the social network names.</p><pre id="1ee753d6-b5a6-420b-864c-4aae68bbfc99" class="code code-wrap"><code>socials.forEach(function(item) {
+	console.log(item);
+});
+</code></pre><p id="8edb99ef-72bb-4254-8930-5c78eb518b92" class="">We learned how to use the browser debugger when we learned about execution context. Let&#x27;s use it to see each time the callback is run. Place a breakpoint on the same line as the forEach. Hit <code>esc</code> to bring up the console window so you can see the output. Then hit the step through arrow. You will see it execute and log each item one at a time.</p><figure id="0b91ee48-9f92-43e5-ad50-287077976b67" class="image"><a href="05-iteration-array-methods-docs%20d7b02434bc04489aa75ad9694d78e7d2/Untitled.png"><img style="width:650px" src="05-iteration-array-methods-docs%20d7b02434bc04489aa75ad9694d78e7d2/Untitled.png"/></a></figure><p id="03e5381c-a34d-485a-b480-3e2c73fc1a1f" class="">The above function will simply loop through and log the social networks. We don&#x27;t need to set anything here to be returned, we are just logging each item. The function we pass in will run for every item in the array. The callback function takes in an argument which represents the current item. I called it <code>item</code>, but I could have called it anything. I could have called it <code>social</code>. It is common to use the singular version of the array name. Then I just logged <code>item</code>.</p><p id="3a12096a-7a6e-44fc-8153-62585087f1f7" class="">We can use arrow functions to shorten this as well and take away the curly braces, since it is a one liner.</p><pre id="29c65b52-0678-491e-884f-ee49a32fdf4a" class="code code-wrap"><code>socials.forEach((item) =&gt; console.log(item));
+</code></pre><p id="c205483f-11b7-4055-afc9-9d8a248540b9" class="">In addition to the item passed into the callback, we can also pass in and get access to the current index (stars at 0) and the entire array itself.</p><pre id="4d8bc9c5-cc55-4e85-bc41-08bac3980adc" class="code code-wrap"><code>socials.forEach((item, index, arr) =&gt; {
+  console.log(item, index, arr);
+});
+</code></pre><p id="e38fe3d4-b7dc-49a2-b615-cc09caa5b5b2" class="">Let&#x27;s say we want to also console log something if we are on the last iteration of the loop, or the last element in the array</p><pre id="2e4b159d-6681-4796-bebc-713c9d4ef658" class="code code-wrap"><code>socials.forEach((item, index, arr) =&gt; {
+  if (index === arr.length - 1) {
+    console.log(&#x27;The End&#x27;);
+  }
+});
+</code></pre><p id="ec8c563c-b909-480b-9143-7ee5651cb647" class="">You can also use a separate named function as your callback rather than pass in an anonymous one</p><pre id="fffa2812-67bf-43c1-a47a-b352eea3928d" class="code code-wrap"><code>function logSocials(social) {
+  console.log(social);
+}
+
+socials.forEach(logSocials);
+</code></pre><p id="a3c9107f-3ef1-4f82-ad97-15d71b5e3d32" class="">Of course, we can use <code>forEach</code> on an array of objects. In reality, most of your arrays will probably use objects as items.</p><pre id="90710bc1-0718-40b2-b757-2288aa28cf3a" class="code code-wrap"><code>const socialObjs = [
+  { name: &#x27;Twitter&#x27;, url: &#x27;https://twitter.com&#x27; },
+  { name: &#x27;Facebook&#x27;, url: &#x27;https://facebook.com&#x27; },
+  { name: &#x27;Instagram&#x27;, url: &#x27;https://instagram.com&#x27; },
+];
+
+socialObjs.forEach((item) =&gt; console.log(item.url));</code></pre></details></li></ul><ul id="83101f5c-4aae-4993-9278-5fb000843074" class="toggle"><li><details open=""><summary><strong>Filter() Method</strong></summary><p id="60ab7b3a-2aa1-45d5-b961-a3b8ef7be94b" class=""><code>filter()</code> is a useful method that filters an array based on a provided function. Unlike <code>forEach</code>, it returns a value. That value is an array of items that pass a truth test.</p><p id="9ccc7abf-b033-4276-b7f1-7fb911e98884" class="">Let&#x27;s look at a simple example:</p><pre id="b8c08b41-d8e7-46b1-9360-84cfd86f0d50" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const evenNumbers = numbers.filter((number) =&gt; number % 2 === 0);
+
+console.log(evenNumbers); // [2, 4, 6, 8, 10]
+</code></pre><p id="dc269638-cc58-4359-8d6a-a62fd35a8c82" class="">We get back an array of all the even numbers in the original array because the <code>filter()</code> method returns all the values that pass the truth test of <code>number % 2 === 0</code>.</p><p id="33c12365-0a27-4569-a82e-52cd75944c5f" class="">Again, if the shorthand syntax is messing you up, it is the same as:</p><pre id="f16f10fc-ba6d-4caa-a3ad-977b67681bc1" class="code code-wrap"><code>const evenNumbers2 = numbers.filter(function (number) {
+  return number % 2 === 0;
+});
+</code></pre><h3 id="e48d28e7-6a37-4a09-9b73-28ffe187c1cd" class=""><strong>Same thing with forEach</strong></h3><p id="de8571bb-2ac7-4529-af03-594ae3356bb1" class="">We can get the same result with a longer block of code using a <code>forEach</code></p><pre id="bafd335c-1a68-4bad-bd14-b9e9aed06b19" class="code code-wrap"><code>const evenNumbers = [];
+numbers.forEach((number) =&gt; {
+  if (number % 2 === 0) {
+    evenNumbers.push(number);
+  }
+});
+
+console.log(evenNumbers); // [2, 4, 6, 8, 10]
+</code></pre><p id="ee7dfc5e-46df-4913-88a9-dc90afac3543" class="">Let&#x27;s use an array of companies to work with.</p><pre id="f3c96aa4-fa07-40f5-9b37-2e4ba8ea4064" class="code code-wrap"><code>const companies = [
+  { name: &#x27;Company One&#x27;, category: &#x27;Finance&#x27;, start: 1981, end: 2004 },
+  { name: &#x27;Company Two&#x27;, category: &#x27;Retail&#x27;, start: 1992, end: 2008 },
+  { name: &#x27;Company Three&#x27;, category: &#x27;Auto&#x27;, start: 1999, end: 2007 },
+  { name: &#x27;Company Four&#x27;, category: &#x27;Retail&#x27;, start: 1989, end: 2010 },
+  { name: &#x27;Company Five&#x27;, category: &#x27;Technology&#x27;, start: 2009, end: 2014 },
+  { name: &#x27;Company Six&#x27;, category: &#x27;Finance&#x27;, start: 1987, end: 2010 },
+  { name: &#x27;Company Seven&#x27;, category: &#x27;Auto&#x27;, start: 1986, end: 1996 },
+  { name: &#x27;Company Eight&#x27;, category: &#x27;Technology&#x27;, start: 2011, end: 2016 },
+  { name: &#x27;Company Nine&#x27;, category: &#x27;Retail&#x27;, start: 1981, end: 1989 },
+];
+</code></pre><p id="e86881a5-8593-4581-8607-5c64935d8f5a" class="">Get only the companies that are in the <strong>Retail</strong> category:</p><pre id="8b782ab9-994f-4682-b67f-bd6502afbbe9" class="code code-wrap"><code>const retailCompanies = companies.filter(
+  (company) =&gt; company.category === &#x27;Retail&#x27;
+);
+</code></pre><p id="6daeda23-984a-489b-af79-df518bdfd0ba" class="">Get companies that started in or after 1980 and ended in or before 2005</p><pre id="2983b1b8-c615-417d-869a-8a7249ebc783" class="code code-wrap"><code>const earlyCompanies = companies.filter(
+  (company) =&gt; company.start &gt;= 1980 &amp;&amp; company.end &lt;= 2005
+);
+</code></pre><p id="2c0ba8de-64cb-4388-9c7e-149a08bb4725" class="">Get companies that lasted 10 years or more</p><pre id="10b065c2-04bf-4e23-ad42-3df6ff49d213" class="code code-wrap"><code>const longCompanies = companies.filter(
+  (company) =&gt; company.end - company.start &gt;= 10
+);</code></pre></details></li></ul><ul id="f9b3f9da-8cee-496a-99f8-71c32aa68069" class="toggle"><li><details open=""><summary><strong>map() Method</strong></summary><p id="80f6a87b-520a-416a-9bd6-813ea3a7f1f5" class="">The <code>map()</code> creates a new array populated with the results of calling a provided function on every element in the array.</p><p id="6126fc31-6e6a-4d8f-9d11-369481bcc629" class="">Let&#x27;s look at a simple example where we have an array, and we want to create a new array with each number multiplied by 2.</p><pre id="29f838d0-989e-4a94-a207-9955e6c77e28" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+
+const doubledNumbers = numbers.map((number) =&gt; number * 2);
+
+console.log(doubledNumbers); // [2, 4, 6, 8, 10]
+</code></pre><p id="65c8f605-139a-4f98-8d33-536f3e23861d" class="">Since the <code>map()</code> method returns a new array, we can assign the result to a variable and use it later.</p><h2 id="7041793b-2a31-4925-ae1c-59dde059d4c9" class=""><strong>Using forEach()</strong></h2><p id="6f97ea22-1a0f-4292-ad6a-f606dc8b706a" class="">Let&#x27;s do the same thing using the <code>forEach()</code> method.</p><pre id="5616eab9-0b19-485a-9633-93886a5bdad0" class="code code-wrap"><code>const doubledNumbers2 = [];
+
+numbers.forEach((number) =&gt; {
+  doubledNumbers2.push(number * 2);
+});
+
+console.log(doubledNumbers2); // [2, 4, 6, 8, 10]
+</code></pre><p id="7da5e4fe-99c0-429e-bfce-9788ea14400b" class="">You can see <code>map()</code> is cleaner and more concise than <code>forEach()</code>.</p><h2 id="f45a4936-255c-43cc-9ad0-a23fcef8bf6a" class=""><strong>Using map() with an array of objects</strong></h2><p id="c235557f-d689-4ce2-b437-efe533c93b58" class="">We can use <code>map()</code> to transform an array of objects.</p><pre id="76fb0d85-aefe-499e-a58a-b3561155531b" class="code code-wrap"><code>const companies = [
+  { name: &#x27;Company One&#x27;, category: &#x27;Finance&#x27;, start: 1981, end: 2004 },
+  { name: &#x27;Company Two&#x27;, category: &#x27;Retail&#x27;, start: 1992, end: 2008 },
+  { name: &#x27;Company Three&#x27;, category: &#x27;Auto&#x27;, start: 1999, end: 2007 },
+  { name: &#x27;Company Four&#x27;, category: &#x27;Retail&#x27;, start: 1989, end: 2010 },
+  { name: &#x27;Company Five&#x27;, category: &#x27;Technology&#x27;, start: 2009, end: 2014 },
+  { name: &#x27;Company Six&#x27;, category: &#x27;Finance&#x27;, start: 1987, end: 2010 },
+  { name: &#x27;Company Seven&#x27;, category: &#x27;Auto&#x27;, start: 1986, end: 1996 },
+  { name: &#x27;Company Eight&#x27;, category: &#x27;Technology&#x27;, start: 2011, end: 2016 },
+  { name: &#x27;Company Nine&#x27;, category: &#x27;Retail&#x27;, start: 1981, end: 1989 },
+];
+</code></pre><p id="626a51d1-416c-42aa-a488-05673ecab2d1" class="">Let&#x27;s create an array of company names:</p><pre id="a038b98d-8dd4-426e-b65c-293b240f0b1f" class="code code-wrap"><code>const companyNames = companies.map((company) =&gt; company.name);
+
+console.log(companyNames);
+// [&#x27;Company One&#x27;, &#x27;Company Two&#x27;, &#x27;Company Three&#x27;, &#x27;Company Four&#x27;, &#x27;Company Five&#x27;, &#x27;Company Six&#x27;, &#x27;Company Seven&#x27;, &#x27;Company Eight&#x27;, &#x27;Company Nine&#x27;]
+</code></pre><p id="2dd25a72-83a4-4eca-ba5f-be0470aded63" class="">Let&#x27;s create an array of new objects with just the name and category properties:</p><pre id="8df7ac5f-cd28-4528-8a99-b4cc21f42dd6" class="code code-wrap"><code>const companyInfo = companies.map((company) =&gt; {
+  return {
+    name: company.name,
+    category: company.category,
+  };
+}
+</code></pre><p id="ba821459-ddd6-4872-992c-e62886d78cca" class="">Let&#x27;s create an array of objects with the name and the length of each company in years:</p><pre id="f6a1e297-2278-43f6-808d-b24743fc783e" class="code code-wrap"><code>const companyYears = companies.map((company) =&gt; {
+  return {
+    name: company.name,
+    length: company.end - company.start + &#x27; years&#x27;,
+  };
+});
+</code></pre><h2 id="b523716e-fe6b-480a-8faf-8110908e5929" class=""><strong>Chaining map Methods</strong></h2><p id="e83a8a3b-32bc-49b7-8ee2-76e53a10402d" class="">We can chain methods together to create a more complex result.</p><pre id="aff2dce9-0c14-49fa-8b26-2c224bb386dd" class="code code-wrap"><code>const squareAndDouble = numbers
+  .map((number) =&gt; Math.sqrt(number))
+  .map((number) =&gt; number * 2);
+
+console.log(squareAndDouble);
+// [2, 2.8284271247461903, 3.4641016151377544, 4, 4.47213595499958]
+</code></pre><p id="4bbc18ad-ce3e-435b-a8d6-f7f14402ccf0" class="">If the shorthand syntax is confusing you, this is the same as:</p><pre id="17f56522-219d-44bd-baec-6e3d2ff52cd2" class="code code-wrap"><code>const squareAndDouble2 = numbers
+  .map(function (number) {
+    return Math.sqrt(number);
+  })
+  .map(function (number) {
+    return number * 2;
+  });
+
+console.log(squareAndDouble2);
+// [2, 2.8284271247461903, 3.4641016151377544, 4, 4.47213595499958]
+</code></pre><h2 id="3a89c1d2-66ad-4d29-8371-05e15d6dc1e9" class=""><strong>Chaining With Other Methods</strong></h2><p id="1c677df6-c7f0-4186-8863-6b2e1dd36289" class="">We can chain different methods together to create more complex functionality. Let&#x27;s say that we want to filter the even numbers and then double them, we can chain <code>map()</code> and <code>filter()</code> together:</p><pre id="46193814-f724-4d36-8396-9bacd4287310" class="code code-wrap"><code>const evenDouble = numbers
+  .filter((number) =&gt; number % 2 === 0)
+  .map((number) =&gt; number * 2);
+
+console.log(evenDouble); // [4, 8, 12, 16, 20]</code></pre></details></li></ul><ul id="305525fe-d50c-421d-aa97-59c00f073ee4" class="toggle"><li><details open=""><summary><strong>reduce() Method</strong></summary><p id="f60f427f-0569-402e-94e2-d0d766b26268" class="">The <code>reduce()</code> method can be a bit tricky, but it can be very useful. It takes an array and reduces it to a single value. A common use case is to get a total of all the values in an array. This would be useful in a shopping cart application.</p><h2 id="d59f908c-45cc-4a8d-b8fd-ed3284ad07a0" class=""><strong>reduce() Syntax</strong></h2><pre id="63bae809-c8ba-4fa6-989a-57044fb176fb" class="code code-wrap"><code>reduce(
+  function (previousValue, currentValue, currentIndex) {
+    /* … */
+  },
+  [initialValue]
+);
+</code></pre><p id="4a2af504-cd41-4262-b022-c38241a37b2d" class="">The callback function that is passed into the <code>reduce()</code> method takes three arguments:</p><ul id="c1f625c2-29a0-4cf0-a4d5-2632c8b56a26" class="bulleted-list"><li style="list-style-type:disc"><code>previousValue</code> or <code>accumulator</code> - The value returned from the last time the callback function was called. This is sometimes called the &quot;accumulator&quot;.</li></ul><ul id="0ba371c2-32da-4b51-8022-ba8de36fc222" class="bulleted-list"><li style="list-style-type:disc"><code>currentValue</code> - The value of the current element being processed in the array.</li></ul><ul id="e724562c-f96a-44e7-a740-834c570c4c30" class="bulleted-list"><li style="list-style-type:disc"><code>currentIndex</code> - The index of the current element being processed in the array.</li></ul><p id="b4b32eaf-0cba-41a8-98e2-ffdd1e15ecfc" class="">You can also pass in an <code>initialValue</code> after the callback function. This is the value to use as the first argument to the first call of the callback function. If no initial value is supplied, the first element in the array will be used.</p><h3 id="f40da3da-57a6-439f-a352-184578ef3961" class=""><strong>Simple Example</strong></h3><pre id="71c49a6e-4397-4136-8a4e-7077aadec758" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const sum = numbers.reduce(function (accumulator, currentValue) {
+  return accumulator + currentValue;
+}, 0);
+
+console.log(sum); // 55
+</code></pre><p id="740d8c14-11ee-4ab1-ae4d-59a885c6d3e4" class="">We could shorten it up to:</p><pre id="5f50760e-5a29-4dba-a95c-1677a81c7fdc" class="code code-wrap"><code>const sum2 = numbers.reduce((acc, curr) =&gt; acc + curr, 0);
+
+console.log(sum2); // 55
+</code></pre><p id="9d6af9b6-10c7-4162-8d26-67f0bedb0ca6" class="">If I made the initial <code>previousValue</code>/<code>accumulator</code> 10, we would get 65. 10 would be the starting point</p><pre id="ae71981e-5fd5-4dae-8108-a937c12d3b00" class="code code-wrap"><code>const sum2 = numbers.reduce((acc, curr) =&gt; acc + curr, 10);
+
+console.log(sum2); // 65
+</code></pre><p id="8fafb836-ed0c-40f3-9850-661ada540126" class="">If we were to do the same thing using a <code>for of</code> loop, it would look like this:</p><pre id="61ae0a06-0d22-4b0f-a7e7-b1ae35f5589f" class="code code-wrap"><code>const sum3 = () =&gt; {
+  let acc = 0;
+  for (const curr of numbers) {
+    acc += curr;
+  }
+  return acc;
+};
+
+console.log(sum3()); // 55
+</code></pre><h3 id="02abcc28-ccba-47b1-bb1d-4c623c8b5d01" class=""><strong>Using reduce with objects</strong></h3><p id="cad23200-ac2c-4787-a58c-c76be5055787" class="">You will most likely be working with objects, so let&#x27;s look at an example of products where we want to get a sum of all of the <code>price</code> properties.</p><pre id="579a7784-d3aa-4618-a45a-d39753169392" class="code code-wrap"><code>const cart = [
+  { name: &#x27;Prooduct 1&#x27;, price: 130 },
+  { name: &#x27;Product 2&#x27;, price: 150 },
+  { name: &#x27;Product 3&#x27;, price: 175 },
+];
+
+const total = cart.reduce(function (accumulator, product) {
+  return accumulator + product.price;
+}, 0);
+
+console.log(price); // 455</code></pre></details></li></ul><ul id="42561f4b-5382-4735-ae4f-ab17ae9a8c29" class="toggle"><li><details open=""><summary><strong>Array Method Challenges</strong></summary><h2 id="dbfcfce0-927c-4e96-8a51-763241db3942" class=""><strong>Challenge 1</strong></h2><p id="127c7925-66a7-4df4-9c98-54f5f0ef7685" class=""><strong>Instructions:</strong></p><p id="051f6411-6ef9-4961-a62a-452253f78f49" class="">Take the <code>people</code> array and create an array called <code>youngPeople</code> that stores objects with ONLY <code>name</code> and <code>email</code> properties of all the people that are 25 and under. The <code>name</code> property should have their first and last name.</p><pre id="a953723c-b99c-4ec9-a2b0-7e27482d0177" class="code code-wrap"><code>const people = [
+  {
+    firstName: &#x27;John&#x27;,
+    lastName: &#x27;Doe&#x27;,
+    email: &#x27;john@gmail.com&#x27;,
+    phone: &#x27;111-111-1111&#x27;,
+    age: 30,
+  },
+  {
+    firstName: &#x27;Jane&#x27;,
+    lastName: &#x27;Poe&#x27;,
+    email: &#x27;jane@gmail.com&#x27;,
+    phone: &#x27;222-222-2222&#x27;,
+    age: 25,
+  },
+  {
+    firstName: &#x27;Bob&#x27;,
+    lastName: &#x27;Foe&#x27;,
+    email: &#x27;bob@gmail.com&#x27;,
+    phone: &#x27;333-333-3333&#x27;,
+    age: 45,
+  },
+  {
+    firstName: &#x27;Sara&#x27;,
+    lastName: &#x27;Soe&#x27;,
+    email: &#x27;Sara@gmail.com&#x27;,
+    phone: &#x27;444-444-4444&#x27;,
+    age: 19,
+  },
+  {
+    firstName: &#x27;Jose&#x27;,
+    lastName: &#x27;Koe&#x27;,
+    email: &#x27;jose@gmail.com&#x27;,
+    phone: &#x27;555-555-5555&#x27;,
+    age: 23,
+  },
+];
+</code></pre><p id="914cad3e-2921-4d31-a0b5-e8a11c6433d5" class=""><strong>Expected Result:</strong></p><pre id="91479da2-bc51-47e1-9fca-e8e553cb9510" class="code code-wrap"><code>console.log(youngPeople);
+
+[
+  {name: &#x27;Jane Poe&#x27;, email:&#x27;jane@gmail.com&#x27;},
+  {name: &#x27;Sara Soe&#x27;, email:&#x27;sara@gmail.com&#x27;},
+  {name: &#x27;Jose Koe&#x27;, email:&#x27;jose@gmail.com&#x27;}
+]
+
+</code></pre><ul id="8f5b2835-3241-47d1-939f-9ed5843781c3" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="025e76ee-a52a-4f4a-9e40-dd24cce705ba" class="code code-wrap"><code>const youngPeople = people
+  .filter((person) =&gt; person.age &lt;= 25)
+  .map((person) =&gt; ({
+    name: person.firstName + &#x27; &#x27; + person.lastName,
+    email: person.email,
+  }));
+</code></pre></details></li></ul><h2 id="1ecb1f61-3936-4c2b-b877-1d29adb5f4b6" class=""><strong>Challenge 2</strong></h2><p id="dc9b365b-eda5-4402-97c2-9274651bc42e" class=""><strong>Instructions:</strong></p><p id="f22f252c-86db-4735-aa9e-b73e04ce279e" class="">Add all of the positive numbers in the array.</p><p id="8e3c94a9-408a-4caa-96fd-79eeb29535ff" class=""><strong>Expected Result:</strong></p><pre id="bfde0718-1355-429c-8ca7-6c1b298a1d16" class="code code-wrap"><code>const numbers = [2, -30, 50, 20, -12, -9, 7];
+
+console.log(positiveSum); // 79
+
+</code></pre><ul id="70885770-87df-4b23-aa42-a237682480e4" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="feeb28de-bc72-4aed-85a8-94d3c704afbd" class="code code-wrap"><code>const numbers = [2, -30, 50, 20, -12, -9, 7];
+
+const positiveSum = numbers
+  .filter((number) =&gt; number &gt; 0)
+  .reduce((acc, cur) =&gt; acc + cur, 0);
+
+console.log(positiveSum);
+</code></pre></details></li></ul><h2 id="98d4bb52-344d-46c1-837f-cc2c11fa4664" class=""><strong>Challenge 3</strong></h2><p id="ac3ea65c-1857-4010-b976-282e0ba665bf" class=""><strong>Instructions:</strong></p><p id="4ce372f5-451c-4ddf-84a9-0c42d1ad1d79" class="">Create a new array called <code>capitalizedWords</code> with the words from the <code>words</code> array with the first letter of each word capitalized.</p><p id="c232b051-34a8-47f2-b8c3-b539ceb91344" class=""><strong>Expected Result:</strong></p><pre id="5fa2d822-0cc7-479a-81c3-5a20eefe8010" class="code code-wrap"><code>const words = [&#x27;coder&#x27;, &#x27;programmer&#x27;, &#x27;developer&#x27;];
+
+console.log(capitalizedWords); // [&#x27;Coder&#x27;, &#x27;Programmer&#x27;, &#x27;Developer&#x27;]
+</code></pre><p id="ce21e26c-ea28-4760-95b6-d74f5c53e9eb" class=""><strong>Hint:</strong></p><p id="5ff6cc5d-f827-40bd-9d64-69708be66884" class="">Remember back a few sections, we had a challenge to capitalize the first letter of a string. You are doing the same thing here, but for each word in the array.</p><ul id="fca0034e-f6e9-43a9-b9af-f45b738ac8c2" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="1616ebba-869b-4e37-bfcc-1e5a69461437" class="code code-wrap"><code>const capitalizedWords = words.map(
+  (word) =&gt; word[0].toUpperCase() + word.slice(1, word.length)
+);
+</code></pre></details></li></ul><p id="63f5ae80-7036-41a7-8bb2-65c55ddd97a6" class="">⬆︎</p><p id="da19996e-88c9-4af3-99b1-066a49a9e706" class="">⟳︎</p><p id="233cb552-8a5a-4862-ade1-c2a251b47b0c" class="">§</p></details></li></ul></div></article></body></html>

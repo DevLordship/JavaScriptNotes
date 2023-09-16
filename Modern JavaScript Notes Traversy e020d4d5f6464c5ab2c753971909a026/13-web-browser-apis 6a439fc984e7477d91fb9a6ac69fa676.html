@@ -1,0 +1,1946 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>13-web-browser-apis</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6a439fc9-84e7-477d-91fb-9a6ac69fa676" class="page sans"><header><h1 class="page-title">13-web-browser-apis</h1><p class="page-description"></p></header><div class="page-body"><ul id="c2e62ea6-ab68-4b38-bdfa-3eb885b04025" class="toggle"><li><details open=""><summary><strong>What Are Web/Browser APIs?</strong></summary><p id="5fa97567-6ada-4c45-9ce1-ec9b4df416d4" class="">Web APIs, also known as browser APIs are a set of tools that allow developers to interact with the browser and its features. They are not part of the core JavaScript language, but they are built into the browser and can be accessed using JavaScript. We don&#x27;t need to use any external libraries to use them, they are already built into the browser.</p><p id="c30baebe-c583-4faf-b1ad-84e7c10b62b2" class="">We have already used a few Web APIs in previous chapters, such as the DOM API, the Fetch API and the localStorage API. In this section, we are going to dive into some others and create some small projects using them.</p><p id="3186678d-2fe1-44a3-b6c5-148dfbd42e88" class="">The web APIs that we will be going over include:</p><ul id="2b2612b7-8984-4e7f-932d-db59fdc004ea" class="bulleted-list"><li style="list-style-type:disc">The Geolocation API</li></ul><ul id="db8d31fb-f52d-4d5e-b3e8-ace75fdf75b4" class="bulleted-list"><li style="list-style-type:disc">The Canvas API</li></ul><ul id="78eea6ad-6e0a-4e09-bdce-9d703797c47c" class="bulleted-list"><li style="list-style-type:disc">The Web Audio API</li></ul><ul id="935463d0-34b1-4e13-8066-ef6c87d9d891" class="bulleted-list"><li style="list-style-type:disc">The Web Video API</li></ul><ul id="cf1b1ea3-63ed-4801-b685-7c0287c7c253" class="bulleted-list"><li style="list-style-type:disc">The WebRTC API</li></ul><ul id="c848b770-80a8-4a5c-93cf-360284e5522d" class="bulleted-list"><li style="list-style-type:disc">The Web Workers API</li></ul><ul id="17e20995-5b65-4399-917a-12612089255a" class="bulleted-list"><li style="list-style-type:disc">The WebSockets API</li></ul><ul id="342ae344-1bce-4d50-9f90-399c47a77171" class="bulleted-list"><li style="list-style-type:disc">The Web Animation API</li></ul><ul id="72bfad0a-e760-493b-a698-f0eb2bf7be93" class="bulleted-list"><li style="list-style-type:disc">The Web Speech API</li></ul><ul id="219bcd21-3972-469d-b557-503f9655a58f" class="bulleted-list"><li style="list-style-type:disc">The Web Bluetooth API</li></ul></details></li></ul><ul id="34ddc5c6-bc13-4f9c-8770-75a98e7f44c1" class="toggle"><li><details open=""><summary><strong>Geolocation API</strong></summary><p id="bf886c19-26b4-44ad-99f2-78591803ff6b" class="">The Geolocation API allows us to access the user&#x27;s location. It is part of the HTML5 specification and is supported by all modern browsers. For privacy reasons, the user is asked for permission to report location information. If the user grants permission, the location information is made available to the web page. I&#x27;m sure most of you have seen this when the webpage asks you if it can access your location.</p><h2 id="2be22c67-9cfb-4e37-ac4a-4bcc6cac00c8" class=""><strong>Why use the Geolocation API?</strong></h2><p id="1b9227b7-f97b-48de-aeb8-1d7a55e8ff85" class="">The Geolocation API is useful for a variety of applications. For example, if you are building a weather app, you can use the Geolocation API to get the user&#x27;s location and then use that information to display the weather for that location. You can also use the Geolocation API to build a map app that shows the user&#x27;s location on a map.</p><p id="e654de1c-f05d-4195-b3c6-3f096fcb0a45" class="">There are 2 main methods that we can use to access the user&#x27;s location:</p><ul id="7b8ce3da-8ce7-4f8c-b8f0-38c72f590248" class="bulleted-list"><li style="list-style-type:disc"><code>navigator.geolocation.getCurrentPosition()</code> - This method is used to get the user&#x27;s current position.</li></ul><ul id="d112db23-cf65-44cf-97a2-ba142e488116" class="bulleted-list"><li style="list-style-type:disc"><code>navigator.geolocation.watchPosition()</code> - This method is used to watch the user&#x27;s position for changes.</li></ul><h2 id="3dfe296d-22c2-4d90-80bd-a27e1caa6ed9" class=""><strong>Getting the user&#x27;s current position</strong></h2><p id="e485a8cf-b5df-4516-af03-48f63bfdb99e" class="">The <code>navigator.geolocation.getCurrentPosition()</code> method is used to get the user&#x27;s current position. It takes 2 callback functions as parameters as well as a third optional parameter that is an object containing options.</p><ul id="902fd0e4-b1e4-47ec-b05b-cb8166804504" class="bulleted-list"><li style="list-style-type:disc"><code>success</code> - This callback function is called if the user&#x27;s location is successfully retrieved.</li></ul><ul id="5454ae4c-831d-4ebf-8cf0-6a2015f634f8" class="bulleted-list"><li style="list-style-type:disc"><code>error</code> - This callback function is called if there is an error getting the user&#x27;s location.</li></ul><ul id="5fd5d295-a927-4029-9a73-4875b14bea7e" class="bulleted-list"><li style="list-style-type:disc"><code>options</code> - Options about how to get the user&#x27;s location. This is an optional parameter.</li></ul><p id="da0cd734-2502-4240-a818-be971f958e0f" class="">Let&#x27;s call the method, with named functions as the callbacks:</p><pre id="6194ae96-ab62-4c15-9e4e-c671e42ba9db" class="code code-wrap"><code>navigator.geolocation.getCurrentPosition(curSuccess, curError, curOptions);
+</code></pre><p id="475be8d3-6eb5-476f-bfcd-5444c5cf493f" class="">Let&#x27;s create the success function:</p><pre id="58af06d2-b8bb-4774-9308-82611e7e4450" class="code code-wrap"><code>function curSuccess(pos) {
+  const coords = pos.coords;
+
+  console.log(&#x27;Current position is:&#x27;);
+  console.log(`Latitude : ${coords.latitude}`);
+  console.log(`Longitude: ${coords.longitude}`);
+  console.log(`More or less ${coords.accuracy} meters.`);
+}
+</code></pre><p id="d1961748-8876-4201-88d9-f62bb3d2f49d" class="">Let&#x27;s create the error function:</p><pre id="0ecda59e-0944-41ed-9cdf-cfd565c5f2d5" class="code code-wrap"><code>function curError(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+</code></pre><p id="488d8e3e-ee90-4ac4-8242-c21fa05199bb" class="">Let&#x27;s create the options object:</p><pre id="1675b1d7-b190-4839-9192-9234bc557e77" class="code code-wrap"><code>const curOptions = {
+  enableHighAccuracy: true, // use GPS if available
+  timeout: 5000, // wait 5 seconds before giving up
+  maximumAge: 0, // do not use a cached position
+};
+</code></pre><p id="91078a35-abf4-4adb-b770-d0158afaf4c7" class="">As you can see, it will show your latitude and longitude as well as the accuracy of the location. The accuracy is the radius of a 95% confidence interval. In other words, it is the radius of a circle centered at the given position, where the probability of the device&#x27;s position being within the circle is 95%.</p><p id="440021de-5724-475a-b978-1075b9eac4c8" class="">My location is based on my VPN so it is not accurate. If you are using a VPN, make sure to disable it before testing this.</p><h2 id="0d9f3826-a6f7-414c-8421-e40206924986" class=""><strong>Watching the user&#x27;s position</strong></h2><p id="d1f19277-d2b1-48c4-bf45-d6208e2a810f" class="">Let&#x27;s call the <code>navigator.geolocation.watchPosition()</code> method, with named functions as the callbacks:</p><pre id="6cde0be7-42fc-41fa-9456-1fe9564b8b32" class="code code-wrap"><code>navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
+</code></pre><p id="998b5432-6efc-4ce1-8f0c-b7f662a7b22a" class="">Let&#x27;s create the success function. We can also create a target that when that target is reached, it can do something. In this case, we will just log a message to the console when the target is reached. We won&#x27;t see the message, because obviously I am not moving, while I&#x27;m sitting here creating a tutorial. But if you were to move and reach the target, you would see the message in the console.</p><pre id="8ffaba5f-4513-4c6d-a6a5-e554f5830044" class="code code-wrap"><code>let target = {
+  latitude: 41.7568588,
+  longitude: -71.6789246,
+};
+</code></pre><pre id="eced9d3a-6fa2-4822-a2a9-6bd47b3ac8b9" class="code code-wrap"><code>function watchSuccess(pos) {
+  const coords = pos.coords;
+
+  if (
+    target.latitude === coords.latitude &amp;&amp;
+    target.longitude === coords.longitude
+  ) {
+    console.log(&#x27;Congratulations, you reached the target&#x27;);
+    navigator.geolocation.clearWatch(id);
+  }
+}
+</code></pre><p id="02d897fa-58c5-48d6-a0ae-fd51b2406805" class="">Let&#x27;s create the error function:</p><pre id="1d97f0bb-b25d-4f12-b800-6c3b8f48529b" class="code code-wrap"><code>function watchError(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+</code></pre><p id="07895952-c46e-4010-9557-e12745a98e12" class="">And the options:</p><pre id="086bbc5f-129a-4036-9bda-078025b7dcc5" class="code code-wrap"><code>const watchOptions = {
+  enableHighAccuracy: false, // use GPS if available
+  timeout: 5000, // wait 5 seconds before giving up
+  maximumAge: 0, // do not use a cached position
+};
+</code></pre><p id="9e014f4b-8f9c-43c0-82ca-93465b0c2c12" class="">This method returns an ID that we can use to stop watching the user&#x27;s position. We used this in the success function with the <code>navigator.geolocation.clearWatch()</code> method to stop watching the user&#x27;s position.</p><pre id="b506df59-49e2-46ac-831b-680b8d5b665d" class="code code-wrap"><code>const id = navigator.geolocation.watchPosition(
+  watchSuccess,
+  watchError,
+  watchOptions
+);
+console.log(id);</code></pre></details></li></ul><ul id="9946e728-b493-4102-afea-6f05bc16b63d" class="toggle"><li><details open=""><summary><strong>Plotting Your Location on a Map</strong></summary><p id="6d139c8f-768a-4004-b7e9-f5cd7f781d8a" class="">In this lesson, you will learn how to use the Geolocation API along with a map library called <code>Leaflet</code> to plot your location on a map.</p><p id="b51ff717-1f93-4cda-ac99-4fb49bf3fb47" class="">The Leaflet website is located at <a href="https://leafletjs.com/">https://leafletjs.com/</a>. If you go to <code>Tutorials-&gt;Get Started</code>, you will see the code to add Leaflet to your project. We can include the CDN in our HTML. Your HTML page should look like this:</p><pre id="8779d988-0e14-479e-88d4-a10bcbf84b3a" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;link
+      rel=&quot;stylesheet&quot;href=&quot;https://unpkg.com/leaflet@1.9.3/dist/leaflet.css&quot;integrity=&quot;sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=&quot;crossorigin=&quot;&quot;/&gt;&lt;title&gt;My Location&lt;/title&gt;&lt;style&gt;
+      #map {
+        height: 600px;
+        width: 600px;
+      }
+    &lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;My Location&lt;/h1&gt;&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;&lt;script
+      src=&quot;https://unpkg.com/leaflet@1.9.3/dist/leaflet.js&quot;integrity=&quot;sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=&quot;crossorigin=&quot;&quot;&gt;&lt;/script&gt;&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><p id="30f005c2-ce04-481e-8654-0ef339d3f50a" class="">We brought in the CSS and JS and added a div for the map to display. I also set the size to 600x600. Now we need to add the JavaScript to plot our location on the map.</p><p id="189c62b9-3734-40d6-80fe-000d8ed4cb90" class="">Let&#x27;s start by displaying the map:</p><pre id="fe298470-4fb7-49d4-a084-9f4c998c9808" class="code code-wrap"><code>// Initialize the map
+const map = L.map(&#x27;map&#x27;).setView([0, 0], 2);
+
+// Add a tile layer to the map
+L.tileLayer(&#x27;https://tile.openstreetmap.org/{z}/{x}/{y}.png&#x27;, {
+  maxZoom: 19,
+  attribution:
+    &#x27;&amp;copy; &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;&#x27;,
+}).addTo(map);
+</code></pre><p id="0b27f6e3-f6b3-4afb-a9a9-dbee831e66bb" class="">This is just the basic code from the docs to display a map. It will show the whole world. Now let&#x27;s add a marker to the map:</p><pre id="70a5be46-24d6-4cc0-9b23-81f7065fb151" class="code code-wrap"><code>// Add a marker to the map
+const marker = L.marker([0, 0]).addTo(map);
+</code></pre><p id="d1d14271-8d3b-44f3-878f-9e91760ef3c3" class="">Right now, it will just display a marker in the mioddle of the map. We need to get the user&#x27;s location and update the marker&#x27;s position. We can do this using the Geolocation API:</p><pre id="0dd0f759-9045-473b-b191-7466af9228ea" class="code code-wrap"><code>// Use the HTML5 geolocation API to get the current location
+navigator.geolocation.getCurrentPosition(function (position) {
+  // Get the coordinates of the current location
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+
+  // Set the marker to the current location and zoom the map
+  marker.setLatLng([lat, lng]).update();
+  map.setView([lat, lng], 13);
+
+  // Add a popup to the marker
+  marker.bindPopup(&#x27;&lt;b&gt;Hello world!&lt;/b&gt;&lt;br&gt;This is my current location&#x27;);
+});
+</code></pre><p id="4de6e53a-34c8-4185-bc93-cc285502839a" class="">So we are just using the <code>getCurrentPosition</code> method to get the current location. We then get the latitude and longitude from the <code>position</code> object. We then set the marker&#x27;s position to the current location and zoom the map to 13.</p><p id="488ce0b6-1502-491e-afe3-83c524574b19" class="">We can also add a popup:</p><pre id="c3b682de-1e34-4319-a696-e53cab1b54b4" class="code code-wrap"><code>navigator.geolocation.getCurrentPosition(function (position) {
+  // ...
+
+  // Add a popup to the marker
+  marker.bindPopup(&#x27;&lt;b&gt;Hello world!&lt;/b&gt;&lt;br&gt;This is my current location&#x27;);
+});
+</code></pre><p id="40631f4b-71ff-4e1b-8fe4-258b1cbf522f" class="">That&#x27;s it. We can now see our location on a map.</p></details></li></ul><ul id="da84109d-005a-472e-8a94-733c6edde507" class="toggle"><li><details open=""><summary><strong>Canvas API</strong></summary><p id="bbb608c9-1fff-4173-acef-aea5bbfbbff9" class="">The Canvas API is used to draw graphics, on the fly, via JavaScript. It is part of the HTML5 specification and is supported by all modern browsers.</p><h2 id="85a68ac6-ac9d-4fac-ba21-c181cdbe11a0" class=""><strong>Why use the Canvas API?</strong></h2><p id="a9a693e4-3e50-4a9a-8549-e19d74eed11f" class="">The Canvas API is useful for a variety of applications. It&#x27;s used a lot for gaming and animation, data visualization, photo manipulation and more.</p><h2 id="0bf69534-2d77-4024-8d08-ed794ce018d9" class=""><strong>How does it work?</strong></h2><p id="7d294c62-97e3-410a-b0e6-da97095a7970" class="">The Canvas API is based on a 2D rendering context. This context is created by the <code>&lt;canvas&gt;</code> element. The <code>&lt;canvas&gt;</code> element is a container for graphics, similar to an <code>&lt;img&gt;</code> element. The <code>&lt;canvas&gt;</code> element has a <code>width</code> and <code>height</code> attribute, just like an <code>&lt;img&gt;</code> element. The <code>width</code> and <code>height</code> attributes define the size of the canvas, in pixels.</p><p id="f70013d1-319e-4478-8cd2-e1f9a5889389" class="">Let&#x27;s create a simple example. We need to add the <code>&lt;canvas&gt;</code> element to our HTML page. You can add a width and a height. Also, add an ID, so that we can access it from our JavaScript. I am also going to put a border on the canvas, so that we can see it.</p><pre id="2eea3797-8578-402e-bbb2-0e3b7acfb8d5" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;&lt;style&gt;
+      canvas {
+        border: 1px solid black;
+      }
+    &lt;/style&gt;&lt;title&gt;Canvas&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Canvas&lt;/h1&gt;&lt;canvas id=&quot;my-canvas&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;&lt;/canvas&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><h2 id="14a0813c-a604-4f2d-9b41-e8b4e069d053" class=""><strong>Creating the rendering context</strong></h2><p id="6e909be2-5f3c-4c0b-a1e2-28dafa9afc26" class="">Now, we need to create the rendering context. We can do this in our JavaScript file. We need to get a reference to the <code>&lt;canvas&gt;</code> element, and then call the <code>getContext()</code> method. The <code>getContext()</code> method takes a string argument, which is the type of context we want. In this case, we want a 2D context, so we pass in the string <code>&quot;2d&quot;</code>. This will return a 2D rendering context object, which we can store in a variable.</p><pre id="0ba73c3c-7643-4256-aafc-47d74a7df4c3" class="code code-wrap"><code>const canvas = document.getElementById(&#x27;my-canvas&#x27;);
+// Create a 2D context
+const ctx = canvas.getContext(&#x27;2d&#x27;);
+</code></pre><h2 id="570d1b69-1cf0-42e4-8d54-70eb0c2ccc55" class=""><strong>Drawing on the canvas</strong></h2><p id="22bb88c8-0da5-4000-95ea-8348a0857b68" class="">Let&#x27;s start by drawing a rectangle on the canvas:</p><pre id="f51518a5-97a6-448f-84ec-0972c4093e51" class="code code-wrap"><code>ctx.fillStyle = &#x27;green&#x27;;
+ctx.fillRect(10, 10, 150, 100);
+</code></pre><p id="aa5434ef-e31c-427a-a5c6-52bcc4980a9f" class="">Here we used the context object to set the fill style to green. We then used the <code>fillRect()</code> method to draw a rectangle. The <code>fillRect()</code> method takes four arguments: the x and y coordinates of the top-left corner, and the width and height of the rectangle.</p><h2 id="1f27baa2-3735-4f57-bdae-9daeb9045846" class=""><strong>Drawing a circle</strong></h2><p id="2b5ed64f-5903-4889-92fc-040c2faa27c2" class="">Let&#x27;s draw a circle on the canvas. We can do this by using the <code>arc()</code> method. The <code>arc()</code> method takes five arguments: the x and y coordinates of the center of the circle, the radius, the start angle and the end angle. The start angle and end angle are measured in radians. We can use the <code>Math.PI</code> constant to convert degrees to radians. For example, <code>Math.PI / 2</code> is 90 degrees, and <code>Math.PI</code> is 180 degrees.</p><pre id="12f145b7-80a0-49b4-bbb3-297399fddc21" class="code code-wrap"><code>ctx.beginPath();
+ctx.arc(300, 300, 100, 0, Math.PI * 2);
+ctx.fillStyle = &#x27;red&#x27;;
+ctx.fill();
+</code></pre><h2 id="7e85cd83-4a8a-4f9c-9fb4-99e1303f8808" class=""><strong>Drawing text</strong></h2><p id="bdc4bfb1-9c3b-40a0-85c5-25dcc7366dca" class="">We can draw text on the canvas using the <code>fillText()</code> method. The <code>fillText()</code> method takes three arguments: the text to draw, the x and y coordinates of the top-left corner of the text.</p><pre id="8f647d16-9b8a-4a60-b9f7-7d09f038a4e4" class="code code-wrap"><code>ctx.font = &#x27;30px Arial&#x27;;
+ctx.fillStyle = &#x27;blue&#x27;;
+ctx.fillText(&#x27;Hello World&#x27;, 10, 300);
+ctx.strokeText(&#x27;Hello World&#x27;, 10, 300);
+</code></pre><h2 id="83b6e515-40b6-48b7-bddb-7249659ab5ab" class=""><strong>Drawing lines</strong></h2><p id="2de1c8cf-8635-47fb-bf5a-4e37d7832a96" class="">We can draw lines from one point to another using the <code>moveTo()</code> and <code>lineTo()</code> methods. The <code>moveTo()</code> method takes two arguments: the x and y coordinates of the starting point. The <code>lineTo()</code> method takes two arguments: the x and y coordinates of the ending point.</p><pre id="3f7910de-8789-42ea-90e5-d39f62697f24" class="code code-wrap"><code>ctx.beginPath();
+ctx.moveTo(10, 10);
+ctx.lineTo(300, 300);
+ctx.lineTo(10, 300);
+ctx.lineTo(300, 10);
+ctx.strokeStyle = &#x27;orange&#x27;;
+ctx.stroke();
+</code></pre><p id="97b535d4-8336-4fe2-ba8d-35477932619c" class=""><code>stroke()</code> is used to draw the line.</p><h2 id="436371b0-f993-4ca5-a707-4e18712e8e43" class=""><strong>Drawing an image</strong></h2><p id="7c686400-2d44-4285-926f-616ff9145f80" class="">We can draw an image on the canvas using the <code>drawImage()</code> method. The <code>drawImage()</code> method takes five arguments: the image to draw, the x and y coordinates of the top-left corner of the image, and the width and height of the image. The image can be an <code>&lt;img&gt;</code> element, a <code>&lt;video&gt;</code> element or a <code>&lt;canvas&gt;</code> element.</p><p id="53ab5cdc-fa47-4473-a69a-bb140c17c5bb" class="">Let&#x27;s add an image on the page. I have a <code>ball.png</code> image in the sandbox files.</p><pre id="f537a85d-f004-4ef7-a31e-9d1ed7f8b7bb" class="code code-wrap"><code>&lt;img src=&quot;ball.png&quot; width=&quot;100&quot; height=&quot;100&quot; /&gt;</code></pre><pre id="9a4faee5-ea5d-4ee5-ae7f-16cd0728c201" class="code code-wrap"><code>const image = document.querySelector(&#x27;img&#x27;);
+image.style.display = &#x27;none&#x27;;
+
+image.addEventListener(&#x27;load&#x27;, () =&gt; {
+  ctx.drawImage(image, 270, 270, 50, 50);
+});
+</code></pre><p id="3520ed55-9e77-4a3a-bfcf-7470c6978e4d" class="">We brought in the image, and set the display to <code>none</code>, so that it is not visible on the page. We then added an event listener to the image, so that we can draw it on the canvas once it has loaded. We used the <code>drawImage()</code> method to draw the image on the canvas.</p><h2 id="a32740e2-6a9f-433d-9aa1-047d607f8f04" class=""><strong>Draw quadratic curves</strong></h2><p id="8386cff3-30e5-4161-9297-96beb4188436" class="">We can draw quadratic curves using the <code>quadraticCurveTo()</code> method. This method takes four arguments: the x and y coordinates of the control point, and the x and y coordinates of the end point.</p><pre id="08ca3241-5216-4890-9348-f42f9c61a648" class="code code-wrap"><code>ctx.beginPath();
+ctx.moveTo(10, 10);
+ctx.quadraticCurveTo(300, 300, 10, 300); // (cp1x, cp1y, x, y)
+ctx.strokeStyle = &#x27;purple&#x27;;
+ctx.stroke();
+</code></pre><p id="4d407fcb-ad75-4c85-8ce7-f87f1fb725ef" class="">There are other types of curves that we can draw, such as bezier curves and arcs. You can find more information about these in the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes">MDN documentation</a>.</p><p id="938f587c-2abc-4d43-a294-c0278aa5d240" class="">This is all very basic and may leave you saying, what is this actually good for? It&#x27;s actually very powerful, especially when you introduce animation, which we will do in the next lesson.</p></details></li></ul><ul id="b64086d3-e21a-4726-b913-2a75e2ebacb7" class="toggle"><li><details open=""><summary><strong>requestAnimationFrame</strong></summary><p id="63f2e388-f0f4-4a6d-b71c-d21b55a6fed7" class="">The <code>requestAnimationFrame()</code> method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.</p><p id="fbccfc3b-fe2f-4e37-93be-9da03b582057" class="">Let&#x27;s go through this very slowly so that I can explain everything in an understandable way.</p><p id="d5421ec4-b465-49b8-bbf7-4f4030cff445" class="">We are going to create a function called <code>step</code> to be called before the next repaint. For now, we will just log &#x27;hello&#x27; to the console.</p><pre id="ee7e25b8-8de2-4f9e-ad95-fb8b6dda9a6f" class="code code-wrap"><code>function step() {
+  console.log(&#x27;Hello&#x27;);
+}
+</code></pre><p id="7da9a8c5-785e-4d0d-a860-9db2d6df94ad" class="">Now, I am going to call the <code>requestAnimationFrame()</code> method, passing in the <code>step</code> function as an argument. This will tell the browser to call the <code>step</code> function before the next repaint.</p><pre id="baa45187-f4d9-40d1-8a01-0d60b7a49de8" class="code code-wrap"><code>requestAnimationFrame(step);
+</code></pre><p id="39112130-7174-4684-86c9-bd97483509d7" class="">No big deal, we just see &#x27;Hello&#x27; logged to the console once. That was just a single call to the <code>requestAnimationFrame()</code> method. Let&#x27;s make it a little more interesting. Let&#x27;s call the <code>requestAnimationFrame()</code> method inside the <code>step</code> function. This will tell the browser to call the <code>step</code> function before the next repaint, and then call the <code>step</code> function again before the next repaint, again and again, creating a loop.</p><pre id="cb485ec3-0b54-4734-b087-19d193f9042f" class="code code-wrap"><code>function step() {
+  console.log(&#x27;Hello&#x27;);
+  requestAnimationFrame(step);
+}
+
+requestAnimationFrame(step);
+</code></pre><p id="1cd99f7d-257f-469e-9a1e-ac9a5ac61067" class="">Now, you&#x27;re seeing &#x27;Hello&#x27; logged to the console over and over again, in a never-ending loop.</p><p id="8ac55e69-5add-4dba-a789-8d80eb78df25" class="">We can also pass in a timestamp to the <code>step</code> function. This is the number of milliseconds since the page was loaded. We can use this to calculate the time that has passed since the last repaint. Let&#x27;s log this to the console.</p><pre id="72121a52-a07f-479c-b1a2-afc3486797b6" class="code code-wrap"><code>function step(timestamp) {
+  console.log(timestamp);
+  requestAnimationFrame(step);
+}
+</code></pre><p id="d1cb2567-2943-49d9-bfb4-1a90a90cf30d" class="">Now, you&#x27;re seeing a number logged to the console over and over again, in a never-ending loop. This number is the number of milliseconds since the page was loaded. We can use this to calculate the time that has passed since the last repaint.</p><pre id="b36436d4-5cfd-4834-ba29-6d582155ea0c" class="code code-wrap"><code>let start;
+let done = false;
+
+function step(timestamp) {
+  if (start === undefined) {
+    start = timestamp;
+  }
+
+  const elapsed = timestamp - start;
+  console.log(elapsed);
+
+  requestAnimationFrame(step);
+}
+</code></pre><p id="b83f8ea9-bff0-4982-b042-e15aecfaddd3" class="">Here, we created some variables and we are using the <code>start</code> variable to store the timestamp of the first repaint. We are then using the <code>elapsed</code> variable to store the number of milliseconds that have passed since the first repaint. We are then logging this to the console.</p><p id="49290183-a0bd-4a58-a66b-97384d37d279" class="">Let&#x27;s make the animation stop after 2 seconds. We can do this by using the <code>done</code> variable. We are going to set the <code>done</code> variable to <code>true</code> after 2 seconds have passed. We are then going to check the <code>done</code> variable inside the <code>step</code> function. If the <code>done</code> variable is <code>true</code>, we are going to return from the function. This will stop the animation.</p><pre id="11fc7edc-6b88-453e-baf8-b0f553274e7b" class="code code-wrap"><code>function step(timestamp) {
+  if (start === undefined) {
+    start = timestamp;
+  }
+
+  const elapsed = timestamp - start;
+
+  if (elapsed &gt; 2000) {
+    done = true;
+  }
+  if (done) {
+    return;
+  }
+  requestAnimationFrame(step);
+}
+</code></pre><p id="bcfba0cc-402a-4aa1-8a8e-8e3a6337adc4" class="">Now let&#x27;s actually have something happen. Let&#x27;s move the soccer ball image. Or, I&#x27;m sorry, the &quot;football&quot;, image for my non-American friends. We will do this by changing the transform property of the image. I am also going to change the animation to 5 seconds.</p><pre id="a9bfb817-c9c7-4b01-bcf6-3e838ddf0dd1" class="code code-wrap"><code>function step(timestamp) {
+  if (start === undefined) {
+    start = timestamp;
+  }
+
+  const elapsed = timestamp - start;
+
+  if (elapsed &gt; 5000) {
+    done = true;
+  }
+  if (done) {
+    return;
+  }
+  image.style.transform = `translateX(${elapsed / 20}px)`;
+  requestAnimationFrame(step);
+}
+</code></pre><p id="2b317b8f-ee04-4232-a1bf-e21d230342b5" class="">Let&#x27;s rotate the ball as well. Just add <code>rotate</code> to the transform property.</p><pre id="a20e1840-8102-49ab-bbd7-eea3d7504443" class="code code-wrap"><code>image.style.transform = `translateX(${elapsed / 20}px) rotate(${
+  elapsed / 20
+}deg)`;
+</code></pre><p id="f823bd47-3d55-4b87-ae21-2bf60414f693" class="">Now that you know how the <code>canvas</code> API works as well as the <code>requestAnimationFrame()</code> method, in the next lesson, we will create an animated clock project.</p></details></li></ul><ul id="0640fdbf-8cd0-4ab8-bd4e-458d719c9d91" class="toggle"><li><details open=""><summary><strong>Animated Clock Project - Part 1</strong></summary><p id="479d4f79-f66b-4f73-8d89-f62727385eb4" class="">In this project, we will use the <code>canvas</code> api along with the <code>requestAnimationFrame</code> method to create an animated clock. This will be 2 parts. In this part, we will create the clock and animate it. In the next part, we will add a form to change the clocks colors and save the clock as an image.</p><h2 id="6854ac13-c394-498d-bf4d-ec60bb9c209c" class=""><strong>The HTML</strong></h2><p id="c94f271e-213f-46e8-9c41-a1ae157be0d5" class="">The HTML is very simple. We just have a <code>canvas</code> element. In part 2, we will have a form to change the look of the clock, but for now, we just have the clock on the canvas.</p><pre id="cd1cb3e7-bb92-4237-bbc3-f4cbdf824785" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;&lt;title&gt;Animated Clock&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;canvas id=&quot;canvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><p id="d501b525-eeac-42d1-9881-c4176346fb22" class="">Let&#x27;s start by creating our <code>clock()</code> function. This function will be called by the <code>requestAnimationFrame</code> method. For now, let&#x27;s get the current time and create a new canvas context</p><pre id="31191243-270f-4c97-bca0-3175cffeeea8" class="code code-wrap"><code>function clock() {
+  const now = new Date();
+  const canvas = document.getElementById(&#x27;canvas&#x27;);
+  const ctx = canvas.getContext(&#x27;2d&#x27;);
+}
+
+clock();
+</code></pre><p id="02cce537-d42b-4de7-b787-ac29aec2c378" class="">For now, we are not using <code>requestAnimationFrame</code> because we just want to test our code without any animation. We will add the <code>requestAnimationFrame</code> method later.</p><h2 id="4d9d5669-1565-4c56-8c02-49a39c62f157" class=""><strong>Setting Up the Canvas</strong></h2><p id="a4120d2a-956e-4825-a668-327033ec6a6d" class="">Before we draw anything, we need to set some initial values for the canvas and where we will draw the clock. I want to draw in the center of the canvas. Let&#x27;s add the following code:</p><pre id="ad899878-c599-46a9-8f81-cb7ea0328c78" class="code code-wrap"><code>function clock() {
+  const now = new Date();
+  const canvas = document.getElementById(&#x27;canvas&#x27;);
+  const ctx = canvas.getContext(&#x27;2d&#x27;);
+
+  // Setup canvas
+  ctx.save(); // Save the default state
+  ctx.clearRect(0, 0, 500, 500); // Clear the entire canvas
+  ctx.translate(250, 250); // Move the origin to the center of the canvas
+  ctx.rotate(-Math.PI / 2); // Rotate the canvas -90 degrees
+  // Set some default styles
+  ctx.strokeStyle = &#x27;#000000&#x27;;
+  ctx.fillStyle = &#x27;#f4f4f4&#x27;;
+  ctx.lineWidth = 5;
+  ctx.lineCap = &#x27;round&#x27;;
+}
+
+clock();
+</code></pre><p id="68f28a2d-cba4-4f08-9693-0cb43f9678df" class="">Remember, this will run before every frame, so we need to save the default state of the canvas and restore it after we are done drawing. We do this with the <code>save()</code> and <code>restore()</code> methods. We will also use use these methods before and after we draw certain parts of the clock.</p><p id="015c36e1-b541-496b-afda-8659510409bf" class="">We also need to clear the canvas before we draw anything. We also need to move the origin to the center of the canvas and rotate the canvas -90 degrees. This will make it easier to draw the clock. We then set some default styles for the canvas.</p><h2 id="21f20652-61d5-4849-be12-a3b2937896a9" class=""><strong>Draw clock face</strong></h2><p id="e2bb2c41-5f31-43ac-b446-a0d75e582410" class="">Now, let&#x27;s add the code to draw the clock face and border:</p><pre id="db28ac28-e4b2-46f8-8d7e-fdf5f1f58af1" class="code code-wrap"><code>function clock() {
+  const now = new Date();
+  const canvas = document.getElementById(&#x27;canvas&#x27;);
+  const ctx = canvas.getContext(&#x27;2d&#x27;);
+
+  // Setup canvas
+  ctx.save(); // Save the default state
+  ctx.clearRect(0, 0, 500, 500); // Clear the entire canvas
+  ctx.translate(250, 250); // Move the origin to the center of the canvas
+  ctx.rotate(-Math.PI / 2); // Rotate the canvas -90 degrees
+
+  // Set some default styles
+  ctx.strokeStyle = &#x27;#000000&#x27;;
+  ctx.fillStyle = &#x27;#f4f4f4&#x27;;
+  ctx.lineWidth = 5;
+  ctx.lineCap = &#x27;round&#x27;;
+
+  // Draw clock face
+  ctx.save();
+  ctx.beginPath();
+  ctx.lineWidth = 14;
+  ctx.strokeStyle = &#x27;#800000&#x27;;
+  ctx.arc(0, 0, 142, 0, Math.PI * 2, true);
+  ctx.stroke();
+  ctx.fill();
+  ctx.restore();
+
+  ctx.restore(); // Restore the default state
+}
+
+clock();
+</code></pre><p id="f2699fb8-7aa8-47c6-a143-b611d40d8be6" class="">We used the <code>save()</code> and <code>restore()</code> methods to save the default state of the canvas before we draw the clock border and restore it after we are done drawing the clock border. We also set the <code>lineWidth</code> to 14 and the <code>strokeStyle</code> to <code>#800000</code> before we draw the clock border. We created the circle using the <code>arc()</code> method. The <code>arc()</code> method takes 6 parameters: the x and y coordinates of the center of the circle, the radius of the circle, the starting angle, the ending angle, and a boolean value that determines if the circle is drawn clockwise or counter-clockwise. We set the starting angle to 0 and the ending angle to <code>Math.PI * 2</code> to draw a full circle.</p><h2 id="6aca8493-4b26-4c62-9e37-72552215c6a3" class=""><strong>Draw hour lines</strong></h2><p id="21c91de2-68a8-4469-9963-c5da552d9236" class="">Now, we will draw the hour lines on the clock. I am just going to add this code rather than repeating all of the code again. Just be sure to add it right below the clock border <code>restore()</code> and above the last default state <code>restore()</code>:</p><pre id="553a03b5-46a6-41d0-87b1-33d1feaa24b1" class="code code-wrap"><code>// Draw hour lines
+ctx.save();
+for (let i = 0; i &lt; 12; i++) {
+  ctx.beginPath();
+  ctx.rotate(Math.PI / 6);
+  ctx.moveTo(100, 0);
+  ctx.lineTo(120, 0);
+  ctx.stroke();
+}
+ctx.restore();
+</code></pre><p id="42aed952-7121-453b-9fa2-5ce5b0bf61fd" class="">Here, we used a for loop to draw 12 lines. We used the <code>rotate()</code> method to rotate the canvas 30 degrees before drawing each line. We then used the <code>moveTo()</code> and <code>lineTo()</code> methods to draw the lines.</p><h2 id="7352e58c-15bb-4fc6-9e9a-6bfa89c4dd5d" class=""><strong>Draw minute lines</strong></h2><pre id="98c4da64-0bd5-4fcb-9bba-36684d861191" class="code code-wrap"><code>// Draw minute lines
+ctx.save();
+ctx.lineWidth = 4;
+for (let i = 0; i &lt; 60; i++) {
+  // Do not draw on hour lines
+  if (i % 5 !== 0) {
+    ctx.beginPath();
+    ctx.moveTo(117, 0);
+    ctx.lineTo(120, 0);
+    ctx.stroke();
+  }
+  ctx.rotate(Math.PI / 30);
+}
+ctx.restore();
+</code></pre><p id="fd3633d8-93a8-4f53-8cff-6ac971e33d24" class="">We did the same thing here except we used a for loop to draw 60 lines. We used the <code>rotate()</code> method to rotate the canvas 6 degrees before drawing each line. We then used the <code>moveTo()</code> and <code>lineTo()</code> methods to draw the lines. We used the <code>stroke()</code> method to draw the lines. We also used an if statement to only draw the lines that are not on the hour marks. We used the <code>lineWidth</code> to 4 to make the minute marks thinner than the hour marks.</p><h2 id="492508f0-303c-41a5-87d6-1a1f9e02b469" class=""><strong>Creating the hands</strong></h2><p id="2b31f447-03e1-4384-aab0-6e4b844bf057" class="">Now we have to create the clock hands. The placement on these are based on the current time. Let&#x27;s first, get the hours, minutes, and seconds from the current time and log it.</p><pre id="5fff65e5-96fe-4f34-b84c-b0efa3471024" class="code code-wrap"><code>const hr = now.getHours() % 12;
+const min = now.getMinutes();
+const sec = now.getSeconds();
+console.log(`${hr}:${min}:${sec}`);
+</code></pre><h2 id="d4801082-cd47-458a-b88a-bcdddabdde4c" class=""><strong>Set hand colors</strong></h2><p id="63d6fe4d-8b21-46ab-8cbb-b1db5da01c14" class="">Right now, the <code>strokeStyle</code> is set to <code>#000</code>. I want the hands to be <code>#800000</code> like the border. So we need to set that here before we draw the hands:</p><pre id="070fd706-df38-478b-8750-4b8bfe8c8d0f" class="code code-wrap"><code>// Color for hands
+ctx.strokeStyle = &#x27;#800000&#x27;;
+</code></pre><h2 id="df5e5988-3682-45cb-8c9c-f3235a941e48" class=""><strong>Draw hour hand</strong></h2><p id="de9c9e30-fabc-4e82-b41b-936c6d0a2d6d" class="">Now, let&#x27;s draw the hour hand:</p><pre id="97719f57-3eca-40fb-bedc-ba3cb0802755" class="code code-wrap"><code>// Write Hours
+ctx.save();
+ctx.rotate(
+  (Math.PI / 6) * hr + (Math.PI / 360) * min + (Math.PI / 21600) * sec
+);
+ctx.lineWidth = 14;
+ctx.beginPath();
+ctx.moveTo(-20, 0);
+ctx.lineTo(80, 0);
+ctx.stroke();
+ctx.restore();
+</code></pre><p id="74ba2c76-04b8-433c-a6b6-0c9246563ce6" class="">The hour hand will not move yet, because we aren&#x27;t using <code>requestAnimationFrame</code>, but it should be in the correct place based on the time.</p><p id="9088fece-0154-43ef-9046-4028940c143d" class="">We used the <code>rotate()</code> method to rotate the canvas based on the current time. We used the <code>lineWidth</code> to 14 to make the hour hand thicker than the minute and second hands. We then used the <code>moveTo()</code> and <code>lineTo()</code> methods to draw the hour hand.</p><h2 id="25f21ed4-65b1-4251-8896-77611a7a153d" class=""><strong>Draw minute hand</strong></h2><pre id="b44794d5-0990-431c-bb7d-8623b56c0ad1" class="code code-wrap"><code>// Draw minute hand
+ctx.save();
+ctx.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec);
+ctx.lineWidth = 10;
+ctx.beginPath();
+ctx.moveTo(-28, 0);
+ctx.lineTo(112, 0);
+ctx.stroke();
+ctx.restore();
+</code></pre><h2 id="21e05e7b-0852-433d-9ad3-e3d9b970f9ed" class=""><strong>Draw second hand</strong></h2><pre id="3e46799b-e7e4-4296-8578-9536352a853d" class="code code-wrap"><code>// Draw second hand
+ctx.save();
+ctx.rotate((sec * Math.PI) / 30);
+ctx.strokeStyle = &#x27;#FF7F50&#x27;;
+ctx.fillStyle = &#x27;#FF7F50&#x27;;
+ctx.lineWidth = 6;
+ctx.beginPath();
+ctx.moveTo(-30, 0);
+ctx.lineTo(100, 0);
+ctx.stroke();
+ctx.beginPath();
+ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
+ctx.fill();
+ctx.restore();
+</code></pre><p id="f4a5b88f-673c-4ac7-bfe1-d47d6cd13510" class="">We also created the center circle of the clock here with the <code>arc()</code> method. We made it the same color as the second hand.</p><h2 id="2626b78a-be4a-4fed-a31c-ffcff22f700e" class=""><strong>Animating the clock</strong></h2><p id="1c414f5b-06a6-454c-a4f6-f523d3c52a3c" class="">Now, we just need to add the <code>requestAnimationFrame</code> to animate the clock:</p><pre id="05b34fc9-3252-4764-832e-e32130c70a35" class="code code-wrap"><code>function clock() {
+  // ...
+  requestAnimationFrame(clock);
+}
+
+requestAnimationFrame(clock);
+</code></pre><p id="3fcf3ce0-54e7-4f0d-bd28-19aa94f8abbf" class="">We now have a working clock!</p></details></li></ul><ul id="2f351872-3bd8-4039-a977-d39401dae226" class="toggle"><li><details open=""><summary><strong>Animated Clock Project - Part 2</strong></summary><p id="e6a082f4-ed3c-44fa-977b-8fc2f7d3b5bf" class="">In the last lesson, we used <code>canvas</code> to draw an animated clock. In this video, we will add a form with some CSS to change the clock colors and save the clock as an image. This is a good opportunity for you to try the color changing on your own. It is all stuff that we have worked with. You can get the value of the color inputs in the JS and simply add them as the <code>strokeStyle</code> and <code>fillStyle</code> where needed.</p><h2 id="37630cd6-f5e1-4265-b9d9-f002f8df8adf" class=""><strong>Creating the form</strong></h2><p id="5ea75b7c-6ed8-4c87-b280-63969af0954b" class="">Here is the HTML for the form. This is actually where we want to sent the default colors. The clock will directly correspond to the colors in the form.</p><pre id="8c36ba79-d5a7-44a4-8d34-2695a52ce1e4" class="code code-wrap"><code>&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;Clock Style&lt;/h3&gt;&lt;form&gt;&lt;div class=&quot;form-input&quot;&gt;&lt;label for=&quot;face-color&quot;&gt;Face Color&lt;/label&gt;&lt;input type=&quot;color&quot; value=&quot;#f4f4f4&quot; id=&quot;face-color&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;form-input&quot;&gt;&lt;label for=&quot;border-color&quot;&gt;Border Color&lt;/label&gt;&lt;input type=&quot;color&quot; value=&quot;#800000&quot; id=&quot;border-color&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;form-input&quot;&gt;&lt;label for=&quot;line-color&quot;&gt;Number Lines Color&lt;/label&gt;&lt;input type=&quot;color&quot; value=&quot;#000000&quot; id=&quot;line-color&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;form-input&quot;&gt;&lt;label for=&quot;large-hand-color&quot;&gt;Large Hands Color&lt;/label&gt;&lt;input type=&quot;color&quot; value=&quot;#800000&quot; id=&quot;large-hand-color&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;form-input&quot;&gt;&lt;label for=&quot;second-hand-color&quot;&gt;second-hand Hand Color&lt;/label&gt;&lt;input type=&quot;color&quot; value=&quot;#FF7F50&quot; id=&quot;second-hand-color&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;form-input&quot;&gt;&lt;button id=&quot;save-btn&quot; type=&quot;submit&quot;&gt;Save As Image&lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&lt;canvas id=&quot;canvas&quot; width=&quot;500&quot; height=&quot;500&quot;&gt;&lt;/canvas&gt;</code></pre><p id="bc8030c6-603b-4c2e-b1f0-848c1b7047ba" class="">We have a little but of CSS as well...</p><pre id="54c6b378-3985-4ec0-8455-7decd6a92d17" class="code code-wrap"><code>@import url(&#x27;https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&amp;display=swap&#x27;);
+
+body {
+  font-family: &#x27;Roboto&#x27;, sans-serif;
+  font-size: 18px;
+}
+
+button {
+  background: #333;
+  color: #fff;
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card {
+  background: #f4f4f4;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 7px 20px;
+  width: 300px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.form-input {
+  margin-bottom: 20px;
+}
+
+label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+</code></pre><p id="a504b410-85da-4ac3-a271-729338bb0e7e" class="">Now, in the JS, we need to get the values of the inputs. We can set variables to either the elements themselves or the values of the elements. I like to set them to the element and then just add <code>.value()</code> to get the value.</p><pre id="f90db059-0fc5-4b44-b1a4-4c446c757cf3" class="code code-wrap"><code>const faceColor = document.getElementById(&#x27;face-color&#x27;);
+const borderColor = document.getElementById(&#x27;border-color&#x27;);
+const lineColor = document.getElementById(&#x27;line-color&#x27;);
+const largeHandColor = document.getElementById(&#x27;large-hand-color&#x27;);
+const secondHandColor = document.getElementById(&#x27;second-hand-color&#x27;);
+</code></pre><h2 id="8acf66cb-daf8-45c1-ab9f-a08eed96f93a" class=""><strong>Face &amp; Border Color</strong></h2><p id="aa35764e-7c59-4561-93c9-9b2d06a9c3c4" class="">For the face color, we are using the default <code>fillStyle</code>, So we need to add a <code>fillStyle</code> to the face code between the <code>save()</code> and <code>restore()</code>. We will set the <code>fillStyle</code> to <code>faceColor.value</code>. The <code>strokeStyle</code> is the border, so we will set that to <code>borderColor.value</code>.</p><pre id="4df93f25-b59d-45e1-a484-00b56eaf5fc2" class="code code-wrap"><code>// Draw clock face/border
+ctx.save();
+ctx.beginPath();
+ctx.lineWidth = 14;
+ctx.fillStyle = faceColor.value; // Add this
+ctx.strokeStyle = borderColor.value; // Add this
+ctx.arc(0, 0, 142, 0, Math.PI * 2, true);
+ctx.stroke();
+ctx.fill();
+ctx.restore();
+</code></pre><p id="ace4747b-167c-49ad-81b4-77ba4c5cb997" class="">Now if you change those color inputs, it should reflect on the clock.</p><h2 id="1ed259cd-8894-49ce-97eb-c3a01dd1576b" class=""><strong>Number Lines Color</strong></h2><p id="a61594be-6ecd-4110-b774-acb0eefa36c7" class="">For the number lines, we need to add a <code>strokeStyle</code> right before the loop for the hour and minute lines. You could also put it inside the loop, but I like to keep it outside. We will set the <code>strokeStyle</code> to <code>lineColor.value</code>.</p><pre id="1d49cdb7-dfb1-46ff-b75d-f312ef0bc4bd" class="code code-wrap"><code>// Draw hour lines
+ctx.save();
+ctx.strokeStyle = lineColor.value; // Add this
+for (let i = 0; i &lt; 12; i++) {
+  ctx.beginPath();
+  ctx.rotate(Math.PI / 6);
+  ctx.moveTo(100, 0);
+  ctx.lineTo(120, 0);
+  ctx.stroke();
+}
+ctx.restore();
+
+// Draw minute lines
+ctx.save();
+ctx.lineWidth = 4;
+ctx.strokeStyle = lineColor.value; // Add this
+for (let i = 0; i &lt; 60; i++) {
+  if (i % 5 !== 0) {
+    ctx.beginPath();
+    ctx.moveTo(117, 0);
+    ctx.lineTo(120, 0);
+    ctx.stroke();
+  }
+  ctx.rotate(Math.PI / 30);
+}
+ctx.restore();
+</code></pre><h2 id="3fa22679-45c7-497f-9652-e64b45e7e5b3" class=""><strong>Large Hand Color</strong></h2><pre id="b9f37577-a7ed-4078-99f8-d174f9c1b2c8" class="code code-wrap"><code>// Draw hour hand
+ctx.save();
+ctx.rotate(
+  (Math.PI / 6) * hr + (Math.PI / 360) * min + (Math.PI / 21600) * sec
+);
+ctx.strokeStyle = largeHandColor.value; // Add this
+ctx.lineWidth = 14;
+ctx.beginPath();
+ctx.moveTo(-20, 0);
+ctx.lineTo(80, 0);
+ctx.stroke();
+ctx.restore();
+
+// Draw minute hand
+ctx.save();
+ctx.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec);
+ctx.strokeStyle = largeHandColor.value; // Add this
+ctx.lineWidth = 10;
+ctx.beginPath();
+ctx.moveTo(-28, 0);
+ctx.lineTo(112, 0);
+ctx.stroke();
+ctx.restore();
+</code></pre><h2 id="dcc6f3d9-fe71-4a5d-b7cd-27539da22709" class=""><strong>Second Hand Color</strong></h2><p id="1d6ad173-1431-4941-a62f-f10de4970af1" class="">We will add the value to the <code>strokeStyle</code> and <code>fillStyle</code> for the second hand. The <code>fillStyle</code> pertains to the clock center dot.</p><pre id="dc3537d9-b27f-4663-a0ca-425621780864" class="code code-wrap"><code>// Draw second hand
+ctx.save();
+ctx.rotate((sec * Math.PI) / 30);
+ctx.strokeStyle = secondHandColor.value; // Add this
+ctx.fillStyle = secondHandColor.value; // Add this
+ctx.lineWidth = 6;
+ctx.beginPath();
+ctx.moveTo(-30, 0);
+ctx.lineTo(100, 0);
+ctx.stroke();
+ctx.beginPath();
+ctx.arc(0, 0, 10, 0, Math.PI * 2, true);
+ctx.fill();
+ctx.restore();
+</code></pre><h2 id="a59a98f7-0726-4306-9654-89281e733c76" class=""><strong>Save As Image</strong></h2><p id="71e97f70-43e9-401d-b0ea-22e5d7362d19" class="">To save a canvas as an image, we can use the <code>toDataURL()</code> method. This will return a base64 encoded string. We can then essentially create a link and click it programmatically. We will do this in an event listener for the save button.</p><pre id="2531fd89-1238-4a09-a7ab-4d7da4ca72e9" class="code code-wrap"><code>document.getElementById(&#x27;save-btn&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+  const canvas = document.getElementById(&#x27;canvas&#x27;);
+  const dataURL = canvas.toDataURL(&#x27;image/png&#x27;);
+  const link = document.createElement(&#x27;a&#x27;);
+  link.download = &#x27;clock.png&#x27;;
+  link.href = dataURL;
+  link.click();
+});
+</code></pre><p id="85340813-90e3-435f-b58e-2bb00e089835" class="">Now, you can change the clock to any style that you want and download it as an image.</p></details></li></ul><ul id="6d588eca-583e-4af9-8f61-3285a0a26763" class="toggle"><li><details open=""><summary><strong>Web Audio API</strong></summary><p id="cb7d5525-6cd0-4338-be3c-06e159ba52b9" class="">The Audio API is a powerful tool for creating audio in the browser. It is a low-level API that allows you to create audio nodes and connect them together to create a sound. The nodes can be used to create effects, filters, and more. The API is also used to play audio files.</p><h2 id="1b39d89f-1603-4e97-9ce9-38230a3a7dbb" class=""><code><strong>&lt;audio&gt;</strong></code><strong> Element</strong></h2><p id="76680bbd-ee91-4375-8109-cf229e58122f" class="">The <code>&lt;audio&gt;</code> element is used to play audio files. It is a simple element, but you can interact with it using the JavaScript API. The element has a <code>src</code> attribute that is used to set the source of the audio file. Of course, you can change this within the JavaScript to play different audio files. I will show you how to do this in the next lesson where we build an audio player. The <code>&lt;audio&gt;</code> element also has a <code>controls</code> attribute that will show the default browser controls. Let&#x27;s embed a simple audio file in our HTML.</p><p id="0c1d017e-4a13-4cd6-a2d6-dda59bde6051" class=""><code>summer.mp3</code> is included in the resources for this lesson. You can also use a remote link to an audio file.</p><pre id="1a2a05e6-1942-452a-8db6-fe8e4679a00f" class="code code-wrap"><code>&lt;audio src=&quot;summer.mp3&quot; id=&quot;audio&quot; controls&gt;&lt;/audio&gt;</code></pre><p id="c94d3228-f6e7-4c4f-95b3-d13506b7b68f" class="">Since, I used the <code>controls</code> attribute, I can control the audio, however, usually we will create our own interface and control everything using the JavaScript API. Let&#x27;s look at the JavaScript API.</p><h2 id="e2c72f3b-e4ef-4e0b-b00f-3ee2ac08ee8d" class=""><strong>JavaScript API</strong></h2><p id="b3305302-9cb0-4a86-8aa7-51ca5f4813dd" class="">Here are some of the common methods and properties of the audio element.</p><ul id="0729fecc-eafa-4e62-ba73-eee74628e41c" class="bulleted-list"><li style="list-style-type:disc"><code>play()</code></li></ul><ul id="442f4eec-a4d3-4c34-b8b4-60c0688befed" class="bulleted-list"><li style="list-style-type:disc"><code>pause()</code></li></ul><ul id="268bd54c-72c3-49fd-bc30-4abd817d64d4" class="bulleted-list"><li style="list-style-type:disc"><code>currentTime</code></li></ul><ul id="177ee96f-6e3b-4985-96e9-87c580548612" class="bulleted-list"><li style="list-style-type:disc"><code>duration</code></li></ul><ul id="937ae45f-b5b8-4ba4-ac5f-864c4db08da2" class="bulleted-list"><li style="list-style-type:disc"><code>volume</code></li></ul><p id="5901b258-bcfc-4d5b-bb97-0fd1aa0be912" class="">Let&#x27;s remove the <code>controls</code> attribute and create our own buttons as well as a <code>current-time</code> div and a volume slider. This will be really ugly for now, but in another lesson, we will create a really cool looking audio player.</p><pre id="735b96b0-c442-4a00-9364-5c64046a1bd5" class="code code-wrap"><code>&lt;audio src=&quot;summer.mp3&quot; id=&quot;audio&quot;&gt;&lt;/audio&gt;&lt;button id=&quot;play&quot;&gt;Play&lt;/button&gt;&lt;button id=&quot;pause&quot;&gt;Pause&lt;/button&gt;&lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;&lt;div id=&quot;current-time&quot;&gt;&lt;/div&gt;&lt;input id=&quot;volume&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;1&quot; /&gt;</code></pre><p id="4af5528b-9b2d-4394-841d-fb4a362e7aea" class="">In the JavaScript, let&#x27;s bring all of the elements in</p><pre id="79bf78a0-e044-49f5-861c-d7a6ee123e22" class="code code-wrap"><code>const audio = document.getElementById(&#x27;audio&#x27;);
+const play = document.getElementById(&#x27;play&#x27;);
+const pause = document.getElementById(&#x27;pause&#x27;);
+const stop = document.getElementById(&#x27;stop&#x27;);
+const currentTime = document.getElementById(&#x27;current-time&#x27;);
+const volume = document.getElementById(&#x27;volume&#x27;);
+</code></pre><h2 id="3118ad5d-948f-4ab3-a54e-cc31e0881e5e" class=""><strong>play() &amp; pause()</strong></h2><p id="3ea94d1e-3fa3-4ccf-92f0-128361b26de3" class="">Then we can create events for the play and pause buttons and call the <code>play()</code> and <code>pause()</code> methods.</p><pre id="26fe2486-9572-49fa-83ef-29b8db1a669f" class="code code-wrap"><code>play.addEventListener(&#x27;click&#x27;, () =&gt; {
+  audio.play();
+});
+
+pause.addEventListener(&#x27;click&#x27;, () =&gt; {
+  audio.pause();
+});
+</code></pre><h2 id="b32d7333-dc8e-4af1-84d7-d13095db6ba0" class=""><strong>Stopping Audio</strong></h2><p id="ddc22176-471a-474c-9d95-a5a3cfd2442a" class="">We use <code>pause()</code> because there is no <code>stop()</code> method. We can use <code>pause()</code> and set the <code>currentTime</code> to <code>0</code> to stop the audio.</p><pre id="0edac681-2dd5-4d66-9266-aa1eaf5c5a98" class="code code-wrap"><code>const stop = document.getElementById(&#x27;stop&#x27;);
+
+stop.addEventListener(&#x27;click&#x27;, () =&gt; {
+  audio.pause();
+  audio.currentTime = 0;
+});
+</code></pre><p id="f73d6158-753b-48a9-ab9c-af81e487b466" class="">Now, the track is reset to the beginning.</p><h2 id="30a029ec-e697-4b19-ba14-26029c94386d" class=""><strong>timeUpdate Event</strong></h2><p id="f7b93d0c-0f9c-4ead-9181-e77d06b26a80" class="">The <code>timeupdate</code> event is fired when the <code>currentTime</code> is updated. In our project we will create a progress bar, but for now, let&#x27;s just view the <code>currentTime</code></p><pre id="a513eba4-9ab7-4f65-9658-e31198ed2d78" class="code code-wrap"><code>audio.addEventListener(&#x27;timeupdate&#x27;, () =&gt; {
+  // console.log(audio.currentTime);
+  currentTime.innerHTML = audio.currentTime;
+});
+</code></pre><h2 id="482c48be-cc19-4a8d-863f-c3ca229b6ea7" class=""><strong>Volume</strong></h2><p id="f2725078-a208-40b5-9ce5-79e42acc3c8e" class="">We can change the volume, by adding a listener on to the slider</p><pre id="0358cb97-d70a-4edd-95bf-7e00049f0683" class="code code-wrap"><code>volume.addEventListener(&#x27;change&#x27;, () =&gt; {
+  audio.volume = volume.value;
+});
+</code></pre><h2 id="dab4522a-7741-41e8-9451-361301799e77" class=""><strong>Adding filters &amp; effects</strong></h2><p id="f2a018cf-c77c-4a80-8b38-fcb959608bb4" class="">We can create audio interfaces, etc just by bringing in the audio element like we did and then using the API methods, however if you wanted to add filters, effects, etc, you would need to create an audio context and audio nodes. We will cover this in the next lesson.</p></details></li></ul><ul id="e3daa9f6-e145-47c5-84d6-64f4961c2b1f" class="toggle"><li><details open=""><summary><strong>Audio Context &amp; Nodes For Filtering &amp; Effects</strong></summary><p id="4f3a01ef-4fca-4c4b-b40e-5e375e429112" class="">In the last lesson, we saw how to control audio using the web audio API. However, the API is more powerful than just being used to control. We can also add all kinds of effects and filters. I am not going to pretend I know about this stuff, as far as adding &quot;biquad filters&quot; and all that. I&#x27;m far from an audio engineer. But I will show you how you can use them.</p><p id="1a8bb8fd-b682-462c-b801-1d41662d7126" class="">So we are going to use the same audio file as before. We will create an audio context and then create a source node. We will then create a <code>biquad filter</code> and connect the source node to the filter. Then we will connect the filter to the destination. The destination is the speakers. We will also create an oscillator node and connect it to the destination. This will allow us to hear the audio file and the oscillator at the same time.</p><p id="349d259d-18d6-4fe9-91bc-387250d334fd" class="">In our HTML, we have a new <code>filter</code> select and filter frequency slider as well as an <code>oscillator</code> select and an oscillator frequency slider as well as a stop button for the oscillator.</p><pre id="a097d42e-c5ae-4c01-a493-35c77fd05cef" class="code code-wrap"><code>&lt;audio src=&quot;summer.mp3&quot; id=&quot;audio&quot;&gt;&lt;/audio&gt;&lt;button id=&quot;play&quot;&gt;Play&lt;/button&gt;&lt;button id=&quot;pause&quot;&gt;Pause&lt;/button&gt;&lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;&lt;div id=&quot;current-time&quot;&gt;&lt;/div&gt;&lt;input id=&quot;volume&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; value=&quot;1&quot; /&gt;&lt;h4&gt;Filter&lt;/h4&gt;&lt;!-- Filter Select --&gt;
+&lt;select id=&quot;filter&quot;&gt;&lt;option value=&quot;none&quot;&gt;None&lt;/option&gt;&lt;option value=&quot;lowpass&quot;&gt;Lowpass&lt;/option&gt;&lt;option value=&quot;highpass&quot;&gt;Highpass&lt;/option&gt;&lt;option value=&quot;bandpass&quot;&gt;Bandpass&lt;/option&gt;&lt;option value=&quot;lowshelf&quot;&gt;Lowshelf&lt;/option&gt;&lt;option value=&quot;highshelf&quot;&gt;Highshelf&lt;/option&gt;&lt;option value=&quot;peaking&quot;&gt;Peaking&lt;/option&gt;&lt;option value=&quot;notch&quot;&gt;Notch&lt;/option&gt;&lt;option value=&quot;allpass&quot;&gt;Allpass&lt;/option&gt;&lt;/select&gt;&lt;label for=&quot;filter-frequency&quot;&gt;Filter Frequency&lt;/label&gt;&lt;input
+  id=&quot;filter-frequency&quot;type=&quot;range&quot;min=&quot;0&quot;max=&quot;1000&quot;step=&quot;1&quot;value=&quot;440&quot;/&gt;&lt;h4&gt;Oscillator&lt;/h4&gt;&lt;select id=&quot;oscillator&quot;&gt;&lt;option value=&quot;none&quot;&gt;None&lt;/option&gt;&lt;option value=&quot;sine&quot;&gt;Sine&lt;/option&gt;&lt;option value=&quot;square&quot;&gt;Square&lt;/option&gt;&lt;option value=&quot;sawtooth&quot;&gt;Sawtooth&lt;/option&gt;&lt;option value=&quot;triangle&quot;&gt;Triangle&lt;/option&gt;&lt;/select&gt;&lt;label for=&quot;oscillator-frequency&quot;&gt;Oscillator Frequency&lt;/label&gt;&lt;input
+  id=&quot;oscillator-frequency&quot;type=&quot;range&quot;min=&quot;0&quot;max=&quot;1000&quot;step=&quot;1&quot;value=&quot;440&quot;/&gt;&lt;button id=&quot;oscillator-stop&quot;&gt;Stop Oscillator&lt;/button&gt;</code></pre><p id="f0789886-d28b-46cb-8118-263fa54deb82" class="">Let&#x27;s bring in some additional elements:</p><pre id="33399480-bced-4380-ac74-a34c838576fb" class="code code-wrap"><code>const filterEl = document.getElementById(&#x27;filter&#x27;);
+const filterFrequency = document.getElementById(&#x27;filter-frequency&#x27;);
+const oscillatorEl = document.getElementById(&#x27;oscillator&#x27;);
+const oscillatorFrequency = document.getElementById(&#x27;oscillator-frequency&#x27;);
+const oscillatorStop = document.getElementById(&#x27;oscillator-stop&#x27;);
+</code></pre><h2 id="39a00591-ffa2-4a18-9d6c-48bb43461ba4" class=""><strong>Add Context &amp; nodes</strong></h2><p id="4d3ac6b8-5632-4cc0-bc6c-b8f5ac46c38c" class="">In order to do stuff like this, we need to create an <code>audio context</code> and then create a <code>source node</code>. We don&#x27;t want to do this in the global scope because Chrome will complain about auto play policies. So we will just create the context variable and then initialize it in the <code>play</code> function. We will do the same for the source node.</p><pre id="edee83fb-d188-4d50-9fd3-51960d3240e1" class="code code-wrap"><code>let audioCtx, gainNode;
+
+play.addEventListener(&#x27;click&#x27;, () =&gt; {
+  // Create an AudioContext &amp; connect the source to the gain node
+  audioCtx = new AudioContext();
+  const source = audioCtx.createMediaElementSource(audio);
+  gainNode = audioCtx.createGain();
+  source.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  audio.play();
+});
+</code></pre><p id="39dac0ed-d29e-42eb-8915-bd15515e0fbb" class="">Our player still works the same. We can play, pause, etc. We just created the audio context, then the source and we connected the source to the gain node. Then we connected the gain node to the destination. The destination, which are the speakers.</p><h2 id="09545c68-3354-4b9c-b37c-3bd0f4ee2df7" class=""><strong>Filter</strong></h2><p id="5c19d176-b85b-4d6a-a1a2-c3f5f715eff0" class="">Now we are going to make it so that we can select a filter. This is called a <code>biquad filter</code>. We will create the filter variable in the global scope so that the frequency event handler can access it.</p><pre id="3611f7a8-a281-416d-b4ce-c49eb0acfe2c" class="code code-wrap"><code>let filter;
+filterEl.addEventListener(&#x27;change&#x27;, () =&gt; {
+  filter = audioCtx.createBiquadFilter();
+  filter.type = filterEl.value;
+  gainNode.disconnect();
+  gainNode.connect(filter);
+  filter.connect(audioCtx.destination);
+});
+</code></pre><p id="cdc3baad-df68-47de-927d-6118bad10df4" class="">Let&#x27;s also add the frequency event handler.</p><pre id="1b1e2d22-3147-40a5-ba4e-41014146a85f" class="code code-wrap"><code>filterFrequency.addEventListener(&#x27;change&#x27;, () =&gt; {
+  filter.frequency.value = filterFrequency.value;
+  gainNode.disconnect();
+  gainNode.connect(filter);
+  filter.connect(audioCtx.destination);
+});
+</code></pre><p id="b9b8d7ba-39c1-49b3-a720-39fdfa0b1736" class="">We created a <code>biquad filter</code> and then set the type to the value of the select. We then disconnect the gain node from the destination and connect it to the filter. Then we connect the filter to the destination. This will allow us to hear the audio file with the filter applied. We also created the frequency handler.</p><p id="387548ec-8a68-4a4e-a466-f197b47b48d0" class="">Let&#x27;s try it out and play the audio file. We can select a filter and hear the difference. We can also change the frequency of the filter. We can do this by adding an event listener to the filter frequency slider.</p><h2 id="4e6777cc-f2ab-45df-a8c8-e65385839ec6" class=""><strong>Oscillator</strong></h2><p id="93e4e8a2-ab7f-4baf-bdc5-49a78dff68fa" class="">We can also add an oscillator. We will create the oscillator variable in the global scope so that the frequency event handler can access it. We also need to create a stop button handler.</p><pre id="20c2e240-9053-4e23-b87b-2a4c0675aab5" class="code code-wrap"><code>let oscillator;
+oscillatorEl.addEventListener(&#x27;change&#x27;, () =&gt; {
+  oscillator = audioCtx.createOscillator();
+  oscillator.type = oscillatorEl.value;
+  oscillator.frequency.value = 440; // 440Hz
+  oscillator.connect(audioCtx.destination);
+  oscillator.start();
+});
+
+oscillatorFrequency.addEventListener(&#x27;change&#x27;, () =&gt; {
+  oscillator.frequency.value = oscillatorFrequency.value;
+});
+
+oscillatorStop.addEventListener(&#x27;click&#x27;, () =&gt; {
+  oscillator.stop();
+});
+</code></pre><p id="24b4ca20-cc86-4c70-8a6b-5ec324da286d" class="">Now if we choose a type of oscillator, we can hear it. It&#x27;s VERY annoying. We can also change the frequency of the oscillator. We can also stop the oscillator.</p><p id="035240a2-6062-4fc9-baf5-f55a18cc10c2" class="">Again, I can&#x27;t really tell you the point of an oscillator. Maybe some of you are really good with audio and can tell me. But this is how you can use it with the audio API.</p></details></li></ul><ul id="2483caf6-cdc4-4916-8bde-7c5d9831b41c" class="toggle"><li><details open=""><summary><strong>Music Player Project</strong></summary><p id="6258175f-80e0-45fe-9981-5059cbc925a9" class="">Now, we are going to create a really nice looking music player. This is the same player that we used in my 20 vanilla projects course. I figured, why create a new project that will show you the same exact thing? This player also has some CSS transitions and animations.</p><p id="707e1297-dbc9-4c73-9bfd-22f6c2838bd7" class="">There is a folder called <code>music</code> with 3 songs in it. There is also a folder called <code>images</code> with 3 cover images. We will be using these songs and images for the player. In this project, the music file and image file should be the same.</p><h2 id="d98dc239-2645-4fb6-8501-3b6a71337dc2" class=""><strong>The HTML</strong></h2><p id="99a98524-164f-4fea-9abd-35345edf8c81" class="">Let&#x27;s go ahead and take a look at the HTML. It is really simple and minimal.</p><pre id="d2f91535-d061-4d12-afdc-af8bd12c50e0" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;&lt;link
+      rel=&quot;stylesheet&quot;href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css&quot;/&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;&lt;title&gt;Music Player&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;Music Player&lt;/h1&gt;&lt;div class=&quot;music-container&quot; id=&quot;music-container&quot;&gt;&lt;div class=&quot;music-info&quot;&gt;&lt;h4 id=&quot;title&quot;&gt;&lt;/h4&gt;&lt;div class=&quot;progress-container&quot; id=&quot;progress-container&quot;&gt;&lt;div class=&quot;progress&quot; id=&quot;progress&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;audio src=&quot;music/ukulele.mp3&quot; id=&quot;audio&quot;&gt;&lt;/audio&gt;&lt;div class=&quot;img-container&quot;&gt;&lt;img src=&quot;images/ukulele.jpg&quot; alt=&quot;music-cover&quot; id=&quot;cover&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;navigation&quot;&gt;&lt;button id=&quot;prev&quot; class=&quot;action-btn&quot;&gt;&lt;i class=&quot;fas fa-backward&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button id=&quot;play&quot; class=&quot;action-btn action-btn-big&quot;&gt;&lt;i class=&quot;fas fa-play&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button id=&quot;next&quot; class=&quot;action-btn&quot;&gt;&lt;i class=&quot;fas fa-forward&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><p id="5265880e-2eb7-43df-975e-1068bd67312e" class="">Notice, we did include the Font Awesome 5 CDN. We will be using some icons for the play, prev, next button, etc. We also have an area for the progress bar, an <code>h4</code> for the title, and an image for the cover. We have the default audio file and image as the ukulele song, but this player will have 3 songs and cover images.</p><h2 id="368478c5-ab5a-4880-a041-0ee34e71c969" class=""><strong>The CSS</strong></h2><p id="fea89521-aef0-48da-b439-19fea87dc97f" class="">Here is the CSS. I am not going to go over it all. It is pretty simple and self explanatory. The one thing I want to point out is the <code>.play</code> class. This class is applied to the music container via javascript. This is what makes the image rotate as well as the title slide up.</p><pre id="dce662ca-6d9a-4e7c-8fe6-c9a1b409ad31" class="code code-wrap"><code>@import url(&#x27;https://fonts.googleapis.com/css?family=Lato&amp;display=swap&#x27;);* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(
+    0deg,
+    rgba(247, 247, 247, 1) 23.8%,
+    rgba(252, 221, 221, 1) 92%
+  );
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: &#x27;Lato&#x27;, sans-serif;
+  margin: 0;
+}
+
+.music-container {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 20px 20px 0 rgba(252, 169, 169, 0.6);
+  display: flex;
+  padding: 20px 30px;
+  position: relative;
+  margin: 100px 0;
+  z-index: 10;
+}
+
+.img-container {
+  position: relative;
+  width: 110px;
+}
+
+.img-container::after {
+  content: &#x27;&#x27;;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, 50%);
+}
+
+.img-container img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 110px;
+  width: inherit;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: rotate 3s linear infinite;
+
+  animation-play-state: paused;
+}
+
+.music-container.play .img-container img {
+  animation-play-state: running;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.action-btn {
+  background-color: #fff;
+  border: 0;
+  color: #dfdbdf;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 20px;
+}
+
+.action-btn.action-btn-big {
+  color: #cdc2d0;
+  font-size: 30px;
+}
+
+.action-btn:focus {
+  outline: 0;
+}
+
+.music-info {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px 15px 0 0;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: calc(100% - 40px);
+  padding: 10px 10px 10px 150px;
+  opacity: 0;
+  transform: translateY(0%);
+  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+  z-index: 0;
+}
+
+.music-container.play .music-info {
+  opacity: 1;
+  transform: translateY(-100%);
+}
+
+.music-info h4 {
+  margin: 0;
+}
+
+.progress-container {
+  background: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  height: 4px;
+  width: 100%;
+}
+
+.progress {
+  background-color: #fe8daa;
+  border-radius: 5px;
+  height: 100%;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+</code></pre><h2 id="93117dd9-eb30-4d96-a1d6-15e3dc2c0fbd" class=""><strong>The JavaScript</strong></h2><p id="15e904ff-ddcb-4cb7-9662-c966605807c6" class="">Now for the fun part. First we will bring in all of the elements that we need.</p><pre id="a1f06247-2098-4f24-8255-322dece53837" class="code code-wrap"><code>const musicContainer = document.getElementById(&#x27;music-container&#x27;);
+const playBtn = document.getElementById(&#x27;play&#x27;);
+const prevBtn = document.getElementById(&#x27;prev&#x27;);
+const nextBtn = document.getElementById(&#x27;next&#x27;);
+
+const audio = document.getElementById(&#x27;audio&#x27;);
+const progress = document.getElementById(&#x27;progress&#x27;);
+const progressContainer = document.getElementById(&#x27;progress-container&#x27;);
+const title = document.getElementById(&#x27;title&#x27;);
+const cover = document.getElementById(&#x27;cover&#x27;);
+</code></pre><h2 id="3b364cf4-83bb-4d74-b57c-2677cc169b1d" class=""><strong>Setup &amp; Load Song</strong></h2><p id="bf9e7024-12e2-4fb3-9fac-26cf1c7fd808" class="">Next, we will create an array of songs and their cover images. Remember, they are named the same, so we just have an array with 3 titles/image names</p><pre id="1c65ae11-9df4-4765-84fd-b809df0ba9a4" class="code code-wrap"><code>const songs = [&#x27;hey&#x27;, &#x27;summer&#x27;, &#x27;ukulele&#x27;];
+</code></pre><p id="b85b51a5-b834-4fe4-8719-314763aa935e" class="">We need a way to keep track of the songs. So we will create a song index. We will start with the song with the index of 2.</p><pre id="d0ab2cef-36d2-4a1c-ac7f-b13d8b2a4771" class="code code-wrap"><code>let songIndex = 2;
+</code></pre><p id="8246ec48-d972-46a9-96cb-b367485cd962" class="">Now we will load the song into the DOM. We will set the title, audio source, and cover image source.</p><pre id="ad7565e4-9a3e-46a7-99dc-60dc1df2d764" class="code code-wrap"><code>loadSong(songs[songIndex]);
+
+function loadSong(song) {
+  title.innerText = song;
+  audio.src = `music/${song}.mp3`;
+  cover.src = `images/${song}.jpg`;
+}
+</code></pre><h2 id="7a8a559a-082d-40d7-9c6f-4292871cf2ec" class=""><strong>Play &amp; Pause Song</strong></h2><p id="b33c5f1f-8b38-4818-a1b3-1809e5aef8f0" class="">The play and pause button are the same, so we will have an event listener and then choose to run either the <code>playSong</code> or <code>pauseSong</code> function based on if the song is playing or not.</p><p id="da69eba5-2a4b-4560-8019-519e095fcefd" class="">This is also where we will either add or remove the <code>play</code> class from the music container. This will make the image spin and display the song info.</p><pre id="afaf3716-a7d3-41ee-841c-944fd6e02849" class="code code-wrap"><code>playBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  const isPlaying = musicContainer.classList.contains(&#x27;play&#x27;);
+
+  if (isPlaying) {
+    pauseSong();
+  } else {
+    playSong();
+  }
+});
+</code></pre><p id="45f66e9b-5668-4628-ad38-895c66f1fa72" class="">Let&#x27;s create both methods</p><pre id="1eec2095-70da-4020-b689-418c609a30fc" class="code code-wrap"><code>function playSong() {
+  musicContainer.classList.add(&#x27;play&#x27;); // Makes image spin and display info
+  playBtn.querySelector(&#x27;i.fas&#x27;).classList.remove(&#x27;fa-play&#x27;);
+  playBtn.querySelector(&#x27;i.fas&#x27;).classList.add(&#x27;fa-pause&#x27;);
+
+  audio.play();
+}
+
+function pauseSong() {
+  musicContainer.classList.remove(&#x27;play&#x27;);
+  playBtn.querySelector(&#x27;i.fas&#x27;).classList.add(&#x27;fa-play&#x27;);
+  playBtn.querySelector(&#x27;i.fas&#x27;).classList.remove(&#x27;fa-pause&#x27;);
+
+  audio.pause();
+}
+</code></pre><h2 id="4efecc82-3a4c-4263-8265-cb425beeaf14" class=""><strong>Prev &amp; Next Buttons</strong></h2><p id="4298cf18-ad78-4097-8dac-e0ce35254f56" class="">Now, let&#x27;s add the prev and next functionality. We need to change the song index and then load the song.</p><pre id="f2cf7999-bc5c-492f-ac4f-1d9f94a11a5f" class="code code-wrap"><code>prevBtn.addEventListener(&#x27;click&#x27;, prevSong);
+nextBtn.addEventListener(&#x27;click&#x27;, nextSong);
+
+function prevSong() {
+  songIndex--;
+
+  if (songIndex &lt; 0) {
+    songIndex = songs.length - 1;
+  }
+
+  loadSong(songs[songIndex]);
+
+  playSong();
+}
+
+function nextSong() {
+  songIndex++;
+
+  if (songIndex &gt; songs.length - 1) {
+    songIndex = 0;
+  }
+
+  loadSong(songs[songIndex]);
+
+  playSong();
+}
+</code></pre><h2 id="cfe0ffe9-dfc1-47c5-8721-266392c2a07c" class=""><strong>Show Progress Bar</strong></h2><p id="8baed21c-6b2f-47cc-9e38-3e21887077dd" class="">We need to show the progress bar. It should be relative to where in the song is being played. We listen for the <code>timeupdate</code> event on the audio element. This event is fired when the time indicated by the <code>currentTime</code> attribute has been updated. We will then calculate the percentage of the song that has been played and set the width of the progress bar.</p><pre id="67c21c7c-3aa8-41e6-b3cf-ae6912e1c936" class="code code-wrap"><code>audio.addEventListener(&#x27;timeupdate&#x27;, updateProgress);
+
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = audio.duration;
+
+  audio.currentTime = (clickX / width) * duration;
+}
+</code></pre><h2 id="a3a4dd10-169c-4f79-9cf8-a3b2082e1df4" class=""><strong>Set Progress Bar</strong></h2><p id="3600422c-69b7-4d23-b18f-e115ed9e04a8" class="">We also want to be able to click on the progress bar and have the song go to that point</p><pre id="17b278eb-19c0-4423-8782-ab6815698534" class="code code-wrap"><code>progressContainer.addEventListener(&#x27;click&#x27;, setProgress);
+
+function setProgress(e) {
+  const width = this.clientWidth;
+  const clickX = e.offsetX;
+  const duration = audio.duration;
+
+  audio.currentTime = (clickX / width) * duration;
+}
+</code></pre><p id="e23deb20-14b9-445f-8f9a-130afc066513" class="">That&#x27;s it! We now have a cool little music player.</p></details></li></ul><ul id="8faf4b42-85f8-4ac5-8614-8fc05ed1db11" class="toggle"><li><details open=""><summary><strong>Drum Machine Project</strong></summary><p id="50f6601a-1bcf-445b-9c60-51774ad67fed" class="">In this project, we will create a drum machine that plays sounds when the user presses specific keys. We will use the <code>Audio</code> object to play the sounds.</p><h2 id="240d8e78-98a7-4bbb-ac88-7161da728419" class=""><strong>The HTML</strong></h2><p id="f9a03f04-a3f2-4f31-940a-118ab3f701cc" class="">Let&#x27;s start with the HTML.</p><pre id="09c4a79f-1e7b-4426-af62-03bf1499e6ce" class="code code-wrap"><code>&lt;header&gt;&lt;h1&gt;Drum Machine&lt;/h1&gt;&lt;/header&gt;&lt;div class=&quot;keys&quot;&gt;&lt;div data-key=&quot;65&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;A&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;clap&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;83&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;S&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;hihat&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;68&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;D&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;kick&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;70&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;F&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;openhat&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;71&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;G&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;boom&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;72&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;H&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;ride&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;74&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;J&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;snare&lt;/span&gt;&lt;/div&gt;&lt;div data-key=&quot;75&quot; class=&quot;key&quot;&gt;&lt;kbd&gt;K&lt;/kbd&gt;&lt;span class=&quot;sound&quot;&gt;tom&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;audio data-key=&quot;65&quot; src=&quot;sounds/clap.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;83&quot; src=&quot;sounds/hihat.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;68&quot; src=&quot;sounds/kick.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;70&quot; src=&quot;sounds/openhat.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;71&quot; src=&quot;sounds/boom.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;72&quot; src=&quot;sounds/ride.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;74&quot; src=&quot;sounds/snare.wav&quot;&gt;&lt;/audio&gt;&lt;audio data-key=&quot;75&quot; src=&quot;sounds/tom.wav&quot;&gt;&lt;/audio&gt;</code></pre><p id="0e31f1d9-6fe3-4a75-914f-706a66054d81" class="">We are creating a <code>div</code> for each key. We are using the <code>data-key</code> attribute to store the key code for each key. We went over key codes in past lessons. We are also adding a <code>span</code> element to display the name of the sound. At the bottom, we are adding an <code>audio</code> element for each sound. We are using the <code>data-key</code> attribute to store the key code for each sound.</p><h2 id="43366733-7a93-438e-a85f-71d0e86590e7" class=""><strong>The CSS</strong></h2><p id="e1d64440-747c-4d4b-ae17-5427b906d59c" class="">Just some simple CSS to style the page.</p><pre id="be670143-46ee-4c1c-93f8-a9238a3b0d3e" class="code code-wrap"><code>@import url(&#x27;https://fonts.googleapis.com/css?family=Poppins:300,400,700&#x27;);html,
+body {
+  font-family: &#x27;Poppins&#x27;, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #f4f4f4;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.keys {
+  font-size: 40px;
+  width: 500px;
+  margin: 100px auto;
+}
+
+.keys kbd {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #eee;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.keys .playing kbd {
+  transform: scale(1.2);
+  transition: all 0.07s;
+}
+</code></pre><h2 id="4164c0a9-a262-4041-9ba9-708a22846a5b" class=""><strong>The JavaScript</strong></h2><p id="c00f2fa6-e48b-4d3d-bcc8-fe4ddddc73b6" class="">Surprisingly, this will only take about 13 or 14 lines of code.</p><pre id="fff32e5e-be0f-4610-b2d5-53c54e5a42a4" class="code code-wrap"><code>window.addEventListener(&#x27;keydown&#x27;, playSound);
+
+function playSound(e) {
+  const audio = document.querySelector(`audio[data-key=&quot;${e.keyCode}&quot;]`);
+  const key = document.querySelector(`.key[data-key=&quot;${e.keyCode}&quot;]`);
+  if (!audio) return; // stop the function from running all together
+  audio.currentTime = 0; // rewind to the start
+  audio.play();
+  key.classList.add(&#x27;playing&#x27;);
+
+  setTimeout(() =&gt; {
+    key.classList.remove(&#x27;playing&#x27;);
+  }, 100);
+}
+</code></pre><p id="3f17adb0-7ab5-4844-a391-e7672cce81d2" class="">We are adding an event listener to the <code>window</code> object. We are listening for the <code>keydown</code> event. When the event fires, we are calling the <code>playSound</code> function. The <code>playSound</code> function takes an event object as a parameter. We are using the <code>keyCode</code> property of the event object to get the key code of the key that was pressed. We are using the <code>querySelector</code> method to get the <code>audio</code> element and the <code>key</code> element that have the same <code>data-key</code> attribute as the key code of the key that was pressed. We are using the <code>play</code> method to play the sound. We are using the <code>currentTime</code> property to rewind the sound to the start. We are using the <code>classList</code> property to add the <code>playing</code> class to the <code>key</code> element. We are using the <code>setTimeout</code> method to remove the <code>playing</code> class from the <code>key</code> element after 100 milliseconds.</p><p id="651562fa-05a3-4ac3-a6e2-a5b9433bc5a1" class="">Now, when you press a key, the sound will play and the key will animate. Have fun!</p></details></li></ul><ul id="877b4bdc-7066-4eb8-bedf-bcd5756f5d08" class="toggle"><li><details open=""><summary><strong>Video API</strong></summary><p id="01533086-1a87-4a98-85f4-7ee5392d42a9" class="">Just like the audio API, the video API is a set of methods and properties that allow you to control the video element. In fact, you&#x27;ll see that they both use many of the same methods.</p><p id="f64f733f-1a34-4324-b733-8c250433a9cd" class="">First, let&#x27;s use the HTML5 video element to play a video. I have included a <code>clouds.mov</code> video in the sandbox files, but you can use any video that you want.</p><pre id="308a650b-4385-4e7f-bdb7-fc8c7e537380" class="code code-wrap"><code>&lt;vide controls width=&quot;700&quot;&gt;&lt;source src=&quot;media/clouds.mov&quot; /&gt;
+&lt;/vide
+</code></pre><p id="3b453dbe-b736-40ba-9e4b-ebd914f912e9" class="">There are some attributes that you can use for the <code>video</code> element:</p><ul id="fe825e9d-bde8-4974-a5d0-09775ba943fe" class="bulleted-list"><li style="list-style-type:disc"><code>controls</code> - This will show the default controls for the video</li></ul><ul id="acb7574f-39e8-4925-a5ea-5194e6c9cb0e" class="bulleted-list"><li style="list-style-type:disc"><code>autoplay</code> - This will automatically play the video when the page loads</li></ul><ul id="f5e4cea4-b2ab-4ef2-8c2b-d7391d526a1d" class="bulleted-list"><li style="list-style-type:disc"><code>muted</code> - This will mute the video (In Chrome, the video must be muted for autoplay to work)</li></ul><ul id="d2b8084c-33f4-4ca0-9435-fbc15fdf8860" class="bulleted-list"><li style="list-style-type:disc"><code>loop</code> - This will loop the video</li></ul><ul id="5c1a9ba4-9316-498f-998c-b95172eb17bd" class="bulleted-list"><li style="list-style-type:disc"><code>poster</code> - This will show an image before the video starts playing</li></ul><ul id="715a858a-b30a-4f0e-900d-250d32087ea2" class="bulleted-list"><li style="list-style-type:disc"><code>width</code> - This will set the width of the video</li></ul><ul id="c57d8112-11e1-4874-93d4-27119929b8b2" class="bulleted-list"><li style="list-style-type:disc"><code>height</code> - This will set the height of the video</li></ul><p id="f42a340a-9159-4d2c-b00a-40d25cf354eb" class="">Let&#x27;s give the video a poster. We will use the <code>poster.png</code> image in the sandbox files.</p><pre id="9ce6fd5f-e265-4765-8589-30cd39ff7088" class="code code-wrap"><code>&lt;video controls width=&quot;700&quot; poster=&quot;media/poster.png&quot;&gt;&lt;source src=&quot;media/clouds.mov&quot; /&gt;&lt;/video&gt;</code></pre><p id="211d1026-8733-49a1-abf5-702cb1efc058" class="">Let&#x27;s also make it loop and autoplay. It must also be muted for autoplay.</p><pre id="9f2581a8-559e-4532-9e63-d858aa68dcb3" class="code code-wrap"><code>&lt;video controls autoplay loop width=&quot;700&quot; poster=&quot;media/poster.png&quot; muted&gt;&lt;source src=&quot;media/clouds.mov&quot; /&gt;&lt;/video&gt;</code></pre><h2 id="91598ab1-b9aa-4c0e-a54b-294eb89e8449" class=""><strong>JavaScript API</strong></h2><p id="4054a262-6381-4ec5-92a2-1eca6095ac9b" class="">The JavaScript API for the video element is very similar to the audio element. Let&#x27;s add a play, pause, stop button and a current-time div to display the time. In the next video, we will create a nice looking video player, but for now, I just want you to learn the basic methods.</p><p id="d9890c4d-846d-498d-8f8f-ab517710d611" class="">Let&#x27;s add the buttons and also remove all of the attributes except for <code>width</code> and <code>poster</code>. We will use JavaScript to control the video.</p><pre id="729e01aa-e0e7-4c59-9555-9d91b9652993" class="code code-wrap"><code>&lt;video width=&quot;700&quot;&gt;&lt;source src=&quot;media/clouds.mov&quot; width=&quot;700&quot; poster=&quot;media/poster.png&quot; /&gt;&lt;/video&gt;&lt;div&gt;&lt;button id=&quot;play&quot;&gt;Play&lt;/button&gt;&lt;button id=&quot;pause&quot;&gt;Pause&lt;/button&gt;&lt;button id=&quot;stop&quot;&gt;Stop&lt;/button&gt;&lt;div id=&quot;current-time&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code></pre><p id="22b9ef5e-a121-4208-b2d3-d73fb65a12e4" class="">In the JavaScript, let&#x27;s bring in what we need.</p><pre id="5a0067c1-1680-47a1-87ea-5b8ff377941f" class="code code-wrap"><code>const video = document.querySelector(&#x27;video&#x27;);
+const play = document.getElementById(&#x27;play&#x27;);
+const pause = document.getElementById(&#x27;pause&#x27;);
+const stop = document.getElementById(&#x27;stop&#x27;);
+const currentTime = document.getElementById(&#x27;current-time&#x27;);
+</code></pre><p id="19d5057f-4448-4371-91aa-d1881be24244" class="">We will add an event listener on the play and pause button and then call the <code>play()</code> and <code>pause()</code> methods.</p><pre id="889b0111-7820-471b-a666-709f71eff922" class="code code-wrap"><code>play.addEventListener(&#x27;click&#x27;, () =&gt; {
+  video.play();
+});
+
+pause.addEventListener(&#x27;click&#x27;, () =&gt; {
+  video.pause();
+});
+</code></pre><p id="a911ae3a-0295-49f7-a82c-d8637d54c10a" class="">Just like with the audio API, there is no <code>stop()</code> method, so we will pause and reset the time.</p><pre id="540288cd-f4b1-4daf-9603-4c343368c2bc" class="code code-wrap"><code>stop.addEventListener(&#x27;click&#x27;, () =&gt; {
+  video.pause();
+  video.currentTime = 0;
+});
+</code></pre><p id="5b8f3f71-7414-4b98-8a98-a14e9d8d85ad" class="">To show the current time, we will listen for the <code>timeupdate</code> event and then display the current time.</p><pre id="e55f63e0-793e-4910-b9c2-0cdf9450db5b" class="code code-wrap"><code>video.addEventListener(&#x27;timeupdate&#x27;, () =&gt; {
+  currentTime.textContent = video.currentTime;
+});
+</code></pre><p id="a34ec12f-8751-40c2-892a-b4bb501bec65" class="">In the next video, we will get a little more into this and create a custom video player.</p></details></li></ul><ul id="645f7dca-51e6-4b80-a82a-8bceeb1cf343" class="toggle"><li><details open=""><summary><strong>Video Player Project</strong></summary><p id="64e5052a-5f2c-49ff-85a3-a3022657ecc5" class="">Now, we are going to create a custom video player using the video API.</p><h2 id="54c0c6cc-6f36-42a7-984f-2d96f23dbd21" class=""><strong>The HTML</strong></h2><p id="628ce69a-2bbb-4c85-9c3a-78edb07dc92b" class="">The HTML is pretty simple. We have our <code>video</code> element and then some custom controls and a time display. We are also including font awesome because we are using it for the icons.</p><pre id="43e4eb27-5848-4fe9-a8dc-b128e9cd4f15" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;&lt;title&gt;Custom Video Player&lt;/title&gt;&lt;link
+      href=&quot;https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css&quot;rel=&quot;stylesheet&quot;integrity=&quot;sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN&quot;crossorigin=&quot;anonymous&quot;/&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;&lt;/head&gt;&lt;body&gt;&lt;video
+      src=&quot;media/clouds.mov&quot;poster=&quot;media/poster.png&quot;id=&quot;video&quot;class=&quot;screen&quot;&gt;&lt;/video&gt;&lt;div class=&quot;controls&quot;&gt;&lt;button class=&quot;btn&quot; id=&quot;play&quot;&gt;&lt;i class=&quot;fa fa-play fa-2x&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button class=&quot;btn&quot; id=&quot;stop&quot;&gt;&lt;i class=&quot;fa fa-stop fa-2x&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;input
+        type=&quot;range&quot;id=&quot;progress&quot;class=&quot;progress&quot;min=&quot;0&quot;max=&quot;100&quot;step=&quot;0.1&quot;value=&quot;0&quot;/&gt;&lt;span class=&quot;timestamp&quot; id=&quot;timestamp&quot;&gt;00:00&lt;/span&gt;&lt;/div&gt;&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><h2 id="62132dea-1f11-4551-bdee-15b899048fb7" class=""><strong>The CSS</strong></h2><p id="8104e9e0-5c6d-46b9-8232-002884a9e392" class="">The CSS is quite long, mostly because we used a custom slider. You don&#x27;t really need to pay much attention to this part as this is not a CSS course.</p><pre id="c0e33aa7-ada5-494c-ab1c-8d60c18bbfa7" class="code code-wrap"><code>@import url(&#x27;https://fonts.googleapis.com/css?family=Questrial&amp;display=swap&#x27;);* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: &#x27;Questrial&#x27;, sans-serif;
+  background-color: steelblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  margin: 30px 0;
+}
+
+h1 {
+  color: #fff;
+}
+
+.screen {
+  cursor: pointer;
+  width: 60%;
+  background-color: #000 !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.controls {
+  background: #333;
+  color: #fff;
+  width: 60%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.controls .btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls .fa-play {
+  color: #28a745;
+}
+
+.controls .fa-stop {
+  color: #dc3545;
+}
+
+.controls .fa-pause {
+  color: #fff;
+}
+
+.controls .timestamp {
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+input[type=&#x27;range&#x27;] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type=&#x27;range&#x27;]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=&#x27;range&#x27;]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=&#x27;range&#x27;]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+/* Special styling for WebKit/Blink */
+input[type=&#x27;range&#x27;]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=&#x27;range&#x27;]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=&#x27;range&#x27;]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type=&#x27;range&#x27;]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=&#x27;range&#x27;]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=&#x27;range&#x27;]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=&#x27;range&#x27;]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=&#x27;range&#x27;]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=&#x27;range&#x27;]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=&#x27;range&#x27;]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=&#x27;range&#x27;]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+@media (max-width: 800px) {
+  .screen,
+  .controls {
+    width: 90%;
+  }
+}
+</code></pre><h2 id="3a902e27-e605-4393-a047-6d5e692e45d8" class=""><strong>The JavaScript</strong></h2><p id="f9027b08-64b0-49b1-85c2-c40359520543" class="">Let&#x27;s start by bringing in what we need from the DOM:</p><pre id="f6722dbd-3d02-4207-8b86-930f4c56e6a2" class="code code-wrap"><code>const video = document.getElementById(&#x27;video&#x27;);
+const play = document.getElementById(&#x27;play&#x27;);
+const stop = document.getElementById(&#x27;stop&#x27;);
+const progress = document.getElementById(&#x27;progress&#x27;);
+const timestamp = document.getElementById(&#x27;timestamp&#x27;);
+</code></pre><h2 id="83ba30bc-6bcd-420f-9d4a-5b3f2afd51e0" class=""><strong>Play/pause video</strong></h2><p id="6c076900-2ca6-4023-9d86-4b6b3ba17ea1" class="">Let&#x27;s create a function to toggle the video between playing and pausing and add the event listeners. I want it on the play button as well as the video itself.</p><pre id="80f1dfe4-6fae-49a3-803b-adbe4291a8e8" class="code code-wrap"><code>function playPause() {
+  if (video.paused) {
+    video.play();
+  } else {
+    video.pause();
+  }
+}
+
+video.addEventListener(&#x27;click&#x27;, playPause);
+play.addEventListener(&#x27;click&#x27;, playPause);
+</code></pre><h2 id="07677cb0-b3f1-4e08-bdb2-90702bceba25" class=""><strong>Update icon</strong></h2><p id="b42e50fc-1450-44c9-a1bc-05104a8432b6" class="">Now let&#x27;s update the icon. If it is playing, the icon should show a play icon, if it is paused, it should show a pause icon.</p><pre id="8c49ae49-bef5-458d-abad-abcf933c7f8e" class="code code-wrap"><code>function updateIcon() {
+  if (video.paused) {
+    play.innerHTML = &#x27;&lt;i class=&quot;fa fa-play fa-2x&quot;&gt;&lt;/i&gt;&#x27;;
+  } else {
+    play.innerHTML = &#x27;&lt;i class=&quot;fa fa-pause fa-2x&quot;&gt;&lt;/i&gt;&#x27;;
+  }
+}
+
+video.addEventListener(&#x27;pause&#x27;, updateIcon);
+video.addEventListener(&#x27;play&#x27;, updateIcon);
+</code></pre><h2 id="7a57c0c9-6dc5-4746-b98a-e96529cf16e5" class=""><strong>Stop video</strong></h2><p id="1dd660c6-e734-4867-adee-b391040e2ef3" class="">Let&#x27;s create the stop function and event.</p><pre id="2dcec9b4-8717-4770-b9f0-41f45545836a" class="code code-wrap"><code>function stopVideo() {
+  video.currentTime = 0;
+  video.pause();
+}
+
+stop.addEventListener(&#x27;click&#x27;, stopVideo);
+</code></pre><h2 id="505a2855-0a9d-49a2-83e8-bd56f5b14e39" class=""><strong>Progress bar</strong></h2><p id="485d714a-ce33-4e2f-8ccc-dbc55940d981" class="">Let&#x27;s make the progress bar function. We can use the <code>timeupdate</code> event to do so.</p><pre id="00ccf3fd-ed6a-4dc3-af5c-171b6caab9f0" class="code code-wrap"><code>function updateProgress() {
+  progress.value = (video.currentTime / video.duration) * 100;
+
+  // Get minutes
+  let mins = Math.floor(video.currentTime / 60);
+  if (mins &lt; 10) {
+    mins = &#x27;0&#x27; + String(mins);
+  }
+
+  // Get seconds
+  let secs = Math.floor(video.currentTime % 60);
+  if (secs &lt; 10) {
+    secs = &#x27;0&#x27; + String(secs);
+  }
+
+  timestamp.innerHTML = `${mins}:${secs}`;
+}
+
+video.addEventListener(&#x27;timeupdate&#x27;, updateProgress);
+</code></pre><h2 id="2b1e5445-2de6-4fc9-a648-ad1ccf881084" class=""><strong>Set progress bar</strong></h2><p id="84e23f9b-e529-48fb-956e-05ebccaca74d" class="">We also want to be able to click anywhere on the bar and have it take us to that point in the video.</p><pre id="b7cc8021-3531-4056-afa8-ded984fce87a" class="code code-wrap"><code>function setVideoProgress() {
+  video.currentTime = (+progress.value * video.duration) / 100;
+}
+
+progress.addEventListener(&#x27;change&#x27;, setVideoProgress);
+</code></pre><p id="3b3dd3be-62fd-471b-93ef-3dfee9ab869b" class="">That&#x27;s it! We now have a custom video player using the video API.</p></details></li></ul><ul id="d52fcc75-3bdc-49a6-b363-e56513bc93d3" class="toggle"><li><details open=""><summary><strong>Web Animations API</strong></summary><p id="04c63091-0f9e-46b3-b89f-35fb53e201f5" class="">The Web Animations API lets us construct animations and control their playback with JavaScript. A lot of times we use a combination of CSS and JavaScript, but this API allows us to do all of the animation work in JavaScript.</p><p id="447db923-aa7c-49d1-9337-0c647852c832" class="">We are going to build a little project for this section.</p><h2 id="f35b9c65-de3e-4ddc-bb9e-af9bbe0ed03f" class=""><strong>The HTML</strong></h2><pre id="05888a02-800f-48b4-b00f-1b98d6a5077a" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot; /&gt;&lt;title&gt;Web Animations API&lt;/title&gt;&lt;link
+      rel=&quot;stylesheet&quot;href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css&quot;integrity=&quot;sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==&quot;crossorigin=&quot;anonymous&quot;referrerpolicy=&quot;no-referrer&quot;/&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;controls&quot;&gt;&lt;button id=&quot;play&quot;&gt;&lt;i class=&quot;fa-solid fa-play&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button id=&quot;pause&quot;&gt;&lt;i class=&quot;fa-solid fa-pause&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button id=&quot;reverse&quot;&gt;&lt;i class=&quot;fa-solid fa-clock-rotate-left&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button id=&quot;speed-up&quot;&gt;&lt;i class=&quot;fa-solid fa-plus&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button id=&quot;slow-down&quot;&gt;Slow Down&lt;/button&gt;&lt;/div&gt;&lt;div id=&quot;ball&quot;&gt;&lt;svg
+          xmlns=&quot;http://www.w3.org/2000/svg&quot;width=&quot;194&quot;height=&quot;194&quot;version=&quot;1.1&quot;&gt;&lt;circle fill=&quot;#000000&quot; cx=&quot;97&quot; cy=&quot;97&quot; r=&quot;97&quot; /&gt;&lt;path
+            fill=&quot;#ffffff&quot;d=&quot;m 94,9.2 a 88,88 0 0 0 -55,21.8 l 27,0 28,-14.4 0,-7.4 z m 6,0 0,7.4 28,14.4 27,0 a 88,88 0 0 0 -55,-21.8 z m -67.2,27.8 a 88,88 0 0 0 -20,34.2 l 16,27.6 23,-3.6 21,-36.2 -8.4,-22 -31.6,0 z m 96.8,0 -8.4,22 21,36.2 23,3.6 15.8,-27.4 a 88,88 0 0 0 -19.8,-34.4 l -31.6,0 z m -50,26 -20.2,35.2 17.8,30.8 39.6,0 17.8,-30.8 -20.2,-35.2 -34.8,0 z m -68.8,16.6 a 88,88 0 0 0 -1.8,17.4 88,88 0 0 0 10.4,41.4 l 7.4,-4.4 -1.4,-29 -14.6,-25.4 z m 172.4,0.2 -14.6,25.2 -1.4,29 7.4,4.4 a 88,88 0 0 0 10.4,-41.4 88,88 0 0 0 -1.8,-17.2 z m -106,57.2 -15.4,19 L 77.2,182.6 a 88,88 0 0 0 19.8,2.4 88,88 0 0 0 19.8,-2.4 l 15.4,-26.6 -15.4,-19 -39.6,0 z m -47.8,2.6 -7,4 A 88,88 0 0 0 68.8,180.4 l -14,-24.6 -25.4,-16.2 z m 135.2,0 -25.4,16.2 -14,24.4 a 88,88 0 0 0 46.4,-36.6 l -7,-4 z&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><p id="66ec8ea5-804f-4fe5-ab1a-80ff2a22a628" class="">Here we have some buttons for controlling the animation. I will get to those later. First, we want to focus on making the ball roll. We are using an <code>svg</code>, but you could use anything.</p><h2 id="c82fe9dd-75db-4bb9-9e3a-c21bd7a83483" class=""><strong>The CSS</strong></h2><p id="037c8793-2cc5-418f-9bbe-2a086072cd83" class="">Before we do anything with JavaScript, I want to show you how we can do the same animation using just CSS.</p><pre id="f392d980-8218-4ba2-b49d-fe060ebe0785" class="code code-wrap"><code>body {
+  background: #000;
+  color: #fff;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#ball {
+  /* animation: roll infinite 3s linear; */
+  color: white;
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  transform: rotate(0) translate3D(-50%, -50%, 0);
+  backface-visibility: hidden;
+  will-change: transform, color;
+}
+
+path {
+  fill: currentColor;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  background: #333;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: blue;
+}
+
+/* The Animation */
+@keyframes roll {
+  0% {
+    transform: rotate(0) translate3D(-50%, -50%, 0);
+    color: white;
+  }
+  30% {
+    color: blue;
+  }
+  100% {
+    transform: rotate(360deg) translate3D(-50%, -50%, 0);
+    color: white;
+  }
+}
+
+</code></pre><p id="c977607e-4c1f-4ec8-8c6d-04373bb4baa9" class="">In the CSS keyframe we are moving the ball by starting at one position and then rotating it 360 degrees. We are also changing the color of the ball at 30% of the animation.</p><p id="cd722cc0-da4e-40cc-90e0-b827e3a85ca7" class="">Now, comment out the CSS, because we are going to do the same thing using JavaScript.</p><h2 id="e1bedaa3-66c1-4954-8f9e-4d4b4368d343" class=""><strong>The JavaScript</strong></h2><p id="7cce2a89-1682-4f68-b351-ef2f2cebaced" class="">Let&#x27;s start out by bringing in everything that we need.</p><pre id="37f5837a-77c5-47e7-b78f-054bffb90dbd" class="code code-wrap"><code>  const ball = document.getElementById(&#x27;ball&#x27;);
+  const play = document.getElementById(&#x27;play&#x27;);
+  const pause = document.getElementById(&#x27;pause&#x27;);
+  const reverse = document.getElementById(&#x27;reverse&#x27;);
+  const speedUp = document.getElementById(&#x27;speed-up&#x27;);
+  const slowDown = document.getElementById(&#x27;slow-down&#x27;);
+</code></pre><p id="16104531-7a6c-450a-83c2-4ef7189367fd" class="">Now, we will create a keyframe object. We do this by creating an array of multiple objects. Each object represents a key from the original CSS.</p><pre id="786d2eaa-5755-4995-9435-0eb0d06b582d" class="code code-wrap"><code>const rollAnimation = [
+  { transform: &#x27;rotate(0) translate3D(-50%, -50%, 0)&#x27;, color: &#x27;white&#x27; },
+  { color: &#x27;blue&#x27;, offset: 0.3 },
+  { transform: &#x27;rotate(360deg) translate3D(-50%, -50%, 0)&#x27;, color: &#x27;white&#x27; },
+];
+</code></pre><p id="8f83d051-9e08-487b-89d1-5f9065672df4" class="">We can also set the timing in an options object.</p><pre id="3906f49f-84dc-46c5-8820-84f1155c6ce1" class="code code-wrap"><code>const rollOptions = {
+  duration: 3000,
+  iterations: Infinity,
+};
+</code></pre><p id="a6a19356-b974-471b-8760-b65629802264" class="">Now, let&#x27;s make the element animate.</p><pre id="eee4be6f-526e-4b2f-ba32-88ff87386eb5" class="code code-wrap"><code>const roll = ball.animate(rollAnimation, rollOptions);
+</code></pre><p id="cd608ecd-1a82-4f80-a20b-ad352c99f206" class="">Now, we get the same animation as we did with CSS. We can also control the animation with JavaScript. Let&#x27;s add the play and pause button functionality.</p><pre id="f1cc3b52-dce7-42ac-9471-231e0131c755" class="code code-wrap"><code>play.addEventListener(&#x27;click&#x27;, () =&gt; roll.play());
+pause.addEventListener(&#x27;click&#x27;, () =&gt; roll.pause());
+</code></pre><p id="0795bd4b-0479-4279-85b2-5a40bca6c7a3" class="">We can also have it go in reverse.</p><pre id="5c33cf75-c813-486b-b09f-4801b12b9362" class="code code-wrap"><code>reverse.addEventListener(&#x27;click&#x27;, () =&gt; roll.reverse());
+</code></pre><p id="1714b193-a055-4727-ae16-d452fa4d34b1" class="">If we want to go from reverse to clicking play again and having it move forward, then we have to add the <code>playbackRate</code> to <code>play</code>.</p><pre id="6df06c2e-bcd9-413b-9d51-32a4c6889e19" class="code code-wrap"><code>play.addEventListener(&#x27;click&#x27;, () =&gt; {
+  roll.playbackRate = 1;
+  roll.play();
+});
+</code></pre><p id="d56e03c2-1a65-43a7-9892-2a0dd10364ab" class="">Now, it should work.</p><p id="95fbd32e-0c54-4f8c-80a7-58576758bbb6" class="">We can also speed up and slow down the animation using the <code>playbackRate</code>.</p><pre id="37ee343f-2008-44bb-b82c-1ce2be7c492c" class="code code-wrap"><code>speedUp.addEventListener(
+  &#x27;click&#x27;,
+  () =&gt; (roll.playbackRate = roll.playbackRate * 2)
+);
+
+slowDown.addEventListener(
+  &#x27;click&#x27;,
+  () =&gt; (roll.playbackRate = roll.playbackRate * 0.5)
+);
+</code></pre><p id="cb163c9e-efb6-42b7-9f78-5be175df6a54" class="">This is a very simple animation, but you can imagine how powerful it can be when you get into some really complex animations.</p></details></li></ul><ul id="9f3a3230-f0b5-42f5-8fb5-c88c73555a69" class="toggle"><li><details open=""><summary><strong>Web Speech API - Speech Recognition</strong></summary><p id="cfe59dca-4fef-47f6-888a-137a46e755a6" class="">The Web Speech API is a set of JavaScript APIs that allow you to add speech recognition and speech synthesis to your web applications. In this lesson, we will look at speech recognition.</p><p id="8cf15778-c05c-4aa2-a832-244e80f40200" class="">Speech recognition is the ability to convert spoken words into text. The Web Speech API provides a SpeechRecognition interface that lets you add speech recognition to your web applications.</p><h2 id="036bf9e5-392f-47d6-90b6-dc34e4e4c6b4" class=""><strong>Creating a SpeechRecognition Object</strong></h2><p id="32f711b6-ebce-4ef0-8d1f-5a92689ef325" class="">To use the SpeechRecognition interface, you need to create a SpeechRecognition object. You can do this by calling the constructor of the SpeechRecognition interface. I am also going to set the language to English. Feel free to use something else.</p><pre id="977c63b0-1de7-4dc7-8296-74aef41412df" class="code code-wrap"><code>const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const rec = new SpeechRecognition();
+
+rec.lang = &#x27;en-US&#x27;;
+</code></pre><h2 id="f1ef34be-6d9a-4a2b-89bb-aeb8504dd2b7" class=""><strong>Setting the Speech Recognition Mode</strong></h2><p id="dd28d8be-eb94-41cb-b43f-0ab0cd2216fe" class="">The SpeechRecognition interface has a <code>continuous</code> property that lets you set the speech recognition mode. The value of the <code>continuous</code> property is a boolean. If the value is <code>true</code>, the speech recognition will continue until you stop it. If the value is <code>false</code>, the speech recognition will stop after a short pause. Let&#x27;s set it to <code>true</code>.</p><pre id="48dfcf86-e5c5-4797-9833-84b5ea4b45aa" class="code code-wrap"><code>rec.continuous = true;
+</code></pre><p id="6f9fb0e8-a816-490f-925d-72503eab10da" class="">To start the speech recognition, we use the <code>start()</code> method.</p><pre id="5ea2d24d-781c-4eb9-809b-138eff6fa488" class="code code-wrap"><code>rec.start();
+</code></pre><p id="6bcb03e5-229f-45ca-8d19-f692419a1be6" class="">This will cause the browser to start to listen for speech. We can respond by using the <code>onresult</code> event.</p><pre id="96bb8de0-9ac2-4ad7-9520-9bff010badb3" class="code code-wrap"><code>rec.onresult = function (e) {
+  console.log(e.results);
+};
+</code></pre><p id="88f0e01d-7153-4cf5-9bf2-4dff3440de58" class="">The event passed in will include a <code>results</code> array, which will contain an object with a <code>transcript</code> property. The <code>transcript</code> property will contain the text that was recognized.</p><p id="ed2f01f2-fedf-497c-a0dc-43e8429ccf47" class="">I want to say a color and have the background of the page change to that color.</p><pre id="907e1ee8-cba7-4e8a-837c-26579680723f" class="code code-wrap"><code>const script = e.results[i][0].transcript;
+document.body.style.backgroundColor = transcript;
+</code></pre><p id="2b33baed-93bc-423d-8537-fdab8effe687" class="">This will let us do it once, however, if we want this to be continuous, we have to loop through the array and set the background color for each result.</p><pre id="84f7d131-e3ab-48bf-896d-f6f2b0bc896a" class="code code-wrap"><code>for (let i = e.resultIndex; i &lt; e.results.length; i++) {
+  const script = e.results[i][0].transcript;
+  document.body.style.backgroundColor = script;
+}
+</code></pre><p id="361befd7-ae19-4077-9050-4e0e7966b5a6" class="">Now, we can keep saying colors and it should respond.</p><p id="b0d5ed25-d234-48bf-83ef-a895a88a200b" class="">Let&#x27;s make it so if we don&#x27;t say a color, we get an alert message. We&#x27;ll create an array of accepted colors.</p><pre id="481aac83-9737-437b-8a69-cadae62c70db" class="code code-wrap"><code>const acceptedColors = [
+  &#x27;red&#x27;,
+  &#x27;blue&#x27;,
+  &#x27;green&#x27;,
+  &#x27;yellow&#x27;,
+  &#x27;pink&#x27;,
+  &#x27;brown&#x27;,
+  &#x27;purple&#x27;,
+  &#x27;orange&#x27;,
+  &#x27;black&#x27;,
+  &#x27;white&#x27;,
+];
+</code></pre><p id="dd814adc-a7d1-4580-8589-8a6aac95b3e0" class="">In the loop, let&#x27;s make the transcript lowercase and trim any whitespace. Then we will check to see if the color is in the array. Here is the final code.</p><pre id="01240a51-24f0-4630-a370-05d4b09aec2c" class="code code-wrap"><code>const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const rec = new SpeechRecognition();
+
+rec.lang = &#x27;en-US&#x27;;
+rec.continuous = true;
+
+rec.onresult = function (e) {
+  console.log(e.results);
+
+  const acceptedColors = [
+    &#x27;red&#x27;,
+    &#x27;blue&#x27;,
+    &#x27;green&#x27;,
+    &#x27;yellow&#x27;,
+    &#x27;pink&#x27;,
+    &#x27;brown&#x27;,
+    &#x27;purple&#x27;,
+    &#x27;orange&#x27;,
+    &#x27;black&#x27;,
+    &#x27;white&#x27;,
+  ];
+
+  for (let i = e.resultIndex; i &lt; e.results.length; i++) {
+    const script = e.results[i][0].transcript.toLowerCase().trim();
+
+    if (acceptedColors.includes(script)) {
+      document.body.style.backgroundColor = script;
+    } else {
+      alert(&#x27;Say a color&#x27;);
+    }
+  }
+};
+
+rec.start();</code></pre></details></li></ul><ul id="5075cdf3-ee57-4b9c-9ca9-aff587976c95" class="toggle"><li><details open=""><summary><strong>Speech Synthesis</strong></summary><p id="b57ba663-8580-453e-aab4-c410cac7ed35" class=""><code>SpeechSynthesis</code> is a Web API that allows you to have your browser speak text. It is part of the <a href="https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">Web Speech API</a>.</p><p id="a9e91b8e-6780-4f2a-833e-890a0cfd72e4" class="">We are going to learn this by creating a small project that lets us type in a textbox and reads what we type out loud. We will also be able to change the voice. You can get the simple HTML and CSS from the sandbox files.</p><p id="4b694f06-02e2-4a40-90de-ecde14d43063" class="">Let&#x27;s start by creating a <code>synth</code> variable that will hold the <code>SpeechSynthesis</code> object.</p><pre id="57251292-36e6-4325-b4c7-19c347fe2854" class="code code-wrap"><code>const synth = window.speechSynthesis;
+</code></pre><p id="cfb99846-472f-486a-a681-9e2fbea6c3e1" class="">We will add an event listener for the form submit and get the textarea value.</p><pre id="9692dc75-b0f4-4d7d-916a-80097e7f0f40" class="code code-wrap"><code>function onSubmit(e) {
+  e.preventDefault();
+
+  const textInput = document.getElementById(&#x27;text-input&#x27;);
+}
+
+document.getElementById(&#x27;form&#x27;).addEventListener(&#x27;submit&#x27;, onSubmit);
+</code></pre><p id="f46eb418-3e0d-493f-a5c7-e253911f94fb" class="">We need to create a <code>SpeechSynthesisUtterance</code> object that will hold the text we want to speak. Then we can use the <code>synth.speak()</code> method to speak the text.</p><pre id="8b4d59c4-0078-4d65-a177-e1870c9e8840" class="code code-wrap"><code>function onSubmit(e) {
+  e.preventDefault();
+
+  const textInput = document.getElementById(&#x27;text-input&#x27;);
+
+  const utterThis = new SpeechSynthesisUtterance(textInput.value);
+
+  synth.speak(utterThis);
+}
+</code></pre><h2 id="d69bb4e5-8816-45ee-9776-7b078fe12cb2" class=""><strong>Getting the voices</strong></h2><p id="fb42e5fc-1175-4f1c-a3c4-101d8b83d6e4" class="">Now, let&#x27;s create a function that will get the voices and populate the select element with them.</p><pre id="e74d3b5a-fe85-4fa6-8d4d-a5919e088bde" class="code code-wrap"><code>const voiceSelect = document.getElementById(&#x27;voice-select&#x27;);
+let voices;
+
+function addVoicesToSelect() {
+  voices = synth.getVoices();
+
+  for (let i = 0; i &lt; voices.length; i++) {
+    const option = document.createElement(&#x27;option&#x27;);
+    option.textContent = `${voices[i].name} - ${voices[i].lang}`;
+
+    if (voices[i].default) {
+      option.textContent += &#x27; - DEFAULT&#x27;;
+    }
+
+    option.setAttribute(&#x27;data-lang&#x27;, voices[i].lang);
+    option.setAttribute(&#x27;data-name&#x27;, voices[i].name);
+    voiceSelect.appendChild(option);
+  }
+}
+</code></pre><p id="62ff711d-900c-4d9c-ac18-34a8bbca091a" class="">We got the select element outside of the function because we will need it in the submit function as well. We also create a <code>voices</code> variable to hold the array of voices that we get from the <code>synth.getVoices()</code> method.</p><p id="6746cc5e-2412-4ef1-9ea9-6d728f657625" class="">Then we loop through the voices and create an option element for each one. We set the <code>textContent</code> to the name and language of the voice. If the voice is the default one, we add <code>- DEFAULT</code> to the text. We also set the <code>data-lang</code> and <code>data-name</code> attributes to the language and name of the voice. Finally, we append the option to the select element.</p><p id="fa33f187-0d8b-45ee-819a-3132b74f9be6" class="">We need to call the <code>addVoicesToSelect()</code> function once to populate the select element with the voices. We also need to call it again when the voices change. We can do this by adding an event listener for the <code>voiceschanged</code> event. We will put this at the bottom above the form event listener.</p><pre id="6478e27c-5535-4932-8718-1c8addd87aa7" class="code code-wrap"><code>addVoicesToSelect();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = addVoicesToSelect;
+}
+</code></pre><h2 id="c5b27ecb-cb66-4ff8-a132-5e888e6d5a73" class=""><strong>Changing the voice</strong></h2><p id="bcaeacac-2419-47d2-bb72-a919c503f80b" class="">Edit the <code>onSubmit()</code> function to change the voice.</p><pre id="9688a54d-87e9-452f-ab7b-d512f4327b0c" class="code code-wrap"><code>function onSubmit(e) {
+  e.preventDefault();
+
+  const textInput = document.getElementById(&#x27;text-input&#x27;);
+
+  const utterThis = new SpeechSynthesisUtterance(textInput.value);
+
+  const selectedOption =
+    voiceSelect.selectedOptions[0].getAttribute(&#x27;data-name&#x27;);
+  for (let i = 0; i &lt; voices.length; i++) {
+    if (voices[i].name === selectedOption) {
+      utterThis.voice = voices[i];
+    }
+  }
+
+  synth.speak(utterThis);
+}
+</code></pre><p id="dacb0529-d0aa-42bd-8373-42d830e7c4e0" class="">Here, we get the selected option from the select element. Then we loop through the voices and check if the name of the voice is the same as the selected option. If it is, we set the <code>utterThis.voice</code> to the voice.</p><p id="bc23cb5f-e6d8-44b5-be1a-12c8a520a84f" class="">Now, you should be able to type in the text box, select a voice and have it read out loud.</p></details></li></ul></div></article></body></html>

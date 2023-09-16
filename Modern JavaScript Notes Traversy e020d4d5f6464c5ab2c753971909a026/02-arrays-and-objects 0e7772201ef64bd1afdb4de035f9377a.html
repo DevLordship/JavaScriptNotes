@@ -1,0 +1,932 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>02-arrays-and-objects</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0e777220-1ef6-4bd1-afdb-4de035f9377a" class="page sans"><header><h1 class="page-title">02-arrays-and-objects</h1><p class="page-description"></p></header><div class="page-body"><ul id="523f3f9d-9890-4605-a13b-6a79b91c8a50" class="toggle"><li><details open=""><summary><strong>Array Basics</strong></summary><p id="a0babd7c-94e2-4532-9502-afc8444630dc" class=""><code>Arrays</code> are a special type of <code>object</code> in JavaScript. Arrays are also what we call a <code>data structure</code>, which is just that, a way of structuring data. Lets look at a basic Array</p><figure id="de7b0deb-8ad4-4e65-8f3a-d82aed1a02a8" class="image"><a href="02-arrays-and-objects%200e7772201ef64bd1afdb4de035f9377a/Untitled.png"><img style="width:484px" src="02-arrays-and-objects%200e7772201ef64bd1afdb4de035f9377a/Untitled.png"/></a></figure><p id="8d1f15f4-91ae-475d-9f1f-2a3a3c487662" class="">We create a variable and set it to some brackets with some values inside. The values could be of any type. In this case, we have an array of numbers.</p><p id="3783b493-5df1-4386-9c0b-76e12db2a2ea" class="">The values in an array are called <code>elements</code>. Each element has an <code>index</code>. The index is the position of the element in the array. The first element in an array has an index of 0. The second element has an index of 1, and so on. In just about every language, arrays are zero-based.</p><p id="978042b8-c6dc-489c-83bb-05ce0c7599b6" class="">Let&#x27;s create this same array in our code</p><pre id="600ff918-7b43-4bf7-89e5-94d687d5bf28" class="code code-wrap"><code>const arr = [374, 755, 398, 118, 289];
+</code></pre><p id="c3b4f169-e6a0-477c-bd8b-29a9cf8397b8" class="">If we log the array in the console, we&#x27;ll see that like other types of objects, it has a prototype property. These are all kinds of properties and methods that can be used with arrays. We&#x27;ll get more into those in a little bit.</p><pre id="77daccb9-9257-43e2-9cea-edf6f50b90db" class="code code-wrap"><code>console.log(arr);
+</code></pre><h3 id="e0ff74fb-f255-409c-a0c0-de6810893f50" class=""><strong>Array Constructor</strong></h3><p id="5d0f2a27-389d-40db-a693-7c247d323079" class="">There is a second way to create an array that is less common. The one that we have already used is called an <code>array literal</code>. The second is by using the <code>Array</code> constructor with the <code>new</code> keyword</p><pre id="ca8d8484-bf11-4efe-aff6-ed2cddea9911" class="code code-wrap"><code>const arr2 = new Array(1, 2, 3, 4, 5);
+</code></pre><p id="a80df444-2225-42c9-b84a-fc7dffefdad0" class="">You can use either one to create an array. They both create an array object.</p><h3 id="ace6329e-82ff-48b4-a9fd-a29caab26a8b" class=""><strong>Getting values by index</strong></h3><p id="71816697-09a8-4eed-9ec4-a4232df3db41" class="">So to get one of these values, we can use the index of the element we want to get. To get the first one</p><pre id="56f04aa9-121f-4a45-8026-e27ecc0ce6c5" class="code code-wrap"><code>arr[0];
+</code></pre><p id="e0cab60e-9fd2-4a04-84fc-1ee4de7c4dab" class="">If we wanted to use an array value in an expression, we could</p><pre id="184881ef-2c48-4cd6-afaf-9ce6140b5800" class="code code-wrap"><code>arr[0] + arr[3]; //492
+</code></pre><p id="d42f4c6e-deae-409c-99c3-696da1021079" class="">Arrays can have any type of data within it. In this case, we have an array of numbers, but we could create an array of strings</p><pre id="eff74cdd-dd65-459e-a0ad-2655bdc1cd3c" class="code code-wrap"><code>const fruit = [&#x27;apples&#x27;, &#x27;oranges&#x27;, &#x27;pears&#x27;];
+</code></pre><p id="4b8a2c5c-dee0-41c3-b87c-20e8278156e8" class="">We can even mix types of data within an array and even have an array within an array</p><pre id="075cb161-99eb-42ec-8c93-29535dc8f043" class="code code-wrap"><code>const mixed = [1, &#x27;string&#x27;, true, null, undefined, [1, 2, 3]];
+</code></pre><h3 id="a6373dbf-9d92-493f-a0a7-86d5893e787b" class=""><strong>Array length</strong></h3><p id="277e3ca7-6885-4665-b120-36d63ae6e323" class="">We can get the length of an array using the <code>.length</code> property, which is very useful</p><pre id="cfba1af9-60db-4d3a-9672-705af74121d4" class="code code-wrap"><code>console.log(arr.length); // 5
+</code></pre><h3 id="080d3eb0-0719-483a-93b7-5dbf4e4db7cc" class=""><strong>Mutating arrays</strong></h3><p id="23c50034-5d35-4f9b-8762-1090771e791e" class="">Arrays are mutable, meaning we can add, change and remove elements. There are many methods that we can use and I&#x27;ll get into those in a little bit, but lets say we want to add a new element to the end without using any kind of method.</p><p id="01159520-3bf0-45e7-b695-89b82af0bab7" class="">We know that the <code>length</code> property gives us the total count of elements and since the array is 0-based, we can simply add the length as the index of the new element</p><pre id="d6915bee-2879-4102-8e82-433146bad47c" class="code code-wrap"><code>fruit[fruit.length] = &#x27;Peaches&#x27;; // [&#x27;apples&#x27;, &#x27;oranges&#x27;, &#x27;pears&#x27;, &#x27;peaches&#x27;]
+</code></pre><pre id="e9c29d96-cd7e-4403-b399-3f9fa6400a70" class="code code-wrap"><code>In the code above, `fruit.length` was `3` so we set the value of `fruit[3]`, which was the next index.
+
+If we want to target a specific index and change the value, we can do that easily
+
+```javascript
+fruit[1] = &#x27;mangos&#x27;;
+</code></pre><p id="e3cf21c2-4165-4afa-942b-d9d098a0b645" class="">We can also set the array length to a new value, which will shorten the array</p><pre id="0d9791bf-8ba2-4c17-baec-f2d3957ce19f" class="code code-wrap"><code>fruit.length = 2;
+</code></pre><p id="0869f3f9-20a1-40e8-bc75-486de567be0f" class="">Now the array would look like this</p><pre id="73980ab1-759e-4a37-b9ee-aa20ae3285b4" class="code code-wrap"><code>[&#x27;apples&#x27;, &#x27;oranges&#x27;];</code></pre></details></li></ul><ul id="32b0d461-6bfd-4993-bb2a-f69892ef9b92" class="toggle"><li><details open=""><summary><strong>Array Methods</strong></summary><p id="b46a3d5b-f736-45b5-85b6-6d15052d4514" class="">As we talked about earlier, arrays are a special kind of <code>object</code>. Objects have <code>properties</code> and <code>methods</code>. In JavaScript, those methods are stored in the <code>prototype chain</code>. We&#x27;ll talk much more about prototypes later on, but we already saw that both <code>string objects</code> and <code>number objects</code> have properties and methods in their prototypes.</p><h3 id="0743d700-bbbc-4f1b-8e28-89bc72ed73ad" class=""><strong>Array methods</strong></h3><h3 id="f1ff53dd-7679-4260-a59c-7892f087bde0" class=""><strong>push()</strong></h3><p id="c2471f9d-7be3-4d77-a111-2a5fad145e91" class="">Push adds an element to the end of the array.</p><pre id="536c82cd-6b33-4b6e-ac24-aba4c9743908" class="code code-wrap"><code>arr.push(6); // [1, 2, 3, 4, 5, 6]
+</code></pre><h3 id="0c82bcf9-91d7-4d90-bf82-083b4363e16f" class=""><strong>pop()</strong></h3><p id="e2628183-5978-4194-b005-d52f60b191ac" class="">Pop removes the last element of the array.</p><pre id="db8218b2-ab23-4f07-b641-b246aa3e4112" class="code code-wrap"><code>arr.pop(); // [1, 2, 3, 4, 5]
+</code></pre><h3 id="479e33fd-ea24-444d-b6a6-ce9a0a9f6266" class=""><strong>unshift()</strong></h3><p id="c0d2dfc2-d798-4481-bd85-79e880f3db58" class="">Adds an element to the beginning of the array.</p><pre id="34a84d31-69fc-40f8-8cd3-1016b6a9937c" class="code code-wrap"><code>arr.unshift(0); // [0, 1, 2, 3, 4, 5]
+</code></pre><h3 id="3ebba5d5-6219-4d5f-82ed-9b5dd998fe47" class=""><strong>shift()</strong></h3><p id="895605b8-2cfd-4f7a-aafa-bb55b7cbe92b" class="">Takes an element off of the start of the array.</p><pre id="c3b0ff17-402a-4195-b5c2-dcbf28221e27" class="code code-wrap"><code>arr.shift(); // [1, 2, 3, 4, 5]
+</code></pre><h3 id="875aa7e2-e8d9-4bbf-9c60-5800445e936a" class=""><strong>reverse()</strong></h3><p id="a80ebe0a-1cd9-4123-aa71-495db495958c" class="">I&#x27;ll let you figure out what this does.</p><pre id="a9b87f37-85a2-4d84-91c5-0ccf5d81aafc" class="code code-wrap"><code>arr.reverse(); // [5, 4, 3, 2, 1, 0]
+</code></pre><h3 id="97df0a11-e3c5-4929-87cf-35539c86db55" class=""><strong>Returning values from an array</strong></h3><p id="26c204a4-17b7-429f-82c0-6a3d2e192acc" class="">The methods above are all used to manipulate a current array. These methods are typically used to return some kind of value from an array.</p><h3 id="575c2405-daf7-4a3e-acb2-e57b3beaf66b" class=""><strong>includes()</strong></h3><p id="65ff357f-5a4a-4d62-9fe3-bbe2811c19fc" class="">Returns <code>true</code> if the array contains the value you pass in.</p><pre id="8e3ab696-9380-4fec-88ac-db97d63da741" class="code code-wrap"><code>arr.includes(5); // true
+</code></pre><h3 id="0005de9f-6cb7-4eca-9298-c9474a2cb24c" class=""><strong>indexOf()</strong></h3><p id="a02013cf-1efd-4ec8-a7d7-ec76272dd6d9" class="">Returns the index of the value you pass in.</p><pre id="c02f1629-f25d-4040-b8ae-5995017a1d1c" class="code code-wrap"><code>arr.indexOf(5); // 4
+</code></pre><h3 id="56c313da-0f81-4e26-ab2b-33536008a8a5" class=""><strong>Return string from array</strong></h3><pre id="5ac471ea-1e0d-4589-8951-8615e5ad6770" class="code code-wrap"><code>arr.toString(); // &quot;1,2,3,4,5&quot;
+arr.join(); // &quot;1,2,3,4,5&quot;
+</code></pre><h3 id="d335243f-2aaf-4643-be3c-9340106a847d" class=""><strong>slice() and splice()</strong></h3><p id="32a55b4e-d107-4740-8be6-13767c5d8d53" class="">These are similar in that they both are used to return a new array using a subset of the current array.</p><h3 id="4f6f6a9c-8007-4181-a66e-18c4d391db13" class=""><strong>slice()</strong></h3><p id="882d87ea-110b-40af-adc5-31ccc7df0935" class="">slice() takes in two parameters. One being the starting index and one being the ending index.</p><pre id="6e0e4203-5fbd-41d4-b04b-b95cbea6e1bd" class="code code-wrap"><code>const newArr = arr.slice(1, 3); // [2, 3]
+</code></pre><h3 id="3b5b317f-333c-4d54-82f8-ee24275bab54" class=""><strong>splice()</strong></h3><p id="40a9e258-7960-4020-b1fe-2e3ded2b72c0" class="">splice() takes in the starting index and the number of elements from the staring index. If you leave off the number of elements, it will take from the starting index and on.</p><pre id="37773420-ec06-4c74-9971-c070b1cdae28" class="code code-wrap"><code>const newArr = arr.splice(1, 3); // [2, 3, 4]
+</code></pre><p id="d0050f33-df30-488d-99df-b4102d36c68a" class="">Another difference is that slice() does not modify the original array and splice() does. If you log the original array, you will see those elements are gone.</p><p id="ddf75da8-1080-46a9-a3ed-2296b93e75a3" class="">To pluck out a single value, use splice and pass the start index and then 1 as the second arg because you only want to remove that element.</p><pre id="9aa79695-de85-422c-8ebd-62c7e0b0a6c8" class="code code-wrap"><code>const newArr = arr.splice(2, 1); // [3] the original array would be [1, 2, 4, 5]
+</code></pre><p id="31c22a3a-d32f-4804-a912-8bf97789031c" class="">You can also start from the end with a negative value</p><pre id="d3b37320-9e1b-455b-94c5-f8d33c5437b0" class="code code-wrap"><code>const newArr = arr.slice(-2); // [4, 5]
+</code></pre><h3 id="36430828-b739-4565-a66f-eb9cac1c1b7e" class=""><strong>Chaining methods</strong></h3><p id="480eacd7-3a8f-42c6-8d9c-ed9e6fbd4fc8" class="">You can also chain these methods together. Just be aware of what is being returned from the previous method.</p><pre id="fb2cb764-4bd5-4d5c-9e7a-7ae6bacbf0b7" class="code code-wrap"><code>x = arr.concat(arr2).reverse();
+x = arr3.slice(1, 3).toString();</code></pre></details></li></ul><ul id="c89fbb87-ce5d-4a36-853e-19f6c8599a13" class="toggle"><li><details open=""><summary><strong>Nesting, concat, spread &amp; Array Object Methods</strong></summary><p id="ebaf7bd0-1920-41d4-b186-e30f0628a338" class="">To get you more familiar with arrays, we are going to look at nesting, concatenation and the spread operator</p><p id="1be6bc41-a7b2-4252-a620-4a4d7d2b5eb2" class="">Let&#x27;s create our fruit array again</p><pre id="ed8dd095-94a1-4d99-9b65-482c22dccd19" class="code code-wrap"><code>const fruits = [&#x27;apple&#x27;, &#x27;pear&#x27;, &#x27;orange&#x27;];
+</code></pre><p id="a8a7771e-c51a-4444-9e6e-59b448763d6c" class="">and let&#x27;s create a &quot;berries&quot; array</p><pre id="5587a3a9-1f35-49b7-9f6c-ecdca179f509" class="code code-wrap"><code>const berries = [&#x27;strawberry&#x27;, &#x27;blueberry&#x27;, &#x27;rasberry&#x27;];
+</code></pre><p id="0a879954-c2ec-4cf8-9da1-6da9c979e131" class="">Now let&#x27;s nest the berries array inside the fruit array</p><pre id="acfb2aea-1b65-4178-a29e-3dac17d33d43" class="code code-wrap"><code>fruits.push(berries);// [&#x27;apples&#x27;, &#x27;oranges&#x27;, &#x27;pears&#x27;, [&#x27;strawberries&#x27;, &#x27;blueberries&#x27;, &#x27;raspberries&#x27;]]
+</code></pre><p id="3b1352c6-7576-4a55-adb4-b8e785d4ca4c" class="">Now if we want to access blueberries for example, we can do so</p><pre id="c24fc907-2046-4f3d-b52f-dfbe0fe1a1f1" class="code code-wrap"><code>fruits[3][1]; // blueberries
+</code></pre><p id="9dba74c5-7e2a-49cd-9051-3fd6c3c88b51" class="">We could also create a new variable and nest both arrays:</p><pre id="1703c54f-eb3c-4cb2-b6a3-6bc446df420b" class="code code-wrap"><code>const allFruits = [fruits, berries];
+</code></pre><pre id="72a81d0c-79ab-4887-84ff-58f78e669be2" class="code code-wrap"><code>allFruits[1][1]; // blueberries
+</code></pre><h3 id="2f42a9e7-c917-4bdb-a8f5-29be49bb76f6" class=""><strong>concat()</strong></h3><p id="198580df-68b1-47fe-9eec-73b8ae6b2939" class="">We may not want to nest arrays, but we can concatenate them together into the same array using <code>concat()</code>.</p><pre id="7b7162ed-8001-4621-9d58-0acd78724ade" class="code code-wrap"><code>const newArr = fruits.concat(berries);// [&#x27;apples&#x27;, &#x27;oranges&#x27;, &#x27;pears&#x27;, &#x27;strawberries&#x27;, &#x27;blueberries&#x27;, &#x27;raspberries&#x27;]
+</code></pre><p id="00c5e4ab-83fb-4b86-a10b-4c9f13662f7c" class="">So now we have a single array with all of the values of both arrays. There is no nesting going on.</p><h3 id="dd4f3416-464a-4981-a3d9-e3bfc9ac6f02" class=""><strong>Spread operator (...)</strong></h3><p id="3d63cae9-a977-4570-afed-85a1ab723b96" class="">The spread operator is a very useful operator that allows us to spread out an array into another array. We can use it to achieve the same type of stuff that concat() does. The spread operator also works with object literals, which we will talk about very soon.</p><pre id="17c730b5-5921-4581-bfcd-1dd5872933fe" class="code code-wrap"><code>const newArr2 = [...fruits, ...berries]; // [&#x27;apples&#x27;, &#x27;oranges&#x27;, &#x27;pears&#x27;, &#x27;strawberries&#x27;, &#x27;blueberries&#x27;, &#x27;raspberries&#x27;]
+</code></pre><h3 id="5b43faca-ca73-4782-b2d3-59e8febd40dd" class=""><strong>Flatten an array</strong></h3><p id="bef7145c-bcf9-400a-ba5d-0e6598a0d3e1" class="">You can use the <code>flat()</code> method to flatten an array. It takes in a parameter for the depth. If you don&#x27;t want a limit to the depth, you could use <code>Infinity</code>.</p><pre id="d01500b3-f063-40a9-98d0-56503ddb9b1a" class="code code-wrap"><code>const arr = [1, 2, [3, 4, 5], 6, [7, 8, [9, 10, [11, 12]]]];
+x = arr.flat(Infinity);
+</code></pre><h3 id="e2280aca-734b-4dd7-8c14-65b494b0824b" class=""><strong>Static properties on the Array object</strong></h3><p id="5083635b-b7f0-4ad2-bf14-30e344700ea5" class="">The Array object in JavaScript actually has some helpful methods directly associated with it that we can use.</p><h3 id="c595b074-a912-4ebc-813f-f58218615259" class=""><strong>Array.from()</strong></h3><p id="6207d7c4-c75d-4683-9b7e-e2e34212029e" class="">Check if something is an array.</p><pre id="744a7b2e-596f-4452-8c9c-731dbe91b0c4" class="code code-wrap"><code>Array.isArray(fruits); // true
+Array.isArray(&#x27;Hello&#x27;); // false
+</code></pre><h3 id="05b64415-6cf7-4169-aac2-0f5aeed3b809" class=""><strong>Array.from</strong></h3><p id="03326eff-12f4-4166-b5cc-02462ab6cbc2" class="">Convert an array-like object into an array.</p><pre id="ad1da08f-a8a5-49df-bffa-9199528a10f4" class="code code-wrap"><code>Array.from(&#x27;12345&#x27;); // [&#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;, &#x27;4&#x27;, &#x27;5&#x27;]
+</code></pre><h3 id="f7652c56-2a24-4460-8a3c-34a92beb890d" class=""><strong>Array.of()</strong></h3><p id="b6ecaa13-1086-4dba-9cde-0e4a5ebc3f7c" class="">Create an array from a variable number of arguments.</p><pre id="3af0f0ee-c1d5-4963-9c5c-7029238e6776" class="code code-wrap"><code>const a = 1;
+const b = 2;
+const c = 3;
+y = Array.of(a, b, c); // [1, 2, 3]</code></pre></details></li></ul><ul id="ffb82303-b912-43a2-a700-dbaf8c9b29be" class="toggle"><li><details open=""><summary><strong>Array Challenges</strong></summary><p id="2341022c-b9fd-4400-8179-4ed794e765aa" class="">Now that we have gone over some basic array stuff, let&#x27;s try some simple challenges. I would suggest trying these using just what you remember from the past sections, but if you need to look back, that&#x27;s fine as well.</p><p id="4b6b4a07-ea17-46b4-a3bf-396a20673789" class=""><strong>Note:</strong> When I assign a challenge, I will never ask you to do something that we have not went over yet in the course. For example, I would not ask you to create a function because we haven&#x27;t talked about functions yet. Because of this, some of the earlier challenges may seem a bit easy to some of you that already have experience with JavaScript.</p><h3 id="1bb8ce80-67b1-45e6-a0eb-f1f5f8dba06e" class=""><strong>Challenge 1:</strong></h3><p id="1cd7f8c7-f232-4406-8669-be8050da01cd" class=""><strong>Instructions:</strong></p><p id="d679dff0-aec4-4940-82db-3fc74c0991a1" class="">Use some of the array methods that we looked at to mutate the following array to = the expected result below:</p><pre id="198b41a2-6d2d-4109-8a2f-db4b1d8e4cf0" class="code code-wrap"><code>const arr = [1, 2, 3, 4, 5];
+</code></pre><p id="df706785-9bbf-486c-84e0-e1ad471a843f" class=""><strong>Expected Result:</strong></p><pre id="8a62e60d-fe7c-4e21-9646-80383a8f8b70" class="code code-wrap"><code>console.log(arr);
+// [6, 5, 4, 3, 2, 1, 0];
+</code></pre><p id="833bee95-a186-4a8d-982c-c89932bbca4f" class=""><strong>Hint</strong>: No hints. This one is pretty easy 😉</p><ul id="da0d944b-5ee8-407c-b788-e3eb6ac712f8" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="33bec0ab-ec33-4c29-a718-619bc4c98d61" class="code code-wrap"><code>const arr = [1, 2, 3, 4, 5];
+
+  arr.unshift(0);
+  arr.push(6);
+  arr.reverse();
+
+  console.log(arr); // [6, 5, 4, 3, 2, 1, 0];
+
+</code></pre></details></li></ul><h3 id="5db5c41f-650e-4bea-bab1-3d26c8e53339" class=""><strong>Challenge 2:</strong></h3><p id="4d204383-5e57-421e-aff5-0ddaf12deed4" class=""><strong>Instructions:</strong></p><p id="b7014a3b-c1cf-4752-beea-8b5645f40111" class="">Combine <code>arr1</code> and <code>arr2</code> into a new array called <code>arr3</code> with the following elements:</p><pre id="58c289b6-3707-402b-a3db-7f57a3858f40" class="code code-wrap"><code>const arr1 = [1, 2, 3, 4, 5];
+const arr2 = [5, 6, 7, 8, 9, 10];
+</code></pre><p id="cab69bf6-6c79-4c70-9556-29bea6ccf127" class="">Notice that both <code>arr1</code> and <code>arr2</code> include the number 5. You will have to find a way to get rid of the extra 5.</p><p id="d15f34d0-fb8e-4025-9f4d-877fbef1b61c" class=""><strong>Expected Result:</strong></p><pre id="43157d68-7bc2-40f2-a777-aecc594a1aad" class="code code-wrap"><code>console.log(arr3);
+// [1,2,3,4,5,6,7,8,9,10]
+</code></pre><p id="402703b0-6c02-4133-a3f7-832626b673c2" class=""><strong>Hint</strong>: There are many ways to do this, but think of the concat() method or the spread operator as well as the slice() or splice() methods</p><ul id="82bb714d-5221-44cf-9cf3-650a0c9a33a7" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="d5368873-a068-45ee-bf1f-1e3fe20134e2" class="code code-wrap"><code>const arr1 = [1, 2, 3, 4, 5];
+const arr2 = [5, 6, 7, 8, 9, 10];
+
+// Solution 1
+const arr3 = arr1.slice(0, 4).concat(arr2);
+
+console.log(arr3); // [1,2,3,4,5,6,7,8,9,10]
+
+// Solution 2
+const arr4 = [...arr1, ...arr2];
+arr4.splice(4, 1);
+
+console.log(arr4); // [1,2,3,4,5,6,7,8,9,10]
+
+</code></pre></details></li></ul></details></li></ul><ul id="40a02a6c-8292-41a1-aa23-7bf8efa41a67" class="toggle"><li><details open=""><summary><strong>Object Literals</strong></summary><p id="6750c8d4-d8f7-4f3c-987e-5d8c5a6771ff" class="">I want to talk about a very common JavaScript data structure that holds key/value pairs called an <code>object literal</code>. We can also create objects using a <code>constructor</code>, but I will get into that later on. The main difference between using a constructor and an object literal is that the object literal is a <code>singleton</code>, meaning that it is a <strong>single instance</strong> of the object. With a constructor, we can create multiple instances of the object. Most of the time, we will use the object literal syntax.</p><figure id="c69040c7-a1a7-4a00-84b6-218a2ab5db88" class="image"><a href="02-arrays-and-objects%200e7772201ef64bd1afdb4de035f9377a/Untitled%201.png"><img style="width:480px" src="02-arrays-and-objects%200e7772201ef64bd1afdb4de035f9377a/Untitled%201.png"/></a></figure><p id="8f99591c-77ba-4352-8c4a-94e62ceafa6e" class="">The image above shows us the syntax to create a new object. Essentially, all an object is, is a set of <code>properties</code> with <code>key/value</code> pairs. The <code>key</code> is often called the <code>property name</code>. The values go by the same types and principles as anything you would set in a regular variable (string, number, boolean, etc)</p><pre id="9fb83251-a996-4dd9-b5d9-b8d2745d5007" class="code code-wrap"><code>const person = {
+  name: &#x27;John&#x27;,
+  age: 30,
+  location: &#x27;Boston&#x27;,
+  hobbies: [&#x27;movies&#x27;, &#x27;music&#x27;],
+  isAdmin: false,
+};
+</code></pre><p id="f778905a-c8b1-4993-b8bf-6d5defbc549b" class="">We can also nest objects, but I&#x27;m going to go over that in next video.</p><h3 id="94244df4-cef2-4a6c-a3af-628ba6733fdd" class=""><strong>Accessing property values</strong></h3><p id="936f2307-ab36-45c5-ba3a-c53f5773dd30" class="">To access a value, we can use both dot notation and bracket notation.</p><pre id="f6351bf8-1c02-4b96-b813-4d1689a9c07e" class="code code-wrap"><code>// Dot notation
+person.name; // John
+
+// Bracket notation
+person[&#x27;name&#x27;]; // John
+</code></pre><p id="04d3ad92-c2ec-4ffd-a5a6-1a23f18bf69f" class="">We will typically use dot notation and use brackets with arrays. Although, technically arrays are just objects with a numeric index.</p><p id="b083b37e-8d0d-4369-b7e4-76eaf1297acb" class="">To access the first hobby in the array:</p><pre id="2f5187c1-9890-42eb-bc49-4b78917f5b52" class="code code-wrap"><code>person.hobbies[0]; // movies
+</code></pre><h3 id="bee931da-7a56-4879-9ebf-065df2709e13" class=""><strong>Adding &amp; updating properties</strong></h3><p id="7070cf7b-1bf9-4375-8b9f-5c00b8722a4b" class="">I just manually added and changed some of the properties directly in the object above, but to programmatically add or change properties, we could do this:</p><pre id="3fb1aded-9055-4669-b2d5-ea98ef85c4d4" class="code code-wrap"><code>person.email = &#x27;john@gmail.com&#x27;; // Add a new property
+person.isAdmin = true; // Update an existing property
+</code></pre><h3 id="235b93d4-7e0a-47a4-8727-540ad1fbe34a" class=""><strong>Removing properties</strong></h3><p id="6cbda96a-df7a-4e0a-91ff-a2d0f74c08e4" class="">To remove a property, we can use the <code>delete</code> keyword.</p><pre id="d0cede17-bb46-4df4-83e3-8468475365b3" class="code code-wrap"><code>delete person.isAdmin;
+</code></pre><h3 id="c7167a4b-c665-4aad-b29a-f43be07daff9" class=""><strong>Adding functions to objects</strong></h3><p id="464ed8da-076e-4caa-80c1-4dc657375dc2" class="">Not only can we store primitives, arrays and other objects, we can also store functions as an object&#x27;s property.</p><pre id="c08e97e5-f5f4-4472-9570-3d9057b19c10" class="code code-wrap"><code>person.greet = function () {
+  console.log(&#x27;Hello, my name is &#x27; + this.name);
+};
+</code></pre><p id="9ed71ebe-b59d-4dfb-a68b-34dc1cdc6c06" class="">Notice I used the keyword <code>this</code> to access the <code>name</code> property. This is because <code>this</code> refers to the object that the function is being called on. This is where <code>scope</code> comes into play. If we are in the <code>global scope</code>, then the <code>this</code> keyword refers to the <code>global object</code> or the <code>window</code> in the browser. We&#x27;ll get more into scope in the next section.</p><p id="96be20dd-5554-43fb-ad31-148387f78fa6" class="">We can call the greet function like this:</p><pre id="e2764de5-df52-4194-b047-8cc25260f46e" class="code code-wrap"><code>person.greet(); // Hello, my name is John
+</code></pre><h3 id="c822e443-9408-413e-8b2d-dcfdb9f62351" class=""><strong>Using multiple words in property names</strong></h3><p id="69e1a10c-63e7-4bd6-af83-a215094c3764" class="">If you want to use multiple words as a property name or key, you can use quotes or backticks to wrap the property name.</p><pre id="00b433c2-03d0-4f2d-8352-b2bcb9db4106" class="code code-wrap"><code>const person2 = {
+  &#x27;first name&#x27;: &#x27;Brad&#x27;,
+  &#x27;last name&#x27;: &#x27;Traversy&#x27;,
+};
+</code></pre><p id="d607bc53-da7b-471e-b1d1-26c36b87dcd9" class="">We have to use bracket notation when using property names with multiple words.</p><pre id="d564178a-c49e-4fff-9f5f-e206566b743e" class="code code-wrap"><code>person2[&#x27;first name&#x27;]; // Brad</code></pre></details></li></ul><ul id="75fe3501-d061-4d81-91ca-b59238c4132f" class="toggle"><li><details open=""><summary><strong>Object Nesting, spreading, methods and more</strong></summary><p id="932670da-a6a0-42b5-8c55-4d0f35c5c65e" class="">So we saw how to create object literals in JavaScript. I want to go a bit deeper and look at nesting, the spread operator as well as some static methods on the Object constructor.</p><p id="dd01618d-7c73-4a07-9075-cfe5a8b70990" class="">First, I do want to show you another way of creating objects that you may run into and that is by using the Object constructor.</p><pre id="15609219-d973-4db9-b099-aa858e2b225e" class="code code-wrap"><code>const todo = new Object();
+// Same as
+const todo = {};
+</code></pre><p id="37d4d5dd-1433-4a09-a8da-c7c4fb2d181f" class="">We can add properties to the object using dot notation.</p><pre id="07e8eaf3-4657-408b-af8d-bfec0cfbe7c9" class="code code-wrap"><code>todo.id = 1;
+todo.title = &#x27;Buy milk&#x27;;
+todo.completed = false;
+</code></pre><p id="6300beec-5f63-46d5-bda9-eb46163bd403" class="">Later on when we get more into OOP, I&#x27;ll show you how we can create our own object constructors that we can use to create multiple instances of the same object. So that we can do something like this:</p><pre id="9b400953-85bd-47d6-b8c2-af59290984a1" class="code code-wrap"><code>const todo1 = new Todo();
+</code></pre><p id="c8dfca11-7b1b-4225-a3fe-69cb8e060f89" class="">For now, we&#x27;ll stick with static object literals.</p><h3 id="46ca30b9-676f-4ac2-adc3-f2feaf677ab4" class=""><strong>Nesting objects</strong></h3><p id="4852c395-4a67-4fb7-a372-df5b5042276b" class="">We can put objects inside other objects.</p><pre id="c3f23e39-d547-4e89-8f5a-03d50d2d9694" class="code code-wrap"><code>const person = {
+  address: {
+    coords: {
+      lat: 42.3601,
+      lng: -71.0589,
+    },
+  },
+};
+</code></pre><p id="a6d0f379-bb11-4ed0-bb58-3619c0993d5f" class="">If we want to access nested objects, we simply use dot notation</p><pre id="887a75ae-6efd-4dcb-8468-b4ddb73ef405" class="code code-wrap"><code>person.address.coords.lat;
+</code></pre><h3 id="b0a4fe99-0e98-4dd1-8a8f-97754d22306f" class=""><strong>Spread operator</strong></h3><p id="217ee37e-c0a4-4e76-ad52-16ca0552b2ad" class="">The spread operator is used to <strong>spread</strong> across object properties into a new object. Let&#x27;s first look at another example of nesting.</p><pre id="8efaba29-9db5-4cc2-9191-a3043a19b04a" class="code code-wrap"><code>const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 1, d: 4 };
+
+const obj3 = { obj1, obj2 }; // { { a: 1, b: 2 }, { c: 1, d: 4 } }
+</code></pre><h3 id="ef0eca3d-ab0a-41e8-8bd5-7104dcbe708d" class=""><strong>Object.assign()</strong></h3><p id="8c8ff131-b088-4c29-974f-7f0b40903c69" class="">We can do the same thing we did with the spread operator with the Object.assign() method.</p><pre id="5e1a4990-5046-4b25-b271-4d902342ae96" class="code code-wrap"><code>const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 1, d: 4 };
+
+const obj3 = Object.assign({}, obj1, obj2); // { a: 1, b: 2, c: 1, d: 4 }
+</code></pre><p id="c08778ee-ba48-4250-b224-cf115543052b" class="">The first param we pass in is an empty object, then each one after is an object we want to spread into the empty object.</p><p id="ac6789bb-f4d6-4efc-8bab-4cbb328db318" class="">In the code above, we are simply nesting. We can use the spread operator to spread the properties instead of just nesting the entire object.</p><pre id="19663fac-5b13-4394-a132-4d752660c368" class="code code-wrap"><code>const obj3 = { ...obj1, ...obj2 }; // { a: 1, b: 2, c: 1, d: 4 }
+</code></pre><h3 id="1709e384-7812-4bd7-ab38-6a073b15570e" class=""><strong>Arrays of objects</strong></h3><p id="e1153dbf-6431-4d4a-a983-b3e4bcf12ba0" class="">In many cases, you will be dealing with arrays of objects.</p><pre id="2b8a5e1e-02be-467e-b944-62edd2d75649" class="code code-wrap"><code>const people = [
+  { id: 1, name: &#x27;John&#x27; },
+  { id: 2, name: &#x27;Sara&#x27; },
+  { id: 3, name: &#x27;Mike&#x27; },
+];
+</code></pre><p id="a3ee8e3a-e0e8-4bcf-a408-a0eb8dd05419" class="">We can access the name <strong>Sara</strong> like this:</p><pre id="ddc0e9bd-c038-47ab-96ad-0645ca3abe68" class="code code-wrap"><code>people[1].name; // Sara
+</code></pre><h3 id="eda46023-958c-4c6b-9b1f-8b89fcd1d89c" class=""><strong>Object methods</strong></h3><p id="0bfd17ec-38d2-47e5-a0c0-a27c00778e30" class="">The Object() constructor has some helpful methods that we can use, just like the <code>Number()</code> and <code>String()</code> constructors. We already looked at <code>Object.assign()</code>, let&#x27;s look at some others.</p><h3 id="f7d9e9eb-4ee2-4b71-abd6-2db9994881c0" class=""><strong>keys()</strong></h3><p id="5cbd527b-8c37-4ded-ac69-0f2d259e06e9" class="">Get an array of all the keys in an object.</p><pre id="f58ec251-c918-4fb9-9af5-8d36f211a7c8" class="code code-wrap"><code>Object.keys(person); // [&#x27;name&#x27;, &#x27;age&#x27;, &#x27;address&#x27;]
+</code></pre><h3 id="af6f5079-6514-4a62-bb63-63a3cf10400e" class=""><strong>Getting the length of an object</strong></h3><p id="2a60f0dc-7a70-4cf3-b716-0bce28e5d9a9" class="">We can&#x27;t use the <code>length</code> property directly on an object. If I do the following, it will look for a &#x27;length&#x27; property.</p><pre id="f76ce8b2-8ae0-4cdd-af42-70b5b14c23fe" class="code code-wrap"><code>person.length; // undefined
+</code></pre><p id="57b1081f-d76d-4282-99f8-c52aac179afa" class="">However, we can first get the keys of the object and then use the length property on the keys array.</p><pre id="f12e7fb6-0b4b-4697-90d8-091eca416a22" class="code code-wrap"><code>Object.keys(person).length; // 3
+</code></pre><h3 id="7fdfe720-25bb-486e-9fdc-f84d357253ee" class=""><strong>values()</strong></h3><p id="8537e2ca-8617-4e70-9cdd-deec9b71c6f5" class="">We can get an array of all the values in an object.</p><pre id="eb860f46-d107-449a-8f5e-baad15cb2411" class="code code-wrap"><code>Object.values(person); // [ &#x27;John&#x27;, 30, { address } ]
+</code></pre><h3 id="b9185067-77dd-4e4c-9024-a2690434be7d" class=""><strong>entries()</strong></h3><p id="8a187390-e408-48ac-b148-653e172bbe40" class="">Get an array of key/value pairs</p><pre id="b2646695-f852-4d4e-b0d7-79040822194f" class="code code-wrap"><code>Object.entries(person); // [ [ &#x27;name&#x27;, &#x27;John&#x27; ], [ &#x27;age&#x27;, 30 ], [ &#x27;address&#x27;, { address } ] ]
+</code></pre><h3 id="dbf13ab0-3e4b-4b13-a3a1-395b6b3367c0" class=""><strong>hasOwnProperty()</strong></h3><p id="61a8014a-ff55-4a8f-a9dd-6377c7b98c4b" class="">Get a boolean indicating if the object has the property</p><pre id="a9a2f708-707a-477d-b0ba-9de124d2117e" class="code code-wrap"><code>person.hasOwnProperty(&#x27;name&#x27;); // true</code></pre></details></li></ul><ul id="05ba8239-54e2-4ae7-8c63-4f3001aaff58" class="toggle"><li><details open=""><summary><strong>Destructuring &amp; Naming</strong></summary><h3 id="a0f74623-10cc-487c-8e14-74dc6380cf42" class=""><strong>Variables with the same name</strong></h3><p id="341097b3-f056-43b2-a9e3-d16546532a6b" class="">In some cases, we may have a variable that we want to add as an object property value. If a property name (key) is the same as the variable name for the value, we can withdraw the variable name of the value. For example:</p><pre id="63f03a06-3774-4746-8a75-0837a10a0b7d" class="code code-wrap"><code>const firstName = &#x27;John&#x27;;
+const lastName = &#x27;Doe&#x27;;
+const age = 30;
+</code></pre><p id="4f7263b9-9072-4b18-ba14-ca143b739656" class="">Here I will put the variables above as the values for each property of the object. I will use the same variable names as the property names.</p><pre id="3e61372f-c7d7-4987-9066-c6e7a915b5d6" class="code code-wrap"><code>const person = {
+  firstName: firstName
+  lastName: lastName
+  age: age
+};
+</code></pre><p id="fafe286b-2017-411c-ab3b-dfe6f2fef65c" class="">We can shorten this code by removing the variable names from the property values. The variable names are the same as the property names, so we can remove them.</p><pre id="10033cf2-b481-412f-bb58-958f7e1aae48" class="code code-wrap"><code>const person = {
+  firstName
+  lastName
+  age
+};
+</code></pre><h3 id="1a3d3c46-35d9-4f84-899a-d5a15710704e" class=""><strong>Destructuring an object</strong></h3><p id="e218fdfc-6544-4cd9-bc2a-32bf7f57130c" class="">Destructuring allows us to pull values/variables out of an object</p><pre id="150a444b-5370-490e-a38c-10f6c0deb3ae" class="code code-wrap"><code>const todo = {
+  id: 1,
+  title: &#x27;Take out trash&#x27;,
+};
+
+const { id, title } = todo;
+
+console.log(id, title); // 1, &#x27;take out the trash&#x27;
+</code></pre><p id="0f8ce32e-50b7-4179-8d02-7e8ceb91645a" class="">We can also go multiple levels deep:</p><pre id="99cbe959-4c8d-4ec5-bf97-a5bd1af7c261" class="code code-wrap"><code>const todo = {
+  id: 1,
+  title: &#x27;Take out trash&#x27;,
+  user: {
+    name: &#x27;John&#x27;,
+  },
+};
+
+const {
+  user: { name },
+} = todo;
+
+console.log(name); // John
+</code></pre><p id="fe26e805-1b44-4ee3-bb41-6bfae44dcc58" class="">If we want to rename the properties, we can do that too:</p><pre id="565109c8-aef4-40db-b8c6-129d0b28fd60" class="code code-wrap"><code>const { id: todoId } = todo;
+
+console.log(todoId); // 1
+</code></pre><h3 id="4dc9d424-5366-4b1b-b4d3-87598d4ca419" class=""><strong>Destructuring an array</strong></h3><p id="93efd359-40bc-46b3-a3e8-9bc3a98401e0" class="">We can also destructure arrays. I personally don&#x27;t destructure arrays as much as I do objects</p><pre id="a0cb4af4-0129-4c79-9551-015a8d476681" class="code code-wrap"><code>const numbers = [10, 20, 30, 40];
+
+const [firstNumber, secondNumber] = numbers;
+
+console.log(firstNumber, secondNumber) // 10, 20
+</code></pre><h3 id="381c152f-fcc3-4b28-8921-a70c49d223cc" class=""><strong>The rest operator</strong></h3><p id="20deab49-0326-4c87-bb65-55b5107ff642" class="">The spread operator (...) can be used here, but in this situation, we call it the <code>rest operator</code>. It puts the &quot;rest&quot; of the values in an array</p><pre id="13ee9296-b98a-4eca-83ca-ccd3fc2b9fe0" class="code code-wrap"><code>const [firstNumber, secondNumber, ...rest] = numbers;
+
+console.log(rest) // [30, 40]</code></pre></details></li></ul><ul id="1cc978df-c528-488c-a143-128b6d556f9f" class="toggle"><li><details open=""><summary><strong>An Intro to JSON</strong></summary><p id="889a9e5e-f6ef-4058-9d96-69d80197c72d" class=""><strong>JSON</strong> is something that you will be working with a lot as a JavaScript developer. <strong>JSON</strong> stands for <strong>JavaScript Object Notation</strong> and is a lightweight data-interchange format. It is essentially a way of storing data in a simple, human-readable format.</p><p id="86a7a5ce-c640-4e36-a04e-624c0f5aead7" class="">In web development, especially in JavaScript, we work with APIs that send and receive data to and from a server. Several years ago, XML (Extensible Markup Language) was the standard for sending data, but in more recent years, JSON has become the standard.</p><p id="81b5c883-afde-45b7-b980-04d38408253f" class="">An example of an API that you can make a request to right now and see the JSON response would be the Github API. In your browser, go to the following URL:</p><p id="c7c9dcc3-1cc9-4f23-b0e7-6551d6b00f1d" class=""><a href="https://api.github.com/users/bradtraversy">https://api.github.com/users/bradtraversy</a></p><p id="4d69c6dc-3b50-478f-b290-19299a61e9cb" class="">You will see the result is in JSON format.</p><p id="16659de1-5e03-4934-9ad3-320472808bd6" class="">The reason I want to talk about JSON right now is because we are talking about JavaScript object literals and the syntax that JSON uses is extremely similar. JSON uses curly braces of key/value pairs. Let&#x27;s look at an example of a JSON object:</p><pre id="5a294764-fba5-4514-9b71-63ab5fed826c" class="code code-wrap"><code>{
+  &quot;name&quot;: &quot;John&quot;,
+  &quot;age&quot;: 30,
+  &quot;city&quot;: &quot;New York&quot;
+}
+</code></pre><p id="8da88b83-8856-4264-98ab-dbb156647fce" class="">The main difference here is that the keys have double quotes around them. These are required and they must be double quotes. As far as the values, strings must be wrapped in double quotes. Numbers and booleans do not.</p><p id="e1796472-e080-44b3-9251-a8cbfa5fed28" class="">We have methods available to turn JavaScript objects into JSON strings and vice versa.</p><pre id="9e137ce4-93aa-44cc-a5bb-5f18c623bc0c" class="code code-wrap"><code>const obj = {
+  name: &#x27;John&#x27;,
+  age: 30,
+  city: &#x27;New York&#x27;,
+};
+
+// Turn object into JSON string
+const str = JSON.stringify(obj);
+console.log(str); // {&quot;name&quot;:&quot;John&quot;,&quot;age&quot;:30,&quot;city&quot;:&quot;New York&quot;}
+
+// Turn JSON string into object
+const obj2 = JSON.parse(str);
+console.log(obj2); // {name: &quot;John&quot;, age: 30, city: &quot;New York&quot;}
+</code></pre><p id="78392d64-a6d1-45b1-acf2-7bfa3f54ee59" class="">Aside from <code>stringify()</code> and <code>parse()</code>, there isn&#x27;t really anything else to learn about the JSON object. You will use these two methods a lot though, whether you are on the front-end or back-end.</p><p id="c0f0ebfa-be92-4f98-8159-63a73bf50549" class="">We can not access properties from a JSON string.</p><pre id="5b255967-fce0-4bf3-8a3e-792a67400635" class="code code-wrap"><code>console.log(str.name); // undefined
+</code></pre><p id="b9438470-c4c4-4616-894d-38b46d8b9b23" class="">If we try and get the index of a JSON string, we will get the character, because it is treated as a string.</p><pre id="6651c781-1c49-435e-b26e-e1bbed7945ba" class="code code-wrap"><code>console.log(str[0]); // &quot;{&quot;
+</code></pre><h3 id="8b230081-4a3b-4803-a1e0-1365cb0f44a1" class=""><strong>JSON Arrays</strong></h3><p id="882148ff-9a41-4f75-bffe-ef2bce7d5682" class="">We have JSON objects like the one above, but JSON can also have arrays. We can also set arrays as a property value.</p><pre id="80613f1c-e44d-4eca-8aab-1963f7cef21a" class="code code-wrap"><code>[
+  {
+    &quot;name&quot;: &quot;John&quot;,
+    &quot;age&quot;: 30,
+    &quot;city&quot;: &quot;New York&quot;,
+    &quot;hobbies&quot;: [&quot;basketball&quot;, &quot;cooking&quot;]
+  },
+  {
+    &quot;name&quot;: &quot;Jane&quot;,
+    &quot;age&quot;: 20,
+    &quot;city&quot;: &quot;LA&quot;,
+    &quot;hobbies&quot;: [&quot;movies&quot;, &quot;sports&quot;]
+  },
+  {
+    &quot;name&quot;: &quot;Jack&quot;,
+    &quot;age&quot;: 25,
+    &quot;city&quot;: &quot;Paris&quot;,
+    &quot;hobbies&quot;: [&quot;music&quot;, &quot;painting&quot;]
+  }
+]
+</code></pre><p id="184beda8-a455-4c8b-a8b8-5421316e56ad" class="">We can parse it into a JavaScript object with JSON.parse(). Then we can access the properties.</p><pre id="8e973df6-c62f-44c6-bdb1-69c216d848b2" class="code code-wrap"><code>const arr = JSON.parse(str);
+console.log(arr[0].name); // John</code></pre></details></li></ul><ul id="7f5d8fcb-f338-4003-b42f-4d3e67413618" class="toggle"><li><details open=""><summary><strong>Object Challenge</strong></summary><h3 id="af8f5ded-f8dc-4900-8a43-570198e94e22" class=""><strong>Step 1</strong></h3><p id="c49538bd-44d8-4bc5-90a7-d3fb3cad7fe4" class="">Create an array of objects called <code>library</code>. Add 3 objects with a property of <code>title</code>, <code>author</code>, <code>status</code>. Title and author should be strings (whatever value you want) and status should be another object with the properties of <code>own</code>, <code>reading</code> and <code>read</code>. Which should all be boolean values. For all status, set <code>own</code> to <code>true</code> and <code>reading</code> and <code>read</code> to false.</p><h3 id="349076a5-dd2d-4605-88f6-1986054e4e00" class=""><strong>Step 2</strong></h3><p id="a1a8150b-9a7a-4512-a06b-eb5a4e9f0d08" class="">You finished reading all of the books. Set the <code>read</code> value for all of them to <code>true</code>. Do not edit the initial object. Set the values using dot notation.</p><h3 id="9de2b1c1-e194-4573-8590-fa9685f4af46" class=""><strong>Step 3</strong></h3><p id="a80fcab0-9246-4a08-9590-f7bce1df38ba" class="">Destructure the title from the first book and rename the variable to <code>firstBook</code></p><h3 id="5696f175-f520-43f5-a60c-cf3a2912566c" class=""><strong>Step 4</strong></h3><p id="05182bb7-943b-4267-b7d1-490bb60262dd" class="">Turn the library object into a JSON string. There is a specific function that we looked at in the last section that we can use to do this.</p><ul id="59f55c69-058b-4856-8be6-abb12e8ae1d9" class="toggle"><li><details open=""><summary>Click For Solution</summary><h3 id="5f2a0d46-0b6f-4e65-910f-837951ae9972" class=""><strong>Step 1 Solution</strong></h3><pre id="3ed8a57c-562c-4346-a7cb-5798c80d68d5" class="code code-wrap"><code>const library = [
+  {
+    title: &#x27;The Road Ahead&#x27;,
+    author: &#x27;Bill Gates&#x27;,
+    status: {
+      own: true,
+      reading: true,
+      read: false,
+    },
+  },
+  {
+    title: &#x27;Steve Jobs&#x27;,
+    author: &#x27;Walter Isaacson&#x27;,
+    status: {
+      own: true,
+      reading: false,
+      read: false,
+    },
+  },
+  {
+    title: &#x27;Mockingjay: The Final Book of The Hunger Games&#x27;,
+    author: &#x27;Suzanne Collins&#x27;,
+    status: {
+      own: true,
+      reading: false,
+      read: true,
+    },
+  },
+];
+</code></pre><h3 id="2073cb15-a1cb-4a8b-bdcd-41d24ec304e9" class=""><strong>Step 2 Solution</strong></h3><pre id="87a1b774-5f25-4576-b5b7-b3443ede0f4e" class="code code-wrap"><code>library[0].status.read = true;
+library[1].status.read = true;
+library[3].status.read = true;
+</code></pre><h3 id="c7f4c90e-065c-46bb-bf76-a5242fb5cd05" class=""><strong>Step 4 Solution</strong></h3><pre id="98381a8d-f7c6-47d3-9422-89bece7191bb" class="code code-wrap"><code>const { title: firstBook } = library[0];
+console.log(firstBook);
+</code></pre><h3 id="29cef9a0-0a35-4d66-b7b4-648be403399b" class=""><strong>Step 4 Solution</strong></h3><pre id="0c49dd85-98be-4f12-b221-b5b805a25778" class="code code-wrap"><code>const libraryJSON = JSON.stringify(library);
+console.log(libraryJSON);
+</code></pre></details></li></ul><p id="5c9388bb-0bcf-408e-b237-b0a8fb501a9a" class="">⬆︎</p><p id="14b1f6f1-645a-4437-9414-e7bd789911f5" class="">⟳︎</p><p id="313c057c-0220-4282-a797-6684d6b6de71" class="">§</p></details></li></ul></div></article></body></html>

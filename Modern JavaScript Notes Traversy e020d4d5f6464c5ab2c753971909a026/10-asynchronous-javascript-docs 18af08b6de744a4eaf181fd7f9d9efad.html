@@ -1,0 +1,1211 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>10-asynchronous-javascript-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="18af08b6-de74-4a4e-af18-1fd7f9d9efad" class="page sans"><header><h1 class="page-title">10-asynchronous-javascript-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="e349883b-6953-4251-b257-54280afdd3fc" class="toggle"><li><details open=""><summary><strong>Thread Of Execution</strong></summary><h2 id="0a265064-20d6-439f-9580-fc7ddede9756" class=""><strong>JavaScript is Synchronous</strong></h2><p id="a4f0fbe7-2304-4d91-b2fa-763c2fd14504" class="">So, we have covered a lot of the fundamentals of JavaScript and how to work with the Document Object Model (DOM). Now we are going to start to get into asynchronous JavaScript. Before we do that though, it is important to understand how JavaScript actually works and to understand that at it&#x27;s core, JavaScript is a <code>synchronous</code> and <code>single-threaded</code> language. It has <code>asynchronous</code> capabilities, which we will be looking at in this section and others, but it is not <code>asynchronous</code> by default.</p><h2 id="e50e778e-001d-4f5d-9747-f084d12b241d" class=""><strong>JavaScript is Single-Threaded</strong></h2><p id="501abea2-6f9b-4005-b50f-ce61b77a8ca0" class="">You already have a leg up on this stuff, because you know about the <code>execution context</code>. We talked about that earlier in the course. The <code>execution context</code> contains the currently running code and everything that aids in its execution. It also runs on what we call a <code>thread of execution</code>. The <code>thread of execution</code> is a single thread that <strong>runs one line of code at a time</strong>. This is why JavaScript is a <code>single-threaded</code> language and is <code>synchronous</code>. Some languages have multiple threads that can run code at the same time. JavaScript does not.</p><figure id="4aa2401f-ad9e-447c-af28-050e73a8c6cd" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled.png"><img style="width:399px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled.png"/></a></figure><p id="746bfb5b-8980-4d60-a09e-5fb862ad9bc6" class="">If we look at this image, it shows the <code>thread of execution</code>, which is a single sequential flow of control and each operation happens one after the other. The second console.log() will not run until the first one is finished. The third will not run until the second is finished. This is <code>synchronous</code> behavior. The thread also includes the call stack and memory heap, which we&#x27;ve already talked about.</p><p id="f6f14298-42aa-4079-87c5-246110c473b4" class="">So that&#x27;s really all I want you to understand up to this point is that everything is executed line by line. In the next video, I&#x27;ll show you how it is possible to run code asynchronously with the help of web APIs.</p></details></li></ul><ul id="6e7911c0-5a3d-42e2-81e9-cabb160b2bbf" class="toggle"><li><details open=""><summary><strong>How Asynchronous JavaScript Works: The Task Queue &amp; Event Loop</strong></summary><p id="c65cb486-cefa-47be-b06e-71c301510267" class="">Alright, so I just want to warn you that I&#x27;m going to throw a lot of information at you in this video because I&#x27;m basically going to explain everything that happens behind the scenes when we create asynchronous code. If this confuses you, don&#x27;t worry about it. You&#x27;ll learn more about the behind the scenes stuff as well as the syntax throughout the course.</p><p id="232e9791-479b-438b-bfe7-8d4075ff2fe1" class="">So you know that JavaScript is a <code>synchronous</code> and it&#x27;s a <code>single-threaded</code> language. It runs one line of code at a time. Just to remind you, we can look at the image we talked about in the last video.</p><figure id="f0134a66-5f62-4eec-802d-a8c2a4a3d6d2" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%201.png"><img style="width:328px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%201.png"/></a></figure><p id="f2390655-d0f2-4c14-88ff-381394e5f4e7" class="">These operations run line by line and each one has to wait for the last one to complete before executing. Where we run into issues is where one of these operations takes a while. Something like fetching data from a server or if you&#x27;re using Node.js, maybe you&#x27;re reading from or writing to a file. That can take a while, and by a while, I mean usually a few seconds or even a few milliseconds, but that&#x27;s a long time in programming.</p><h2 id="96ec4acb-1078-4993-87ac-12d344d4c92f" class=""><strong>Blocking &amp; Non-Blocking Code</strong></h2><p id="743a3b38-052a-47fc-9577-172e37da1545" class="">When an operation takes a while and basically holds up the line, that is called <code>blocking</code> code or operations. It blocks the flow of the program until it completes. <code>Non-blocking</code>code refers to code that does not block execution.</p><p id="21c836e0-782d-4b2e-9371-b9d8562912d1" class="">Let&#x27;s look at the following code. Don&#x27;t worry if you don&#x27;t understand everything, but both pieces of code are reading a file using Node.js file system methods and then calculating the sum of numbers from 1 to 10.</p><figure id="b2fb89dd-a4e9-4ebd-ae59-1e9b3aef743e" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%202.png"><img style="width:910px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%202.png"/></a></figure><p id="6eb730a7-39b5-490d-8282-6bbd3d808b7a" class="">On the left, we are using the <code>readFileSync()</code> method. This is a blocking method. It will read the file and then move on to calculate the sum. In the console, we see the file contents and then the sum.</p><p id="873ee13e-5ee9-4768-a52c-703e6926d9a8" class="">On the right, we are using the <code>readFile()</code> method. This is a non-blocking, asynchronous method. It will read the file but it will not block the execution of the program by making it wait. The way it works, is it takes in a callback function and when the file is read, it will execute the callback function. In the console, we see the sum first and then the file contents, because we did not have to wait for the file to be read before calculating the sum.</p><p id="24cac23e-b5dd-4e1b-b62a-5e251c450d79" class="">Now <code>readFile()</code> is not available to us in the browser, but there are a lot of APIs that are available that work in a similar asynchronous way.</p><p id="5770b6d3-5e5a-47f0-bab1-f63b6c740008" class="">I&#x27;m going to show you a diagram to try and explain what happens when we write asynchronous code using these web APIs.</p><figure id="87972199-6f70-41c1-8eeb-8ee94a07102c" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%203.png"><img style="width:906px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%203.png"/></a></figure><p id="b6767617-d54d-486e-9ad0-67b35cfe068f" class="">The yellow box represents the <code>JavaScript engine</code>. This is the part of the browser that executes our JavaScript code. This is where our <code>call stack</code> is that executes all of our functions, etc. This is also where the <code>memory heap</code> is, which is where all of our variables and objects are stored.</p><figure id="9fca28ca-fa9d-4526-bdf9-69e902720b67" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%204.png"><img style="width:913px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%204.png"/></a></figure><p id="a204735b-9409-41a6-a8f5-aeda838bb529" class="">Outside of that, in the green box, we have a bunch of web APIs that are accessible to us via the browser and the <code>global object</code>. Remember, this is created during the <em>creation phase</em> of the <code>global execution context</code>.</p><figure id="79ee9aee-83d8-46d7-8cc2-27f90f0ec58a" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%205.png"><img style="width:903px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%205.png"/></a></figure><p id="61ff7d17-a6e3-481e-866b-b06881cff3ac" class="">If we go to the browser console and type in <code>window</code> and hit enter, you will see <code>setTimeout()</code> and <code>setInterval()</code> and a bunch of other functions that allow us to do things asynchronously.</p><figure id="b61fbbc8-0222-4dd6-99c5-aeec2a1ce3f8" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%206.png"><img style="width:329px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%206.png"/></a></figure><p id="cab4bd7c-d88a-49b5-85b0-e2648f069a5d" class="">In addition to <code>setTimeout()</code> and <code>setInterval()</code>, we have the whole DOM API. We select elements and put event listeners on them. That&#x27;s another API we have available to us. it&#x27;s not part of JavaScript. When you use Node.js, you don&#x27;t have access to the document object, because there is no DOM or browser in Node.js. But as you saw in the code examples, in Node, you do have access to the filesystem API, which allows you to read and write files.</p><p id="17fd8593-b35d-4a7e-b8ef-80cff6684f23" class=""><code>fetch()</code> is another API that we have access to. It allows us to make HTTP requests. We&#x27;ll be working with the fetch API quite a bit to send requests to APIs and services. This is something that a front-end developer has to know how to use, and we&#x27;ll get to that soon enough.</p><p id="95d47c47-26e4-48fb-9753-f13681d58ccb" class="">Right now, I just want you to understand that this is stuff provided to us by the browser environment. Now, let&#x27;s talk about how they work with the JavaScript engine, which is inherently synchronous.</p><h2 id="23ac13b4-55b9-4247-9241-f26f2cb9ae7b" class=""><strong>Task Queue</strong></h2><p id="0d989b67-3a63-4af4-8657-22568429b1c8" class="">So we know these APIs are separate from the JavaScript engine. We know that we have the ability to go off and do something while the script continues to execute and when that something is done, we fire off a callback function. This is possible because of something called the <code>task queue</code>.</p><figure id="fe2c1bba-dbda-454e-8f11-ffa9d4bd3907" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%207.png"><img style="width:914px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%207.png"/></a></figure><p id="23e6d6e9-09dd-4dda-a80c-6b713eec6253" class="">When we call an asynchronous function such as <code>setTimeout()</code>. In the diagram it&#x27;s being called from a function, but it could just as well be from the global scope. When we call it, we added a callback function as an argument. It then registers that callback and it gets added to what we call a <code>task queue</code>. This is a queue of callbacks that are waiting to be added to the call stack and executed.</p><p id="53068b51-1b4d-4848-a801-4c336fb6a997" class="">A <code>queue</code> is a data structure that follows the <code>first in, first out</code> principle. This means that the first item that is added to the queue will be the first item that is removed from the queue. In our case, the first callback that is added to the task queue will be the first callback that is executed.</p><figure id="496d4bfa-a16e-4522-969d-37d63ab9360e" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%208.png"><img style="width:903px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%208.png"/></a></figure><p id="99ae0af7-5581-4fc6-9a2b-458a3aa1ba0e" class="">Remember, we already looked at a <code>stack</code>, which follows the <code>last in, first out</code> principle. This means that the last item that is added to the stack will be the first item that is removed. The <code>call stack</code> is an example. So both <code>queues</code> and <code>stacks</code> are data structures that are used in programming.</p><h2 id="aa089801-e826-41c0-a820-c3f67ccb0d58" class=""><strong>Event Loop</strong></h2><p id="2a573090-cd5e-4164-b03d-a429cb74c135" class="">Any callbacks that are in the queue, have to be put on the stack to be executed. This is where the <code>event loop</code> comes in. The event loop is a process that checks the call stack and the task queue. If the call stack is empty, it will take the first callback in the task queue and add it to the call stack to be executed. When we create event listeners with <code>addEventListener()</code>, we are also adding callbacks to the task queue.</p><figure id="53bcf6b9-75c6-4407-891b-e34fdd59f047" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%209.png"><img style="width:914px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%209.png"/></a></figure><p id="5f2e643b-5072-4364-abbf-c65d005ee1c3" class="">You can think of the event loop like one of those revolving doors at the mall. It&#x27;s constantly checking to see if the door is open and if it is, it will let people in. If it&#x27;s not, it will keep spinning until it is. In this case, we&#x27;re dealing with functions instead of people.</p><p id="ed91fe4a-5206-4ec1-8fa7-da45d397f0ab" class="">Now this is also how the event loop and the task queue work within Node.js. There are different APIs and functions available, but it all works the same under the hood. Node even uses the same V8 engine that Chrome uses.</p><h2 id="929df92c-decf-4e6c-b374-e7cc3bd431ce" class=""><strong>Promises</strong></h2><p id="13ef5243-da09-4441-801a-46e97c9750b6" class="">Now Just to confuse you a little bit more, with things like event listeners and <code>setTimeout()</code>, callbacks get added to the task queue. When we work with let&#x27;s say, the <code>fetch</code> API, we get a <code>Promise</code> object back, which work a little differently.</p><p id="40f5e376-18fc-447a-966e-ece368200979" class="">Promises are objects that represent the eventual completion or failure of an asynchronous operation. They are a way to handle asynchronous code in a more elegant way than using callbacks. We&#x27;ll be working with promises a lot in the future. The reason I&#x27;m mentioning them now is because promises create what are called <code>PromiseJobs</code> or the v8 engine calls them <code>microtasks</code>.</p><figure id="7eeb7214-4a10-4717-92bf-951f1c15bb42" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2010.png"><img style="width:902px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2010.png"/></a></figure><p id="ef0588e9-90fe-48ca-a82e-254f29df71de" class="">Microtasks are callbacks that are added to the <code>microtask queue</code>. It works in a similar way to the task queue, but it&#x27;s a separate queue and it&#x27;s checked before the task queue. It has a higher priority. There are also something called <code>observers</code> that are added to the microtask queue. We&#x27;ll get to those later.</p><p id="b702a705-1683-488f-8e6b-31ec09927478" class="">Alright, I know this is confusing as hell, but the truth is, you don&#x27;t need to understand all of this right now. In fact, I know senior developers that don&#x27;t know some of this stuff, but I wanted you to get a head start on what is actually happening under the hood.</p></details></li></ul><ul id="08a8617f-48ae-40fc-a586-223f4e72f7ba" class="toggle"><li><details open=""><summary><code><strong>setTimeout()</strong></code><strong> and </strong><code><strong>clearTimeout()</strong></code></summary><p id="ef33b41f-1d10-483a-98f1-1f73939bab3a" class="">In the last video, we looked at a diagram that represented what actually happens under the hood when we use some of the asynchronous APIs that the browser or Node.js offers. In this video, we&#x27;re going to look at <code>setTimeout()</code>, which is really helpful for doing something after a certain amount of time. We&#x27;re also going to look at <code>clearTimeout()</code>, which is a function that we can use to cancel a timeout.</p><pre id="83fab7fe-6894-4f20-9898-e73137e67141" class="code code-wrap"><code>setTimeout(function () {
+  console.log(&#x27;Hello from callback&#x27;);
+}, 2000);
+
+console.log(&#x27;Hello from the top-level code&#x27;);
+</code></pre><p id="90cd4b0b-b009-4e6a-bf04-1867182149dc" class="">When we run this code, we see the following output.</p><pre id="d2166b28-37a0-420e-918c-f825c844fbe2" class="code code-wrap"><code>Hello from the top-level code
+Hello from callback
+</code></pre><p id="4cc28598-ef23-4987-96e5-78e1a49332ba" class="">The reason for this is because setTimeout() is given a number of milliseconds as the second argument and then it waits that amount of time and fires off. It does not block the code though, so we see the top-level console log first and then the callback console log.</p><p id="17ae4ea6-79c8-4c61-80a8-d8b15ac2dd32" class="">Let&#x27;s go ahead and change the 2000 milliseconds to <code>0</code>. What do you think is going to happen?</p><pre id="49a35699-8e12-4bc1-a834-95fe25f2f8f1" class="code code-wrap"><code>setTimeout(function () {
+  console.log(&#x27;Hello from callback&#x27;);
+}, 0);
+
+console.log(&#x27;Hello from the top-level code&#x27;);
+</code></pre><p id="cd9dd8a5-2f63-4ea9-b17f-56e56f4384bf" class="">When we run this code, we see the following output.</p><pre id="99d73e10-1740-452b-92cd-236465553931" class="code code-wrap"><code>Hello from the top-level code
+Hello from callback
+</code></pre><p id="6d68fb7f-5c64-418e-828e-f7a6e9d0cd8f" class="">You may have thought that the callback would execute first since we set the timeout to 0. Remember, that callback gets put on to the <code>task queue</code> and then it waits for the call stack to be empty. So, the callback is not going to execute until the call stack is empty, even if we set the timeout to 0. Just to remind you, here is the diagram that we looked at in the last video.</p><figure id="8966b7ad-8a80-456b-b34d-fb7d2288c5b6" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2011.png"><img style="width:905px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2011.png"/></a></figure><p id="e1a9c9bc-0898-4832-8844-5cc4a833cc69" class="">You may want to use this to change something in the DOM after a certain amount of time. We did this in the loan calculator project to show a spinner for 1 second before showing the results.</p><p id="0c15b74e-3b22-4a96-8104-bb764c910301" class="">Let&#x27;s make the <code>h1</code> tag change after a few seconds.</p><pre id="c75d172d-4079-455a-9533-777440b3a6b4" class="code code-wrap"><code>setTimeout(() =&gt; {
+  document.querySelector(&#x27;h1&#x27;).textContent = &#x27;Hello from callback&#x27;;
+}, 3000);
+</code></pre><p id="3f3cf9b1-382b-4d73-83b9-35a7ed15618f" class="">We could also put that in a separate function and then call it.</p><pre id="c97ddf74-47d4-48f2-84a5-e8eb71db3fe9" class="code code-wrap"><code>function changeText() {
+  document.querySelector(&#x27;h1&#x27;).textContent = &#x27;Hello from callback&#x27;;
+}
+
+setTimeout(changeText, 3000);
+</code></pre><h2 id="a198ef24-8873-48b2-a188-8e3f6bac6fbc" class=""><code><strong>clearTimeout()</strong></code></h2><p id="7a11a635-1fc3-45c5-80e0-bb976c1124f6" class="">In addition to <code>setTimeout()</code>, we also have <code>clearTimeout()</code>. This is a function that we can use to cancel a timeout.</p><p id="74a912bf-6c2c-49bc-969a-7ee660147b6d" class="">Let&#x27;s create a button that will cancel the timeout to change the text.</p><pre id="46ff72e6-3fdf-45cb-af6d-c67f7e9d2f4a" class="code code-wrap"><code>&lt;button id=&quot;cancel&quot;&gt;Cancel Text Change&lt;/button&gt;</code></pre><p id="d83b78f0-e7ff-48cc-9a09-9869e94c06c8" class="">In order to know which timeout to cancel, we need to store the id that is returned from <code>setTimeout()</code>.</p><pre id="ea02da8b-dbb6-47ed-8ae0-85f14ac1ce3d" class="code code-wrap"><code>const timerId = setTimeout(changeText, 3000);
+</code></pre><p id="55efa98a-0721-41ee-8536-cc0018f4933f" class="">Now, we can create an event listener for the button that will call <code>clearTimeout()</code>.</p><pre id="f8ed7f00-458c-4abc-bc4c-12a3ce90b0ba" class="code code-wrap"><code>document.querySelector(&#x27;#cancel&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+  clearTimeout(timerId);
+  console.log(&#x27;Timer Cancelled&#x27;);
+});</code></pre></details></li></ul><ul id="c677710d-1bc3-4541-8a28-ebb99d67efc3" class="toggle"><li><details open=""><summary><code><strong>setInterval()</strong></code><strong> and </strong><code><strong>clearInterval()</strong></code></summary><p id="a84b4c42-d385-4c23-b3c7-99094d6b1006" class=""><code>setInterval()</code> is used to run a specific callback function and repeat it at a set interval. The number of miliseconds passed to the function is the amoount of time to wait between each function call. Let&#x27;s look at a simple example</p><pre id="ab4e4556-014b-4bee-9913-829fadd5320f" class="code code-wrap"><code>const intervalID = setInterval(myCallback, 1000);
+
+function myCallback() {
+  console.log(a, Date.now());
+}
+</code></pre><p id="9033c238-99e1-47d3-ac37-133d12eb5f76" class="">This will log the timestamp every second.</p><p id="b74b2688-8847-4bcc-b5e7-fd1a6d807b8c" class="">We can also pass in parameters</p><pre id="d56eb3e6-6658-4cd9-9966-ea77caf916a4" class="code code-wrap"><code>const intervalID = setInterval(myCallback, 1000, &#x27;Hello&#x27;);
+
+function myCallback(a) {
+  console.log(a, Date.now());
+}
+</code></pre><p id="d4e163de-e6d3-4a1b-b430-23a2f9d09f3a" class=""><code>clearInterval()</code></p><p id="0646f8a2-dae1-4d54-979e-5130fff1d96d" class="">To clear or stop the interval, we can use <code>clearInterval()</code> and pass in the interval ID</p><pre id="a6a69444-f278-498a-baec-31e40e7fad8f" class="code code-wrap"><code>clearInterval(intervalID);
+</code></pre><p id="9c1ed0de-448b-438b-8bc8-b4421e76bc8c" class="">Let&#x27;s create a script to change the body background color every second. We will have buttons to start and stop it.</p><pre id="69b5bd78-b812-417a-9217-bad03d29962f" class="code code-wrap"><code>let intervalID;
+
+function startChange() {
+  if (!intervalID) {
+    intervalID = setInterval(changeBackground, 1000);
+  }
+}
+
+function changeColor() {
+  if (document.body.style.backgroundColor !== &#x27;black&#x27;) {
+    document.body.style.backgroundColor = &#x27;black&#x27;;
+    document.body.style.color = &#x27;white&#x27;;
+  } else {
+    document.body.style.backgroundColor = &#x27;white&#x27;;
+    document.body.style.color = &#x27;black&#x27;;
+  }
+}
+
+function stopChange() {
+  clearInterval(intervalID);
+}
+
+document
+  .getElementById(&#x27;start&#x27;)
+  .addEventListener(&#x27;click&#x27;, startChange);
+document.getElementById(&#x27;stop&#x27;).addEventListener(&#x27;click&#x27;, stopChange);
+
+</code></pre><p id="2d0d1296-1780-42d7-928c-5c53d2eb565d" class="">We could make it a random color by generating a hex value</p><pre id="9010696f-a4f7-45c4-bc35-6737b12ef455" class="code code-wrap"><code>function changeRandomColor() {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  document.body.style.backgroundColor = `#${randomColor}`;
+}</code></pre></details></li></ul><ul id="f4a5919f-25d4-4dd1-892b-d99986664b1c" class="toggle"><li><details open=""><summary><strong>Callbacks</strong></summary><p id="24cf20ca-695f-4d2e-bd28-8563d28c9601" class="">Let&#x27;s touch on callback functions a bit more. A callback is simply a function that is passed into another function as an argument and executed within the function that it was passed into.</p><p id="7123d1d0-57a6-4b9e-9bfe-49ffd9c7cbf7" class="">We have already used callbacks quite a few times in this course. For example, we&#x27;ve used them with <code>addEventListener()</code> and <code>setTimeout()</code>.</p><p id="4f0b8e0d-60dc-47a8-8844-b5c98b86da34" class="">Just because a function takes in a callback does not mean that it is asynchronous. It is a way to handle asynchronous code, such as we saw with <code>setTimeout()</code>, where the callback is placed in the <code>task queue</code> and then it waits for the call stack to be empty before it is executed. But, we also used callbacks with high order array methods like <code>forEach()</code> and <code>map()</code>. These are not asynchronous. The callbacks are executed immediately in this case.</p><h2 id="8debc293-6b41-4770-9140-1a5d3558a243" class=""><strong>Callback Recap</strong></h2><p id="d87e058e-4ecc-4222-88b6-35fe71575514" class=""><code>addEventListener()</code> is a good example of a function that takes in a callback. Let&#x27;s look at the following code.</p><pre id="16e31773-46af-4c0e-983e-fbfd8f8b0e07" class="code code-wrap"><code>function toggle(e) {
+  const bgColor = e.target.style.backgroundColor;
+
+  if (bgColor === &#x27;red&#x27;) {
+    e.target.style.backgroundColor = &#x27;#333&#x27;;
+  } else {
+    e.target.style.backgroundColor = &#x27;red&#x27;;
+  }
+}
+
+document.querySelector(&#x27;button&#x27;).addEventListener(&#x27;click&#x27;, toggle);
+</code></pre><p id="6f982b70-1d86-4ad3-8bed-4dd7e415faf4" class="">Notice, when we pass in a callback, we do not use parentheses. We just pass in the name of the function. Parentheses are used when we want to execute the function. The function is executed within the <code>addEventListener()</code> function at a later time (when the event occurs).</p><p id="1fd852a2-cf96-4a7f-a83e-d95e4b996db6" class="">If we were to add parentheses, the function would execute immediately and the callback would not be passed into the <code>addEventListener()</code> function.</p><pre id="150dc20f-b9da-468b-ae4e-ddd6e04aed6d" class="code code-wrap"><code>function toggle(e) {
+  // Add this
+  console.log(&#x27;toggle ran...&#x27;);
+
+  const bgColor = e.target.style.backgroundColor;
+
+  if (bgColor === &#x27;red&#x27;) {
+    e.target.style.backgroundColor = &#x27;#333&#x27;;
+  } else {
+    e.target.style.backgroundColor = &#x27;red&#x27;;
+  }
+}
+
+document.querySelector(&#x27;button&#x27;).addEventListener(&#x27;click&#x27;, toggle());
+</code></pre><p id="23ec4738-921c-4fdf-a00f-2b7c9c40572d" class="">If you run the code above, you will see the console log right away. You will also get an error, because it can&#x27;t read the event object.</p><h2 id="1ede58e3-a2cc-4c9d-b68e-85e4fcc8a3a3" class=""><strong>Implementing Callbacks</strong></h2><p id="37debf07-2be4-4410-a27d-64d22db2d511" class="">Until you are writing advanced JavaScript, you probably will not have too many times where you will actually create a function that takes in a callback, but let&#x27;s try it, just to see how it works.</p><p id="4dfad654-2976-43b4-82db-d92115adda20" class="">Let&#x27;s create a couple posts inside of an array:</p><pre id="a5570c8e-e66d-475a-a321-d33ef5b84e45" class="code code-wrap"><code>const posts = [
+  { title: &#x27;Post One&#x27;, body: &#x27;This is post one&#x27; },
+  { title: &#x27;Post Two&#x27;, body: &#x27;This is post two&#x27; },
+];
+</code></pre><p id="eb32fa6b-7563-455a-9730-0e81191fda11" class="">Now I am going to create two functions. One to create a new post and one to get all posts. The <code>createPost()</code> function is going to create after two seconds and the <code>getPosts()</code> function is going to get all posts after one second.</p><pre id="765b6144-4c26-41d8-bf3d-f731bbe430ca" class="code code-wrap"><code>function createPost(post) {
+  setTimeout(() =&gt; {
+    posts.push(post);
+  }, 2000);
+}
+
+function getPosts() {
+  setTimeout(() =&gt; {
+    posts.forEach(function (post) {
+      const div = document.createElement(&#x27;div&#x27;);
+      div.innerHTML = `&lt;strong&gt;${post.title}&lt;/strong&gt; - ${post.body}`;
+      document.querySelector(&#x27;#posts&#x27;).appendChild(div);
+    });
+  }, 1000);
+}
+
+createPost({ title: &#x27;Post Three&#x27;, body: &#x27;This is post three&#x27; });
+
+getPosts();
+</code></pre><p id="58cf9c5f-6bed-45f5-95bb-786684388155" class="">We ran both functions, yet we only see the initial two posts. The third never shows up because the posts already showed up after one second then the <code>createPost()</code> function ran after two seconds. We need to use a callback to fix this.</p><p id="8e127524-d5ea-4184-8c6e-b68109ef621c" class="">We can use a callback to fix this. We can pass in a callback to the <code>createPost()</code> function and then call the <code>getPosts()</code> function inside of the callback.</p><pre id="3a0b274e-3880-4749-91e4-7454dd64f903" class="code code-wrap"><code>function createPost(post, cb) {
+  setTimeout(() =&gt; {
+    posts.push(post);
+    cb();
+  }, 2000);
+}
+
+function getPosts() {
+  setTimeout(() =&gt; {
+    posts.forEach(function (post) {
+      const div = document.createElement(&#x27;div&#x27;);
+      div.innerHTML = `&lt;strong&gt;${post.title}&lt;/strong&gt; - ${post.body}`;
+      document.querySelector(&#x27;#posts&#x27;).appendChild(div);
+    });
+  }, 1000);
+}
+
+createPost({ title: &#x27;Post Three&#x27;, body: &#x27;This is post three&#x27; }, getPosts);
+</code></pre><p id="c948fd21-d857-4e3c-945e-be7666c08d61" class="">Now, when we run the code, we see all three posts. The <code>createPost()</code> function is executed and then the callback is executed.</p><p id="21ab2dc6-5766-4243-b344-75ed99e237aa" class="">Where we can get in trouble with callbacks is when we have multiple callbacks nested within eachother. This is called callback hell. To address this, we can instead use something called <code>promises</code>, which we will get into a little later.</p><p id="9192096d-3c30-4e11-8916-c5b76a3af5be" class="">In the next ;lesson, I want to get into HTTP requests. Making HTTP requests will give us more realistic examples of asynchronous code, rather than just using <code>setTimeout()</code>.</p></details></li></ul><ul id="c5697bf4-8cb1-466a-af61-415de55d2947" class="toggle"><li><details open=""><summary><strong>HTTP Requests</strong></summary><p id="d7000ae5-ec2a-4f7b-bf99-570277c85744" class="">Alright, so now we&#x27;re starting to get to the fun stuff. The JavaScript code that we have been writing in this course has all been <code>front-end</code> code, meaning it is being run in the browser on the client machine as opposed to on the server or the <code>back-end</code>. You can write server-side JavaScript with Node.js, but that&#x27;s way beyond what we&#x27;re learning now. However, there will be times when you&#x27;ll want to fetch some data from some kind of API on a server, or send some data to a server from a form. This is where <code>HTTP</code> requests come in. The server could be either your own back-end that you wrote with Node.js or another language like Python or Ruby, or it could be a public third-party API. We&#x27;ll be working with a couple third-party APIs in this course. We interact with APIs by making HTTP requests.</p><h2 id="6c81ecef-4144-45ed-916d-846457bf31a3" class=""><strong>What is an HTTP request?</strong></h2><p id="4144fd6b-c8a0-4c0e-bc5e-f8e3d49a04f4" class=""><code>HTTP</code> stands for <code>HyperText Transfer Protocol</code>. It is the protocol that is used to send and receive data on the web.<code>HTTP</code> is a client-server protocol, which means requests are initiated by the client, usually the web browser, and the server will respond with a response. Every time that you go to a web page, your browser is making a request to a server. The server is responding with things like HTML, CSS, and JavaScript files. It may also respond with images, videos, and other media as well as data formatted as JSON or XML. When we fetch data using JavaScript, it is usually JSON data. If you go to your browser&#x27;s developer tools <code>network</code> tab, you can see the requests that are being made to the server. You can also see the responses that are being sent back.</p><h2 id="d6b708fc-2274-4144-973d-3cb85a3c87f6" class=""><strong>Making HTTP requests</strong></h2><p id="d73fbfd0-8ece-4768-a7e9-51b96087da7b" class="">You can make HTTP requests right from your JavaScript code without having to refresh the page. There are a few ways to do this. The old way of doing this was to use <code>AJAX</code>, which stands for <strong>Asynchronous JavaScript and XML</strong>. You can still use <code>AJAX</code> to make HTTP requests, but it&#x27;s not the most common way to do it anymore. The most common way to make HTTP requests is to use the <code>fetch()</code> API. The <code>fetch()</code> API is a promise-based API, which means that it returns a promise that will resolve with the response from the server. We&#x27;re going to get into <code>fetch()</code> and <code>promises</code>, but first, I&#x27;ll show you how to make an HTTP request with <code>AJAX</code> and the <code>XMLHttpRequest</code> object. You probably won&#x27;t use this method much, but it&#x27;s good to know how it works.</p><h2 id="a9a45c8e-ecb6-4db5-ae3a-e01fda3757d1" class=""><strong>JSON responses</strong></h2><p id="823a58c0-3f76-46a8-a103-d5a924359c73" class="">When you make an HTTP request from your JavaScript code, the server will respond with some data. The data can be in a variety of formats, but the most common format is <code>JSON</code>. We talked about <code>JSON</code> earlier, but let&#x27;s have a little refresher. <code>JSON</code> stands for <strong>JavaScript Object Notation</strong>. It is a way to represent data in a format that is easy for both humans and machines to read and write. We used to use XML (Which is why the X in AJAX stands for XML), but it&#x27;s become more common to use <code>JSON</code> because it&#x27;s easier to work with. We&#x27;ll be fetching JSON data from the APIs that we&#x27;ll work with. We can then use that data in our web page.</p><h2 id="643cdce4-bf60-49b7-a1c8-c1fafc85dff1" class=""><strong>HTTP Methods</strong></h2><p id="48f050eb-02de-441f-8254-939eedb7170b" class="">When you make an HTTP request, you need to specify what kind of request you&#x27;re making. There are a few different types of requests, but the most common ones are <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code>. We&#x27;ll mostly be using <code>GET</code> in this course.</p><ul id="d9b8be53-e686-4827-8615-1f8d8cfaed82" class="bulleted-list"><li style="list-style-type:disc"><code>GET</code> requests are used to retrieve data from the server. In fact, every time you visit a webpage, you are making a <code>GET</code> request.</li></ul><ul id="5992f622-5329-45e4-ac7b-01410c44d412" class="bulleted-list"><li style="list-style-type:disc"><code>POST</code> requests are used to send data to the server. Usually when you submit a website form, it makes a <code>POST</code> request.</li></ul><ul id="029c535f-74b9-4373-8913-ae8932d94e12" class="bulleted-list"><li style="list-style-type:disc"><code>PUT</code> requests are used to update data on the server. There&#x27;s also a <code>PATCH</code> method that can be used to update.</li></ul><ul id="802cc601-544c-4b78-a8c8-126b2fb1ce12" class="bulleted-list"><li style="list-style-type:disc"><code>DELETE</code> requests are used to delete data on the server.</li></ul><p id="0eeda0d9-4ed6-41ee-9f62-8a14030b8172" class="">There are other less common methods, but these are the main four. When you use the <code>fetch</code> API or <code>AJAX</code>, you can choose which type of request you want to make.</p><h2 id="dcfc3b51-b107-4116-829e-6cc228cfa872" class=""><strong>HTTP Status Codes</strong></h2><p id="3938cfaa-976f-488c-8e0d-2d170f830246" class="">I&#x27;m going to mention HTTP status codes here, but this is not something you really need to remember right now. You&#x27;ll learn them in time. When you make an HTTP request, the server will respond with a status code. The status code will tell you if the request was successful or not. Status code ranges have specific meanings.</p><ul id="7e2aaa17-2c1f-4a09-b9c1-4e8bc1bd34ae" class="bulleted-list"><li style="list-style-type:disc"><code>100</code> range is just continue or processing. It j=means the request is not done yet, but is ok up to that point. You don&#x27;t work with 100 range responses very often.</li></ul><ul id="049a1d0a-85c7-445b-a7cb-744d63d351c6" class="bulleted-list"><li style="list-style-type:disc"><code>200</code> range means <strong>success</strong> and everything went as it should. 200 is what you want.</li></ul><ul id="f4773b55-6df2-4ed7-abd5-955d5cfef038" class="bulleted-list"><li style="list-style-type:disc"><code>300</code> range means some kind of redirect.</li></ul><ul id="79b3430e-ed8b-479e-9e9d-d4633c96b0b2" class="bulleted-list"><li style="list-style-type:disc"><code>400</code> range means there was a client error. So basically, it&#x27;s your fault whether that is a missing field in a form or if you&#x27;re unauthorized to make that request.</li></ul><ul id="62512c85-f3be-4ff2-919e-506f40ad779b" class="bulleted-list"><li style="list-style-type:disc"><code>500</code> range is a server error. So it&#x27;s not the client&#x27;s fault something went wrong on the server in the back-end code.</li></ul><h3 id="3c1160db-9b07-49e8-bc95-bf40477a1231" class=""><strong>Common Codes</strong></h3><p id="95dc4b5d-d626-4cfa-b77f-009c1eb382d0" class="">Here are som very common codes. These are the main codes you will run into:</p><ul id="a518e00c-8518-4b93-bd46-3a19f9dc175e" class="bulleted-list"><li style="list-style-type:disc">200: Success</li></ul><ul id="3159285a-760f-4c07-8bbb-9cf7700fe296" class="bulleted-list"><li style="list-style-type:disc">201: Success and something was created</li></ul><ul id="6ccdd703-3a53-43de-9997-9c7d4d86381c" class="bulleted-list"><li style="list-style-type:disc">204: Success but no content returned</li></ul><ul id="293ea0bf-cba1-41c7-8b42-9157f84eaa27" class="bulleted-list"><li style="list-style-type:disc">301: Permanent redirect</li></ul><ul id="307e0eb1-0688-41b9-999d-fdf83c666494" class="bulleted-list"><li style="list-style-type:disc">400: Bad request</li></ul><ul id="73a52193-d8f6-45b2-a615-573ec3851411" class="bulleted-list"><li style="list-style-type:disc">401: Unauthorized</li></ul><ul id="7de0c23c-bee4-4ea0-bdd1-a303376610b6" class="bulleted-list"><li style="list-style-type:disc">403: Forbidden</li></ul><ul id="568f928c-3a01-45a3-b357-dcaa4a99fc41" class="bulleted-list"><li style="list-style-type:disc">404: Resource not found</li></ul><ul id="a5d47db0-a7be-4a8c-8fb6-03e7fe082db7" class="bulleted-list"><li style="list-style-type:disc">500: Something wrong on server</li></ul><p id="89e623b1-d9c8-4c85-b39a-4c1cc63dd265" class="">Read more about status codes <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">here</a>.</p><h2 id="5b3c2328-4e71-4ce2-9547-edb6054933cc" class=""><strong>An Example Request</strong></h2><p id="ff687895-0442-451b-8a34-b97480f8ec03" class="">Let&#x27;s make a request to an API right from our browser. We&#x27;ll use the public GitHub API. APIs have different endpoints, which are just URLs that you can make requests to using certain HTTP methods to achieve certain results. The GitHub API has a few different endpoints, but we&#x27;ll use the <code>users</code> endpoint. The <code>users</code> endpoint will return information about a GitHub user. Later, we&#x27;ll do this from our code, but for now, let&#x27;s go to the following URL in the browser:</p><pre id="2d83328c-fb20-47ea-9dbe-5844c152db66" class="code code-wrap"><code>https://api.github.com/users/bradtraversy
+</code></pre><p id="4e548ac9-9741-4730-87fe-81a55a43e133" class="">You can replace my username with your own if you want. This will return a JSON object with information about the user. The data will show right in the browser. You can also see the response in the browser&#x27;s developer tools <code>network</code> tab along with the headers and any other information including the status code of 200, which means successful.</p><figure id="d3f23bb7-d968-4250-b186-3ca2a4bc1b57" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2012.png"><img style="width:904px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2012.png"/></a></figure><p id="8a870578-963d-47ea-af98-f8c0d23d3317" class="">If we made this request from our code, we could then use any of this information in our web page. We&#x27;ll do this later on. For now, I just wanted to get you familiar with making HTTP requests and seeing the response.</p></details></li></ul><ul id="c933f39d-78cb-4945-84e5-5f9d77f82c30" class="toggle"><li><details open=""><summary><strong>Sample HTTP Requests &amp; The Network Tab</strong></summary><p id="3e629f55-50dc-4a57-9a21-0b4d55faab3f" class="">Okay, so I want to show you how to use the Network tab in your browser&#x27;s developer tools. This is a really useful tool for debugging your code. It allows you to see what requests are being made to your server and what data is being sent back.</p><p id="2beb8711-773d-4d13-a455-552c69ff4739" class="">I&#x27;m going to use my own website as an example, so I&#x27;ll go to <a href="https://traversymedia.com/">https://traversymedia.com</a> and go to the developer tools. I&#x27;ll click on the Network tab and then refresh the page.</p><p id="4d32bc4c-9579-406b-89d2-37744eaf3fdc" class="">This will show us every single resource that was sent with the response from the <code>GET</code> request that was made to the server by the browser. You can see that there are a lot of resources here. There are images, CSS files, JavaScript files, and more. If you click on one of these, you can see the details of the request and response.</p><p id="a232d7bb-6529-4381-82d1-d32e326e5d38" class="">If I click on one of the resources such as one of the CSS files, we can see the status code is <code>200</code>, which means <code>success</code>. We can also see the size of the file, the type of file and much more. If I click on <code>response</code>, we can see the actual CSS file that was sent back to the browser.</p><h2 id="984ac8c2-d62c-4c2e-9529-8db49f111111" class=""><strong>Getting Data</strong></h2><p id="7c0bc9a6-6682-4e0a-8051-849dde5595e5" class="">So that&#x27;s how you can use the Network tab to see what resources are being sent back to the browser. Now, let&#x27;s look at a data resource that we would typically use JavaScript to fetch data from. I&#x27;m going to use the GitHub API as an example.</p><p id="f6b1c442-34ea-48d6-896c-41dbec470d86" class="">In your browser, you can go to <a href="https://api.github.com/users/bradtraversy">https://api.github.com/users/bradtraversy</a>. This is the API endpoint for my GitHub profile.</p><p id="6e2fa259-1122-4ff6-80fe-53448927e639" class="">The data will display right in the browser. I have a Chrome extension called <strong>JSON Viewer</strong> that makes it easier to read. If you don&#x27;t have this extension, you can install it from the Chrome Web Store.</p><p id="476671e3-4c61-464e-b1d3-da7df58399de" class="">If we click on the Network tab and refresh the page, we can see that the request was made to the server and the response was sent back. If we click on the response, we can see the data that was sent back.</p><p id="62bb121d-3614-4512-81e6-5b074bd671ee" class="">Ultimately, we would want to use JavaScript to fetch this data and use it within our project. We can do this with the <code>fetch API</code>. Before we get to fetch, I want to show you how we can do it using the <code>XMLHttpRequest</code> object. This will give us more opportunities to work with callbacks.</p></details></li></ul><ul id="f52a0440-4923-44ef-acfb-4a50a92b96c8" class="toggle"><li><details open=""><summary><strong>AJAX &amp; XHR (XMLHttpRequest)</strong></summary><p id="e7ec38d7-f305-416c-9c5e-9ad8c0577ff1" class="">So when we make a request to a server or some kind of data API, we will usually use the <code>fetch</code> API. Any project we do in this course, that&#x27;s what we&#x27;ll be doing. But it&#x27;s important to know that there&#x27;s another way to do it, and that&#x27;s with the <code>XMLHttpRequest</code> object. This is the older way of doing it, but you should at least know the basics just in case you run into it. It will also help you understand more about callbacks, etc.</p><h2 id="092e7da9-c78e-4899-9747-9489d82d75fa" class=""><strong>XMLHttpRequest</strong></h2><p id="7583d22a-e460-462c-81ec-6329fd4f3710" class="">The <code>XMLHttpRequest</code> object is a built-in browser object that allows us to make HTTP requests. It&#x27;s a little more complicated than the <code>fetch</code> API, but it&#x27;s still pretty straightforward. You may notice <code>XML</code> is included in the name of the object. AJAX also stands for &quot;Asynchrounous JavaScript and XML&quot;. This is because years ago when this was created, XML was the common data format we used. These days you almost never see XML, instead we work with JSON, which is much simpler and cleaner.</p><p id="b0e7d7d8-943e-47c3-a3b9-566dd29f73eb" class="">Let&#x27;s look at the following diagram to see how this works:</p><figure id="479afd5c-5a93-456f-baf4-d0b66362ce1a" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2013.png"><img style="width:403px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2013.png"/></a></figure><p id="7ac1f257-2d00-45db-bda0-16c47a37952f" class="">So we have our client, which is our browser, and we have the server or third-party API that we want to communicate with via HTTP request. This could also just be a file on your file system.</p><p id="d4fef862-b2fd-43fe-a323-fb52ff237ee2" class="">Like I said before, when we visit a webpage, we are making an HTTP request. That is what is demonstrated on the left.</p><p id="69895591-9ea7-4f5c-a3f3-1f71ce7957a5" class="">What AJAX and the XHR object allow us to do is make those same types of requests via JavaScript. So from our code we make a call using the AJAX engine and XHR object. It sends a request behind the scenes without refreshing the page. Then we get back JSON or XML data in a response and we can then update the dom with that data. So all this happens behind the scenes without the user having to refesh the page.</p><p id="a2fb1b50-5f02-4fef-a3a4-f891ce78d66d" class="">Let&#x27;s look at an example of how we do this within our code:</p><pre id="98fbe876-9cac-4154-887e-4bb7badef0cf" class="code code-wrap"><code>const xhr = new XMLHttpRequest();
+
+xhr.open(&#x27;GET&#x27;, &#x27;https://api.github.com/users/bradtraversy&#x27;);
+
+xhr.onreadystatechange = function () {
+  if (this.readyState === 4 &amp;&amp; this.status === 200) {
+    console.log(JSON.parse(this.responseText));
+  }
+};
+
+xhr.send();
+</code></pre><p id="620b5203-5c57-4f00-b1ce-db53a149f19f" class="">Let&#x27;s go through bit-by-bit.</p><p id="b6d59e66-19c4-4bb0-afdb-2d3a571771d4" class="">First, we create a new <code>XMLHttpRequest</code> object. This is the object that we&#x27;ll use to make the request.</p><pre id="f2b9484d-01a9-4af5-9485-88aa6ef49780" class="code code-wrap"><code>const xhr = new XMLHttpRequest();
+</code></pre><p id="27b5e68e-87f4-4499-a4c2-bc7daf7c3024" class="">Next, we use the <code>open()</code> method to initialize the request. We pass in the type of request we want to make, and the URL we want to make the request to. You can also pass in a third parameter to specify whether the request should be made asynchronously or not. This is <code>true</code> by default, but we can set it to <code>false</code> if we want to make a synchronous request, which will block the rest of the code from running until the request is complete. We won&#x27;t be doing this in this course, but it&#x27;s good to know that it&#x27;s possible.</p><pre id="4c191afa-906d-4f42-974c-2df6d6301e41" class="code code-wrap"><code>xhr.open(&#x27;GET&#x27;, &#x27;https://api.github.com/users/bradtraversy&#x27;);
+</code></pre><p id="71b51c73-0075-4164-ae4e-7fb361133d09" class="">Then we use the <code>onreadystatechange</code> event handler to listen for the <code>readystatechange</code> event. This event will fire every time the <code>readyState</code> changes. We can use this to check the status of the request. You can also use addEventListener() to listen for the event.</p><p id="3d29f398-bcc4-49f3-9984-9cc148c10e45" class="">readyState has 5 possible values:</p><ul id="dd03968c-55f5-4751-b5d7-3f8051690374" class="bulleted-list"><li style="list-style-type:disc">0: request not initialized</li></ul><ul id="c7ce7f2b-9bcd-4ce2-a20c-2b0dd44870c7" class="bulleted-list"><li style="list-style-type:disc">1: server connection established</li></ul><ul id="f7934c8b-89d3-45d7-8961-167a58ab5a45" class="bulleted-list"><li style="list-style-type:disc">2: request received</li></ul><ul id="4fa2a48b-b571-47bc-be4c-ebbabf6860c1" class="bulleted-list"><li style="list-style-type:disc">3: processing request</li></ul><ul id="e3a767d4-9385-4f51-b1f3-5e5638d0401e" class="bulleted-list"><li style="list-style-type:disc">4: request finished and response is ready</li></ul><p id="29aa313f-01f0-4e32-a332-d67c9f05a919" class="">We want to check that the <code>readyState</code> is 4, and that the <code>status</code> is 200, which means everything is OK. If the <code>status</code> is not 200, then there was an error. We use the <code>this</code> keyword to refer to the <code>XMLHttpRequest</code> object.</p><p id="96126790-632c-49c8-8192-9a7aacfad466" class="">We can see what the values are every time the status changes:</p><pre id="c17d84f4-4f24-4b2b-bc93-f487f3ab70de" class="code code-wrap"><code>console.log(this.readyState, this.status);
+</code></pre><p id="c3b60063-810e-4af1-a10a-9fa5ad75fb74" class="">The data that we get back will be in the <code>responseText</code> property. We can use <code>JSON.parse()</code> to convert it to a JavaScript object.</p><pre id="ff1b4323-00c6-47df-9b49-a2dd7c461d71" class="code code-wrap"><code>xhr.onreadystatechange = function () {
+  if (this.readyState === 4 &amp;&amp; this.status === 200) {
+    console.log(JSON.parse(this.responseText));
+  }
+};
+</code></pre><p id="59135790-31fe-4d6f-9eb7-faf05e0cacdd" class="">Finally, we use the <code>send()</code> method to send the request.</p><pre id="ed98d26e-1079-4225-b436-e9200319c2b3" class="code code-wrap"><code>xhr.send();
+</code></pre><p id="8489a03c-49dc-4022-b1e8-be1ac6eb0e3b" class="">We will see the data in the console, but you can also look in your devtools <code>network</code> tab. You should see a request to the GitHub API. Click on it and you should see the response.</p><figure id="aead358d-91a7-4d5a-a927-26f29d4fcdbd" class="image"><a href="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2014.png"><img style="width:344px" src="10-asynchronous-javascript-docs%2018af08b6de744a4eaf181fd7f9d9efad/Untitled%2014.png"/></a></figure><p id="c5c746c7-4644-4a31-aa8d-749d01183cf6" class="">If you want to try getting all of the GiHub repos for a user, you can use the following URL:</p><pre id="b807cc1b-b567-4ac4-8a66-d597d92eab6a" class="code code-wrap"><code>xhr.open(&#x27;GET&#x27;, &#x27;https://api.github.com/users/bradtraversy/repos&#x27;);
+</code></pre><p id="254603e8-0823-4bff-af4a-70256f48f274" class="">Instead of getting back an object, you will get back an array of objects.</p><p id="b7668486-1561-447f-9c1a-a37a8c9eae2c" class="">Let&#x27;s output the data to the page. We can use the <code>forEach()</code> method to loop through the array of repos. We can then create a list item for each repo and append it to the page.</p><pre id="11feffcf-0317-4620-9ed4-14fd6b58f781" class="code code-wrap"><code>xhr.onreadystatechange = function () {
+  if (this.readyState === 4 &amp;&amp; this.status === 200) {
+    const data = JSON.parse(this.responseText);
+
+    data.forEach((repo) =&gt; {
+      const li = document.createElement(&#x27;li&#x27;);
+      li.innerHTML = `&lt;strong&gt;${repo.name}&lt;/strong&gt; - ${repo.description}`;
+      document.querySelector(&#x27;ul&#x27;).appendChild(li);
+    });
+  }
+};
+</code></pre><p id="4379b383-d33f-4518-b2a8-10d91a6bb8f6" class="">It is important to understand that whatever you get back from an API is up to the server-side developer. So you may get back a different format of data, or different properties, etc. What they chose to send back will be accessible in the <code>responseText</code> property.</p><p id="ae3a3ed7-bf69-4065-aeb4-00c177110df2" class="">So now that we know how to make a simple request, in the next video, we&#x27;re going to create a little joke generator app using the Chuck Norris Jokes API.</p></details></li></ul><ul id="bef528da-677d-4299-aa96-6cdff2b9d577" class="toggle"><li><details open=""><summary><strong>Joke Generator Project</strong></summary><p id="a066204e-5e9b-472e-a490-cfcbbcef43ab" class="">In the last video, we saw how to make a request to an API using the <code>XMLHttpRequest</code> object. In this video, we&#x27;ll use the same technique to make a request to the <a href="https://api.chucknorris.io/">https://api.chucknorris.io/</a> to get a random Chuck Norris joke and put it into the page. We will also create a button that will allow us to get a new joke.</p><p id="bac809c0-8926-4529-8a4d-cda269515acc" class="">Before I move on, I would like to challenge you to create this yourself without having to follow along. We went over everything that you need to know already. In the resources for this video, you&#x27;ll find the &#x27;chuck-joke-generator<code>folder with the HTML and CSS along with an empty</code>script.js` file. You just need to do the following:</p><ul id="f47d0e5b-c9e9-4c77-bc71-8a62d0179255" class="bulleted-list"><li style="list-style-type:disc">Add an event listener for the button</li></ul><ul id="8ba3894b-4573-432f-a9ba-4b474f1932e8" class="bulleted-list"><li style="list-style-type:disc">Create a function that will make a request to <a href="https://api.chucknorris.io/jokes/random">https://api.chucknorris.io/jokes/random</a> using the <code>XMLHttpRequest</code> object</li></ul><ul id="7c3b922b-0dae-40f8-b5fc-8391aba68cea" class="bulleted-list"><li style="list-style-type:disc">Get the data that is sent back (this.responseText), parse the JSON and get the joke from it</li></ul><ul id="3b5687ef-11de-414c-bfd4-9afa13b33390" class="bulleted-list"><li style="list-style-type:disc">Display the joke in the page (you can use the <code>innerHTML</code> property)</li></ul><ul id="9426dc94-e44a-4742-9e72-c2feae1d0cce" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="cf2fc388-afe8-4cbc-90ee-1ccee990786b" class="code code-wrap"><code></code></pre><pre id="ca959900-e96f-48d6-81b2-8f29ce14bf23" class="code code-wrap"><code></code></pre><pre id="aa095e3d-b433-4de4-8ace-f976c9415fa0" class="code code-wrap"><code></code></pre><pre id="917b30c8-fecf-41bf-ba47-19f311fba5bb" class="code code-wrap"><code></code></pre></details></li></ul><p id="a93cafe4-f295-468d-9f33-2e0636fdae23" class="">And that&#x27;s it. We now have a Chuck Norris joke generator. You can see the final code in the <code>chuck-joke-generator-final</code> folder in the resources for this video.</p></details></li></ul><ul id="fbf694db-d077-4edf-ac83-cad787c26234" class="toggle"><li><details open=""><summary><strong>Callback Hell</strong></summary><p id="827a3c47-d582-4542-8210-eb1f74a61b61" class="">So, we have seen a bunch of examples of callback functions. They come in handy when we want to make sure that some code is executed after another piece of code has finished executing. But what if we want to make sure that some code is executed after multiple pieces of code have finished executing? This can sometimes result in a lot of nested callbacks, which is called callback hell. There are something called <code>promises</code> that can help us with this. We will look at <code>promises</code> in the next video, but let&#x27;s create a situation where we have to have multiple callback functions nested within each other.</p><p id="0d011ef3-1b4a-4548-96ab-8a32452dcaac" class="">I want to create a function called <code>getData()</code> that we can use to pass in an endpoint, whether a URL or a file path, and then it will make a request to that endpoint and return the data. We will use the <code>XMLHttpRequest</code> object to make the request. Right now, we will just log the data from the function. No callback is being passed in. Let&#x27;s go ahead and do that.</p><pre id="92f6b320-1bf0-4566-a937-88b050ace5e8" class="code code-wrap"><code>function getData(endpoint) {
+  const xhr = new XMLHttpRequest();
+  xhr.open(&#x27;GET&#x27;, endpoint);
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4 &amp;&amp; this.status === 200) {
+      console.log(JSON.parse(this.responseText));
+    }
+  };
+
+  setTimeout(() =&gt; {
+    xhr.send();
+  }, Math.floor(Math.random() * 3000) + 1000);
+}
+</code></pre><p id="91dbdfbb-8eab-4593-acaa-9d4790ad737d" class="">Now, you never know how long a request will take, so in addition to the request, I am adding a <code>setTimeout()</code> that will return the response within 1-3 seconds.</p><p id="89524f15-d2eb-4e2a-9979-cd932286b9d3" class="">Now Let&#x27;s create some .json files to fetch. These will just be local files, but it could just as well be a URL endpoint.</p><p id="a980fbc1-0556-4465-a5d3-8bb73e3fa978" class=""><strong>File 1 - movies.json</strong></p><pre id="13a317dd-ea9c-4c47-b5c3-2e85308350a8" class="code code-wrap"><code>[
+  {
+    &quot;title&quot;: &quot;Scarface&quot;,
+    &quot;release_year&quot;: &quot;1983&quot;
+  },
+  {
+    &quot;title&quot;: &quot;The Godfather&quot;,
+    &quot;release_year&quot;: &quot;1972&quot;
+  },
+  {
+    &quot;title&quot;: &quot;Goodfellas&quot;,
+    &quot;release_year&quot;: &quot;1990&quot;
+  },
+  {
+    &quot;title&quot;: &quot;A Bronx Tale&quot;,
+    &quot;release_year&quot;: &quot;1993&quot;
+  }
+]
+</code></pre><p id="7f14a357-f07e-4eb9-8487-d2fea707fa2b" class=""><strong>File 2 - actors.json</strong></p><pre id="d52eb37f-6481-44b8-a2a1-b809db56374f" class="code code-wrap"><code>[
+  {
+    &quot;name&quot;: &quot;Al Pacino&quot;,
+    &quot;age&quot;: &quot;78&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Robert De Niro&quot;,
+    &quot;age&quot;: &quot;76&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Joe Pesci&quot;,
+    &quot;age&quot;: &quot;77&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Chazz Palminteri&quot;,
+    &quot;age&quot;: &quot;62&quot;
+  }
+]
+</code></pre><p id="d6cf756a-6668-4890-bd65-b4a2fd298b33" class=""><strong>File 3 - directors.json</strong></p><pre id="c2fbf113-b882-4c8c-9b66-e9d65842828d" class="code code-wrap"><code>[
+  {
+    &quot;name&quot;: &quot;Brian De Palma&quot;,
+    &quot;age&quot;: &quot;78&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Francis Ford Coppola&quot;,
+    &quot;age&quot;: &quot;82&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Martin Scorsese&quot;,
+    &quot;age&quot;: &quot;76&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Robert De Niro&quot;,
+    &quot;age&quot;: &quot;76&quot;
+  }
+]
+</code></pre><p id="30c2fcd2-1b83-4fd2-98fa-22f787278eb1" class="">Now, let&#x27;s say that we want to get the data from all 3 files. Let&#x27;s do that.</p><pre id="4bf6710e-baca-4b6e-bf6f-40f6cb92961a" class="code code-wrap"><code>getData(&#x27;movies.json&#x27;);
+getData(&#x27;actors.json&#x27;);
+getData(&#x27;directors.json&#x27;);
+</code></pre><p id="ec3ad9c7-ba71-4a66-8316-478b49db1dbc" class="">So, the way that we are doing it now, you&#x27;ll notice that the order that we get the data is not the same order that we are requesting the data. This is because the <code>setTimeout()</code> is randomizing the order that the data is returned.</p><p id="d52e8c2c-25df-4f41-b86e-5dadac81bb71" class="">If we want to make sure that the data is returned in the order that we requested it. We can do that by passing in a callback function. Let&#x27;s change the <code>getData()</code> function to accept and run a callback function.</p><pre id="5e46818b-0892-43de-ac9e-0df4a05245da" class="code code-wrap"><code>function getData(endpoint, cb) {
+  const xhr = new XMLHttpRequest();
+  xhr.open(&#x27;GET&#x27;, endpoint);
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4 &amp;&amp; this.status === 200) {
+      cb(JSON.parse(this.responseText));
+    }
+  };
+
+  setTimeout(() =&gt; {
+    xhr.send();
+  }, Math.floor(Math.random() * 3000) + 1000);
+}
+</code></pre><p id="ff84898d-df3d-42e1-8570-a3d6819e0e3a" class="">Now, we can pass in a callback function when we call the <code>getData()</code> function.</p><pre id="9b57d7a7-592b-4dbe-9f10-accb061ad57a" class="code code-wrap"><code>getData(&#x27;./movies.json&#x27;, (data) =&gt; {
+  console.log(data);
+  getData(&#x27;./actors.json&#x27;, (data) =&gt; {
+    console.log(data);
+    getData(&#x27;./directors.json&#x27;, (data) =&gt; {
+      console.log(data);
+    });
+  });
+});
+</code></pre><p id="a2308f31-fa95-4ab9-8e7d-05412c8f5a6d" class="">So you can see the issue here. We have nested 3 callback functions within each other. This is called callback hell. It is not very readable and it can get very messy very quickly. However it does work, it gets the data in the correct order.</p><p id="4a3aa46d-11ac-489f-a002-af502108174b" class="">In the next video, we will look at <code>promises</code>, which gives us a more elegant solution. We will first look at how they work and then in the video after that, we will address this code using promises.</p></details></li></ul><ul id="641fe00d-08b5-411d-9297-c950da2ac744" class="toggle"><li><details open=""><summary><strong>Promises</strong></summary><p id="1d1dbbe3-5acf-483d-b919-1d947b36d14c" class="">Alright, so now we are going to learn about promises. A promise is an object that represents the eventual completion or failure of an asynchronous operation. The concept is that a promise is made to complete some kind of task or operation, such as fetching data from a server. Meanwhile, the rest of the code continues to execute. So it&#x27;s asynchronous and non-blocking. When the task is complete, the promise is either fulfilled or rejected. It also prevents <code>callback hell</code>, which are multiple nested callbacks, as we saw in the previous video.</p><p id="a492935b-fe0a-452b-af40-1cda9b2be8d0" class="">Most of the time, until you get into more advanced JavaScript, you will be dealing with the response from promises, not writing them. For instance, using the <code>fetch API</code> will return a promise. So you will need to know what to do with it. In this video, I will show you how to deal with them but also how to create them with the <code>Promise</code> constructor.</p><p id="6f42759a-a283-4d38-a260-828d23ac06f5" class="">I&#x27;m going to show you how to refactor our posts code from callbacks to promises in the next video, but first I want to give you a super simple example of creating and dealing with promises, so that you can understand the syntax and the concept in general.</p><h2 id="270e99df-65f9-4705-921d-4a14aaca27b8" class=""><strong>Creating a Promise</strong></h2><p id="c3e416cb-a13b-4ec5-b007-a2813818aacf" class="">We use the <code>Promise</code> constructor to create a new promise. The <code>Promise</code> constructor takes in a function that has two parameters, <code>resolve</code> and <code>reject</code>. The <code>resolve</code> function is called when the promise is successful and the <code>reject</code> function is called when the promise is not successful.</p><p id="75dbc58e-78ee-4003-b87d-fc589608852d" class="">Let&#x27;s create a simple promise:</p><pre id="c9b42fcf-3ad6-47db-ba96-d8631caa407d" class="code code-wrap"><code>const promise = new Promise(function (resolve, reject) {
+  // Do an async task
+  setTimeout(function () {
+    console.log(&#x27;Async task complete&#x27;);
+    resolve();
+  }, 1000);
+});
+</code></pre><p id="f231aed4-5665-4086-8313-59f4e83f4b2a" class="">So we used the <code>Promise</code> constructor to create a new promise and passed in the function with the <code>resolve</code> and <code>reject</code> parameters. We then used the <code>setTimeout</code> function to simulate an asynchronous task. After 1 second, we called the <code>resolve</code> function. This will &quot;resolve&quot; the promise.</p><h2 id="b3d88e88-4b3d-471b-a3a8-15b788070239" class=""><strong>Consuming/Handling a Promise</strong></h2><p id="de5cbabc-08e7-477b-945c-dde9cdd8d61c" class="">If we run this code, nothing will happen because we haven&#x27;t dealt with the promise yet. To do that, we use the <code>then</code> method. The <code>then</code> method takes in a function that will be called when the promise is resolved. I do want to mention that there is an alternate way to handle promises and that is with something called <code>Async/Await</code>, which we will be learning in a little bit. For now, we will use the <code>then</code> method.</p><pre id="a005987b-d501-4309-a078-5f65b18b7545" class="code code-wrap"><code>promise.then(function () {
+  console.log(&#x27;Promise consumed&#x27;);
+});
+</code></pre><p id="6a8b55cd-160d-4745-b47d-7ff59371ced6" class="">You also don&#x27;t have to put the promise into a variable. You could just do this:</p><pre id="11957840-1686-4afd-88e9-4813dd1b7f2b" class="code code-wrap"><code>new Promise(function (resolve, reject) {
+  // Do an async task
+  setTimeout(function () {
+    console.log(&#x27;Async task complete&#x27;);
+    resolve();
+  }, 1000);
+}).then(function () {
+  console.log(&#x27;Promise consumed&#x27;);
+});
+</code></pre><p id="2bb5c381-6f83-409a-babb-5f238d88db9f" class="">If we look in the console, we can see that the <code>Async task complete</code> message is logged first and then the <code>Promise consumed</code> message is logged. To show you that this is asynchronous, I will add a global console log to the bottom of the file.</p><pre id="30eddf44-237d-4089-a1b3-d16953d39441" class="code code-wrap"><code>console.log(&#x27;Global console log&#x27;);
+</code></pre><p id="2dc512a2-ba62-45db-90ff-dba4d88b1250" class="">Now if we run it, we will see the global console log first because the code is not blocked by the promise. The promise is asynchronous and non-blocking.</p><h2 id="5502ba2b-7783-460a-abec-29cab918cf11" class=""><strong>Returning Data from a Promise</strong></h2><p id="e74bae9b-2c2f-49d4-ae6a-04126a620f9d" class="">To return data from a promise, we simply pass it in the <code>resolve</code> function. Let&#x27;s say we want to return a user object from a promise. We can do that like this:</p><pre id="a49bd78d-1853-4de5-8ecd-8d62a9977df8" class="code code-wrap"><code>const promise = new Promise(function (resolve, reject) {
+  // Do an async task
+  setTimeout(function () {
+    resolve({ name: &#x27;John&#x27;, age: 30 });
+  }, 1000);
+});
+</code></pre><p id="ae3c2697-f2c5-4849-800a-84a574791693" class="">The <code>then</code> method takes in a function that has a parameter for the data that is returned from the promise. We can call it whatever we want, but I will call it <code>user</code>.</p><pre id="260f496d-099b-4274-a3a7-e126b31e99a3" class="code code-wrap"><code>promise.then(function (user) {
+  console.log(user);
+</code></pre><h2 id="bd02ee02-ba85-406f-9c2c-241d0dac4fe7" class=""><strong>Handling Errors</strong></h2><p id="c703ca81-6a85-4519-90e9-3ffdb62a1df8" class="">Remember, we also have a <code>reject</code> function that we can call when the promise is not successful, meaning there is some kind of error.</p><p id="6c990113-150e-49cb-befa-0bc4ef662a66" class="">Let&#x27;s create a variable that represents an error and then check for it and call the <code>reject</code> function if it exists. We will also pass in an error message.</p><pre id="3899e5f7-ea04-4626-bd3e-b0d2159ed2f7" class="code code-wrap"><code>const promise = new Promise(function (resolve, reject) {
+  // Do an async task
+  setTimeout(function () {
+    let error = false;
+
+    if (!error) {
+      resolve({ name: &#x27;John&#x27;, age: 30 });
+    } else {
+      reject(&#x27;Error: Something went wrong&#x27;);
+    }
+  }, 1000);
+});
+</code></pre><p id="e1600b2c-0ccb-4f61-b8b8-265f46fd6a5d" class="">If <code>error</code> is set to false, we get the same result as before. But let&#x27;s set it to <code>true</code> and see what happens.</p><pre id="e9ffd809-d5b0-4e7f-ad1d-cab02180dd43" class="code code-wrap"><code>let error = true;
+</code></pre><p id="91ac9ea7-6f48-4a92-aa70-c16dc2d4ee4a" class="">So, we do see our error message, but notice it also says <code>Uncaught (in promise)</code>. This is because we are not handling the error. We can handle the error by using the <code>catch</code> method. The <code>catch</code> method takes in a function that has a parameter for the error message. We can call it whatever we want, but I will call it <code>error</code>.</p><pre id="90850761-65b1-4857-9fae-3bea24589266" class="code code-wrap"><code>promise
+  .then(function (user) {
+    console.log(user);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+</code></pre><p id="244e3f67-0126-4193-90c5-49f2d0197ad7" class="">Now, we are handling the error and we can see the error message in the console.</p><p id="9605a45a-c433-4c2f-a252-8455fcd5f759" class="">We can shorten this with arrow functions and implicit returns.</p><pre id="188cfc37-96fc-4718-829c-bc1a2d3fbb28" class="code code-wrap"><code>promise.then((user) =&gt; console.log(user)).catch((error) =&gt; console.log(error));
+</code></pre><h2 id="9173394b-ecb0-4f9e-be31-890bf9fe3756" class=""><code><strong>finally</strong></code><strong> Method</strong></h2><p id="84320665-c088-4801-867f-6aa1f56e77a9" class="">The <code>finally</code> method is used to execute code after the promise is resolved or rejected. It will run no matter what. I personally have not had too many instances where I needed to add a <code>finally</code> block, but you should know it exists. Let&#x27;s add a <code>finally</code> method to our promise.</p><pre id="f2e3e31e-1c32-45f4-84ee-60ed661b7ec8" class="code code-wrap"><code>promise
+  .then((user) =&gt; {
+    console.log(user);
+    return user.name;
+  })
+  .then((name) =&gt; console.log(name))
+  .catch((error) =&gt; console.log(error))
+  .finally(() =&gt; console.log(&#x27;The promise has been resolved or rejected&#x27;));
+</code></pre><p id="8098b221-f79e-4bcf-a96e-fa11add14cac" class="">Now that you know the basic syntax of a promise, in the next lesson, we will re-factor our posts code from callback to promise.</p></details></li></ul><ul id="cbb1b692-f82e-45db-84eb-1c488863c2f4" class="toggle"><li><details open=""><summary><strong>Callback To Promise Refactor</strong></summary><p id="45d3b79e-7750-48aa-a897-24922243438f" class="">In the previous lesson, we saw how to use promises to handle asynchronous code. In this lesson, we will refactor our callback code to use promises.</p><p id="a2a4e95b-d791-4edd-b4f1-1f50c6cf113a" class="">Here is the original code:</p><pre id="d3ac1273-04ce-493a-becd-00459fef1b0d" class="code code-wrap"><code>function createPost(post, cb) {
+  setTimeout(() =&gt; {
+    posts.push(post);
+    cb();
+  }, 2000);
+}
+
+function getPosts() {
+  setTimeout(() =&gt; {
+    posts.forEach(function (post) {
+      const div = document.createElement(&#x27;div&#x27;);
+      div.innerHTML = `&lt;strong&gt;${post.title}&lt;/strong&gt; - ${post.body}`;
+      document.querySelector(&#x27;#posts&#x27;).appendChild(div);
+    });
+  }, 1000);
+}
+
+createPost({ title: &#x27;Post Three&#x27;, body: &#x27;This is post three&#x27; }, getPosts);
+</code></pre><p id="435a202b-6357-475a-ac70-7135131ba074" class="">We call the <code>createPost</code> function and pass in the <code>getPosts</code> function as the callback. This is the function that will be called when the <code>createPost</code> function is done. The <code>getPosts</code> function will get all the posts and display them on the page.</p><h2 id="1f27535c-8000-4c5f-9c27-2d2f7a95940b" class=""><strong>Creating a Promise</strong></h2><p id="f592286f-c702-42ab-ab62-40308705a227" class="">To refactor this, let&#x27;s get rid of the <code>cb</code> parameter and create a <code>promise</code> instead. We will use the <code>Promise</code> constructor to create a new promise. The <code>Promise</code> constructor takes in a function that has two parameters, <code>resolve</code> and <code>reject</code>. The <code>resolve</code> function is called when the promise is successful and the <code>reject</code> function is called when the promise is not successful.</p><p id="3725b583-575e-49d9-9a0d-f2554b153dc8" class="">We will create a variable that represents an error and then check for that error. If it is true, then we will call the <code>reject</code> function. If it is false, then we will call the <code>resolve</code> function.</p><pre id="7c81c12f-f477-46b3-80f2-2e2ef307b8dc" class="code code-wrap"><code>function createPost(post) {
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      posts.push(post);
+
+      let error = true;
+
+      if (!error) {
+        resolve();
+      } else {
+        reject(&#x27;Error: Something went wrong&#x27;);
+      }
+    }, 2000);
+  });
+}
+</code></pre><p id="858c2aad-d14c-4328-8387-5a63d2e31e55" class="">The <code>getPosts</code> function will stay the same.</p><pre id="61fe865c-67ef-4b34-a9e8-dd2c7cdc4def" class="code code-wrap"><code>function getPosts() {
+  setTimeout(() =&gt; {
+    posts.forEach(function (post) {
+      const div = document.createElement(&#x27;div&#x27;);
+      div.innerHTML = `&lt;strong&gt;${post.title}&lt;/strong&gt; - ${post.body}`;
+      document.querySelector(&#x27;#posts&#x27;).appendChild(div);
+    });
+  }, 1000);
+}
+</code></pre><h2 id="92552d97-f505-4a88-b65c-9fc8da925b52" class=""><strong>Handling the Promise</strong></h2><p id="6c8c4930-04b6-4bb4-a356-739beba200aa" class="">To handle promises, we use the <code>then</code> method, which takes in a function that will be called when the promise is resolved. We will simply pass in the <code>getPosts</code> function as the <code>then</code> method.</p><pre id="e07d7ac1-711f-4f6c-882a-8bf79b125614" class="code code-wrap"><code>createPost({ title: &#x27;Post Three&#x27;, body: &#x27;This is post three&#x27; }).then(getPosts);
+</code></pre><p id="80762c69-a907-4b2d-9723-d83e023c069b" class="">This way, we don&#x27;t have to pass any callback into the <code>createPost</code> function. The <code>then</code> method will be called when the promise is resolved.</p><h2 id="2f698f35-1d72-4435-9d89-0ace28f579ae" class=""><strong>Handling The Error</strong></h2><p id="86c24122-62ac-40ad-9183-e8763f6ae114" class="">We can also add a <code>catch</code> method to handle the error. The <code>catch</code> method takes in a function that will be called when the promise is rejected.</p><p id="0e5a48f9-afb6-47db-9638-772fd0fe7649" class="">We will create a <code>showError</code> function that will display the error on the page.</p><pre id="2388e735-8283-4c65-b74e-2f9a7d58838a" class="code code-wrap"><code>function showError(error) {
+  const h1 = document.createElement(&#x27;h1&#x27;);
+  h1.innerHTML = `&lt;strong&gt;${error}&lt;/strong&gt;`;
+  document.querySelector(&#x27;#posts&#x27;).appendChild(h1);
+}
+
+createPost({ title: &#x27;Post Three&#x27;, body: &#x27;This is post three&#x27; })
+  .then(getPosts)
+  .catch(showError);
+</code></pre><p id="d1335536-c368-4b52-a2c3-144c189d2821" class="">There we go. We have successfully refactored our callback code to use a promise.</p></details></li></ul><ul id="f1d566e1-f138-49c8-91cc-152a140ce159" class="toggle"><li><details open=""><summary><strong>Promise Chaining</strong></summary><p id="ab108f01-3972-481a-a092-8217182fbf2d" class="">You may have a case where you have a promise that returns another promise. In this case, you can chain the promises together. This is called promise chaining. You would do this if you had a promise that returned a value that you needed to use in another promise or had a sequence of asynchronous tasks that you needed to complete. Let&#x27;s take our example from the previous lesson:</p><pre id="cfc04d68-3b1f-4603-bb99-3df19f4e5678" class="code code-wrap"><code>const promise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    let error = false;
+
+    if (!error) {
+      resolve({ name: &#x27;John&#x27;, age: 30 });
+    } else {
+      reject(&#x27;Error: Something went wrong&#x27;);
+    }
+  }, 1000);
+});
+
+promise
+  .then((user) =&gt; {
+    console.log(user);
+  })
+  .catch((error) =&gt; console.log(error));
+</code></pre><p id="930d523d-fcb4-4f42-98f1-bb1211e2fefd" class="">So we have a promise that resolves with a <code>user</code> object after 1 second. We&#x27;re then logging the <code>user</code> object. Whatever we return from the <code>then</code> callback will be passed to the next <code>then</code> callback. So let&#x27;s return the user&#x27;s <code>name</code> property. We can then log the name in the next <code>then</code> callback.</p><pre id="7f7fa472-6223-4fdf-9bf5-e7ca298e65b8" class="code code-wrap"><code>promise
+  .then((user) =&gt; {
+    console.log(user);
+    return user.name;
+  })
+  .then((name) =&gt; {
+    console.log(name);
+  })
+  .catch((error) =&gt; console.log(error));
+</code></pre><p id="d0a5b81c-cdc1-41ab-a19f-eb3b809bf863" class="">We can chain as many <code>then</code> callbacks as we want. Let&#x27;s say we wanted to get the user&#x27;s <code>name</code> <code>length</code> property. We can do that by returning it and chaining another <code>then</code> callback.</p><pre id="60dea1e1-abd3-4177-98ed-521501b69b32" class="code code-wrap"><code>promise
+  .then((user) =&gt; {
+    console.log(user);
+    return user.name;
+  })
+  .then((name) =&gt; {
+    console.log(name);
+    return name.length;
+  })
+  .then((nameLength) =&gt; console.log(nameLength))
+  .catch((error) =&gt; console.log(error));
+</code></pre><p id="1e8fabd6-fc55-4cd9-abb8-098cc2f78953" class="">We can go on and on like this. I think you&#x27;ll already see how this is a good way to avoid <code>callback hell</code>, but I&#x27;ll show you a direct comparison soon.</p><p id="f9a28822-dbac-4e1b-b40d-62f06c0ee9a5" class="">It&#x27;s also good to know that if you have a <code>.then()</code> after a <code>.catch()</code>, the <code>.then()</code> will still run. This is because the <code>.catch()</code> only handles errors in the previous <code>.then()</code>. Let&#x27;s change the <code>error</code> flag to <code>true</code> in the promise. and add a <code>.then()</code> after the <code>.catch()</code>.</p><pre id="cd7df333-5a0f-430e-af7f-11f55bfc18de" class="code code-wrap"><code>const promise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    let error = true; // Change this to true
+
+    if (!error) {
+      resolve({ name: &#x27;John&#x27;, age: 30 });
+    } else {
+      reject(&#x27;Error: Something went wrong&#x27;);
+    }
+  }, 1000);
+});
+
+promise
+  .then((user) =&gt; {
+    console.log(user);
+    return user.name;
+  })
+  .then((name) =&gt; {
+    console.log(name);
+    return name.length;
+  })
+  .then((nameLength) =&gt; console.log(nameLength))
+  .catch((error) =&gt; console.log(error))
+  .then((x) =&gt; console.log(&#x27;This will run no matter what&#x27;));
+</code></pre><p id="28bd0c17-9166-4385-8f00-d8e794d5bf70" class="">We can even return something from the <code>.catch()</code> callback. This will be passed to the next <code>.then()</code> callback. Let&#x27;s return a string.</p><pre id="5556a519-a430-4e82-a389-10483db5a1b3" class="code code-wrap"><code>promise
+  .then((user) =&gt; {
+    console.log(user);
+    return user.name;
+  })
+  .then((name) =&gt; {
+    console.log(name);
+    return name.length;
+  })
+  .then((nameLength) =&gt; console.log(nameLength))
+  .catch((error) =&gt; {
+    console.log(error);
+    return 123;
+  })
+  .then((x) =&gt; console.log(&#x27;This will run no matter what&#x27;, x));
+</code></pre><p id="0f906c7b-c95d-4c74-933e-a14a15ca7c4f" class="">Now that you know how to chain promises, let&#x27;s look at how this compares to <code>callback hell</code>.</p></details></li></ul><ul id="1a3a419e-931b-4a95-b574-a612363555b5" class="toggle"><li><details open=""><summary><strong>Promises vs Callback Hell</strong></summary><p id="460f5290-c999-4f54-ad37-849ea8cf358b" class="">So a couple videos back, I showed you an example of what we call &quot;callback hell&quot;. This is when you have a bunch of callbacks nested inside of each other. It can get really messy and creates a pyramid of code that is hard to follow. It&#x27;s also hard to debug.</p><p id="76181e01-c95d-42f7-a9a3-5ce42bc9ac9b" class="">What I want to do now is create that same <code>getData</code> function to get our movies, actors and directors, but I want to use promises instead of callbacks. To get our data, we are still using the XMLHttpRequest (XHR) object. We will be switching to the <code>fetch API</code> very soon.</p><p id="6ff8e644-ed9e-4c88-803c-c51d8118fb54" class="">Let&#x27;s first create the function:</p><pre id="9a97b9b7-57ea-49c3-9045-209870a6aa48" class="code code-wrap"><code>function getData(endpoint) {
+  return new Promise((resolve, reject) =&gt; {
+    const xhr = new XMLHttpRequest();
+    xhr.open(&#x27;GET&#x27;, endpoint);
+
+    xhr.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          resolve(JSON.parse(this.responseText));
+        } else {
+          reject(&#x27;Error: Something went wrong&#x27;);
+        }
+      }
+    };
+
+    setTimeout(() =&gt; {
+      xhr.send();
+    }, Math.floor(Math.random() * 3000) + 1000);
+  });
+}
+</code></pre><p id="bf1bfbeb-e113-46bd-95df-96095d3013b9" class="">As you can see, we created a new promise and if everything goes as planned and we get a <code>200</code> status code, then we will resolve the promise. If we get an error, then we will reject the promise.</p><h1 id="43cf9244-62b4-49ac-bcb8-60714cc86e73" class=""><strong>Handling Multiple Functions</strong></h1><p id="6eee3acd-7878-42f2-bc65-c1c3cc07e8b0" class="">We will call the the first <code>getData</code> function to get the movies and we are going to use the <code>then</code> method to handle the response from the promise.</p><pre id="25c525b9-8829-4c3a-b24e-c79aa0734474" class="code code-wrap"><code>getData(&#x27;./movies.json&#x27;).then((movies) =&gt; {
+  console.log(movies);
+});
+</code></pre><p id="49a62471-37e2-4f6f-9e3a-bfff5a6c4ebc" class="">Now, we want to call <code>getData</code> again to get the actors and directors. We can do this by chaining another <code>then</code> method. What&#x27;s great about this is whatever we return from the first <code>then</code> method, we can use that in the second <code>then</code> method. So let&#x27;s return the next <code>getData</code> function and pass in the actors endpoint. Then we will do it again for the directors.</p><pre id="d684c08c-8d6d-4ec1-8154-78322cb30f05" class="code code-wrap"><code>getData(&#x27;./movies.json&#x27;)
+  .then((movies) =&gt; {
+    console.log(movies);
+    return getData(&#x27;./actors.json&#x27;);
+  })
+  .then((actors) =&gt; {
+    console.log(actors);
+    return getData(&#x27;./directors.json&#x27;);
+  })
+  .then((directors) =&gt; {
+    console.log(directors);
+  });
+</code></pre><p id="efb69e9a-e8b6-4dcd-ae90-6373f85fa18e" class="">So, as you can see, we are able to chain multiple <code>then</code> methods together just like we did in the last lesson. This is a lot cleaner than having a pyramid of code. It&#x27;s also easier to debug because we can see exactly where the error is happening.</p><p id="8d72344c-56ff-4de6-a017-e0403401520e" class="">We can also use the <code>catch</code> method to handle any errors.</p><pre id="6f844aac-9feb-44b4-b87e-4031cd6c3dcb" class="code code-wrap"><code>getData(&#x27;./movies.json&#x27;)
+  .then((movies) =&gt; {
+    console.log(movies);
+    return getData(&#x27;./actors.json&#x27;);
+  })
+  .then((actors) =&gt; {
+    console.log(actors);
+    return getData(&#x27;./directors.json&#x27;);
+  })
+  .then((directors) =&gt; {
+    console.log(directors);
+  })
+  .catch((error) =&gt; console.log(error));
+</code></pre><p id="19c6e6a0-7eba-4f32-9225-c776e606aabf" class="">So more importantly than creating promises, right now, I want you to understand how to handle them with <code>then</code> and <code>catch</code>.</p><p id="cb5ae6e7-a988-4b6f-8739-ce142cb02df0" class="">In the next video, I&#x27;m going to show you how to handle multiple promises with <code>Promise.all</code>.</p></details></li></ul><ul id="896a4f49-7026-43a1-a144-0a498e9de1b2" class="toggle"><li><details open=""><summary><strong>Handle Multiple Promises with </strong><code><strong>Promise.all()</strong></code></summary><p id="ee2b350d-d7cf-4aff-a873-a2946e900ef7" class="">There may be some instances where you want to handle multiple promises at the same time. For example, you may want to get data from multiple endpoints at the same time. We did this in the last video by chaining multiple <code>then</code> methods together. However, there is another way to handle multiple promises at the same time and that is with <code>Promise.all()</code>.</p><p id="fb0f3585-7428-4493-b1e2-7f088bec32fa" class="">Let&#x27;s take our <code>getData</code> function from the last video and use <code>Promise.all()</code> to handle multiple promises at the same time.</p><pre id="0dd86dee-fff1-4367-894f-40a772233d70" class="code code-wrap"><code>function getData(endpoint) {
+  return new Promise((resolve, reject) =&gt; {
+    const xhr = new XMLHttpRequest();
+    xhr.open(&#x27;GET&#x27;, endpoint);
+
+    xhr.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          resolve(JSON.parse(this.responseText));
+        } else {
+          reject(&#x27;Error: Something went wrong&#x27;);
+        }
+      }
+    };
+
+    setTimeout(() =&gt; {
+      xhr.send();
+    }, Math.floor(Math.random() * 3000) + 1000);
+  });
+}
+</code></pre><p id="1f8bffd7-569a-496a-9595-6bf8f0b40691" class="">Now, let&#x27;s store each promise response in a variable:</p><pre id="1824cd1d-d97d-4ecf-b1ee-acc5dfca36e8" class="code code-wrap"><code>const moviesPromise = getData(&#x27;./movies.json&#x27;);
+const actorsPromise = getData(&#x27;./actors.json&#x27;);
+const directorsPromise = getData(&#x27;./directors.json&#x27;);
+</code></pre><p id="f4a3597c-b1ee-4ca5-85a0-581980a00169" class="">Instead of chaining multiple <code>then</code> methods, we can use <code>Promise.all()</code> to handle all of the promises at the same time. We will pass in an array of promises and then we can use the <code>then</code> method to handle the response.</p><pre id="43d55bbd-5b2f-4089-9a7d-8e6a2927716c" class="code code-wrap"><code>Promise.all([moviesPromise, actorsPromise, directorsPromise])
+  .then((data) =&gt; {
+    console.log(data);
+  })
+  .catch((error) =&gt; console.log(error));
+</code></pre><p id="cec371b5-a00e-4a4a-9592-793a0bcb1aeb" class="">It&#x27;s as easy as that. If I wanted to add another promise to the mix, I would just add it to the array.</p><pre id="bce45fbe-69f7-4e93-8c32-3968986ec070" class="code code-wrap"><code>const moviesPromise = getData(&#x27;./movies.json&#x27;);
+const actorsPromise = getData(&#x27;./actors.json&#x27;);
+const directorsPromise = getData(&#x27;./directors.json&#x27;);
+const dummyPromise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    resolve(&#x27;Dummy data&#x27;);
+  }, 2000);
+});
+
+Promise.all([moviesPromise, actorsPromise, directorsPromise, dummyPromise])
+  .then((data) =&gt; {
+    console.log(data);
+  })
+  .catch((error) =&gt; console.log(error));
+</code></pre><p id="835fb28a-46cf-4d13-a344-1c8a6851a2e1" class="">So now that you know how to work with promises, we can start to learn the <code>fetch API</code>, which is a much more modern and cleaner way to make HTTP requests than the <code>XMLHttpRequest</code> object.</p></details></li></ul></div></article></body></html>

@@ -1,0 +1,1016 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>01-variables-data-types</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1581d1ff-3597-4cd3-bb0b-a932447ac3c8" class="page sans"><header><h1 class="page-title">01-variables-data-types</h1><p class="page-description"></p></header><div class="page-body"><ul id="302e5f17-6794-45a4-bd4e-00eb2672cf2e" class="toggle"><li><details open=""><summary><strong>The JavaScript Console</strong></summary><p id="14c4fd4c-c9eb-4a09-997c-83a39c1a34d8" class="">When we create front-end websites and applications, we work in the browser environment. We can use JavaScript to manipulate the DOM (Document Object Model) and display different elements and values, but many times, we just need a quick way to show what a value is. We also need a place to see any errors or warnings in our script or any script that runs. This is where the JavaScript console comes in.</p><p id="60a00cb6-2239-4130-a56e-716b7c7dba53" class="">The console is part of the <strong>Developer Tools</strong> in the browser. In most browsers, you can open the dev tools with <code>F12</code> on a Windows PC and <code>CMD+OPT+I</code> on a Mac. From there you have a bunch of tabs and one (usually the second) is the console. You can also use <code>CMD+OPT+J</code> or <code>CTRL+ALT+J</code> to go right to the console.</p><p id="bf6f8c14-0507-46ca-9d60-63872829ae9b" class="">From here you can actually run JavaScript. Try typing in the following directly into the browser console and hit <code>enter</code>.</p><pre id="be1ae1a6-d60b-4a97-90cd-6e9f84860d07" class="code code-wrap"><code>alert(&#x27;Hello from the console&#x27;)
+</code></pre><p id="a84b19ff-0af0-44cb-a1be-549bd770c5cd" class="">It should show a browser alert with the text.</p><p id="417316fb-3260-428b-b8fe-9a5479e6de8a" class="">We can write just about any single line JavaScript expression directly in the console, however, you probably won&#x27;t do this very much. We usually use the console to output information and values from our script/code.</p><h2 id="0ad0bc17-3d25-4ea4-a68e-7093f3e6e618" class=""><strong>Console methods</strong></h2><p id="3c657991-e7c5-4af0-a2ad-464758251bf6" class="">The <code>global object</code> in the browser environment gives us access to a <code>console</code> object that has a bunch of useful methods that we can use from our JavaScript file to interact with the JavaScript console. When I say a method, I just mean a function that is attached to an object. In this case, the &quot;console&quot; object.</p><h3 id="12e3f969-8a5f-41da-beba-399665ea9beb" class=""><code><strong>console.log()</strong></code></h3><p id="79e3cc8f-af38-452d-9cad-db7dae39f6c0" class="">This is the most common console method. We pass whatever we want to log to the console as an argument to the <code>log()</code> method. This can be a string, a number, a boolean, an object, an array, or even a function. It will output the value to the console.</p><h3 id="f236c287-b612-40fd-a06a-f0553e655b7a" class=""><strong>Log a number</strong></h3><p id="f296b408-9197-4b30-b3ce-b0ed9925deac" class="">Different data types will have different colors in the console</p><pre id="0250f780-5e66-4d8e-8149-26fc67c5487c" class="code code-wrap"><code>console.log(123);
+</code></pre><h3 id="5e612d6b-3550-48c2-a427-d209a75820b7" class=""><strong>Log a string</strong></h3><pre id="b25989b6-5bc1-4e28-b67e-107a900007f9" class="code code-wrap"><code>console.log(&#x27;Hello World&#x27;);
+</code></pre><h3 id="4f083268-cd0a-4d61-b3db-4ef7b602c630" class=""><strong>Log multiple values</strong></h3><p id="479eff9f-4b1a-4940-ae19-0e2991496a2b" class="">You can separate values with a comma</p><pre id="990d1d06-8a63-40da-a9ea-713a4daaf70a" class="code code-wrap"><code>console.log(123, &#x27;Hello&#x27;, true);
+</code></pre><h3 id="13565165-d0f7-4703-9326-4cfd4f34110d" class=""><strong>Log a variable</strong></h3><p id="89370d12-e07d-4b0b-baca-ac94bf0f0ece" class="">For the most part, we use the console to debug and log out variables or the result of a function or network request.</p><pre id="878cfc45-dd96-497b-ae0e-1c87e7165f18" class="code code-wrap"><code>x = 100;
+console.log(x);
+</code></pre><h2 id="45237ac7-cf12-4c5e-913e-cdd3a8124073" class=""><code><strong>console.error()</strong></code></h2><p id="3e9b4c0f-add5-442e-aa5b-c0d16c351980" class="">using console.error() will make the text red</p><pre id="dc4b0ba9-47bf-40ae-828d-8b6b06157939" class="code code-wrap"><code>console.error(&#x27;This is an error&#x27;);
+</code></pre><h2 id="277df760-42e1-4958-8a5e-0f6fe3f773d2" class=""><code><strong>console.warn()</strong></code></h2><p id="bb006ebc-4e8e-41e0-9a61-59fc19094d94" class="">Using console.warn() will make the text yellow</p><pre id="1ff7a9c1-c7c2-4b7f-a89e-01a521ef7623" class="code code-wrap"><code>console.warn(&#x27;This is a warning&#x27;);
+</code></pre><h2 id="f08cede6-3a66-48f7-aef6-f0f9dcd2452c" class=""><code><strong>console.clear()</strong></code></h2><pre id="237f546a-49bb-488d-99cf-d8782d5d96bb" class="code code-wrap"><code>console.clear()
+</code></pre><h2 id="63eb998e-f4e4-48bd-acf9-84f0708f2742" class=""><code><strong>console.table()</strong></code></h2><p id="d2a8c57f-3459-4364-bb8e-238752d649fe" class="">If you want to log an object, you can format it as a table</p><pre id="f99e1360-6a9e-464d-870a-92d43e6a8def" class="code code-wrap"><code>console.table({ name: &#x27;Brad&#x27;, city: &#x27;Boston&#x27; });
+</code></pre><h2 id="c8d343fa-bc8f-4236-b7e2-e8d94aa173bd" class=""><code><strong>console.group()</strong></code></h2><pre id="8b514c47-35a9-4f77-aa54-1d7942913d75" class="code code-wrap"><code>console.group(&#x27;simple&#x27;);
+console.warn(&#x27;warning!&#x27;);
+console.error(&#x27;error here&#x27;);
+console.log(&#x27;Hello World&#x27;);
+console.groupEnd(&#x27;simple&#x27;);
+console.log(&#x27;new section&#x27;);
+</code></pre><h3 id="eabe5b5e-b081-489e-8f82-11f3c9c95576" class=""><strong>Log with style</strong></h3><pre id="fb280917-7d01-47f6-9b04-3b5ffeaea260" class="code code-wrap"><code>const styles = &#x27;padding: 10px; background-color: white; color: green;&#x27;;
+console.log(&#x27;%cHello&#x27;, styles);
+</code></pre><p id="16c99801-cf86-4c8e-b939-3de0c0e95702" class="">There are even more methods. See all of them <a href="https://developer.mozilla.org/en-US/docs/Web/API/console">here</a></p></details></li></ul><ul id="db0286d3-738b-4876-8867-715767bbedfc" class="toggle"><li><details open=""><summary><strong>Comments &amp; Shortcuts</strong></summary><p id="25b110fc-ed0d-4345-b716-56fb41dbf40e" class="">All programming languages have commenting functionality. Comments are used for documenting your code and explaining things in a human readable way. Often times, multiple developers work on the same code base and comments are used to explain what a certain piece of code does.</p><p id="e37098f2-2b6d-4ae0-9998-a70b1a44c3cb" class="">Comments are also used to disable code. This is useful when you want to test something out without deleting the code.</p><p id="1c7e46f0-f1d4-4cc8-9358-f1111dd9edeb" class="">You may also use comments as a todo list. This is useful when you want to keep track of what you need to do next.</p><h3 id="0d0a82d1-e05a-4e6c-88b5-bae5a24774ac" class=""><strong>Single Line Comments</strong></h3><p id="a5daaad3-7fd9-4a49-adf5-2626d0991a29" class="">In JavaScript, single line comments are created by using two forward slashes <code>//</code>. Anything after the two forward slashes will be ignored by the JavaScript interpreter. This is useful when you want to add a comment to a single line of code.</p><pre id="379b70cb-385e-404b-9fe5-e369ca7f8d89" class="code code-wrap"><code>// This is a single line comment
+
+console.log(&#x27;Hello World&#x27;); // This is a single line comment
+</code></pre><h3 id="9d336b5d-a6e9-48cd-9534-347e8b3e0ee4" class=""><strong>Multi Line Comments</strong></h3><p id="676b301d-b74e-4e6d-867a-1f7e07ec84cc" class="">In JavaScript, multi line comments are created by using <code>/*</code> and <code>*/</code>. Anything between the two symbols will be ignored by the JavaScript interpreter. This is useful when you want to add a comment to multiple lines of code.</p><pre id="c7515678-ce1b-4638-931f-954fc4f31af7" class="code code-wrap"><code>/*
+This is a multi line comment
+*/
+</code></pre><h3 id="2a2ac343-a48c-4489-a9a7-d8233d22b6f4" class=""><strong>Useful Shortcuts</strong></h3><p id="4a298ec4-0030-4cc0-af25-b41732b002b9" class="">I just want to go over some helpful keyboard shortcuts. These work for VS Code, but many of them are universal and will work in most text editors.</p><ul id="80e041f3-ee05-47e6-bbf4-bd67643625cf" class="bulleted-list"><li style="list-style-type:disc"><code>shift + up/down</code> - Highlight lines of code up and down</li></ul><ul id="f36964bd-fc3b-4b83-ac3b-6d8a3f7b151f" class="bulleted-list"><li style="list-style-type:disc"><code>shift + right/left</code> - Highlight code right and left</li></ul><ul id="72114a41-f8b0-4888-ad47-7823f258b7b8" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + right/left arrow</code> - move cursor to beginning/end of line</li></ul><ul id="afdec7fb-e95c-4558-ad43-ffa4124b24dc" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + up/down arrow</code> - move cursor to beginning/end of file</li></ul><ul id="cf81fbee-533e-4923-ae55-1cadac220570" class="bulleted-list"><li style="list-style-type:disc"><code>alt + up/down arrow</code> - move line up/down</li></ul><ul id="7e07dad8-68ff-4f84-9ddb-d1bc0a44ebdf" class="bulleted-list"><li style="list-style-type:disc"><code>shift + alt + up/down arrow</code> - copy line up/down</li></ul><ul id="521270ca-8bd4-4ec9-a960-282b384f2b7f" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + /</code> - Comment out a line of code</li></ul><ul id="c2f34846-eabc-4ed0-a8ea-b0dde8ff0510" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + shift + /</code> - Comment out multiple lines of code</li></ul><ul id="dd965fee-b0eb-4a70-a316-8a51f7ab9296" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + d</code> - Select the next instance of the selected word</li></ul><ul id="a5e2b1dc-8909-4524-973a-7ac6163667de" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + shift + l</code> - Select all instances of the selected word</li></ul><ul id="89a10110-9382-4e6c-ac4d-ede9d7e9cd43" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + shift + f</code> - Search for a string in the project</li></ul><ul id="380a1f64-4eba-4476-a3ef-b2a4086985f5" class="bulleted-list"><li style="list-style-type:disc"><code>ctrl + shift + o</code> - Search for a file in the project</li></ul><p id="1f21db11-10a5-4cf9-851f-28ebf34b090d" class="">You aren&#x27;t going to remember all of these right now. Try and use a few of them while you&#x27;re coding and it will become second nature. I use these shortcuts all the time and they make my life a lot easier.</p></details></li></ul><ul id="47f9090c-9fb3-4c25-bf72-39730f6c4e2a" class="toggle"><li><details open=""><summary><strong>Variables</strong></summary><p id="29aadba8-8d34-4abb-bf88-1117206a404d" class="">Variables are containers for pieces of data. That data can be one of many different data types. It&#x27;s important to know and understand those data types and we will go over them in the next lesson, but right now, we are just going to look at the syntax for creating and re-assigning variables as well as the differences between how we declare them.</p><h2 id="045522d1-214c-49d2-8cb3-8988fab27256" class=""><strong>Declaring a Variable</strong></h2><p id="c105a557-f31c-44bf-8e7f-9de8f66983c0" class="">In JavScript, we need to first declare a variable with one of three keywords</p><ul id="3210cce5-fde7-4605-9566-9a9cc48d83d0" class="bulleted-list"><li style="list-style-type:disc">var</li></ul><ul id="85f9aa96-694a-4be4-bf4f-35eadb9f58b4" class="bulleted-list"><li style="list-style-type:disc">let</li></ul><ul id="8d2c9e63-45c0-41d7-94a2-8c34782d7fba" class="bulleted-list"><li style="list-style-type:disc">const</li></ul><p id="b514034f-4839-4ea8-972b-e5af203a5d79" class="">In modern JavaScript, you probably won&#x27;t see <code>var</code> very much. <code>var</code> was the original declaration, but in <code>ES2015</code> also known as <code>ES6</code>, which was a huge update to the language, they introduced <code>let</code> and <code>const</code>. One of the reasons for this is because of <code>block scoping</code>. Now, I&#x27;m not going to talk about things like scope right now, because we haven&#x27;t gotten to functions or anything, so if I talk about scope it&#x27;ll go right over a lot of people&#x27;s heads. I just want to focus on how we declare and assign variables and also work with constants. Just know that on the <code>global scope</code>, meaning not inside of a function or any kind of control structure, <code>var</code> and <code>let</code> work in a very similar same way. <code>const</code> is a bit different. I&#x27;ll be using let and const throughout the course, unless there is a specific reason for me to use var.</p><p id="7458373b-6a92-4221-8fae-163012266cd0" class="">So let&#x27;s say that we want a variable called firstName and lastName. Remember that <code>string</code> data types need to be wraped in either single or double quotes. You can also use backticks. Backticks (`) have a special use which I&#x27;ll talk about later.</p><pre id="a9859d3d-71ff-4d01-8ca3-5fdcbc513b6f" class="code code-wrap"><code>let firstName = &#x27;John&#x27;;
+let lastName = &#x27;Doe&#x27;;
+
+// We can do a console.log to show the value
+console.log(firstName, lastName);
+</code></pre><p id="d0359745-e2e1-482a-ab62-c1132e8d46b1" class="">We can store other data types such as numbers:</p><pre id="b1189378-e820-4ffa-afd3-b5d1fdec7eea" class="code code-wrap"><code>let age = 30;
+
+console.log(age);
+</code></pre><h2 id="e3ecdeac-c8d7-4087-920e-9f8077c77324" class=""><strong>Variable Naming Conventions</strong></h2><p id="50c0054b-8ccc-4cf7-80e7-d18021d7ad63" class="">So different languages have different rules and conventions when it comes to naming things. There are some rules that you have to follow when it comes to the formatting of your variable names.</p><ul id="2b85e369-a109-4af9-bf37-069c6b8f14bb" class="bulleted-list"><li style="list-style-type:disc">Only letters, numbers, underscores and dollar signs</li></ul><ul id="28ebc488-0f88-461a-afb5-87deebe7aece" class="bulleted-list"><li style="list-style-type:disc">Can not start with a number</li></ul><p id="e9919467-f79e-45d2-8159-ea74e9761de9" class="">I wouldn&#x27;t suggest starting your variable names with a dollar sign or an underscore either.</p><h3 id="16c80f06-d067-4607-b861-3763b3d974ef" class=""><strong>Multi-Word Variables</strong></h3><p id="869a7f80-647a-45d9-bded-198b1faa177d" class="">When it comes to variables as well as functions and classes with multiple words, it&#x27;s really up to you on how you format the case. What you&#x27;ll typically see in JavaScript and what I usually do is <code>camelCase</code>. This where we start with a lowercase letter but every word after that starts with an uppercase letter.</p><pre id="1fa3e571-4fcb-4f1b-a45e-ae845295feb8" class="code code-wrap"><code>let firstName = &#x27;John&#x27;;
+</code></pre><p id="6cdfaf68-5971-421b-85b5-107723379ea7" class="">You may also see underscores like this</p><pre id="fbecb77d-0254-4158-ad21-315d75b319d8" class="code code-wrap"><code>let first_name = &#x27;Sara&#x27;;
+</code></pre><p id="4aca231a-1c87-4799-8834-5cf0e8a220a5" class="">There&#x27;s also pascal case, where the first word is also capitalized. You typically see this for class names in object oriented programming.</p><pre id="038eab22-1bd4-497d-afb2-ce893c5b4dd3" class="code code-wrap"><code>let FirstName = &#x27;Tom&#x27;;
+</code></pre><p id="5bdbd056-2a8f-48fa-a27a-87ccaac67847" class="">You might also see all lowercase, which I wouldn&#x27;t recommend</p><pre id="9a8eb42f-c6d1-4c5e-b596-4288454da955" class="code code-wrap"><code>let firtstname = &#x27;Bob&#x27;;
+</code></pre><h2 id="c69775c1-3c4f-479d-87ef-ffe37dcb44d0" class=""><strong>Reassigning Values</strong></h2><p id="04faabb8-ceef-439c-9d18-958c7345535e" class="">Alright, so if we want to reassign a value we can do that here since we&#x27;re using var. When it comes to directly reassigning a primitive type like a number, you can&#x27;t use <code>const</code>. Const stands for <strong>constant</strong>. So you have to use <code>var</code> or <code>let</code> if you want to re-assign a variable value. Again, you&#x27;re not going to see <code>var</code> very much, so I will use <code>let</code> for this.</p><pre id="d971a4ac-4c1f-4b20-895d-a926ab2e2015" class="code code-wrap"><code>let x = 100;
+</code></pre><p id="45a7e86e-056a-4555-95cb-5a7ed1b34717" class="">Let&#x27;s reassign x to 200</p><pre id="abc372f1-b6dc-458f-8a60-7f395141d44b" class="code code-wrap"><code>x = 200;
+</code></pre><p id="43baab04-2906-4916-a8fd-daa071f18ff5" class="">Now, in some cases, you may want to simply declare a variable and not assign a value to it.</p><pre id="4bc41f35-c62a-4ae8-b3d4-ca50e004880a" class="code code-wrap"><code>let score;
+</code></pre><p id="6120550f-ca9e-4028-9db7-804091257f46" class="">In this case, score would be equal to <strong>undefined</strong>, which is actually one of the seven primitive data types that we&#x27;re gonna talk about in the next video.</p><p id="51a9f077-d7b4-4620-a870-eaa8081ff9b6" class="">If I want to assign a value to it at any time, I can.</p><pre id="680a1a46-0fbe-487e-a64b-6d544e49616a" class="code code-wrap"><code>score = 1
+</code></pre><p id="93fd57da-620a-4b07-be09-a224208a73a3" class="">One reason you might do this is because you have a conditional that says if score equals one thing, do this, if another, then do something else. Here is an example</p><pre id="eed973bd-bda9-4f68-ab5f-0b4cc1034deb" class="code code-wrap"><code>let score;
+
+if(userScores) {
+  score += 1;
+} else {
+  score -= 0;
+}
+</code></pre><h2 id="f5c52f97-fa6c-41a5-8dbb-d9e0e070099f" class=""><strong>Constants</strong></h2><p id="ec873f5f-1034-47d5-86c1-b394604585f6" class="">Alright, let&#x27;s look at <code>const</code>, which works a bit differently than <code>let</code> or <code>var</code>. So if I declare a name like this...</p><pre id="5fa45d27-7d6f-4a78-bccc-66862d24b30c" class="code code-wrap"><code>const x = 100
+</code></pre><p id="f028734e-b09f-4f60-9963-7f5c2ec732ea" class="">and then I try and re-assign that value</p><pre id="eec3d4f8-43c8-4631-b672-6059c168f17d" class="code code-wrap"><code>x = 200; // Results in error
+</code></pre><p id="cc9a294b-ef81-4b55-963a-8a4233a475fa" class="">I get an error. You can&#x27;t directly re-assign a value to a constant. You also can&#x27;t initialize a constant as undefined.</p><pre id="3687bc46-06e0-43ca-afef-d8a41c74dda1" class="code code-wrap"><code>const score1; // Results in error
+</code></pre><p id="cad012ad-3125-4f37-88b5-b5673b29d906" class="">That will also throw an error. It has to be declared with a value.</p><p id="3b4e77da-f4ee-41a7-b51c-36f245b2f8d3" class="">Now where this can be a little confusing is when we use <code>const</code> with values that are not primitive like objects or reference types such as <code>arrays</code> and <code>object literals</code>. In that case we can&#x27;t directly re-assign, but we can change them.</p><p id="71d7e360-1ba7-49a9-9c61-1d3ff6fff676" class="">So let&#x27;s say that we have an array</p><pre id="df38139a-979a-4d34-9872-967de47ecd25" class="code code-wrap"><code>const arr = [1,2,3,4]
+</code></pre><p id="d8c3b557-5d73-408b-8c9e-0024e68aecf4" class="">What I can&#x27;t do is re-assign</p><pre id="1e6be827-aa45-4e56-a15e-4e8fbab0b886" class="code code-wrap"><code>arr = [1,2,3,4,5] // Results in error
+</code></pre><p id="12c46447-edde-4a4c-8e12-fd2b152ef2cd" class="">But I can for instance, add to that array with the push method. I can even take a specific index of the array and change the value that way.</p><pre id="9f1e5384-51f6-41fc-bfd8-5895e46cc696" class="code code-wrap"><code>arr.push(5); // [1, 2, 3, 4, 5]
+arr[0] = 200; // [200, 2, 3, 4, 5]
+</code></pre><p id="1a5a1e31-f07b-4f6b-a960-886f2996d909" class="">We can do the same type of thing with object literals. Now I know some of you have no clue what an object literal is, we&#x27;ll get to that, but I just want to show you that the object itself can be manipulated, even with const.</p><pre id="d8cc93e0-3321-4f63-a144-c82177aadf29" class="code code-wrap"><code>const person = {
+  name: &#x27;Brad&#x27;,
+};
+
+person.name = &#x27;John&#x27;;
+person.email = &#x27;john@gmail.com&#x27;;
+
+console.log(person);
+
+/*
+Results in...
+{
+  name: &#x27;John&#x27;,
+  email: &#x27;john@gmail.com&#x27;
+}
+*/
+</code></pre><h2 id="d8b76dd8-467f-450d-8379-04cec323a148" class=""><strong>Declaring multiple values at once</strong></h2><p id="3c80fa26-6f52-4d98-80db-4891d06e6643" class="">We don&#x27;t have to declare variables line by line, we are able to declare multiple values at once. With let, we can initialize, with const, we have to assign a value.</p><pre id="c648ffa7-2c27-4812-9d5c-82c1934438b5" class="code code-wrap"><code>let a, b, c;
+const d = 10, e = 20, f = 30;
+</code></pre><h2 id="843ae065-cf78-4671-b4c1-01a34ecf3867" class=""><strong>Let or Const - Which to Use?</strong></h2><p id="83787ca9-0d7f-44c3-bb2a-4c24c9f5f887" class="">So how do we figure out which to use when it comes to let and const or even var? We&#x27;ll it comes down to preference. What I like to do is always use <code>const</code> unless it&#x27;s a primitive value that I think I may need to re-assign at some point. The score example above is a good example. That score number will be re-assigned throughout the game. So I would use let. You&#x27;ll find in most cases that you don&#x27;t need to explicitly re-assign values. We&#x27;re usually dealing objects where we manipulate them but don&#x27;t re-assign them.</p><p id="4de27b91-eb1a-4df8-a6b2-d4711e0b10dd" class="">Some people do the opposite and always use <code>let</code> no matter what. Which is fine, but I think using <code>const</code> is a bit more robust because you know your values can&#x27;t be re-assigned my mistake. So, I would suggest <code>const</code> unless you know you need to either initialize as undefined or re-assign. It&#x27;s all preference though.</p></details></li></ul><ul id="f5c410f6-3d83-46d8-880c-c2570b016a07" class="toggle"><li><details open=""><summary><strong>Data Types</strong></summary><p id="ca2b06b2-9b81-45a3-895a-146fa982fc97" class="">We&#x27;re going to spend a little time on data types. When we create a variable, the data that we define has a type. There are <code>primitive types</code> and <code>reference types</code>. The big difference under the hood is the way that they&#x27;re stored and accessed from memory.</p><ol type="1" id="14321688-7c42-421b-850a-c55370bdb49e" class="numbered-list" start="1"><li><strong>Primitive Types</strong> - Stored directly in the location that the variables is accessed</li></ol><ol type="1" id="19908dbf-3946-48f0-a906-877f4f55559e" class="numbered-list" start="2"><li><strong>Reference Types (Objects)</strong> - Accessed by reference</li></ol><h2 id="932bbb04-759d-4798-9998-5ee6ffde130a" class=""><strong>Primitive Data Types</strong></h2><p id="6854e98a-5327-4c3f-bcf0-9b4846807e05" class="">That may not make much sense right now, but in the next video I&#x27;m going to go more in depth on how this works under the hood. So first well talk about the 7 primitive types of JavaScript.</p><p id="c21cd3c7-d533-4e43-9988-1c4c967588c1" class="">The 7 primitive data types are the following</p><ul id="d8742749-7297-4a9f-a773-8bcf9f326e1a" class="bulleted-list"><li style="list-style-type:disc"><code>String</code> - a sequence of characters. In JavaScript, strings can be enclosed within the single or double quotes or backtics</li></ul><ul id="f39ce427-c60b-400e-b60c-1c0cf9a765fe" class="bulleted-list"><li style="list-style-type:disc"><code>Number</code> - Represent both integer and floating-point numbers</li></ul><ul id="bd400336-0bde-415b-b5a5-db7e57a65024" class="bulleted-list"><li style="list-style-type:disc"><code>Boolean</code> - Represent a logical entity and can have two values: true or false</li></ul><ul id="3a740e28-8917-4efb-a7ba-5e2bd242d86f" class="bulleted-list"><li style="list-style-type:disc"><code>Null</code> - Represents the intentional absence of any object value</li></ul><ul id="604514b0-38c2-45d2-919f-d8c93386d725" class="bulleted-list"><li style="list-style-type:disc"><code>Undefined</code> - A variable that has not been assigned a value is undefined.</li></ul><ul id="5e114c5a-d2ae-4b59-895c-518483295866" class="bulleted-list"><li style="list-style-type:disc"><code>Symbol</code> - It is a built-in object whose constructor returns a symbol-that is unique</li></ul><ul id="8fc3a0e9-dd07-47cd-b770-a0fe743cf270" class="bulleted-list"><li style="list-style-type:disc"><code>BigInt</code> - New data type used for numbers that are greater than the Number type can handle.</li></ul><h2 id="36fad2b1-8072-4bc9-8ef5-26c03f0bd1dd" class=""><strong>Dynamic vs Static Types</strong></h2><p id="360e89cc-4cff-4eb6-aae3-0aea24924f26" class="">JavaScript is a &quot;dynamically-typed&quot; language. This means that when we create a variable or a function, we don&#x27;t explicitly assign the type. JavaScript assigns the type of that value dynamically. In other words, the type is associated with the <strong>value</strong>, not the <strong>variable</strong>. So you can have a variable value be a string and then later in the script, change it to a number. You probably won&#x27;t do that very often, but you can.</p><p id="dbf88277-6b7f-40dc-bdd3-14b923c7acbf" class="">There are other languages that are &quot;statically-typed&quot;. This is where you would explicitly define the type of data. Java is an example of a statically-typed language. There&#x27;s also a language called TypeScript, which is essentially JavaScript with some extra features, including types. So is TypeScript, you could do this.</p><pre id="98890045-9540-4dc2-87fe-8725c55d456c" class="code code-wrap"><code>const y:number = 100
+</code></pre><p id="2b0e5f1b-921b-46e7-b321-f58fa26946af" class="">You can see we defined it as a <strong>number</strong>. So now that <strong>y</strong> variable&#x27;s value HAS to always be a number.</p><p id="f8a15903-8d94-4720-b14c-5022ea430e6b" class="">This is not something we can do with vanilla JavaScript. The advantage of static types is that it makes your code more robust and less prone to errors. The downside is you need to write a bit more code.</p><h2 id="54e567a8-cc27-46b6-8cb7-55bc095f3303" class=""><strong>Assigning Variables</strong></h2><h3 id="eb119e5e-1635-45c4-a5c0-4e99358f8019" class=""><strong>String</strong></h3><p id="894e88e9-54ba-4987-aa1d-66663c15946d" class="">A string is a &quot;string&quot; of characters wrapped in either single or double quotes. Strings can include any number, letter or symbol</p><pre id="454f0c0f-d052-4fa1-ad77-974dbbdedaaa" class="code code-wrap"><code>const firstName = &#x27;Sara&#x27;;
+</code></pre><h3 id="62975c11-85fd-4181-a2e2-9a3b2a835aeb" class=""><strong>Number</strong></h3><p id="f35ee60b-531d-4a34-adae-068df8ab72e1" class="">Any number in JavaScript is the <code>Number</code> type, including floats and decimals. Some languages have separate types for floats and integers. JavaScript does not. Numbers are not wrapped in quotes.</p><pre id="b2d2cd76-2aae-4398-9a8c-c76cc0c6e220" class="code code-wrap"><code>const age = 30;
+const temp = 98.9
+</code></pre><h3 id="109e1805-63df-432b-87cc-514af213266e" class=""><strong>Boolean</strong></h3><p id="18764fd7-2dd9-4f65-8dab-516113710d4f" class="">A boolean is a true or false value</p><pre id="da831004-f5da-43e2-a67d-d9cf443d307c" class="code code-wrap"><code>const hasKids = true;
+</code></pre><h3 id="758b6338-fb61-46ec-9d3c-e585b3534c2c" class=""><strong>Null</strong></h3><p id="8dd1230f-91f4-4e88-9104-b7e575ec995a" class="">Intentional absence</p><pre id="91e5aa3e-c817-4796-b7b0-fccef85e2683" class="code code-wrap"><code>const aptNumber = null;
+</code></pre><h3 id="25535a52-a597-4385-9daa-8dfcc58a0e67" class=""><strong>Undefined</strong></h3><p id="076fea68-1593-4793-9bb9-87cbbf6200f2" class="">Undefined represents a variable that has not been defined a value.</p><pre id="ef642504-b281-49b2-ac9f-e14ea1736ad5" class="code code-wrap"><code>let score;
+const score = undefined;
+</code></pre><h3 id="d25c2e4d-376e-4dc9-b48a-fc546959736c" class=""><strong>Symbol</strong></h3><p id="e818de13-690d-407d-85fa-37232f9b27e2" class="">A “symbol” represents a unique identifier. We will talk more about what they are used for later, but this is how we can create one</p><pre id="c6230d74-4c4f-4a19-884d-4a7f463dc3ff" class="code code-wrap"><code>const id = Symbol(&#x27;id&#x27;);
+</code></pre><h3 id="d9ad1898-8d1b-4e48-bcb0-1c3975302709" class=""><strong>BigInt</strong></h3><p id="f729838e-0fbf-482b-9e7c-64ff8c2b0c40" class="">BigInt is a new primitive type and represents integers that are out of the range of the Number type</p><pre id="a449ea0b-9649-4dd6-a7d5-498d50131c64" class="code code-wrap"><code>const n = 9007199254740991n;
+</code></pre><h3 id="99f473a5-1063-4ab3-bc09-14872ccb495d" class=""><strong>typeof Operator</strong></h3><p id="a5357951-18b9-48a7-bb3c-d9c2517ecdb5" class="">To check the type of a variable in JavaScript, you can use the typeof operator</p><pre id="242873eb-172d-4d0a-8a21-08046435adb9" class="code code-wrap"><code>console.log(typeof name)
+</code></pre><p id="0e724d52-040e-400d-b42a-e7c520c7c2cf" class=""><strong>Tip:</strong> If you run typeof on a variable that holds <code>null</code>, you will not get null, you will get <code>object</code>. This is generally regarded as a mistake. More info <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#typeof_null">here</a></p><pre id="17c66627-4b0a-4279-a21d-8bd08c832c1f" class="code code-wrap"><code>console.log(typeof aptNumber)
+</code></pre><h1 id="e340db25-6786-4f02-8bc8-370cca35adb9" class=""><strong>Reference Data Types (Objects)</strong></h1><p id="b69c9ea7-64b3-43d5-948b-3669af9abf2d" class="">We talked about the primitive data types that are stored directly in memory where they are accessed. Reference types work a little differently under the hood. There are basically 3 types that are passed by reference</p><ul id="79442ed3-1e9b-43fa-a9cf-94da19747a23" class="bulleted-list"><li style="list-style-type:disc"><code>Arrays</code></li></ul><ul id="43adef06-855c-46d7-9854-8ad40c090b46" class="bulleted-list"><li style="list-style-type:disc"><code>Functions</code></li></ul><ul id="db4b7f33-ed28-4449-839d-23dcf1325863" class="bulleted-list"><li style="list-style-type:disc"><code>Objects</code></li></ul><p id="737ee604-d8a3-4692-8005-9ef586e058a2" class="">Technically, these are all &quot;objects&quot;, meaning that they have properties and methods.</p><p id="436e7e04-5823-4dc8-9413-d69762624b6c" class="">Reference types or &quot;objects&quot; are a non-primitive value and when assigned to a variable, the variable is given a <strong>reference</strong> to that value. The reference points to the object&#x27;s location in memory. Unlike primitives, where the variable contains the actual value. I&#x27;ll talk more about this in the next video.</p><h3 id="8446011d-fc66-493a-8f78-576325910bdc" class=""><strong>Arrays</strong></h3><p id="332fd94e-2775-4f33-bfa6-ef6937aed9c3" class="">I know we haven&#x27;t gone over arrays yet so don&#x27;t worry if you&#x27;ve never worked with them. They&#x27;re essentially a data structure that can hold multiple values.</p><p id="e381303c-3643-4ca8-aeda-f0d8cc0edd7a" class="">So if we write</p><pre id="53da51c0-a348-444e-9133-8b1cb4c88771" class="code code-wrap"><code>const numbers = [1,2,3,4]
+</code></pre><p id="8662d9c9-685a-40e3-892b-0b720c48e2a6" class="">We have created an array in memory and a variable that points to the address or location of that array.</p><h3 id="bdd9721b-3887-4cf8-b07b-e62954cddf1a" class=""><strong>Object Literals</strong></h3><p id="1df85085-820f-4e7c-bb42-b0c10e17bba5" class="">Objects are comma separated lists of <code>name-value pairs</code>. We&#x27;ll get into them later, but just to give you an example here</p><pre id="fb14fe6a-6689-4cef-86aa-d024eb9dae4e" class="code code-wrap"><code>{
+  name: &#x27;John&#x27;,
+  age: 30
+}
+</code></pre><h3 id="77b73e53-08ad-4bea-9092-1ffad6ab737e" class=""><strong>Functions</strong></h3><p id="f1e34a1d-e240-4d37-b603-2578fe8278b2" class="">Functions are also objects in JavaScript. They can have <code>properties</code> and <code>methods</code>. What distinguishes them from other objects is that they can be called.</p><pre id="c4d2cc1b-1303-4864-b11a-4d2d5e3427bd" class="code code-wrap"><code>const sayHello = function() {
+  return &#x27;Hello&#x27;;
+}
+
+sayHello()
+</code></pre><p id="3121fc3f-6553-4dcf-bad7-2cf93e773cf3" class="">If we check the type with typeof, we&#x27;ll get &quot;object&quot; for arrays and object literals, but we actually get &quot;function&quot; for a function. This is still an object, it&#x27;s just identified as a function object, which can be called as you can see <a href="https://262.ecma-international.org/5.1/#sec-11.4.3">here</a></p></details></li></ul><ul id="deb1c50d-3a3f-4c06-a628-de2eb61a5583" class="toggle"><li><details open=""><summary><strong>Stack vs Heap Memory Allocation</strong></summary><p id="71f7d1db-19e6-4e70-a043-7fe2ed1bc2dc" class="">Now we&#x27;re going to look at how <code>primitive</code> and <code>reference</code> type data is stored in memory. One thing I really want to mention is that if you&#x27;re a beginner or even intermediate, this may seem a little confusing but that&#x27;s absolutely fine. In all honestly, I have met senior developers that don&#x27;t know some of this stuff, so don&#x27;t let this overwhelm you.</p><p id="097498f9-b541-43f4-88eb-99fccebaf02d" class="">What&#x27;s really important right now is that you just know the types and know how to create variables. I was iffy on even talking about some of this stuff at this point, but I want to this to be a very thorough course. You can always just take in the basics and come back to these videos later. And I&#x27;ll do my best to let you know what is really important for the day to day and what is more behind the scenes knowledge.</p><h2 id="948c8e8a-c6e5-4ac4-89f2-50666f101d85" class=""><strong>Garbage Collection</strong></h2><p id="a1174dd2-9307-43a7-b25e-d3049a30d5ca" class="">Before we look at how data is stored in memory, I just want to mention that JavaScript uses something called <strong>garbage collection</strong>. With some low-level languages such as <code>C</code> and <code>C++</code>, you actually have to manage your own memory. When you create variables, you have to allocate the memory yourself and when you are done, you need to free up that space. It makes programming much more difficult. More modern interpreted languages like <code>JavaScript</code> and <code>Python</code>, do not have you do this. It is automated with something called garbage collection. That&#x27;s why you don&#x27;t technically need to know how this stuff works to start writing JavaScript.</p><h2 id="d110bd04-c0b4-44f8-87da-b5c71059d6d5" class=""><strong>Memory Allocation</strong></h2><p id="899bcd54-4c7d-4e19-910a-6c2b85206c7f" class="">When we create a variable, the JavaScript engine allocates them into two different locations called the <code>stack</code> and the <code>heap</code>.</p><p id="f89de9ab-23d2-477f-89f7-b26c7bb3ce12" class="">Primitive values like strings, numbers, etc are static and immutable data that are fixed. Because of this, the size of the data doesn&#x27;t change at all, so the space is allocated as a fixed amount and is stored on the stack.</p><p id="e7f5e06d-4366-41d3-8dd9-7fa0780caa31" class="">So let&#x27;s take the following example</p><pre id="3b96fbe1-206f-4598-a44c-a467b037d6f9" class="code code-wrap"><code>const name = &#x27;John&#x27;;
+const age = 30;
+</code></pre><p id="cc893002-b137-40c8-9d67-c184115ad528" class="">To help visualize this, I created a simple image of what the memory stack would look like</p><figure id="d77f0da0-c94b-4702-a5aa-515807f94901" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled.png"><img style="width:191px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled.png"/></a></figure><p id="29b3e5ab-6bc6-4e3e-83b6-f191ffa3c15c" class="">Notice that the memory was allocated on the stack for the variable and the value for name and age. This is because they are static primitive values.</p><p id="d3d38bf7-f99c-4845-bbe1-dd14884e06fe" class="">Now let&#x27;s create a <strong>person</strong> <code>object</code></p><pre id="82ee48f2-de0b-4686-8af5-117cb77c29aa" class="code code-wrap"><code>const person = {
+  name: &#x27;Brad&#x27;,
+  age: 40
+}
+</code></pre><p id="9d5eefc1-9166-40da-b9b2-76508fe25ff5" class="">Since this is a reference type that is not static and we can add and remove values from it, the object gets stored in the heap</p><figure id="45ce5d1a-8507-45c4-aad2-8cc859ec5143" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%201.png"><img style="width:527px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%201.png"/></a></figure><p id="eddbc793-952d-4a14-996c-1ae303cf65bb" class="">Lets set a new variable called <strong>newName</strong> to reference the primitive <strong>name</strong> variable</p><pre id="8d743dd3-b6ad-4ba2-bf13-13d70e98cb42" class="code code-wrap"><code>const newName = name;
+</code></pre><p id="22f0bf49-6596-4208-95e5-eb6378125536" class="">Under the hood, JavaScript copies the primitive value of <strong>&#x27;John&#x27;</strong> and assigns it to <strong>newName</strong></p><figure id="512d8aaf-7e19-436c-91ba-4a22c0c82731" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%202.png"><img style="width:550px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%202.png"/></a></figure><p id="f9cd7e66-0f65-4692-ae4c-a096bbf62d30" class="">Now, let&#x27;s change the value of the <strong>newName</strong> to <strong>Jonathan</strong></p><pre id="7c1b9e6f-172b-4c2a-a02a-6eb21e3bbb15" class="code code-wrap"><code>newName = &#x27;Jonathan&#x27;
+</code></pre><figure id="380e23cb-cb6e-4202-aec1-17a635e17681" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%203.png"><img style="width:537px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%203.png"/></a></figure><p id="531ffdea-73cd-498e-bd6f-820c91933fbb" class="">The <strong>name</strong> value stays the same and only the <strong>newName</strong> is changed. That&#x27;s because it was passed by the value.</p><p id="90c34dac-bfab-43c5-8bdc-0eb25bbb0a0e" class="">Now lets create a new variable called <strong>newPerson</strong> and set it to <strong>person</strong></p><pre id="101253a9-bc3e-4ac7-836d-f98136059102" class="code code-wrap"><code>const newPerson = person;
+</code></pre><p id="a8b46d51-6a1b-437d-805b-3ae2522c281f" class="">Now the <strong>newPerson</strong> variable references the same value on the heap.</p><figure id="47c1ce56-a270-493f-9799-775e539edfaa" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%204.png"><img style="width:528px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%204.png"/></a></figure><p id="aafa84b4-9152-4305-b22b-706a0a6004ac" class="">If I were to update <strong>newPerson</strong> object&#x27;s name value</p><pre id="354ae85d-e4a2-4051-9240-4ab630ea1998" class="code code-wrap"><code>newPerson.name = &#x27;Bradley&#x27;
+</code></pre><p id="2733e11f-b6c9-4a4b-b8e8-d4465fb1b9de" class="">It would change the reference in the heap as well and now both <strong>person</strong> and <strong>newPerson</strong> will have the name Bradley. This is because it is passed by reference.</p><figure id="ed230481-8ec0-4ea3-b601-a1dce9713d33" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%205.png"><img style="width:523px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%205.png"/></a></figure><p id="0b34d27f-0660-449b-85bc-94413c14cef1" class="">So at some point, this knowledge will come in handy when you get into more advanced programming. It&#x27;s not really beginner stuff, but I do think learning it now gives you a leg up.</p></details></li></ul><ul id="4988fd0d-ca70-4431-ae0e-197a36f2bca6" class="toggle"><li><details open=""><summary><strong>Type Conversion</strong></summary><p id="5406f196-5949-47eb-9940-9f5979268008" class="">In programming, <strong>type conversion</strong> or <strong>type casting</strong> is the process of explicitly converting a value from one type to another. For instance, you may have a string value of <strong>&#x27;5&#x27;</strong> and you want to convert it to a number value of <strong>5</strong> so that you can do some arithmetic operations on it.</p><p id="c5b07f51-ae22-45ba-9e2c-ce3d94a38530" class=""><strong>Type Coercion</strong>, can also be explicit, but also refers to the automatic or implicit conversion of values from one data type to another. We will talk about this in another video.</p><h2 id="4090ebc0-5dbd-4efe-a982-06a427c91c7c" class=""><strong>Converting Types</strong></h2><p id="e5cd5927-30fd-40a3-8d5e-6e87c023d1a3" class="">There are a few different ways that we can covert types.</p><p id="b3b2c1d9-3391-4356-bdf3-2826c4e1e352" class="">We have a variable with the string of &#x27;100&#x27;</p><pre id="90014735-ee8e-4c57-8caa-5f4bd9088782" class="code code-wrap"><code> let amount = &#x27;100&#x27;;
+</code></pre><h3 id="0d4a6598-27c9-4cce-a276-61dd7993b379" class=""><strong>parseInt()</strong></h3><p id="b8aab65d-2880-45cc-aa4f-fcf2a60a4499" class="">We can convert it to a number type with the <code>parseInt()</code> function</p><pre id="81f1aab4-178d-4aa1-a087-d74139239070" class="code code-wrap"><code>  amount = parseInt(amount);
+</code></pre><h3 id="58c6185d-a161-4d92-a50f-446c53b628c9" class=""><strong>toString()</strong></h3><p id="70d5a416-ffe8-4197-8a3c-b18e317f12b0" class="">If we want to convert it back to a string, we can use the <code>toString()</code> method</p><pre id="e54d6cbd-68e2-42b5-b9bc-1a093365cc5b" class="code code-wrap"><code>amount = amount.toString();
+</code></pre><p id="18e26efb-8619-42bc-a29d-709bb853f4bb" class="">A <strong>method</strong> is just a function that belongs to an object.</p><p id="7efd7d44-ab5e-4df5-8b58-29b664bbd642" class="">This brings up a question though. The <code>amount</code> variable is a primitive number. How come it has a method of <code>toString()</code>?</p><p id="f921983c-49ed-47e1-8792-9092cdc1ae0b" class="">The answer is that JavaScript will actually create a temporary wrapper object to run <code>toString()</code> on</p><h3 id="1f3f5bad-ce04-44c3-a972-776b558bc4f8" class=""><strong>Number()</strong></h3><p id="c416a8c6-d8dd-46d3-8b3b-c0ee19bc4674" class="">Another way to convert a string to a number is by wrapping it in the <code>Number()</code> method</p><pre id="8b25cf37-cf71-444c-a07e-07b802662c56" class="code code-wrap"><code>amount = Number(amount);
+</code></pre><h3 id="33911e57-eda2-443a-8389-1268bb458074" class=""><strong>String()</strong></h3><p id="7c7572d5-f13a-4cff-a37c-288086c9903f" class="">We can convert something to a string using the <code>String()</code> method</p><pre id="b0a30d64-c8a5-4802-8cbc-4c3c9f420d10" class="code code-wrap"><code>amount = String(amount);
+</code></pre><h2 id="8c348d73-aab6-4213-b2d1-8d97b92d104d" class=""><strong>Decimals</strong></h2><p id="405e50d0-6920-4fbc-b6ba-5c15f300cd19" class="">If you want to convert a string to a decimal, you don&#x27;t want to use <code>parseInt()</code> because an &quot;integer&quot; is either a negative or positive whole number.</p><p id="56ece6af-286f-401f-9201-2fe18b993962" class="">Use <code>parseFloat()</code> to convert to a decimal</p><pre id="6f8db752-a896-4962-a2f3-b4fd2ad76598" class="code code-wrap"><code>let amount2 = 5.5;
+amount2 = parseFloat(amount2);
+</code></pre><h2 id="c72644a5-4100-4850-8e51-2a939682e3ee" class=""><strong>Boolean Values</strong></h2><p id="926826b8-395c-4f83-8092-829637c959cd" class="">Strings and numbers are not all that we can convert. We can use Number() with booleans</p><p id="ad8bc733-1906-47e0-837a-19fcf7c64adb" class="">The following would give us a number of 1. If false, it would give us 0.</p><pre id="454a9bd2-06a4-4027-ac55-ce670a5af3bd" class="code code-wrap"><code>let x = true;
+x = Number(x);
+</code></pre><p id="3d036976-d6db-424e-8770-f3cda532fe4b" class="">We also have a Boolean() method to turn a number into a boolean. Later I will talk about &quot;truthy and falsey&quot; values.</p><pre id="ce289597-e09a-4d20-9afd-c79d8ece083d" class="code code-wrap"><code>x = Boolean(x);
+</code></pre><p id="8de22ee7-bb96-403c-9b3f-56b496399277" class="">The following will give us the string <strong>true</strong></p><pre id="308fddef-46b3-417c-8562-b5e43b53767d" class="code code-wrap"><code>x = String(x);
+</code></pre><h2 id="b0afa29b-bf59-4e62-a1f8-c317b39ef4f3" class=""><strong>NaN</strong></h2><p id="5830319a-7a38-42c4-9bf6-54bccf7e07a8" class="">You saw above that we could run the string of &#x27;5&#x27; through <code>Number()</code> and get the number 5. Well what happens if the string is something like &#x27;hello&#x27;?</p><pre id="b890716e-68ab-4f07-877e-e37c3fb94d33" class="code code-wrap"><code>let str = &#x27;Hello&#x27;;
+let num = Number(str)
+</code></pre><figure id="0f62dd9b-49ef-42f1-8501-884c7f1fb2db" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%206.png"><img style="width:332px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%206.png"/></a></figure><p id="2aba3702-d7dd-4f9f-ad1e-6204ff4c882b" class="">We actually get a special &quot;number&quot; called <code>NaN</code>, which stands for <strong>Not a Number</strong>... Yeah, that&#x27;s JavaScript for you. A number that is &quot;not a number&quot;. There are some really strange and quirky aspects of JavaScript. The good news is that most of it doesn&#x27;t get in your way in practical development. It&#x27;s just when we start to dig down deeper.</p><p id="b7bbfc1a-8e2a-48bd-8c69-9f68dfc63d5a" class=""><code>NaN</code> is a property of the global object and is a non-writable property. There are 5 different types of operations that return NaN:</p><ul id="98c30a65-e282-42d3-a193-0ac74170806e" class="bulleted-list"><li style="list-style-type:disc">Number cannot be parsed (e.g. parseInt(&quot;blabla&quot;) or Number(undefined))</li></ul><ul id="0913953f-a0c1-4244-b9aa-cafb2a0dbe27" class="bulleted-list"><li style="list-style-type:disc">Math operation where the result is not a real number (e.g. Math.sqrt(-1))</li></ul><ul id="344ca69a-7df4-4ccf-a040-80c115840ded" class="bulleted-list"><li style="list-style-type:disc">Operand of an argument is NaN (e.g. 7 ** NaN)</li></ul><ul id="f1e700f6-6973-4d99-b233-5dca1363b067" class="bulleted-list"><li style="list-style-type:disc">Indeterminate form (e.g. 0 * Infinity, or undefined + undefined)</li></ul><ul id="024b88a4-a117-48e0-8066-65bd2e5a2fb6" class="bulleted-list"><li style="list-style-type:disc">Any operation that involves a string and is not an addition operation (e.g. &quot;foo&quot; / 3)</li></ul></details></li></ul><ul id="338ad097-f6f7-4505-8977-55c2f02a5aac" class="toggle"><li><details open=""><summary><strong>Operators &amp; Arithmetic</strong></summary><p id="e2fe4aa9-3682-4c56-9452-f619f035abf6" class="">In order to look at implicit type coercion in the next video, we&#x27;ll be using some operators, so I thought that this would be a good time to go over JavaScript operators. Most of these are in just about every language. This is really easy stuff, but I want to make sure we cover everything.</p><p id="c7ac2a64-c4d3-4d92-97ce-b9968d1d0e36" class="">We have a few different types of operators</p><h2 id="584802d1-29ee-4e55-9fb7-f2bc2a4e1932" class=""><strong>Arithmetic Operators</strong></h2><p id="54ec1163-5495-474b-9319-7896659c3748" class="">Addition, subtraction, multiplication and division</p><pre id="18bbb5c0-4e37-4532-84ac-8c0f0cddcf15" class="code code-wrap"><code>  5 + 5; // 10
+</code></pre><pre id="65eb4dbf-f299-48f1-8635-b439aaa58f8c" class="code code-wrap"><code>  10 - 5; // 5
+</code></pre><pre id="902c54bb-6dd7-4012-95b4-3fb6a5940ceb" class="code code-wrap"><code>  5 * 5; // 25
+</code></pre><pre id="5bbc77c4-736e-4dd8-b313-66bb5bacd599" class="code code-wrap"><code>  10 / 2; // 5
+</code></pre><p id="21418d19-e57a-4a1b-8c16-6a257b3d6fea" class="">Concatenation: The <code>+</code> operator can also be used to put 2 or more strings together. The use of <code>+</code> depends on the data type</p><pre id="a184cd51-1cf1-47fd-86cd-08fc80381a56" class="code code-wrap"><code>&#x27;Hello, &#x27; + &#x27;World!&#x27;; // Hello World!
+</code></pre><p id="f231dc41-edeb-4cc8-ac10-6cafc6f521c9" class="">Modulus is used to get a division remainder</p><pre id="a85dca0e-ec26-4a19-9a2e-0f028f54f1e4" class="code code-wrap"><code>  10 % 3; // 1
+</code></pre><p id="36e5004a-f215-4672-a598-b948b6a81465" class="">Exponentiation returns the result of the first operand to the power of the second.</p><pre id="2b3db1c6-eafa-457f-965a-f47e10d14c28" class="code code-wrap"><code>2**3; // 8
+</code></pre><p id="319e92b3-179b-49bb-aa86-b041ce9d92ac" class="">Increment is used to <strong>increment</strong> or add 1 to a value</p><pre id="63314fd8-015f-49c7-8603-2266532126ef" class="code code-wrap"><code>  x = 10;
+  x++; // 11
+</code></pre><p id="abd94e8c-b1b1-49dd-84cb-bfb33d03b812" class="">Decrement is used to <strong>decrement</strong> or remove 1 from a value</p><pre id="557d2e85-65ad-45e2-ac13-d4ec380f18b9" class="code code-wrap"><code>  x = 10;
+  x--; // 9
+</code></pre><h2 id="092f8875-719c-4c88-9258-bd052fd79be1" class=""><strong>Assignment Operators</strong></h2><p id="b9db6f05-6599-47a0-a8bb-0d75d437cab3" class="">Assignment operators do something with the value on the right side to set the variable on the left side.</p><p id="eb84217c-e411-440f-bb47-f9fecabe53bc" class="">Value assignment</p><pre id="2a9ffb90-8f78-4679-b86a-3fca49ecd04a" class="code code-wrap"><code>x = 10;
+</code></pre><p id="e8a34e50-34df-4443-a07f-d3907e250564" class="">Addition assignment operator adds the amount on the right side</p><pre id="7acc3f39-62d3-4380-b681-a517049e58a4" class="code code-wrap"><code>x = 10;
+x += 10; // 20
+// Same as x = x + 10
+</code></pre><p id="2865772d-4ecf-4522-a594-18a950bc2d35" class="">Subtraction assignment operator subtracts the amount on the right side</p><pre id="c64961eb-fa3d-4918-86c2-15036dd09a52" class="code code-wrap"><code>x = 10;
+x -= 10;  // 0
+// Same as x = x - 10
+</code></pre><p id="91240469-5a9e-4cef-8ac8-666436ca8133" class="">Multiplication assignment operator multiplies the amount on the right side</p><pre id="e1229544-5f50-4a52-8980-b4ac0da87dd9" class="code code-wrap"><code>x = 10;
+x *= 10; // 100
+// Same as x = x \* 10
+</code></pre><p id="600166e6-c8d9-4d1b-a687-99fc3d4587ee" class="">Division assignment operator divides the amount on the right side</p><pre id="d3215143-e6d2-422a-976b-e7d0541f997d" class="code code-wrap"><code>x = 10;
+x /= 10; // 1
+// Same as x = x / 10
+</code></pre><p id="c57b7a1a-b994-4709-be7e-ba036326a622" class="">Modulo assignment operator gets division remainder of the amount on the right side</p><pre id="2c7f4bc8-06f1-4b20-b9a9-b9e74870632d" class="code code-wrap"><code>x = 10;
+x %= 10; // 0
+// Same as x = x % 10
+</code></pre><p id="92ceef1d-9bae-45ab-84c3-53c5cf204d4f" class="">Exponentiation assignment operator gets exponent of the amount on the right side</p><pre id="3302e906-5150-4cdf-a25b-117c67490ef9" class="code code-wrap"><code>x = 10;
+x **= 10; // 100
+// Same as x = x \*\* 10
+</code></pre><h2 id="3b434d31-6cb3-4cc2-b8ec-308addbd2aac" class=""><strong>Comparison Operators</strong></h2><p id="b1cdcc47-d298-48ae-8c05-c4c210e405a5" class="">Comparison operators are used to compare values</p><p id="3c6e4b9b-12c8-4c47-a1f0-864aa0305aad" class="">Equal to operator - The following will return true even if the types do not match</p><pre id="28cf085e-fd15-4058-91e2-967e0896d48b" class="code code-wrap"><code>2 == 2 // true
+2 == &#x27;2&#x27; // true
+</code></pre><p id="90dce05c-fce5-42fe-a5fd-8191f9f328ea" class="">Equal value &amp; equal type - The types have to match or it will return false</p><pre id="9ad2ac3e-e14a-4faa-94d3-018778ac86a2" class="code code-wrap"><code>2 === 2 // true
+2 === &#x27;2&#x27; // false
+</code></pre><p id="fb77a04e-c86c-4ed4-9b6a-31d1de792950" class="">Not equal to operator - returns true if not equal</p><pre id="3f1a752f-7a6b-4897-8076-07cc8697a071" class="code code-wrap"><code>2 != 2 // false
+2 != &#x27;2&#x27; // false
+</code></pre><p id="cad5045a-f21b-4a3a-aa08-932ddc009b01" class="">Not equal value &amp; equal type</p><pre id="98c81494-9a38-4dc0-ad41-a86b17499fad" class="code code-wrap"><code>2 !== 2 // false
+2 !== &#x27;2&#x27; // true
+</code></pre><p id="cb067f7b-6da3-49a8-916b-d03fe6b1096e" class="">Greater than</p><pre id="27c4172a-150e-4fff-8d8e-57c39814ee00" class="code code-wrap"><code>10 &gt; 5 // true
+</code></pre><p id="6c9f0cc0-99b8-4e41-b76c-08e37193cac1" class="">Less than</p><pre id="c977358e-5437-4a5f-893f-446e1a3c8a6d" class="code code-wrap"><code>10 &lt; 5 // false
+</code></pre><p id="d8fdf2e8-8e6d-4cb7-8a51-bc19c1324311" class="">Greater than or equal</p><pre id="86b0b812-3e97-42b4-8ed0-8ea6b0eb8857" class="code code-wrap"><code>10 &gt;= 5 // true
+</code></pre><p id="e95a5f22-c434-439d-b40a-61aa6a419889" class="">Less than or equal</p><pre id="55e017af-4dc6-4260-bfbd-47d027d08148" class="code code-wrap"><code>10 &lt;= 5 // false
+</code></pre><h2 id="3ecd1691-ca65-48f8-b10f-db783456efd4" class=""><strong>== vs ===</strong></h2><p id="17d3ba04-e409-4494-aeaf-3ed33bf4ec7a" class="">As I said above, the <code>==</code> operator is used to compare values. The <code>===</code> operator is used to compare values and types.</p><p id="d8358167-92a4-4a65-99b3-30d279045f47" class="">The double equals (==) performs type coercion, which means it makes sure that the values are the same type before comparing them.</p><p id="c022dd7e-b8f2-408f-b345-3dd4bb4e2df3" class="">Which one you use is up to you, but I personally use the triple equals (===) because it is more explicit and your code will be less prone to errors. In many situations, it doesn&#x27;t matter, but I prefer to use it unless there is a specific reason not to.</p><p id="69260347-1edd-4de9-9cf5-7b5addc3fbf2" class="">Later on we will talk about <strong>truthy</strong> and <strong>falsy</strong> values and I will show you some situations where the double equals can cause issues.</p></details></li></ul><ul id="35540444-249c-4f2c-94d0-0d397ee75344" class="toggle"><li><details open=""><summary><strong>Type Coercion</strong></summary><p id="b40d19ab-34df-4192-8a8d-135996a42405" class="">Type Coercion is when data types are converted implicitly by JavaScript. Although the conversion that we did in the previous video can also be called explicit coercion. There&#x27;s so many different words for the same thing in programming.</p><p id="eec5b386-209e-49a9-b8e1-e877c35403f5" class="">Anyway, there are a few situations where implicit coercion can occur. For the most part, you have 3 types of coercion</p><ul id="2ba1ccc5-6284-4028-a659-ed0beebecec9" class="bulleted-list"><li style="list-style-type:disc">to string</li></ul><ul id="334dcc86-84ad-4fcf-903b-cf3730179243" class="bulleted-list"><li style="list-style-type:disc">to number</li></ul><ul id="27212d78-9ff0-41bb-a088-f77e64f3098c" class="bulleted-list"><li style="list-style-type:disc">to boolean</li></ul><p id="88adaaed-cb73-403b-9a4b-4a2e18b2f2e3" class="">Typically coercion happens when you apply operators to values of different types.</p><p id="31f63aae-033a-4284-8bbe-1d9b6076591c" class="">Let&#x27;s take a look at some examples. I will warn you, some of this will get weird. But again, this stuff usually isn&#x27;t a big issue in everyday development.</p><p id="57addd83-5cbc-4e73-879e-7b9929483852" class="">Let&#x27;s look at our first example</p><pre id="fb5a70f1-1d78-4e97-be16-272295f7c244" class="code code-wrap"><code>5 + &#x27;5&#x27;; // 55 (string)
+</code></pre><p id="748d91c6-53a8-404c-809b-9da9546b9b12" class="">So as you can see, if we use the <strong>+</strong> operator on the <strong>number</strong> 5 and a <strong>string</strong> with the character &#x27;5&#x27;, we get a <strong>string</strong> of 55. Some of you may have expected 10, which is the answer to 5 + 5.</p><p id="a0a1f549-8dcf-45be-9c59-6808605b59be" class="">The reason that this happened is because the <strong>number</strong> 5 is being implicitly coerced into a <strong>string</strong> due to the + operator also being used for concatenation, as I talked about in the last video.</p><p id="3cd6bd02-5859-4766-9da5-2bcad49b72d6" class="">This is an example of automatic or implicit coercion because we applied an operator to values of different types.</p><p id="3ef5159c-2528-4061-84a7-44eba684f28c" class="">If I wanted to add these together, I would first convert the string &#x27;55&#x27; to a number like this</p><pre id="642748fe-ca58-4cc1-9a83-b9d1c0fa1219" class="code code-wrap"><code>5 + Number(&#x27;5&#x27;); // 10
+</code></pre><p id="a13d65f0-ba47-4033-8468-23e02c9bfeff" class="">Although the string would most likely be a variable in this case.</p><p id="dd4765ad-9190-44c4-b623-2bb12c6f25ca" class="">Now, let&#x27;s take the <strong>number</strong> 5 and multiply by the <strong>string</strong> 5.</p><pre id="ea0cca91-efc9-4c94-a989-dcc09356db67" class="code code-wrap"><code>5 * &#x27;5&#x27;; // 25 (number)
+</code></pre><p id="2cc80ec1-1f3b-4c37-8611-004521ec42f0" class="">For this expression, we do get the result of 5 * 5, which is a <strong>number</strong> of 25. So in this case, JavaScript looked at the expression and coerced the <strong>string</strong> of &#x27;5&#x27; into the <strong>number</strong> 5.</p><p id="728c9ee9-d2bd-46e7-ba27-de96dbb1e7ad" class="">This happened because it makes the most sense. The * can not do anything else but multiply in this expression.</p><p id="7f92112d-c737-450e-8295-cab570bd5cc0" class="">Let&#x27;s try some more weird stuff and see the results</p><pre id="e22e0970-6b7f-4dbc-a6fd-123e416645bc" class="code code-wrap"><code>5 + null; // 5
+</code></pre><p id="75d7c42f-4860-466b-848a-87520eb98385" class="">So in this case, we get 5. Reason being that null is coerced to a number of 0. We can see what a value would be as a number by doing the following</p><pre id="0599c191-5ffc-4eda-834e-73fec39d1875" class="code code-wrap"><code>Number(null); // 0
+</code></pre><p id="64eb2b2d-46b0-4e2e-a9ac-c1573a13555b" class="">Let&#x27;s see what the boolean values of true and false would be as a number</p><pre id="0cdb4d90-5611-4194-9bf9-2020a9024250" class="code code-wrap"><code>Number(true); // 1
+Number(false); // 0
+</code></pre><p id="dee93856-f34c-4a68-b466-311a63a517e2" class="">So with that what do you think the answer would be if we added 5 + true and 5 + false?</p><pre id="04ba976f-739e-4e9d-8d34-8a872206bc20" class="code code-wrap"><code>5 + true; // 51
+5 + false; // 50
+</code></pre><p id="30a87898-dadf-42e3-8984-7ecc502edb19" class="">The null and false being 0, brings us to something called &quot;falsey values&quot;. We&#x27;ll get more into that when we talk about conditionals though.</p><p id="924bb3b9-0b8e-40a5-95bf-af58baf22bd8" class="">Now let&#x27;s look at the following expression</p><pre id="98113f28-7fdd-4137-90ed-4d9bdda33cbc" class="code code-wrap"><code>   5 + undefined; // NaN
+</code></pre><p id="8688b832-5932-4fea-ab4c-2ec41682b5c4" class="">So the result is NaN or <strong>not a number</strong>. We talked a little about this in the last video. The reason is because NaN is the result of a failed number operation. If we run undefined through the Number() method, we also get NaN.</p><p id="4121edd7-ba45-4579-8316-045fab012ef6" class="">If we try and add NaN like this, we also get NaN.</p><pre id="50add9b5-4d6c-4d34-9a66-ab0b4ea27917" class="code code-wrap"><code>5 + NaN; // NaN
+</code></pre><p id="05ea5977-57c0-480a-a02b-3c7223de1994" class="">Want to see something really strange?</p><pre id="e606eaae-ef65-4943-a194-0eb947ada51c" class="code code-wrap"><code>NaN == NaN // false
+</code></pre><p id="e90479ce-b871-4825-b338-edc3f1e5ebf2" class="">You read that right. NaN is NOT equal to NaN. Kind of mind blowing. This is because not all NaN numbers are created equal. You can read more about it <a href="https://es5.github.io/#x11.9.6">here</a>, but just know that this will always equate to false.</p><p id="9174c7a9-fadf-42e3-b33f-9d3806038d53" class="">Now there may be times when you need to check for a NaN value. Again, I know we haven&#x27;t got into functions or conditionals yet, but we do have a function called <strong>isNaN</strong> that we can use like this.</p><pre id="37285393-b77b-4585-896d-d7f84349b4bc" class="code code-wrap"><code>  isNan(NaN); // true
+</code></pre><p id="3d0a8392-bf4d-488b-96be-9b203fbc33da" class="">However, this will return true for ANYTHING that is &quot;not a number&quot;, such as</p><pre id="94d856d0-66eb-4366-a413-bfefd956f618" class="code code-wrap"><code>isNan(&#x27;Hello&#x27;) // true
+</code></pre><p id="dcb08ff8-6002-408e-96b9-a88e5ab2c37b" class="">If you really want to check for the specific value of NaN, you can use the isNan method on the Number object like this</p><pre id="dd5de922-65ba-4b2d-8523-a33465fa233a" class="code code-wrap"><code>Number.isNan(NaN) // true
+Number.isNaN(&#x27;Hello&#x27;) //false</code></pre></details></li></ul><ul id="70376196-8c60-40b7-babc-c802e8b604c3" class="toggle"><li><details open=""><summary><strong>Working with Strings</strong></summary><p id="2433b14a-b91e-4554-b135-1e0710484587" class="">Alright, so now we&#x27;re going to work with strings. I&#x27;m going to show you how to concatenate strings, use something called <strong>template literals</strong> as well as look at some methods and properties that we can use on string objects.</p><h3 id="948ee0eb-5014-4b94-962e-af1c36670f7e" class=""><strong>Concatenation</strong></h3><p id="1dfe6c42-6762-4ea5-a424-5839b04eb86d" class="">So we briefly looked at concatenating strings, but let&#x27;s take a deeper look.</p><p id="1a9cdd32-9748-43e0-b553-45f898ab66fd" class="">The <strong>+</strong> operator is used to concatenate. Let&#x27;s take two strings and put them together.</p><pre id="0c5863a1-6c48-4e8a-bc1c-dfe5bdf39083" class="code code-wrap"><code>&#x27;Hello&#x27; + &#x27;World&#x27;;
+</code></pre><p id="dff56793-02c9-4c53-8ea5-0032eeda24a6" class="">Pretty simple right? We usually use concatenation to work variables into a string like so</p><pre id="5965af08-5f26-436f-b441-4df794c72887" class="code code-wrap"><code>const name = &#x27;John&#x27;;
+const age = 30;
+
+&#x27;Hello, my name is &#x27; + name + &#x27; and I am &#x27; + age + &#x27; years old&#x27;;
+</code></pre><p id="9d287328-23d4-4aa7-a936-2df25066565b" class="">I learned PHP before JavaScript and in PHP, we use the period(.) character in the same way, so I picked up on this pretty quickly.</p><h3 id="87fffdef-af81-43ee-9c71-d6f71ff62ead" class=""><strong>Template Literals</strong></h3><p id="82d86536-37b1-47dc-b52a-998e552ab700" class="">So in 2015, JavaScript had a major update called <code>ES2015</code>, also known as <code>ES6</code>. In that update, template literals or &quot;template strings&quot; we introduced. These make is much easier and cleaner to include variables in a string.</p><pre id="05492aa3-8f83-423f-9770-1ecf70d402ba" class="code code-wrap"><code>const name = &#x27;John&#x27;;
+const age = 30;
+
+`Hello, my name is ${name} and I am ${age} years old`;
+</code></pre><p id="e0bf2f02-7edb-40e2-9425-59418b1a99fd" class="">So as you can see, instead of using single or double quotes around the string, we use backticks(`).</p><p id="dd46c6d3-5166-4f8e-b43f-f99bf819a79d" class="">Then, if we want to use a variable or an expression, we simple surround it in curly braces and prefix it with a dollar sign like this... <code>${myVariable}</code>. This makes it much easier because we can just put the variables right into the string and not worry about ending and beginning it again with a + sign. You can also go on to multiple lines. You can not do that with regular concatenation.</p><h3 id="3ed30923-c0b2-49b9-8fd2-7d281c2b3b67" class=""><strong>String Properties &amp; Methods</strong></h3><p id="b62c0327-8732-410f-8471-203eebea764b" class="">Strings are <strong>primitive</strong> in JavaScript. We have already established that. Primitives do not have properties (attributes) and methods (functions), however if we try and use a method like <code>.toUpperCase()</code> on a string, it will work. This is because the JavaScript engine will actually promote them to full blown <code>string objects</code>. Same goes for numbers, or at least variables that store numbers.</p><p id="f3e77217-3c4b-4729-96ca-811b970fd73e" class="">We can actually create a string object ourselves by using the <code>new</code> keyword and then the <code>String constructor</code></p><pre id="cfc5947e-583c-4a2d-bf99-8e173408aadc" class="code code-wrap"><code>const s = new String(&#x27;Hello World&#x27;);
+</code></pre><p id="10641808-3c78-425f-aaf3-3db62c36c9de" class="">This is what happens behind the scenes when we use a property or method on a string. If you check the <strong>typeof</strong> s, you will see <code>object</code>.</p><pre id="f67986ed-80d8-40a4-8e12-3881777206d5" class="code code-wrap"><code>console.log(s);
+</code></pre><figure id="061fa748-8b6b-4aea-a145-5ed0fc4175ae" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%207.png"><img style="width:434px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%207.png"/></a></figure><p id="d08bba06-0fa3-4d1b-aa29-1ee847dfaf30" class="">If you log the actual value of <code>s</code>, you will see an object and each character with a key/value pair. The first key or &quot;index&quot; is always <strong>0</strong>. We can actually get a specific character by its index.</p><pre id="b7239b96-b66f-4e76-be56-bb74199063f4" class="code code-wrap"><code>console.log(s[3]); // prints &quot;l&quot;
+</code></pre><p id="63286079-5081-4ffe-8797-491fc4e1ea61" class="">We get the letter &quot;l&quot; because it is the letter at index 3.</p><p id="52c4d072-b3dd-45e9-96bc-a205e6d41cc0" class="">Along with the key/value pairs, we get the primitive type and you&#x27;ll also see something called a <code>prototype</code>.</p><p id="d4683160-b85b-4720-86eb-1f34c3adfd5f" class="">If you un-collapse this, you will find all of the properties and methods available on the string object. We will get much more into prototypes later when we talk about object oriented programming, etc, but I wanted to show you that this is available in case you want to experiment with it.</p><p id="6a81393b-6095-4e27-9913-261ff45da2e5" class="">You can also access the prototype directly with</p><pre id="ed46ce82-89bd-4e41-85fe-e09a891aa960" class="code code-wrap"><code>console.log(s.__proto__);
+</code></pre><p id="e2a5cd04-a8ae-469e-a9d7-8f346a9f7262" class="">Alright, so now that we know how primitive values seem to have properties and methods, let&#x27;s look at some of them.</p><p id="c0389c81-90e3-42d6-b355-a8715f0eb8a1" class="">There is really only one property that we&#x27;re going to look at and that is <strong>length</strong>. The rest are methods. Methods are functions, so they always end with parentheses ()</p><h3 id="48f4d2f9-bcd0-4ae2-8f8a-4b3457a707a8" class=""><strong>length</strong></h3><p id="b6c4cf25-af23-4c43-a16e-484ae4cef9f9" class="">Length is pretty common for multiple data types. On an array, it will tell us the number of elements in it. If we use it on a number or string object, it will give us the number of characters</p><pre id="3938c697-d766-45be-98ab-cbfe3eac479c" class="code code-wrap"><code>const greeting = &#x27;Hello World&#x27;;
+greeting.length; // 11
+</code></pre><h3 id="895c0202-7468-4880-b1ff-9a66b3d6ab36" class=""><strong>Changing case</strong></h3><p id="4835e1a0-4c2e-43d6-a735-744c418e3675" class="">In some cases, you may want to change your case to upper or lower case. There are methods we can use for that</p><pre id="a3a7787c-b4e0-4796-99b5-ea24f99befc1" class="code code-wrap"><code>greeting.toUpperCase();
+greeting.toLowerCase();
+</code></pre><h3 id="e1ad3911-4c85-4691-8ddf-ff34807eae81" class=""><strong>charAt()</strong></h3><p id="78b61977-c060-4511-9ad9-c911756909be" class="">Returns the character at the specified index. All characters in a string have an index that starts from 0. In fact, when we logged the &quot;string object&quot;, we saw the key/value pairs. This method will tell you the character or value at the specified index</p><pre id="4c6a04d5-fd4a-41a1-a1dd-1a2f17e1ef2f" class="code code-wrap"><code>greeting.charAt(0); // H
+</code></pre><h3 id="cac75c01-5dca-4010-95e7-6154eadcf232" class=""><strong>indexOf()</strong></h3><p id="63800a16-7265-4646-aa3d-5f19ce260a86" class="">indexOf() will do the reverse of charAt(). Instead of passing the index, we pass the value and it will give us the index of the first occurrence of the character(s)</p><pre id="d97e9e59-3f26-4378-bfcf-f4cb0a74c272" class="code code-wrap"><code>greeting.indexOf(&#x27;o&#x27;); // 4
+</code></pre><h3 id="718c61bd-b89d-4715-b53b-ae658153949a" class=""><strong>substring()</strong></h3><p id="497a36a5-6e10-496f-b53f-f0fe6cee556f" class="">Search a string for a specified value. Pass in the start index and the length. Let&#x27;s say we want to pull out a substring of &#x27;Hell&#x27; from &#x27;Hello World&#x27;, we would start at character 0 and go 4 in length</p><pre id="538f0c6a-ad6b-4d97-88eb-c8f5377e572c" class="code code-wrap"><code>greeting.substring(0, 4); // Hell
+</code></pre><h3 id="1baade74-dc54-4925-be59-b11dc3a3c5e5" class=""><strong>slice()</strong></h3><p id="a91fc74e-425f-4ae3-86af-7ba815925730" class="">Extracts a part of a string and returns a new string. It is very similar to substring, but there are some differences, for instance, you can use negative numbers with slice.</p><pre id="af890976-d6dc-472e-b17f-aab48889f0ab" class="code code-wrap"><code>greeting.slice(0, 4); // Hell
+//  We can also use negative numbers
+greeting.slice(-11, -7) // Hell
+</code></pre><h3 id="3f273491-a073-4698-a139-56bc6f9cd621" class=""><strong>trim()</strong></h3><p id="221171bb-6987-46b5-abbe-69993dd80d9a" class="">Trim the whitespace of a string</p><pre id="31b7b77e-39f4-4f22-af93-caf2c479c4aa" class="code code-wrap"><code>x = &#x27;       Hello World!        &#x27;;
+x = x.trim(); // Hello World!
+</code></pre><h3 id="fbe2aa14-d213-4e9d-8e5a-ad258225d812" class=""><strong>replace()</strong></h3><p id="27137de6-60e6-434d-ad8e-58b83637b8a4" class="">Replace all instances of a string</p><pre id="28f73679-574b-4478-8e64-4df4cf489092" class="code code-wrap"><code>  const url = &#x27;https://traversymedia.com&#x27;;
+  url.replace(&#x27;traversymedia&#x27;, &#x27;google&#x27;); // https://google.com
+</code></pre><h3 id="d2da65f0-bd90-4d8d-bd55-12c409fc9307" class=""><strong>includes()</strong></h3><p id="53306c34-813b-4b13-97da-4b75a99f7f92" class="">Returns true if a searched string is found</p><pre id="dcaca577-d827-4011-98f2-cc2d360a0655" class="code code-wrap"><code>url.includes(&#x27;media&#x27;); // true
+</code></pre><h3 id="bfc9b479-57ea-42be-b8fd-409841761024" class=""><strong>valueOf()</strong></h3><p id="367238f0-b6df-49d5-8e3b-7799fddfff7e" class="">Returns the primitive value of a variable</p><pre id="a67acb96-db3a-43ba-aa4c-506571181eeb" class="code code-wrap"><code>url.valueOf(); // https://traversymedia.com
+</code></pre><h3 id="046891c3-6689-4817-9605-964dcdece98c" class=""><strong>split()</strong></h3><p id="af4f7e8b-e450-4e07-8c89-80f0a8006355" class="">Splits a string into an array and takes in a separator parameter. If we add a space, it will put every word in it&#x27;s own array item.</p><pre id="0b197b49-3048-4080-ab36-10b62ef8f07b" class="code code-wrap"><code>greeting.split(&#x27; &#x27;); // [&#x27;Hello&#x27;, &#x27;World&#x27;]</code></pre></details></li></ul><ul id="c04c88bc-da56-459f-9219-540345a43b7d" class="toggle"><li><details open=""><summary><strong>Capitalize Challenge</strong></summary><p id="9e191f73-4a30-4c03-a0ec-783c95b96e7d" class="">We have arrived at our first challenge. Every once in a while I&#x27;m going to ask you to figure out a problem or do something using what we have already learned. I will not ask you to do a challenge that involves doing something that we have not yet gone over.</p><p id="ff7b6355-cfcb-4f17-b397-85661d6980bd" class="">If you feel stuck and can not figure it out on your own, that is absolutely fine. I will walk you through the solution(s), so that you can understand how to solve the problem.</p><p id="fa1f3178-ec3e-4095-b3eb-22aa0ab373c2" class=""><strong>Instructions</strong>:</p><p id="2496fed0-f707-4b58-9749-63d94f540c27" class="">Take the variable <code>myString</code> and capitalize the first letter of the word using some of the methods that we talked about in the last video. Put the result in a variable called <code>myNewString</code>.</p><p id="56496fd6-acfd-45c8-bde4-d63cc486251f" class="">Create multiple solutions if you would like.</p><p id="9ca2d567-7fea-4838-83be-a9cb8f7d77d7" class=""><strong>Expected Result:</strong></p><pre id="308f96f4-6446-43cf-936f-fd11ba2b566c" class="code code-wrap"><code>const myString = &#x27;developer&#x27;;
+
+console.log(myNewString); // &#x27;Developer&#x27;
+</code></pre><p id="ae045d03-b787-4d56-804a-60e025d82539" class=""><strong>Hints:</strong></p><ol type="1" id="6f401962-2c51-4381-b189-14a07febd9ae" class="numbered-list" start="1"><li>You can use the <code>charAt()</code> method as well as <code>string[index]</code> to get the character at a specific index.</li></ol><ol type="1" id="ef04c14e-ddb9-459e-89e6-20e6eaf138a1" class="numbered-list" start="2"><li>The <code>.toUpperCase()</code> method will make the entire string uppercase</li></ol><ol type="1" id="07308146-e9a1-43e6-93d3-bdcb845a295f" class="numbered-list" start="3"><li><code>substring()</code> or <code>slice()</code> will return a specific portion of a string</li></ol><ul id="e6474d2e-6718-406b-8861-5b7e253d09a9" class="toggle"><li><details open=""><summary>Click For Solution</summary><p id="ddeff961-824f-4917-a930-9434c8d98d8d" class="">There are many ways to do this. Let&#x27;s take a look at a few</p><pre id="71b62fcf-8ea4-455a-b674-07dd094b14d6" class="code code-wrap"><code>// Solution 1
+const myNewString = myString.charAt(0).toUpperCase() + myString.substring(1);
+
+// Solution 2 (Uses string[0] instead of string.charAt(0))
+const myNewString = myString[0].toUpperCase() + myString.substring(1);
+
+// Solution 3 (Uses template literal and slice())
+const myNewString = `${myString[0].toUpperCase()}${myString.slice(1)}`;
+</code></pre><p id="9935cc1d-ecbf-41f8-8f07-4daaf8658553" class="">In all of these, we get the first character of the string, then we use the <strong>substring()</strong> or <strong>slice()</strong> method to get the rest of the string. We then use the <strong>toUpperCase()</strong> method to capitalize the first character and then we concatenate the result with the rest of the string.</p></details></li></ul></details></li></ul><ul id="b97043c3-79f0-4361-b318-ea5c7a3583e6" class="toggle"><li><details open=""><summary><strong>Working with Numbers</strong></summary><p id="f9eb84c5-507e-4fc0-bdd0-e93b7b587288" class="">So we looked at strings and the properties and methods that are available to us. Now let&#x27;s look at numbers. We&#x27;ll also look at the <code>Math</code> object.</p><p id="22885fac-d641-4b3b-9320-969f7f9b0d61" class="">Like with strings, when we add a method to a number, a new number object is created and we can use that object to call the method. Let&#x27;s create the object ourselves to see the available methods in the prototype</p><pre id="737831ce-120c-4af2-a1f7-1664e4919e21" class="code code-wrap"><code>const num = new Number(5);
+console.log(num)
+</code></pre><figure id="992a6a21-d78e-471a-b949-6a859e685d8d" class="image"><a href="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%208.png"><img style="width:526px" src="01-variables-data-types%201581d1ff35974cd3bb0ba932447ac3c8/Untitled%208.png"/></a></figure><h3 id="02d7710e-d976-4d83-a2c5-7d735442208a" class=""><strong>toString()</strong></h3><p id="3ed8c9aa-872b-4182-bfcc-20a5859c0a9c" class="">Returns a string representation of the number</p><pre id="c7a42811-29c3-4269-aa4e-283c1d0428be" class="code code-wrap"><code>num.toString(); // &quot;5&quot;
+</code></pre><p id="d236c302-c6ef-4c03-aff2-9bd9669081e4" class=""><code>Number</code> types and objects do not have a <code>length</code> property. If you want to find the length, one thing that you could do is convert it to a string and then use <code>length</code></p><pre id="4e5e8e79-3cb5-49c5-b3b3-d7aa6fa76d0c" class="code code-wrap"><code>num.toString().length; // 1
+</code></pre><h3 id="6acfcca3-6813-420b-b8c7-fab6c9472eab" class=""><strong>toFixed()</strong></h3><p id="b6f5fd17-199c-441f-89ae-75e021d2962e" class="">Returns a string representation of the number with a specified number of decimals</p><p id="07902959-491e-4d55-8322-e3c83c17e3cb" class="">Let&#x27;s assume num is equal to 5 right now</p><pre id="1c81edf4-70e2-4c36-9133-50b210d0a716" class="code code-wrap"><code>num.toFixed(2); // 5.00
+num.toFixed(1); // 5.0
+</code></pre><h3 id="05642d69-19ad-4390-9800-4c8145f07c27" class=""><strong>toPrecision()</strong></h3><p id="9ea8f141-01b7-48ac-9fe5-3363eb4e9e3a" class="">returns a number with the specified length</p><pre id="af987bc2-5f1f-4129-837c-c8939f5fee99" class="code code-wrap"><code>const num2 = 94.4058;
+num.toPrecision(3); // 94.4
+</code></pre><h3 id="350ed35d-ab36-4557-9f95-24a80603d5d6" class=""><strong>toExponential()</strong></h3><p id="a45fd7ad-7980-4872-b25d-1a4a129fb748" class="">Returns a string representation of the number in exponential notation</p><pre id="487eb41d-7d3f-428c-8f90-60587b8e5b79" class="code code-wrap"><code>num.toExponential(2); // &quot;5.00e+0&quot;
+</code></pre><h3 id="f47434d8-5276-496f-83ed-c1b9dfc06a0f" class=""><strong>toLocalString()</strong></h3><p id="21c36aff-2bbe-4646-a68f-98cd3fc2ab79" class="">Returns a string representation of the number in the current locale</p><pre id="cf2e1e68-dc7a-4ea3-88c7-07d79ae5a165" class="code code-wrap"><code>let num = 5000000;
+num.toLocalString(); // &quot;5,000,000&quot;
+</code></pre><p id="e47e9075-f290-46c0-b560-149a5929d083" class="">It defaults to the browser&#x27;s locale, which for me is &quot;en-US&quot;, but let&#x27;s say we want to use India&#x27;s locale</p><pre id="4a3eb694-c8f8-4c71-a238-97e2f59816c4" class="code code-wrap"><code>num.toLocalString(&#x27;en-IN&#x27;); // &quot;50,00,000&quot;
+</code></pre><h2 id="22917ac2-2ed9-4fa2-8aef-7f98433593f2" class=""><strong>Number Object Properties &amp; Values</strong></h2><p id="1e5a181f-2ae3-438b-bf38-044c332ef6e9" class="">The Number object has a few properties and methods that are available.</p><h3 id="3a349ab7-9c94-4484-8562-7fb0bdc0c7e9" class=""><strong>Max Value</strong></h3><p id="a660e6e1-ed26-43b8-91f8-e07017a077a4" class="">Largest possible value of a number</p><pre id="2812578e-ca50-45d3-9a3d-5113a3688cbc" class="code code-wrap"><code>Number.MAX_VALUE; // 1.7976931348623157e+308
+</code></pre><h3 id="29b9bc7d-dc58-4fea-8da7-ba538bc21097" class=""><strong>Min Value</strong></h3><p id="69ec5ae6-ad5d-4fcd-bb25-29e03d12d992" class="">Smallest possible value of a number</p><pre id="64e455ea-cf20-4158-878a-f6e435095d95" class="code code-wrap"><code>Number.MIN_VALUE; // 5e-324
+</code></pre><p id="41364faf-6491-4526-bbb8-0b453a48f82f" class="">There are methods as well. For instance, we already looked at <code>isNaN()</code>, which will tell us if the value is actually NaN</p><pre id="7f17b947-1c6a-4f62-8cc3-f4159f9f18ee" class="code code-wrap"><code>Number.isNaN(NaN); // true</code></pre></details></li></ul><ul id="b860c39f-3dfc-4486-9050-efdf661b4cca" class="toggle"><li><details open=""><summary><strong>Math Object</strong></summary><p id="760e02b8-e876-4da8-afc2-4b1bf7df3390" class="">JavaScript has a built-in object called <code>Math</code>. This object has a bunch of methods that have to do with mathematical operations. It comes in handy when you need to do things like find the square root or absolute value of a number, when you need to round up or down or when you need to generate a random number. Let&#x27;s see some examples.</p><p id="ef85e013-4d88-4c6b-b78a-84e48bd16175" class="">You can see what is available with:</p><pre id="4e23f39f-2915-4b16-a6df-8a58cf7b3d28" class="code code-wrap"><code>console.log(Math);
+</code></pre><h3 id="87d13968-8ea9-479b-b4b4-49f6e5bcdd9b" class=""><strong>Math.abs()</strong></h3><p id="2ef7d22c-710b-4589-95fc-1f2d154b7179" class="">Returns the absolute value of a number</p><pre id="0ef624ba-8846-45ad-a788-87ea4a041e26" class="code code-wrap"><code>Math.abs(-5); // 5
+</code></pre><h3 id="f6ad6a56-e084-45df-ae89-bddf185e78a3" class=""><strong>Math.round()</strong></h3><p id="768633c9-799f-4cb9-80b1-5f67e1d2d4ab" class="">Returns the rounded value of a number</p><pre id="a59ea6ac-f382-4284-b64d-8301772669f0" class="code code-wrap"><code>  Math.round(5.5); // 6
+</code></pre><h3 id="06b38bc3-f02c-4f99-9830-4466d2f9b9ed" class=""><strong>Math.ceil()</strong></h3><p id="c1d3e5ad-d228-4c3d-94a0-9d6779082a79" class="">Returns the smallest integer greater than or equal to a number (rounds up)</p><pre id="082b86c0-462e-4284-80ed-60b1370cdec8" class="code code-wrap"><code>Math.ceil(5.5); // 6
+</code></pre><h3 id="752330ad-5cef-4c3a-a109-ee7e33b4b413" class=""><strong>Math.floor()</strong></h3><p id="c6199aed-6c08-4a3a-b6b1-f638315aad62" class="">Returns the largest integer less than or equal to a number (rounds down)</p><pre id="14cc1e5c-d91c-428c-8ba6-2a900d32a176" class="code code-wrap"><code>Math.floor(5.5); // 5
+</code></pre><h3 id="40579790-a83d-457b-b5a0-6cd9e075d2e4" class=""><strong>Math.sqrt()</strong></h3><p id="e3114096-9491-411b-bbe8-ec4c4cd73c0b" class="">Returns the square root of a number</p><pre id="b52e5d5e-1833-49c4-8744-785c9ead8b7e" class="code code-wrap"><code>Math.sqrt(25); // 5
+</code></pre><h3 id="78e91fed-3d7e-42b6-b3ca-94968f877fea" class=""><strong>Math.pow()</strong></h3><p id="9d89f825-7035-4d11-9acf-a2156e8baa8c" class="">Returns the value of a number raised to the specified power</p><pre id="ad818ced-7701-4cf0-8b1e-5cd11d38f9e0" class="code code-wrap"><code>Math.pow(5, 2); // 25
+</code></pre><h3 id="00ca30ea-38fe-4e0c-98e2-82662e5e1778" class=""><strong>Math.min()</strong></h3><p id="49636f43-050f-49e1-bf6d-f14d7c5a3dbc" class="">Returns the smallest of the two numbers</p><pre id="90fbd2cc-74df-4732-84ac-f099d8136850" class="code code-wrap"><code>Math.min(5, 10); // 5
+</code></pre><h3 id="f39ba295-44d1-43cc-89cd-753953b83c8f" class=""><strong>Math.max()</strong></h3><p id="022aa2e4-cf11-4052-86bf-950a69a6eaa4" class="">Returns the largest of the two numbers</p><pre id="934287dc-87cf-474a-a4ef-770dcd3fe1da" class="code code-wrap"><code>Math.max(5, 10); // 10
+</code></pre><h3 id="05db30d4-3376-4e95-a408-2ff49fb8eb8b" class=""><strong>Math.random()</strong></h3><p id="9c0382fb-ef57-4a9c-8492-95b194618d7d" class="">Returns a random number between 0 and 1</p><pre id="284e0867-67a4-4696-8369-3aad6f0c174b" class="code code-wrap"><code>Math.random(); // 0.83929
+</code></pre><p id="ee3e07a2-15cb-432a-8162-7b6a6a70b43a" class="">This returns a decimal. If you want let&#x27;s say a random integer between 1 and 10, you can multiply the result of Math.random() by 10 and round it down.</p><pre id="615203c6-3e99-489c-b3cb-311b3b147d75" class="code code-wrap"><code>Math.floor(Math.random() * 10) + 1; // 5
+</code></pre><p id="9c152030-9ffc-4a79-93c1-5a9aa40f9e0f" class="">We had to round down first with <code>Math.floor()</code> or we would get a decimal. We also added 1 otherwise we would get a number between 0 and 9. This is important to understand for the next challenge.</p><p id="4d816912-3ff6-4da8-8cb9-db0ae7def2f3" class="">To get a random integer between two numbers, you can do</p><pre id="24f82053-d364-43b2-b31f-95c960083c3b" class="code code-wrap"><code>const min = 10;
+const max = 20;
+x = Math.floor(Math.random() * (max - min + 1)) + min; // 17</code></pre></details></li></ul><ul id="b5d9af8c-e99a-4f3e-ab25-23cb48ef08c2" class="toggle"><li><details open=""><summary><strong>Number Challenge</strong></summary><p id="493ab7b6-4fa3-4c00-a0cb-5eed51cdd3f7" class=""><strong>Instructions:</strong></p><p id="914948e6-fac0-481c-8290-1d8998d9fa86" class="">Create a variable called <code>x</code> that is a random number between 1 and 100 along with a variable called <code>y</code> that is a random number between 1 and 50.</p><p id="7286f59d-56ae-42aa-871c-dc42929bcffe" class="">Create a variable for the sum, difference, product, quotient and remainder of <code>x</code> and <code>y</code>. Log the output in a string that shows the two numbers of <code>x</code> and <code>y</code> along with the operator and result.</p><ul id="811cad1f-68ff-4f12-99be-c3838f44477c" class="bulleted-list"><li style="list-style-type:disc">You can log the output string directly or put them in separate variables and log them like below.</li></ul><ul id="29363eca-2aaa-4b38-ba82-23cf20d92a9f" class="bulleted-list"><li style="list-style-type:disc">You can use string concatenation or template literals for the output.</li></ul><p id="0908f56f-6e5c-4e98-8c63-202dcb9e2b3b" class=""><strong>Expected Result:</strong></p><pre id="8d77b224-860e-46d3-8aec-2c75290a0d64" class="code code-wrap"><code>console.log(sumOutput); // 31 + 15 = 46
+console.log(differenceOutput); // 31 - 15 = 16
+console.log(productOutput); // 31 * 15 = 465
+console.log(quotientOutput); // 31 / 15 = 2.066666666666667
+console.log(rmOutput); // 31 % 15 = 1
+</code></pre><p id="fa94cd24-e133-4d1a-afd2-a49207cd1800" class=""><strong>Hints:</strong></p><ol type="1" id="55115db7-d60d-4eff-9b66-41477b965023" class="numbered-list" start="1"><li>The <code>Math.random()</code> function returns a floating-point, pseudo-random number in the range 0 to less than 1</li></ol><ol type="1" id="a9f0f9ba-4de9-4480-b9e0-22ab40eba455" class="numbered-list" start="2"><li>The <code>Math.floor()</code> function will round a number down to the nearest integer</li></ol><ul id="4d364351-f93d-4838-9094-97af201fc540" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="0836024e-4285-4b62-a7e4-749cd1a15409" class="code code-wrap"><code>x = Math.floor(Math.random() * 100) + 1;
+y = Math.floor(Math.random() * 50) + 1;
+
+// Get the sum
+const sum = x + y;
+const sumOutput = `${x} + ${y} = ${sum}`;
+console.log(sumOutput);
+
+// Get the difference
+const difference = x - y;
+const differenceOutput = `${x} - ${y} = ${difference}`;
+console.log(differenceOutput);
+
+// Get the product
+const product = x _ y;
+const productOutput = `${x} _ ${y} = ${product}`;
+console.log(productOutput);
+
+// Get the quotient
+const quotient = x / y;
+const quotientOutput = `${x} / ${y} = ${quotient}`;
+console.log(quotientOutput);
+
+// Get the remainder
+const rm = x % y;
+const rmOutput = `${x} % ${y} = ${rm}`;
+console.log(rmOutput);
+
+</code></pre></details></li></ul></details></li></ul><ul id="d53c486b-2ddb-46be-9b65-cd423773d6c6" class="toggle"><li><details open=""><summary><strong>Working With Dates</strong></summary><p id="b54f8b51-4348-4267-827a-60020bba1ad8" class="">Dates and times are very important in any programming language. JavaScript has a <code>Date</code> object that represents a point in time and let&#x27;s you do some basic operations on it.</p><p id="6f5c024a-1a60-4659-9da3-98abcb97708a" class="">We can instantiate a <code>Date</code> object with the <code>new</code> keyword.</p><pre id="5dcaf791-3318-438c-a175-bb27cfbb9ed6" class="code code-wrap"><code>let d;
+d = new Date(); // Fri Jul 22 2022 08:35:10 GMT-0400
+</code></pre><p id="32dcd711-10af-41b5-89a3-fffb8fe92e18" class="">If do not include any arguments, the Date object will be set to the current date and time and you will also get the timezone information. Sometimes you will need to specify the timezone because it can cause some weird issues.</p><h3 id="56e14490-67bf-4158-a497-41be38641845" class=""><strong>Converting to a string</strong></h3><p id="71ece1cf-7ce6-462b-bad8-4f07a9665844" class="">If we look at the type of the variable, it will show <strong>object</strong>. You can always convert it to a string using the <code>toString()</code> method.</p><pre id="4887c291-ea46-4b54-87ee-c443f092b484" class="code code-wrap"><code>console.log(typeof d); // object
+
+d.toString(); // &quot;Fri Jul 22 2022 08:35:10 GMT-0400&quot;
+
+console.log(typeof d); // string
+</code></pre><h3 id="8399b275-6a97-4799-9a3a-5dd6eed749ed" class=""><strong>Specific dates</strong></h3><p id="b555096c-432c-4527-b94c-70fa03a866f0" class="">If you want a specific date and time, you can pass in the year, month, day, hour, minute, second, and millisecond.</p><p id="2d29ce50-50f3-498c-8b9a-0d7ed1ccf7c4" class="">One caveat is that the month is 0-indexed, so January is 0 and December is 11.</p><pre id="f2ce8a08-3325-4d4f-8266-c5ca24ac10eb" class="code code-wrap"><code>d = new Date(2022, 6, 10); // Fri Jul 10 2022 00:00:00 GMT-0400
+</code></pre><p id="b534d495-3d80-41a4-b511-a036df992a22" class="">If you want to add a time, you can. Let&#x27;s make it 12:30:00.</p><pre id="5ae845db-1f5d-461c-9388-8f1974598e67" class="code code-wrap"><code>d = new Date(2022, 6, 10, 12, 30, 0); // Fri Jul 10 2022 12:30:00 GMT-0400
+</code></pre><p id="6e4a296d-f9dc-425b-a1ca-89444a6e7520" class="">You can also pass in different date/time strings. You would use the actual month number here.</p><pre id="30b2088f-fb91-4732-95fe-1d166ecda04d" class="code code-wrap"><code>d = new Date(&#x27;2022-07-10T12:30:00&#x27;); // July 10, 2022 12:30:00
+d = new Date(&#x27;07/10/2022 12:30:00&#x27;); // July 10, 2022 12:30:00
+d = new Date(&#x27;2022-07-10 12:30:00&#x27;); // July 10, 2022 12:30:00
+</code></pre><p id="18c59e06-5c31-47ff-8d3a-daec565c0c45" class="">You can pass a date without time as well.</p><p id="44574c5e-a5ce-4055-86f9-ab9f76e9cd15" class="">Note that if you use the <strong>YYYY-MM-DD</strong> format with hyphens, it may be one day off due to timezones.</p><pre id="17e7c578-0382-4f01-b57b-94e92cb12df4" class="code code-wrap"><code>d = new Date(&#x27;2022-07-10&#x27;); // May be July 09, 2022
+</code></pre><p id="3a8b24dd-72c4-4a28-af19-7ad91646d391" class="">If you use the <strong>MM-DD-YYYY</strong> format, it should not have this issue.</p><pre id="a073ab20-fd27-40e9-90f2-4f50ef772032" class="code code-wrap"><code>d = new Date(&#x27;07-10-2022&#x27;); // July 10, 2022
+
+// Backslashes will also work
+d = new Date(&#x27;07/10/2022&#x27;); // July 10, 2022
+</code></pre><h3 id="913621c9-eb60-41b0-be2f-4bfdca52b133" class=""><strong>Timestamps</strong></h3><p id="ac834bcc-0a85-4c69-86a5-6fb331fbefe8" class="">The <code>UNIX timestamp</code> is a system for describing a point in time. It is an integer that represents the number of seconds elapsed since January 1 1970 (An arbitrary date).</p><p id="29aeede1-32d6-480e-a541-b46f8fb8f4d8" class="">The timestamp in JavaScript is expressed in milliseconds.</p><p id="ade5b6f8-87cf-4df2-9638-1c10ed596097" class="">You can get the current timestamp using:</p><pre id="84486740-a52b-4aa4-b007-d6e5337f6f36" class="code code-wrap"><code>Date.now(); // 1658497991311
+</code></pre><p id="be43dace-df18-440f-9d43-0c3a6a126452" class="">To get the timestamp of a specific date, you can use the <code>getTime()</code> or the <code>valueOf</code> method.</p><pre id="ed9a69bb-2f5e-4652-a724-784aee1dbc01" class="code code-wrap"><code>d = new Date(&#x27;07/22/2022&#x27;); // July 10, 2022
+d.getTime(); // 1658497991311
+d.valueOf(); // 1658497991311
+</code></pre><p id="a7267a99-b087-4547-ba25-ed0066920426" class="">You can also create date objects from a timestamp.</p><pre id="13a9b0b3-ff30-42ff-9be5-5d3e2861af35" class="code code-wrap"><code>d = new Date(1658497991311); // Fri Jul 22 2022 08:35:10 GMT-0400
+</code></pre><p id="0dc2f671-1b69-462c-a4a2-8fbc2edd41be" class="">The JavaScript timestamp is expressed in milliseconds. To convert it to seconds:</p><pre id="02c2c171-0e65-4de0-985a-11686098bfb0" class="code code-wrap"><code>Math.floor(Date.now() / 1000); // 1658498058</code></pre></details></li></ul><ul id="c99fd894-f3c0-4233-9e68-fa2908f6e942" class="toggle"><li><details open=""><summary><strong>Date Methods</strong></summary><p id="4381b5cf-709a-4404-a810-2020f48bd2be" class="">There are a lot of useful methods that we can use on the Date object for getting information about the date. Let&#x27;s create a new date object to work with. I will just use today&#x27;s date, which is July 22, 2022.</p><pre id="1d4ab313-787e-444b-87e4-55ab07812939" class="code code-wrap"><code>let d = new Date();
+</code></pre><p id="6686a110-3603-4bfe-8cf9-54e936502eb0" class="">We already looked at a few methods such as toString() and getTime().</p><pre id="0bb03e40-0e8c-4269-b05f-32b83e5ab593" class="code code-wrap"><code>// Convert the date to a string
+d.toString();
+
+// Get the time in milliseconds
+d.getTime();
+d.valueOf();
+</code></pre><p id="e42988ef-8a4d-462a-9017-ebf103613218" class="">Let&#x27;s look at some methods for getting specific parts of the date.</p><pre id="3a4ae525-2721-42b4-904e-bb4661417243" class="code code-wrap"><code>// Get the year
+d.getFullYear();
+
+// Get the month number (0-11)
+d.getMonth();
+d.getMonth() + 1; // Actual month number
+
+// Get the day of the month (1-31)
+d.getDate();
+
+// Get the day of the week (0-6)
+d.getDay();
+</code></pre><p id="0dc79aaa-9200-4e65-990d-6ef4f8a8cc7d" class="">We also have methods for getting time values.</p><pre id="d99db2d4-0890-4867-ac2e-5c2439850651" class="code code-wrap"><code>// Get the hour (0-23)
+d.getHours();
+// Get the minute (0-59)
+d.getMinutes();
+// Get the second (0-59)
+d.getSeconds();
+// Get the millisecond (0-999)
+d.getMilliseconds();
+</code></pre><p id="395d80b7-0706-4bf2-b084-0eea07e841af" class="">We can create create custom date using methods</p><pre id="c7f414fe-0f44-4880-8511-b9d0e6801281" class="code code-wrap"><code>`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; // 2022-7-22
+</code></pre><h3 id="d8fcbd74-60f2-40a0-a992-60903bcc939f" class=""><strong>Intl.DateTimeFormat API</strong></h3><p id="2a546485-424d-411a-9a89-c2c76a380800" class="">The Intl.DateTimeFormat API is a more modern and powerful way to format dates and times in a locale-sensitive way. It fixes some of the locale issues we can run into.</p><p id="b8ebb6c8-84b6-4f45-87a0-bd8b112645a3" class="">We can pass in a locale argument to the constructor to get a date formatted in a specific locale.</p><pre id="6b10caa1-aa2b-47b8-bba4-baff3f19b990" class="code code-wrap"><code>new Intl.DateTimeFormat(&#x27;en-US&#x27;).format(d); // July 22, 2022
+new Intl.DateTimeFormat(&#x27;en-GB&#x27;).format(d); // 22 July, 2022
+
+// You can pass in &#x27;default&#x27; to get your default locale
+new Intl.DateTimeFormat(&#x27;default&#x27;).format(d); // July 22, 2022
+</code></pre><p id="d51e4d79-5940-450d-ad43-eae79a82f71c" class="">By default, it will return a string in the above format, but we can specify what we want in the second argument. Let&#x27;s say I just want the month name</p><pre id="ac54c7b6-27fd-4fda-8792-74e9a56d0d22" class="code code-wrap"><code>new Intl.DateTimeFormat(&#x27;en-GB&#x27;, { month: &#x27;long&#x27; }).format(d); // July
+</code></pre><h3 id="9745b796-cf9d-4d02-8e20-811a4713dcd6" class=""><strong>toLocaleString()</strong></h3><p id="9182d12e-2578-419d-adc9-5159bc8446be" class="">A shorter way to use this API is to use the toLocaleString() method. This is what I would usually recommend.</p><pre id="44e68d7f-c5cf-4210-b4f8-e8839b677f23" class="code code-wrap"><code>d.toLocaleString(&#x27;default&#x27;, { month: &#x27;long&#x27; }); // July
+</code></pre><p id="11dd50b1-5494-45b3-8a9e-7c26f305fe56" class="">if we want more information:</p><pre id="da17a020-e7ba-4d53-b757-0ee2d5e28f0b" class="code code-wrap"><code>d.toLocaleString(&#x27;default&#x27;, {
+  weekday: &#x27;long&#x27;,
+  year: &#x27;numeric&#x27;,
+  month: &#x27;long&#x27;,
+  day: &#x27;numeric&#x27;,
+  hour: &#x27;numeric&#x27;,
+  minute: &#x27;numeric&#x27;,
+  second: &#x27;numeric&#x27;,
+  timeZone: &#x27;America/Los_Angeles&#x27;,
+}); // Friday, July 22, 2022 at 7:30:57 AM</code></pre></details></li></ul></div></article></body></html>

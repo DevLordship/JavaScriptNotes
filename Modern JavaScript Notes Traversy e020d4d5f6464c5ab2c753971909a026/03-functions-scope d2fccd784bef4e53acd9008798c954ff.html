@@ -1,0 +1,960 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>03-functions-scope</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d2fccd78-4bef-4e53-acd9-008798c954ff" class="page sans"><header><h1 class="page-title">03-functions-scope</h1><p class="page-description"></p></header><div class="page-body"><ul id="c6e751c7-a96c-4b13-a07f-4809be96c630" class="toggle"><li><details open=""><summary><strong>Function Basics</strong></summary><p id="0e304101-33f2-4cf5-adcc-7a38ae03dae0" class="">Functions are a way to group code together. They make code more readable and easier to understand. Let&#x27;s look at some of the basics.</p><h2 id="3585578b-bf47-4d7b-b782-064960da87e1" class=""><strong>Creating a function</strong></h2><p id="5e05dd2c-f973-4e04-9a97-002590d53fcb" class="">Creating or defining a function is simple. We use the function keyword, followed by the name of the function, followed by parentheses. Then we create the function body wrapped in curly braces.</p><pre id="d0fcf6c7-0119-437b-a61a-f3a65a024670" class="code code-wrap"><code>function sayHello() {
+  console.log(&#x27;Hello World&#x27;);
+}
+</code></pre><p id="e212e41a-1161-465a-b961-b1b7284f3197" class="">When we create a function, we don&#x27;t add a semi-colon at the end of the curly braces.</p><p id="8a276b0a-83ec-4a5c-bd12-fa14987647bb" class="">Just creating the function does not execute any code. We need to &quot;call&quot; or &quot;invoke&quot; the function to execute the code within it.</p><pre id="b002f75e-2924-42a1-abff-8d42718f5144" class="code code-wrap"><code>sayHello(); // Hello World
+</code></pre><h3 id="39efac70-5a0c-4b32-ab8b-8c46f750c40a" class=""><strong>Function Parameters</strong></h3><p id="31e49639-36c0-4a1c-8bf0-6f930192e94b" class="">You can define parameters for functions to allow the user to input specific data when calling the function.</p><pre id="5728263d-7033-42d2-9eb7-321afd8c260c" class="code code-wrap"><code>function add(x, y) {
+  console.log(x + y);
+}
+
+add(5, 5); // 10
+</code></pre><h3 id="de50c46f-e2b3-4a1d-815f-f221ee7f841d" class=""><strong>Parameters vs. Arguments</strong></h3><ul id="1ddc743a-ef7e-4991-a8e9-9264e58fd55b" class="bulleted-list"><li style="list-style-type:disc">Parameters are the names of the variables that are used to pass data into a function.</li></ul><ul id="8059180c-127b-4ef0-84ac-9d2b92782dcd" class="bulleted-list"><li style="list-style-type:disc">Arguments are the values that are passed into the function</li></ul><h3 id="48d2987d-00c4-4656-bea6-2d2cea4f2cd4" class=""><strong>Returning a value</strong></h3><p id="10558894-f329-4420-af40-98e8fbdd1556" class="">The function that we created just console logs a message. In the real world, you&#x27;ll usually want to return a value from a function.</p><p id="3af8e624-fd17-4144-a91d-bcd576fbc1c7" class="">Anything that you put after the return will not get executed because you are essentially ending the function and returning to the parent scope.</p><pre id="a7df968f-79b8-4d23-bc38-bbd5a4eb6e16" class="code code-wrap"><code>function subtract(x, y) {
+  return x - y;
+
+  // This code will not execute
+  console.log(&#x27;After the return&#x27;);
+}
+
+// This will not output anything
+subtract(10, 5);
+
+// You could log the value like This
+console.log(subtract(10, 5)); // 5
+
+// Usually we do something with the return value, like store it in a variable
+
+const result = subtract(10, 5);
+</code></pre><p id="c3344670-8f2f-4c73-87c5-4fe9d93c0ac1" class="">You can also return without a value. This is useful for functions that don&#x27;t return anything. You may have a function to update or delete some data on a server, but don&#x27;t have a need to return anything.</p></details></li></ul><ul id="4b265079-1630-4758-aee6-211140d5f737" class="toggle"><li><details open=""><summary><strong>More on Params &amp; Arguments</strong></summary><p id="1e63f266-b033-4266-86bf-2ae8d0680dc4" class="">When we create a function, we can allow data to be passed in by creating <strong>parameters</strong> or &quot;params&quot;. The data that we pass in when we invoke a function is called an <strong>argument</strong>. I want to look a little more into them.</p><pre id="bc37ca71-671c-4e7f-8bdb-96b933230e9e" class="code code-wrap"><code>function registerUser(user) {
+  return user + &#x27; is registered&#x27;;
+}
+
+console.log(registerUser(&#x27;John&#x27;)); // John is registered
+</code></pre><p id="6b0bc6cc-b7d7-4865-bf49-6fd39a1f1378" class="">First off, if it isn&#x27;t obvious, the variable of <code>user</code> is only available inside the function. The area within the function is called the function&#x27;s <code>scope</code>.</p><p id="a0e0cc22-0c3c-488f-85d9-c4562eead868" class="">If I try to log the name variable outside of the function, I will get an error.</p><pre id="2e88e593-6241-4cda-b23f-41504ee2afa3" class="code code-wrap"><code>console.log(user); // Uncaught ReferenceError: user is not defined
+</code></pre><p id="1c261fd3-8b98-45ce-ad63-79b9e503265e" class="">We will talk more about scope soon.</p><p id="a265db98-ffa2-4248-897e-7af766d26c69" class="">Let&#x27;s see what happens if we run the <code>registerUser()</code> function, but without passing in a parameter.</p><pre id="f1056bdb-2a9f-488c-935e-995f71c7b2ce" class="code code-wrap"><code>console.log(registerUser()); // Undefined is registered
+</code></pre><h3 id="6d2da403-18a4-4220-811e-d5e8619b5cb4" class=""><strong>Default Parameters</strong></h3><p id="7ebff6e2-5b32-4755-8d92-0b6137307604" class="">Sometimes, we may want to make parameters optional and have a default value for them if not passed in. In the ES2015 update, they added a new and easy syntax for this. Before that update, we would do something like this.</p><pre id="369c329b-702a-43f9-9478-4fbc350869f9" class="code code-wrap"><code>function registerUser(user) {
+  if (!user) {
+    user = &#x27;Bot&#x27;;
+  }
+  return user + &#x27; is registered&#x27;;
+}
+</code></pre><p id="2ee8b127-e27d-4929-873d-31536645e4ea" class="">But now, we can simply add the default value with the &quot;=&quot; sign</p><pre id="38e66989-c134-4c07-8234-6759f0694abe" class="code code-wrap"><code>function registerUser(user = &#x27;Bot&#x27;) {
+  return user + &#x27; is registered&#x27;;
+}
+
+console.log(registerUser()); // Bot is registered
+</code></pre><h3 id="39e2a623-f62d-4d08-9c4b-5c1d9de170ac" class=""><strong>Rest Parameters</strong></h3><p id="4a7ff96e-1071-4f5d-af04-97da2519635d" class="">Usually, you will know exactly which parameters will be passed to your functions. In the case of a function that takes in multiple arguments that we won&#x27;t know beforehand, we can use the &quot;rest&quot; operator to collect all of the arguments into an array.</p><pre id="d3a2be13-cc29-48f3-8377-aaf534bf01cd" class="code code-wrap"><code>function sum(...numbers) {
+  return;
+}
+
+sum(1, 2, 3, 4, 5); // [1, 2, 3, 4, 5]
+</code></pre><p id="ec6e8b13-5635-4f1c-8fd6-449f4ec4018c" class="">As you can see, all the params we pass in are put into an array.</p><p id="fd7346a8-5b9e-44a5-971c-7359fc18a38c" class="">We have not learned about loops yet, but let&#x27;s say that we want to add all of the numbers passed in. We could do the following.</p><pre id="b5ffcfae-7d3a-44bd-9024-9864594ae2f7" class="code code-wrap"><code>function sum(...numbers) {
+  let total = 0;
+
+  for (const num of numbers) {
+    total += num;
+  }
+
+  return total;
+}
+
+console.log(sum(1, 2, 3, 4)); // 10
+</code></pre><h3 id="2cf7e2b5-5f0f-476c-ad86-42a539719fdf" class=""><strong>Passing objects as arguments</strong></h3><p id="8cebb834-d07c-45e3-aa5b-aeb2f24e9c68" class="">We don&#x27;t always pass in a primitive value as an argument. Sometimes we want to pass in an object.</p><pre id="d07a8ab2-29b6-4922-a268-05a6b21c5ccc" class="code code-wrap"><code>function registerUser(user) {
+  console.log(`User ${user.id}(${user.name}) has been registered`);
+}
+
+const user = {
+  id: 1,
+  name: &#x27;John&#x27;,
+};
+
+registerUser(user); // User 1(John) has been registered
+
+// or we can pass the object directly:
+
+registerUser({
+  id: 1,
+  name: &#x27;John&#x27;,
+});
+</code></pre><h3 id="5af8f25b-0f34-4b5b-bd3b-1e4d5957318c" class=""><strong>Passing arrays as arguments</strong></h3><p id="c8c7cfe1-935d-4309-a571-fb23ed550d9f" class="">We may want to pass in an array. Let&#x27;s create a function that takes in an array and returns a random number.</p><pre id="ab490b22-3671-4456-b642-b0cb63218198" class="code code-wrap"><code>function getRandom(arr) {
+  // get random index value
+  const randomIndex = Math.floor(Math.random() * arr.length);
+
+  // get random item
+  const item = arr[randomIndex];
+
+  return item;
+}
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+console.log(getRandom(numbers)); // 4</code></pre></details></li></ul><ul id="c3988298-ba87-4a6d-9514-381d3c821c73" class="toggle"><li><details open=""><summary><strong>Global &amp; Function Scope</strong></summary><p id="24f21332-8329-47ce-a739-5ecbd62a027b" class=""><strong>Scope</strong> is an important concept, not only in JavaScript, but in many other programming languages. Scope is the current area or context of a specific piece of code. There are certain rules for what is accessible in specific scopes.</p><figure id="e819c388-0f1c-448b-8bf5-54c5b5c6d8b7" class="image"><a href="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled.png"><img style="width:422px" src="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled.png"/></a></figure><h3 id="5941c3d1-f5d3-4b46-8350-3f06eb2476bf" class=""><strong>Global Scope</strong></h3><p id="54e752ff-48ca-4f36-bfc8-b84993763c87" class="">In JavaScript, when we write code in the <code>global scope</code> it is available everywhere, including functions. If we are NOT inside of a function or any kind of block, such as an if statement or a loop, then we are in the <code>global scope</code>.</p><h3 id="a9d2c7a7-f428-4a71-abe4-c52253988a65" class=""><strong>The </strong><code><strong>window</strong></code><strong> object</strong></h3><p id="b172a3d4-6a94-4382-a166-6391e2ff5686" class="">The browser creates a global object called <code>window</code>. This object has a ton of methods and properties on it that are available to us that we&#x27;ll be looking at later on in the course.</p><p id="d0e131e9-51c5-4505-9a53-04eae980de46" class="">The <code>alert</code> method belongs to the window object.</p><pre id="76f9c4f6-a029-474c-a03f-d1e311683ec6" class="code code-wrap"><code>window.alert(&#x27;Hello World&#x27;);
+</code></pre><p id="bd87ac0f-3022-4d5e-8ed0-f67dc890a80a" class="">Since the window object is the most top-level object in the browser environment, we don&#x27;t need to use <strong>window</strong></p><pre id="7db0a255-6c75-44eb-a32a-5257c67242eb" class="code code-wrap"><code>alert(&#x27;Hello World&#x27;);
+</code></pre><p id="667677f5-2976-46cc-8356-7d389b09cd03" class="">There is an <code>innerWidth</code> property on the window object. We could use that anywhere as well</p><pre id="b39d8c79-4efc-4c6b-830b-0d92044a8cb2" class="code code-wrap"><code>console.log(window.innerWidth);
+</code></pre><p id="ec33dec5-ccf4-4be2-a28d-49f3752b8882" class="">We can use it in a function as well because it is global</p><pre id="9a91d91e-31be-4486-ac7f-93e4dba7d66e" class="code code-wrap"><code>function run() {
+  console.log(window.innerWidth);
+}
+</code></pre><h3 id="3eeb1fa4-6528-4f0b-aca9-a55f377173f4" class=""><strong>Creating globally scoped variables</strong></h3><p id="59ccae1d-f7ab-4c3e-9efd-b14ea5c85379" class="">If I simply create a variable at the top of a JavaScript file, this is a global variable in the global scope and I can access it anywhere.</p><pre id="673ed06d-f9ec-41fd-83c6-d88440d291a0" class="code code-wrap"><code>const x = 100;
+console.log(x); // 100
+</code></pre><p id="893c7376-bc08-4c91-b864-a0147caddf55" class="">If we try to access x in the <code>run()</code> function, we can because it&#x27;s global.</p><pre id="0e42a2cd-4f40-486b-a035-496e3e473f58" class="code code-wrap"><code>function run() {
+  console.log(x); // 100
+}
+</code></pre><h3 id="84e3ae4e-6808-40aa-abdd-7c58a7384a3d" class=""><strong>Function Scope</strong></h3><p id="fddee147-1ed9-480d-8b2d-f41eb58e244e" class="">Function scope is the scope that is available to all code inside of a function. Any variables we define here will be available only inside of the function.</p><pre id="ed63ae93-36f8-480f-9aad-2f91025e6567" class="code code-wrap"><code>function add() {
+  const y = 50;
+}
+
+console.log(y); // ReferenceError: y is not defined
+</code></pre><p id="f6c800fd-5ef1-4804-b19b-75cfd2e80c8c" class="">Since <code>x</code> is global, I could use that in the <code>add()</code> function</p><pre id="bfad47ea-cb92-49d8-893a-c2f493b200ba" class="code code-wrap"><code>function add() {
+  const y = 50;
+  console.log(x + y); // 150
+}
+</code></pre><p id="33f72b7e-1d08-4047-9ee5-d09dedac78c4" class="">If I create a variable called <code>x</code> in the function, it will overwrite the global variable and I can no longer access it. This is called <strong>variable shadowing</strong>.</p><pre id="f8383df5-dad1-42a5-a77f-eb2938c0e5be" class="code code-wrap"><code>function add() {
+  const x = 1;
+  const y = 50;
+  console.log(x + y); // 51
+}
+</code></pre><h3 id="caf11d6c-a242-44a1-97f4-508b6d76b868" class=""><strong>Local Scope</strong></h3><p id="834d1a60-9860-440d-b764-da02e92223f3" class="">Whatever scope we are currently working in or talking about is called the <code>local scope</code>.</p></details></li></ul><ul id="79b78b5c-05d8-4ae3-a97c-d08de4bd663b" class="toggle"><li><details open=""><summary><strong>Block Scope</strong></summary><p id="ade6c8f4-fc89-447c-b09d-054b36bca118" class=""><code>Block scope</code> is the scope that is available to all code inside of a <code>block</code>. A block is something like an if statement or any kind of loop. I know we haven&#x27;t talked about these yet, but we&#x27;ll get to them soon. Just know that they have their own scope.</p><pre id="014ddd1c-7298-44da-8386-088f0577055a" class="code code-wrap"><code>const x = 100;
+
+if (true) {
+  console.log(x); // 100
+  const y = 200;
+  console.log(x + y); // 300
+}
+
+console.log(y); // ReferenceError: y is not defined
+</code></pre><p id="9b1f2901-5bc5-4bba-8bca-98f51cce73e4" class="">As you can see, we can not access <code>y</code> in the global scope because it belongs to the if statement block.</p><h3 id="5abe8537-f314-4c27-8ed6-bc0b633c2462" class=""><strong>Loop Example</strong></h3><p id="c4f746c0-7dc0-4033-a6e7-0a8eb0ef2983" class="">I know we have not gone over loops yet, but I want to show you that they do have their own block scope.</p><pre id="993d4a69-c603-42b7-b186-380116f18ed7" class="code code-wrap"><code>for (let i = 0; i &lt; 10; i++) {
+  console.log(i);
+}
+console.log(i); // ReferenceError: i is not defined
+</code></pre><p id="06306fc7-fc01-4a45-80bb-998067540813" class="">As you can see, <code>i</code> is only available inside of the loop.</p><h3 id="8ccb1d19-5b22-40bd-ab4b-7be187c33735" class=""><strong>let &amp; const vs var</strong></h3><p id="4e457684-2459-4fca-a4e5-4e67544d2bb2" class="">For all of these examples, I used <code>const</code> to define my variables. Both <code>const</code> and <code>let</code> are block scoped. <code>var</code> on the other hand is NOT. Let&#x27;s try an example with var.</p><pre id="b83d4fa6-f453-4af3-93ee-213a7f68686a" class="code code-wrap"><code>if (true) {
+  const a = 500;
+  let b = 600;
+  var c = 700;
+}
+
+console.log(a); // ReferenceError: a is not defined
+console.log(b); // ReferenceError: b is not defined
+console.log(c); // 500
+</code></pre><p id="293db781-adeb-4af3-82eb-c36851fe6d1e" class="">If you use <code>var</code> with a for loop, it will also be accessible outside of the loop, which you do not want.</p><pre id="b5b8af92-812a-4a42-a79a-cac92660f134" class="code code-wrap"><code>for (var i = 0; i &lt;= 10; i++) {
+  console.log(i);
+}
+
+console.log(i); // 11
+</code></pre><p id="14738266-de6b-4df3-a855-96bdc007f147" class="">One thing I do want to mention is that <code>var</code> is at least <strong>function-scoped</strong>. So if you create a variable in a function with <code>var</code>, it will not be accessible outside of the function.</p><pre id="862740b1-5d40-436a-98e5-e4e7f40bacfa" class="code code-wrap"><code>function run() {
+  var d = 100;
+  console.log(d);
+}
+
+run();
+
+console.log(d); // ReferenceError: d is not defined
+</code></pre><p id="494384fc-24c1-4fd4-bd62-4832cc379c5f" class="">When it comes to which of the 3 to use, I would suggest using <code>let</code> or <code>const</code>. Unless you have a good reason to use <code>var</code>. Having variables that are not accessible outside of their scope is usually a good thing.</p><p id="14c31c43-52b4-48f8-aaa7-1d2bf7b0b13a" class="">Another difference with <code>var</code> is that when you create a global variable using it, that variable is put on the <code>window</code> object.</p><pre id="a904669e-b961-4148-97c9-567c644a2c25" class="code code-wrap"><code>const foo = 1;
+var bar = 2;
+</code></pre><p id="d8d913cf-0ef8-4c99-91b6-979a2038ff84" class="">You can check by typing <code>window</code> in your console and you will see <code>bar</code> will be there</p></details></li></ul><ul id="e0e867a4-b43f-4493-b2f2-659eae34ee8e" class="toggle"><li><details open=""><summary><strong>Nested Scope</strong></summary><h3 id="22019640-8375-4aa9-8b2c-b1fc8097ae88" class=""><strong>Nested Functions</strong></h3><p id="0603a2e1-8454-49d6-98f0-32c346fb3316" class="">In JavaScript, we can also define a function within a function. This is called a <code>nested function</code>. This relates to something called <code>closures</code>, which we will talk about later. When it comes to scope, any variable defined in the parent function is available to the nested/child function, but not the other way around.</p><pre id="d52e1719-2f63-4434-9461-dd3f487321cd" class="code code-wrap"><code>function first() {
+  const x = 500;
+
+  function second() {
+    const y = 600;
+    console.log(x); // 500
+  }
+
+  console.log(y); // ReferenceError: y is not defined
+
+  second();
+}
+
+first();
+</code></pre><p id="76f1c20a-9fde-44a2-9020-2a38f19ca2e7" class="">As you can see, the <code>x</code> variable is defined in <code>first()</code>, so we have access to it in the child function, <code>second()</code>. However, the <code>y</code> variable is defined in <code>second()</code>, so we can&#x27;t access it in the parent function, <code>first()</code>. We can access variables from parents but can not access variables from child functions.</p><h3 id="b861cfe6-f836-4684-ac1c-a266b11dc934" class=""><strong>Nested If</strong></h3><p id="74a75008-14dd-4d29-9a44-2228396e7633" class="">Just like with functions, we can access the parent block scope, but not the nested/child scope</p><pre id="3162ee0a-f569-42bf-9d14-1e65f3cf25fc" class="code code-wrap"><code>if (true) {
+  const x = 100;
+  // Nested if
+  if (x === 100) {
+    const y = 200;
+    console.log(x + y); // 300
+  }
+
+  // console.log(y); // ReferenceError: y is not defined
+}
+
+// console.log(y); // ReferenceError: y is not defined
+</code></pre></details></li></ul><ul id="7f23c9ac-881f-4eba-a9af-0336db3c081e" class="toggle"><li><details open=""><summary><strong>Function Declaration vs Function Expression</strong></summary><p id="d343d69d-cac2-464c-8a66-84eb1eb661b4" class="">Up to this point, we know how to declare a function and call or invoke it. There is another way that we can create functions and that is with a function expression. Let&#x27;s first declare a function just like we&#x27;ve been doing.</p><pre id="01b6fb9a-da59-4060-9dc0-62f2071037be" class="code code-wrap"><code>function addDollarSign(value) {
+  return &#x27;$&#x27; + value;
+}
+
+addDollarSign(&#x27;10&#x27;); // &#x27;$10&#x27;
+</code></pre><p id="cfedc3f0-b602-408b-aa55-185491b0b6d1" class="">A function expression is when we assign a function to a variable.</p><pre id="597c1d66-99e5-451e-b082-3f78d4279fc5" class="code code-wrap"><code>const addPlusSign = function (value) {
+  return &#x27;+&#x27; + value;
+};
+
+addPlusSign(&#x27;10&#x27;); // &#x27;$10&#x27;
+</code></pre><p id="0af9a07f-dc62-414b-ad13-96222551ba96" class="">Notice that we invoke them the same exact way, but we define them differently. The expression is just a variable assigned to a function. Semi-colons are optional in JS, for the most part, but if you are using them, you would put one at the end of the function expression, because again, we are assigning a variable.</p><h2 id="12c295f2-fd07-425d-a28c-51cfe93e0e66" class=""><strong>Hoisting</strong></h2><p id="3073c0ca-249b-405b-b02c-bdb25b6c927d" class="">I am not going to explain the ins and outs of hoisting here, I will do that soon when we get into something called <code>execution context</code>, but in very simple terms, hoisting is the process of moving all of the function and variable <strong>declarations</strong> to the top of the current scope. before the code is run.</p><p id="e6992a29-f77b-49eb-ac2b-f95cb50f38ee" class="">I do want to mention that both functions and variables/function expressions are hoisted, but only function declarations are available before the code is run.</p><p id="5ac024c8-bd35-4fc6-8f51-17044590e47c" class="">Let&#x27;s try and access the <code>addDollarSign()</code> function <strong>before</strong> it is defined.</p><pre id="9f05027a-47db-48cf-b75d-1832f00ce60c" class="code code-wrap"><code>const money = addDollarSign(&#x27;10&#x27;); // &#x27;$10&#x27;
+
+function addDollarSign(value) {
+  return &#x27;$&#x27; + value;
+}
+</code></pre><p id="92902f19-05d3-4199-8628-b3c85b164379" class="">This still works, however, if we try this with a function expression, it will not work</p><pre id="25a32148-18f4-4bd5-b0f3-74d02a6cb45b" class="code code-wrap"><code>addPlusSign(&#x27;10&#x27;); // Cannot access &#x27;addPlusSign&#x27; before initialization
+
+const addPlusSign = function (value) {
+  return &#x27;+&#x27; + value;
+};
+</code></pre><p id="f11348f3-27aa-424c-aeb6-d8b834c39822" class="">I will get more into hoisting later, but for now, just know that you can define a function declaration and a function expression. Which one to use really comes down to preference. It may seem that declarations are better because of the way they&#x27;re hoisted, but in reality, it&#x27;s not good practice to use functions before they are defined. Using expressions actually makes your code less prone to errors in my own opinion.</p></details></li></ul><ul id="a37f0a4e-093a-4783-a915-87e9e6b340fd" class="toggle"><li><details open=""><summary><strong>Arrow Functions</strong></summary><p id="938b5bd9-1199-4b78-86a0-3838db864f4e" class="">Arrow functions were introduced in <strong>ES6</strong> or <strong>ES2015</strong>. They are a shorter syntax for writing functions with some advantages such as being more compact, implicit returns and lexical scope. Let&#x27;s look at the syntax.</p><p id="3a5e68b6-5ce0-4782-91a8-ff9985fb7173" class="">First off, let&#x27;s look at a simple traditional function:</p><pre id="1be9cbde-017b-40a3-bfbb-b46ac9f073fa" class="code code-wrap"><code>function add(a, b) {
+  return a + b;
+}
+
+add(1, 2); // 3
+</code></pre><p id="dad43216-5156-4e84-b07c-8b905e0cd15b" class="">Now let&#x27;s look at the same thing written as an arrow function:</p><pre id="c05fe8a7-0442-4313-b5c2-f1b82a5378cd" class="code code-wrap"><code>const add = (a, b) =&gt; {
+  return a + b;
+};
+
+add(1, 2); // 3
+</code></pre><p id="6924d277-ca1a-4b48-94ac-2e144a5953c3" class="">There are a few things to note here. First, we took away the <code>function</code> keyword and instead added a variable declaration. This is because arrow functions are always anonymous functions so we need to assign them to a variable in this case.</p><p id="5351e97a-0641-4d40-9a24-13acfb221416" class="">Secondly, we added what we call a <code>fat arrow</code> to the function, which is an equal sign and a greater-than sign. Sometimes, arrow functions are reffered to as <code>fat-arrow functions</code>.</p><h3 id="8632fbf1-90cc-4e32-a91c-8aa808ee3111" class=""><strong>Implicit Return</strong></h3><p id="dab063ee-896f-4ba2-9be0-a983a9b19efa" class="">We can actually shorten this particular function a bit more, because it only has one line of code that is a single expression. In this case, we can remove the curly braces and the return statement. If there were multiple lines of code (statements), we would need to add the curly braces and the return statement.</p><pre id="2bb330a1-66a6-4fef-821d-84068685f807" class="code code-wrap"><code>const add = (a, b) =&gt; a + b;
+
+add(1, 2); // 3
+</code></pre><p id="8c38b125-1ade-4e8a-9cb8-40764ee7d564" class="">Instead of explicitly returning the result, <code>a + b</code> will be returned implcitly. When we don&#x27;t use the <code>return</code> keyword, it is called an <strong>implicit return</strong>. If there were more than one line of code in the function, we would have to use the curly braces and the <code>return</code> keyword.</p><h3 id="306d407e-2c3b-45b3-9c6e-ebf6b4b5687f" class=""><strong>Returning an object literal</strong></h3><p id="cca42c99-beb8-4e19-a6da-f682cd59056e" class="">Where you can run into an issue with implicit returns is when you want to return an object literal.</p><p id="1aa6294b-1956-4e13-bcae-eb9189aaba94" class="">Be sure that you use parenthises around the curly braces if you want to return an object literal implicitly.</p><pre id="301803ee-ea99-4a65-8c14-4b1f8f83d599" class="code code-wrap"><code>const createObj = () =&gt; ({ name: &#x27;John&#x27; });
+</code></pre><h3 id="a7c28931-f621-4cc9-8bb3-c29eb323872f" class=""><strong>Single argument shorthand</strong></h3><p id="39224d3b-2a56-4203-bbe7-49f0eb5a07e2" class="">Another cool feature of arrow functions is that we can remove the parenthises around the argument if it is a single argument.</p><p id="72270ead-e946-4564-aa8b-5ca3cc2cc70f" class="">If you are using VS Code with prettier as I am, it may add the parenthises automatically.</p><pre id="26f61894-2e71-4144-b074-a4975bd9eccc" class="code code-wrap"><code>const add10 = (a) =&gt; a + 10;
+
+add10(1); // 11
+</code></pre><h3 id="3bbb06c5-dcd7-498e-a4d5-844e5be97067" class=""><strong>Anonymous Functions</strong></h3><p id="2f264ac9-8373-4ec5-80a5-634368fc08a3" class="">Many times we don&#x27;t want to use a named function, but instead want to use an anonymous function. This is useful when we want to use a function as a callback. We can use an arrow function in this case as well.</p><p id="0d0b86bd-3aec-416b-8666-3841a5c1d315" class="">I know we have not gone over high order array methods like forEach() yet (we will very soon), but just to give you an idea of how this works. Let&#x27;s create an array with some numbers.</p><pre id="9d01edce-6729-440d-a282-64013b77bc92" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+</code></pre><p id="0e3006e0-8f2b-416d-aee6-a27b9b367151" class="">The forEach() method can be used to iterate over an array. It takes a callback function as an argument. The callback function will be called for each element in the array.</p><pre id="380d31d4-f70b-4a8f-824d-7d530827310f" class="code code-wrap"><code>numbers.forEach(function (number) {
+  console.log(number);
+});
+</code></pre><p id="dab00214-1405-4ac3-a391-3506d6ec5115" class="">To shorten this to one line, we can use an arrow function:</p><pre id="bf826e46-fe76-4c4f-8397-73e3233a760a" class="code code-wrap"><code>numbers.forEach((number) =&gt; console.log(number));</code></pre></details></li></ul><ul id="3ae0d5a9-c6ee-473a-b939-dcb5b04f3178" class="toggle"><li><details open=""><summary><strong>Immediately Invoked Function Expressions (IIFE)</strong></summary><p id="ab2971df-b9ea-4f9d-89b3-bdd580843990" class="">Usually when we deal with functions, we define them and then when we want to run them, we call/invoke them. There may be times where you want to define a function and run it at the same time. In JavaScript, we can do this with an <strong>immediately invoked function expression</strong>, also called an IIFE (pronounced &quot;Iffy&quot;).</p><h2 id="668cae08-1910-4b55-8fef-3e6d8d7f95b8" class=""><strong>Why Use an IIFE?</strong></h2><p id="75e3aefd-6fa7-49c6-8500-49789ce79492" class="">There are a few reasons why you may want to use an IIFE. One of the biggest reasons is to avoid <strong>global scope pollution</strong>.</p><p id="3e215716-d9c8-4b19-af0c-a55a82c10f91" class="">If I have a second JavaScript file loading, whether I created it or it is some 3rd party library, etc and in that file is something like this.</p><pre id="3d4c73f2-b5e0-408f-8a6e-005ac24f8b10" class="code code-wrap"><code>	const user = &#x27;Brad&#x27;;
+</code></pre><p id="40b77feb-dcc6-46ba-b3c4-6a6abc4614b7" class="">and then in my script I don&#x27;t know about that global variable and I create a variable with the same name, it will break my script. Becaue we are defining two variables in the same scope.</p><pre id="4bcbfb16-4edf-4424-b985-a89f14ce49ce" class="code code-wrap"><code>	const user = &#x27;John&#x27;; // Results in error
+</code></pre><p id="9a57fc11-e484-44ca-aedc-de9d6327a581" class="">To fix this, I could create an IIFE</p><h2 id="c6c1aa0b-83ed-405e-ae6f-9e7896c5c92b" class=""><strong>IIFE Syntax</strong></h2><p id="f3f802c4-2b58-4866-831b-5543e5ca9989" class="">The syntax for an IIFE is a little strange. You have to wrap the function keyword and the function body in parentheses. You then have another set of parentheses to indicate that it is an invocation, just like you would with a regular function call.</p><pre id="9091bad5-2fc9-4f0d-b0a5-f3d2436dd195" class="code code-wrap"><code>(function() {
+  const user = &#x27;John&#x27;;
+  console.log(user); // John
+})();
+
+// Outside of IIFE
+console.log(user); // Brad
+</code></pre><p id="a3d6d84e-2140-40c9-8f48-b25439787888" class="">When it comes to global scope pollution, if you have a small script with little to no dependencies, this most likely won&#x27;t be a problem. If you have a larger project, especially if multiple people are working on it, then you may want to use an IIFE because you don&#x27;t know exactly which variables and functions have been defined.</p><h2 id="82a5b612-da3a-46a0-b1c7-ce7ea08e7ae3" class=""><strong>Adding Parameters</strong></h2><p id="1c590dcc-4eb3-4b23-b1c4-40d7e2699efa" class="">You can also create an IIFE that takes parameters.</p><pre id="e3ba9f7e-5ea9-4116-92a0-fc41f7f81a86" class="code code-wrap"><code>(function (name) {
+  console.log(&#x27;Hello &#x27; + name);
+})(&#x27;John&#x27;);
+
+// Hello John
+</code></pre><h2 id="51402ad8-306a-46c4-b27b-911da0df79ca" class=""><strong>Using Arrow Functions</strong></h2><p id="81bc2ab9-05cd-46fc-91f5-9c7f920437a7" class="">We can also use the arrow function syntax to create an IIFE.</p><pre id="3c03e6d8-866c-4c7d-a1f8-a838049330ae" class="code code-wrap"><code>(() =&gt; {
+  console.log(&#x27;Hello from the IIFE!&#x27;);
+})();
+</code></pre><h2 id="c9595bdf-97b8-42d4-8450-2be20fb91981" class=""><strong>Named IIFE</strong></h2><p id="a37c41d4-fafd-4e71-8aaf-8f37a5e747ad" class="">The examples above are all unnamed functions. We can give IIFEs a name, however, the function name would only be available from within the IIFE. So we could use something called <strong>recursion</strong>, which is when a function calls itself. The function would not be available outside the IIFE. I would not suggest running the function within itself, because it will cause an infinite loop.</p><pre id="e9a62f50-1c03-428c-9e94-0277bfa065a9" class="code code-wrap"><code>(function hello() {
+  console.log(&#x27;Hello from the IIFE!&#x27;);
+
+  hello() // Causes infinite loop
+})();
+
+hello(); // Error: hello is not defined
+</code></pre><p id="766bf40a-58b2-4fda-8472-e42be28ec7e3" class="">IFFEs are also used in specific design patterns such as the <strong>revealing module pattern</strong>, which I will talk about later.</p></details></li></ul><ul id="0bfa9a3b-6a51-44e8-b92c-cf579bea9bd6" class="toggle"><li><details open=""><summary><strong>Function Challenges</strong></summary><p id="17d61236-29f5-4447-a6a6-128260bdf477" class="">Now that you know the basics of how functions work, let&#x27;s try a few challenges.</p><h2 id="f549ef58-d0ba-489a-b806-ad3a57e7fc9b" class=""><strong>Challenge 1</strong></h2><p id="13b81ef9-99fd-43c2-a8dd-80029779db01" class=""><strong>Instructions:</strong></p><p id="06ed1e0d-8f7e-4ec8-91e2-232756baed46" class="">Create a function called <code>getCelsius()</code> that takes a temperature in Fahrenheit as an argument and returns the temperature in celsius.</p><p id="3494b106-3960-464d-91b7-e6a29b174617" class="">For bonus points, write it as a one line arrow function</p><p id="c8ff61ed-7df6-45e2-bdbd-74d1a33a65fc" class=""><strong>Expected Result:</strong></p><pre id="3d13cbe3-610e-4fda-94e5-dd2fc6383ad9" class="code code-wrap"><code>console.log(getCelsius(32)); // 0
+</code></pre><p id="f225d501-fb61-4e5f-b88f-9320a941ded7" class="">You can make the output look prettier by putting it into a string. You can even add <code>\xB0</code> (degrees) and a <code>C</code> in front of the celsius temperature.</p><pre id="bef965b3-fee9-444b-84d5-36cc6ff3b9dd" class="code code-wrap"><code>console.log(`The temperature is ${getCelsius(32)} \xB0C`);
+// The temperature is 0 °C
+</code></pre><p id="f60d9512-a909-4158-8d4a-929582b2b36c" class=""><strong>Hints:</strong></p><p id="9a18ecc5-a9f4-47ce-9a0a-7fe01c9d2722" class="">The formula for Fahrenheit to Celsius is <code>(F - 32) * 5 / 9</code>. Read more about the formula <a href="https://www.cuemath.com/fahrenheit-to-celsius-formula/">here</a> if needed.</p><ul id="3f69fb9f-beb3-4409-924d-e7c774c81eb9" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="eb867676-84da-4632-862c-0dd35b477398" class="code code-wrap"><code>const getCelsius = (fahrenheit) =&gt; {
+  const celsius = ((fahrenheit - 32) * 5) / 9;
+  return Math.round(celsius);
+};
+
+console.log(`The temperature is ${getCelsius(32)} \xB0C`); // The temperature is 0 °C
+
+</code></pre></details></li></ul><h2 id="66f63fb0-8651-4edb-a82f-1c51480610d0" class=""><strong>Challenge 2</strong></h2><p id="c83a49b2-24a2-43b8-a635-fd8ee01807c0" class=""><strong>Instructions:</strong></p><p id="d6c2d63e-443e-4ee9-bf0d-d9e7f1c5911f" class="">Create an arrow function called <code>minMax()</code> that takes in an array of numbers and returns an object with the minimum and maximum numbers in the array.</p><p id="063ec88c-3f47-48da-8543-7cd5d94fc0df" class=""><strong>Expected Result:</strong></p><pre id="37dd2ca8-2ff9-4bb2-9065-bafd9acb4e7f" class="code code-wrap"><code>console.log(minMax([1, 2, 3, 4, 5]));
+// { min: 1, max: 5 }
+</code></pre><p id="28cb09c8-bc6e-4034-b127-3c9b7f5933d0" class=""><strong>Hints:</strong></p><ol type="1" id="d0039218-5dcb-45f4-bc49-af10a4da7f2b" class="numbered-list" start="1"><li>You can use <code>Math.min()</code> and <code>Math.max()</code> to get the min and max of a list of numbers.</li></ol><ol type="1" id="d4b8f2c4-8535-40c6-9c76-d161ed25581c" class="numbered-list" start="2"><li>You can use the Spread <code>...</code> operator to spread the values of an array into separate arguments.</li></ol><ul id="c4d2f821-49c8-4439-880c-ded4f0e62eba" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="764aa447-6280-40de-8872-d8666fcd05eb" class="code code-wrap"><code>function minMax(arr) {
+  const min = Math.min(...arr);
+  const max = Math.max(...arr);
+
+return {
+min,
+max,
+};
+}
+
+console.log(minMax([55, 32, 43, 54, 65, 76, 87, 98, 109]));
+// { min: 32, max: 109 }
+
+</code></pre></details></li></ul><h2 id="522faea8-a332-47aa-820c-d1a0a99dcb97" class=""><strong>Challenge 3</strong></h2><p id="eebdf43e-0436-4538-bdec-603ed506ab87" class="">Create an IIFE (Immediately Invoked Function Expression) that takes in the length and width of a rectangle outputs it to the console in a message as soon as the page loads.</p><p id="76116ed1-01f7-49e6-8b7e-ae16a8f860ba" class=""><strong>Expected Result:</strong></p><pre id="b1231629-bfe4-419a-adb2-c48bef66708e" class="code code-wrap"><code>// On page load
+The area of a rectangle with a length of 10 and a width of 5 is 50.
+</code></pre><p id="684b3a20-498a-4049-817a-dcf84a4f8d59" class=""><strong>Hints:</strong></p><ol type="1" id="ea0f4596-c550-4fab-b356-70aba9f52e60" class="numbered-list" start="1"><li>The area of a rectangle is <code>length * width</code>. These should get passed into the IIFE as arguments.</li></ol><ol type="1" id="068b7caa-bf3e-43e2-8812-761d40698687" class="numbered-list" start="2"><li>You do not have to return anything from this function, just log to the console.</li></ol><ul id="9011a52f-6618-4ce7-9cc7-e113e7a1acab" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="d60e669b-8e2b-4439-85e1-7f882b24fa9f" class="code code-wrap"><code>((length, width) =&gt; {
+const area = length * width;
+
+const output = `The area of a rectangle with a length of ${length} and a width of ${width} is ${area}.`;
+
+console.log(output);
+})(10, 5);
+
+</code></pre></details></li></ul></details></li></ul><ul id="fabcae07-a242-47f9-9f25-0fc0138ef28c" class="toggle"><li><details open=""><summary><strong>Execution context</strong></summary><p id="4c22478a-e3cc-451a-9e73-4bb98bc59a68" class="">Inside the browser is a JavaScript engine that handles executing our JavaScript. That engine creates a special environment to handle the transformation and execution of code. This environment is called the <code>execution context</code>, and it contains the currently running code and everything that aids in its execution.</p><p id="725325ff-bfed-4d69-ae49-7c9726ce2c8b" class="">When we load a JavaScript file in the browser, the first thing that the engine does is create a new execution context. This is called the <code>global execution context</code>. It basically includes all of the code that is in the <code>global scope</code>. We talked about scope earlier.</p><h2 id="67c5c0a6-5d21-4823-bc17-fa8ba92e7b66" class=""><strong>Visualizing the execution context</strong></h2><p id="00b3007e-d59b-4a08-af57-f5d21809045a" class="">To give you a better idea of what the execution context looks like, you can picture it as a box with 2 sides. One side is the <code>variable environment</code> which is a memory area for your variables and functions in key-value pairs.</p><p id="a1fc6c3f-775c-4ea0-a790-42e8ba53297e" class="">Then on the other side,you have your actual lines of code being run. This is the <code>thread of execution</code>. The code is executed one line at a time on a <strong>single thread</strong>, which you can think of as like a <strong>process</strong>. JavaScript is a single-threaded, synchronous language.</p><figure id="538f3216-1e60-45e2-9174-8798eff3cff2" class="image"><a href="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled%201.png"><img style="width:515px" src="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled%201.png"/></a></figure><h2 id="395672f6-aba5-4fd3-af9d-46f5b8f02960" class=""><strong>Types of Execution Contexts</strong></h2><p id="d50c4730-18fb-4482-a0a9-61f786e46e34" class="">So we have a couple different types of execution contexts.</p><p id="2d6ade8f-bacc-490a-88d2-e7bd110e418d" class=""><strong>Global Execution Context</strong></p><p id="aa4ae6c6-df85-4671-91c7-e89fddb8cd8f" class="">The global execution context is the default or base execution context. This is created when you run a JavaScript file in a browser. It is NOT within a function. When the global execution context is created, it performs two things. It creates the <code>global object</code> which is the <code>window</code> object in a browser. In Node.js, it&#x27;s just called the <code>global object</code>. It also sets the value of the <code>this</code> keyword equal to the global object.</p><p id="178bbd2a-d824-41aa-a73d-60f8b848c51f" class=""><strong>Function Execution Context</strong></p><p id="fc944631-e762-4f8b-892a-2225dca52d5e" class="">When a function is invoked, a new execution context is created for that function. Each function has its own execution context. So a new box with the 2 sides is created for the code within the function.</p><p id="6facf39d-1f6f-428e-9e8d-71c35d9a5a74" class=""><strong>Eval Execution Context</strong></p><p id="10870382-f50c-4699-8965-43aa12b79bdd" class="">eval() is a function property of the global object. Most JavaScript developers don&#x27;t use eval, so I&#x27;m not even going to get into it here.</p><p id="3dc5c82e-9b25-4f70-8f34-467a8252f23b" class="">So just remember that we have a <code>global</code> execution context and when a function is invoked, it has it&#x27;s own <code>function</code> execution context.</p><h3 id="d327af4d-b86a-438b-b09e-8280d5ee29ed" class=""><strong>Execution Context Phases</strong></h3><p id="0426221a-beea-4012-926a-bd65a8ae59af" class="">When you run a piece of JavaScript code, you create a new execution context and its created in two phases.</p><ul id="8cae3503-e404-490a-91a3-56a9f02f3a41" class="bulleted-list"><li style="list-style-type:disc">The first being the <strong>memory creation phase</strong> or sometimes just called the <strong>creation phase</strong>. This is where JavaScript allocates the memory for all of the variables and functions. This happens before any code is executed. Think of it as a first pass where the JavaScript engine just goes over all the code and puts the variables and functions into memory.</li></ul><ul id="2ee20391-92fb-45b5-a1ce-34f5e7245c14" class="bulleted-list"><li style="list-style-type:disc">The second is the <strong>execution phase</strong> where the code is executed line by line. This happens after the memory creation phase.</li></ul><p id="4bc62809-351e-48f3-963b-6b0be01bf5b1" class="">One thing to note is that in the memory creation phase, your variables are all put into memory as <code>undefined</code>. The actual values of the variables are set during the execution phase. However, functions are directly stored in memory with all of the code inside of them.</p><h3 id="73272413-0a90-45e5-a4ac-6f7030be6dbb" class=""><strong>Execution Context In Action</strong></h3><p id="f46e1ec1-12a6-4b7a-ae99-b92f0824771d" class="">Let&#x27;s take the following code and see exactly what happens when it runs:</p><pre id="f0e3e032-649d-4de5-9185-ec08bd95a977" class="code code-wrap"><code>1  var x = 100
+2  var y = 50
+3  function getSum(n1, n2) {
+4    var sum = n1 + n2
+5    return sum
+6  }
+7  var sum1 = getSum(x, y)
+8  var sum2 = getSum(10, 5)
+</code></pre><h3 id="2617c43f-70d3-43a2-a3c0-3d4f9d81ce76" class=""><strong>1. Global execution context is created</strong></h3><ul id="f7e01bdc-7016-4c1f-840d-7e2cc74bbb27" class="bulleted-list"><li style="list-style-type:disc">Global object is created and assigned to <code>this</code></li></ul><h3 id="8241622e-e48a-4a17-9ad8-953878d8881b" class=""><strong>2. Memory creation phase (global execution context)</strong></h3><ul id="fb2b9631-ca1f-4fa6-9999-2a970f6e63cc" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 1:</strong> <code>x</code> variable is allocated memory and stores <code>undefined</code></li></ul><ul id="a5427bff-f2d0-4ca6-b2a3-7f377107cd2c" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 2:</strong> <code>y</code> variable is allocated memory and stores <code>undefined</code></li></ul><ul id="3cdbb028-1d7b-4899-b3b3-b126fd50065f" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 3:</strong> <code>getSum()</code> function is allocated memory and stores all the code in the function</li></ul><ul id="b254ca4b-0340-498d-8495-6dbf6e43b487" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 7:</strong> <code>sum1</code> variable is allocated memory and stores <code>undefined</code></li></ul><ul id="31e43b9c-d073-4540-991e-9d04817b3717" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 8:</strong> <code>sum2</code> variable is allocated memory and stores <code>undefined</code></li></ul><h3 id="be903968-46c8-4c2e-b88a-073ade714e0e" class=""><strong>3. Execution phase (global execution context)</strong></h3><ul id="2ce8723f-55a6-4cc1-9686-f48eed27d3f2" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 1:</strong> places the <code>100</code> into the <code>x</code> variable</li></ul><ul id="0519a282-ce6f-40cd-bfc1-6435e5a90854" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 2:</strong> places the <code>50</code> into the <code>y</code> variable</li></ul><ul id="19e97ec5-370d-48ff-821e-018308cfadde" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 3:</strong> skips the function because there is nothing to execute. It is a declaration</li></ul><ul id="3a6cbb3a-f3bb-49f9-86a4-5064d5a42877" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 7:</strong> Invokes the <code>getSum()</code> function and creates a <strong>function execution context</strong> with a new <strong>variable environment</strong> and <strong>execution thread</strong>. It will also run the <strong>memory phase</strong> and the <strong>execution phase</strong>.</li></ul><h3 id="12097038-dcc6-4244-8637-35a5d3db46ce" class=""><strong>4. Memory creation phase (function execution context)</strong></h3><ul id="5a154997-7de8-4219-91db-36cf12c4a755" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 3:</strong> parameters <code>n1</code> &amp; <code>n2</code> variable is allocated memory and stores <code>undefined</code></li></ul><ul id="af93f944-abf8-46e1-90ab-50244a8dff1d" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 4:</strong> <code>sum</code> variable is allocated memory and stores <code>undefined</code></li></ul><h3 id="ff8c2c6d-968f-4c4e-9a40-0aa82759b3b3" class=""><strong>5. Execution phase (function execution context)</strong></h3><ul id="a55447b1-8692-41e8-9b8d-82251645fa3e" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 3</strong>: <code>n1</code> &amp; <code>n2</code> are assigned <code>100</code> and <code>50</code></li></ul><ul id="0eb2fba2-295b-4290-b977-ee3d3db26699" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 4</strong>: The calculation is done and the result (150) is put into <code>sum</code> variable</li></ul><ul id="ea0f5aab-7a72-4798-8677-212ad895d4d9" class="bulleted-list"><li style="list-style-type:disc"><strong>Line 5</strong>: return tells the <strong>function execution context</strong> to return to the <strong>global execution context</strong> with this value of <code>sum</code> (150)<strong>Line 7</strong> - The returned sum value is put into the <code>sum1</code> variable in the <strong>global execution context</strong>. The execution context of that function is then <strong>deleted</strong>.<strong>Line 8</strong> - We repeat the same process and create a new <strong>function execution context</strong>, just with different parameters being passed in.</li></ul></details></li></ul><ul id="c2193fa9-7336-496b-ab8b-342753fd9d49" class="toggle"><li><details open=""><summary><strong>The Call Stack</strong></summary><p id="28673b55-aa26-4840-8685-0b975f91d560" class="">So we talked about the <code>execution context</code> in the last video and stepped through some code to see exactly what was happening under the hood. We had our global execution context and we had our function execution context. Well every function that was invoked was added to something we call the <code>call stack</code>. It&#x27;s also referred to as the <code>execution stack</code> and many other terms. This keeps track of the functions that are currently being executed. You think of it as an execution context manager.</p><h2 id="84bd4788-b228-47dc-9925-c35127905eb5" class=""><strong>What is a stack?</strong></h2><p id="3c247f7f-acc3-43d6-aaf0-27278b5a0233" class="">In computer science, a <code>stack</code> is a data structure. Later in the course, we&#x27;ll get deeper into stacks. It&#x27;s a <strong>LIFO (last in, first out)</strong> data structure. What this means is the last thing to be put on top of the stack is the first to come off.</p><p id="91f4dc60-ee37-4f22-8337-d9cc2e560104" class="">To give you a better picture of this, lets look at some basic code. And Ill actually show you this in the browser as well because you can see the call stack in the sources tab.</p><figure id="f55f47e8-5614-4848-877c-f1847b339244" class="image"><a href="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled%202.png"><img style="width:633px" src="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled%202.png"/></a></figure><p id="ad13912e-4a3c-4a8a-aa33-e754572f7454" class="">Here we have three functions that are all being run in the global scope. When I say global scope I just mean not in a function. So this is how the call stack would work in this case.</p><p id="542d0721-107a-40ae-a8c9-3180f2018462" class="">First of all, the global execution context is always at the very bottom of the call stack. Then the function named first will get put on to the stack because that is the first function run in our code. The technical terminology is <code>push</code> when something is placed on the stack and <code>pop</code> when something is taken off. So first() will be pushed on and executed and popped off. Next, second() will be pushed on and executed, then popped off and finally, third(). Since they&#x27;re all in the global scope, they don&#x27;t ever get stacked on top of each other. It&#x27;s just one after the other.</p><p id="c9fe123a-105e-4825-9f69-ffd75ad4d669" class="">Now let&#x27;s look at a different example.</p><figure id="386be6db-0bb0-4722-89ed-aa601a28e5e9" class="image"><a href="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled%203.png"><img style="width:616px" src="03-functions-scope%20d2fccd784bef4e53acd9008798c954ff/Untitled%203.png"/></a></figure><p id="c2a3b37d-3de6-4e96-ba26-0eeaac1eb393" class="">Here, the only function being invoked in the global scope is first(). then in the first() function, the second() is being invoked, now were still in the process of executing first(), so that stays on the stack and second() is pushed on top of it. Then in second(), were executing third(), so first() and second() are still on the stack and third() gets added as well. Once the final console log is done, third() is done and taken off in <code>last in first out</code> fashion, then second() is done that gets popped off then first(). Then it&#x27;s done and the <code>global execution context</code> is deleted.</p></details></li></ul></div></article></body></html>

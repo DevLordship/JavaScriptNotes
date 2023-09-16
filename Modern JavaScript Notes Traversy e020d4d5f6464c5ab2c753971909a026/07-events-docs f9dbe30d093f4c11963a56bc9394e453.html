@@ -1,0 +1,1079 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>07-events-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f9dbe30d-093f-4c11-963a-56bc9394e453" class="page sans"><header><h1 class="page-title">07-events-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="2dfef755-b0e9-4c5e-80dd-48729ccd68a3" class="toggle"><li><details open=""><summary><strong>Event Listeners</strong></summary><p id="fa9faf9e-85d6-4605-89a6-609416753a00" class="">Alright, so we&#x27;ve learned quite a bit about manipulating the DOM, however, many of the things that we have learned, are actions that you&#x27;ll want to happen when some kind of event is triggered. So that&#x27;s what we&#x27;re going to be talking about for the next few sections.</p><h2 id="fb3eb0ab-806a-4010-87c3-18f438198c11" class=""><strong>What Are Events?</strong></h2><p id="6eea616c-c0e4-4169-863b-617517e9910b" class="">Events are something that happens within the browser. There are many kinds of events. Even the page loading is an event that we can listen for and respond to. Some other examples of events would be..</p><pre id="b3ea6f4e-40c6-4845-abb9-25cca6881d70" class="code code-wrap"><code>- Clicking on an element, such as a button
+- Typing into a text input field
+- Hovering over an element
+- Submitting a form
+- Closing a window
+- Dragging an element
+- Resizing an element
+- etc.
+</code></pre><p id="4d359076-138c-4a2b-846c-6548263ac1af" class="">Like I said, we can listen for events and respond to them. There are a few ways to do this.</p><h2 id="8071fc9d-d58d-4e90-ad20-4a9265e4b98f" class=""><strong>Inline Event Listeners</strong></h2><p id="8ece0d6f-6130-47fc-b53b-5ee89d1d9afd" class="">There are a few ways to listen for an event and react to it. One of the simplest ways is to use the onclick attribute. This is NOT recommended as it is not very flexible and can possibly pose a security risk. With that said, you should still know it exists.</p><p id="b2eaca0b-3d4a-4315-8020-08f4096e0751" class="">Let&#x27;s add an <code>onclick</code> event listener to the clear button in our shopping list. We will set the value to <code>alert(&#x27;Cleared&#x27;)</code>, which will show a browser alert popup when we click the button.</p><pre id="2ffc049f-9c1e-418b-af1a-4b59eb6991c2" class="code code-wrap"><code>&lt;button onclick=&quot;alert(&#x27;Cleared&#x27;)&quot; id=&quot;clear&quot; class=&quot;btn-clear&quot;&gt;
+  Clear All
+&lt;/button&gt;</code></pre><p id="ce0cf341-e5b3-4206-8ff8-176d48fde234" class="">So as you can see, we can put JavaScript code directly in the HTML attribute. This is not very good practice though. Another thing we could do is use a JavaScript function to handle the event.</p><pre id="e3ab7294-8d6d-4ff6-b976-25f01e20517c" class="code code-wrap"><code>&lt;button onclick=&quot;onClear()&quot; id=&quot;clear&quot; class=&quot;btn-clear&quot;&gt;Clear All&lt;/button&gt;</code></pre><p id="4a50cf44-dc3c-4850-94f3-6888a806adfe" class="">Now create the function onClear() in the linked JS file.</p><pre id="93ec8481-e0bf-4981-a3c7-f0d8a16cda2e" class="code code-wrap"><code>function onClear() {
+  console.log(&#x27;Clear Items&#x27;);
+}
+</code></pre><p id="8a6ce883-9443-4c9d-8f74-d6ab1236bb77" class="">Now when you click the button, you&#x27;ll see the console log show up.</p><h2 id="803cc50e-7141-47cd-b6e7-6839c31df785" class=""><strong>Event Listeners in JavaScript</strong></h2><p id="208eb022-5a1b-4d1a-b215-a90873180f05" class="">Like I mentioned, using inline event listeners is not recommended. Instead, we can use JavaScript to handle the event. There are a couple ways to do this.</p><p id="16c090e3-a3e7-4536-a1de-b892f4e9ac6b" class="">One way is to bring in the element and call <code>onclick</code> from there.</p><pre id="a01b0808-c690-4fe8-aa68-49ef52c1d8ee" class="code code-wrap"><code>const clearBtn = document.getElementById(&#x27;clear&#x27;);
+
+clearBtn.onclick = function () {
+  console.log(&#x27;Clear Items&#x27;);
+};
+</code></pre><p id="1bd7e321-f5be-4f02-96ab-d96fdcdfe0e6" class="">This is equivalent to the inline event we had in the HTML, but it gives you more control over the scope. One drawback to this is you may only have one inline event assigned. Inline events are stored as an attribute/property of the element it can be overwritten.</p><h2 id="18d6159f-d60e-4f86-b5e5-ee53e7992403" class=""><code><strong>addEventListener()</strong></code></h2><p id="d70db6dc-fdc1-4928-92df-4db27324a6e4" class="">The best way, at least in my opinion, is to use the <code>addEventListener()</code> method. It takes in the event type (click, submit, etc) and a callback function. It attaches a listener to an element and will call the callback function when the event is triggered.</p><p id="eec00910-7287-4844-98b2-2cc714892676" class="">Let&#x27;s look at an example:</p><pre id="1f2b60d7-34ac-438c-9ada-6e8578e70c0e" class="code code-wrap"><code>clearBtn.addEventListener(&#x27;click&#x27;, function () {
+  console.log(&#x27;Clear Items&#x27;);
+});
+</code></pre><p id="c3ce6568-11f5-47d3-8525-7a3ead29e6ec" class="">We don&#x27;t have to pass in an anonymous function. We can pass in another defined function, such as the <code>onClear()</code> function.</p><pre id="80816695-3cea-4761-a400-8a58f9718c70" class="code code-wrap"><code>function onClear() {
+  console.log(&#x27;Clear Events&#x27;);
+}
+
+clearBtn.addEventListener(&#x27;click&#x27;, onClear);
+</code></pre><p id="ba6232a4-7851-4a9f-9873-a3546e53d7bb" class="">This is the method that we will be using in the course and what I would suggest in just about every case when using Vanilla JavaScript.</p><h2 id="4d938f5f-e087-4b4b-b5c6-aa731722f7f3" class=""><code><strong>removeEventListener()</strong></code></h2><p id="ad93c029-7d7a-4275-8878-3954848d1be3" class="">We can also remove event listeners from elements. If you&#x27;re removing an element that has an event listener attached to it. It&#x27;s good practice to first remove the event listener before removing the element. This can prevent memory leaks, especially in older browsers. For the most part, modern browsers will handle this correctly, but it&#x27;s still good to know how to do this.</p><p id="84814a3d-8afd-4a4d-a12a-0206da76539e" class="">Just like we have <code>addEventListener()</code>, we can use the <code>removeEventListener()</code> method. It takes in the event type and the same callback function that you used on the <code>addEventListener()</code>.</p><p id="1c5dbfdd-935d-443f-84bf-98211aa6144f" class="">What I&#x27;m going to do is create a timer using the <code>setTimeout()</code> method. This will be used to remove the event listener after a few seconds. I know we have not talked about <code>setTimeout()</code> yet. Later on we will learn more about this method.</p><pre id="95fca7e4-4906-4783-902a-90c6b03e2734" class="code code-wrap"><code>setTimeout(() =&gt; {
+  clearBtn.removeEventListener(&#x27;click&#x27;, onClear);
+}, 5000);
+</code></pre><p id="ea33947c-9aa3-4f3f-8024-7ab9902bc402" class="">So now, the event listener is removed after 5 seconds and the button will stop logging when it is clicked.</p><h2 id="1c3473b9-2bd9-45e3-8eb9-78cd92827a37" class=""><strong>Triggering Events in JavaScript</strong></h2><p id="065f77af-c476-4e4c-8865-1084b75a7a3f" class="">There may be times when you want to call an event from JavaScript without having the user do any kind of interaction. You can easily do this by running the event manually.</p><p id="a0b33516-2d60-4a2e-b0d4-6eebc529f87d" class="">I&#x27;m going to do another <code>setTimeout()</code>, because I want the clear button to click after 5 seconds when the page loads. You should comment out the other <code>setTimeout()</code> if you&#x27;re following along.</p><pre id="d91ecdd6-8a42-48f3-84dd-7c39ea21d4ee" class="code code-wrap"><code>setTimeout(() =&gt; {
+  clearBtn.click();
+}, 5000);
+</code></pre><p id="7f7c694c-cb07-4368-b95e-5814270b17cb" class="">After 5 seconds, the click event fires. We could also use other event types like <code>submit()</code> and <code>mouseover()</code>. We will talk about other event types soon.</p><h2 id="9e74fafc-fc7e-4ea0-b62a-131d970df874" class=""><strong>Clearing The Items</strong></h2><p id="8dddbfc0-42f1-4000-b69a-09afde8a13c1" class="">Let&#x27;s add some code to clear all of the items from the list. I&#x27;ll give you 3 different ways to make that happen.</p><pre id="16b02cfa-42bc-4a6a-9d9a-12cac2930de9" class="code code-wrap"><code>function onClear() {
+  const itemList = document.querySelector(&#x27;ul&#x27;);
+  const items = itemList.querySelectorAll(&#x27;li&#x27;);
+
+  // Using innerHTML
+  itemList.innerHTML = &#x27;&#x27;;
+
+  // Using forEach() and remove()
+  items.forEach((item) =&gt; item.remove());
+
+  // Using a while loop and firstChild
+  while (itemList.firstChild) {
+    itemList.removeChild(itemList.firstChild);
+  }
+}</code></pre></details></li></ul><ul id="66cecdce-3d7a-4e21-b395-3184b38466bc" class="toggle"><li><details open=""><summary><strong>Mouse Events</strong></summary><p id="d2304480-d42c-41b6-9d3a-a566b2ea37dd" class="">You now know how to listen for an event, but we have only looked at the <code>click</code> event. There are many more. Everything from mouse events to events that are part of APIs like the web animation API or websockets. In this video, I want to specifically look at mouse events.</p><table id="c88e41f4-ecf8-4678-9a77-ac677558b1ea" class="simple-table"><tbody><tr id="47c10bba-60ea-4941-a4d0-e8ab3cf396f5"><td id="VOdJ" class=""><strong>Event</strong></td><td id="^c}@" class=""><strong>Description</strong></td></tr><tr id="4fed2c1f-fdca-4f9c-b110-8a209fed889a"><td id="VOdJ" class="">click</td><td id="^c}@" class="">Click left mouse button</td></tr><tr id="ffba54e2-8137-4026-81eb-58649ad831ce"><td id="VOdJ" class="">dblclick</td><td id="^c}@" class="">Double click left mouse button</td></tr><tr id="161f9a68-adfd-48cc-b7bd-3feacb07b4c6"><td id="VOdJ" class="">contextmenu</td><td id="^c}@" class="">Click right mouse button</td></tr><tr id="cc2c3826-a442-4850-908a-286e5572bcb4"><td id="VOdJ" class="">mousedown</td><td id="^c}@" class="">Click down left mouse button</td></tr><tr id="43557482-63e0-458b-adce-cf30ca9d6c05"><td id="VOdJ" class="">mouseup</td><td id="^c}@" class="">Release left mouse button</td></tr><tr id="aec6ae72-6b95-4ae7-88cf-f7883fdc6c2a"><td id="VOdJ" class="">wheel</td><td id="^c}@" class="">Scroll Wheel button</td></tr><tr id="cc0cb425-567b-411f-81ad-7ad1ded7dc58"><td id="VOdJ" class="">mouseover</td><td id="^c}@" class="">Hover over element</td></tr><tr id="3e237a10-f6e8-4416-a358-2923f93106b2"><td id="VOdJ" class="">mouseout</td><td id="^c}@" class="">Leave hovering element</td></tr><tr id="3a89b931-caca-4e38-aeff-9eb1f95ff599"><td id="VOdJ" class="">dragstart</td><td id="^c}@" class="">Click and start to drag element</td></tr><tr id="96891fab-8bf3-4a89-ab4f-f90f3982d728"><td id="VOdJ" class="">drag</td><td id="^c}@" class="">Drag element around screen</td></tr><tr id="f9008b4c-9e0b-4c04-a375-cc17f96419b0"><td id="VOdJ" class="">dragend</td><td id="^c}@" class="">Stop dragging</td></tr></tbody></table><p id="51f2a33c-2ad4-4fae-89c0-ece3f6e8e92d" class="">We can test these events with the following code:</p><pre id="0d658ac7-fb3f-4bd6-833b-bcd0b8314ce3" class="code code-wrap"><code>const logo = document.querySelector(&#x27;img&#x27;);
+
+const onClick = () =&gt; console.log(&#x27;click event&#x27;);
+const onDoubleClick = () =&gt; console.log(&#x27;double click event&#x27;);
+const onRightClick = () =&gt; console.log(&#x27;right click event&#x27;);
+const onMouseDown = () =&gt; console.log(&#x27;mouse down event&#x27;);
+const onMouseUp = () =&gt; console.log(&#x27;mouse up event&#x27;);
+const onMouseWheel = () =&gt; console.log(&#x27;mouse wheel event&#x27;);
+const onMouseOver = () =&gt; console.log(&#x27;mouse over event&#x27;);
+const onMouseOut = () =&gt; console.log(&#x27;mouse out event&#x27;);
+const onDragStart = () =&gt; console.log(&#x27;drag start event&#x27;);
+const onDrag = () =&gt; console.log(&#x27;drag event&#x27;);
+const onDragEnd = () =&gt; console.log(&#x27;drag end event&#x27;);
+
+// Button
+logo.addEventListener(&#x27;click&#x27;, onClick);
+logo.addEventListener(&#x27;dblclick&#x27;, onDoubleClick);
+logo.addEventListener(&#x27;contextmenu&#x27;, onRightClick);
+logo.addEventListener(&#x27;mousedown&#x27;, onMouseDown);
+logo.addEventListener(&#x27;mouseup&#x27;, onMouseUp);
+logo.addEventListener(&#x27;wheel&#x27;, onWheel);
+// Hover
+logo.addEventListener(&#x27;mouseover&#x27;, onMouseOver);
+logo.addEventListener(&#x27;mouseout&#x27;, onMouseOut);
+// Drag
+logo.addEventListener(&#x27;dragstart&#x27;, onDragStart);
+logo.addEventListener(&#x27;drag&#x27;, onDrag);
+logo.addEventListener(&#x27;dragend&#x27;, onDragEnd);</code></pre></details></li></ul><ul id="22de6e67-0f0d-4e08-8dbb-21352a5cedea" class="toggle"><li><details open=""><summary><strong>The Event Object</strong></summary><p id="654c3d7d-52e9-4919-9a35-5fbcaf262ef5" class="">We will look at some other types of events in the next video, but before we do that, I want to talk about the <code>Event</code> object. When we run an event handler (The function that runs when the event is triggered), There is an object that is passed in to it that gives us a bunch of information about the element that is attached to that event.</p><p id="9255d535-ed47-46f7-8eb0-c1c3a75ff855" class="">Let&#x27;s log the <code>Event</code> object to the console:</p><pre id="1fa07d32-a3e6-4f53-b7c0-b3fd696b2968" class="code code-wrap"><code>logo.addEventListener(&#x27;click&#x27;, function (e) {
+  console.log(e);
+});
+</code></pre><p id="69fc26b6-bb76-438a-b5ac-4bf41a2cd923" class="">You can also use a named function:</p><pre id="8701dff4-7ce1-4e49-9f01-eb6d5aad3a81" class="code code-wrap"><code>function onClick(e) {
+  console.log(e);
+}
+
+logo.addEventListener(&#x27;click&#x27;, onClick);
+</code></pre><p id="d508055a-af46-49f4-ad6b-234b5dab2910" class="">It is important to know that the properties on the event object can vary depending on the event and the element. Let&#x27;s look at some of the properties that are available on the event object:</p><ul id="619a9470-2f07-4416-892f-0165fa7ea1f9" class="bulleted-list"><li style="list-style-type:disc"><code>target</code> - The element that triggered the event</li></ul><ul id="d5c17e81-e99b-4890-bf5e-98a91725f3fe" class="bulleted-list"><li style="list-style-type:disc"><code>currentTarget</code> - The element that the event listener is attached to (These are the same in this case</li></ul><ul id="82a71808-3dca-4de8-a13f-c5980e0534fe" class="bulleted-list"><li style="list-style-type:disc"><code>type</code> - The type of event that was triggered</li></ul><ul id="b3969b00-3e72-41c8-881c-b910fe062d40" class="bulleted-list"><li style="list-style-type:disc"><code>timeStamp</code> - The time that the event was triggered</li></ul><ul id="2dfb8789-f074-4cd5-8d8c-28bb03293c5c" class="bulleted-list"><li style="list-style-type:disc"><code>clientX</code> - The x position of the mouse click relative to the window</li></ul><ul id="ae391b97-8816-4d11-8264-955d5b3b52ed" class="bulleted-list"><li style="list-style-type:disc"><code>clientY</code> - The y position of the mouse click relative to the window</li></ul><ul id="2b2690bd-53db-413b-98eb-5d00ed9c1187" class="bulleted-list"><li style="list-style-type:disc"><code>offsetX</code> - The x position of the mouse click relative to the element</li></ul><ul id="1778cd21-29ea-445f-b9fd-5630698ef198" class="bulleted-list"><li style="list-style-type:disc"><code>offsetY</code> - The y position of the mouse click relative to the element</li></ul><ul id="33a31c04-c740-4c56-ab72-cde7b58647e3" class="bulleted-list"><li style="list-style-type:disc"><code>pageX</code> - The x position of the mouse click relative to the page</li></ul><ul id="b011c632-690d-42ea-8e89-15c78338d7db" class="bulleted-list"><li style="list-style-type:disc"><code>pageY</code> - The y position of the mouse click relative to the page</li></ul><ul id="31f26eb3-4692-4dd0-91e6-dd5e7aa06f75" class="bulleted-list"><li style="list-style-type:disc"><code>screenX</code> - The x position of the mouse click relative to the screen</li></ul><ul id="24c01c0f-26fb-4c53-b026-41998e51d4f5" class="bulleted-list"><li style="list-style-type:disc"><code>screenY</code> - The y position of the mouse click relative to the screen</li></ul><p id="f7822206-8fb5-41f6-99af-33d2a4b4560e" class="">Try logging some of the properties to the console to see what they are.</p><pre id="b32f5c32-f0ae-45b3-93e5-27787ca2052c" class="code code-wrap"><code>logo.addEventListener(&#x27;click&#x27;, function (e) {
+  console.log(e.target);
+  console.log(e.currentTarget);
+  console.log(e.type);
+  console.log(e.timeStamp);
+  console.log(e.clientX, e.clientY);
+  console.log(e.offsetX, e.offsetY);
+  console.log(e.pageX, e.pageY);
+  console.log(e.screenX, e.screenY);
+}
+</code></pre><h2 id="8a3fb2c8-53ec-4e16-a07d-2ab548496eea" class=""><code><strong>target</strong></code><strong> vs </strong><code><strong>currentTarget</strong></code></h2><p id="0d5d3604-c3df-49e8-8eaf-667fedbaa608" class="">Sometimes the element that you click on is different than the element that the event is attached to. In the case of the logo, it&#x27;s the same because there is nothing else nested in that logo/image. If we add an event listener to the body, the body is the <code>currentTarget</code>, but whatever we click on, such as one of the <code>li</code> elements is the <code>target</code>. Try it out.</p><pre id="fa285c91-d7ac-40f7-b2b7-73ea4ef16953" class="code code-wrap"><code>document.body.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+  console.log(e.target);
+  console.log(e.currentTarget);
+});
+</code></pre><h2 id="0ee97324-601f-40bb-b1e4-aa1774df4c34" class=""><code><strong>e.preventDefault()</strong></code></h2><p id="533445e7-8332-4cfc-a739-4dc92f295b17" class="">Sometimes we want to prevent the default behavior of an event. For example, if we click on a link, we want to prevent the browser from following the link or we click a form submit button, we want to prevent the form from submitting to an actual file.</p><p id="e06b9d04-a854-4221-abce-71a5b1f8f550" class="">Let&#x27;s add a link around the logo that points to Google:</p><pre id="ae02888e-e796-41d3-b063-e43f5ef0a4e9" class="code code-wrap"><code>&lt;a href=&quot;https://google.com&quot;&gt;&lt;img src=&quot;images/note.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;</code></pre><p id="afda7ae8-2aba-4215-91aa-2945d49b2bd4" class="">Right now, it will send us to Google. If we add an event listener to the link, we can prevent the browser from following the link:</p><pre id="74e55cbf-8cc6-421a-bfda-aebaa640dd59" class="code code-wrap"><code>document.querySelector(&#x27;header a&#x27;).addEventListener(&#x27;click&#x27;, function (e) {
+  e.preventDefault();
+  console.log(&#x27;Link was clicked.&#x27;);
+});
+</code></pre><h2 id="82085bfc-ec32-4149-b04a-75f45a9a1876" class=""><strong>Dynamic Values</strong></h2><p id="3b7350e0-e031-4dd8-89dd-44410ce80f7b" class="">Sometimes the values will change as an event fires off. Let&#x27;s add a drag event to the logo and output the X and Y position from the <code>h1</code>.</p><pre id="1976fef3-2554-455c-9ad9-d28fa035d107" class="code code-wrap"><code>function onDrag(e) {
+  document.querySelector(&#x27;h1&#x27;).textContent = `X ${e.clientX} Y ${e.clientY}`;
+}
+
+logo.addEventListener(&#x27;drag&#x27;, onDrag);
+</code></pre><p id="bc882d31-09a6-479b-810f-98dac5225a0b" class="">I would encourage you to play around with this stuff. Even if it is ridiculous UI behavior, you can learn a lot from it.</p></details></li></ul><ul id="3395b7f0-9009-46a9-86d0-22496a303488" class="toggle"><li><details open=""><summary><strong><strong>Keyboard Events</strong></strong></summary><p id="f864b03c-8278-43ce-8e0c-1c41ac50906b" class="">In this video, we&#x27;re going to look at events that have to do with keyboards. We usually use these on text input fields.</p><p id="2bacdb8e-ddff-4370-8275-fb4324983b8c" class="">In the next video, we will look at form and input events, but right now I just want to focus on the actual keyboard button events and getting the buttons that are pressed.</p><h2 id="ffb4d580-4571-48c6-9acb-177bd7e4cc7a" class=""><strong>Keyboard Events</strong></h2><p id="c5c1fc58-f4bb-4dcf-a406-4a76f95225b8" class="">There are 3 main keyboard events that we can listen for:</p><ul id="881913e5-4f90-454b-b2cd-d0da392a2a64" class="bulleted-list"><li style="list-style-type:disc"><code>keydown</code> event is fired when a key is pressed down.</li></ul><ul id="a08fc630-b928-4c76-be3f-f826fe0fe97c" class="bulleted-list"><li style="list-style-type:disc"><code>keyup</code> event is fired when a key is released.</li></ul><ul id="9219009d-2e69-4114-ae9a-c029129a58b4" class="bulleted-list"><li style="list-style-type:disc"><code>keypress</code> event is fired when a key is pressed and released. It does not fire for the left arrow key, home, or end keys. It also fires repeatedly while you hold down the key on the keyboard.</li></ul><p id="cbb7ee94-c7ea-44d1-a987-b58cdae05cd8" class="">The <code>keydown</code> event is usually what I use over the other 2 because it fires for every key and as soon as a key is pressed.</p><p id="3ad4df65-c62e-46ce-9aac-63e74cdd0417" class="">Let&#x27;s try these out on our input form. We can also get the exact key that was pressed from the <code>Event</code> object that we looked at in the previous video.</p><pre id="c03247d3-2150-499e-9a3e-4aac32f65bda" class="code code-wrap"><code>const itemInput = document.getElementById(&#x27;item-input&#x27;);
+
+function onKeyDown(e) {
+  console.log(&#x27;keydown:&#x27;, e.key);
+}
+
+function onKeyUp(e) {
+  console.log(&#x27;keyup:&#x27;, e.key);
+}
+
+function onKeyPress(e) {
+  console.log(&#x27;keypress:&#x27;, e.key);
+}
+
+itemInput.addEventListener(&#x27;keydown&#x27;, onKeyDown);
+itemInput.addEventListener(&#x27;keyup&#x27;, onKeyUp);
+itemInput.addEventListener(&#x27;keypress&#x27;, onKeyPress);
+</code></pre><p id="2e60869b-471f-4ab4-88da-c02c0af7358c" class="">Notice that if we hold the key down, the <code>keydown</code> and <code>keypress</code> event will fire repeatedly.</p><p id="26318a90-4dc3-4925-909b-1c75e59dd81d" class="">Also notice that the <code>keypress</code> event does not fire for the left arrow key, home, or end keys.</p><h3 id="d811c164-1b79-4fa9-b3cd-b9ba648c8289" class=""><strong>Getting The Pressed Key</strong></h3><p id="3b297080-9bac-4c1c-b7a1-23a06ac67aa1" class="">As I showed you above, using the <code>key</code> property on the <code>Event</code> object, we can get the key that was pressed. This is useful if for instance, you wanted to do something when typing in an input that is not in a form to submit. You could just check for the <code>enter</code> key.</p><pre id="1e282fc4-9e05-4527-9d48-aaa574e8ce8f" class="code code-wrap"><code>function onKeyDown(e) {
+  if (e.key === &#x27;Enter&#x27;) {
+    alert(&#x27;Enter was pressed.&#x27;);
+  }
+}
+</code></pre><h3 id="8572ea07-e091-4229-958b-8a0cb01e080d" class=""><strong>Key Codes</strong></h3><p id="9f367c26-a6a6-4128-88cc-c4283230570a" class="">The <code>key</code> property is not supported in some older browsers. There are a couple other ways to get keys though.</p><h3 id="dd85bd6a-4e42-47b3-9ba5-5f41046fe1a1" class=""><code><strong>keyCode</strong></code><strong> is the numeric value of the key.</strong></h3><p id="7d89ab42-fe45-4f5f-8bac-eaaaf0690761" class="">Every key on the keyboard has a key code. The key code is a number that represents the key. There is a list of key codes <a href="https://www.toptal.com/developers/keycode/table-of-all-keycodes">here</a></p><p id="2e13ab8a-2d1b-4499-b02e-14c4173bdd25" class="">The <code>enter</code> key has a key code of <code>13</code>. So if we wanted to check for it, we could also check the key code:</p><pre id="5c1b9422-3eaa-42c5-8bb5-204010a528a4" class="code code-wrap"><code>function onKeyDown(e) {
+  if (e.keyCode === 13) {
+    alert(&#x27;Enter was pressed.&#x27;);
+  }
+}
+</code></pre><h3 id="74a238d7-4836-4f23-aadb-88adb15fdf2f" class=""><code><strong>code</strong></code><strong> is the name of the key.</strong></h3><pre id="240ef10c-2154-4f73-93dd-569ef8b547ed" class="code code-wrap"><code>if (e.code === &#x27;Digit1&#x27;) {
+  alert(&#x27;Number 1 key was pressed.&#x27;);
+}
+</code></pre><h2 id="db99e5fa-58ab-4ab9-af19-7744e93cb79d" class=""><code><strong>repeat</strong></code><strong> Property</strong></h2><p id="fdfbff60-6cad-44be-a098-e769bcfb1028" class="">We can also check to see if the key is being held down using the <code>repeat</code> property.</p><pre id="b291dc4e-7c6d-4ee9-baee-8d6596b8c81c" class="code code-wrap"><code>function onKeyDown(e) {
+  console.log(&#x27;Repeat: &#x27; + e.repeat);
+}
+</code></pre><p id="226526fb-7371-4e71-a440-9b060ef3959f" class="">If you just tap a key, you wil get false, but if you hold the key down, you will get true.</p><h2 id="c00b1f78-14b9-4dc7-8957-e585846f7a7e" class=""><code><strong>shiftKey</strong></code><strong>, </strong><code><strong>ctrlkey</strong></code><strong> &amp; </strong><code><strong>altkey</strong></code><strong> Property</strong></h2><p id="a22ef20e-1005-4924-b8f9-936a5dd44c99" class="">These properties will be either true or false if you hold down the shift, ctrl, or alt keys.</p><pre id="816963bc-6cbd-4642-bbeb-d36585dfb74b" class="code code-wrap"><code>function onKeyDown(e) {
+  console.log(&#x27;Shift: &#x27; + e.shiftKey);
+  console.log(&#x27;Ctrl: &#x27; + e.ctrlKey);
+  console.log(&#x27;Alt: &#x27; + e.altKey);
+
+  if (e.shiftKey &amp;&amp; e.key === &#x27;K&#x27;) {
+    alert(&#x27;Shift + K was pressed.&#x27;);
+  }
+}</code></pre></details></li></ul><ul id="ce3a727b-603d-444c-b2e0-229494782a5b" class="toggle"><li><details open=""><summary><strong>Keycode Mini-project</strong></summary><p id="8061fac5-2a1e-47c8-955d-29562be56c0d" class="">In the last video, we learned how to get the key that was pressed using the <code>key</code>, <code>keyCode</code>, and <code>code</code> properties. In this mini-project, we will create a simple keyboard event listener that will display all 3 of these properties on the screen. I think you&#x27;ll be surprised how easy this will be.</p><h2 id="d36807c8-9e87-4be0-8fb7-b1675f4ad6bc" class=""><strong>The HTML</strong></h2><p id="97396b32-07f4-4713-a0de-784aecd9d4ad" class="">The HTML is really simple:</p><pre id="3dbb8702-83f5-4e4b-8399-6f41e90c1949" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;&lt;title&gt;Event KeyCodes&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div id=&quot;insert&quot;&gt;&lt;div class=&quot;key&quot;&gt;
+        Press any key to get the keyCode
+      &lt;/div&gt;&lt;/div&gt;&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><p id="92542c39-0f92-4b86-9e6d-e55368a38825" class="">We have a wrapper div with an id of <code>insert</code>. This is where we will display the information.</p><h2 id="622edbf0-c0af-4ffe-9743-63039655e72f" class=""><strong>The CSS</strong></h2><p id="1527f16a-4877-452c-ba2e-74bdd2836c7f" class="">Here is some basic styling. We have a class of <code>key</code> that is styled like a card or a box. We will wrap each output in a <code>div</code> with the class of <code>key</code>.</p><pre id="ec69a053-85af-461e-b226-2de96f475f61" class="code code-wrap"><code>@import url(&#x27;https://fonts.googleapis.com/css?family=Muli&amp;display=swap&#x27;);* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e1e1e1;
+  font-family: &#x27;Muli&#x27;, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.key {
+  border: 1px solid #999;
+  background-color: #eee;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  flex-direction: column;
+  margin: 10px;
+  min-width: 150px;
+  position: relative;
+}
+
+.key small {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  color: #555;
+  font-size: 14px;
+}
+</code></pre><h2 id="65b80309-b090-4c35-8c3f-7ce9c4090868" class=""><strong>The JavaScript</strong></h2><pre id="df972fa6-38d9-4aac-8a29-7385fba84e06" class="code code-wrap"><code>const insert = document.getElementById(&#x27;insert&#x27;);
+
+window.addEventListener(&#x27;keydown&#x27;, (e) =&gt; {
+  insert.innerHTML = `
+  &lt;div class=&quot;key&quot;&gt;
+  ${e.key === &#x27; &#x27; ? &#x27;Space&#x27; : e.key}
+  &lt;small&gt;e.key&lt;/small&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;key&quot;&gt;
+  ${e.keyCode}
+  &lt;small&gt;e.keyCode&lt;/small&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;key&quot;&gt;
+  ${e.code}
+  &lt;small&gt;event.code&lt;/small&gt;
+&lt;/div&gt;
+  `;
+});
+</code></pre><p id="01b83226-0df4-4c95-a02f-427849677a78" class="">As you can see, it&#x27;s very simple. We add an event listener to the window and insert some HTML into the <code>insert</code> div. The HTML includes 3 <code>div</code>s with the class of <code>key</code>. Each <code>div</code> has a <code>small</code> that displays the 3 properties.</p></details></li></ul><ul id="823857b0-67a7-48d4-81c0-d76d6ab8d7ac" class="toggle"><li><details open=""><summary><strong>Input Events</strong></summary><p id="385b8b17-3bf9-43e6-9289-21bba221887a" class="">Now let&#x27;s look at the events that are fired when the user interacts with inputs. These are events we want to happen right when the user interacts with the input, not on a form submission. We will look at submitting forms in the next video.</p><h2 id="b8045ee5-c2a4-4509-9605-36b27c2cd928" class=""><strong>Getting Input Values</strong></h2><p id="ab096e7a-0ee8-47ae-8c2f-3cc3d2fcd184" class="">In the last video, we saw how to use keyboard events and get the specific keys that were pressed, but usually you want to get the entire input value. Every form input has a <code>value</code> property associated with it. We can use the keyboard events and get the value of a text input using the <code>e.target.value</code> property.</p><pre id="3c96ff1d-c7e2-45ec-8af4-9350e53b8ee9" class="code code-wrap"><code>const itemInput = document.getElementById(&#x27;item-input&#x27;);
+
+function onKeyDown(e) {
+  console.log(e.target.value);
+}
+
+itemInput.addEventListener(&#x27;keydown&#x27;, onKeyDown);
+</code></pre><p id="3c07924f-806a-412b-b44f-ae77eca92085" class="">If you wanted to bind what you are typing to an element like the <code>h1</code>, we could do something like this:</p><pre id="0c79a1f4-34fb-4520-b08e-98dca4490b36" class="code code-wrap"><code>function onKeyDown(e) {
+  const h1 = document.querySelector(&#x27;h1&#x27;);
+  h1.innerText = e.target.value;
+}
+</code></pre><h2 id="68f9bea6-d522-4477-85ce-c01dead75307" class=""><code><strong>input</strong></code><strong> event</strong></h2><p id="c117dd0a-fca4-4fd2-afb0-24a400a75201" class="">The problem with using the <code>keydown</code> event is that it only fires when a key is pressed. Some form inputs do not require you to press a key. For instance, if you have a select list and you want to fire something off as soon as you select an option, you can use the <code>input</code> event. You can also use it with text inputs. So I would suggest using the <code>input</code> event over <code>keydown</code>.</p><p id="09657209-96d1-495f-96f0-75f787a25912" class="">We can achieve the same result of outputing the text into the <code>h1</code> element by using the <code>input</code> event.</p><pre id="9ced55b8-a59f-45bb-945b-161b4ef8ebd5" class="code code-wrap"><code>const itemInput = document.getElementById(&#x27;item-input&#x27;);
+
+function onInput(e) {
+  const h1 = document.querySelector(&#x27;h1&#x27;);
+  h1.innerText = e.target.value;
+}
+
+itemInput.addEventListener(&#x27;input&#x27;, onInput);
+</code></pre><p id="019f2b48-53b0-41df-b859-a1dd5a52d1ad" class="">Let&#x27;s try this with a select box. We don&#x27;t have one in our UI, so we will have to create one. I will a select box for priority it into our form, but you do not necessarily need to have your inputs within a form if you are not submitting the form.</p><pre id="858e45ca-20de-4b07-8c09-ae4dd85ef60c" class="code code-wrap"><code>&lt;select id=&quot;priority-input&quot; name=&quot;priority&quot; class=&quot;form-input&quot;&gt;&lt;option value=&quot;0&quot;&gt;Select Priority&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;/select&gt;</code></pre><p id="a182baaf-3973-4743-b89d-9d3a122996e0" class="">Now we should be able to select the select box and output the value to the <code>h1</code> element.</p><pre id="6a1d581c-6927-4a75-ba07-e19a86f75873" class="code code-wrap"><code>const priorityInput = document.getElementById(&#x27;priority-input&#x27;);
+
+function onInput(e) {
+  const h1 = document.querySelector(&#x27;h1&#x27;);
+  h1.innerText = e.target.value;
+}
+
+priorityInput.addEventListener(&#x27;input&#x27;, onInput);
+</code></pre><h2 id="8ddcd3c2-7dbf-41c2-b240-e4718d952c56" class=""><code><strong>change</strong></code><strong> event</strong></h2><p id="4f571d0a-f445-4a42-b8c2-b9380fdca16a" class="">The <code>change</code> event is fired when the value of an input changes. You could use the <code>change</code> event here and it will do the same exact thing.</p><pre id="e2080f70-99e3-401e-afe1-d1a87351f03a" class="code code-wrap"><code>function onInput(e) {
+  const h1 = document.querySelector(&#x27;h1&#x27;);
+  h1.innerText = e.target.value;
+}
+
+priorityInput.addEventListener(&#x27;change&#x27;, onInput);
+</code></pre><p id="bd023f44-08b9-4b8a-9b4b-eec9edd65b62" class="">There are some limitations to the <code>change</code> event. I personally would use the <code>input</code> event instead in most cases.</p><h2 id="55b2078c-7f0a-4241-881e-7097a64a0b6c" class=""><strong>Checkbox Inputs</strong></h2><p id="68ecd946-a48c-4e21-a940-1e19572567bf" class="">Checkbox inputs are a bit different. You can use the <code>input</code> or the <code>change</code> event, however, if you want to get the value of the checkbox, you should use the <code>e.target.checked</code> property. This will show true if the checkbox is checked and false if it is not.</p><pre id="01b06836-518f-4703-8722-4515a8b0e86a" class="code code-wrap"><code>&lt;input type=&quot;checkbox&quot; id=&quot;checkbox&quot; /&gt;</code></pre><pre id="853929e9-d957-4e2c-ad13-34e0b875d47b" class="code code-wrap"><code>const checkbox = document.getElementById(&#x27;checkbox&#x27;);
+
+function onCheck(e) {
+  console.log(e.target.checked);
+  const h1 = document.querySelector(&#x27;h1&#x27;);
+  h1.innerText = checkbox.checked ? &#x27;Checked&#x27; : &#x27;Unchecked&#x27;;
+}
+
+checkbox.addEventListener(&#x27;input&#x27;, onCheck);
+</code></pre><h2 id="d8d18780-b599-452a-9e3f-0f75de0586c4" class=""><code><strong>focus</strong></code><strong> &amp; </strong><code><strong>blur</strong></code><strong> Events</strong></h2><p id="7817447a-469c-4f29-a827-ac4fda1cfcd9" class="">Text inputs have a <code>focus</code> event and a <code>blur</code> event. <code>focus</code>is fired when we click in the input to make it active and <code>blur</code> is fired when we click away from the input. This is useful for adding borders, etc.</p><p id="0310b50c-c87f-4714-85c1-ffb3ddd1b379" class="">Let&#x27;s make the item input have a green border when we click in it and make it disappear when we click away.</p><pre id="d6ea4e91-0761-4144-92f8-740de0cbb857" class="code code-wrap"><code>function onFocus(e) {
+  itemInput.style.outlineStyle = &#x27;solid&#x27;;
+  itemInput.style.outlineWidth = &#x27;1px&#x27;;
+  itemInput.style.outlineColor = &#x27;green&#x27;;
+}
+
+function onBlur(e) {
+  itemInput.style.outlineStyle = &#x27;none&#x27;;
+}
+
+itemInput.addEventListener(&#x27;focus&#x27;, onFocus);
+itemInput.addEventListener(&#x27;blur&#x27;, onBlur);</code></pre></details></li></ul><ul id="4e2f1829-49dd-4fb5-bf72-feb283587bab" class="toggle"><li><details open=""><summary><strong>Form Submission</strong></summary><p id="a189e194-5269-4a94-b36f-63a3b0e27b3d" class="">In the last video we looked at events on specific input fields. Now I want to look at form submission,which includes the <code>submit</code> event.</p><h2 id="b84236f1-ad47-445b-817f-b790f8a46a2c" class=""><strong>No Action</strong></h2><p id="a6d62470-6f0b-48e8-b2b4-faaacceaa5a0" class="">If you have any experience with server-side programming with a language such as PHP, then you know that you usually submit a form to a specific page using the <code>action</code> attribute. It may look something like this:</p><pre id="2c4424d3-c770-4fc9-aa6c-6820d48b45d9" class="code code-wrap"><code>&lt;form action=&quot;/form-handler.php&quot; method=&quot;post&quot;&gt;&lt;/form&gt;</code></pre><p id="7ffba133-3241-4eb2-af35-99ffb074ef03" class="">When we are dealing with a form submission using front-end JavaScript, we don&#x27;t have to worry about the <code>action</code> attribute. We actually want to prevent that type of submission, so that we can handle everything within JavaScript.</p><p id="2a19b698-bbbc-4c08-93ad-f2c78d82e1ee" class="">If you do need to submit the form to a backend or an API (to submit to a database, etc), you would do that from your JavaScript code by using the <code>fetch</code> API, which I will talk about in another section. So essentially, we are intercepting the form submission and preventing it.</p><h2 id="b2681b1c-3a7f-46ec-a30d-d7830d896469" class=""><code><strong>submit</strong></code><strong> Event</strong></h2><p id="221e7cd3-fb39-4855-a95b-3b5364724fcb" class="">Let&#x27;s add some JavaScript to select the form and listen for a submit:</p><pre id="5c3234a6-741b-47cf-bf23-5d2d04ce95e8" class="code code-wrap"><code>const form = document.getElementById(&#x27;item-form&#x27;);
+
+function onSubmit() {
+  console.log(&#x27;Form submitted&#x27;);
+}
+
+form.addEventListener(&#x27;submit&#x27;, onSubmit);
+</code></pre><p id="f45d195b-5aad-4b27-9cb9-c760cbd9a68a" class="">If you submit the form, you will see the message in the console, but it will just flash for a second and then disappear. This is because the form submission is being handled by the browser using the <code>action</code> attribute by default. If there is no <code>action</code> attribute, then the browser will submit the form to the current page.</p><p id="aec0db61-cc38-4362-9388-3223d2fef9ca" class="">What we want to do is prevent the default behavior and if you remember, we already used the <code>preventDefault</code> method to do that in a past video. Let&#x27;s do it here.</p><pre id="436d1b2b-3fdd-4e6d-8293-4b76babd75bd" class="code code-wrap"><code>function onSubmit(e) {
+  e.preventDefault(); // Add this line
+
+  console.log(&#x27;Form submitted&#x27;);
+}
+</code></pre><p id="8e2d78f6-3308-4ba0-bd82-57f4f9b1f2b0" class="">Now if you submit, you should see the message in the console, but it will not flash, it should stay there.</p><h2 id="dc7d1864-35a6-477a-bb32-b0eca41eda61" class=""><strong>Getting Form Data</strong></h2><p id="07833bc8-ba97-4de6-8d83-c2a4a4d3887c" class="">There are a couple ways to get your form data. All form inputs have a <code>value</code> property that you can get.</p><p id="03615e86-918b-4faf-98a0-50653e4ddd89" class="">Since our form only has a single text input, let&#x27;s add a priority select input just for this video. Place this in the form:</p><pre id="31f50263-a121-47c9-acc0-7d1c246ed8cf" class="code code-wrap"><code>&lt;select id=&quot;priority-input&quot; name=&quot;priority&quot; class=&quot;form-input&quot;&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;/select&gt;</code></pre><p id="d2851494-92ee-4924-9077-cf24ac11e428" class="">We can get both input values by selecting the element and using the <code>value</code> property.</p><pre id="22012a25-18f9-4f70-bc08-a56bd135ccc4" class="code code-wrap"><code>function onSubmit(e) {
+  e.preventDefault();
+
+  const item = document.getElementById(&#x27;item-input&#x27;).value;
+  const priority = document.getElementById(&#x27;priority-input&#x27;).value;
+
+  console.log(item, priority);
+}
+</code></pre><p id="b7755fbc-c7ca-4b21-ae08-149a3c431bb2" class="">Whatever we type in the item input will now be in the <code>item</code> variable and whatever we select as a priority will be in the <code>priority</code> variable. So we could use that to do some validation, submit it to some kind of API, etc.</p><p id="87d73dce-d956-4d94-8e9f-4bc61d4b0446" class="">Let&#x27;s add a little validation. We don&#x27;t want to be able to submit an empty item. We also don&#x27;t want to submit an item with a priority of 0.</p><pre id="ac804088-58d4-43b9-8b95-d15fb54c6039" class="code code-wrap"><code>function onSubmit(e) {
+  e.preventDefault();
+  const item = document.getElementById(&#x27;item-input&#x27;).value;
+  const priority = document.getElementById(&#x27;priority-input&#x27;).value;
+
+  if (item === &#x27;&#x27; || priority === &#x27;0&#x27;) {
+    alert(&#x27;Please fill in all fields&#x27;);
+    return;
+  }
+
+  console.log(&#x27;Adding Item...&#x27;);
+}
+</code></pre><p id="58663760-10a4-4cca-b98b-9a404965080e" class="">If the validation does not pass, we show an alert box and return from the function. So nothing else happens. If it does pass, it will go on to the console log.</p><h2 id="b8da325e-c3b2-42a3-9717-b24518612b94" class=""><code><strong>FormData</strong></code><strong> Object</strong></h2><p id="5c29568c-1d0e-42aa-8f2e-718c4f5f64e0" class="">The <code>FormData</code> object is a special type of object that is used to collect form data. This is a bit more difficult than the previous method.</p><p id="eecb57eb-41ab-4d7c-91ca-d6aff4d444f9" class="">Let&#x27;s create another function called <code>onSubmit2</code> and call that on form submission. Then create the new <code>FormData</code> object and log it.</p><pre id="1c17f6dd-55a0-43b5-976e-d821ccfab3a6" class="code code-wrap"><code>function onSubmit2(e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  console.log(formData);
+}
+
+form.addEventListener(&#x27;submit&#x27;, onSubmit2);
+</code></pre><figure id="b9d5c067-3d1d-43a9-83b2-c3ccca0768f4" class="image"><a href="07-events-docs%20f9dbe30d093f4c11963a56bc9394e453/Untitled.png"><img style="width:332px" src="07-events-docs%20f9dbe30d093f4c11963a56bc9394e453/Untitled.png"/></a></figure><p id="c34ac3cb-3232-4f24-8f8a-7af419a6eff6" class="">As you can see, there are a bunch of methods in the prototype. We can use the <code>get</code> method to get the value of a specific input.</p><pre id="edee0803-1213-42a4-82ca-bf69d0f7b45a" class="code code-wrap"><code>function onSubmit2(e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const item = formData.get(&#x27;item&#x27;);
+  const priority = formData.get(&#x27;priority&#x27;);
+
+  console.log(item, priority);
+}
+</code></pre><p id="5da64ed9-899b-4325-8b4f-8e66413fb8e1" class="">We can get all of the form data by using the <code>entries</code> method. This will return an array of arrays, where each array is a pair of values. We can see them by using a <code>for of</code> loop.</p><pre id="1bbf1ffb-132e-417d-8ab1-71bb141ae99e" class="code code-wrap"><code>function onSubmit2(e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const entries = formData.entries();
+
+  for (let entry of entries) {
+    console.log(entry);
+  }
+}
+</code></pre><p id="25e4bed1-2656-44be-b230-a8f098aff925" class="">There is a lot more we can do with the <code>FormData</code> object, but it is beyond the scope of what we are doing. I just figured I would throw it in here because it is another way to get your form values.</p><p id="df7234d8-2d52-4a02-8328-7fb367c183ab" class="">Before we move on to making our shopping list actually work, there are a few more things we need to talk about that have to do with events. In the next video, we&#x27;ll talk about event bubbling and event delegation.</p></details></li></ul><ul id="ba1eb083-7fdb-482b-b847-17b827fcd761" class="toggle"><li><details open=""><summary><strong>Event Bubbling</strong></summary><p id="28415b95-8394-436f-ac50-c127ddc93d32" class="">In this video, we&#x27;re going to talk about something that is pretty important when it comes to handling events and that&#x27;s event bubbling.</p><p id="625d1127-e62f-402b-9769-f9b1cd8c1156" class="">When we add an event listener to an element, that event moves up the DOM tree and if it finds a parent element that has a listener for that event, it will fire it.</p><figure id="ba0ebe72-8a6e-4f8d-8310-c1e2fa6f8ca5" class="image"><a href="07-events-docs%20f9dbe30d093f4c11963a56bc9394e453/Untitled%201.png"><img style="width:364px" src="07-events-docs%20f9dbe30d093f4c11963a56bc9394e453/Untitled%201.png"/></a></figure><p id="c061b14a-1eeb-484b-a124-0f2f6f7be747" class="">So even if we click on the button, the event will bubble up all the way up the document.</p><p id="829a1709-52e9-436b-927d-1eda0d0256ec" class="">Let me show you exactly what I mean instead of trying to explain it.</p><p id="c1612477-bbd3-48a2-92f4-e7c3326127c0" class="">Let&#x27;s use our shopping list example and in the JavaScript, let&#x27;s select the add item button in the form and add an event listener to it.</p><pre id="b56c12ec-557e-44d2-95a5-a9f5b66fb660" class="code code-wrap"><code>const button = document.querySelector(&#x27;form button&#x27;);
+
+button.addEventListener(&#x27;click&#x27;, () =&gt; {
+  alert(&#x27;Button was clicked.&#x27;);
+});
+</code></pre><p id="dfd04474-fc86-49c0-be44-cf864ba95519" class="">So we click on the button and we get an alert. No big deal. Now, let&#x27;s bring in it&#x27;s parent <code>div</code> and add an click event listener to it.</p><pre id="48df8f62-f1a2-4a62-a2f4-a6bd9cbf7763" class="code code-wrap"><code>```JavaScript
+const div = document.querySelector(&#x27;form div:nth-child(2)&#x27;);
+
+div.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+  alert(&#x27;Div was clicked.&#x27;);
+});
+</code></pre><p id="f3fc34e4-62b4-4c5a-a271-fce5d9586e71" class="">Now click to the right of the button and you should see <strong>Div was clicked.</strong> as to be expected.</p><p id="3694b90c-7846-4ff8-b12f-400f4cd652f7" class="">Now click on the button. You&#x27;ll get the initial button alert, but then you&#x27;ll get the div alert. This is because the event is bubbling up the DOM tree.</p><p id="a488aa13-5a0c-4d2e-9429-98084279b06a" class="">Now let&#x27;s add a click event on to the parent form.</p><pre id="d40886db-1add-4694-a7c9-a0a464127bd9" class="code code-wrap"><code>const form = document.querySelector(&#x27;form&#x27;);
+
+form.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+  alert(&#x27;Form was clicked.&#x27;);
+});
+
+</code></pre><p id="ed676d0d-5c3b-406e-8b32-7034ebef1a4c" class="">Now click on the button. You&#x27;ll get the initial button alert, then the form alert, then the div alert.</p><p id="58645729-7e9c-4fb8-b0b9-15327dabbb3d" class="">Finally, let&#x27;s ass a click event on to the document body.</p><pre id="95f95a13-c30b-46c2-ad1a-0f22936fcdf3" class="code code-wrap"><code>document.body.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+  alert(&#x27;Body was clicked.&#x27;);
+});
+</code></pre><p id="c2f06af3-4391-4fb5-a115-282c6680d50c" class="">There will be times where you&#x27;ll need to understand this to be able to achieve certain results.</p><p id="87b03f86-d7ce-4318-ac7c-1d460ffdabb8" class="">Now there may be cases where you&#x27;ll want to stop the event from bubbling up the DOM tree. What if you have a legit click event on the <code>button</code> and also on the <code>div</code>, but you don&#x27;t want the <code>div</code> to fire the event?</p><p id="13c24883-f69c-4548-913b-d1647b176a57" class="">That&#x27;s where <code>stopPropagation()</code> comes in. This is a method on the <code>Event</code> object that you can call on an event to stop it from bubbling up the DOM tree.</p><p id="5feb95c8-b27a-4c09-b7bb-f090c2a7501e" class="">Let&#x27;s add it to our <code>button</code> event handler.</p><pre id="d24b5480-34b7-4302-8a0a-58801d30c1a9" class="code code-wrap"><code>button.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+  alert(&#x27;Button was clicked.&#x27;);
+  e.stopPropagation();
+});
+</code></pre><p id="d9dab4c2-5661-468f-aacd-890a31064bcb" class="">Now if you click on the button, it will not fire off the <code>div</code> event or any others above it. You can still click on the <code>div</code> and it will fire off. It will also bubble up from there because we didn&#x27;t call <code>stopPropagation()</code>.</p><p id="a05bc481-943e-4176-bb91-8ec00ac45551" class="">You should only call <code>stopPropagation()</code> if you have a reason for it. For instance if we actually had a parent and child with the same event listener.</p><p id="5b2dcca4-344e-432f-9488-4a336964b108" class="">There is also a method called <code>stopImmediatePropagation()</code>. This is used if you have multiple handlers on a single event and you want to stop the event for all of them.</p><p id="de24d8dc-1572-4e58-96ea-c65770682cbd" class="">Now that you know how bubbling works, in the next video, we&#x27;ll talk about event delegation.</p></details></li></ul><ul id="c0e6d1b2-0f07-4a1d-8f3d-63d13907d641" class="toggle"><li><details open=""><summary><strong>Event Delegation</strong></summary><p id="94134869-19dc-429c-a1b3-f15cad0af00f" class="">Now that you understand how event bubbling works, you&#x27;ll be able to learn how to use a powerful event handling pattern called event delegation.</p><h2 id="efb93ef1-8dde-4b4e-a7a9-3745933c21d7" class=""><strong>Dealing With Multiple Elements</strong></h2><p id="94e81f0f-6735-4f2f-bf9c-42678d173462" class="">Where this comes in handy is when we want to have an event handler for multiple elements. Our shopping list is a great example of this. We have a bunch of list items (<code>li</code> elements) and we&#x27;re going to want to be able to click on the x icon to delete a specific item. How would we do this when we have a bunch of the same elements and the number of items is dynamic?</p><p id="d90927b7-e935-41aa-88b9-a6d623b91c30" class="">There&#x27;s actually a couple ways we can do this. One way is to grab the items with <code>document.querySelectorAll()</code> and then add an event listener to each one. Let&#x27;s try that.</p><p id="e2d18f8b-b05f-4c37-a283-83c3708c29e0" class="">I&#x27;m not going to target the x icon for this example, we&#x27;ll just make it so that we can click anywhere on the list item and it will get removed. When we do the project, we&#x27;ll target the x icon.</p><pre id="1195c19e-a117-4c50-b6ea-467705e4c243" class="code code-wrap"><code>const listItems = document.querySelectorAll(&#x27;li&#x27;);
+
+listItems.forEach((item) =&gt; {
+  item.addEventListener(&#x27;click&#x27;, function (e) {
+    e.target.remove();
+  });
+});
+</code></pre><p id="d3fd2b95-cf01-4510-8974-eb556167f31c" class="">This does work. We click on an item and it gets removed. However, we&#x27;re adding an event listener on every single item. This is inefficient. Especially when we have a large number of items.</p><h2 id="d38e8bc4-d93b-4bc2-8db0-1341c14aca4c" class=""><strong>Using Event Delegation</strong></h2><p id="34d29953-7f4c-49f2-a691-7406d921772f" class="">Instead of adding an event listener on every single item, we can use event delegation. We know that events bubble up, so we can use event delegation to listen for events on the parent element and then target the actual element that was clicked on.</p><p id="2c58b1d3-f118-4b85-b1d7-65cadbb2b37f" class="">Let&#x27;s grab the list itself (<code>ul</code>) and add an event listener to it. Then we can just check to see if the target of the event is a <code>li</code> element and if it is, we can remove it.</p><pre id="077668e8-d221-423c-b2cb-7482777af030" class="code code-wrap"><code>const list = document.querySelector(&#x27;ul&#x27;);
+
+list.addEventListener(&#x27;click&#x27;, function (e) {
+  if (e.target.tagName === &#x27;LI&#x27;) {
+    e.target.remove();
+  }
+});
+</code></pre><p id="a848b10a-2671-4592-8d08-b59a816a7d50" class="">Now we are not creating multiple event listeners. We&#x27;re just adding one event listener to the list.</p><p id="2d879ae1-16e4-42dc-9c74-e88282d42bc5" class="">Of course you are not bound to checking the tagName. You could check for a class, etc. You also are not bound to removing the item. You can do anything you want, Let&#x27;s say that I want to change the item to be the color red when I hover over it.</p><pre id="89f4cb0b-bafc-4861-841b-b830b9b60da4" class="code code-wrap"><code>list.addEventListener(&#x27;mouseover&#x27;, function (e) {
+  if (e.target.tagName === &#x27;LI&#x27;) {
+    e.target.style.color = &#x27;red&#x27;;
+  }
+});
+</code></pre><p id="dc5ccee2-969d-4d77-8a4e-d463c03cdd95" class="">That <code>e.target</code> is always going to be the element that the event was fired on.</p></details></li></ul><ul id="e291b34e-f51c-4115-bcea-90022e74d9fa" class="toggle"><li><details open=""><summary><strong>Window Events &amp; Page Loading</strong></summary><p id="d8263790-aa29-4cee-9cfc-cfc60d983b3a" class="">The global <code>window</code> object has a number of events that are fired when the window is interacted with. We&#x27;re just going to use a simple html page with an <code>h1</code> and some <code>p</code> tags.</p><h2 id="48671a03-ee4a-4b27-807a-3978d3d29bb0" class=""><strong>Page Load Events</strong></h2><p id="9b930cc8-4c74-483f-883a-6d6d586893f0" class="">Back in the day, we used to put <code>&lt;script&gt;</code> tags in the head of a webpage. Now, it is suggested that we put it right before the ending <code>&lt;/body&gt;</code> tag, unless we use <code>defer</code>, which I will talk about in a minute.</p><p id="97286d2e-8b1c-4e2a-9560-5653b31df961" class="">Putting the JavaScript in the head of the page will run the script before the page is done loading. Therefore, if you try and access the DOM or any page element, you&#x27;ll get an era. Let&#x27;s try to run the script for this section in the head and add the following JavaScript</p><pre id="aca0d955-b6c0-4d54-9e72-35f52c693b96" class="code code-wrap"><code>document.querySelector(&#x27;h1&#x27;).innerHTML = &#x27;Hello&#x27;;
+
+// Uncaught TypeError: Cannot set properties of null (setting &#x27;innerHTML&#x27;)
+</code></pre><p id="38392274-d305-4902-9b8a-0c217492a854" class="">It will not work because the H1 is not there yet. What we could do and what we used to do all the time, which was sort of a hack, was use the <code>load</code> event to make sure the page was loaded first.</p><h2 id="e24aad59-7a56-4da4-8005-4ed474a30652" class=""><strong>load Event</strong></h2><p id="d3eaad24-fabb-4a5f-a798-07d82dc1e5ca" class="">The <code>load</code> event is fired when the page and all of it&#x27;s resources are finished loading.</p><pre id="e08cfec6-078a-4825-9d5d-02d973b6a2b8" class="code code-wrap"><code>window.addEventListener(&#x27;load&#x27;, () =&gt; {
+  document.querySelector(&#x27;h1&#x27;).innerHTML = &#x27;Hello&#x27;;
+});
+</code></pre><p id="22a7074d-ca97-47aa-81ba-7a1b33feafaf" class="">Now, it works because we waited until the page was loaded.</p><p id="e3263c73-e203-4145-9bfc-b3007d097d3a" class="">You could also use <code>window.onload</code>, which does the same thing. This code was very common back in the 2000s</p><pre id="ff1164a7-c0ce-4a60-9703-4885e9406203" class="code code-wrap"><code>window.onload = function() {
+  document.querySelector(&#x27;h1&#x27;).innerHTML = &#x27;Hello&#x27;;
+}
+</code></pre><h2 id="1d3e3233-b4c3-40f1-b471-7edc3c68ecd4" class=""><code><strong>DOMContentLoaded</strong></code><strong> Event</strong></h2><p id="959a8b57-0834-41e6-9f3e-a779ff0878be" class="">The <code>DOMContentLoaded</code> event is fired when the DOM is parsed and loaded. Unlike the <code>load</code> event, it does not wait for things like images to load. If you want to make sure the DOM is loaded before you run your code, you should use this event.</p><pre id="68cf946b-0edd-4e10-8f8b-dbf36bc3fbe4" class="code code-wrap"><code>window.addEventListener(&#x27;DOMContentLoaded&#x27;, () =&gt; {
+  document.querySelector(&#x27;h1&#x27;).innerHTML = &#x27;Hello&#x27;;
+});
+</code></pre><p id="4f235a17-ed3a-41d7-a332-ed93f6317805" class="">If we run both blocks of code and then put a global console log under it.</p><pre id="369ab417-a733-4c06-8db9-e8685c17b972" class="code code-wrap"><code>console.log(&#x27;Run me!&#x27;);
+</code></pre><p id="f85e9df9-41e0-4fb6-aa6b-416c379294ec" class="">You will see that the code in the global space with not event will run first, because it did not wait for anything. Next the code in the <code>DOMContentLoaded</code> event will run, because it waited for the DOM to be loaded. And finally, the code in the <code>load</code> event will run, because it waited for the page to be fully loaded.</p><h2 id="e4c4b9f4-c895-41f2-9a0c-c9e0fd1eca73" class=""><code><strong>defer</strong></code><strong> attribute</strong></h2><p id="b87ec8ff-0dd6-41fb-9a65-225b831e9598" class="">A very modern way of doing things is putting the script tags in the head, but using the fairly new <code>defer</code> attribute. This will defer the JavaScript from loading until the DOM is ready. This is fine to do. I still prefer putting my scripts at the bottom, but if you want to use <code>defer</code> and put them in the head, that&#x27;s fine as well.</p><p id="8cb9cccd-d77d-4bd1-8e22-9d608bebe715" class="">Now let&#x27;s look at a couple other <code>window</code> events</p><h2 id="522c5376-c4f5-4ce7-9485-4540ff36b9f7" class=""><code><strong>resize</strong></code><strong> Event</strong></h2><p id="f8fe81ad-f083-461d-b5f5-dcef7c18c7c2" class="">The <code>resize</code> event is fired when the window is resized. We can get the size of the window using the <code>innerWidth</code> and <code>innerHeight</code> properties.</p><p id="28c77ac2-607c-4455-b587-bb11998875e9" class="">Let&#x27;s display the resized values in the <code>h1</code> tag.</p><pre id="51d19466-9201-485c-a51b-d60bba2f20df" class="code code-wrap"><code>window.addEventListener(&#x27;resize&#x27;, () =&gt; {
+  document.querySelector(
+    &#x27;h1&#x27;
+  ).textContent = `Resized: ${window.innerWidth} x ${window.innerHeight}`;
+});
+</code></pre><h2 id="137cf668-06e7-413c-aea7-35d75494eaf0" class=""><code><strong>scroll</strong></code><strong> Event</strong></h2><p id="412a06bd-b219-48ad-b603-a58e19ed17eb" class="">The <code>scroll</code> event is fired when the window is scrolled. We can get the scroll position using the <code>scrollX</code> and <code>scrollY</code> properties.</p><pre id="a65ff08b-e340-477e-a556-e3407d3aec47" class="code code-wrap"><code>window.addEventListener(&#x27;scroll&#x27;, () =&gt; {
+  console.log(`Scrolled: ${window.scrollX} x ${window.scrollY}`);
+
+  if (window.scrollY &gt; 70) {
+    document.body.style.backgroundColor = &#x27;black&#x27;;
+    document.body.style.color = &#x27;white&#x27;;
+  } else {
+    document.body.style.backgroundColor = &#x27;white&#x27;;
+    document.body.style.color = &#x27;black&#x27;;
+  }
+});
+</code></pre><p id="1cc91ce3-712b-44eb-82e1-d840f49f4e95" class="">There are others as well. You can visit the MDN documentation for more information on <code>window</code> events, properties and methods.</p><p id="fdb8faed-ed06-4881-b9ad-ae3a12f1c4fb" class="">You can even use <code>focus</code> and <code>blur</code> events. The following will turn all the paragraph text blue when you click in the window and back to black when you click outside of it.</p><pre id="93d07031-2f34-44fa-bf58-2cd5e1adc390" class="code code-wrap"><code>window.addEventListener(&#x27;focus&#x27;, () =&gt; {
+  document.querySelectorAll(&#x27;p&#x27;).forEach((p) =&gt; {
+    p.style.color = &#x27;blue&#x27;;
+  });
+});
+
+window.addEventListener(&#x27;blur&#x27;, () =&gt; {
+  document.querySelectorAll(&#x27;p&#x27;).forEach((p) =&gt; {
+    p.style.color = &#x27;black&#x27;;
+  });
+});
+</code></pre><p id="67b5a84f-80df-4c1b-b756-6655d1929f42" class="">You now know a lot of different event types, you know how to select elements as well as add, remove and replace them, change their styles. With what we have learned so far, there are a lot of cool little things you can build.</p><p id="ede8b05a-606c-4116-b3d1-da3768617838" class="">In the next section, we are going to create our shopping list functionality.</p></details></li></ul></div></article></body></html>

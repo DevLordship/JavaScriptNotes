@@ -1,0 +1,856 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>09-loan-calculator-project-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0944debd-f97e-4d57-9fd2-a3d51afa1b0f" class="page sans"><header><h1 class="page-title">09-loan-calculator-project-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="693b4ed3-9cd7-4d4d-a50a-2f2f246d9208" class="toggle"><li><details open=""><summary><strong>Loan Calculator Project Intro</strong></summary><p id="1b7b77c7-0224-49d2-a21e-d411e0c04c52" class="">This is another project that I created to get a better understanding of the DOM and how to manipulate it. This project is a loan calculator that will calculate the monthly payment, total payment, and total interest based on the loan amount, interest rate, and the number of years to pay off the loan.</p><figure id="d70ae876-293a-40fa-a90d-6b60c10ff67f" class="image"><a href="09-loan-calculator-project-docs%200944debdf97e4d579fd2a3d51afa1b0f/Untitled.png"><img style="width:542px" src="09-loan-calculator-project-docs%200944debdf97e4d579fd2a3d51afa1b0f/Untitled.png"/></a></figure><h2 id="38252837-32f5-4349-993b-5f5cca88a84b" class=""><strong>Project Specifications</strong></h2><ul id="30661269-bfe8-49de-9764-b596660be3ab" class="bulleted-list"><li style="list-style-type:disc">Build the UI using Tailwind CSS</li></ul><ul id="64162b41-a5a7-4c98-94c5-0ac653cfe34f" class="bulleted-list"><li style="list-style-type:disc">Create a form to take in the loan amount, interest rate, and number of years to pay off the loan</li></ul><ul id="f836d021-9265-48b3-9219-9fcf4af75ba5" class="bulleted-list"><li style="list-style-type:disc">Calculate the monthly payment, total payment, and total interest</li></ul><ul id="0c21c4e0-383d-40a8-b085-fc39cbf24234" class="bulleted-list"><li style="list-style-type:disc">Show a spinner for 1 second and then display the results</li></ul><ul id="76bf2d9d-b3bf-4cd2-ad1c-39aeeaa5f674" class="bulleted-list"><li style="list-style-type:disc">Show a custom error alert box if there is an error</li></ul><h2 id="bfb1c1b1-f1ec-4b7d-a6ea-a382ff023249" class=""><strong>Creating The UI</strong></h2><p id="879e229e-23f1-4ada-83d5-a6f926c897fb" class="">We will start from scratch and create the UI using the Tailwind CSS framework. We won&#x27;t have to write any custom CSS because Tailwind has very low-level classes for just about any style that you can think of. You can skip the HTML/CSS part if you want and just focus on the JavaScript.</p><h2 id="a3863c81-9f12-4cbe-af24-b236acaaea76" class=""><strong>The Calculation</strong></h2><p id="f6c3da86-1223-44b4-9d41-fbe06c8680c9" class="">You do not have to understand the math behind the calculation. I do not fully understand it myself. I just did some research to get the formula that we needed. Here are some links that I mention in the video that you can check out if you want to learn more about the math behind the calculation.</p><ul id="04ff585c-9eec-4f76-8ffa-095b0d98f65d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.kasasa.com/blog/how-to-calculate-loan-payments-in-3-easy-steps">Kasasa Website Article</a></li></ul><ul id="2b5e67d1-3594-4596-b66e-95012dfabf25" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.thecalculatorsite.com/articles/finance/loan-calculator-formula.php">Loan Calculator Formula</a></li></ul><ul id="2c3e27b6-0a8b-4a96-843f-65270f10ddc5" class="bulleted-list"><li style="list-style-type:disc"><a href="https://gist.github.com/letrongtanbs/d29354da30f12784bc8453af4e4fb6ff">Java GitHub Example</a></li></ul></details></li></ul><ul id="9bbbe8d4-e281-497b-9166-21fb4918b82a" class="toggle"><li><details open=""><summary><strong>Tailwind UI</strong></summary><p id="8d3de130-256f-4acd-9c7e-cdbac82a706f" class="">It&#x27;s completely up to you if you want to follow along and type out the HTML and Tailwind classes for this project. If you do not, just copy the HTML below.</p><p id="fd3157f1-49b0-45fb-bed5-64082631a4ea" class="">It is pretty simple. We are using the <code>Poppins</code> font. I added a custom Tailwind object in the head to initialize the font.</p><p id="6837b4ca-eae9-46ea-8d88-696601698902" class="">We set the <code>error</code>, <code>spinner</code> and <code>results</code> classes to <code>hidden</code> by default. We will show them when needed.</p><pre id="79b02f6c-0804-4c11-b335-244cbbef30d1" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot; /&gt;&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin /&gt;&lt;link
+      href=&quot;https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&amp;display=swap&quot;rel=&quot;stylesheet&quot;/&gt;&lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;&lt;script src=&quot;js/script.js&quot; defer&gt;&lt;/script&gt;&lt;script&gt;
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [&#x27;poppins&#x27;, &#x27;sans-serif&#x27;],
+            },
+          },
+        },
+      };
+    &lt;/script&gt;&lt;title&gt;Loan Calculator&lt;/title&gt;&lt;/head&gt;&lt;body class=&quot;bg-blue-100 px-5 relative h-full overflow-hidden&quot;&gt;&lt;!-- Alert Box --&gt;
+    &lt;div
+      id=&quot;error&quot;class=&quot;absolute bottom-10 left-1/2 bg-red-600 text-white p-5 rounded-xl shadow-xl border-2 border-white text-center text-2xl transform -translate-x-1/2 translate-y-[-1000px] transition&quot;&gt;
+      This is an error
+    &lt;/div&gt;&lt;div class=&quot;max-w-3xl m-auto mt-20 bg-white rounded-xl shadow-xl&quot;&gt;&lt;header class=&quot;bg-slate-500 py-10 rounded-t-xl&quot;&gt;&lt;h1 class=&quot;text-3xl text-center text-white&quot;&gt;Loan Calculator&lt;/h1&gt;&lt;/header&gt;&lt;main class=&quot;p-10&quot;&gt;&lt;form id=&quot;loan-form&quot;&gt;&lt;div class=&quot;my-4&quot;&gt;&lt;label
+              for=&quot;loan-amount&quot;class=&quot;inline-block mb-2 text-xl text-gray-500&quot;&gt;Loan Amount $&lt;/label
+            &gt;&lt;input
+              type=&quot;number&quot;id=&quot;loan-amount&quot;class=&quot;border-2 rounded-lg p-2 w-full focus:outline-line focus:ring-2 focus:ring-blue-200 focus:border-transparent&quot;placeholder=&quot;5000&quot;/&gt;&lt;/div&gt;&lt;div class=&quot;my-4&quot;&gt;&lt;label
+              for=&quot;loan-interest&quot;class=&quot;inline-block mb-2 text-xl text-gray-500&quot;&gt;Loan Interest %&lt;/label
+            &gt;&lt;input
+              type=&quot;number&quot;id=&quot;loan-interest&quot;class=&quot;border-2 rounded-lg p-2 w-full focus:outline-line focus:ring-2 focus:ring-blue-200 focus:border-transparent&quot;placeholder=&quot;3&quot;/&gt;&lt;/div&gt;&lt;div class=&quot;my-4&quot;&gt;&lt;label
+              for=&quot;loan-years&quot;class=&quot;inline-block mb-2 text-xl text-gray-500&quot;&gt;Years To Pay&lt;/label
+            &gt;&lt;input
+              type=&quot;number&quot;id=&quot;loan-years&quot;class=&quot;border-2 rounded-lg p-2 w-full focus:outline-line focus:ring-2 focus:ring-blue-200 focus:border-transparent&quot;placeholder=&quot;2&quot;/&gt;&lt;/div&gt;&lt;div class=&quot;my-7&quot;&gt;&lt;button
+              class=&quot;bg-slate-500 text-white px-4 py-3 w-full rounded-lg hover:bg-slate-600&quot;&gt;
+              Calculate
+            &lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;section&gt;&lt;img
+            src=&quot;images/loading.gif&quot;alt=&quot;&quot;id=&quot;spinner&quot;class=&quot;hidden m-auto&quot;/&gt;&lt;div id=&quot;loan-results&quot; class=&quot;hidden&quot;&gt;&lt;h2 class=&quot;text-2xl text-center text-gray-500 mb-4&quot;&gt;Results&lt;/h2&gt;&lt;div class=&quot;flex justify-between mb-4 bg-gray-100 p-3 rounded-lg&quot;&gt;&lt;span&gt;Monthy Payment&lt;/span&gt;&lt;span id=&quot;monthly-result&quot;&gt;$5000&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;flex justify-between mb-4 bg-gray-100 p-3 rounded-lg&quot;&gt;&lt;span&gt;Total Payment&lt;/span&gt;&lt;span id=&quot;payment-result&quot;&gt;$500000&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;flex justify-between mb-4 bg-gray-100 p-3 rounded-lg&quot;&gt;&lt;span&gt;Total Interest&lt;/span&gt;&lt;span id=&quot;interest-result&quot;&gt;$2000&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;/main&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</code></pre></details></li></ul><ul id="38acf4d1-ae85-4fee-9dd2-b09b29ef0e36" class="toggle"><li><details open=""><summary><strong>Get Calculation Values</strong></summary><p id="c23d4613-bc8c-4be0-a70a-b26477b4af92" class="">In this lesson, we will bring in the DOM elements that we will be working with and getting the values that we need to do the loan calculation.</p><p id="26f0a1ed-2dfd-490b-9c57-a2e92e279998" class="">Let&#x27;s start off with selecting what we need from the DOM.</p><pre id="b65c1257-f15d-42b7-8406-32ac1cd9f8a5" class="code code-wrap"><code>const loanForm = document.getElementById(&#x27;loan-form&#x27;),
+  amountInput = document.getElementById(&#x27;loan-amount&#x27;),
+  interestInput = document.getElementById(&#x27;loan-interest&#x27;),
+  yearsInput = document.getElementById(&#x27;loan-years&#x27;),
+  loanResults = document.getElementById(&#x27;loan-results&#x27;),
+  monthlyResult = document.getElementById(&#x27;monthly-result&#x27;),
+  paymentResult = document.getElementById(&#x27;payment-result&#x27;),
+  interestResult = document.getElementById(&#x27;interest-result&#x27;),
+  errMsg = document.getElementById(&#x27;error&#x27;);
+</code></pre><p id="1cea3dbf-19a8-4f99-9ca9-38531ae34c71" class="">Let&#x27;s add an event listener on to the form and call a function and validate the input.</p><pre id="b2af5a67-f34f-41e5-bf41-6388b9878145" class="code code-wrap"><code>loanForm.addEventListener(&#x27;submit&#x27;, onLoanFormSubmit);
+</code></pre><pre id="842118ac-776e-4e47-ba41-d6c43f30fecd" class="code code-wrap"><code>function onLoanFormSubmit(e) {
+  e.preventDefault();
+
+  // Validate input
+  if (
+    amountInput.value === &#x27;&#x27; ||
+    interestInput.value === &#x27;&#x27; ||
+    yearsInput.value === &#x27;&#x27;
+  ) {
+    alert(&#x27;Please fill in all fields!&#x27;);
+    return;
+  }
+}
+</code></pre><p id="71de69ec-13ce-408e-8f30-8ce83a52ea20" class="">Now let&#x27;s get the three values that we need to make our calculation. That is the principal, monthly interest and the number of payments (months)</p><pre id="98a034b6-1f77-4c58-b3a0-735a9f902256" class="code code-wrap"><code>function onLoanFormSubmit(e) {
+  e.preventDefault();
+
+  // Validate input
+  if (
+    amountInput.value === &#x27;&#x27; ||
+    interestInput.value === &#x27;&#x27; ||
+    yearsInput.value === &#x27;&#x27;
+  ) {
+    alert(&#x27;Please fill in all fields!&#x27;);
+    return;
+  }
+
+  const principal = parseFloat(amountInput.value);
+  const monthlyInterest = parseFloat(interestInput.value) / 100 / 12;
+  const numberOfPayments = parseFloat(yearsInput.value) * 12;
+
+  console.log(principal, monthlyInterest, numberOfPayments);
+}
+</code></pre><p id="b9a20699-9b84-4e5b-8e31-aad3d576f402" class="">In the next lesson, we will make the calculation.</p></details></li></ul><ul id="1e3e6df8-a0bf-486c-aa15-266dd6cfba73" class="toggle"><li><details open=""><summary><strong>Calculate Results</strong></summary><p id="238fb18e-eaaa-4c7a-80ac-3f6fc867462d" class="">In this lesson, we will take the principal, monthly interest and number of payments and calculate the monthly payment and total interest.</p><p id="6a23a3d0-b043-4580-851f-0f31023246d6" class="">Let&#x27;s create the function that will calculate the results.</p><pre id="883b29ab-91ca-4411-afe2-8030f4594c65" class="code code-wrap"><code>function calculateResults(principal, monthlyInterest, numberOfPayments) {
+  const x = Math.pow(1 + monthlyInterest, numberOfPayments);
+  // Get monthly payment
+  const monthly = ((principal * x * monthlyInterest) / (x - 1)).toFixed(2);
+  // Get total payment
+  const total = (monthly * numberOfPayments).toFixed(2);
+  // Get total interest
+  const interest = (monthly * numberOfPayments - principal).toFixed(2);
+
+  // console.log(monthly, total, interest);
+
+  if (isNaN(monthly)) {
+    alert(&#x27;Please check your numbers&#x27;);
+    return;
+  } else {
+    console.log(&#x27;Success&#x27;);
+  }
+}
+</code></pre><p id="bcd05f2f-7d47-4aa0-9ec7-b76b4a8d0573" class="">Make sure that you call the function in the <code>onLoanFormSubmit</code> function.</p><pre id="4b417787-dfc8-41e7-b31c-ff6eee42b1d6" class="code code-wrap"><code>function onLoanFormSubmit(e) {
+  //...
+
+  calculateResults(principal, monthlyInterest, numberOfPayments); // &lt;------ ADD THIS LINE
+}
+</code></pre><p id="e53d5d77-c08e-4781-808c-c041125a6b12" class="">Again, you don&#x27;t really need to understand the formula. You just need to know where to look to find what you need and then implement it so that you plug the correct values into it.</p><p id="67ccf846-ac2b-4de2-b13e-a15a68b758c3" class="">Here are 2 resources that helped me understand the formula:</p><ul id="27f68015-740a-4d12-9f65-9d94f0b5217c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.kasasa.com/blog/how-to-calculate-loan-payments-in-3-easy-steps">https://www.kasasa.com/blog/how-to-calculate-loan-payments-in-3-easy-steps</a></li></ul><ul id="500058bc-7d1c-413a-890f-ef088efe3af3" class="bulleted-list"><li style="list-style-type:disc"><a href="https://gist.github.com/letrongtanbs/d29354da30f12784bc8453af4e4fb6ff">https://gist.github.com/letrongtanbs/d29354da30f12784bc8453af4e4fb6ff</a></li></ul><p id="65a4c225-3fc0-4520-8ed9-55c2ed7cfc49" class="">After calculating the results, we need to display them on the page, we checked the <code>monthly</code> value and made sure it was a number. If it is, we are just console logging success. In the next lesson, we will show the spinner and the results on the page.</p></details></li></ul><ul id="ba1e02af-7de8-4512-8320-3fbc6c41b189" class="toggle"><li><details open=""><summary><strong>Display Spinner and Results</strong></summary><p id="9c03a07e-6251-4c13-b46b-5229ee48941c" class="">Now that we have the results, we need to display them on the page. Let&#x27;s create a function called <code>addResultsToDOM()</code>.</p><pre id="863d88d0-2885-417d-9169-71159e94625e" class="code code-wrap"><code>function addResultsToDOM(monthly, total, interest) {
+  monthlyResult.innerText = &#x27;$&#x27; + monthly;
+  paymentResult.innerText = &#x27;$&#x27; + total;
+  interestResult.innerText = &#x27;$&#x27; + interest;
+}
+</code></pre><p id="97279893-d119-497f-abc3-86071fb2b7d8" class="">Now, call the function in the <code>calculateResults()</code> function.</p><pre id="0e48ba52-58d3-483b-a765-334fea34b244" class="code code-wrap"><code>function calculateResults(principal, monthlyInterest, numberOfPayments) {
+  //...
+
+  if (isNaN(monthly)) {
+    alert(&#x27;Please check your numbers&#x27;);
+    return;
+  } else {
+    addResultsToDOM(monthly, total, interest);
+  }
+}
+</code></pre><p id="b0617dcb-a89c-4dfc-bb5b-6cae6d0d3e49" class="">This function will put the correct number results where they need to go, but the main <code>#results</code> element is still hidden because we have the Tailwind class of <code>hidden</code> on it. I want to show a spinner for 1 second and then display the results. So let&#x27;s create a function called <code>showSpinnerAndResults()</code>.</p><pre id="8a127622-2cc6-4238-a327-d01bb084dbf3" class="code code-wrap"><code>function showSpinnerAndResults(seconds) {
+  const spinner = document.getElementById(&#x27;spinner&#x27;);
+  spinner.style.display = &#x27;block&#x27;;
+
+  setTimeout(() =&gt; {
+    spinner.style.display = &#x27;none&#x27;;
+    loanResults.style.display = &#x27;block&#x27;;
+  }, seconds * 1000);
+}
+</code></pre><p id="bd8e8c2a-a140-458f-9883-4b52fef97e83" class="">Here, we are taking in the number of seconds to show the spinner and we are using the <code>setTimeout()</code> function to show the spinner for that amount of seconds and then hide it and show the results.</p><p id="c361b55b-3838-4234-89f9-8523aa96b306" class="">Now, let&#x27;s call this function in the <code>addResultsToDOM()</code> function. You could also call it in the <code>calculateResults()</code> function if you want.</p><pre id="43efd329-e681-4284-8316-c03977671b67" class="code code-wrap"><code>function addResultsToDOM(monthly, total, interest) {
+  //...
+
+  showSpinnerAndResults(1); // &lt;------ ADD THIS LINE
+}
+</code></pre><p id="0e67d691-ba05-436e-bed9-c49edc07d3f8" class="">At the moment, if we try and use the calculator again, it will still show the results from the previous calculation and the spinner. Let&#x27;s fix that by adding a <code>resetUI()</code> function.</p><pre id="ca382e98-725c-48d4-8659-30d5a6be1911" class="code code-wrap"><code>function resetUI() {
+  loanResults.style.display = &#x27;none&#x27;;
+  monthlyResult.innerText = &#x27;&#x27;;
+  paymentResult.innerText = &#x27;&#x27;;
+  interestResult.innerText = &#x27;&#x27;;
+}
+</code></pre><p id="17eb90c1-1294-4047-8647-601fd3a0a600" class="">We will call the <code>resetUI()</code> function in the event handler before we do anything</p><pre id="eb6b7daa-e9f3-4d41-9008-a023e402f409" class="code code-wrap"><code>function onLoanFormSubmit(e) {
+  e.preventDefault();
+
+  resetUI(); // &lt;------ ADD THIS LINE
+
+  //...
+}</code></pre></details></li></ul><ul id="f6ec3c2a-ef0e-47ee-a5f0-1946021dfc08" class="toggle"><li><details open=""><summary><strong>Error Alert Animation</strong></summary><p id="57e746cf-0f7b-4918-8035-5e58beac918d" class="">Now that we have everything working, I want to make the error handling a little nicer. Instead of using the standard <code>alert()</code> function, I want to use a Tailwind CSS animation and custom error box to show the error message. Let&#x27;s create a new function called <code>showError()</code>.</p><pre id="6e9c8eef-eea9-4d83-b59c-3a8edd07f251" class="code code-wrap"><code>function showError(msg) {
+  errMsg.style.transform = &#x27;translateY(-450px) translateX(-50%)&#x27;;
+  errMsg.innerText = msg;
+
+  setTimeout(() =&gt; {
+    errMsg.style.transform = &#x27;translateY(-1000px) translateX(-50%)&#x27;;
+  }, 3000);
+}
+</code></pre><p id="40187dfe-4afb-43ba-8385-3654430e25d4" class="">We had already created the error box using Tailwind. We just set the <code>transform</code> property to move the box up out of view. Now we are setting the <code>transform</code> property to move the box back into view and we are setting the <code>innerText</code> property to the error message. We are also using the <code>setTimeout()</code> function to move the box back out of view after 3 seconds.</p><p id="6a09f86e-2d45-4517-b314-511d471557eb" class="">We want to call this function in the event handler if the user forgets to pass in a value and also in the <code>calculateResults()</code> function if the user enters invalid numbers.</p><pre id="f788beac-a863-4cf9-81e9-eae11bbfb52b" class="code code-wrap"><code>function onLoanFormSubmit(e) {
+  e.preventDefault();
+
+  resetUI();
+
+  // Validate input
+  if (
+    amountInput.value === &#x27;&#x27; ||
+    interestInput.value === &#x27;&#x27; ||
+    yearsInput.value === &#x27;&#x27;
+  ) {
+    showError(&#x27;Please fill in all fields!&#x27;); // &lt;------ ADD THIS LINE
+    return;
+  }
+
+  const principal = parseFloat(amountInput.value);
+  const monthlyInterest = parseFloat(interestInput.value) / 100 / 12;
+  const numberOfPayments = parseFloat(yearsInput.value) * 12;
+
+  calculateResults(principal, monthlyInterest, numberOfPayments);
+}
+</code></pre><pre id="591aacb2-2512-4567-8720-0295c7457efd" class="code code-wrap"><code>function calculateResults(principal, monthlyInterest, numberOfPayments) {
+  const x = Math.pow(1 + monthlyInterest, numberOfPayments);
+  // Get monthly payment
+  const monthly = ((principal * x * monthlyInterest) / (x - 1)).toFixed(2);
+  // Get total payment
+  const total = (monthly * numberOfPayments).toFixed(2);
+  // Get total interest
+  const interest = (monthly * numberOfPayments - principal).toFixed(2);
+
+  // console.log(monthly, total, interest);
+
+  if (isNaN(monthly)) {
+    showError(&#x27;Please check your numbers&#x27;); // &lt;------ ADD THIS LINE
+    return;
+  } else {
+    addResultsToDOM(monthly, total, interest);
+  }
+}</code></pre></details></li></ul><ul id="e1413b02-2ba7-4068-95c6-6e93c18616e2" class="toggle"><li><details open=""><summary><strong>Vercel Deploy</strong></summary><p id="6b8f5a88-1c88-4a41-b77a-e73962696705" class="">Vercel is another incredible hosting service with a very generous free tier. It&#x27;s also very easy to deploy to Vercel. It is almost an identical process to what we did with Netlify in the last section. You simply select the GitHub repo.</p><h2 id="365a7456-2d78-477b-966a-206dd563c996" class=""><strong>Push to GitHub</strong></h2><p id="09210fec-4e34-4743-ab75-8862ccbc5bcd" class="">First, we need to push our project to GitHub. If you haven&#x27;t already, create a new repository on GitHub and push your project to it. We went over how to do this back in the Shopping List project.</p><h2 id="7a981031-fe28-44f8-a7ef-15959f81ab84" class=""><strong>Log In to Vercel</strong></h2><p id="4cdc7e9f-bbdf-42d2-85f6-09797b8d404f" class="">You can log in to Vercel using your GitHub account.</p><p id="ea4fae14-d3cd-4c28-83bd-ccc5e87bc737" class="">Once you log in, click &quot;Add new&quot; and select &quot;project&quot; from the dropdown.</p><p id="bb8977a1-98bb-407f-8260-eeac0bf78060" class="">Simply search for your repo on GitHub and select it.</p><figure id="209b502e-0546-47cd-8509-0761e2afeb57" class="image"><a href="09-loan-calculator-project-docs%200944debdf97e4d579fd2a3d51afa1b0f/Untitled%201.png"><img style="width:536px" src="09-loan-calculator-project-docs%200944debdf97e4d579fd2a3d51afa1b0f/Untitled%201.png"/></a></figure><p id="28c2cc88-c64c-4f54-b189-83b8028c077c" class="">After a few seconds, your project will be deployed and you will see the URL to access it.</p><p id="098a9cd0-50b3-4a19-b71e-7fd9df3f40da" class="">Just do a quick test to make sure everything is working.</p><p id="d66f7403-0992-4a17-9a1c-4e9be3a258fa" class="">You can continue to make changes to your project and push them to GitHub. Vercel will automatically deploy the changes.</p><p id="42c3144e-2df2-4406-9a29-ad7c3b5f24b5" class="">You also have the option to connect your project to a custom domain. You can do this by clicking on the &quot;Domains&quot; tab and then clicking &quot;Add Domain&quot;.</p></details></li></ul></div></article></body></html>

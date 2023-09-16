@@ -1,0 +1,1091 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>06-document-object-model-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="afab2430-690c-4efe-bd9c-634a45b521e5" class="page sans"><header><h1 class="page-title">06-document-object-model-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="18834f73-827e-403b-9ee7-7f7c51ba3083" class="toggle"><li><details open=""><summary><strong>Intro To The DOM</strong></summary><p id="b38a6558-2d76-4aac-ad12-10f22b55e069" class="">Alright, so now we get to get to the fun stuff, working in the actual browser body and not just in the console. I think one of the big mistakes people make is they jump into the browser too quickly without understanding the stuff that we have talked about so far. Now that you understand control flow, functions, array methods, etc, you will be able to do more within the browser.</p><h2 id="5acaea35-a819-43bf-862d-2fbbea211bd7" class=""><strong>The DOM</strong></h2><p id="c4744db9-af98-4e59-9442-51a7e2b717c0" class="">The DOM stands for <strong>Document Object Model</strong>, It is essentially a programming interface for web/HTML documents. We already know that we display the content on web pages using HTML tags with text and we style it using CSS. The DOM is the structure of the web page that we can interact with using JavaScript. It generally includes all of the HTML tags, attributes and the text between the tags called &quot;text nodes&quot;. The DOM is usually represented as a tree structure.</p><p id="a6bea061-7e26-4f6a-a4c8-a6e549538b06" class="">Let&#x27;s look at this very simple page structure:</p><figure id="d90c4deb-4e6c-4f3d-a954-73a0470f4918" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled.png"><img style="width:644px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled.png"/></a></figure><p id="573f47e4-8ac3-4d46-9216-0442a8fb75fa" class="">The DOM representation of this would look something like this:</p><figure id="80816e90-cb6f-486e-8cc3-b35877b73c81" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%201.png"><img style="width:649px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%201.png"/></a></figure><p id="8d2af9ee-ce63-4cad-bad8-dc714d34f78f" class="">I&#x27;ll talk about the <code>window</code> and <code>document</code> objects in a minute, but under that you&#x27;ll see the structure of this document in a tree structure.</p><p id="a7cd24d2-ecfe-4ee8-b8dd-1a69d14885a2" class="">We have the <code>html</code> element, which holds the <code>head</code> and <code>body</code> elements. The <code>head</code> element holds the title element, which has a text node inside of it. In this case that would be the text, &#x27;Website&#x27;. The <code>meta</code> element includes an attribute of <code>charset</code> which is set to <code>utf-8</code>. So any attributes are going to be accessible in the DOM as well. The <code>body</code> element holds the <code>h1</code> element, which has a text node inside of it with the text, &#x27;Hello World&#x27;. It also has an <code>id</code> attribute. Then we have the <code>p</code> element with a text node inside of it.</p><p id="2ebed6a1-2f4f-4310-9835-dd3d51e64f17" class="">So this is how your HTML document full of tags, attributes and text nodes looks in the DOM.</p><h2 id="b8c22a44-2d7e-4e87-aea7-c6a83b21ad25" class=""><strong>The Window Object</strong></h2><p id="78b587d1-179b-4374-83c5-76ae0c080932" class="">A few sections back, we talked about the global <code>window</code> object. The <code>window</code> object is the top level object in the browser. It is the root of the browser&#x27;s object hierarchy. It has properties and methods that are available to all of the JavaScript code in the browser. To see the window object&#x27;s API (methods and properties), you can type <code>window</code> in the console or in your code</p><pre id="42cb52ea-56a9-444f-a469-41f569ae5540" class="code code-wrap"><code>console.log(window);
+</code></pre><h1 id="96f78afb-1c8d-4a69-b0ea-6594f646443e" class=""><strong>The Document Object</strong></h1><p id="64e60749-d7a6-4bd3-854a-058623c4cdc1" class="">On that <code>window</code> object, we have a property/object called <code>document</code>. This is an object that represents the HTML document that we are currently viewing. It has all types of properties and methods that we can use to interact with the HTML document.</p><pre id="4e44de77-63d8-4674-a35f-e010fbf451cc" class="code code-wrap"><code>console.log(window.document);
+</code></pre><p id="7f7dfc36-357e-4f22-8194-135a7a32b673" class="">Since <code>window</code> is the top-level object in the browser, we do not need to prefix it with <strong>window</strong></p><pre id="ec7e8fc9-8fd4-459c-92ff-cd286b3129ff" class="code code-wrap"><code>console.log(document);
+</code></pre><p id="114045cc-084f-49fa-98a7-c003fe6976f2" class="">Sometimes console.log() will show the properties and methods, but sometimes it will show the element/tag itself. To see all the methods and properties, you can use <code>console.dir</code></p><pre id="8735ab5e-f1a8-4fd7-83d0-7e0a7a5e32bd" class="code code-wrap"><code>console.dir(document);
+</code></pre><h2 id="9059baf7-63dd-4a79-8d6a-3d78f6f6db82" class=""><strong>Document Properties/Elements</strong></h2><p id="f67517b5-75ad-46e8-a7f8-110ffdfa6b4c" class="">We can access DOM elements directly, such as the <code>body</code></p><pre id="ced7c321-f90f-432d-a39d-f5001b0546c9" class="code code-wrap"><code>console.log(document.body);
+</code></pre><p id="0bfa4659-c5d3-4764-915f-e958d4191b80" class="">We can also access elements such as links and images. Let&#x27;s add a link to the HTML</p><pre id="f8d63446-c45f-43ed-ad36-89e2d3a483ee" class="code code-wrap"><code>&lt;a href=&quot;https://traversymedia.com&quot;&gt;Traversy Media&lt;/a&gt;</code></pre><p id="b11101fd-c33f-4514-84ef-a7c8aab76fb2" class="">We can get all of the links with</p><pre id="a90a117b-4e47-4c51-b391-bbf632072479" class="code code-wrap"><code>console.log(document.links);
+</code></pre><p id="263a00d8-a74c-4e4f-8611-2711f36e63c2" class="">This returns something called an <code>HTMLCollection</code>, which is similar to an array. We can access by index</p><pre id="a9ac8d97-6bb2-4e93-b24b-41883047237f" class="code code-wrap"><code>console.log(document.links[0]);
+</code></pre><h2 id="7ef4058c-ce57-4966-8525-3563ff60cc78" class=""><strong>Document methods</strong></h2><p id="f23349f4-6023-42ab-a4fc-6a43e6c4adb6" class="">In addition to properties, the document object has a ton of methods. <code>document.write()</code> is a method that will write to the browser body. This is not used very much because you can&#x27;t really target where you want to output, but it is available</p><pre id="98188177-a200-49cd-a72d-72ffc590b0df" class="code code-wrap"><code>document.write(&#x27;Hello From JS&#x27;);
+</code></pre><h2 id="eb1e2353-220e-48d0-b460-d5e2d2281ede" class=""><strong>Document Selection Methods</strong></h2><p id="fb2599b9-8cb6-4c68-8cb0-902c88adda2e" class="">Getting elements using direct properties is not usually the way you want to do this. There are special methods available that allow us to directly select elements easily. I will be going over all of these in depth soon, but just to give you an example, let&#x27;s look at <code>document.getElementById()</code>, which does exactly that. It allows us to basically grab an element from the HTML document by it&#x27;s id. Then we could do whatever we want to that specific element including changing the style, removing it, adding an event listener to it and so on. The term <code>DOM manipulation</code> just refers to changing the DOM using JavaScript, which again can me adding, removing, changing elements, etc. A lot of the time we change the CSS through JavaScript to make something hide or show based on some user interaction.</p><p id="c0ddf67c-fe28-41b2-8cfe-5aa71b07ca09" class="">Just to give you a very simple example of selecting something from the DOM, let&#x27;s open an html page and create a new div element with the ID of <code>main</code> and just add some text to it.</p><pre id="0576c920-f69f-434f-9afa-5c78edcb37ed" class="code code-wrap"><code>&lt;div id=&quot;main&quot;&gt;&lt;h1&gt;The DOM&lt;/h1&gt;&lt;a href=&quot;https://traversymedia.com&quot;&gt;Traversy Media&lt;/a&gt;&lt;/div&gt;</code></pre><p id="66a06919-d2cd-48d3-92d8-4aa1929f4e00" class="">Now in our JavaScript file, we can use the <code>document.getElementById()</code> method to grab the element with the ID of <code>main</code>.</p><pre id="261148d8-8a09-4b2f-81ca-f91401d3393d" class="code code-wrap"><code>console.log(document.getElementById(&#x27;main&#x27;));
+</code></pre><p id="f6251f9b-679f-46cf-81ec-800f8fe99faf" class="">Now let&#x27;s say we want to add some text into the div element. We can easily do that using the <code>innerHTML</code> property.</p><pre id="156d6e1e-2c67-4cd2-986f-e5d536d2fe31" class="code code-wrap"><code>document.getElementById(&#x27;main&#x27;).innerHTML = &#x27;&lt;h1&gt;Hello World&lt;/h1&gt;&#x27;;
+</code></pre><p id="d8aa7745-3513-4ea3-bef3-3e95f46cbdd9" class="">This will replace everything in the main element. There are other methods we will get into soon that let us just append or add elements.</p><p id="eb1b480b-828c-47de-90c0-13c40066a413" class="">So you see, The DOM gives us a lot of power to interact with the HTML document. The code we just wrote is written in JavaScript, but uses the DOM and it&#x27;s API to access the document and its elements. Even when you start using a front-end framework like React, this is the stuff that it is doing under the hood.</p><p id="20b3a9ba-a62b-489c-9179-49318066c9c7" class="">The DOM was created to be independent of any particular language. Yes, JavaScript is definitely the most common language to do this stuff with, but implementations of the DOM can be built for any language, as this Python example demonstrates:</p><pre id="9b419248-2e62-4e8a-bd8d-03633efb9f8a" class="code code-wrap"><code># Python DOM example
+import xml.dom.minidom as m
+doc = m.parse(r&quot;C:\Projects\Py\chap1.xml&quot;)
+doc.nodeName # DOM property of document object
+p_list = doc.getElementsByTagName(&quot;para&quot;)
+</code></pre><h2 id="8f956450-93fe-4a35-93fa-3946a97d276a" class=""><strong>DOM Libraries</strong></h2><p id="a4eba343-072d-4cb2-af82-d141a0687945" class="">I&#x27;ve been doing this for about 15 years now and I know people still complain about JavaScript, but I think very few of them, worked with JavaScript ten+ years ago. Before the big ES6 update, JavaScript was not easy to work with, including accessing and manipulating the DOM. So we had libraries like <strong>jQuery</strong> that were built to make it easier to work with the DOM.</p><p id="15cb12c2-2404-4d6c-a575-ecd4c97be0c4" class="">A lot of people ask me if they should learn jQuery and my answer to that now is usually no. If you&#x27;re genuinely interested in learning it, that&#x27;s fine. Just make sure you learn the fundamentals of vanilla JavaScript first. You may want to learn jQuery to deal with legacy code. There is a chance you&#x27;ll run into it in the wild. But do you need to learn it? In my opinion, no you don&#x27;t.</p><p id="e23b8edf-3d35-4afd-aaee-b64f778c09f7" class="">Alright, so in the next video, I want to examine some of the properties on the browser&#x27;s <code>document</code> object itself.</p></details></li></ul><ul id="83971751-9915-45e9-84f2-9ae501e4181d" class="toggle"><li><details open=""><summary><strong>Examining the Document Object</strong></summary><p id="6c8a2360-7481-423c-8e54-d0860a691234" class="">Alright, so we know that the DOM is a tree of objects of elements, nodes and attributes. We also know that the <code>document</code> object is the root of the DOM tree. It offers extremely helpful methods for us to use to manipulate the DOM including methods to select elements, create elements, and so on. There&#x27;s also a ton of properties that we can use to get information about the document and that&#x27;s what I want to look at in this video.</p><h3 id="e81d53aa-7f06-4389-9d7f-d9226fb7874c" class=""><strong>Shopping List UI</strong></h3><figure id="0e94b56b-ee74-4cd1-afa9-cc5a413e9434" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%202.png"><img style="width:456px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%202.png"/></a></figure><p id="2fdea875-2bb2-4b59-bfc0-ec3c2935a5eb" class="">So what you&#x27;re looking at right now is the UI or user interface for a simple shopping list application. We will be building this project out, but right now, it&#x27;s only the HTML and CSS, so it&#x27;s not actually working because there&#x27;s no JavaScript. There is a JavaScript file linked, but it&#x27;s empty. That&#x27;s what we&#x27;ll be working in to explore the DOM.</p><p id="c301764e-e1fb-474f-b12e-038ca7e0c9b7" class="">You can download the code resources directly from this section, or from the main sandbox GitHub repository.</p><p id="b76633cd-d944-42d7-8ef2-ee19d4e41f8f" class="">Let&#x27;s quickly just look at the structure of this HTML page, so we know what we&#x27;re working with.</p><p id="fe02ab0a-5976-431d-a368-1f7793bd3ba1" class="">So we have a container that wraps around everything, a heading, then we have a form that has one single text input and a submit button. Under that, we have a filter input to filter the items. Then we have a list of items with an x icon to remove those items. As I mentioned, the functionality of this will not work because we have no JavaScript. Finally, we have a clear all button that will do just that.</p><p id="0b6884ce-015e-479e-8db2-351bdff71fae" class="">So, it&#x27;s a pretty simple UI, but it&#x27;s a good starting point for us to explore the DOM.</p><h3 id="19fee568-8f33-4b10-9679-a8044423d865" class=""><strong>Browser Dev Tools</strong></h3><p id="e8974da3-8710-494a-893d-de2604d2ad4f" class="">The browser dev tools will be used extensively throughout this course. We&#x27;ve been using the console quite a bit, but I want to check out the <code>Elements</code> tab real quick. This is where you can see all of your elements/tags, attributes, text, etc. In reality, you should know some HTML and CSS and you should have at least a little experience with this tab.</p><p id="f0eb43ab-8b91-4a7a-95d9-2d22eddb5fea" class="">We can see the CSS styling here as well. In many cases, we&#x27;ll be changing styles and adding and removing classes through JavaScript and we&#x27;ll be using the dev tools to see what&#x27;s happening.</p><h3 id="caca619f-64bb-48ef-967e-9212c8387812" class=""><strong>The Document Object</strong></h3><p id="fa0b3a1f-87bd-4712-b0e0-9d6178657853" class="">So if we type into the console <code>window</code>, we see everything that is available to use in the global object and <code>document</code> is one of them. You can see that there&#x27;s a ton of properties and methods available to us. Anything you see here can be used in your JavaScript code.</p><p id="002f89a6-aa5d-4471-af60-f6d87761d399" class="">Let&#x27;s start off by just logging the document.</p><pre id="8827eeff-2209-4d40-85ca-015fe7236233" class="code code-wrap"><code>console.log(document);
+</code></pre><figure id="01649b50-3d10-47c7-ac15-4ca91dab4db7" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%203.png"><img style="width:744px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%203.png"/></a></figure><p id="a28283ac-ef9f-4bfb-83b2-bd024ccde70d" class="">It gives us just that, the entire document including the doctype, html tag and head and body tags with everything in between them.</p><h3 id="6cd7e6b3-a12a-40e3-9da5-598883329056" class=""><code><strong>document.all</strong></code></h3><pre id="1b010392-608e-42d9-bcea-290cd39f2499" class="code code-wrap"><code>console.log(document.all);
+</code></pre><figure id="a4a4d5c3-156b-4dc5-b304-683ad7370768" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%204.png"><img style="width:767px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%204.png"/></a></figure><p id="8714d1a5-f15e-42e9-88fc-abd593dcf858" class=""><code>document.all</code> gives us everything in the DOM in an array-like object called a <code>HTMLCollection</code>. It&#x27;s not an array, but it is structured like one. We can&#x27;t use methods like <code>forEach()</code> and <code>map()</code> on it, but we can use bracket notation to access the items. We can also use the <code>length</code> property to get the number of items in the collection. There&#x27;s also a method called <code>item()</code> that we can use to get a specific item in the collection.</p><pre id="f9baf628-09ae-4bd7-868d-4bdda47123ad" class="code code-wrap"><code>console.log(document.all.length);
+console.log(document.all[2];
+console.log(document.item(2));
+</code></pre><p id="5b034f61-ee52-4968-9ae5-84dea61d503b" class=""><code>document.all()</code> is not a very useful method and it&#x27;s actually deprecated, so we shouldn&#x27;t use it. It&#x27;s better to use methods like <code>document.getElementById()</code>. I did want to show you that it exists and give you an example of an HTMLCollection.</p><h3 id="ab3712fa-e95e-4657-bd42-02bf014166e4" class=""><code><strong>document.documentElement</strong></code></h3><pre id="d8c39155-6511-4423-a9bf-10e8e0e73104" class="code code-wrap"><code>console.log(document.documentElement);
+</code></pre><p id="89234559-d887-477e-beb4-7cc806623e58" class="">This will get you the HTML element and everything in it including both the head and body tags.</p><h3 id="0c720abc-ac39-4eb5-ad11-97c2eadc3662" class=""><code><strong>document.head</strong></code><strong> &amp; </strong><code><strong>document.body</strong></code></h3><pre id="61c605e7-1e30-4ba8-a215-42319ec873be" class="code code-wrap"><code>console.log(document.head);
+console.log(document.body);
+</code></pre><p id="91fd63e4-6364-4c79-b437-15c44f4ff551" class="">These two properties give us the head and body elements. We can get the children of those elements using the <code>children</code> property.</p><pre id="a9c4159e-841f-45b3-9d2a-97cdc442503c" class="code code-wrap"><code>console.log(document.head.children);
+console.log(document.body.children);
+</code></pre><p id="6465e2b0-6230-420a-bf67-1e5f1c6f2ac5" class="">These will give us an HTMLCollection of the direct children of the head and body elements. So in the case of the body, we only get the container div and the script tag because those are the only direct children of the body element.</p><figure id="fab65bb2-6828-4c86-a4d4-c0615f173a73" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%205.png"><img style="width:766px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%205.png"/></a></figure><p id="0707a7f0-dd7f-49be-92e8-9a80da411b16" class="">If I wanted to get the children of the container div, I would have to do something like this.</p><pre id="9f362174-e1d7-4f42-a1ca-7fd69625b2bc" class="code code-wrap"><code>console.log(document.body.children[0].children);
+</code></pre><figure id="b42c216d-7065-4e4a-b623-c4999a5e2f89" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%206.png"><img style="width:765px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%206.png"/></a></figure><p id="ce8cc0c6-c2e0-40f0-b618-cdd8fb377724" class="">So now I have a collection of all of the children of the container div. This is a little bit cumbersome and there are better ways to select elements, but let&#x27;s say I wanted to change the text of the heading. I could do something like this.</p><pre id="5ed9db01-ce54-4f8b-8b6b-452d731ec2c5" class="code code-wrap"><code>document.body.children[0].children[0].textContent = &#x27;Hello World&#x27;;
+</code></pre><figure id="3ab7f8b9-b0bc-437b-9955-9324285df006" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%207.png"><img style="width:437px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%207.png"/></a></figure><h3 id="3d6c88f4-dd9f-4f32-ac8c-42052956176b" class=""><strong>Other Page Properties</strong></h3><p id="3fb191a0-2bf5-4885-99d5-f79b20807223" class="">Here are some other properties on the <code>document</code> object that we can access and manipulate.</p><pre id="51e97add-adda-4e30-a489-61791576b321" class="code code-wrap"><code>document.doctype;
+document.domain;
+document.URL;
+document.characterSet;
+document.contentType;
+</code></pre><h3 id="e16f587a-5a31-4df4-91fe-d5f00cee2537" class=""><code><strong>document.forms</strong></code></h3><p id="96139d9e-ee35-46cc-8402-cc7d51cd97ff" class=""><code>document.forms</code>. This will give us an HTMLCollection of all of the forms on the page.</p><pre id="77ecf52b-3c95-4e8f-b8d0-6ca7c4624e07" class="code code-wrap"><code>console.log(document.forms);
+</code></pre><p id="3ec8f262-ce1f-48de-95da-0c225a559800" class="">We can get specific forms in the collection by index or by name.</p><pre id="b40442be-dab4-4d5f-9411-582e587437eb" class="code code-wrap"><code>console.log(document.forms[0]);
+console.log(document.forms[&#x27;item-form&#x27;]);
+</code></pre><p id="115ac62f-b8ac-4f13-a112-951817f74282" class="">We can get specific attributes as well</p><pre id="fdfaae24-c078-4a1c-8217-802c68d3a923" class="code code-wrap"><code>console.log(document.forms[0].id);
+console.log(document.forms[0].method);
+console.log(document.forms[0].action);
+</code></pre><p id="bec55290-3cc9-49a6-9306-ac84ee8a18fd" class="">We aren&#x27;t only limited to reading the attributes. We can also change them.</p><pre id="d463f290-ae74-42f3-af23-2102e0c9879a" class="code code-wrap"><code>document.forms[0].id = &#x27;new-id&#x27;;
+</code></pre><p id="0a409a06-377b-4cee-8272-8648af37c84e" class="">I could add a value to the input like this:</p><pre id="fb672630-9704-4ad8-9581-a30debbdcd34" class="code code-wrap"><code>document.forms[0].item.value = &#x27;Hello World&#x27;;
+</code></pre><p id="a1c9dc8a-2b41-4af1-9f5a-4f3fd767fa58" class=""><code>item</code> being the <code>name</code> attribute of the input.</p><h3 id="bc9582f1-f3ff-45f3-b1ec-9ee32891a1f2" class=""><code><strong>document.links</strong></code></h3><p id="06c1dcf2-2f8c-43d7-8008-a9cd483dd5dc" class="">To get an HTMLCollection of links, we can use <code>document.links</code>.</p><pre id="e1ce7973-7078-4d6b-9c58-d964aa4f05ec" class="code code-wrap"><code>console.log(document.links);
+</code></pre><p id="342b95a6-454e-4fdb-975c-83ae438b7406" class="">We don&#x27;t have any links in this specific project, so let&#x27;s add one just to test it out.</p><pre id="9017af92-e6b2-4967-a4c9-1430ae655baa" class="code code-wrap"><code>&lt;a href=&quot;#&quot; class=&quot;my-link&quot; id=&quot;link&quot;&gt;My Link&lt;/a&gt;</code></pre><p id="0f346578-a5b8-4277-933e-4a8141c3db22" class="">Now we can see that we have a link in the collection.</p><p id="a5bde705-0170-4984-b499-2dacb19a9d63" class="">We can get specific attributes as well.</p><pre id="b19a4a2e-8aab-4b7f-bb28-8353d1fe112d" class="code code-wrap"><code>console.log(document.links[0].id);
+console.log(document.links[0].className);
+console.log(document.links[0].classList);
+console.log(document.links[0].href);
+</code></pre><h3 id="6a8f670b-0bd7-4981-ad59-96545aa70f6e" class=""><code><strong>document.images</strong></code></h3><p id="ea77fb01-7df1-4d56-92e5-98deafa36fa9" class="">We can also get an HTMLCollection of images with <code>document.images</code>.</p><pre id="c163b745-a9af-4dbe-ba67-93cdf9df7631" class="code code-wrap"><code>output = document.images;
+output = document.images[0];
+output = document.images[0].src;
+</code></pre><p id="cc2ec256-3a5a-4f59-86d7-b8175694ab62" class="">In the code above, we accessed the attributes directly, but we can also use the <code>getAttribute()</code> method.</p><pre id="cf37f8c6-ce51-4289-b6f4-d0242c10bee5" class="code code-wrap"><code>output = document.images[0].getAttribute(&#x27;src&#x27;);
+</code></pre><p id="97b685aa-fffe-4673-8889-a19465224711" class="">This will do the same thing as accessing the <code>src</code> attribute directly.</p><h3 id="2260f58b-4e9d-494a-9487-fff6e0fc808c" class=""><code><strong>document.scripts</strong></code></h3><p id="77e4e3b9-e406-4271-a48c-4cb8259932a0" class="">If you want to get an HTMLCollection of scripts, you can use <code>document.scripts</code>.</p><pre id="02b5df34-a8e9-4ae4-9466-2ad918998f1b" class="code code-wrap"><code>console.log(document.scripts);
+</code></pre><p id="0f6d7d82-29bf-40d2-88c7-65c1d0ba3f08" class="">So as you can see, everything in our HTML document is available to us in the DOM using the document object that the browser creates for us.</p><p id="8d9b5bd2-676a-4f89-850f-a5b079a3b2f7" class="">This is just the tip of the iceberg. There are so many more properties and methods available. We&#x27;ll be using them throughout the course.</p></details></li></ul><ul id="d6e0c956-a19a-4d50-ae1c-e51b82efc78f" class="toggle"><li><details open=""><summary><strong>DOM Selectors - Single Elements</strong></summary><p id="11b1d783-cc48-4107-9684-cdf02d1df8df" class="">In the last video, we looked at many of the properties available on the <code>document</code> object including properties that allowed us to select elements from the DOM in the form of HTMLCollections.</p><p id="7f36a363-ca85-4eba-bb96-8cd75708166d" class="">In this video, we will look at a much more common way to select elements. With these <strong>single element</strong> selectors, it will only select one element. Even if you have multiple elements that match the selector, it will only select the first one. If you want to select multiple elements, we will look at that in the next video.</p><p id="1cd55c85-41ee-4d6f-bc0e-783917d01151" class="">We will also look at getting and setting attributes/properties on elements that we select.</p><h2 id="8d386f4a-1dcf-46f2-b00d-0ee68f115dee" class=""><code><strong>getElementById()</strong></code></h2><p id="d20520aa-f507-40db-b630-d095b7e4c10c" class="">The first method we will look at is <code>document.getElementById()</code>. This method takes a string as an argument and returns the element with the matching <code>id</code> attribute. If no element is found, it returns <code>null</code>.</p><p id="62bcf871-041f-4468-a75c-2a4356e17f17" class="">We have a couple IDs in our shopping list, such as on the form and the list itself, but I want to use something simple, so I&#x27;m going to use the <code>id</code> on the <code>h1</code> element of <code>app-title</code>.</p><p id="978dfb75-106c-440a-80f4-0a45427d4281" class="">If we want to select this element, we can use <code>document.getElementById()</code> and pass in the ID as a string.</p><pre id="76e465cc-40e0-4ed9-8868-4d9dd1fb9fa7" class="code code-wrap"><code>console.log(document.getElementById(&#x27;app-title&#x27;));
+// &lt;h1 id=&quot;app-title&quot;&gt;Shopping List&lt;/h1&gt;
+</code></pre><p id="94e4be8b-fa3c-49a4-9a69-3b81266931ae" class="">This is a much easier way than using something like <code>document.all</code> and trying to find the element by index.</p><p id="49893ff4-3df9-4602-8d2c-ac4896240ff0" class="">Now that we can select the element, we can get certain properties/attributes from it. For example, we can get the <code>id</code>.</p><pre id="dc5187e4-4ef5-4fa9-9116-4e7fcc89c2ac" class="code code-wrap"><code>console.log(document.getElementById(&#x27;app-title&#x27;).id);
+console.log(document.getElementById(&#x27;app-title&#x27;).getAttribute(&#x27;id&#x27;));
+</code></pre><p id="0e2c0fa4-b8af-48a8-8432-d24f258b4150" class="">We can also assign attributes to it. For instance, we can change the <code>className</code> property to add a class.</p><pre id="41b1ff54-45cb-4c57-90ff-e67888437a0d" class="code code-wrap"><code>document.getElementById(&#x27;app-title&#x27;).className = &#x27;title&#x27;;
+</code></pre><p id="cd1503e5-e156-4894-8293-e8112402f455" class="">We can also use the <code>setAttribute()</code> method to add an attribute.</p><pre id="db7c62c0-4703-4256-9db9-7dace13fe8f7" class="code code-wrap"><code>document.getElementById(&#x27;app-title&#x27;).setAttribute(&#x27;class&#x27;, &#x27;app-title&#x27;);
+</code></pre><p id="e377901d-473b-4f04-8187-b78a2da6de81" class="">It&#x27;s also very common to assign the result of of these selector methods to a variable. This is because we will often want to use the element we selected in multiple places in our code.</p><pre id="9263fb9e-6384-44cf-b38d-40d89d114d02" class="code code-wrap"><code>const title = document.getElementById(&#x27;app-title&#x27;);
+console.log(title);
+</code></pre><h3 id="1122067c-cf2c-4108-a99c-e31427419110" class=""><strong>Styling Elements From JS</strong></h3><p id="0220909a-6db8-4be8-b8f6-422541ab1cb0" class="">We can also use these selectors to style elements. there is a property called <code>style</code> that allows us to access the CSS styles of an element. We can then assign a value to a CSS property.</p><pre id="34416d0b-0e17-467e-b644-8fb65f51b622" class="code code-wrap"><code>title.style.color = &#x27;red&#x27;;
+title.style.backgroundColor = &#x27;black&#x27;;
+title.style.padding = &#x27;10px&#x27;;
+title.style.borderRadius = &#x27;10px&#x27;;
+</code></pre><p id="bd774120-2a57-4d58-9c6f-fcf2689719e1" class="">Now, usually you wouldn&#x27;t just style things from JavaScript just for a static site. You would usually have some kind of event and then apply the style. For example you may have a button that when you click it, it applies a style to a specific element. This makes your UI more dynamic. We&#x27;ll be getting into events soon.</p><h3 id="35db6762-bce8-4664-b3a6-fb7a59ba48df" class=""><strong>Adding Content</strong></h3><p id="80086411-82fd-410a-aedb-7471c9cfed95" class="">Another thing we can do is add or change the content of an element. Again, usually you&#x27;ll do this to add some kind of dynamic functionality using events. There are a few different properties that we can use to modify and access content.</p><pre id="3755260a-f075-467d-a9f6-aed36df1d654" class="code code-wrap"><code>// Read
+console.log(title.textContent);
+// Write
+title.textContent = &#x27;Shopping List&#x27;;
+title.innerText = &#x27;My Shopping List&#x27;;
+title.innerHTML = &#x27;&lt;strong&gt;Shopping List&lt;/strong&gt;&#x27;;
+</code></pre><p id="a0f83441-dfe5-4cbd-8ea0-b2c3ef0231a0" class=""><code>textContent</code> and <code>innerText</code> are very similar. The main difference is that <code>innerText</code> will not return any hidden elements. For example, if we had a <code>span</code> element with a class of <code>hide</code> and we set the <code>display</code> property to <code>none</code>, then <code>innerText</code> would not return that element. <code>textContent</code> will return the element even if it is hidden. <code>innerHTML</code> will return the HTML of the element. We can use all of these to update the content of an element.</p><h2 id="7f9f129e-e46c-4ba3-9ec1-33d113a1f8e8" class=""><code><strong>querySelector()</strong></code></h2><p id="73bad960-1bd2-4bf6-b997-f7add9a0f788" class="">Alright, so the next method we will look at is <code>document.querySelector()</code>. This method is very similar to <code>getElementById()</code>, but it allows us to select elements using CSS selectors. This means we can select elements by their class, tag name, or even by their attributes.</p><pre id="b561598e-acc6-40b8-9f41-090d78022dca" class="code code-wrap"><code>// By tag
+console.log(document.querySelector(&#x27;h1&#x27;));
+// By id
+console.log(document.querySelector(&#x27;#app-title&#x27;));
+// By class
+console.log(document.querySelector(&#x27;.container&#x27;));
+// By attribute
+console.log(document.querySelector(&#x27;input[type=&quot;text&quot;]&#x27;));
+// By pseudo-class
+console.log(document.querySelector(&#x27;li:first-child&#x27;));
+console.log(document.querySelector(&#x27;li:nth-child(2)&#x27;));
+</code></pre><p id="d8f8bd39-9b41-4411-a095-86d952a29755" class="">As you can see, <code>querySelector</code> is very powerful and we can select anything we want. This method put JQuery out of business in my opinion, because it pretty much does the same thing in terms of DOM manipulation, without having to use a library.</p><p id="cb026505-d857-4dca-aa23-dd3d1949d507" class="">Let&#x27;s say that we want to change the color of the second shopping list item:</p><pre id="2f1b7dbd-4e85-4c54-8bfa-b6dab7a9a33e" class="code code-wrap"><code>const secondItem = document.querySelector(&#x27;li:nth-child(2)&#x27;);
+secondItem.style.color = &#x27;red&#x27;;
+</code></pre><p id="e2d57408-747d-4f19-b345-782607d34dcd" class="">Everything we talked about with <code>getElementById()</code> also applies to <code>querySelector()</code>. We can get the content, set the content, style the element, etc.</p><h2 id="76c1eb80-4a4e-4589-9fcc-3bd4ca8a16b1" class=""><strong>Selecting an element within an element</strong></h2><p id="3c7fd439-60e8-41d0-bea8-bc28bb25c4ba" class="">With <code>document.querySelector()</code> and <code>document.querySelectorAll()</code>, which we will look at in the next video, you are not restricted to selecting elements from the <code>document</code> object. You can also select elements from other local elements. For example, if we wanted to select the first <code>li</code> element within the <code>ul</code> element, we could do the following:</p><pre id="6bbdc435-c19d-4d18-bd60-e21b7e93a887" class="code code-wrap"><code>const list = document.querySelector(&#x27;ul&#x27;);
+const firstItem = list.querySelector(&#x27;li&#x27;);
+firstItem.style.color = &#x27;blue&#x27;;
+</code></pre><p id="6fbc3eea-80eb-4432-b401-385e9b35df63" class=""><code>document.getElementById()</code> is only available as a method of the global document object, This is because ID values must be unique throughout the entire document, so there is no need for &quot;local&quot; versions of the function.</p><h3 id="f51c6f50-7ea8-4e9d-8fbf-8870bdd9aeed" class=""><strong>Which one to use?</strong></h3><p id="a543af7e-4edf-4c23-b6be-32a1c8854be5" class="">Which one you use is really just preference. I use <code>getElementById()</code> quite a bit for <code>ids</code> and <code>querySelector()</code> for classes and other attributes. You could just as well use <code>querySelector()</code> for everything. I have been doing that in a few recent projects, and I may switch it up. It is just important to be consistent.</p></details></li></ul><ul id="c4a0bed6-9672-44b3-a658-406b07363a96" class="toggle"><li><details open=""><summary><strong>DOM Selectors - Multiple Elements</strong></summary><p id="b7f88540-bacb-4963-ae86-f22352855e78" class="">So we looked at <code>getElementById</code> and <code>querySelector</code>, which will select on element from the DOM so that we can do whatever we want with it. But what if we want to select multiple elements, such as all of the list items in our shopping list? We have a few methods that we can use for this.</p><h2 id="6e921fab-2427-454f-9725-8c38fbe70165" class=""><code><strong>querySelectorAll()</strong></code></h2><p id="7c2c3e91-ceb7-4fe5-8bf4-e641c63d8508" class="">So I&#x27;m going to start off with the one that you&#x27;ll use the most, which is <code>document.querySelectorAll()</code>. This method takes a string as an argument and returns a NodeList of all the elements that match the selector. If no elements are found, it returns an empty NodeList.</p><h3 id="64e033bf-42f9-400c-9178-623caf5aa85f" class=""><strong>NodeList vs HTMLCollection</strong></h3><p id="194f3c06-bcba-4ea1-87d7-ab18d087eeee" class="">So what is a NodeList? Well, it&#x27;s very similar to an HTMLCollection, which we have already looked at. It&#x27;s a list of elements that is formatted like an array. The main difference is that a NodeList is not a live collection. This means that if we add or remove elements from the DOM, the NodeList will not update.</p><p id="e800b102-f982-44f3-9497-3d7c77dce59e" class="">Another difference is that we can use methods like <code>forEach()</code> on a NodeList, but not on an HTMLCollection. This really comes in handy.</p><p id="a9d3685d-f313-4340-9599-66c0f5c461f2" class="">So let&#x27;s select all of the list items in our shopping list.</p><pre id="6e7d1cd7-8058-42c3-91f0-2e9ea9edb7e2" class="code code-wrap"><code>console.log(document.querySelectorAll(&#x27;li&#x27;));
+</code></pre><p id="68ae9922-71c7-4ad9-ad42-38f695f0e678" class="">We can pass in absolutely any CSS selector to this method. It could be a tag, id, class, etc. That part works just like <code>querySelector()</code>. The difference is instead of getting just one element, it will get all of the elements on the page that match that selector. Even if there is only one item on the page that matches, it will still be returned as a NodeList.</p><p id="ec25e937-fe65-4192-8de5-cd7a1352f282" class="">If we select the h1 on the page, let&#x27;s see what happens.</p><pre id="1b142e3e-4317-4e3c-89fb-b71209235ae3" class="code code-wrap"><code>console.log(document.querySelectorAll(&#x27;h1&#x27;));
+</code></pre><figure id="2fb838f4-d0ef-4623-9e10-7f48b980bf98" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%208.png"><img style="width:436px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%208.png"/></a></figure><p id="1be359d6-3c05-4497-aae1-fe922698ac18" class="">Instead of the element itself, it gives us a NodeList with that 1 element in it.</p><p id="e34d38ab-d823-47fb-8d6d-644423fab759" class="">Now, let&#x27;s say that we want to make all of the items in the list the color red. Your first thought, may be to do something like this.</p><pre id="33c3b6e0-fc99-46d7-9b5a-6ed018bc3e84" class="code code-wrap"><code>const items = document.querySelectorAll(&#x27;li&#x27;);
+
+// This will not work
+items.style.color = &#x27;red&#x27;;
+</code></pre><p id="61c86584-c022-4831-afb0-4a471e9c25f6" class="">This won&#x27;t work because we can&#x27;t assign a color to a NodeList.</p><p id="20f0fe0f-de33-4c9a-b261-10f6af0f10e9" class="">We can access a specific item using it&#x27;s index, just like an array. We can also manipulate it.</p><pre id="706061f2-daee-40e1-b3e2-6c785e256217" class="code code-wrap"><code>console.log(items[0]);
+items[0].style.color = &#x27;blue&#x27;;
+</code></pre><p id="f5c8cc84-4ec2-4cec-91e5-a2f9fccc89e7" class="">However, if we want to apply something to all of the elements, we need to loop through the NodeList and apply to all.</p><pre id="4976b9d1-2e40-42b3-a82c-58494c89b9a3" class="code code-wrap"><code>items.forEach(function (item) {
+  item.style.color = &#x27;red&#x27;;
+});
+</code></pre><p id="7afef886-193c-4ca8-9612-baa4e9e8a136" class="">We can shorten it up a little bit by using an arrow function.</p><pre id="57c5ae39-9feb-497d-a617-56f16aaef5d3" class="code code-wrap"><code>items.forEach((item) =&gt; (item.style.color = &#x27;red&#x27;));
+</code></pre><h2 id="0c6ad4ba-0b1c-41a0-bc50-9bbf7f3781ef" class=""><code><strong>getElementsByClassName()</strong></code></h2><p id="57dd09e6-d1b9-4fdd-a40c-1e7ff89a7cc3" class="">The next selector is an older one that you probably won&#x27;t see very much. As the name implies, it selects elements by their class name. It takes a string as an argument and returns an HTMLCollection of all the elements that match the class name. If no elements are found, it returns an empty HTMLCollection.</p><p id="df9d9b7e-13a3-4d23-b70e-88e5fbbe014b" class="">The limitations to this method are that it only selects elements by class name and instead of a NodeList, it returns an HTMLCollection, which you can&#x27;t use methods like <code>forEach()</code> on. You would have to first, turn the HTMLCollection into an Array and then loop through it.</p><p id="530653a2-450d-410e-b29c-d77e1d091790" class="">Let&#x27;s look at an example. I put a class of <code>item</code> on all of the list items in our shopping list. Let&#x27;s select them all.</p><pre id="8aa34f3a-610a-4305-a141-cff732dc2eb6" class="code code-wrap"><code>console.log(document.getElementsByClassName(&#x27;item&#x27;));
+</code></pre><figure id="bf396ba7-569d-4a03-8609-f479a57f7eb7" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%209.png"><img style="width:434px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%209.png"/></a></figure><p id="4ab08aad-fef8-4cd1-be02-436546f83542" class="">As you can see, it returns an HTMLCollection of all of the list items as opposed to a NodeList.</p><p id="a186152d-14a1-4038-ad87-ba9854ffe8f3" class="">If we want to turn all of the items blue, we have to first turn the HTMLCollection into an array. Then we can use array methods like <code>forEach()</code>.</p><pre id="ac5c23c8-678e-4c99-ac47-33d7c856026b" class="code code-wrap"><code>const items = document.getElementsByClassName(&#x27;item&#x27;);
+
+// Covert into an array
+const list = Array.from(items);
+
+list.forEach((item) =&gt; (item.style.color = &#x27;green&#x27;));
+</code></pre><h2 id="56ded26b-d97f-4890-bb26-fdfff79f440e" class=""><code><strong>getElementsByTagName()</strong></code></h2><p id="18de962f-ec72-4f1b-b550-aeca5eb7c080" class="">This method is basically the same thing as <code>getElementsByClassName()</code>, except it selects elements by their tag name. It takes a string as an argument and returns an HTMLCollection of all the elements that match the tag name. If no elements are found, it returns an empty HTMLCollection.</p><p id="145afc25-a3d1-4897-aa40-76cce2a65ec2" class="">Let&#x27;s select all of the list items in our shopping list.</p><pre id="483db036-9c61-4862-927b-09024bd065ae" class="code code-wrap"><code>console.log(document.getElementsByTagName(&#x27;li&#x27;));
+</code></pre><figure id="3346bf9b-5134-463e-88e3-8ebe63bc9a43" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2010.png"><img style="width:426px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2010.png"/></a></figure><p id="3eedbb52-472f-4816-ba24-7ec7c8529ac1" class="">We get the same result as <code>getElementsByClassName(&#x27;item&#x27;)</code>.</p><p id="8a04ba78-b736-415f-8d37-e0e11fb8e6dd" class="">There really isn&#x27;t much else to be said on this method, because you can do the same stuff as <code>getElementsByClassName()</code>.</p><p id="ee30926a-5c0d-4394-9e07-407260ea4bb6" class="">I would say 99.9% of the time, you will be using <code>querySelectorAll()</code> to select multiple elements. The only time you would use <code>getElementsByClassName()</code> or <code>getElementsByTagName()</code> is if you are working with an older codebase that uses those methods.</p></details></li></ul><ul id="59beb7d6-f339-44aa-a17b-cded5d4ddb86" class="toggle"><li><details open=""><summary><strong>Traversing The DOM - Elements</strong></summary><p id="d0b21004-f79a-4ca8-a344-2daa5a7273c4" class="">Now we know how to select elements from the DOM, but many times, we need to select elements within elements or a sibling of an element, so it is important to know how relationships work so that we can traverse or move up and down the DOM.</p><p id="ed226408-d82f-4c4a-8b4b-fe966387f44d" class="">There are also different types of <code>nodes</code> in the DOM. The type we will deal with the most are <code>Elements</code>. Any HTML tag on the page is an element. There are specific properties for working with elements and there are properties that will allow us to work with other types of nodes, such as <code>Text</code> and <code>Comment</code> nodes. In this video, we will strictly be working with <code>Elements</code> or <code>Element Nodes</code> and in the next video, we will look at other types of nodes.</p><h2 id="c5be6cd8-02bf-483e-8de6-0e6d2b9fc00b" class=""><strong>Element Relationships</strong></h2><p id="8a81631b-59f2-4d10-a8b6-f12dea46e673" class="">To really understand how to traverse and manipulate the DOM, you need to understand relationships between elements along with some properties that allow you to select elements based on their relationship to other elements.</p><p id="a7c2797b-4ad5-41d9-8f87-d5d287fa5150" class="">For this video, I&#x27;m not going to use the shopping list example. Instead, I&#x27;m going to use a simple HTML document with a few nested elements. This is so you can better understand what I&#x27;m doing.</p><p id="11d71841-135f-4adb-a518-dcbcd2201f83" class="">Let&#x27;s look at the following HTML</p><pre id="8d6e2221-cf0b-4e71-9707-9d2b080ee987" class="code code-wrap"><code>&lt;div class=&quot;parent&quot;&gt;&lt;!-- Children --&gt;
+  &lt;div class=&quot;child&quot;&gt;Child 1&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Child 2&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Child 3&lt;/div&gt;&lt;/div&gt;</code></pre><p id="fcbf69b4-39b4-4acb-a471-0d9b216633c8" class="">If we are looking strictly at <code>element nodes</code>, it&#x27;s pretty simple. We have a <code>div</code> that is the <em>parent</em> of 3 <em>child</em> <code>divs</code>. The 3 <em>child</em> <code>divs</code> are <em>siblings</em> to each other.</p><h2 id="4664752c-b43a-405f-8c02-87696b559f07" class=""><strong>Selecting Related Elements</strong></h2><p id="2a7925dd-1277-4815-9d04-f57f43ffc42e" class="">We have many properties available to select related elements. This diagram shows the properties and a visual example of how they work.</p><figure id="68c99a6f-a4d0-4ec6-a3b0-5620564d0535" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2011.png"><img style="width:777px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2011.png"/></a></figure><h2 id="065cc5e9-8184-484e-878d-3f09683d8232" class=""><strong>Child Elements</strong></h2><h3 id="0d79b35f-9888-4831-a3d6-a0b71103983f" class=""><code><strong>children</strong></code></h3><p id="18dfe3ee-26dc-4a03-876b-9289d128844e" class="">All of an elements children can be accessed by the <code>children</code> property.</p><pre id="14bb0d69-212e-419c-8ba3-35fd1677a6d3" class="code code-wrap"><code>const parent = document.querySelector(&#x27;.parent&#x27;);
+
+console.log(parent.children);
+// HTMLCollection [div.child, div.child, div.child]
+</code></pre><p id="459a459d-8e3d-4c89-92ac-22fe8d5e1834" class="">This gives us an <code>HTMLCollection</code> of the children. We can access each individual element by index.</p><pre id="3dfdd189-28ff-4703-9fd8-c2d9c925fb4b" class="code code-wrap"><code>console.log(parent.children[1]);
+// &lt;div class=&quot;child&quot;&gt;Child 2&lt;/div&gt;
+
+// Get individual child properties
+console.log(parent.children[1].nodeName);
+// &#x27;DIV&#x27;
+console.log(parent.children[1].className);
+// &#x27;child&#x27;
+
+// Get the HTML &amp; Text inside the element
+console.log(parent.children[1].innerHTML);
+// &#x27;Child 2&#x27;
+
+// Get the HTML &amp; Text of the entire element
+console.log(parent.children[1].outerHTML);
+// &#x27;&lt;div class=&quot;child&quot;&gt;Child 2&lt;/div&gt;&#x27;
+</code></pre><p id="5df0e441-88b6-4f9d-89a1-7dc83a0744b1" class="">We can loop through an HTMLCollection using a for loop or we can convert it to an array and use a forEach loop.</p><pre id="adca61d8-c007-42b0-b1ef-520c5b88e675" class="code code-wrap"><code>for (let i = 0; i &lt; parent.children.length; i++) {
+  console.log(parent.children[i].innerHTML);
+}
+</code></pre><p id="5ee05bef-b0ca-42b7-8a80-b1404f5332f3" class="">We can change attributes, styles and the content of the children of an element</p><pre id="708966dd-6287-4b92-adc8-220fafd006f8" class="code code-wrap"><code>// Change the text of the second child
+parent.children[1].textContent = &#x27;Child Two&#x27;;
+
+// Change the color of the third child
+parent.children[2].style.color = &#x27;red&#x27;;
+</code></pre><h3 id="c202efe5-364e-4add-8c18-b94385728673" class=""><code><strong>firstElementChild</strong></code><strong> and </strong><code><strong>lastElementChild</strong></code></h3><p id="3d281f57-afe5-4d0e-be1d-3cd2544e3c78" class=""><code>firstElementChild</code> and <code>lastElementChild</code> are useful for selecting the first or last child of an element.</p><pre id="62110bf1-1d9e-4a7a-a325-5e12a1c934e4" class="code code-wrap"><code>console.log(parent.firstElementChild);
+// &lt;div class=&quot;child&quot;&gt;Child 1&lt;/div&gt;
+
+console.log(parent.lastElementChild);
+// &lt;div class=&quot;child&quot;&gt;Child 3&lt;/div&gt;
+
+// Change the text of both first and last child
+parent.firstElementChild.innerText = &#x27;Child One&#x27;;
+parent.lastElementChild.innerText = &#x27;Child Three&#x27;;
+</code></pre><h2 id="152a89bf-a7a5-4490-b729-ddcac0e7d4d3" class=""><strong>Parent Element</strong></h2><h3 id="5ce83ccc-b3ee-4791-8278-692b25621bbe" class=""><code><strong>parentElement</strong></code></h3><p id="a653e69f-f516-4c5f-8900-da0292bae334" class="">We can use the <code>parentElement</code> property to get the parent element of an element.</p><pre id="e1fe8b8c-5956-426e-8140-41f59c7d2ae7" class="code code-wrap"><code>const child = document.querySelector(&#x27;.child&#x27;);
+
+console.log(child.parentElement);
+// &lt;div class=&quot;parent&quot;&gt;
+</code></pre><p id="e89212f2-4d51-4e8b-8a93-a01ddcb397d5" class="">We can edit the parent element</p><pre id="61d16cfd-fc33-4997-b830-c012fcfad6d8" class="code code-wrap"><code>// Give the parent a border and padding
+child.parentElement.style.border = &#x27;1px solid #ccc&#x27;;
+child.parentElement.style.padding = &#x27;10px&#x27;;
+</code></pre><h2 id="f777c92c-7c5c-4316-84c4-187893d00116" class=""><strong>Sibling Elements</strong></h2><h3 id="c4f9956f-1eea-455d-bd33-2b67c067fb3c" class=""><code><strong>nextElementSibling</strong></code><strong> and </strong><code><strong>previousElementSibling</strong></code></h3><p id="80f94b96-d4a0-4eba-90b2-166383a1efa4" class="">These are the main properties for selecting sibling elements.</p><pre id="76d9b5b1-0164-4266-afc4-eb98515dc81e" class="code code-wrap"><code>const secondItem = document.querySelector(&#x27;.child:nth-child(2)&#x27;);
+
+secondItem.nextElementSibling.style.color = &#x27;green&#x27;;
+secondItem.previousElementSibling.style.color = &#x27;orange&#x27;;
+</code></pre><p id="dc4be0cf-e564-4adc-aeab-3144f68570a5" class="">As you can see, working with related elements is not that difficult because we have access to these useful properties. In the next video, we will look at properties to work with other types of nodes.</p></details></li></ul><ul id="e2d23540-4716-4725-950d-0bce90db904b" class="toggle"><li><details open=""><summary><strong>Traversing The DOM - Nodes</strong></summary><p id="b4d5f0cd-9e79-4811-bedc-4943cdfa6931" class="">Alright, so we looked at some important properties of the DOM that allow us to work with related elements. However, the DOM has more than just element nodes. In fact, there are 12 different types of nodes.</p><figure id="dffe1e1f-d70c-45d9-9318-296f4fc39bff" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2012.png"><img style="width:829px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2012.png"/></a></figure><p id="36b3556b-f7fa-4537-83c4-68316b141dd6" class=""><em>Table from </em><a href="http://w3schools.com/"><em>W3Schools.com</em></a></p><p id="a3a47ef3-1486-4de8-a107-e9f4f558aee3" class="">We don&#x27;t really need to focus on most of these, but they&#x27;re good to know.</p><h2 id="9c5a9b58-bee8-4139-b7c5-e6884cb8c4d0" class=""><strong>Properties That Work With Nodes</strong></h2><p id="0c5a06e2-3e43-4365-98fc-e38c17d46f57" class="">The properties that we looked at in the last video were to work with related elements. However, there are other properties that we can use to access other types of nodes.</p><p id="63a27ff4-2f71-407b-a1c1-eb32eac47216" class="">I would say for the most part, you will use the properties that we looked at in the last video, but you should know these as well.</p><p id="cf29b78b-8345-48a9-a938-1c8a8e45d231" class="">We are going to use the same HTML structure as in the last video:</p><pre id="c8e79fa7-b9c1-44bd-9636-390f5cd7a2be" class="code code-wrap"><code>&lt;div class=&quot;parent&quot;&gt;&lt;!-- Children --&gt;
+  &lt;div class=&quot;child&quot;&gt;Child 1&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Child 2&lt;/div&gt;&lt;div class=&quot;child&quot;&gt;Child 3&lt;/div&gt;&lt;/div&gt;</code></pre><figure id="4fb6c5cb-0170-4fbc-9f8e-bef281b8281a" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2013.png"><img style="width:785px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2013.png"/></a></figure><h2 id="fdfa0352-a87b-41b6-9e46-123a97e5c283" class=""><strong>Child Nodes</strong></h2><h3 id="9128729d-00ba-467f-85db-bd97dd576dca" class=""><code><strong>childNodes</strong></code></h3><p id="b6da45d2-6b81-4f8f-9c5b-87c31e4a32f7" class="">This method, does exactly what it says, it gets all of the child nodes of an element. This includes <code>text nodes</code> and <code>comment nodes</code>.</p><pre id="8605a976-05fc-4425-bb88-b14fec317462" class="code code-wrap"><code>const parent = document.querySelector(&#x27;.parent&#x27;);
+
+console.log(parent.childNodes);
+</code></pre><figure id="9047674b-d35c-4ff2-88f4-3f8a5659da43" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2014.png"><img style="width:442px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2014.png"/></a></figure><p id="ce5bc47a-bc2a-43bc-a1c1-0f2d31dff908" class="">As you can see, we get a NodeList of 9 items. I want to go over what each of these items are...</p><ul id="a74b83bd-36f0-482e-ba8b-5284fdd99d67" class="bulleted-list"><li style="list-style-type:disc">0: White space is a <code>text node</code>. Since the first line of HTML within the parent <code>div</code> (the comment) is on the next line, that line break is considered a <code>text node</code>. If I were to move the comment on to the same line as the parent <code>div</code>, then the <code>text node</code> would be removed. I know, it&#x27;s weird.</li></ul><ul id="48dc85e2-1310-40ef-8e01-bfe802da8cc7" class="bulleted-list"><li style="list-style-type:disc">1: The <code>comment</code> node. Comments are considered nodes as well.</li></ul><ul id="a442bf05-0d70-46a4-846d-abc4a939fe4d" class="bulleted-list"><li style="list-style-type:disc">2: Another <code>text node</code>. This is the line break between the comment and the first child <code>div</code>.</li></ul><ul id="aa3e9b94-cff1-461f-adcb-6bd7891413cc" class="bulleted-list"><li style="list-style-type:disc">3: The first child <code>div</code>.</li></ul><ul id="29d7315c-5bd1-407e-97af-4fee87b822da" class="bulleted-list"><li style="list-style-type:disc">4: Another <code>text node</code>. This is the line break between the first child <code>div</code> and the second child <code>div</code>.</li></ul><ul id="11a6e89c-90a4-48df-a7f7-d3b81cf7c78a" class="bulleted-list"><li style="list-style-type:disc">5: The second child <code>div</code>.</li></ul><ul id="c7df193e-cce1-47bb-a0d0-4f9c6da8abe5" class="bulleted-list"><li style="list-style-type:disc">6: Another <code>text node</code>. This is the line break between the second child <code>div</code> and the third child <code>div</code>.</li></ul><ul id="8527f211-5e7a-4e39-94b7-c91ce0f9d384" class="bulleted-list"><li style="list-style-type:disc">7: The third child <code>div</code>.</li></ul><ul id="b1fca7be-637e-4c96-a1be-3fd259645018" class="bulleted-list"><li style="list-style-type:disc">8: Another <code>text node</code>. This is the line break between the third child <code>div</code> and the closing <code>div</code> tag.</li></ul><p id="004618f8-8a88-4cb1-b528-e5d7c9c803af" class="">We can also access the nodes like this:</p><pre id="178400ae-33cc-4505-bf78-06d875392d5c" class="code code-wrap"><code>console.log(parent.childNodes[3]);
+// &lt;div class=&quot;child&quot;&gt;Child 1&lt;/div&gt;
+
+// Get the node name
+console.log(parent.childNodes[3].nodeName);
+// &#x27;DIV&#x27;
+console.log(parent.childNodes[2].nodeName);
+// &#x27;#text&#x27;
+
+// Edit the first div
+parent.childNodes[3].style.color = &#x27;red&#x27;;
+</code></pre><p id="95a21335-5f5f-49bd-9dc5-8b48f692129d" class="">The reason I used the index 3 is because 0, 1 and 2 are text and comment nodes. 3 is where the first element node is.</p><h2 id="9b069e18-2511-4d8a-ab8a-99f959db313c" class=""><code><strong>firstChild</strong></code><strong> and </strong><code><strong>lastChild</strong></code></h2><p id="93f942f8-d14d-462f-bd75-1456a0aa2d67" class="">Just like we have <code>firstElementChild</code> and <code>lastElementChild</code>, we have <code>firstChild</code> and <code>lastChild</code>. the difference is that these two do not work only with element nodes.</p><pre id="54d876cf-2a03-4a6b-b597-fb05c33d9aa5" class="code code-wrap"><code>// Get the first child node
+output = parent.firstChild;
+// #text
+
+// Get the last child node
+output = parent.lastChild;
+// #text
+</code></pre><p id="b27d2ccd-02a9-4c85-9995-6ec15d26b860" class="">To edit the value of a text node, we can use the <code>nodeValue</code> property.</p><pre id="447e6ac3-ce64-4c60-8403-9123fc89185e" class="code code-wrap"><code>parent.firstChild.nodeValue = &#x27;Hello&#x27;;
+</code></pre><p id="44aa7bc3-c734-4a41-ae8c-9c1755cee216" class="">This will actually put the text of &#x27;Hello&#x27; into the <code>nodeValue</code>, <code>textContent</code>, <code>data</code> and <code>wholeText</code> properties.</p><h2 id="7ad2bbf0-1c36-4761-bf9f-aba9efab9e21" class=""><strong>Parent Nodes</strong></h2><h3 id="a813d0e8-2454-46d8-84ee-fc5cdfe7bbd1" class=""><code><strong>parentNode</strong></code></h3><p id="b90a4b7e-aeb4-491d-ad57-4489eb5f70d9" class="">In many ways, <code>parentNode</code> is very similar to <code>parentElement</code>. We can use it to do the same type of tasks.</p><p id="059bbbd8-e3cb-4e05-9fd2-46a70ed8e1c4" class="">To get the parent node of an element:</p><pre id="c40bb052-710f-4687-8a13-bfc042b8cda9" class="code code-wrap"><code>const child = document.querySelector(&#x27;.child&#x27;);
+
+console.log(child.parentNode);
+// &lt;div class=&quot;parent&quot;&gt;
+</code></pre><p id="29789e28-d8f1-4e33-94fc-b333978f9e06" class="">The parent of an element will always be and <strong>element</strong>, <strong>document</strong> or <strong>documentFragment</strong> node type.</p><p id="30fb5e1c-654a-4d51-95af-d34272cfd210" class="">We looked at <code>document.documentElement</code> a few videos back. If we look at the parent node for that, it is a <code>#document</code> node</p><pre id="567608ec-4ffb-4e2b-82f0-cfc1de137e6e" class="code code-wrap"><code>console.log(document.documentElement.parentNode);
+// #document
+</code></pre><p id="e007e5d1-c9e2-49b7-9f3d-da1f2e876fc7" class="">We can edit the parent node/element, just like we could using the <code>parentElement</code> property.</p><pre id="82349506-379b-4b1c-ae41-590356ae988c" class="code code-wrap"><code>child.parentNode.style.border = &#x27;1px solid #ccc&#x27;;
+child.parentNode.style.padding = &#x27;10px&#x27;;
+</code></pre><p id="4ed699e6-f5f3-4902-8a38-b0be15ff948a" class="">If you want to get the parent document node of any element, you can use the <code>ownerDocument</code> property.</p><pre id="3496e58e-923d-430f-8d3f-d3a372948f8e" class="code code-wrap"><code>console.log(child.ownerDocument);
+// #document
+</code></pre><h2 id="6a05df24-a22b-49c8-bd18-f32053a92c8a" class=""><strong>Sibling Nodes</strong></h2><h3 id="b227c3db-8c4d-43c8-a3c4-99ef424c0959" class=""><code><strong>nextSibling</strong></code><strong> and </strong><code><strong>previousSibling</strong></code></h3><p id="8dcb6871-a265-4718-8d64-50fb3dd25c76" class="">Very similar to <code>nextElementSibling</code> and <code>previousElementSibling</code>, we have <code>nextSibling</code> and <code>previousSibling</code>.</p><pre id="fafcd865-fc53-4b2e-bbb1-868963e7aa21" class="code code-wrap"><code>const secondItem = document.querySelector(&#x27;.child:nth-child(2)&#x27;);
+
+// Get next sibling
+console.log(secondItem.nextSibling);
+// #text
+
+// Get previous sibling
+console.log(secondItem.previousSibling);
+// #text</code></pre></details></li></ul><ul id="1472a5af-b4a4-4eef-bfc3-ec5c75e47488" class="toggle"><li><details open=""><summary><strong>Create Elements</strong></summary><p id="3a234a2e-229e-4825-acbe-6390fc1bdae5" class="">So we know how to select elements, navigate to related elements, and manipulate them. Now let&#x27;s look at how to create elements. With JavaScript, we can create any DOM element we want and then insert it into the document.</p><p id="aaa07be3-6c03-418c-92e3-b4d3cc5b5c01" class="">In many cases, you&#x27;ll want to create a new element and then insert it into the document on some kind of event. For instance, when we build the final functionality of our shopping list, we&#x27;re going to want to create a new list item when we click on the <em>Add Item</em> button.</p><p id="ff05062b-fca9-442e-989f-fc1e4cc98335" class="">We will learn about events soon, but right now, I just want to focus on creating elements via JavaScript.</p><h2 id="3d5fb569-e1df-4d06-9b84-3091b57a8eec" class=""><code><strong>document.createElement()</strong></code></h2><p id="171c2738-88d7-4f6c-a397-9f75fe18189e" class="">This is the main method we&#x27;ll use to create elements. It takes one argument, which is the tag name of the element we want to create. Let&#x27;s create a <code>div</code> element.</p><pre id="e430423e-aaf6-44b1-8a02-81e77c887c20" class="code code-wrap"><code>const div = document.createElement(&#x27;div&#x27;);
+
+console.log(div);
+// &lt;div&gt;&lt;/div&gt;
+</code></pre><p id="665081c6-d5f8-4ccc-9fb4-9ef75f04b601" class="">If you do a <code>console.dir(div)</code>, you&#x27;ll see a ton of properties as well as methods in the prototype chain.</p><p id="9e80543b-45ce-4573-9a60-6bf308e386e7" class="">We can add any attributes we want to our new <code>div</code> element.</p><pre id="89f66d3f-97be-4bc3-8c5d-48e98749da71" class="code code-wrap"><code>// Add a class
+div.className = &#x27;my-element&#x27;;
+
+// Add an id
+div.id = &#x27;my-element&#x27;;
+
+// Add an attribute
+div.setAttribute(&#x27;title&#x27;, &#x27;My Element&#x27;);
+</code></pre><h3 id="53029ab9-f07a-4d1e-bbda-a23c13dfd806" class=""><code><strong>document.createTextNode()</strong></code></h3><p id="9f3b8ec8-80d0-44ce-a57f-d8550d060703" class="">If we want to add text, we could technically do it like this:</p><pre id="7afd82d9-eea7-437c-ac86-6f552859b7b2" class="code code-wrap"><code>div.innerText = &#x27;Hello World&#x27;;
+</code></pre><p id="8004a385-47d1-4de4-bdad-4c38d0acbded" class="">However, using <code>innerText</code> is not the best way to do this when creating a new element. It is really meant to get and change the text of an already existing element.</p><p id="0bd14962-6c86-442e-afa9-63520005f213" class="">It&#x27;s better to create a new text node with <code>document.createTextNode()</code> and then append it to the element.</p><pre id="3c642ad3-0ec2-419e-9713-a5630480afc9" class="code code-wrap"><code>// Create a text node
+const text = document.createTextNode(&#x27;Hello World&#x27;);
+
+// Add the text node to the div
+div.appendChild(text);
+</code></pre><p id="4837e1f0-10f1-4dc7-931f-f1a533ca1a32" class="">Now if you log the div, you&#x27;ll see</p><pre id="42aa429f-099d-4fd8-a09b-46f45003ded4" class="code code-wrap"><code>&lt;div class=&#x27;my-element&#x27; id=&#x27;my-element&#x27; title=&#x27;My Element&#x27;&gt;
+  Hello World
+&lt;/div&gt;
+</code></pre><h3 id="bb3bb907-b97d-4945-830c-777c1619804b" class=""><strong>Inserting Elements into the Document</strong></h3><p id="a7b7a244-cb74-482a-ae6f-07f2ea5ef03b" class="">Just like we used <code>appendChild()</code> to add the text node, we can use it to add it to the document.</p><pre id="0665de57-4453-4177-a81e-8e24dbbf8a48" class="code code-wrap"><code>document.body.appendChild(div);
+</code></pre><p id="71e7e654-8b1e-4982-a8d2-9997d1e307dc" class="">That will place it in the body tag as the last element. We can target any element in the document and insert it into another element.</p><pre id="a4ebb4f7-ba57-44da-9f82-7b1d1cb2755c" class="code code-wrap"><code>document.querySelector(&#x27;ul&#x27;).appendChild(div);</code></pre></details></li></ul><ul id="5c299a3a-a6fe-41b1-8aba-6ecffeb68296" class="toggle"><li><details open=""><summary><strong>Create Item - innerHTML vs createElement()</strong></summary><p id="9a1b5ef8-57f7-4acd-b4f7-36f3cc0d9d8c" class="">Now that you know the basics of creating an element within your JavaScript, I want to create a function that we can run to add a new item to the shopping list. There are some really important things I want to show you when it comes to the different ways of doing this. There&#x27;s a quick and dirty solution, which involves just setting the innerHTML to whatever you want and then there&#x27;s a cleaner and more performant way of creating all of your elements and then inserting them into the DOM. I&#x27;m going to show you both ways.</p><h3 id="29aefea9-f22f-429e-ac4e-86ac5acc3fba" class=""><strong>Quick &amp; Dirty (Using innerHTML)</strong></h3><p id="5ac062bb-dd7a-4fff-a13d-9c5ff012a0c7" class="">The first method is to create a <code>li</code> element and then simply set the <code>innerHTML</code> property to the output that you want, using a template string.</p><pre id="547594b4-7589-4b13-ba9f-d308c52b2393" class="code code-wrap"><code>function createListItem(item) {
+  const li = document.createElement(&#x27;li&#x27;);
+
+  li.innerHTML = ` ${item}
+  &lt;button class=&quot;remove-item btn-link text-red&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;`;
+
+  document.querySelector(&#x27;.items&#x27;).appendChild(li);
+}
+
+createListItem(&#x27;Cereal&#x27;);
+createListItem(&#x27;Juice&#x27;);
+createListItem(&#x27;Toothpaste&#x27;);
+</code></pre><h3 id="d9d1ab31-d20e-4f8f-89e8-f148ec2eead4" class=""><strong>Clean &amp; Performant (Creating the elements)</strong></h3><p id="53dff6ca-42ea-46b8-8cf9-e8103d3fa994" class="">The second way is to actually create all of the elements including the li element, text node, button element and icon element and appending each one.</p><pre id="3e4d5a33-3380-419d-ad02-3094e2434dcc" class="code code-wrap"><code>function createNewItem(item) {
+  const li = document.createElement(&#x27;li&#x27;);
+
+  li.appendChild(document.createTextNode(item));
+
+  const button = document.createElement(&#x27;button&#x27;);
+
+  button.className = &#x27;remove-item btn-link text-red&#x27;;
+
+  const icon = document.createElement(&#x27;i&#x27;);
+
+  icon.className = &#x27;fa-solid fa-xmark&#x27;;
+
+  button.appendChild(icon);
+
+  li.appendChild(button);
+
+  document.querySelector(&#x27;.items&#x27;).appendChild(li);
+}
+</code></pre><p id="85b94af1-9dbe-48c9-9eef-a379f5e8d974" class="">Now, you could use either method, just know that using innerHTML causes the web browsers to reparse and recreate all the DOM nodes inside the ul element. So this is less efficient than creating a new element and appending to the ul. So the second way is more performant. Also, setting innerHTML will not automatically reattach event handlers to the new elements it creates, so you would have to keep track of them manually. It is just better practice to create your elements, rather than using innerHTML.</p></details></li></ul><ul id="f6e7a7f3-f3d9-4397-8205-ae5054210bfa" class="toggle"><li><details open=""><summary><strong>Refactor To Use Multiple Functions</strong></summary><p id="6e27a695-1048-46fa-ac16-59f768043654" class="">In the last lesson, we created a function to add items to our shopping list. In that function, we created multiple elements. We created a list item, a button and an icon. I think that you should generally have functions do one thing. In this case our function did 3 things. Let&#x27;s refactor this code into multiple functions that we can reuse if needed.</p><p id="aa7c83e1-bb8a-4909-8630-5dc114566e1a" class="">Here is the original code.</p><pre id="441f4456-3cad-409a-914e-f5cbd1d343e8" class="code code-wrap"><code>function createNewItem(item) {
+  const li = document.createElement(&#x27;li&#x27;);
+
+  li.appendChild(document.createTextNode(item));
+
+  const button = document.createElement(&#x27;button&#x27;);
+
+  button.className = &#x27;remove-item btn-link text-red&#x27;;
+
+  const icon = document.createElement(&#x27;i&#x27;);
+
+  icon.className = &#x27;fa-solid fa-xmark&#x27;;
+
+  button.appendChild(icon);
+
+  li.appendChild(button);
+
+  document.querySelector(&#x27;.items&#x27;).appendChild(li);
+}
+</code></pre><p id="6b9ad19b-443b-4342-b3aa-e048eb2aa7ba" class="">Let&#x27;s create a function to create the button. We will take the classes in as arguments</p><pre id="58491b4b-7700-4a12-8f0f-19c5a3615e9e" class="code code-wrap"><code>function createButton(classes) {
+  const button = document.createElement(&#x27;button&#x27;);
+  button.className = classes;
+
+  return button;
+}
+</code></pre><p id="bab060c5-c3d5-4185-9735-53a0534de625" class="">We create and return the button. We need to include the icon, so let&#x27;s create a function to create an icon</p><pre id="eff25d7b-0da5-4e7e-be84-437d72a69409" class="code code-wrap"><code>function createIcon(classes) {
+  const icon = document.createElement(&#x27;i&#x27;);
+  icon.className = classes;
+
+  return icon;
+}
+</code></pre><p id="d7bcdc0a-e3b8-4662-8fe7-1b7a7e893b17" class="">Now we can add the <code>createIcon()</code> function to our <code>createButton()</code> function</p><pre id="78bf54d3-7439-431d-abcf-4baba7187a70" class="code code-wrap"><code>function createButton(classes) {
+  const button = document.createElement(&#x27;button&#x27;);
+  button.className = classes;
+
+  const icon = createIcon(&#x27;fa-solid fa-xmark&#x27;);
+  button.appendChild(icon);
+
+  return button;
+}
+</code></pre><p id="78567113-5116-4d08-a212-0b19b5d04f68" class="">Now, add the <code>createButton()</code> function to our main function</p><pre id="9928ffd8-6a8f-44c9-850e-1efe7d46cf95" class="code code-wrap"><code>function createNewItem(item) {
+  const li = document.createElement(&#x27;li&#x27;);
+  li.appendChild(document.createTextNode(item));
+
+  // Add button &amp; icon
+  const button = createButton(&#x27;remove-item btn-link text-red&#x27;);
+  li.appendChild(button);
+  document.getElementById(&#x27;item-list&#x27;).appendChild(li);
+}
+</code></pre><p id="fc6a6b22-f7db-4e46-b1f4-38a2e1bc2239" class="">Now we have everything broken up into small funcions. If something goes wrong, it is much easier to debug and the code is more readable and reusable.</p></details></li></ul><ul id="805adcbb-dc51-4ba5-8355-b8689cca33b8" class="toggle"><li><details open=""><summary><strong>Insert Elements, Text &amp; HTML</strong></summary><p id="c25de0d5-af2a-4b62-b653-b21eecce41f4" class="">We know how to select and create elements. We also learned how to insert an item into the DOM using <code>appendChild()</code>. There are other methods that we can use to insert elements, text and HTML into the DOM.</p><p id="d8dfb027-1758-4ad8-bbda-20439a32279e" class="">Let&#x27;s use our shopping list and add some new items in specific positions.</p><h2 id="22500c27-2dce-4f89-a166-cafc4a55beec" class=""><code><strong>insertAdjacentElement()</strong></code></h2><p id="8e25181a-51f9-473a-b97b-c8bd0e0beee4" class=""><code>insertAdjacentElement()</code> as well as the next two methods work in a similar way. We call the method on the current element that we want to insert before or after. Then we pass in a position as the first argument, then our new custom element that we want to insert as the second argument.</p><p id="87b964cb-b556-4039-ab87-caf163d94397" class="">The four position options are <strong>beforebegin</strong>, <strong>afterbegin</strong>, <strong>beforeend</strong>, <strong>afterend</strong>. The placement is as follows:</p><pre id="e0767316-e495-427f-8024-8278ba0ea6b6" class="code code-wrap"><code>&lt;!-- beforebegin --&gt;
+&lt;p&gt;
+  &lt;!-- afterbegin --&gt;
+  ###The content of the initial element###
+  &lt;!-- beforeend --&gt;
+&lt;/p&gt;
+&lt;!-- afterend --&gt;
+</code></pre><p id="660f78ee-50b1-4a05-99e5-1cf18a8794d6" class="">Let&#x27;s say we want to create an <code>h1</code> within our JS and insert it before the <code>filter input</code>. We will put this code in a custom function called <code>insertElement()</code></p><pre id="4037d883-d3fa-48ae-9edd-775522726457" class="code code-wrap"><code>function insertElement() {
+  const filter = document.querySelector(&#x27;.filter&#x27;);
+
+  const h1 = document.createElement(&#x27;h1&#x27;);
+  h1.textContent = &#x27;insertAdjacentElement&#x27;;
+
+  filter.insertAdjacentElement(&#x27;beforebegin&#x27;, h1);
+}
+
+insertElement();
+</code></pre><p id="f10b9206-38fb-44f5-b8d2-897e3944c29c" class="">Now your <code>h1</code> is before the filter. You can change the position to play round with it.</p><h2 id="4598ae6a-e83f-44f2-8e7e-b731fcc44e82" class=""><code><strong>insertAdjacentText()</strong></code></h2><p id="33dbfb48-020c-4843-859d-d579cc3e29f9" class=""><code>insertAdjacentText()</code> works the same way except instead of inserting a custom element, we use it to insert text.</p><p id="ccbd4f88-7c15-493c-935a-7acf6028c5b6" class="">Let&#x27;s insert some text before the first <code>li</code> element</p><pre id="8197c3ed-fa93-4efd-87ff-f9e5815ba9de" class="code code-wrap"><code>function insertText() {
+  const item = document.querySelector(&#x27;li:first-child&#x27;);
+
+  item.insertAdjacentText(&#x27;beforebegin&#x27;, &#x27;insertAdjacentText&#x27;);
+}
+
+insertText();
+</code></pre><h2 id="5840a293-81a7-4c3d-ba78-008349eab5bf" class=""><code><strong>insertAdjacentHTML()</strong></code></h2><p id="53a7150a-f22f-4b7e-8f98-88de4b23b8e6" class=""><code>insertAdjacentHTML()</code> works the same way, but for straight HTML. It is similar to using <code>innerHTML</code></p><p id="146b0491-5a12-468a-b0b8-6ace49ae4331" class="">Let&#x27;s insert some HTML with an <code>h2</code> tag after the clear button</p><pre id="0c9d2f96-466f-490e-a51b-f6a641bc1183" class="code code-wrap"><code>function insertHTML() {
+  const clearBtn = document.querySelector(&#x27;#clear&#x27;);
+
+  clearBtn.insertAdjacentHTML(&#x27;afterend&#x27;, &#x27;&lt;h2&gt;insertAdjacentHTML&lt;/h2&gt;&#x27;);
+}
+
+insertHTML();
+</code></pre><h2 id="37e3540f-fc2e-4d71-8ac1-0e7454d58c30" class=""><code><strong>insertBefore()</strong></code></h2><p id="59be1122-e3d9-4de6-95af-2e74da36c010" class=""><code>insertBefore()</code> is called on the parent element and takes two arguments, the new element and the reference element. It will insert the new element before the reference element.</p><p id="62acb661-ef9a-4e6a-9fc4-1fe9d851ffb6" class="">The following will add a new <code>li</code> element before the first <code>li</code> element</p><pre id="c7adf49a-0834-4d55-84f7-92369e0a5285" class="code code-wrap"><code>const ul = document.querySelector(&#x27;ul&#x27;);
+
+const li = document.createElement(&#x27;li&#x27;);
+li.textContent = &#x27;Insert Me Before!&#x27;;
+
+const firstItem = document.querySelector(&#x27;li:first-child&#x27;);
+
+// Call on parent element
+ul.insertBefore(li, firstItem);
+</code></pre><figure id="8bbd76de-2191-4bb4-815c-f997e75bc6a2" class="image"><a href="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2015.png"><img style="width:510px" src="06-document-object-model-docs%20afab2430690c4efebd9c634a45b521e5/Untitled%2015.png"/></a></figure><h2 id="8bddbd8f-c4ed-4c25-861a-5ffcb28dccb8" class=""><strong>Custom </strong><code><strong>insertAfter()</strong></code></h2><p id="e48999a7-a696-4330-84bf-bb2f490613ed" class="">You would probably think that since there is an <code>insertBefore()</code> method, there would be an <code>insertAfter()</code> method. Unfortunately, there is not. This is one thing I miss about JQuery that JavaScript has not implemented.</p><p id="a48a0da9-c1d7-4852-a971-56e3cb531aae" class="">Just because it doesn&#x27;t exist doesn&#x27;t mean that we can&#x27;t create it.</p><pre id="6e480919-47a4-4312-8808-835c610d189b" class="code code-wrap"><code>function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+</code></pre><p id="e5f079c7-84c3-450c-b6b6-e733f220e87a" class="">The function above takes in a new node/element and an existing node/element and inserts the new node after the existing node. We could achieve this by using the <code>parentNode</code> and <code>nextSibling</code> properties of the existing node.</p><p id="006fdacb-ecd4-49fb-bed0-94af84ff08de" class="">Now we can use this function to insert a new <code>li</code> element after the first <code>li</code> element.</p><pre id="240daa96-3328-451b-94c1-6b992fac2d33" class="code code-wrap"><code>// Parent element
+const ul = document.querySelector(&#x27;ul&#x27;);
+// New element to insert
+const li = document.createElement(&#x27;li&#x27;);
+li.textContent = &#x27;Insert Me After!&#x27;;
+
+// Reference element to insert after
+const firstItem = document.querySelector(&#x27;li:first-child&#x27;);
+
+insertAfter(li, firstItem);
+</code></pre><p id="c80dccb7-ee85-4bd2-ac25-a3f3c04e43c0" class="">You do have to be careful with this because, there is no parent, so if you your existing node selector matches other elements, you may run into an issue. Just be specific with your selectors.</p></details></li></ul><ul id="f33349bd-2827-4870-b17c-8eb6d3f2a237" class="toggle"><li><details open=""><summary><strong>Custom insertAfter() Challenge</strong></summary><p id="ede807a9-0a8f-4b6d-9980-b7ca627ce3b4" class=""><strong>Instructions</strong></p><p id="e49163a0-cea6-4668-b758-e713bae6d3f8" class="">You may think that since there is an <code>insertBefore()</code> method, there is also an <code>insertAfter()</code>, but there isn&#x27;t. In this challenge, I want you to create a custom <code>insertAfter()</code> function. If you don&#x27;t want to do it as a challenge, that&#x27;s fine, just follow along.</p><ul id="8fafc585-4e68-447a-a508-bd153e9169aa" class="bulleted-list"><li style="list-style-type:disc">The first param will be <code>newEl</code> which will be a new element that you create with <code>document.createElement()</code></li></ul><ul id="6b3e049a-f194-4e77-bc17-df8c9bceeffb" class="bulleted-list"><li style="list-style-type:disc">The second param will be <code>existingEl</code> which is an element in the DOM that you want to insert your new element after</li></ul><p id="eaabb091-6037-4787-882b-ee6d832f9f5b" class="">The function will be called like this:</p><pre id="c13a66bb-334d-4333-8ff3-7862d1acb719" class="code code-wrap"><code>// New element to insert
+const li = document.createElement(&#x27;li&#x27;);
+li.textContent = &#x27;Insert Me After!&#x27;;
+
+// Existing element to insert after
+const firstItem = document.querySelector(&#x27;li:first-child&#x27;);
+
+// Our custom function
+insertAfter(li, firstItem);
+</code></pre><p id="ef9a7e83-52c2-40f5-a0e4-1d241426909b" class=""><strong>Hint:</strong></p><p id="ec47d206-5838-4e04-ae7d-0cd66a46dc83" class="">Remember the properties to get parent and sibling elements. Use some of those combined with <code>insertBefore()</code>.</p><ul id="36d49ff7-1a70-4215-a0c3-b372d856c6f5" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="a31e56e3-8bc5-4080-a425-e673d52c66d6" class="code code-wrap"><code>function insertAfter(newEl, existingEl) {
+  existingEl.parentElement.insertBefore(newEl, existingEl.nextSibling);
+}
+</code></pre><p id="5a373250-30e8-4dc8-a6ed-e496a905cbb4" class="">The solution is actually really simple.</p><ul id="1392e524-efda-471c-9ed7-ac06307a5941" class="bulleted-list"><li style="list-style-type:disc">We take the <code>existingEl</code> and get the parent with either the <code>parentElement</code> or <code>parentNode</code> property.</li></ul><ul id="5589b544-b392-428e-8f93-c10ff97890ef" class="bulleted-list"><li style="list-style-type:disc">We call <code>insertBefore()</code> on the parent and then pass in <code>newEl</code> and the element AFTER <code>existingEl</code>. We can get that with the <code>nextSibling</code> property</li></ul><p id="752b27fc-31a1-4332-86f2-c5afbc558143" class="">Putting our new element before the existing element&#x27;s next sibling is the same as putting it after the existing element</p></details></li></ul><p id="975d02c9-ce91-49f1-8ca7-f9363ac83260" class="">⬆︎</p><p id="19ebe37e-336f-4a5e-a0e5-e690f084e1b7" class="">⟳︎</p><p id="07bc38ea-3854-4998-bbc2-3c16a6f4b07a" class="">§</p></details></li></ul><ul id="a8381893-4370-49c4-bd13-e0c896a9ed4a" class="toggle"><li><details open=""><summary><strong>Replacing DOM Elements</strong></summary><p id="cb8f4ccb-1d5b-4bef-872b-a050deea3733" class="">In the last video we looked at how to insert elements into the DOM. Now let&#x27;s look at some methods to replace elements.</p><p id="1e4f844c-75c2-40c1-9cfa-cb95158bec90" class="">We are going to be working with our shopping list UI again. We will be replacing some of the <code>li</code> elements in the list. There is more than one way to do this, so I will show you a couple.</p><h3 id="c0649d89-8113-4a99-86d9-ccad2996cc43" class=""><strong>Method 1 - replaceWith()</strong></h3><p id="6c4fdf50-b00e-4a90-b9b6-ce7750f76985" class="">Let&#x27;s replace the first <code>li</code> element with a new <code>li</code> element using the <code>replaceWith()</code> method.</p><pre id="f5dbc10e-7c59-4ef4-8ec9-5141c9f8c7f1" class="code code-wrap"><code>// Element to replace
+const firstItem = document.querySelector(&#x27;li:first-child&#x27;);
+// New element
+const li = document.createElement(&#x27;li&#x27;);
+li.textContent = &#x27;Replaced First&#x27;;
+
+// Replace first element with new element
+firstItem.replaceWith(li);
+</code></pre><p id="2a7d54fc-b21f-4471-a9b2-4b07492d9b77" class="">We call the <code>replaceWith()</code> method on the first <code>li</code> element and pass in the new <code>li</code> element.</p><h3 id="557c05d9-ff7c-4776-b582-41da38e35014" class=""><strong>Method 2 - outerHTML</strong></h3><p id="2bd72a10-78c0-431d-9c97-28e59fc34f1d" class="">We could also use the <code>outerHTML</code> property to replace the entire element. Let&#x27;s replace the second item this way.</p><pre id="0807fe28-daa6-4c35-ba5e-818935070a6e" class="code code-wrap"><code>// Element to replace
+const secondItem = document.querySelector(&#x27;li:nth-child(2)&#x27;);
+// Replace using outerHTML
+secondItem.outerHTML = &#x27;&lt;li&gt;Replaced Second&lt;/li&gt;&#x27;;
+</code></pre><h3 id="864f972b-4ed8-4d03-a285-bd15e00424e5" class=""><strong>Replacing All Elements</strong></h3><p id="d82be8ae-4ffd-47ff-ae7a-01e024a5b016" class="">As you know, using <code>document.querySelector()</code> will only select one element even if there are more on the page. Let&#x27;s use <code>document.querySelectorAll()</code> to select all of the <code>li</code> elements and then loop through and replace them.</p><pre id="7f241fe1-d523-4d4d-9032-b045cdd0fbad" class="code code-wrap"><code>// Elements to replace
+const lis = document.querySelectorAll(&#x27;li&#x27;);
+// Loop through and replace all list items
+lis.forEach((item) =&gt; {
+  item.outerHTML = &#x27;&lt;li&gt;Replace All&lt;/li&gt;&#x27;;
+});
+</code></pre><p id="6f6d0afa-2660-43be-b35f-9eea6390f168" class="">If we wanted to edit one of the elements, we could for example change the text of the first item by checking the index.</p><pre id="fd7711f4-2a7e-4b1b-a5a5-f0e54303d177" class="code code-wrap"><code>// Elements to replace
+const lis = document.querySelectorAll(&#x27;li&#x27;);
+// Loop through and replace all list items
+lis.forEach((item, index) =&gt; {
+  item.outerHTML = index === 1 ? &#x27;&lt;li&gt;Second Item&lt;/li&gt;&#x27; : &#x27;&lt;li&gt;Item&lt;/li&gt;&#x27;;
+});
+</code></pre><h2 id="b68f47c4-8d5c-426a-a95c-ea13aa594ac5" class=""><code><strong>replaceChild()</strong></code></h2><p id="3d9ac97c-b920-43eb-bf99-658f3bd4a6d9" class="">Another way that we can replace something is by selecting the parent element and then using the <code>replaceChild()</code> method. Let&#x27;s replace the <code>h1</code> element with an <code>h2</code>.</p><pre id="4f8f4e01-5f63-4e4a-a5e9-9553ca1de6f0" class="code code-wrap"><code>const h1 = document.querySelector(&#x27;h1&#x27;);
+const header = document.querySelector(&#x27;header&#x27;);
+const h2 = document.createElement(&#x27;h2&#x27;);
+h2.id = &#x27;app-title&#x27;;
+h2.textContent = &#x27;Shopping List&#x27;;
+header.replaceChild(h2, h1);
+</code></pre><p id="bdb6c6d4-d4ad-4812-8b92-dc5d4278fe28" class=""><code>replaceChild()</code> is called on the parent element and takes two arguments, the new element and the old element.</p></details></li></ul><ul id="8259a0bf-c9e1-45af-8e00-c5b5b02cbe9d" class="toggle"><li><details open=""><summary><strong>Remove DOM Elements</strong></summary><p id="c82a6c0d-dd04-445c-8eb1-9b7498264b04" class="">Now let&#x27;s look at methods to remove elements completely from the DOM.</p><h2 id="403919da-ea43-438e-8196-7e2ac7f6aed7" class=""><code><strong>remove()</strong></code></h2><p id="e75a230c-c743-4319-b564-1dc616e46f12" class="">Remove is very simple. You use it on the element you want to remove and it will remove it from the DOM. Let&#x27;s say that we want to remove the clear button from the page.</p><pre id="7b5675d2-28c0-445c-afb5-687a97d60fd9" class="code code-wrap"><code>const clearButton = document.querySelector(&#x27;#clear&#x27;);
+clearButton.remove();
+</code></pre><h2 id="f2535f7c-6c4c-4f65-9d1f-919652541d7f" class=""><code><strong>removeChild()</strong></code></h2><p id="e5d60b42-14ae-4739-a3f0-7df42cb02c27" class="">Remove child is a bit more complicated. You use it on the parent element and it will remove the child element from the parent. Let&#x27;s say that we want to remove the first <code>li</code> in the shopping list.</p><pre id="8c7c9b5c-5a06-4bff-9ec4-22034580c5a3" class="code code-wrap"><code>const ul = document.querySelector(&#x27;ul&#x27;);
+const li = document.querySelector(&#x27;li:first-child&#x27;);
+ul.removeChild(li);
+</code></pre><p id="1ce7c897-af10-401d-ae2c-9c3dc1f70450" class="">We first select the parent element and then the child element. Then we use <code>removeChild()</code> on the parent and pass in the child.</p><h2 id="daf13648-79c7-4a3d-a554-9b7fc4aecd90" class=""><strong>Removing Specific List Items</strong></h2><p id="588e5c0f-72f1-4957-a3d1-0de8ea587840" class="">Let&#x27;s create a function to remove a specific list item. I will show you a few ways we can do this.</p><pre id="4214573a-05d3-4fcc-8651-e0fb18f20566" class="code code-wrap"><code>function removeListItem(itemNumber) {
+  const ul = document.querySelector(&#x27;ul&#x27;);
+  const li = document.querySelector(`li:nth-child(${itemNumber})`);
+  ul.removeChild(li);
+}
+</code></pre><p id="b8554ab4-459d-4b02-95e7-e5127cd791ab" class="">Here we select the parent element and then use the function argument in the selector to remove the specific item.</p><p id="bc445c6e-8f43-44c3-ba44-0f876f2d51f5" class="">Let&#x27;s look at another:</p><pre id="afcb88a2-8126-4c85-a08f-5b95439b4ae6" class="code code-wrap"><code>function removeListItem(itemNumber) {
+  const ul = document.querySelector(&#x27;ul&#x27;);
+  const li = document.querySelectorAll(&#x27;li&#x27;)[itemNumber - 1];
+
+  ul.removeChild(li);
+}
+</code></pre><p id="cbde5905-c48a-4272-bd35-f6c0fc852d9e" class="">Here, we used the <code>querySelectorAll()</code> method to select all the <code>li</code> elements and then used the <code>itemNumber - 1</code> to select the correct element. We subtracted 1 from the item number because the array/NodeList starts at 0.</p><p id="18f1d47b-9542-45b8-8fb9-127519134fc3" class="">One more:</p><pre id="4c05e4dc-e7cf-44db-9207-6134cd3a8857" class="code code-wrap"><code>function removeListItem(itemNumber) {
+  const ul = document.querySelector(&#x27;ul&#x27;);
+  const li = document.querySelectorAll(&#x27;li&#x27;);
+
+  li[itemNumber - 1].remove();
+}
+</code></pre><p id="2d3307ab-f70d-414e-892b-4a11a0592899" class="">This one is similar, but we used <code>remove()</code> on the element directly.</p><p id="edfbc090-5003-4a45-88bc-7a3b58663632" class="">As you can see, removing elements is pretty easy.</p></details></li></ul></div></article></body></html>

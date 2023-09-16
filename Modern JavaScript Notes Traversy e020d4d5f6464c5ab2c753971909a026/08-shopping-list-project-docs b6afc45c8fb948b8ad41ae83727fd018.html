@@ -1,0 +1,1197 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>08-shopping-list-project-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b6afc45c-8fb9-48b8-ad41-ae83727fd018" class="page sans"><header><h1 class="page-title">08-shopping-list-project-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="2db2d756-f598-4823-93ec-04107f6cc7ff" class="toggle"><li><details open=""><summary><strong>Shopping List Project Intro</strong></summary><p id="73a90ac2-b000-4b0c-97d7-b3ab0d2d6dce" class="">Alright, so we have been working with the shopping list UI for a while. Now it&#x27;s time to actually build it out and add the functionality. It may seem like a simple app, but we&#x27;ll be writing about 200+ lines of code. When you don&#x27;t use a framework, you have to account for everything. If you change the look of a button, you have to make sure it gets changed back to it&#x27;s default state. Frameworks make things easier, by repainting the UI and stuff like that, but learning how to do things the vanilla way will make it that much easier for you to learn React or any other frontend framework.</p><figure id="d596c2f6-c45e-46a1-96d4-dfb878428df2" class="image"><a href="08-shopping-list-project-docs%20b6afc45c8fb948b8ad41ae83727fd018/Untitled.png"><img style="width:509px" src="08-shopping-list-project-docs%20b6afc45c8fb948b8ad41ae83727fd018/Untitled.png"/></a></figure><p id="f9787d03-22c8-43d1-a546-50f58b91081b" class="">Let&#x27;s look at the specs for this project:</p><h2 id="5b38a772-f42a-4585-b8e2-866698d44f22" class=""><strong>Project Specs</strong></h2><ul id="10dfe66f-5992-4444-a001-a050c227d894" class="bulleted-list"><li style="list-style-type:disc">Add items to the list via the form</li></ul><ul id="2d63c955-4070-4be3-bc5b-d06a718b03bd" class="bulleted-list"><li style="list-style-type:disc">Remove items from the list by clicking the &quot;X&quot; button</li></ul><ul id="68382dc2-36b6-41ee-9723-76af22b71d13" class="bulleted-list"><li style="list-style-type:disc">Clear all of the items from the list with the &quot;Clear All&quot; button</li></ul><ul id="3d190079-aded-45a8-88da-d16e3ff28049" class="bulleted-list"><li style="list-style-type:disc">Filter the items by typing into the filter input field</li></ul><ul id="20a47b4f-271a-4410-ac88-9e7e378ef17f" class="bulleted-list"><li style="list-style-type:disc">Add localStorage functionality to persist the list</li></ul><ul id="8287d270-60b1-4847-bd88-1ffb0c8a1718" class="bulleted-list"><li style="list-style-type:disc">Click on an item to put the text into the input field and change the button to &quot;Update&quot;</li></ul><ul id="bcc79e9c-1165-4dd4-a10b-0501329647d4" class="bulleted-list"><li style="list-style-type:disc">Update an item by clicking the &quot;Update&quot; button</li></ul><ul id="9fdace11-c0dd-4842-b4ce-580c8c57951d" class="bulleted-list"><li style="list-style-type:disc">Add validation and check to see if the item already exists in local localStorage</li></ul><p id="45cd5973-f24a-4fef-acc3-377f930da480" class="">I know we haven&#x27;t talked about local storage yet, but I&#x27;m going to give you a little crash course before we add it to the project. Remember, everything that we have done so far is all frontend and related to the DOM. If we submit the form and add an item to the <code>ul</code>, it&#x27;s only for that frame. If we reload the page, it goes back to the default. We&#x27;re not persisting the data anywhere. Many times you&#x27;ll submit the form and use something like the <code>fetch</code> API to send the data to a server and get saved in a database. Another option you have is to save the data locally and that&#x27;s what local storage is for. So that if we refresh the page, we still have the data there.</p><p id="1499bfff-9a42-43c5-9e8c-c5fd7972adbc" class="">Let&#x27;s take a quick look at the HTML and CSS.</p><h3 id="dd6107f5-1aa5-42e5-94b4-694401eaec1a" class=""><strong>HTML</strong></h3><p id="3ed15965-1c0f-4613-a588-c7e223b98e3a" class="">The HTML is pretty simple and you probably have it memorized by now. We have a header then a form with an input for an item. We have a filer input to filter items. Of course, we have the item list and each item has the name as well as the &quot;X&quot; button to remove the item. We are using font-awesome for icons. I just included the CDN link in the <code>head</code>, that way we can just add classes to use icons. We also have a clear button to remove all of the items.</p><pre id="dc9bccbe-2c82-41d8-a86d-c21fbda25ae0" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;UTF-8&quot; /&gt;&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;&lt;link
+      rel=&quot;stylesheet&quot;href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css&quot;integrity=&quot;sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==&quot;crossorigin=&quot;anonymous&quot;referrerpolicy=&quot;no-referrer&quot;/&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot; /&gt;&lt;title&gt;Shopping List&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;container&quot;&gt;&lt;header&gt;&lt;img src=&quot;images/note.png&quot; alt=&quot;&quot; /&gt;&lt;h1 id=&quot;app-title&quot;&gt;Shopping List&lt;/h1&gt;&lt;/header&gt;&lt;form id=&quot;item-form&quot;&gt;&lt;div class=&quot;form-control&quot;&gt;&lt;input
+            type=&quot;text&quot;class=&quot;form-input&quot;id=&quot;item-input&quot;placeholder=&quot;Enter Item&quot;/&gt;&lt;/div&gt;&lt;div class=&quot;form-control&quot;&gt;&lt;button type=&quot;submit&quot; class=&quot;btn&quot;&gt;&lt;i class=&quot;fa-solid fa-plus&quot;&gt;&lt;/i&gt; Add Item
+          &lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;div class=&quot;filter&quot;&gt;&lt;input
+          type=&quot;text&quot;class=&quot;form-input-filter&quot;id=&quot;filter&quot;placeholder=&quot;Filter Items&quot;/&gt;&lt;/div&gt;&lt;ul id=&quot;item-list&quot; class=&quot;items&quot;&gt;&lt;li&gt;
+          Apples
+          &lt;button class=&quot;remove-item btn-link text-red&quot;&gt;&lt;i class=&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;
+          Orange Juice
+          &lt;button class=&quot;remove-item btn-link text-red&quot;&gt;&lt;i class=&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;
+          Oreos
+          &lt;button class=&quot;remove-item btn-link text-red&quot;&gt;&lt;i class=&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/li&gt;&lt;li&gt;
+          Milk
+          &lt;button class=&quot;remove-item btn-link text-red&quot;&gt;&lt;i class=&quot;fa-solid fa-xmark&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&lt;button id=&quot;clear&quot; class=&quot;btn-clear&quot;&gt;Clear All&lt;/button&gt;&lt;/div&gt;&lt;script src=&quot;js/script4.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code></pre><h3 id="93e45c9e-6329-4c4b-b2d6-ab7e73eb8430" class=""><strong>CSS</strong></h3><p id="0e330be4-9de3-4992-b6ee-b6769f6f6167" class="">The CSS is very simple as well. I didn&#x27;t use any framework like Tailwind or Bootstrap. I just used a plain old CSS file.</p><pre id="814f84a5-5f5e-4657-beb8-78027024b8e4" class="code code-wrap"><code>@import url(&#x27;https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&amp;display=swap&#x27;);
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: &#x27;Poppins&#x27;, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-weight: 300;
+  margin-left: 10px;
+}
+
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+/* Form &amp; Input */
+.form-input {
+  width: 100%;
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.form-input-filter {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: transparent;
+  outline: none;
+}
+
+/* Buttons */
+.btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #444;
+}
+
+.btn-link {
+  font-size: 16px;
+  background-color: transparent;
+  color: #333;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btn-clear {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 16px;
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-clear:hover {
+  background-color: #f1f1f1;
+}
+
+.text-red {
+  color: red;
+}
+
+/* Items */
+
+.items {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.items li {
+  display: flex;
+  justify-content: space-between;
+  width: 45%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 0 5px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .items li {
+    width: 100%;
+  }
+}</code></pre></details></li></ul><ul id="2b4930f0-3d4a-4d7c-897f-5e6d647c70dd" class="toggle"><li><details open=""><summary><strong>Add Items To List</strong></summary><p id="06886434-866c-4555-870c-f5403f485268" class="">The first piece of functionality we want to add is the ability to add items to the list. We already have the HTML and CSS in place, so let&#x27;s jump right into the JavaScript.</p><p id="70ae8872-924c-48d1-b0cf-c8a48106fefd" class="">There will be parts of this project that I refactor as we go along.</p><p id="c4681718-837e-436f-8c3b-c9dc5ec6266c" class="">First, let&#x27;s bring in the elements from the DOM that we want to work with.</p><pre id="d6e24f1f-181b-4ff3-974d-a062558d665f" class="code code-wrap"><code>const itemForm = document.getElementById(&#x27;item-form&#x27;);
+const itemInput = document.getElementById(&#x27;item-input&#x27;);
+const itemList = document.getElementById(&#x27;item-list&#x27;);
+</code></pre><p id="e7b0b3bc-799b-4778-b085-88c709119e3f" class="">Let&#x27;s add and event listener to the form and an <code>addItem()</code> function. We want to listen for the <code>submit</code> event. We will also do some basic validation to make sure the user has entered something in the input field.</p><pre id="e76e4704-8669-45de-95fa-d5591b12daf4" class="code code-wrap"><code>function addItem(e) {
+  e.preventDefault();
+
+  // Validate input
+  if (itemInput.value === &#x27;&#x27;) {
+    alert(&#x27;Please enter an item&#x27;);
+    return;
+  }
+
+  console.log(&#x27;Success&#x27;);
+}
+
+itemForm.addEventListener(&#x27;submit&#x27;, addItem);
+</code></pre><p id="34e0c68f-5649-45fd-aa1b-2fec9093f5a5" class="">Now, we want to create a new list item and add it to the list. The list item will include a button with a font-awesome icon inside of it.</p><p id="9c28c154-189d-41e2-8aad-4ecec4b268da" class="">I am going to create a separate functions for creating the button and the icon. This is just preference. You could do it all in one function if you wanted.</p><pre id="20a13e7e-25ee-479d-ab96-f8b467b39ae8" class="code code-wrap"><code>function addItem(e) {
+  e.preventDefault();
+
+  const newItem = itemInput.value;
+
+  // Validate Input
+  if (newItem === &#x27;&#x27;) {
+    alert(&#x27;Please add an item&#x27;);
+    return;
+  }
+
+  // Create list item
+  const li = document.createElement(&#x27;li&#x27;);
+  li.appendChild(document.createTextNode(newItem));
+
+  const button = createButton(&#x27;remove-item btn-link text-red&#x27;);
+  li.appendChild(button);
+
+  itemList.appendChild(li);
+
+  itemInput.value = &#x27;&#x27;;
+}
+
+function createButton(classes) {
+  const button = document.createElement(&#x27;button&#x27;);
+  button.className = classes;
+  const icon = createIcon(&#x27;fa-solid fa-xmark&#x27;);
+  button.appendChild(icon);
+  return button;
+}
+
+function createIcon(classes) {
+  const icon = document.createElement(&#x27;i&#x27;);
+  icon.className = classes;
+  return icon;
+}</code></pre></details></li></ul><ul id="c8535c9d-e105-4e0f-af0e-be1a5d073440" class="toggle"><li><details open=""><summary><strong>Setting Up Git &amp; GitHub</strong></summary><p id="2b37f3da-5ed6-4009-aa20-47e3f6d49ed7" class="">Git is a version control systems that is used to track changes in code. It is a very powerful tool that is very important to learn as a developer. It is used in many different ways, but we will be using it to track changes in our code as we build our shopping list app.</p><p id="c7f9f3b3-f226-42b7-86ea-9b13070d98ae" class="">The basic workflow is:</p><ol type="1" id="2bb91385-9db0-4f98-871a-15f2077a8157" class="numbered-list" start="1"><li>Make changes to your code</li></ol><ol type="1" id="411539bd-9417-4e00-8b4d-67dcc089a404" class="numbered-list" start="2"><li>Add the changes to the staging area</li></ol><ol type="1" id="181406f2-2537-4a1b-a8af-71d3cf5976b7" class="numbered-list" start="3"><li>Commit the changes to the repository</li></ol><ol type="1" id="9e27c809-6193-4190-9b5e-fc8c7c89ae4a" class="numbered-list" start="4"><li>Push the changes to GitHub (or something else like BitBucket)</li></ol><h2 id="b033a236-17fe-4d36-9347-17dec1b8119b" class=""><strong>Installing Git</strong></h2><p id="21147eaa-5e85-4f73-82a3-44aca79ffa3b" class="">Git is a command line tool, so you will need to install it on your computer. You can download it from <a href="https://git-scm.com/">git-scm.com</a>. You can use the default settings when installing. If you are on a Mac, you can also install it using Homebrew.</p><p id="4a835f0e-b45f-43c5-9f1e-eca239b8599f" class="">If you are on Windows, you can also install Git Bash, which is a <code>bash</code> terminal that comes with Git. You can use this instead of the regular Windows command prompt.</p><h2 id="8494481c-0fad-4c1b-b5f4-724ef51c7817" class=""><strong>Init Git</strong></h2><p id="fd1fa6ae-34e3-4852-bb0c-2b8f90c0308c" class="">Once you install Git, go to the project folder in your command line. VS Code has a built in terminal that you can use, which is what I prefer. Enter the following command:</p><pre id="dfec4287-e562-46a5-96d1-e8a9148079fd" class="code code-wrap"><code>git init
+</code></pre><p id="69023afa-ac61-41ba-aa69-1b8939408e86" class="">This creates a hidden <code>.git</code> folder in your project folder. This is where all of the Git information is stored.</p><h2 id="5801d39e-0047-4433-bd91-9cbc891dbc82" class=""><strong>Add Files To Git</strong></h2><p id="b1fe6744-3879-4a80-bf72-85c90db58b7c" class="">Now that we have Git initialized, we need to add the files we want to track to Git. We can do this by entering the following command:</p><pre id="f9f386be-22a5-4a25-ab4b-e00164423c70" class="code code-wrap"><code>git add .
+</code></pre><p id="eca278ac-34f8-48cf-88cb-f2e40b50a0dc" class="">The files are now in the staging area. We can see what files are in the staging area by entering the following command:</p><pre id="4743a909-8c38-478e-933f-be06f92581f9" class="code code-wrap"><code>git status
+</code></pre><h2 id="cf44d05c-fb1a-4b35-be73-d74101dbdd51" class=""><strong>Commit Files</strong></h2><p id="b789c6b3-ed3f-4eec-9ae0-d1e2e1be6bee" class="">Now that we have the files in the staging area, we can commit them to the repository. We can do this by entering the following command:</p><pre id="50eddb30-1b9f-4254-9be9-ecdaa636d5aa" class="code code-wrap"><code>git commit -m &quot;Initial Commit&quot;
+</code></pre><p id="a6b575d6-d6ff-4f13-b436-997a592a0a82" class="">The <code>-m</code> flag is used to add a message to the commit. This is a good practice to get into. It is a good idea to make your commit messages descriptive. This will help you and others understand what changes were made in the commit.</p><p id="a96acee0-5fe0-48e2-807c-46fa0814c1e5" class="">Call it <code>shopping-list</code> or whatever you&#x27;d like.</p><h2 id="2882a278-aff6-48c6-8a87-1168491e4b7c" class=""><strong>Setup SSH keys for GitHub</strong></h2><p id="d842c631-cf9f-4308-9dd2-407957b6088d" class="">Now that we have a remote repo, we need to add an SSH key to GitHub. This will allow us to push our code to GitHub. We can do this by entering the following command:</p><pre id="a3d516ac-acc6-4648-8d9b-73c81d5b8cbf" class="code code-wrap"><code>ssh-keygen -t rsa -b 4096 -C &quot;
+</code></pre><p id="2d753a08-cb7c-444a-943f-47d16b0ab185" class="">This will create a new SSH key. You can press enter to accept the default file location and the default name of <code>id_rsa</code> or you can type in a custom name and location. I like to name my key files for the service I am using it for, so I would do something like</p><pre id="72c0fef4-907e-4283-a1ae-8edbe8ee28b0" class="code code-wrap"><code>/Users/brad/ssh/id_rsa_github
+</code></pre><p id="0baf2685-311b-44f2-9ab6-47953265da15" class="">You will then be prompted to enter a passphrase. You can leave this blank by pressing enter.</p><p id="d5c93d68-3d47-483d-bab8-4dba5195f4be" class="">This will create a private key file and a public key file. The public key file will have the same name as the private key file, but with <code>.pub</code> at the end. You can view the contents of the public key file by entering the following command:</p><pre id="509055e4-4ea0-4141-8013-226b6ce2a9bd" class="code code-wrap"><code>cat ~/.ssh/id_rsa_github.pub
+</code></pre><h2 id="47e6e29a-450c-4384-b21d-af218dc5e746" class=""><strong>Adding the SSH Key to GitHub</strong></h2><p id="52ed7482-1fbb-46ce-9bdb-a8fb6ab3edc0" class="">Copy the contents of the public key file. Then go to your GitHub account and click on your profile picture in the top right corner. Then click <code>Settings</code>. Then click <code>SSH and GPG keys</code>. Then click <code>New SSH key</code>. Give it a title and paste the contents of the public key file into the <code>Key</code> field. Then click <code>Add SSH key</code>.</p><h2 id="c4a2a652-4bd1-4f97-b019-d584e02e768f" class=""><strong>Push To GitHub</strong></h2><p id="c6c19d4d-d357-4935-af92-6c291e5e90fb" class="">Next, we need to setup a remote repo at GitHub. We can do this by going to <a href="https://github.com/">github.com</a> and creating a new repository. Login and click the <code>+</code> icon in the top right corner. Then click <code>New repository</code>. Give it a name and click <code>Create repository</code>.</p><p id="01c3b026-7104-47c7-831e-396a6aada7eb" class="">Now that we have a remote repo, we need to push our files to it. Start copying the <code>git remote</code> command that you see on the repo page</p><pre id="d30bde95-6e3c-4342-b95e-572c0884be1c" class="code code-wrap"><code>git remote add origin YOUR_REMOTE_REPO_URL
+</code></pre><p id="a02ba6e6-ae08-4eb0-b9b8-98505c90714c" class="">Then specify the branch you want to push to, We will use the main branch.</p><pre id="1cd2b838-1f9a-4955-808f-a0de0e39ab2d" class="code code-wrap"><code>git branch -M main
+</code></pre><p id="cb80ed8a-05af-479b-8ed9-bf8d74303d93" class="">Finally, push the files to the remote repo.</p><pre id="619abc49-021e-49c9-a013-4d83c3cffe31" class="code code-wrap"><code>git push -u origin main
+</code></pre><p id="0febd113-5888-484d-b3fc-a89aeaf47597" class="">Now, you should see your files in the remote repo.</p><h2 id="842607fe-ddd0-4be9-ab09-855debf61fd5" class=""><strong>Updating the remote repo</strong></h2><p id="aef1056a-943a-45dd-a56d-63cd4d6346e7" class="">Anytime you update your code and you want to push to github, you simply add the files to the staging area, commit them, and push them to the remote repo.</p><p id="72a6a0a4-070c-4158-8d9e-ed9d1932678c" class="">Let&#x27;s cerate a readme file called <a href="http://readme.md/">readme.md</a>. Add the following to the readme file:</p><pre id="924cf3bc-7a79-422b-8028-acc5b1264240" class="code code-wrap"><code># Shopping List App
+
+This is a shopping list app that I created using HTML, CSS, and JavaScript.
+</code></pre><p id="3b23abc0-26fd-4179-99e8-3194f25a3919" class="">This is a <code>markdown</code> file. You can learn more about markdown <a href="https://www.markdownguide.org/">here</a>.</p><p id="f030576e-1e03-4ecc-a069-8ac4b5cc4add" class="">Now push to your remote repo:</p><pre id="f28e919f-94f8-4dbb-9e05-781b852cb6c5" class="code code-wrap"><code>git add .
+git commit -m &quot;Update&quot;
+git push
+</code></pre><p id="56297b7c-0a6c-4966-ae06-38eac98752cc" class="">The readme file contents will show up on the repo page.</p></details></li></ul><ul id="777ef589-e2aa-4697-807d-41ec29325dbd" class="toggle"><li><details open=""><summary><strong>Remove &amp; Clear Items</strong></summary><p id="1c247cec-c115-4f04-aaed-1478a99ae622" class="">Now that we can add items, let&#x27;s add the ability to remove and clear items.</p><p id="ad672675-e5a9-4d60-be4b-1130b5abeae2" class="">Let&#x27;s add an event listener on to the list itself and we will use event delegation to target the button/icon.</p><pre id="2cea3346-919b-4e7a-aff1-1e434b6850fe" class="code code-wrap"><code>itemList.addEventListener(&#x27;click&#x27;, removeItem);
+</code></pre><p id="b8e76563-19ca-4342-a286-dcc48512e526" class="">Create the removeItem function</p><pre id="24e81569-c471-47c1-a774-bb1098454b91" class="code code-wrap"><code>function removeItem(e) {
+  if (e.target.parentElement.classList.contains(&#x27;remove-item&#x27;)) {
+    if (confirm(&#x27;Are you sure?&#x27;)) {
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+</code></pre><h2 id="0fcea280-5588-40a8-be08-3fdf2a36209d" class=""><strong>Clearing all items</strong></h2><p id="434cd272-fe79-4016-8ac0-fe098951880c" class="">We want to make the <strong>Clear All</strong> button function, so let&#x27;s create an event listener for it.</p><pre id="05f15b34-b35d-4dd9-919f-e1805c1152db" class="code code-wrap"><code>clearBtn.addEventListener(&#x27;click&#x27;, clearItems);
+</code></pre><p id="bed9b02b-7127-4b00-a38a-64b4e4331223" class="">Create the clearItems function</p><pre id="97705791-d477-4d72-aa4a-9760c1c5a23d" class="code code-wrap"><code>function clearItems() {
+  if (confirm(&#x27;Are you sure?&#x27;)) {
+    while (itemList.firstChild) {
+      itemList.removeChild(itemList.firstChild);
+    }
+  }
+}
+</code></pre><p id="25baecb9-a4cf-43c1-b544-d4d17e68c539" class="">There are many ways to clear the items. you could just set the <code>innerHTML</code> to an empty string, but I wanted to use a method that is a bit more performant.</p></details></li></ul><ul id="fe2c1eee-45ad-43d0-9837-80b33e7b3f60" class="toggle"><li><details open=""><summary><strong>Clear UI State</strong></summary><p id="19d1804a-035e-4d74-b0e3-2358b6655067" class="">This is optional, but I want to make the UI a bit more dynamic by not showing the filter input or the clear all button unless there are actual items in the list. If you still have your hardcoded <code>&lt;li&gt;</code> items in the HTML, you can remove them now.</p><p id="72e38abb-a4b8-4453-a1a9-d41e9ea43a4f" class="">We are going to have a function that we can run to check for the list items and if there are not any, we will hide the 2 elements. If they are there, we will show them.</p><pre id="95105fe0-73ba-4037-9916-73226c6e30c6" class="code code-wrap"><code>function checkUI() {
+  const items = itemList.querySelectorAll(&#x27;li&#x27;);
+
+  if (items.length === 0) {
+    clearBtn.style.display = &#x27;none&#x27;;
+    itemFilter.style.display = &#x27;none&#x27;;
+  } else {
+    clearBtn.style.display = &#x27;block&#x27;;
+    itemFilter.style.display = &#x27;block&#x27;;
+  }
+}
+</code></pre><p id="a2007143-062e-4bb9-9bd3-49283a37fbdc" class="">We are going to call this in a few places. first, we will call it at the end of the file in the global scope. This will run when the page loads and check if there are any items in the list.</p><pre id="0d8a56c3-4b3f-44f5-b836-df45757f5eaf" class="code code-wrap"><code>checkUI();
+</code></pre><p id="a482bd09-6574-4569-87b5-73e5474c2bf1" class="">We also want to add it when we add, remove and clear items.</p><pre id="58424cb9-dc51-4c80-bb55-d8f1dc6ed5e9" class="code code-wrap"><code>function addItem() {
+  // ...
+  checkUI();
+}
+
+function removeItem(e) {
+  // ...
+  checkUI();
+}
+
+function clearItems() {
+  // ...
+  checkUI();
+}
+</code></pre><p id="fc81c77a-3340-4be9-ab70-4039e6ee32ef" class="">Now you can test by adding, removing and clearing items. You should see the buttons appear and disappear as you add and remove items.</p></details></li></ul><ul id="d04dd933-f9d3-4847-92e9-504918e0a86d" class="toggle"><li><details open=""><summary><strong>Filter Items</strong></summary><p id="9020f294-2293-4844-9064-92fe2eefaee4" class="">Now that we can add, remove and clear, we want to be able to type in the filter input and filter the items in the list.</p><p id="59b7582e-87a7-48f1-b6ea-b46ddc2c4471" class="">Let&#x27;s add an event listener to the filter input.</p><pre id="7f79120e-818f-4a80-a0c0-d2eb57965589" class="code code-wrap"><code>itemFilter.addEventListener(&#x27;input&#x27;, filterItems);
+</code></pre><p id="30d965f3-9fbd-4b7e-974a-1e68b1421b19" class="">We are going to use the <code>filter</code> method to filter the items.</p><pre id="3d0d1bd1-b0fb-420d-9b3a-b92203bd16fb" class="code code-wrap"><code>function filterItems(e) {
+  const items = itemList.querySelectorAll(&#x27;li&#x27;);
+  const text = e.target.value.toLowerCase();
+
+  items.forEach((item) =&gt; {
+    const itemName = item.firstChild.textContent.toLowerCase();
+
+    if (itemName.indexOf(text) != -1) {
+      item.style.display = &#x27;flex&#x27;;
+    } else {
+      item.style.display = &#x27;none&#x27;;
+    }
+  });
+}
+</code></pre><p id="a556bd77-df82-4542-8ba3-eb9e43268aa2" class="">In the above code, we get the items and whatever is being typed in the filter input. Then we loop through and use the <code>indexOf</code> method to see if the item name contains the text. If it does, we show the item, otherwise we hide it.</p></details></li></ul><ul id="2d672377-d0ed-43f2-964c-2ba47b099648" class="toggle"><li><details open=""><summary><strong>Local Storage Crash Course</strong></summary><h2 id="8a51802e-891e-4a25-8793-aa0c4a4dc5e7" class=""><strong>What is Local Storage?</strong></h2><p id="886940ff-3588-4a07-938f-2c084cae696e" class="">Local Storage is a way for web pages to store named key/value pairs locally, within the client web browser. Unlike cookies, the storage limit is far larger (at least 5MB) and information is never transferred to the remote web server.</p><h2 id="cf89d662-96ff-44ec-9f87-29819c727802" class=""><strong>Why would you want to use Local Storage?</strong></h2><p id="eb22c42c-dd7a-432f-9596-35bb4906a2e5" class="">Local Storage is one of the most commonly used web APIs in modern web development. It is used for client-side storage of persistent data. This means that the data stored in the browser will persist even after the browser window has been closed. Local Storage is ideal for storing simple data. It is used for things like user preferences, shopping cart contents, game scores, etc.</p><h2 id="d40524d2-1fda-435c-80f0-e3663ffdc28d" class=""><strong>How do you use Local Storage?</strong></h2><p id="2977031b-b223-4454-85ad-1da8df8bbc64" class="">Local Storage is very simple to use. You can set, get, and remove data from Local Storage using the <code>setItem()</code>, <code>getItem()</code>, and <code>removeItem()</code> methods. The <code>setItem()</code> method takes a key and a value as parameters. The <code>getItem()</code> method takes a key as a parameter and returns the value. The <code>removeItem()</code> method takes a key as a parameter and removes the key/value pair from Local Storage.</p><h2 id="e31ab5d9-c4f3-426b-a06d-e29b9e16458f" class=""><strong>Adding an item to Local Storage</strong></h2><pre id="11789244-60da-4af6-ad35-b21f72413f06" class="code code-wrap"><code>localStorage.setItem(&#x27;name&#x27;, &#x27;John&#x27;);
+</code></pre><h2 id="267d4aae-5641-416d-a6ea-1b62215decaf" class=""><strong>Getting an item from Local Storage</strong></h2><pre id="83530204-ade3-4fd8-bf22-8ffb0d3f9eae" class="code code-wrap"><code>const name = localStorage.getItem(&#x27;name&#x27;);
+</code></pre><h2 id="341c7012-3eb4-4b70-ad63-d0390366f666" class=""><strong>Removing an item from Local Storage</strong></h2><pre id="0c134c99-53ac-42aa-813f-0502c72db81c" class="code code-wrap"><code>localStorage.removeItem(&#x27;name&#x27;);
+</code></pre><h2 id="9531c667-7aa6-4677-bb9f-5c4d617234f2" class=""><strong>Clearing all items from Local Storage</strong></h2><pre id="b029a368-d000-4101-bd69-8ae692a1a5ab" class="code code-wrap"><code>localStorage.clear();
+</code></pre><p id="3f52d85a-64cc-4538-b088-c3bd1fdb4959" class="">Many times, you will want to save an array or object to Local Storage. You can do this by converting the array or object to a string using <code>JSON.stringify()</code> and then saving it to Local Storage. When you want to retrieve the array or object, you can convert it back to an array or object using <code>JSON.parse()</code>.</p><h2 id="0d050fe1-34bc-42a8-97e5-966a572e37a1" class=""><strong>Saving an array to Local Storage</strong></h2><pre id="e9677722-44f7-4066-a9b3-cdf174d6ef36" class="code code-wrap"><code>const todos = [
+  {
+    text: &#x27;Take out trash&#x27;,
+  },
+  {
+    text: &#x27;Meeting with boss&#x27;,
+  },
+  {
+    text: &#x27;Dentist appt&#x27;,
+  },
+];
+
+localStorage.setItem(&#x27;todos&#x27;, JSON.stringify(todos));
+</code></pre><h2 id="02fea585-eac4-4bc9-9255-667ba50d00b1" class=""><strong>Getting an array from Local Storage</strong></h2><pre id="7ed0fcdf-d37f-4f20-9806-16fcdaf835b0" class="code code-wrap"><code>const todos = JSON.parse(localStorage.getItem(&#x27;todos&#x27;));
+</code></pre><p id="8d62b387-35ff-4c1a-9836-1544428f1bec" class="">That is pretty much it. Local Storage is very simple to use.</p></details></li></ul><ul id="4c1e71f9-7c72-4b1c-8bf6-7d093d32d292" class="toggle"><li><details open=""><summary><strong>Add Items To LocalStorage</strong></summary><p id="a5b928e1-2ba5-4e8d-8c1c-9aeaf549a620" class="">Now that we have add, remove, clear and filter working in the DOM, we need to be able to persist the items to localStorage in the browser.</p><p id="2522f18a-7102-41e9-bd4c-441fa704e8be" class="">I am going to refactor the code a bit to make it easier to work with. Instead of having the submit event call a function called <code>addItem</code>, I am going to change the name of that function to <code>onAddItemSubmit()</code> and then call that function from the submit event.</p><pre id="9ffdc43a-07db-4692-87c6-00b585f6eb59" class="code code-wrap"><code>itemForm.addEventListener(&#x27;submit&#x27;, onAddItemSubmit);
+</code></pre><p id="1f11a38a-21cf-4d17-8f02-7cf91d1bfcc5" class="">The part of the function where we add the item to the DOM, I am going to remove and put in it&#x27;s own function called <code>addItemToDOM()</code>.</p><pre id="e41e501e-afa6-4abf-9212-4fc6d164d118" class="code code-wrap"><code>function onAddItemSubmit(e) {
+  e.preventDefault();
+
+  const newItem = itemInput.value;
+
+  // Validate Input
+  if (newItem === &#x27;&#x27;) {
+    alert(&#x27;Please add an item&#x27;);
+    return;
+  }
+
+  // Create item DOM element
+  addItemToDOM(newItem);
+
+  checkUI();
+
+  itemInput.value = &#x27;&#x27;;
+}
+</code></pre><pre id="154eb157-ec8d-44d3-80cd-7c603c161825" class="code code-wrap"><code>function addItemToDOM(item) {
+  // Create list item
+  const li = document.createElement(&#x27;li&#x27;);
+  li.appendChild(document.createTextNode(item));
+
+  const button = createButton(&#x27;remove-item btn-link text-red&#x27;);
+  li.appendChild(button);
+
+  // Add li to the DOM
+  itemList.appendChild(li);
+}
+</code></pre><h2 id="ab1d237a-38e3-4a92-b5bd-5f50f9f49792" class=""><strong>Adding items to localStorage</strong></h2><p id="0a75116f-6a1d-41bd-ada1-6a281a3b615e" class="">Now we will create a function to add the items to localStorage. We will call it right after we add the item to the DOM.</p><pre id="f29a6eef-5d2f-45e0-8277-eca4f01e32c4" class="code code-wrap"><code>function addItemToStorage(item) {
+  let itemsFromStorage;
+
+  if (localStorage.getItem(&#x27;items&#x27;) === null) {
+    itemsFromStorage = [];
+  } else {
+    itemsFromStorage = JSON.parse(localStorage.getItem(&#x27;items&#x27;));
+  }
+
+  // Add new item to array
+  itemsFromStorage.push(item);
+
+  // Convert to JSON string and set to local storage
+  localStorage.setItem(&#x27;items&#x27;, JSON.stringify(itemsFromStorage));
+}
+</code></pre><pre id="8975214d-912a-4aea-bbaa-f8965dd70466" class="code code-wrap"><code>function onAddItemSubmit(e) {
+  // ...
+
+  // Create item DOM element
+  addItemToDOM(newItem);
+
+  // Add item to local storage
+  addItemToStorage(newItem);
+}
+</code></pre><p id="165b85e6-d578-4bc6-947d-31104122dc9b" class="">Now, when you add an item, it will get added to <code>items</code> in localStorage. You can check this by going to your application tab in the dev tools and clicking on the <code>Local Storage</code> tab.</p><figure id="2d8beb37-0078-4f49-816b-91e5a39ce4e7" class="image"><a href="08-shopping-list-project-docs%20b6afc45c8fb948b8ad41ae83727fd018/Untitled%201.png"><img style="width:540px" src="08-shopping-list-project-docs%20b6afc45c8fb948b8ad41ae83727fd018/Untitled%201.png"/></a></figure></details></li></ul><ul id="92840ad7-047d-4392-8a0c-61db68733473" class="toggle"><li><details open=""><summary><strong>Display Items From Local Storage</strong></summary><p id="9f4ddaba-9360-4047-94bf-8ee001496a62" class="">We are now able to add items to localStorage. Now we need to display them on the page when the page loads.</p><h2 id="9214e9a6-74f6-4384-8e37-75fc7f27f54b" class=""><strong>Getting items from localStorage</strong></h2><p id="ab6afa75-9a51-44d0-a5e0-775e93942d72" class="">We will start by creating a function that we can use in multiple places to get the items from localStorage.</p><pre id="2aaae773-c143-429d-b162-abed92d7f05d" class="code code-wrap"><code>function getItemsFromStorage() {
+  let itemsFromStorage;
+
+  if (localStorage.getItem(&#x27;items&#x27;) === null) {
+    itemsFromStorage = [];
+  } else {
+    itemsFromStorage = JSON.parse(localStorage.getItem(&#x27;items&#x27;));
+  }
+
+  return itemsFromStorage;
+}
+</code></pre><p id="190217f2-9951-42cc-9ddf-3ff722e4cd6c" class="">We are just creating a variable called <code>itemsFromStorage</code> and setting it to an empty array. Then we are checking to see if there is anything in localStorage. If there is, we are parsing it and setting it to <code>itemsFromStorage</code>. If there isn&#x27;t, we are just returning an empty array.</p><p id="4a9d8f85-c72e-48da-8bf4-10cb1e0a9b58" class="">We can now replace most of the code in <code>addItemToStorage()</code> with this function.</p><pre id="4fb9fa2d-3212-407b-a9c7-4f37358b396f" class="code code-wrap"><code>function addItemToStorage(item) {
+  const itemsFromStorage = getItemsFromStorage();
+
+  // Add new item to array
+  itemsFromStorage.push(item);
+
+  // Convert to JSON string and set to local storage
+  localStorage.setItem(&#x27;items&#x27;, JSON.stringify(itemsFromStorage));
+}
+</code></pre><h2 id="95effc7c-899c-40af-b561-0465b3495473" class=""><strong>Displaying items from localStorage</strong></h2><p id="32723b49-5314-4f8d-a453-4994d7c6295d" class="">Next, we will create a function to display the items from localStorage on the page.</p><pre id="4af45cd9-10cc-4a06-941c-bd01f5db93cf" class="code code-wrap"><code>function displayItems() {
+  const itemsFromStorage = getItemsFromStorage();
+  itemsFromStorage.forEach((item) =&gt; addItemToDOM(item));
+  checkUI();
+}
+</code></pre><p id="9349f7f8-6172-48d2-8920-3aef25cf7f5a" class="">We are getting the items from localStorage and then looping through them. For each item, we are calling <code>addItemToDOM()</code> and passing in the item. Finally, we are checking the UI to see if we need to show the clear items button and filter input.</p><h2 id="de67565b-77be-4e26-8f24-3810d4ad1ad1" class=""><strong>Adding an </strong><code><strong>init()</strong></code><strong> function</strong></h2><p id="2344f49e-018e-4148-befb-000302a23b6a" class="">Instead of putting all of the event listeners in the global scope, we will create an <code>init()</code> function and put them in there.</p><pre id="edd968cb-3e28-4ce8-8a94-dc4155a5b9a3" class="code code-wrap"><code>function init() {
+  // Event Listeners
+  itemForm.addEventListener(&#x27;submit&#x27;, onAddItemSubmit);
+  itemList.addEventListener(&#x27;click&#x27;, removeItem);
+  clearBtn.addEventListener(&#x27;click&#x27;, clearItems);
+  itemFilter.addEventListener(&#x27;input&#x27;, filterItems);
+  document.addEventListener(&#x27;DOMContentLoaded&#x27;, displayItems);
+
+  checkUI();
+}
+
+init();
+</code></pre><p id="1a6a0abd-ec5e-4c7e-b80e-2924edb69af9" class="">This will work either way, but I prefer to put them in a function rather than the global space</p></details></li></ul><ul id="48cbf51c-9ae1-4767-8d62-6422d3aa074c" class="toggle"><li><details open=""><summary><strong>Remove Items From Local Storage</strong></summary><p id="0ac7393e-685a-460d-acb9-53c3e986c0d5" class="">Now we want to be able to click the remove button and remove the item from the DOM and localStorage.</p><p id="8c828ea6-fa32-40a2-90cc-eb78f6ec6a20" class="">I am going to do the same thing that I did with the &#x27;add&#x27; functionality and change the event listener function from <code>removeItem</code> to <code>onClickItem</code>. One reason I am doing this is because we are also going to have &#x27;edit&#x27; functionality and that will also be used on a click on the item.</p><pre id="45c95747-5c34-4290-a2af-461082eaa274" class="code code-wrap"><code>itemList.addEventListener(&#x27;click&#x27;, onClickItem);
+</code></pre><p id="daa3b003-6f23-4247-b440-be5af89d6b14" class="">Now we will create the <code>onClickItem()</code> function. We will check to see if the target of the click is the remove button. If it is, we will call the <code>removeItem()</code> function.</p><pre id="6fcee85f-0588-4091-90c6-691acd057968" class="code code-wrap"><code>function onClickItem(e) {
+  if (e.target.parentElement.classList.contains(&#x27;remove-item&#x27;)) {
+    removeItem(e.target.parentElement.parentElement);
+  }
+}
+</code></pre><p id="0b7a8bc4-47ee-4909-97fb-a620b520ccc5" class="">Let&#x27;s create the <code>removeItem()</code> function. We will pass in the item that we want to remove. We will remove it from the DOM and then remove it from localStorage.</p><pre id="72102653-7411-4f86-ae79-b42e0690758f" class="code code-wrap"><code>function removeItem(item) {
+  if (confirm(&#x27;Are you sure?&#x27;)) {
+    // Remove item from DOM
+    item.remove();
+
+    // Remove item from storage
+    removeItemFromStorage(item.textContent);
+
+    checkUI();
+  }
+}
+</code></pre><p id="d9b23a2c-3b8c-4d30-98df-821f7124d46c" class="">Let&#x27;s create the <code>removeItemFromStorage()</code> function. We will pass in the text for the item that we want to remove. We will get the items from localStorage, loop through them, and if the item matches the item that we want to remove, we will remove it from the array. Then we will set the new array to localStorage.</p><pre id="73b8760e-4597-4f51-a08d-1542ad8ced66" class="code code-wrap"><code>function removeItemFromStorage(item) {
+  let itemsFromStorage = getItemsFromStorage();
+
+  // Filter out item to be removed
+  itemsFromStorage = itemsFromStorage.filter((i) =&gt; i !== item);
+
+  // Re-set to localstorage
+  localStorage.setItem(&#x27;items&#x27;, JSON.stringify(itemsFromStorage));
+}
+</code></pre><h2 id="9558edfe-5f9e-4ded-8141-42fbf8abd06f" class=""><strong>Clearing all items</strong></h2><p id="fa1435cc-30d8-49e8-b7f9-649827c00a2b" class="">This is simple. We just need to remove <code>items</code> from local storage in the <code>clearItems()</code> function.</p><pre id="163a125d-d2ca-4e07-b3dd-a94109309156" class="code code-wrap"><code>function clearItems() {
+  while (itemList.firstChild) {
+    itemList.removeChild(itemList.firstChild);
+  }
+
+  // Clear from localStorage
+  localStorage.removeItem(&#x27;items&#x27;);
+
+  checkUI();
+}
+</code></pre><p id="4eca58fb-f8bd-4d60-9fee-8966f06d265c" class="">You could also use <code>localStorage.clear()</code> to clear all items from localStorage.</p></details></li></ul><ul id="72791ce0-a98d-4b39-b96b-607ba0612dd9" class="toggle"><li><details open=""><summary><strong>Set Edit Mode</strong></summary><p id="b994056f-944a-4fa0-b58b-48cbbc1b5551" class="">In this section, we will add the ability to click on an item and enable edit mode which will put that item text into the input. We will also make that item in the list a lighter color and change the button from &#x27;Add&#x27; to &#x27;Edit&#x27;.</p><p id="44784812-61bd-4357-8858-b67fa1382496" class="">Let&#x27;s start by adding a global variable for the edit state. We will set it to false.</p><pre id="e806a782-30e4-4485-9f5e-3d102fdb5128" class="code code-wrap"><code>let isEditMode = false;
+</code></pre><p id="e2fc1182-773e-494f-af78-76de15984d2c" class="">Let&#x27;s go into the <code>onClickItem()</code> function and add an else, which will run if we are clicking in the item, but not on the delete icon. If that is true, then we will call a function called <code>setItemToEdit()</code></p><pre id="1912d6ce-9a0f-49b3-b0b6-74a644dc9928" class="code code-wrap"><code>function onClickItem(e) {
+  if (e.target.parentElement.classList.contains(&#x27;remove-item&#x27;)) {
+    removeItem(e.target.parentElement.parentElement);
+  } else {
+    setItemToEdit(e.target);
+  }
+}
+</code></pre><p id="04c95302-3251-4e4c-9a7a-be0cd7457e1f" class="">Now, let&#x27;s create the <code>setItemToEdit()</code> function. This function will take in the item element and do the following:</p><ul id="c03bbced-b4a2-42a8-b917-9ab72df66ae9" class="bulleted-list"><li style="list-style-type:disc">Set the edit state to true</li></ul><ul id="646a8001-0ec5-4b71-959e-a2af7142b16a" class="bulleted-list"><li style="list-style-type:disc">Add the <code>edit-mode</code> class to the item element</li></ul><ul id="67dfe1fc-cbb8-4917-809c-c71f2f63b28b" class="bulleted-list"><li style="list-style-type:disc">Change the button text, icon and color</li></ul><ul id="faba8005-8ce1-4a1a-94a6-a10a2f34ba24" class="bulleted-list"><li style="list-style-type:disc">Set the input value to the item text</li></ul><pre id="f9e537b9-03e2-4de9-adda-3b6703b6072f" class="code code-wrap"><code>function setItemToEdit(item) {
+  isEditMode = true;
+  item.classList.add(&#x27;edit-mode&#x27;);
+  formBtn.innerHTML = &#x27;&lt;i class=&quot;fa-solid fa-pen&quot;&gt;&lt;/i&gt;   Update Item&#x27;;
+  formBtn.style.backgroundColor = &#x27;#228B22&#x27;;
+  itemInput.value = item.textContent;
+}
+</code></pre><p id="678e705b-2fef-4b24-b6f7-27e064eec662" class="">Now when we click on an item, it does all of those things, but if you click on another item, the &#x27;edit-mode&#x27; class is not removed from the previous item. Let&#x27;s fix that by removing the class from all items before we add it to the new item.</p><pre id="e2fa3a7d-058f-4394-97f2-42c63fe4213a" class="code code-wrap"><code>function setItemToEdit(item) {
+  isEditMode = true;
+
+  itemList
+    .querySelectorAll(&#x27;li&#x27;)
+    .forEach((i) =&gt; i.classList.remove(&#x27;edit-mode&#x27;));
+
+  item.classList.add(&#x27;edit-mode&#x27;);
+  formBtn.innerHTML = &#x27;&lt;i class=&quot;fa-solid fa-pen&quot;&gt;&lt;/i&gt;   Update Item&#x27;;
+  formBtn.style.backgroundColor = &#x27;#228B22&#x27;;
+  itemInput.value = item.textContent;
+}</code></pre></details></li></ul><ul id="a76d6c63-3a1d-4d67-a6d9-4b3847349244" class="toggle"><li><details open=""><summary><strong>Update Item &amp; Reset State</strong></summary><p id="38d2e351-ef45-4be1-a235-e76b807d126c" class="">We can now set the app to &#x27;edit mode&#x27; by clicking on an item. Now we need to add the ability to update the item.</p><p id="621ee677-2f06-47c3-951c-edfcd25217d8" class="">We can do this by checking to see if we are in edit mode in the <code>onAddItemSubmit()</code> function. If we are, then we will update the item, otherwise we will add a new item.</p><pre id="44ff8a43-4dda-493e-b172-8db7b7c41824" class="code code-wrap"><code>function onAddItemSubmit(e) {
+  e.preventDefault();
+
+  const newItem = itemInput.value;
+
+  // Validate Input
+  if (newItem === &#x27;&#x27;) {
+    alert(&#x27;Please add an item&#x27;);
+    return;
+  }
+
+  // Check for edit mode
+  if (isEditMode) {
+    const itemToEdit = itemList.querySelector(&#x27;.edit-mode&#x27;);
+
+    removeItemFromStorage(itemToEdit.textContent);
+    itemToEdit.classList.remove(&#x27;edit-mode&#x27;);
+    itemToEdit.remove();
+    isEditMode = false;
+  }
+
+  // Create item DOM element
+  addItemToDOM(newItem);
+
+  // Add item to local storage
+  addItemToStorage(newItem);
+
+  checkUI();
+
+  itemInput.value = &#x27;&#x27;;
+}
+</code></pre><p id="c094dc92-23d5-4dbd-b4bb-2dd58cc31618" class="">You can not directly update an item in local storage, so we are basically removing the item and adding a new one. We are also removing the <code>edit-mode</code> class from the item element and setting the edit state to false.</p><p id="57ac7741-1696-41c9-997f-ff430c516e53" class="">To make sure that the UI is reset, we will call the <code>checkUI()</code> function. I am also going to add the following to the <code>checkUI()</code> function:</p><pre id="ea410007-9fc6-408d-b244-10803ebc8d3b" class="code code-wrap"><code>function checkUI() {
+  itemInput.value = &#x27;&#x27;;
+
+  const items = itemList.querySelectorAll(&#x27;li&#x27;);
+
+  if (items.length === 0) {
+    clearBtn.style.display = &#x27;none&#x27;;
+    itemFilter.style.display = &#x27;none&#x27;;
+  } else {
+    clearBtn.style.display = &#x27;block&#x27;;
+    itemFilter.style.display = &#x27;block&#x27;;
+  }
+
+  formBtn.innerHTML = &#x27;&lt;i class=&quot;fa-solid fa-plus&quot;&gt;&lt;/i&gt; Add Item&#x27;;
+  formBtn.style.backgroundColor = &#x27;#333&#x27;;
+
+  isEditMode = false;
+}
+</code></pre><p id="6d769525-24a1-4af7-a7d7-39698c8695c5" class="">Just to make sure we set the button back and set edit mode to false whenever we run this function.</p></details></li></ul><ul id="7fb0cd0b-4cbf-4c52-9d81-c14827163c61" class="toggle"><li><details open=""><summary><strong>Prevent Duplicate Entries</strong></summary><p id="78a8e8dc-f974-48fb-87d9-edcef88c8a2b" class="">In this lesson, we will add a check to prevent duplicate entries from being added to the shopping list.</p><p id="4ab16258-547b-49e2-9dcc-15952ef780e2" class="">Let&#x27;s create a function that will check if the item already exists in the shopping list.</p><pre id="0edb79f9-a51d-453b-86ed-0423a2f2b419" class="code code-wrap"><code>function checkIfItemExists(item) {
+  const itemsFromStorage = getItemsFromStorage();
+  return itemsFromStorage.includes(item);
+}
+</code></pre><p id="058cb930-88fd-4a4d-a544-925f935d5fed" class="">We are using the <code>includes()</code> method to check if the item exists in the array of items from local storage.</p><p id="ab7cff20-b4d0-4af8-920a-21f0cd4af9f8" class="">Now let&#x27;s use it in the <code>onAddItemSubmit()</code> function.</p><p id="5b533b07-cfe9-40f0-ad9e-f1632e54dcd0" class="">This is what the final function should look like:</p><pre id="c30dfe38-d46d-4a11-8971-24ada8641346" class="code code-wrap"><code>function onAddItemSubmit(e) {
+  e.preventDefault();
+
+  const newItem = itemInput.value;
+
+  // Validate Input
+  if (newItem === &#x27;&#x27;) {
+    alert(&#x27;Please add an item&#x27;);
+    return;
+  }
+
+  // Check for edit mode
+  if (isEditMode) {
+    const itemToEdit = itemList.querySelector(&#x27;.edit-mode&#x27;);
+    removeItemFromStorage(itemToEdit.textContent);
+    itemToEdit.classList.remove(&#x27;edit-mode&#x27;);
+    itemToEdit.remove();
+    isEditMode = false;
+  } else {
+    if (checkIfItemExists(newItem)) {
+      alert(&#x27;That item already exists!&#x27;);
+      return;
+    }
+  }
+
+  // Create item DOM element
+  addItemToDOM(newItem);
+
+  // Add item to local storage
+  addItemToStorage(newItem);
+
+  checkUI();
+
+  itemInput.value = &#x27;&#x27;;
+}
+</code></pre><p id="8aff39c8-2a1c-4553-bdee-0d446f537565" class="">The reason that we check for edit mode is because if the item is being edited, we want to allow the user to use the same name for the item.</p></details></li></ul><ul id="2232a5cc-fd13-449d-9eb1-5747c5fbec7a" class="toggle"><li><details open=""><summary><strong>Deploy To Netlify</strong></summary><p id="fa115dbc-05ef-4784-b0f2-062e14550988" class="">When it comes to hosting, you have many many choices, especially for a simple HTML, CSS and JavaScript application. There are many services that will even host your project for free up to a limit (traffic and users).</p><p id="de5236d1-5b69-47c4-85a9-23f1b914ae80" class="">One of my favorite hosting providers for websites and front-end applications is <a href="https://www.netlify.com/">Netlify</a>. It is amazingly simple to deploy your project for free. I am not being sponsored by Netlify in any way. It is just a service that I use and recommend.</p><h2 id="86bbe6b6-05e3-4a7c-abcb-d7c88f6193e5" class=""><strong>Create a Netlify Account</strong></h2><p id="a8d55413-f602-4381-927b-19572ca3d3c7" class="">If you don&#x27;t already have a Netlify account, you can create one for free. You can use your GitHub account to sign up.</p><h2 id="454e0e6d-1c29-4037-8514-01bf1d9538e5" class=""><strong>Create a New Site</strong></h2><p id="6334e568-b735-4e0e-9100-566021862445" class="">There are a few ways to push your project to the server. The easiest way is to simply push to GitHub, which I already showed you how to do. Then, you can connect your GitHub account to Netlify and it will automatically deploy your project.</p><p id="93bafa72-97ab-45c0-9221-7a9f5106825a" class="">Just click &quot;Add new site&quot; and select your GitHub project. After a few seconds, it will show you a congratulations message and your project will be live. You will have a strange URL, but you can easily add your own domain by following the instructions in the docs.</p><h2 id="fce44c65-67e2-4d2c-b765-6936e82af6e9" class=""><strong>Future deployments</strong></h2><p id="449146a9-d659-461e-89e5-11b4baa77c01" class="">When you make changes to your project, you can simply push to GitHub and Netlify will automatically deploy your project. By default, the <code>main</code> branch is used, but you can change that in the settings. Sometimes developers will use a <code>dev</code> branch for development and then merge to <code>main</code> when they are ready to deploy. Or they may have a branch named <code>deploy</code> or <code>production</code>. You can change the branch in the settings.</p><p id="75f4bc32-edfa-46fe-851b-bc8aafaa6d8d" class="">That&#x27;s it!</p></details></li></ul></div></article></body></html>

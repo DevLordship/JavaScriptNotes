@@ -1,0 +1,1023 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>14-oop-constructors-prototypes</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="54f247dc-4ce9-4e5a-8772-63e161140ebe" class="page sans"><header><h1 class="page-title">14-oop-constructors-prototypes</h1><p class="page-description"></p></header><div class="page-body"><ul id="5f2a5de9-c3e8-4183-a8d2-b5868507b6bb" class="toggle"><li><details open=""><summary><strong>What Is OOP?</strong></summary><p id="601ad4df-a3a1-477a-8179-0d4d1c521de4" class="">Now we&#x27;re going to get into <code>Object Oriented Programming</code> or <code>OOP</code> using JavaScript. The way that we write object-oriented code with JavaScript is a little different than some other languages and even a bit controversial and I will get to that soon, but first, I want to talk about what OOP actually is outside of specific languages.</p><p id="1c5ea02c-db89-4c29-b8d5-bf32c355643d" class=""><code>OOP</code> is a <strong>programming paradigm</strong>. In short, a programming paradigm is a way of thinking about programming, and a way of structuring your code. You could dumb it down to the word &quot;style&quot;. There are many different programming paradigms and certain languages are built for certain paradigms. The most common are <code>procedural</code>, <code>object-oriented</code> and <code>functional</code>. You can read more about paradigms <a href="https://www.freecodecamp.org/news/what-exactly-is-a-programming-paradigm/">here</a></p><p id="d429a8fc-7b29-454d-bc75-74e21ac91f9e" class="">What we have been doing so far is mostly <code>procedural</code> programming, although, we have definitely used some elements of <code>OOP</code> and even <code>functional</code> programming. JavaScript is an extremlet flexible language and you can do things in many different ways. Which can be a good thing, because you have a lot of freedom, but it can be bad because it can get really confusing and also cause you to sometimes write code that isn&#x27;t that great. In <code>procedural</code> programming, we write functions that perform actions, and we call those functions to perform those actions. In <code>object-oriented</code> programming, we write objects that contain both data and functions, and we interact with those objects to perform actions. Some languages force you to write all of your code within objects.</p><h2 id="b80a7218-b341-4bd3-838b-4459cf88811b" class=""><strong>What Is An Object?</strong></h2><p id="ec5ba445-9828-4930-a0af-db9c99917a99" class="">An object is a &#x27;self-contained&#x27; piece of code and is a collection of properties, and a property is an association between a name (or key) and a value. A property&#x27;s value can be a function, in which case the property is known as a method. So, essentially, an object is a <strong>collection of properties and methods</strong>. Objects are used as building blocks and can interact with one another.</p><p id="c329040b-eb6c-4e57-bf5f-499593bef2fd" class="">We have already had some experience working with objects such as <code>Math</code> and <code>Date</code>. In fact, just about everything in JavaScript is an object. Primitive data types like strings are not objects, however they are treated like objects when we use methods like <code>toUpperCase()</code>. As I stated earlier in the course, when we use a method like that on a string, JavaScript is actually creating a temporary object behind the scenes to perform the action. This is called a <code>wrapper object</code>.</p><p id="552ca1f0-4fdd-473f-8883-16d5cc35126d" class="">JavaScript has many was to create objects incliding object literals, constructor functions, which we&#x27;ll be covering soon, classes, factories, etc.</p><p id="4f008a38-a0d8-4ae4-bdec-8ce43bad3890" class="">Any entity in your application could be an object. For example, if you are building a blog, you might use objects like <code>users</code> and <code>posts</code>. Just to give you a better idea of what would be looked at as an object, here is a list of random objects:</p><ul id="8722140b-977b-4d6b-ba92-2781518dc9f6" class="bulleted-list"><li style="list-style-type:disc"><code>user</code></li></ul><ul id="34243f42-7c35-4590-8800-2c7a35ae15c3" class="bulleted-list"><li style="list-style-type:disc"><code>post</code></li></ul><ul id="f3320ec6-4f15-4f04-9d9d-66e76322d807" class="bulleted-list"><li style="list-style-type:disc"><code>comment</code></li></ul><ul id="e9d3b572-4ab3-4380-b32c-08ed7edf6262" class="bulleted-list"><li style="list-style-type:disc"><code>UI component</code></li></ul><ul id="b3280ca9-4057-4062-aad3-fe7cdb8a715e" class="bulleted-list"><li style="list-style-type:disc"><code>product</code></li></ul><ul id="e3f8d9ed-6fad-4f5a-ad39-1152749777be" class="bulleted-list"><li style="list-style-type:disc"><code>order</code></li></ul><ul id="63bef62e-ea91-44eb-b910-d8a51873418c" class="bulleted-list"><li style="list-style-type:disc"><code>cart</code></li></ul><ul id="780018cd-4b9c-47a5-a450-61203810bd02" class="bulleted-list"><li style="list-style-type:disc"><code>customer</code></li></ul><ul id="96a9f5a5-825b-49e2-ba09-5139ac882036" class="bulleted-list"><li style="list-style-type:disc"><code>employee</code></li></ul><ul id="a962d1b1-c537-4d28-a543-73c32c196f63" class="bulleted-list"><li style="list-style-type:disc"><code>message</code></li></ul><ul id="ebf128e0-a421-42f1-b180-0413c95e7333" class="bulleted-list"><li style="list-style-type:disc"><code>book</code></li></ul><h2 id="bf358f2a-e701-4805-a281-6a142127d5f6" class=""><strong>Why Use OOP?</strong></h2><p id="3b0ddf64-cf54-4c46-a39d-2360ad14601a" class="">There are a lot of reasons to use OOP for certain projects, but the main reason is that it makes your code easier to understand and easier to maintain. It helps prevent what we call &#x27;Spaghetti Code`. OOP is also very flexible and can be used to build complex applications. It is also very easy to reuse code in OOP, which is one of the main reasons why it is so popular.</p><h2 id="1b8872eb-7a92-4c97-9318-a0d9431e21f8" class=""><strong>When To Use OOP</strong></h2><p id="961bc0ce-b306-45bf-b4cc-65b51b166981" class="">Where OOP really shines and makes sense is when you are building a complex application and will need multiple instances of an object. It&#x27;s also helpful if youre working on a team. If you are building a relatively simple application, you probably should not use OOP. For the stuff that we have done up to this point, I would not use it. And when I say I would not use OOP, I mean I wouldnt create custom classes or constructor functions. In JavaScript, we&#x27;re always using objects, so we&#x27;re always using some aspect of OOP.</p><h2 id="c0f605c4-b3f4-43b6-b1f1-081196417c13" class=""><strong>Components of OOP</strong></h2><p id="c8c77d3a-5ad3-469d-a40d-30be85b28492" class="">Technically we have created objects many times as we have been using <code>object literals</code>. However, I wouldn&#x27;t call that <code>OOP</code>. We&#x27;ve just been using object literals to create a single object and structure data into key/value pairs. With OOP, we create blueprints to create multiple instances of an object.</p><p id="25ddaebc-e9e9-41e2-b346-3bb6a5c92e06" class="">Now OOP within JavaScript is a bit differen than most languages. A lot of that has to do with the inner mechanics and the browser environment. In JavaScript, we use something called <code>constructor functions</code> as well as <code>prototypes</code>. With these we can create blueprints to create objects. Most languages use <code>classes</code>. JavaScript doesn&#x27;t use classes in the core language, however, the ES6 update gave us the class syntax. THis is called <code>syntactic sugar</code>. So we have the easier to write class syntax, but it&#x27;s really using constructors and prototypes under the hood. I&#x27;m going to show you both ways.</p><p id="f594ecb7-7e3b-44bb-b765-293a813c864d" class="">Some important components of OOP in JavaScript are:</p><ul id="3efe5d5d-7cf5-4dad-a126-b10100cf39e6" class="bulleted-list"><li style="list-style-type:disc"><code>Constructor Functions</code> Are the way that JavaScript creates a blueprint for an object.</li></ul><ul id="9bc438c2-7e59-476e-b4f2-32427c13ff82" class="bulleted-list"><li style="list-style-type:disc"><code>Prototypes</code> A way for objects to inherit properties and methods from one another.</li></ul><ul id="2176c8b4-28ac-4cb5-ac64-1ea00cde9e5f" class="bulleted-list"><li style="list-style-type:disc"><code>Classes</code> Another way to create a blueprint for an object. They are not a part of the core JavaScript language, but they are a part of the <code>ES6</code> specification. So we can use classes as a type of syntactic sugar to make our code easier to read and write. Classes are a core part of many other languages.</li></ul><ul id="2e1da019-4540-4900-8b7a-27cc7a0a079e" class="bulleted-list"><li style="list-style-type:disc"><code>Instances</code> Objects are instantiated from a blueprint like a constructor or a class. This way we can create multiple objects that all have their own property values and can share the same methods.</li></ul><p id="f11e8995-1ae8-4071-9deb-d570b645a8b7" class="">Below is an example of a very simple class. I&#x27;m not showing you this to teach you the syntax yet, I&#x27;m just showing you this to give you some perspective of how OOP works. This class is essentially a blueprint for an object and it includes properties and methods. We can use that blueprint to create what are called <code>instances</code> of that object. in this case, users.</p><figure id="620557bf-524d-4510-a72f-ddb981fb9659" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled.png"><img style="width:635px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled.png"/></a></figure><p id="1799acf4-9873-4807-989f-ee06a177131f" class="">The class alone is just the blueprint. It&#x27;s useless in our code if we don&#x27;t use it. You can think of it just like a blueprint for a house. The blueprint is just a piece of paper, it&#x27;s not a house. We have to use the blueprint to build the house. In this case, the blueprint is for a user and each user is the actual object. We can create as many users as we want using the blueprint.</p><p id="6f5ed2eb-4eeb-4f90-ade7-29127c9f5d60" class="">Now like I said, JavaScript doesn&#x27;t actually have classes in the core language, it uses something called<code>constructor functions</code> and <code>prototypes</code>, but we can still write our code using classes and it get&#x27;s transpiled into regular JavaScript. We will talk about both constructors, prototypes and classes in more detail later.</p><p id="ec05bbfa-be1e-4e52-b8e8-c585bdabf6b5" class="">In the next lesson, I just want to go over some of the main principles of OOP.</p></details></li></ul><ul id="9dc1e4c9-bb0c-40b7-9b4f-c6bb040880f4" class="toggle"><li><details open=""><summary><strong>The 4 Basic Principles Of OOP</strong></summary><p id="921b84a3-a2f9-4795-818c-98405e8234bd" class="">There are 4 basic principles of OOP that you should know about.</p><ul id="4af1c677-23a4-4831-9a15-34e9a7933848" class="bulleted-list"><li style="list-style-type:disc">Abstraction</li></ul><ul id="0e135326-74b0-43cb-922c-f776ecf30fcd" class="bulleted-list"><li style="list-style-type:disc">Encapsulation</li></ul><ul id="4e3c3389-25d8-4dd3-96b9-275e4c310711" class="bulleted-list"><li style="list-style-type:disc">Inheritance</li></ul><ul id="2fdd45bf-ca76-41f2-ab1a-3b861c939eb0" class="bulleted-list"><li style="list-style-type:disc">Polymorphism</li></ul><p id="66ba89d6-9266-443a-960e-d9c0b388a6f6" class="">These principles are the foundation of OOP and are used in almost every OOP language. Right now, you are not expected to know how to implement these principles in your code. You will learn that later. For now, just know what they are and what they do.</p><h2 id="d7b3cbcd-98dd-472a-a3cd-e109bc0d669c" class=""><strong>Abstraction</strong></h2><p id="34cb3527-2aff-420e-b92d-f55e99392a82" class="">Abstraction is where we hide all but the relevant parts of an object in order to reduce complexity and increase efficiency.</p><p id="562edca7-77b5-4120-809c-ef43351c3339" class="">The easiest way to explain and understand abstraction is to look at something like your car. As a user, do you really need to understand the details of what happens when you start your car? No, that&#x27;s not your job. You don&#x27;t need to know how it works. You just need to know how to use it. So you need to know about the ignition, gas, brakes, etc. You don&#x27;t need to know how the fuel pump works to drive a car. That&#x27;s abstraction. It&#x27;s the process of hiding the details of how something works and only showing the the important parts.</p><p id="15de2963-46a3-4063-a882-67df25277847" class="">Since objects can get pretty large and complex, it&#x27;s not usually possible to show the user all the details of how the object works. There also is no reason to. The user of the object should only see and access what they need.</p><p id="eb00a8a6-5b74-45e3-a2f0-84b23c8e6105" class="">We deal with abstraction everywhere in programming. There are 100 things that I can think of that we have already done in this course that have used abstraction. For example, when we create an event listener, we use the <code>fetch()</code> method. We don&#x27;t need to know exactly how it works. We just need to know how to use it. Even the public APIs that we have used also have a lot of abstraction. We just hit an endpoint. We have no clue what goes on behind the scenes. Another example is when we&#x27;re working with events and call <code>addEventListener()</code> method. We don&#x27;t need to know how the event listener works. We just need to know how to use it. As a programmer, you&#x27;ll both use and create abstractions.</p><p id="714bceeb-42e4-4ec1-b8d0-9294f7e20d09" class="">One of the most useful things about abstraction is that is reduces the complexity of our code and the impact of change. If we have a class of <code>User</code> and we want to add a new property, we don&#x27;t have to change the code everywhere that we use the <code>User</code> class. We can just add the new property to the class and it will be available everywhere.</p><h2 id="be10dfdc-94cd-4bca-a43a-84d7e18698a4" class=""><strong>Encapsulation</strong></h2><p id="a081ae02-ab32-4ea5-9d00-fa4a68025f64" class="">Encapsulation is the process of wrapping up data and methods into a single unit such as a class or function. This concept is also often used to hide the properties or state of an object from the outside. This is called information hiding or data hiding. When we create a class for example, the properties and methods are &#x27;encapsulated&#x27; into that specific class. This is a way to keep our code organized and easy to understand. It also means that certain properties and methods are only accessible from within the class. Some languages have access modifiers like <code>private</code> and <code>public</code> keywords to indicate which properties and methods are accessible from the outside. JavaScript doesn&#x27;t have those keywords, but the latest ES2022 update does include private fields using a <code>#</code> symbol. We&#x27;ll look at that later.</p><p id="c262f97a-93cf-4dc4-84df-61e420231431" class="">I don&#x27;t expect you to understand this example yet, but it uses encapsulation. The <code>radius</code> property is encapsulated into the <code>Circle</code> class. We can&#x27;t access the <code>radius</code> property from outside the <code>Circle</code> class. So it&#x27;s hidden from the outside world. We can access the <code>area</code> property from outside the class with what we call a <code>getter</code>.</p><pre id="ede5a752-3974-4c12-92a6-e3def802af75" class="code code-wrap"><code>class Circle {
+  #radius;
+  constructor(value) {
+    this.#radius = value;
+  }
+  get area() {
+    return Math.PI * Math.pow(this.#radius, 2);
+  }
+}
+</code></pre><p id="01dcda4c-ea03-4014-a26a-bd910b454bb3" class="">I know this is confusing now, but after the next two sections, you&#x27;ll fully understand this. Another example of encapsulation that you should already understand is the scope chain. When we create a variable within a function, it&#x27;s encapsulated in that functions scope. We can&#x27;t access it from the global or any higher level scope.</p><h2 id="93c71317-db04-4521-ac24-69af3276203d" class=""><strong>Inheritance</strong></h2><p id="fd5c4292-8d6e-434e-b53c-8ecfe698b313" class="">Inheritance is the process of inheriting the properties and methods from a parent class. This is a way to reuse code and reduce redundancy. We can create a parent class with some properties and methods, and then create child classes that inherit those properties and methods as well as have their own.</p><p id="96d6dcb0-ab39-445c-a8f9-7a4a77460171" class="">Even when we work with elements in the DOM, all HTML elements share some common properties and methods. For example, all HTML elements have a <code>style</code> property and a <code>addEventListener()</code> method. We can create a parent class of <code>HTMLElement</code> that has those properties and methods. Then we can create child classes of <code>HTMLButtonElement</code>, <code>HTMLDivElement</code>, etc. that inherit those properties and methods. Now, we can create instances of the <code>HTMLButtonElement</code> class and use the <code>style</code> property and the <code>addEventListener()</code> method.</p><p id="8693da0f-46d9-479c-8794-e47704427d9b" class="">To give you a very simple example, we have a class of <code>User</code> that has a property of <code>name</code> and a method of <code>sayHello()</code>. We can create a child class called <code>Admin</code> that inherits the <code>name</code> property and the <code>sayHello()</code> method. We can then add a new method to the <code>Admin</code> class called <code>deleteUser()</code>. Now, we can create an instance of the <code>Admin</code> class and use the <code>name</code> property, the <code>sayHello()</code> method, and the <code>deleteUser()</code> method.</p><pre id="38fd6a3d-cafe-40ac-932a-f5a3710bee83" class="code code-wrap"><code>class User {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+
+class Admin extends User {
+  deleteUser(user) {
+    users = users.filter((u) =&gt; u.name !== user.name);
+  }
+}
+</code></pre><h2 id="550446a6-0577-45da-923a-78afb9857dc2" class=""><strong>Polymorphism</strong></h2><p id="7eef3a01-cfba-4e74-9a58-1430e9783d19" class="">Polymorphism is a scary word, but it&#x27;s not that intimidating when you break it down. The word <code>poly</code> means <code>many</code> and <code>morph</code> means <code>form</code>. SO it describes situations in which something occurs in several different forms. This is a way to reuse code. It allows us to do away with long <code>if/else</code> or <code>switch</code> statements and use a single method that will work for different types of objects. A very common example of polymorphism is when we use the same method name for different types of objects.</p><p id="97c64862-b2cb-4a4a-ba9d-ce8310817526" class="">For instance, we have a <code>User</code> object with a <code>sayHello</code> method. Then we have an <code>Admin</code> class that extends the <code>User</code> class and also has a sayHello method that does something different. We could have 10 more classes with a <code>sayHello</code> and they all do something different. So we&#x27;re using <strong>many forms</strong> of <code>sayHello</code> (poly morph)</p><pre id="2526a73e-ac83-42bf-abd1-863a2f963038" class="code code-wrap"><code>class User {
+  constructor(name) {
+    this.name = name;
+  }index.
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+class Admin extends User {
+  sayHello() {
+    console.log(`Hello, my name is ${this.name}. I am an admin.`);
+  }
+}
+</code></pre><p id="1ca6d7e0-5dee-4be4-bc86-fea3ee91b66b" class="">So those are about the simplest way I can explain the 4 principles. As we move through the next dozen or so videos, these will come into perspective.</p></details></li></ul><ul id="497f2df1-91fb-4a28-8871-6822d03b362b" class="toggle"><li><details open=""><summary>Object Literal and This Keyword</summary><p id="75df60dc-8c8f-4784-b473-03e03d243b90" class="">We have been working with <code>object literals</code> throughout this course. They are the simplest form of an object and great when you only need one instance of an object, which is usually the case when building simple applications. But what if you need to create multiple instances of an object? That&#x27;s where <code>constructor functions</code> come in, which I will get to soon. But first, let&#x27;s look at <code>object literals</code> a little closer. I also want to talk about the <code>this</code> keyword, which is used a lot in object oriented programming.</p><p id="c7ef3178-907c-4f1d-843a-810238f15ded" class="">Let&#x27;s say that we have a program that works with shapes, for whatever reason. I want to create a <code>Rectangle</code> object. So I&#x27;ll use an object literal in this case. Let&#x27;s give it some properties.</p><pre id="ad9fe24d-851a-4f3d-9ab3-10e0f162c527" class="code code-wrap"><code>const rect = {
+  name: &#x27;Rectangle 1&#x27;,
+  width: 10,
+  height: 10,
+};
+</code></pre><p id="35f82f68-9254-4258-ad10-bb8aee5954f0" class="">We can easily access properties with dot notation.</p><pre id="36aee30b-89a7-4ada-82a0-f009cfde9236" class="code code-wrap"><code>console.log(rect.name); // Rectangle 1
+</code></pre><p id="eecc2619-c47a-4564-8ba5-882437b72706" class="">This is nothing new right? We&#x27;ve been doing stuff like this all along. One thing that we haven&#x27;t done is added a method to an object literal. Let&#x27;s add a method to our <code>Rectangle</code> object that calculates the area of the rectangle.</p><pre id="73ecf708-127a-41b0-98fb-80cf73863fdf" class="code code-wrap"><code>const rect = {
+  name: &#x27;Rectangle 1&#x27;,
+  width: 10,
+  height: 10,
+  area: function () {
+    console.log(&#x27;Show area&#x27;);
+  },
+};
+</code></pre><p id="de29b966-c7f6-4521-9a23-0150a94467c2" class="">We can call the method like this:</p><pre id="c0b87aae-2986-4551-bd83-07a83225a8b0" class="code code-wrap"><code>rect.area(); // Show area
+</code></pre><h2 id="67028df2-9752-49a6-b448-3faa028e8173" class=""><code><strong>this</strong></code><strong> keyword</strong></h2><p id="c0a6f137-bf64-4f33-ab7c-b3798b78591b" class="">The <code>this</code> keyword is used to refer to the current object. Let&#x27;s have our <code>area</code> method return the area of the rectangle, which would be <code>width * height</code>.</p><pre id="943ee7d1-6aa0-42dd-a63a-e2f5bf724e07" class="code code-wrap"><code>const rect = {
+  name: &#x27;Rectangle 1&#x27;,
+  width: 10,
+  height: 10,
+  area: function () {
+    return this.width * this.height;
+  },
+};
+
+console.log(rect.area()); // 100
+</code></pre><p id="4eb18914-5675-49eb-9077-930aee77373f" class="">As you can see, we can access the properties of the object using <code>this</code>. This is very useful when you have multiple objects that have the same properties and methods. You can use the <code>this</code> keyword to access the properties of the current object.</p><p id="d4947b59-dc8d-4f12-87d9-2b68fa1f5277" class="">The <code>this</code> keyword seems to be confusing to a lot of people. It&#x27;s actually pretty simple. It just refers to the current object. If you are in a method, it refers to the object that the method is part of. If you are in a function or the global scope, it refers to the global object, which is the <code>window</code> object in the browser.</p><p id="33568c2e-8c8e-423f-a956-9eae1986c7af" class="">Let&#x27;s go outside of the object literal and try to access the <code>this</code> keyword.</p><pre id="910bf750-db95-4f00-b246-129f57cbeea6" class="code code-wrap"><code>console.log(this); // Window {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}
+</code></pre><p id="e4aea36a-5d9b-4f4c-b752-b24fe521f4b5" class="">It gives us the window object. Remember, when we run our script, the first thing that the <code>execution context</code> does is create the <code>global object</code>, which is the <code>window</code> object in the browser. So <code>this</code> refers to the <code>window</code> object.</p><h2 id="ec4dea30-6362-47db-9e54-44eaeb4b7493" class=""><strong>Object Literal Drawbacks</strong></h2><p id="09df49c5-62a8-429c-86e8-bc93e835220c" class="">There are a few drawbacks to using object literals. The first is that you can&#x27;t create multiple instances of the same object. Let&#x27;s say that we want to create another rect object. We can&#x27;t do this with an object literal. We need to basically just create a new one from scratch.</p><pre id="a9f4be25-f2e1-49cb-a6fb-c4413de14319" class="code code-wrap"><code>const rect2 = {
+  name: &#x27;Rectangle 2&#x27;,
+  width: 20,
+  height: 20,
+  area: function () {
+    return this.width * this.height;
+  },
+};
+
+console.log(rect2.area()); // 400
+</code></pre><p id="c9e74406-f658-4f63-9f60-5fdb0d700461" class="">Imagine if we needed to create 100 rects. We would have to create 100 different object literals. This is not very efficient. We need a way to create multiple instances of the same object. This is where <code>constructor functions</code> come in, which we will talk about in the next lesson.</p></details></li></ul><ul id="2aaddf74-e853-49ae-878e-1fe2985b69b7" class="toggle"><li><details open=""><summary><strong>Constructor Functions</strong></summary><p id="22f9199d-a673-492c-b083-92d5546cd83f" class="">Object literals are very useful in many ways, but what if you need a way to create multiple instances of the same object? This is where constructor functions come in.</p><p id="c38acd56-f270-42e3-8a48-60c8575b3b20" class="">Constructor functions are functions that are essentially blueprints to create new objects. They define properties and behaviors that will belong to the new object.</p><p id="94d94a04-fd0b-47d9-a156-fe8a697837ed" class="">We have used constructor functions many times already. For instance, when we created a new <code>Date</code> object, we used the <code>Date</code> constructor function.</p><pre id="deb53ece-7973-4a1d-bf58-b525613f297a" class="code code-wrap"><code>const now = new Date();
+</code></pre><p id="d6f4003c-cdfa-429e-b987-83de6a856c91" class="">Anytime we use the <code>new</code> keyword, we are using a constructor function. Now, we want to create our own constructor function. Let&#x27;s create a constructor function for a <code>Rectangle</code> object.</p><pre id="82665081-09b6-4a6a-890b-9d0c6be3beaf" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+  // We can also hardcode properties
+  this.type = &#x27;Rectangle&#x27;;
+}
+</code></pre><p id="7fd234b8-f974-4cae-89a3-d6fb0beb78ed" class="">We use the <code>function</code> keyword to create a function. We give it a name, which is <code>Rectangle</code>. The first letter is capitalized, which is a convention for constructor functions. We pass in the parameters that we want to use to create the object. We use the <code>this</code> keyword to set the properties of the object.</p><p id="6b9b80ec-07da-48cd-8851-4596a6058983" class="">What is returned from the constructor function is the new object that is created. We could actually do this:</p><pre id="c09a1564-38a4-45e5-aab7-b7f16f7b7e08" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+
+  return this;
+}
+</code></pre><p id="9f3c17c9-7f00-4f9a-8d53-65df0fdfedb9" class="">But there is no need to because the <code>this</code> keyword is implicitly returned by default.</p><p id="8f9bd843-ce9a-4dbe-a9be-2648bf87b3ff" class="">We can now create a new <code>Rectangle</code> object like this:</p><pre id="6cd93a6a-c4fe-4bf2-89f9-e808cdf3b8fb" class="code code-wrap"><code>const rect1 = new Rectangle(&#x27;Rectangle 1&#x27;, 10, 10);
+console.log(rect1); // Rectangle {name: &quot;Rectangle 1&quot;, width: 10, height: 10}
+</code></pre><p id="27168a39-7687-4c93-9072-6cebd8b1c3f8" class="">So as you can see, when we log the rectangle, it is an object and it is prefixed with <code>Rectangle</code>. This is because we used the <code>Rectangle</code> constructor function to create the object.</p><p id="c06bf079-f56b-40cc-a235-882fe727b7aa" class="">You&#x27;ll also notice the <code>prototype</code> object. Inside of that is the constructor function. We can actually add methods to the <code>prototype</code> and we&#x27;re going to get into that soon.</p><p id="48048ba7-8c08-4197-a3f9-64da8f2a538d" class="">We can now access the properties of the object like this:</p><pre id="d449f8a2-8222-487d-b2c9-cdfdd82eb2eb" class="code code-wrap"><code>console.log(rect1.name); // Rectangle 1
+</code></pre><p id="bfd34170-3195-4f97-b872-20a4c8ba3341" class="">When we use the <code>new</code> keyword, the following things happen:</p><ol type="1" id="b3ac0508-9874-4cb6-815e-872c8da38080" class="numbered-list" start="1"><li>A new empty object is created.</li></ol><ol type="1" id="8070b699-2479-4d67-b51a-70b13a184829" class="numbered-list" start="2"><li>The constructor function is called with the arguments that we passed in.</li></ol><ol type="1" id="ae457fd3-6cf2-4f12-ba7a-6bce6e08cb9a" class="numbered-list" start="3"><li>The <code>this</code> keyword is set to the new empty object.</li></ol><ol type="1" id="aca3d0a4-cadb-437a-a123-2d8d107caaf1" class="numbered-list" start="4"><li>The new object is returned from the constructor function.</li></ol><h2 id="291d3baa-30be-4f92-bf6a-73c170133e57" class=""><strong>Multiple Instances</strong></h2><p id="c4207505-5420-4b84-84e1-f0eec64f1096" class="">The main advantage of using a constructor function is that we can create multiple instances of the same object. Let&#x27;s create another <code>Rectangle</code> object.</p><pre id="4beeaca9-ef66-4450-ae8a-c242e1ba97d0" class="code code-wrap"><code>const rect2 = new Rectangle(&#x27;Rectangle 2&#x27;, 20, 20);
+console.log(rect2); // Rectangle {name: &quot;Rectangle 2&quot;, width: 20, height: 20}
+</code></pre><p id="6fcaf6eb-741e-4198-a93f-1eaa97a19dd7" class="">So you see, we did not need to create an entirely new constructor function to create a new <code>Rectangle</code> object. We just used the same constructor function and passed in different arguments. This is much more efficient than creating a new object literal every time we want to create a new object.</p><h2 id="be1d9faa-2856-42dd-b73d-88d8032409a9" class=""><strong>Methods</strong></h2><p id="27e5a99c-d0b8-493b-9ad9-a2600349b834" class="">We can also add methods to our constructor function. Let&#x27;s add an <code>area</code> method to our <code>Rectangle</code> constructor function. Those of you that are a little more advanced may say we should add this to the <code>prototype</code> object. We will get into that later.</p><pre id="6757ebc2-cae3-4dc4-a7ef-4600bbf68b39" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+  this.area = function () {
+    return this.width * this.height;
+  };
+}
+
+console.log(rect1.area()); // 100
+</code></pre><h2 id="a530364f-734f-4ce0-9e05-a4fac977e9d7" class=""><code><strong>constructor</strong></code><strong> Property</strong></h2><p id="1c6eb4da-f085-49cd-8cc6-90a3fbd92a9f" class="">Every object has a <code>constructor</code> property. This property is a reference to the constructor function that was used to create the object. Let&#x27;s log the <code>constructor</code> property of the <code>rect1</code> object.</p><pre id="11e81d98-60ce-4d81-bb1b-5800ad086e10" class="code code-wrap"><code>console.log(rect1.constructor); // ƒ Rectangle(name, width, height) { this.name = name; this.width = width; this.height = height; this.area = function () { return this.width * this.height; }; }
+</code></pre><h2 id="91f748d9-c300-42d3-bc57-32619399a14a" class=""><code><strong>instanceof</strong></code><strong> Operator</strong></h2><p id="90c68cb5-1fa0-4581-a91f-f1288e37ec15" class="">We can use the <code>instanceof</code> operator to check if an object was created by a constructor function. Let&#x27;s check if the <code>rect1</code> object was created by the <code>Rectangle</code> constructor function.</p><pre id="eabe46ab-1dd0-45ed-8289-cb6ad1c697b9" class="code code-wrap"><code>console.log(square1 instanceof Rectangle); // true
+</code></pre><h2 id="337eb215-d236-483b-84ac-e4d1a0fc3bf0" class=""><strong>Encapsulation &amp; Abstraction In Practice</strong></h2><p id="af1c4838-369a-4be4-b629-3cd97fe9b117" class="">This brings use to the first of the four principles of object-oriented programming, which is <code>encapsulation</code>. Encapsulation is the idea that we should group related variables and functions together. We should also hide the implementation details from the outside world. This is what we have done with the <code>Rectangle</code> constructor function. We have encapsulated the properties and methods that belong to the <code>Rectangle</code> object.</p><p id="68d6df2f-8cb5-43aa-89a7-fca719612203" class="">One of the benefits of encapsulation is that we can change the implementation details without affecting the outside world. For instance, we could change the name of the <code>area</code> method to <code>calculateArea</code> without affecting the outside world.</p><pre id="f1288c78-d54d-43b6-9f6e-86152f119db9" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+  this.calculateArea = function () {
+    return this.width * this.height;
+  };
+}
+</code></pre><p id="ea02c949-5c36-47f9-826f-2500017055a4" class="">Another advantage is when we call <code>square1.calculateArea()</code> we don&#x27;t have to pass in any arguments. This is because the <code>this</code> keyword is set to the <code>square1</code> object. We can access the properties of the <code>rect1</code> object inside of the <code>calculateArea</code> method.</p><h2 id="27ca5f28-b37b-4279-97f7-460e64db2538" class=""><strong>Abstraction</strong></h2><p id="ab7c2899-ad6e-48f2-8d10-046072f3592a" class="">Abstraction is the idea that we should only expose the necessary details to the outside world. We should hide the implementation details. We have already seen this with the <code>Rectangle</code> constructor function. We have hidden the implementation details of the <code>Rectangle</code> object. We have only exposed the properties and methods that we want the outside world to use.</p><p id="642fb20d-d515-4b95-ad17-e612c3bc720f" class="">In the next lesson, we will look more at <code>literals</code> and <code>constructors</code> as well as <code>boxing</code> and <code>unboxing</code>.</p></details></li></ul><ul id="0693012f-47ce-453e-bb37-54841109ef4b" class="toggle"><li><details open=""><summary><strong>Literals vs Constructors &amp; Boxing</strong></summary><p id="feacf1ec-463b-4f14-96b6-028840138793" class="">We somewhat went over this already, but I want to talk a little bit about literals vs constructor functions when it comes to all types of data including <code>strings</code>, <code>numbers</code>, etc. We have constructors for strings, numbers, booleans, arrays, and objects. We can use either literals or constructor functions to create these. Literals are obviously shorter and more common and easier but let&#x27;s take a look at both syntax and see what the differences and similarities are.</p><pre id="eee638ef-d21e-4229-8a2e-5439d7ee5d40" class="code code-wrap"><code>const strLit = &#x27;Hello&#x27;;
+const strObject = new String(&#x27;Hello&#x27;);
+
+console.log(strLit, typeof strLit); // Hello string
+console.log(strObj, typeof strObj); // String {&quot;Hello&quot;} object
+</code></pre><p id="987e2204-c263-4a00-b231-94e7a4b9ac84" class="">We see that <code>typeof</code> returns <code>string</code> for the literal and <code>object</code> for the object.</p><h2 id="948df0cb-8b99-41e5-8e1b-919dd5494ab3" class=""><strong>Boxing</strong></h2><p id="0537eb69-f42a-4290-9d38-870e7505ed5d" class="">When we use a method such as <code>toUpperCase()</code> on a string literal, JavaScript creates a wrapper object around it. This is called <code>boxing</code>. So essentially, it is the same as calling <code>toUpperCase()</code> on a string object.</p><pre id="1c0516a5-4299-4718-b0fa-ab671c367262" class="code code-wrap"><code>console.log(strLit.toUpperCase());
+// Same as
+console.log(strObj.toUpperCase());
+</code></pre><h2 id="9f74c95e-ca83-42b5-b280-eb4958643281" class=""><code><strong>valueOf</strong></code><strong> property &amp; Unboxing</strong></h2><p id="3631f70d-1175-4368-b827-b012b3507156" class="">We can use the <code>valueOf</code> method to get the primitive value of the string object. This is called <code>unboxing</code> because we are unboxing the object and getting the primitive value.</p><pre id="bd82de6d-96e9-4e48-8cd5-c59461da9506" class="code code-wrap"><code>console.log(strObj.valueOf()); // Hello
+</code></pre><h2 id="ad66d509-9213-41f3-98f4-20ecf62158ed" class=""><code><strong>constructor</strong></code><strong> Property</strong></h2><p id="32532134-ea02-4a4d-ba8a-8e3c9bbaf526" class="">Because of boxing, there is still a constructor property on the string literal. We can use the <code>constructor</code> property to see what the constructor function is for the string literal and object.</p><pre id="29b5dc53-f6ed-4c62-a36e-91ea1c99dfcc" class="code code-wrap"><code>console.log(strLit.constructor); // [Function: String]
+console.log(strObj.constructor); // [Function: String]
+</code></pre><h2 id="9bfbba49-1891-40f9-9ab8-630e6021f0ea" class=""><code><strong>instanceof</strong></code><strong> Operator</strong></h2><p id="c38a152f-2044-4976-a72c-9c6c9b328a73" class="">We can also use the <code>instanceof</code> operator to check if an object is an instance of a constructor function. The literal will return <code>false</code> and the object will return <code>true</code>.</p><pre id="53d36bb5-6cf6-4098-aa47-dcc492a743e5" class="code code-wrap"><code>console.log(strLit instanceof String); // false
+console.log(strObj instanceof String); // true
+</code></pre><p id="359cfa1c-8825-4654-8392-aa3120af8af0" class="">Let&#x27;s look at some other type literals vs constructor functions.</p><pre id="f1113dc7-3539-4d39-a18a-6f574dbf8bca" class="code code-wrap"><code>const numLit = 20;
+const numObj = new Number(20);
+
+const boolLit = true;
+const boolObj = new Boolean(true);
+
+const arrLit = [1, 2, 3, 4, 5];
+const arrObj = new Array(1, 2, 3, 4, 5);
+
+const funcLit = function (x) {
+  return x * x;
+};
+
+const funcObj = new Function(&#x27;x&#x27;, &#x27;return x * x&#x27;);
+
+console.log(funcObj(10));
+
+const objLit = { name: &#x27;Jeff&#x27; };
+const objObj = new Object({ name: &#x27;Jeff&#x27; });
+</code></pre><p id="d236970d-8091-4818-b06c-c58bf20cbf04" class="">As you can see, there is even a constructor for objects. When we execute the following code:</p><pre id="51381640-6e4a-4d41-8f7a-dfe28301afcf" class="code code-wrap"><code>const obj = {};
+</code></pre><p id="af382722-747f-46b4-b415-ce04e05066d3" class="">JavaScript actually creates an object behind the scenes and then assigns it to the variable <code>obj</code>. So the following code is actually the same as the code above.</p><pre id="41dce1fc-f163-4ce8-a99c-e74152df2ca1" class="code code-wrap"><code>const obj = new Object();
+</code></pre><p id="9cc34376-ed83-42e7-a2ed-5d6f706a5b38" class="">Hopefully this helps you understand the differences between literals and constructor functions. I know it can be confusing at first, but once you get the hang of it, it will be much easier to understand. Also, even if you do not fully understand, that doesn&#x27;t mean you can&#x27;t be a great developer. A lot of this stuff is behind the scenes and just stuff you have to learn and practice.</p></details></li></ul><ul id="b62752a9-4af3-4aea-865c-2bd33b384713" class="toggle"><li><details open=""><summary><strong>Object Properties</strong></summary><p id="8796d210-261e-4e18-a468-215f786f4836" class="">Now, we&#x27;re going to talk about properties and how we can add and remove them as well as look at some methods that we can use to get information about an object. Now, I just want to mention that a lot of this stuff, we have already talked about because they also pertain to <code>object literals</code>. So, we&#x27;re going to talk about them again, but just in the context of <code>constructor functions</code>.</p><p id="4120ca2b-ec40-40f6-8686-958aed01969c" class="">Let&#x27;s use the same <code>Rectangle</code> constructor function that we used in a previous lesson. We&#x27;re going to create a <code>rect1</code> object and log it to the console.</p><pre id="34b4430c-d14c-4bb8-a74b-11fec17f4f04" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+  this.area = function () {
+    return this.width * this.height;
+  };
+}
+
+const rect1 = new Rectangle(&#x27;Rectangle 1&#x27;, 10, 10);
+console.log(rect1); // Rectangle {name: &quot;Rectangle 1&quot;, width: 10, height: 10, area: ƒ}
+</code></pre><h2 id="fcea4f1e-571a-4bd3-a7f8-42a57b8e1bd0" class=""><strong>Adding &amp; Removing Properties</strong></h2><p id="b87e3d81-833d-4f95-a4f8-d47b4abafad0" class="">We add and remove properties the same way that we would with <code>object literals</code>. Let&#x27;s add a <code>color</code> property to the <code>rect1</code> object.</p><pre id="4b32fc03-794b-4522-91f7-148c4a5d2966" class="code code-wrap"><code>rect1.color = &#x27;red&#x27;;
+console.log(rect1); // Rectangle {name: &quot;Rectangle 1&quot;, width: 10, height: 10, area: ƒ, color: &quot;red&quot;}
+</code></pre><p id="42aa1587-0f7f-4a95-8aff-aee859017678" class="">We can also remove properties from objects using <code>delete</code>. Let&#x27;s delete the <code>color</code> property from the <code>rect1</code> object.</p><pre id="7d093b7b-8c9d-410f-9563-c9a843cd8413" class="code code-wrap"><code>delete rect1.color;
+console.log(rect1); // Rectangle {name: &quot;Rectangle 1&quot;, width: 10, height: 10, area: ƒ}
+</code></pre><h2 id="1e855221-846f-4a16-8747-5a8b1b6d1420" class=""><code><strong>hasOwnProperty</strong></code><strong> Method</strong></h2><p id="a9449873-c293-455c-a298-2f3a2c8e0a76" class="">We can use the <code>hasOwnProperty</code> method to check if an object has a specific property. Let&#x27;s check if the <code>rect1</code> object has a <code>color</code> and a <code>name</code> property.</p><pre id="d2f913e2-9c9f-4f81-b68c-ed459287a898" class="code code-wrap"><code>console.log(rect1.hasOwnProperty(&#x27;color&#x27;)); // false
+console.log(rect1.hasOwnProperty(&#x27;name&#x27;)); // true
+</code></pre><h2 id="3fcdd3f7-eb9f-43cb-b005-7afe0f9d2105" class=""><code><strong>Object.keys</strong></code><strong> Method</strong></h2><p id="aa2ff45c-32ad-4f23-a7bd-c5a22e48d485" class="">We can use the <code>Object.keys</code> method to get an array of all the properties of an object. Let&#x27;s get the properties of the <code>rect1</code> object.</p><pre id="ba8a557a-b5a6-49fb-98a3-dfb887363f15" class="code code-wrap"><code>console.log(Object.keys(rect1)); // (3) [&quot;name&quot;, &quot;width&quot;, &quot;height&quot;]
+</code></pre><h2 id="54f698b9-25ae-47b3-84e2-91fe8e3e78ca" class=""><code><strong>Object.values</strong></code><strong> Method</strong></h2><p id="25d2239f-f383-4a8e-afd9-c47e39f476ab" class="">We can use the <code>Object.values</code> method to get an array of all the values of an object. Let&#x27;s get the values of the <code>rect1</code> object.</p><pre id="dd148496-6121-4dfc-8718-2a5fdf1d7bb7" class="code code-wrap"><code>console.log(Object.values(rect1)); // (3) [&quot;Rectangle 1&quot;, 10, 10]
+</code></pre><h2 id="b1421b1d-075a-48c0-bc86-6d16c5f159bd" class=""><code><strong>Object.entries</strong></code><strong> Method</strong></h2><p id="cf9c09a4-c42f-4e13-8bc0-55d6914e5176" class="">We can use the <code>Object.entries</code> method to get an array of all the properties and values of an object. Let&#x27;s get the properties and values of the <code>rect1</code> object.</p><pre id="6ddc666e-83c1-449f-a5b0-c15e75dcf15e" class="code code-wrap"><code>console.log(Object.entries(rect1)); // (3) [Array(2), Array(2), Array(2)]
+</code></pre><h2 id="e28ec594-1755-44c9-9d90-b5edb7c341b6" class=""><strong>Looping Through Object Properties</strong></h2><p id="d7be08df-a82e-4282-bebf-9cc891159c3e" class="">We can use a <code>for...of</code> loop to loop through all the entries of an object. Let&#x27;s loop through the <code>rect1</code> object.</p><pre id="e3fbb273-379a-4911-b1c2-410ee578b254" class="code code-wrap"><code>for (let entry of Object.entries(rect1)) {
+  console.log(entry); // (2) [&quot;name&quot;, &quot;Rectangle 1&quot;], (2) [&quot;width&quot;, 10], (2) [&quot;height&quot;, 10], (2) [&quot;area&quot;, ƒ]
+}
+</code></pre><p id="0468c088-2a81-402d-ad75-ef3e0433aa96" class="">This will give us all properties, even the method. We can use <code>typeof</code> to check if the value is a function. Let&#x27;s loop through the <code>rect1</code> object and check if the value is a function.</p><pre id="631fccfd-eb1c-41b0-bab8-d5aed11719fe" class="code code-wrap"><code>for (let [key, value] of Object.entries(rect1)) {
+  if (typeof value !== &#x27;function&#x27;) {
+    console.log(`${key}: ${value}`); // name: Rectangle 1, width: 10, height: 10
+  }
+}
+</code></pre><p id="c0fe30fb-2ded-4843-8821-9dc596f5c578" class="">We can also use a <code>for...in</code> loop to loop through all the properties of an object. Let&#x27;s loop through the <code>rect1</code> object.</p><pre id="305a3608-8029-4c6b-8fad-b4ad27123f2e" class="code code-wrap"><code>for (let key in rect1) {
+  console.log(`${key}: ${rect1[key]}`);
+}
+</code></pre><h2 id="1ca76ff1-a1f7-4c95-8b5b-c4d6baf256e4" class=""><code><strong>Object.assign</strong></code><strong> Method</strong></h2><p id="445ffd56-7beb-401d-9764-afd6bf2ce8ca" class="">We can use the <code>Object.assign</code> method to copy the properties and values of one object to another.</p><p id="a3384c23-d8d7-4fe3-95d8-29b9e6b94c9a" class="">Let&#x27;s create a new object with a <code>color</code> property</p><pre id="f31d2068-bd5f-41e3-bc68-0efdf17df174" class="code code-wrap"><code>const obj = { color: &#x27;green&#x27; };
+</code></pre><p id="e587bc68-b2d1-4d1d-a72d-80683d7ad5c0" class="">Now let&#x27;s create a new object that has the properties of <code>rect</code> and <code>obj</code></p><pre id="dab0cda8-ede7-4be4-915b-6e4014a3e5e8" class="code code-wrap"><code>const rect2 = Object.assign(obj, rect1);
+console.log(rect2); // Rectangle {name: &quot;Rectangle 1&quot;, width: 10, height: 10, color: &quot;green&quot;}
+</code></pre><h2 id="88d8b403-549e-4976-8d40-4dc2add684bf" class=""><strong>Spread Operator</strong></h2><p id="7bbdef65-1c8f-438a-97ab-eea450a83a72" class="">We can do the same exact thing with the spread operator (...). Let&#x27;s create a new object that has the properties of <code>rect</code> and <code>obj</code></p><pre id="ffd8a18a-4f90-4e90-bb3d-2ead18681ea9" class="code code-wrap"><code>const rect3 = { ...obj, ...rect1 };
+console.log(rect3);</code></pre></details></li></ul><ul id="58892a3d-cd42-4789-8f31-70871d54dd5f" class="toggle"><li><details open=""><summary><strong>Prototypes &amp; The Prototype Chain</strong></summary><p id="dc1f6435-32f7-414c-ade3-4583976d36c1" class="">Alright, so now we&#x27;re going to look at everyone&#x27;s favorite topic, <code>prototypes</code>. This is a topic that I think is made to be over-complicated in a lot of tutorials. I will try and give you the simplist definition that I can.</p><h2 id="9f749176-80d5-4636-85ae-ebd22eccb385" class=""><strong>What Are Prototypes?</strong></h2><p id="73a7b36e-2a78-4d7f-b751-5a301f03ef4d" class="">Prototypes are a special type of enumerable object where additional methods and properties can be attached and shared across all of the instances of it&#x27;s constructor function. In JavaScript, every function and object has a prototype. The prototype itself is an object. When we try to access a property on an object, JavaScript will first look for that property on the object. If it doesn&#x27;t find it, it will look at the object&#x27;s <code>prototype</code>. If it still doesn&#x27;t find it, it will look at the prototype&#x27;s prototype. This continues until it finds the property or it reaches the end of what we call the <code>prototype chain</code>, which is null.</p><p id="35d93317-8a5f-473a-bc8d-5f3b31b12414" class="">So the dumbed down version is that prototypes are an extra space to hold properties and methods that we can use on our objects. We can add properties and methods to the prototype and they will be available to all objects that inherit from that prototype. This is called <code>prototypical inheritance</code>.</p><p id="5b115002-5c9b-4089-a1ce-f39bda790391" class="">We&#x27;ve used many prototype methods in the previous lessons. For instance, when we have an array and we call the <code>map()</code> method, JavaScript will look for the <code>map()</code> method on the array. If it doesn&#x27;t find it, it will look at the array&#x27;s prototype. It will find the <code>map()</code> method and execute it.</p><h2 id="56324ac2-010f-445b-87b4-441c79ddda61" class=""><strong>Viewing Prototypes</strong></h2><p id="c4277d35-07e7-4579-986f-d97e8b0f7db4" class="">Open your browser console and create an object. It can be empty. Then type the variable name and hit <code>enter</code></p><figure id="0bf65d89-a5ee-468d-9332-787bd9f0b309" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%201.png"><img style="width:436px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%201.png"/></a></figure><p id="10733bfb-25ed-4404-850f-a161dfa5c304" class="">you will see that it has a <code>Prototype</code> property. This is the prototype of the object. If you create an array or a function, it will also have a <code>Prototype</code> property. Everything in JS is an object and every object has a prototype (which is also an objct).</p><p id="f87a2704-ea85-4e97-8181-a08c28711c68" class="">Notice in the object&#x27;s prototype, there is a <code>constructor</code>. The <code>constructor</code> property is a reference to the function that was used to create the object.</p><p id="1c5c94e5-64ae-4a98-9c7b-69cbb483c49c" class="">There are some other familiar properties in the prototype, like <code>toString()</code>, <code>valueOf()</code> and <code>hasOwnProperty()</code>. These are all methods that are inherited from the <code>Object.prototype</code> also called <code>objectBase</code>.</p><h2 id="2cba88d6-7060-4577-afd1-3dd4f49e5d93" class=""><strong>Prototype Chain &amp; Prototypical Inheritance</strong></h2><p id="118cd363-2b95-4de4-9366-f12ed424d22a" class="">Let&#x27;s create an array in the console. You&#x27;ll see the <code>Array.prototype</code> or the <code>arrayBase</code> with some very familiar methods like <code>push()</code>, <code>pop()</code> as well as high order array methods that we have used such as <code>map()</code>, <code>filter()</code> and <code>forEach()</code>.</p><figure id="bfe2be59-a156-4551-a85f-b3fd9589f43f" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%202.png"><img style="width:447px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%202.png"/></a></figure><p id="cc533a1d-2db4-4240-8595-a073e31779f3" class="">If we scroll down, you will see another <code>prototype</code> object.</p><figure id="4e5d0c5d-54de-47be-bafc-869194e8a001" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%203.png"><img style="width:430px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%203.png"/></a></figure><p id="1bba8e3f-535e-4ca2-a482-30e78d363cb5" class="">This is because the <code>Array.prototype</code> inherits from the <code>Object.prototype</code>. This is inheritance in what we call the prototype chain. The prototype is itself an object, so the prototype will have its own prototype, making what&#x27;s called a prototype chain. The chain ends when we reach a prototype that has null for its own prototype.</p><p id="ab7b130a-901a-4bcb-abe4-c2d3b84fe570" class="">Let&#x27;s use our <code>Rectangle</code> object from the previous lesson and create an object and look at the prototype in the console.</p><pre id="c5c20a60-249c-4509-b3f5-2bb0843b212b" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+  this.area = function () {
+    return this.width * this.height;
+  };
+}
+
+const rect1 = new Rectangle(&#x27;Rectangle 1&#x27;, 10, 10);
+console.log(rect1);
+</code></pre><figure id="2efe8bdf-3b26-412e-a1d3-929a104f5525" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%204.png"><img style="width:542px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%204.png"/></a></figure><p id="f79ad5a6-c1f3-482a-947d-17eaa747764b" class="">In addition to the values, we can see the prototype, which includes the <code>constructor</code> property. You can see the 3 arguments that the <code>Rectangle</code> constructor function takes.</p><p id="cd5c9054-074b-4f91-bfb7-271501d25de0" class="">Notice that this also includes the <code>Object.prototype</code>. That&#x27;s because the <code>Rectangle</code> constructor function inherits from the <code>Object.prototype</code> or <code>objectBase</code>. This is why we can use the <code>toString()</code> method on our <code>Rectangle</code> object.</p><pre id="e3b2a1d5-6a68-40f3-ac65-4aa17575b4ed" class="code code-wrap"><code>console.log(rect1.toString());
+// [object Object]
+</code></pre><p id="1b1f84b9-d37c-4a7b-8806-92937958cc08" class="">So, the prototype chain looks something like this for the array and our <code>Rectangle</code> objectS:</p><figure id="a0b05917-87ca-4551-98bf-d6541fd77554" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%205.png"><img style="width:539px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%205.png"/></a></figure><p id="c3ce5477-aaae-43ba-b81b-65a037be760a" class=""><code>Object.getPrototypeOf()</code> is a method that returns the prototype of an object. Let&#x27;s use it to get the prototype of the <code>rect1</code> object.</p><pre id="db42f7a4-4622-4042-b106-8877f18ab984" class="code code-wrap"><code>console.log(Object.getPrototypeOf(rect1));
+</code></pre><p id="d08c0417-5c1b-4eed-9fd6-f8f61da17b4a" class="">We see the same thing that we saw in the console.</p><p id="181baa96-07aa-4ed7-a2e4-a2caf983c4d1" class="">In the next lesson, I&#x27;ll show you how to add properties and methods to the prototype.</p></details></li></ul><ul id="780744c5-4c72-41a2-afe6-c9150ccd2077" class="toggle"><li><details open=""><summary><strong>Adding Methods &amp; Properties to Prototypes</strong></summary><p id="f645d5ce-ed51-4424-8542-2a935d54feb1" class="">In the previous lesson, we learned about <code>prototypes</code>. In this lesson, we will learn how to add methods and properties to <code>prototypes</code>.</p><h2 id="c849ae21-02fb-4cac-bfb5-53de8914d9d9" class=""><strong>Adding Methods to Prototypes</strong></h2><p id="724a9869-a3c1-42c4-9c66-21e751c4b731" class="">Let&#x27;s look at the <code>Rectangle</code> object we created in the previous lesson.</p><pre id="b59129e7-8c43-4b57-afc5-369f2050e2ba" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+  this.area = function () {
+    return this.width * this.height;
+  };
+}
+</code></pre><p id="19780e17-c1aa-4834-8b6f-c21ce17f5c6f" class="">It&#x27;s clear that every rectangle will take in a <code>name</code>, <code>width</code>, and <code>height</code>. However, the <code>area</code> method is the absolute same for every rectangle. it will always be the <code>width</code> x <code>height</code>. So instead of keeping the <code>area()</code> method on the object itself, we can move it to the <code>prototype</code> of the <code>Rectangle</code> object.</p><p id="475a9d33-c4d3-4c72-8014-4fa75aa5836e" class="">First, remove the method from the <code>Rectangle</code> constructor function.</p><pre id="70c89610-05a3-471b-b8ec-06dc74b2eeba" class="code code-wrap"><code>function Rectangle(name, width, height) {
+  this.name = name;
+  this.width = width;
+  this.height = height;
+}
+</code></pre><p id="751524cb-3993-4f1c-8f4b-c5c882ac377a" class="">Then, add the <code>area()</code> method to the <code>Rectangle.prototype</code>.</p><pre id="1fb19960-6230-426e-9b13-ab8d4e42be62" class="code code-wrap"><code>Rectangle.prototype.area = function () {
+  return this.width * this.height;
+};
+</code></pre><p id="8590a1af-7209-439f-ae28-1ef18629aff6" class="">We still have access to the <code>area()</code> method on every rectangle object, but it&#x27;s now on the <code>prototype</code>.</p><pre id="7362de2a-06a3-4997-856f-a0e08ba50a26" class="code code-wrap"><code>const rect1 = new Rectangle(&#x27;Rectangle 1&#x27;, 10, 10);
+
+console.log(rect1.area()); // 100
+</code></pre><p id="c71cef5a-172e-4784-9a50-7e6145c3b0cc" class="">Let&#x27;s add another method for the <code>perimeter</code> of the rectangle.</p><pre id="acd84ac9-1ae3-4178-b9d2-cafe4999d46c" class="code code-wrap"><code>Rectangle.prototype.perimeter = function () {
+  return this.width * 2 + this.height * 2;
+};
+</code></pre><p id="105e4e5b-a438-4ab2-83d7-59a3e0730f05" class="">Now, we can access:</p><pre id="825db218-b962-4837-81fc-66067f9725f0" class="code code-wrap"><code>console.log(rect1.perimeter()); // 40
+</code></pre><p id="4893e008-1adf-452c-ab6d-b50ccc88cfaa" class="">Let&#x27;s log the <code>rect1</code> object to see what it looks like.</p><pre id="c7359b40-241d-4afa-a6a0-33b0444fef8a" class="code code-wrap"><code>console.log(rect1);
+</code></pre><p id="3093aaa2-f35f-4dc3-8ac6-912bb94dfd4c" class="">As you can see, we now have 2 methods in addition to the <code>constructor</code>.</p><figure id="9180b4bc-d4a2-4ce9-a6b3-5ccc0e2c1c49" class="image"><a href="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%206.png"><img style="width:532px" src="14-oop-constructors-prototypes%2054f247dc4ce94e5a877263e161140ebe/Untitled%206.png"/></a></figure><p id="58d63255-19fc-4ffe-82b4-56d73ad30ed6" class="">Also, notice that it inherits <code>Object.prototype</code>.</p><h2 id="caf643f5-c2ad-402f-abe1-804fcf347ac5" class=""><strong>Using arguments</strong></h2><p id="ceb1c392-6fc2-4436-8da6-6854393c072e" class="">We can also pass in arguments to the <code>prototype</code> methods. Let&#x27;s add a method to change the name. It will take in a <code>newName</code> argument.</p><pre id="02b9559e-5ea9-4d9d-8418-f4414969da8e" class="code code-wrap"><code>Rectangle.prototype.changeName = function (newName) {
+  this.name = newName;
+};
+
+rect1.changeName(&#x27;Rectangle One&#x27;);
+console.log(rect1); // Rectangle {name: &quot;Rectangle One&quot;, width: 10, height: 10, area: ƒ, perimeter: ƒ, …}
+</code></pre><p id="3c9d67f6-6c22-489e-a9aa-5bfb83655727" class="">I&#x27;m not going to leave this method, on the <code>prototype</code>. I just wanted to show that they can take in arguments.</p></details></li></ul><ul id="7a2ab684-1ae7-4f69-b5c8-bb66ff97eae5" class="toggle"><li><details open=""><summary><strong>Using Object.create()</strong></summary><p id="5966da89-d094-453c-8e43-d822761995ed" class="">The <code>Object.create()</code> method creates a new object, using an existing object as the prototype of the newly created object. This is an alternate way to create objects and set the prototypes of an object.</p><p id="60018723-8877-41f5-8146-b80690cc76e5" class="">Let&#x27;s look at creating a rectangle object using a constructor function and adding a few prototype methods:</p><pre id="5cc11b41-6f2c-4419-8c7b-18a5820906f7" class="code code-wrap"><code>function Rectangle(height, width) {
+  this.height = height;
+  this.width = width;
+}
+
+Rectangle.prototype.area = function () {
+  return this.height * this.width;
+};
+
+Rectangle.prototype.perimeter = function () {
+  return 2 * (this.height + this.width);
+};
+
+Rectangle.prototype.isSquare = function () {
+  return this.height === this.width;
+};
+
+const rectangle1 = new Rectangle(4, 4);
+console.log(rectangle1.isSquare(), rectangle1.area());
+
+</code></pre><p id="5a7a80f0-1008-45a0-8574-27203e54768d" class="">Nothing new here. We have already learned this. I want to show you another way to do this using the <code>Object.create()</code> method.</p><p id="fa7a03f5-4f1a-4049-84f7-7651d589f667" class="">First, we create an object that will be the prototype(s) of the <code>Rectangle</code> object:</p><pre id="b870644d-19a5-43ba-9a96-affaf4cebf95" class="code code-wrap"><code>const rectanglePrototypes = {
+  isSquare: function () {
+    return this.height === this.width;
+  },
+  area: function () {
+    return this.height * this.width;
+  },
+  perimeter: function () {
+    return 2 * (this.height + this.width);
+  },
+};
+</code></pre><p id="69f92f38-9715-47c1-b69c-48ee4f230723" class="">I&#x27;m going to put the Object.create() method inside of a function called <code>createRectangle()</code>. This function will take in the <code>height</code> and <code>width</code> and return a new <code>Rectangle</code> object:</p><pre id="b0822d04-4f27-4c6a-94b9-1bc1caa265f5" class="code code-wrap"><code>function createRectangle(height, width) {
+  return Object.create(rectanglePrototypes, {
+    height: {
+      value: height,
+    },
+    width: {
+      value: width,
+    },
+  });
+}
+
+const rectangle2 = createRectangle(5, 8);
+console.log(rectangle2, rectangle2.isSquare());
+</code></pre><p id="57b4d8f0-d6fb-47aa-b084-5b9e9c76653a" class="">As you can see, we get the same result as before. We have created a new <code>Rectangle</code> object using the <code>Object.create()</code> method. We have also set the prototype of the <code>Rectangle</code> object to the <code>rectanglePrototypes</code> object.</p><p id="5df41baa-be6a-4686-a5ac-7e131b314cde" class="">Both examples do the same thing and give the same result. The <code>Object.create()</code> method is just another way to create objects and set the prototype of an object.</p><p id="1ef9c16e-bf72-4e86-ab82-70e419d34f93" class="">When we use the <code>new</code> keyword, the prototype of the object includes the constructor function&#x27;s prototype property. This happens automatically. When we use the <code>Object.create()</code> method, we can manually set the prototype to any object we want.</p><p id="e31fbe23-2741-4cc4-8edb-7f861b3a07c6" class="">You could use either method to create objects and set prototypes. Using the <code>new</code> keyword is more common, but you could use either method.</p><p id="fde23cf1-5801-4512-84d8-27a8975f6b47" class=""><code>Object.create()</code> is also very useful when we use inheritance. We will learn about inheritance in the next lesson.</p></details></li></ul><ul id="fcbb8185-1dc0-4009-bf51-66a58e0bb669" class="toggle"><li><details open=""><summary><strong>Prototypical Inheritance &amp; the </strong><code><strong>call()</strong></code><strong> Method</strong></summary><p id="1805df2f-84e4-41f9-8fef-8283a23ece43" class="">I&#x27;ve already talked about prototypical inheritance. We saw that the <code>Rectangle</code> constructor function as well as any array as well as many other things inherits from the <code>Object.prototype</code> or <code>objectBase</code>. This is why we can use the <code>toString()</code> method on our <code>Rectangle</code> object or on an array.</p><p id="d4faae19-a5b3-4724-a0fb-5af2f7a37cb9" class="">What I want to do now is show you how we can use inheritance with our own objects. I want to create a <code>Shape</code> constructor function that will be the base for other shapes. So we can create a <code>Circle</code>, <code>Square</code>, etc and have them all inherit from the <code>Shape</code> constructor function as well as any prototype methods we add to the <code>Shape</code> constructor function.</p><p id="3d8b6c42-4635-4ca3-9086-a7825cb8514b" class="">Let&#x27;s create a very simple constructor function for a <code>Shape</code>:</p><pre id="3fe7c741-5d1f-4b28-bf24-fcd7a006e085" class="code code-wrap"><code>function Shape(name) {
+  this.name = name;
+}
+</code></pre><p id="c52e779d-acda-4b7f-a5a7-8c99282e4248" class="">The only property I am going to add to the <code>Shape</code> constructor function is the <code>name</code> property.</p><h2 id="d9aca031-fd74-4c06-a1cb-6a8962e91b79" class=""><code><strong>call()</strong></code></h2><p id="89b80c3c-47ea-4da6-9770-a61c2afeff8f" class="">The <code>call()</code> method allows us to call a function with a given <code>this</code> value and arguments provided individually. The <code>call()</code> method is a predefined JavaScript method. It can be used for a variety of purposes. We will use it to call the <code>Shape</code> constructor function from the <code>Rectangle</code> constructor function.</p><pre id="3855d01e-9d02-4d7d-82ca-1ea7dd4de185" class="code code-wrap"><code>function Rectangle(name, height, width) {
+  Shape.call(this, name);
+
+  this.height = height;
+  this.width = width;
+}
+</code></pre><pre id="06df55cd-b42a-42d4-bf8e-356d99387d34" class="code code-wrap"><code>const rect1 = new Rectangle(&#x27;Rectangle 1&#x27;, 10, 10);
+console.log(rect1); // Rectangle { name: &#x27;Rectangle 1&#x27;, height: 10, width: 10 }
+</code></pre><p id="ee4ca9a7-505e-4c00-8196-7b29fe3dbb33" class="">As you can see, we are calling the <code>Shape</code> constructor function from the <code>Rectangle</code> constructor function using <code>call()</code>. We are passing in the <code>this</code> value and the <code>name</code> property. This will set the <code>name</code> property on the <code>Rectangle</code> object. Then we can add the <code>height</code> and <code>width</code> properties to the <code>Rectangle</code> object.</p><h3 id="2e0a3ccf-53dc-4c9f-bce4-d73244bfbea0" class=""><strong>Why use </strong><code><strong>call()</strong></code><strong>?</strong></h3><p id="b7ee11f2-89ad-4df9-a53e-54286c8e5c68" class="">If we did not use the <code>call()</code> method, we would get an error that says <strong>Uncaught TypeError: Shape is not a constructor</strong>. This is because the <code>Shape</code> constructor function would be called as a regular function and in a regular function, the <code>this</code> value is the <code>window</code> object. We need to use the <code>call()</code> method to set the <code>this</code> value to the <code>Rectangle</code> object.</p><p id="71aae12d-4634-44b8-81a0-faa1d422cd39" class="">Let&#x27;s do the same with a <code>Circle</code> constructor function:</p><pre id="f424a0ea-b836-43d1-9739-2fe0ccfe0513" class="code code-wrap"><code>function Circle(name, radius) {
+  Shape.call(this, name);
+
+  this.radius = radius;
+}
+</code></pre><pre id="46b18086-b0f6-4746-9a08-b2867f09b8a3" class="code code-wrap"><code>const circle1 = new Circle(&#x27;Circle 1&#x27;, 10);
+console.log(circle1); // Circle { name: &#x27;Circle 1&#x27;, radius: 10 }
+</code></pre><h2 id="2374a278-983c-4be6-8b17-11f48c76ee45" class=""><strong>Inheriting Prototype Methods</strong></h2><p id="6b76e2b7-950f-4014-be30-050c3cdcd32d" class="">Let&#x27;s add a <code>logName()</code> method to the <code>Shape</code> constructor function and try to use it on the <code>Rectangle</code> object</p><pre id="f1b3e7a7-3194-48d2-acad-a3e05d523d0f" class="code code-wrap"><code>Shape.prototype.logName = function () {
+  console.log(`Shape name is: ${this.name}`);
+};
+
+rect1.logName();
+</code></pre><p id="408b85de-9db2-4c80-9278-c001cd4237ef" class="">This will throw an error: <strong>Uncaught TypeError: rect1.logName is not a function</strong>. The prototype methods are not inherited automatically from the <code>Shape</code> constructor function.</p><p id="db7a4070-9a38-4217-8104-5991abdb6533" class="">We can fix this by using the <code>Object.create()</code> method. We&#x27;re going to set the <code>Rectangle.prototype</code> to the <code>Shape.prototype</code> using the <code>Object.create()</code> method.</p><pre id="9047a712-e590-4a21-a1f9-d2cf727a4938" class="code code-wrap"><code>Rectangle.prototype = Object.create(Shape.prototype);
+</code></pre><p id="f08b4e3b-4da4-4c68-bf86-3b1150ddbc5c" class="">We have to use the <code>Object.create()</code> method because if you just set the <code>Rectangle.prototype</code> to the <code>Shape.prototype</code>, the <code>constructor</code> property and the prototype chain will be broken.</p><p id="d3a80060-a2d0-43c3-8a91-abda25f1ec1f" class="">Now, let&#x27;s try to call the <code>logName()</code> method on the <code>Rectangle</code> object:</p><pre id="79ae289a-ab34-40eb-aff9-40869ad70617" class="code code-wrap"><code>rect1.logName(); // Shape name is: Rectangle 1
+</code></pre><p id="8471288f-1914-4319-a299-61e3b8f18a7a" class="">It works! We can also call the <code>logName()</code> method on the <code>Circle</code> object:</p><pre id="bc8cbe1c-92d1-4275-8373-7f59e6632b9d" class="code code-wrap"><code>circle1.logName(); // Shape name is: Circle 1
+</code></pre><p id="a7a0c11e-b88b-4611-a5fe-adbf6423531b" class="">So again, JavaScript will look for <code>logName()</code> directly on the <code>Rectangle</code> or <code>Circle</code> object. It will not find it, so it will look at the object&#x27;s prototype which is the <code>Shape.prototype</code>. It will find the <code>logName()</code> method and will use it.</p><h2 id="27b44aa2-3f22-46ad-9bff-3f9f8ba6606c" class=""><strong>Set constructor property</strong></h2><p id="1a7616d1-3d5f-4a33-890c-7e7bb3ef34fc" class="">Right now, if we log the constructor of the <code>Rectangle</code> object, we will get the <code>Shape</code> constructor function:</p><pre id="1cd1328d-d654-488c-ad10-97a91c28988f" class="code code-wrap"><code>console.log(rect1.constructor); // [Function: Shape]
+</code></pre><p id="4801528b-5250-4de0-a2e2-781500e8f883" class="">This may cause some unexpected results in the future, so you probably want to set the <code>constructor</code> property on the <code>Rectangle.prototype</code> to the <code>Rectangle</code> constructor function.</p><pre id="ddb5a327-0160-47e0-ace0-33c86cab91ac" class="code code-wrap"><code>Rectangle.prototype.constructor = Rectangle;
+
+console.log(rect1.constructor); // [Function: Rectangle]
+</code></pre><p id="5473652f-0868-44a8-b849-26336c4a141a" class="">We can do the same for the <code>Circle</code> constructor function:</p><pre id="04831c47-b5e3-41a4-8d5e-3ca8001cb3a7" class="code code-wrap"><code>Circle.prototype.constructor = Circle;
+</code></pre><h2 id="e8e7f7f8-0a9f-49d6-9890-f5a0610ae235" class=""><strong>Polymorphism - Overwriting Prototype Methods</strong></h2><p id="d0a8afa9-d744-49e6-8ec0-e65027587038" class="">You should also be able to overwrite prototype methods. Let&#x27;s add a <code>logName()</code> method to the <code>Rectangle</code> constructor function:</p><pre id="52e15767-36be-4574-a837-7cd6755b02b1" class="code code-wrap"><code>Rectangle.prototype.logName = function () {
+  console.log(`Rectangle name is: ${this.name}`);
+};
+
+rect1.logName(); // Rectangle name is: Rectangle 1
+</code></pre><p id="f90cfc4f-77db-48b8-9e69-c99289e14f16" class="">This is an example of polymorphism. We are able to have the same method name on different objects and have different results. We could have 100 different objects and all of them could have a <code>logName()</code> method and they would all do something different.</p></details></li></ul><ul id="5ffc7767-119a-42f1-855d-fe302af24529" class="toggle"><li><details open=""><summary><strong>OOP Game Challenge</strong></summary><p id="05df0edf-643a-4620-9447-470559e2739f" class=""><strong>Instructions:</strong></p><ul id="5a751d44-ce42-43d5-b8b5-eb084275ae74" class="bulleted-list"><li style="list-style-type:disc">Create a constructor to create a <code>Player</code> object with a name</li></ul><ul id="abeda75c-d26f-4778-8324-b149e719789a" class="bulleted-list"><li style="list-style-type:disc">Player should have a <code>name</code> as well as a <code>lvl</code> set to <strong>1</strong> by default and <code>points</code> set to <strong>0</strong> by default</li></ul><ul id="c753ded5-194d-4c52-95d3-5f2e49b0afab" class="bulleted-list"><li style="list-style-type:disc">Create a method on the prototype called <code>gainXp</code> that takes in a number from 1-10 and adds it to the players <code>points</code>. If the current <code>points</code> are &gt;= 10 then add 1 to the <code>lvl</code> and decrement the points by 10.</li></ul><ul id="ae1ee73f-ede2-4cbd-977c-679a600d234f" class="bulleted-list"><li style="list-style-type:disc">Create another prototype method called <code>describe</code> that displays the players stats (name, lvl, points)</li></ul><p id="a12df9a5-455b-4ae6-977a-04986942d973" class="">You should be able to use the Plyer object like this:</p><pre id="eef42052-325b-4236-a717-d59f35997c2d" class="code code-wrap"><code>let player1 = new Player(&#x27;Bob&#x27;);
+let player2 = new Player(&#x27;Alice&#x27;);
+
+player1.gainXp(5);
+player2.gainXp(7);
+player1.gainXp(3);
+player2.gainXp(2);
+player1.gainXp(8);
+player2.gainXp(4);
+
+console.log(player1.describe()); // Bob is level 2 with 6 experience points
+console.log(player2.describe()); // Alice is level 2 with 3 experience points
+</code></pre><ul id="c1f374b7-4af0-43ce-b836-c5515739e714" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="33d46bf8-e005-47b6-828c-ea0081db1d4c" class="code code-wrap"><code>function Player(name) {
+this.name = name;
+this.lvl = 1;
+this.points = 0;
+}
+
+Player.prototype.gainXp = function (xp) {
+this.points += xp;
+if (this.points &gt;= 10) {
+  this.lvl++;
+  this.points -= 10;
+}
+};
+
+Player.prototype.describe = function () {
+return `${this.name} is level ${this.lvl} with ${this.points} experience points`;
+};
+
+let player1 = new Player(&#x27;Bob&#x27;);
+let player2 = new Player(&#x27;Alice&#x27;);
+
+player1.gainXp(5);
+player2.gainXp(7);
+player1.gainXp(3);
+player2.gainXp(2);
+player1.gainXp(8);
+player2.gainXp(4);
+
+console.log(player1.describe());
+console.log(player2.describe());
+</code></pre></details></li></ul></details></li></ul></div></article></body></html>

@@ -1,0 +1,1445 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>11-fetch-api-async-await-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="61c7499b-2e3a-4e22-8ddd-1bdab80fa955" class="page sans"><header><h1 class="page-title">11-fetch-api-async-await-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="32a40f64-bcdb-4479-b35e-5e886a472b65" class="toggle"><li><details open=""><summary><strong>Fetch API</strong></summary><p id="98b52bfb-1b06-4a19-9475-98f135a5f83e" class="">So you saw how we can use the <code>XMLHttpRequest</code> object to make HTTP requests. But there&#x27;s a more modern way that&#x27;s been added to the browser to make HTTP requests, called the <code>Fetch API</code>. It&#x27;s a little bit easier to use than the <code>XMLHttpRequest</code> object. It&#x27;s also more powerful. Fetch also provides a single logical place to define other HTTP-related concepts such as CORS and extensions to HTTP. We&#x27;ll talk about that later, but right now, we&#x27;re just going to learn how to make simple requests.</p><h2 id="cbc6ef11-07ca-4184-b95a-f422fa484240" class=""><strong>How Fetch Works</strong></h2><p id="04dcae22-a5a1-4b14-a4b8-a0ed1f6c89af" class=""><code>fetch()</code> is a method that only requires one argument, which is the URL or file path that you want to make the request to. It returns a <code>promise</code> that resolves to a <code>Response</code> object. The <code>Response</code> object contains the response from the server.</p><p id="347b6dbc-de0d-4738-9213-98aba16df345" class="">Let&#x27;s make a request to get the data in the <code>movies.json</code> file. You know how to handle <code>promises</code> now, so you can use the <code>then</code> method to handle the response.</p><pre id="3c280a3c-21a5-4b63-a859-0b6626eb229c" class="code code-wrap"><code>fetch(&#x27;./movies.json&#x27;).then(function (response) {
+  console.log(response);
+});
+</code></pre><p id="e0af771e-5f83-49a4-8338-45bc8897c99b" class="">You can use this syntax or you can use the arrow function syntax, which is what I prefer and probably what I will be using for the rest of the course.</p><p id="7e3ac77a-c4b5-4afb-9904-6ad8413fd76a" class="">It is important to note that this does not directly return the data or the JSON response body (in this case, movies) but instead returns a promise that resolves with a <code>Response</code> object with a bunch of properties. It includes stuff like the <code>status</code> of <code>200</code>, <code>statusText</code> of <code>ok</code>. It has a <code>body</code> property that contains a <code>ReadableStream</code> object. To extract the JSON data from the <code>Response</code> object, we return the <code>json()</code> method, which returns a second promise that resolves with the data that we&#x27;re looking for.</p><p id="07f47c6c-b1a6-4f69-b862-7a0646f0b604" class="">Remember, when we chain <code>then</code> methods, the return value of the first <code>then</code> method is passed as an argument to the second <code>then</code> method. We can call that argument whatever we want, but in this case, we&#x27;ll call it <code>data</code>.</p><pre id="22bdf8f7-93ac-4b64-8932-d903f4655da0" class="code code-wrap"><code>fetch(&#x27;./movies.json&#x27;)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  });
+</code></pre><p id="7491f6ce-c42b-42e6-bb00-1425d6c8f024" class="">We can shorten this up using arrow functions and implicit returns. This is commonly what you&#x27;ll see in the wild.</p><pre id="80f10120-1134-4a01-bb68-33c27b7e7643" class="code code-wrap"><code>fetch(&#x27;./movies.json&#x27;)
+  .then((response) =&gt; response.json())
+  .then((data) =&gt; console.log(data));
+</code></pre><h2 id="324ddf15-d959-4652-a310-2690e410632a" class=""><strong>Fetching Text</strong></h2><p id="37d6afe2-a4fd-4fdc-9819-f6de840714eb" class="">Usually we want to fetch JSON data, but just to show you it is possible, we can fetch plain text. Let&#x27;s create a file named <code>test.txt</code> and just add some random text in it. We can use the <code>text()</code> method to get the text from the <code>Response</code> object.</p><pre id="e5a5fd3d-5c2f-46e2-882b-eaf8454f9dc4" class="code code-wrap"><code>fetch(&#x27;./test.txt&#x27;)
+  .then((response) =&gt; response.text())
+  .then((data) =&gt; console.log(data));
+</code></pre><h2 id="71868be7-2bdc-4ed2-bf79-0d8db721b604" class=""><strong>Fetching Data from an API</strong></h2><p id="288bad8e-6bfd-4b39-a32b-482e8183d124" class="">Now that we know how to make a request to a local file, let&#x27;s make a request to an API. There are a ton of public APIs that we can use. Some of them do not require any type of authentication, but some of them do. You may need to register what we can an API key, and send that with your request. We&#x27;ll talk about that later.</p><p id="47cc4c06-4952-4444-bc3c-3cfc4685f97d" class="">One of my favorite resources on the Web is this GitHub repo called <a href="https://github.com/public-apis/public-apis">Public APIs</a>. It&#x27;s a list of public APIs that you can use in your projects. There are all kinds of categories and it tells you if there is any authentication required, if HTTPS is required and if there is a CORS policy, which we will talk about later.</p><p id="02cbbe61-c126-44b7-b166-ebf03ca304fd" class="">Most public APIs will have documentation showing you which endpoints are available and what kind of data you can expect back as well as any operations that the API lets you run.</p><p id="6871e3fe-4d49-49eb-bcaf-7f3135c87511" class="">Let&#x27;s try getting data from a couple APIs that don&#x27;t require any authentication.</p><p id="69426dd7-fc8e-4975-a5ec-96d02a3e2efe" class="">We&#x27;ve already looked at the public GitHub API in the last section. Let&#x27;s make a request to the GitHub API to get information about a user. Feel free to replace my username with your own.</p><pre id="1db5f067-a026-410d-b61e-70b6af3d0398" class="code code-wrap"><code>fetch(&#x27;https://api.github.com/users/bradtraversy&#x27;)
+  .then((response) =&gt; response.json())
+  .then((data) =&gt; console.log(data));
+</code></pre><p id="301cc996-4487-45af-bba9-900821f84bb2" class="">Here is the response that we get back:</p><pre id="977a42f8-95b2-4c38-9d2e-0884ba7991ba" class="code code-wrap"><code>{
+  &quot;login&quot;: &quot;bradtraversy&quot;,
+  &quot;id&quot;: 1198226,
+  &quot;node_id&quot;: &quot;MDQ6VXNlcjExOTgyMjY=&quot;,
+  &quot;avatar_url&quot;: &quot;https://avatars.githubusercontent.com/u/1198226?v=4&quot;,
+  &quot;gravatar_id&quot;: &quot;&quot;,
+  &quot;url&quot;: &quot;https://api.github.com/users/bradtraversy&quot;,
+  &quot;html_url&quot;: &quot;,
+  &quot;followers_url&quot;: &quot;https://api.github.com/users/bradtraversy/followers&quot;,
+  &quot;following_url&quot;: &quot;https://api.github.com/users/bradtraversy/following{/other_user}&quot;,
+  &quot;gists_url&quot;: &quot;https://api.github.com/users/bradtraversy/gists{/gist_id}&quot;,
+  &quot;starred_url&quot;: &quot;https://api.github.com/users/bradtraversy/starred{/owner}{/repo}&quot;,
+  &quot;subscriptions_url&quot;: &quot;https://api.github.com/users/bradtraversy/subscriptions&quot;,
+  &quot;organizations_url&quot;: &quot;https://api.github.com/users/bradtraversy/orgs&quot;,
+  &quot;repos_url&quot;: &quot;https://api.github.com/users/bradtraversy/repos&quot;,
+  &quot;events_url&quot;: &quot;https://api.github.com/users/bradtraversy/events{/privacy}&quot;,
+  &quot;received_events_url&quot;: &quot;https://api.github.com/users/bradtraversy/received_events&quot;,
+  &quot;type&quot;: &quot;User&quot;,
+  &quot;site_admin&quot;: false,
+  &quot;name&quot;: &quot;Brad Traversy&quot;,
+  &quot;company&quot;: &quot;Traversy Media&quot;,
+  &quot;blog&quot;: &quot;http://www.traversymedia.com&quot;,
+  &quot;location&quot;: &quot;Charleston, SC&quot;,
+  &quot;email&quot;: null,
+  &quot;hireable&quot;: null,
+  &quot;bio&quot;: &quot;Full Stack Web Developer &amp; Instructor&quot;,
+  &quot;twitter_username&quot;: &quot;traversymedia&quot;,
+  &quot;public_repos&quot;: 185,
+  &quot;public_gists&quot;: 32,
+  &quot;followers&quot;: 10000,
+  &quot;following&quot;: 0,
+  &quot;created_at&quot;: &quot;2012-09-30T15:36:51Z&quot;,
+  &quot;updated_at&quot;: &quot;2021-03-31T20:19:57Z&quot;
+}
+</code></pre><p id="187f3c47-9894-4640-ab97-c44d91a240e7" class="">So we could use any of this data to display on our page.</p></details></li></ul><ul id="b5cc8d88-5063-491e-b2ca-18982f6eebeb" class="toggle"><li><details open=""><summary><strong>Random User Generator Challenge</strong></summary><p id="b5c10d3c-2d23-48ba-a047-c6d937d743ae" class="">Before we move on to fetch options and making other types of requests, I want to do a mini project using the <a href="https://randomuser.me/">Random User API</a>. We are going to be able to click a button and fetch a random user and put their info on the page including their picture, name, email, phone, location, age and gender.</p><figure id="d5b971c5-5cbd-499d-804a-bf083c391609" class="image"><a href="11-fetch-api-async-await-docs%2061c7499b2e3a4e228ddd1bdab80fa955/Untitled.png"><img style="width:542px" src="11-fetch-api-async-await-docs%2061c7499b2e3a4e228ddd1bdab80fa955/Untitled.png"/></a></figure><p id="2f938bc0-3fcc-43e8-bd97-833cb9374cb1" class="">If you think you are ready to try this on your own, We already have the HTML and CSS for the project. You just need to add the JavaScript to add an event listener to the button, fetch the user and display them on the page. We&#x27;ll be using the same HTML structure as the harcoded HTML, we will just replace the values with data coming from the API.</p><p id="9c031890-31d0-49a1-a44f-283a08284810" class="">Alright, let&#x27;s get started!</p><h3 id="b758e7bb-f6d2-4bcf-954b-50f75296d94f" class=""><strong>Get Elements &amp; Add Event Listener</strong></h3><p id="4e934b82-4e11-4761-abdf-b32054a6d41d" class="">First, we will get the generate button, the user result element and the loader element. Then we will add an event listener to the button.</p><pre id="2b39c006-9605-4ba5-8c09-3985f372aa93" class="code code-wrap"><code>const generateBtn = document.querySelector(&#x27;#generate&#x27;);
+const userEl = document.querySelector(&#x27;#user&#x27;);
+const loadingEl = document.querySelector(&#x27;#loading&#x27;);
+
+generateBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  console.log(&#x27;Fetch User...);
+});
+
+</code></pre><p id="cf1c4d96-7ac3-44bb-ae74-4688b165f5f7" class="">Make sure that works by clicking the button and checking the console. You should see the message.</p><p id="11ac776d-ffaf-4ca0-8f21-e0744efb7374" class="">Now, let&#x27;s make the request to the API endpoint, which is <code>https://randomuser.me/api/</code>.</p><pre id="dd49dc61-549c-4e38-b6b9-a7902cfdbd52" class="code code-wrap"><code>generateBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  fetch(&#x27;https://randomuser.me/api/&#x27;)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      // console.log(data);
+    });
+});
+</code></pre><p id="a2011e29-d5a0-4abf-a39e-820a0d1bf5e6" class="">You should see the data in the console. It is an array with a single object. We need to get the object out of the array. We can do that by using [0]:</p><pre id="ca786dc6-2dce-44b6-9226-258d05d13df7" class="code code-wrap"><code>generateBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  fetch(&#x27;https://randomuser.me/api/&#x27;)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      const user = data.results[0];
+      console.log(user);
+    });
+});
+</code></pre><p id="6cbd3d73-dc9c-4c7e-9cf1-03a05ec09f35" class="">Now, we can start displaying the user data on the page. You can basically copy everything that is in the <code>#user</code> div in the HTML and then add it to the <code>div</code> via JavaScript with the values from the API response:</p><pre id="54771900-5ea5-44cb-9131-7af44a7ca426" class="code code-wrap"><code>generateBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  fetch(&#x27;https://randomuser.me/api/&#x27;)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      const user = data.results[0];
+
+      userEl.innerHTML = `
+      &lt;div class=&quot;flex justify-between&quot;&gt;
+      &lt;div class=&quot;flex&quot;&gt;
+        &lt;img
+          class=&quot;w-48 h-48 rounded-full mr-8&quot;
+          src=&quot;${user.picture.large}&quot;
+        /&gt;
+        &lt;div class=&quot;space-y-3&quot;&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Name: &lt;/span&gt;${user.name.first} ${user.name.last}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Email: &lt;/span&gt; ${user.email}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Phone: &lt;/span&gt; ${user.phone}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+          &lt;span class=&quot;font-bold&quot;&gt;Location: &lt;/span&gt; ${user.location.city} ${user.location.country}
+        &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;&lt;span class=&quot;font-bold&quot;&gt;Age: &lt;/span&gt; ${user.dob.age}&lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Gender: &lt;/span&gt;${user.gender}
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+      `;
+    });
+});
+</code></pre><p id="09c499bf-b33b-495e-ba06-ddca9f24ad43" class="">It&#x27;s up to you if you want to remove the initial user from the HTML code. I left it, but commented it out.</p><h3 id="6f25e020-cb5d-463c-91af-cc4b0a1081be" class=""><strong>Show Loading Spinner</strong></h3><p id="fa9e790f-d2fa-4a8f-a85e-63af0300ad26" class="">If you want to show the spinner, add a link to the stylesheet in the <code>head</code> tag right above the Tailwind CDN. Then add a function to show and hide the spinner. It is set to <code>display: none</code> in the CSS, so we will just change that to <code>display: block</code> when we want to show it:</p><pre id="20b0bdd5-a977-4ee1-b0aa-2562d9de11bd" class="code code-wrap"><code>function showSpinner() {
+  loadingEl.style.display = &#x27;block&#x27;;
+}
+
+function hideSpinner() {
+  loadingEl.style.display = &#x27;none&#x27;;
+}
+</code></pre><p id="e646b08e-9ebd-4b46-ac39-69e96d0ad92c" class="">Now, add it to the event listener:</p><pre id="b9e58e36-b5d0-40ed-9a91-82d799ad4ad5" class="code code-wrap"><code>generateBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+  showSpinner();
+
+  fetch(&#x27;https://randomuser.me/api/&#x27;)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      hideSpinner();
+      const user = data.results[0];
+      // console.log(data);
+
+      userEl.innerHTML = `
+      &lt;div class=&quot;flex justify-between&quot;&gt;
+      &lt;div class=&quot;flex&quot;&gt;
+        &lt;img
+          class=&quot;w-48 h-48 rounded-full mr-8&quot;
+          src=&quot;${user.picture.large}&quot;
+        /&gt;
+        &lt;div class=&quot;space-y-3&quot;&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Name: &lt;/span&gt;${user.name.first} ${user.name.last}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Email: &lt;/span&gt; ${user.email}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Phone: &lt;/span&gt; ${user.phone}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+          &lt;span class=&quot;font-bold&quot;&gt;Location: &lt;/span&gt; ${user.location.city} ${user.location.country}
+        &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;&lt;span class=&quot;font-bold&quot;&gt;Age: &lt;/span&gt; ${user.dob.age}&lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Gender: &lt;/span&gt;${user.gender}
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+      `;
+    });
+});
+</code></pre><p id="a8a04982-d469-473c-a8f7-bf155a5dc830" class="">I prefer to break my code up into smaller functions. This is optional, but I&#x27;m going to create a function to fetch the user and another to display the user. I also like to put my event listeners at the bottom. Here is the final result:</p><pre id="ca246c37-1fa3-4411-a0d8-09e95c8544a7" class="code code-wrap"><code>const generateBtn = document.querySelector(&#x27;#generate&#x27;);
+const userEl = document.querySelector(&#x27;#user&#x27;);
+const loadingEl = document.querySelector(&#x27;#loading&#x27;);
+
+function fetchUser() {
+  showSpinner();
+  fetch(&#x27;https://randomuser.me/api/&#x27;)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      hideSpinner();
+      const user = data.results[0];
+      displayUser(user);
+    });
+}
+
+function displayUser(user) {
+  userEl.innerHTML = `
+      &lt;div class=&quot;flex justify-between&quot;&gt;
+      &lt;div class=&quot;flex&quot;&gt;
+        &lt;img
+          class=&quot;w-48 h-48 rounded-full mr-8&quot;
+          src=&quot;${user.picture.large}&quot;
+        /&gt;
+        &lt;div class=&quot;space-y-3&quot;&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Name: &lt;/span&gt;${user.name.first} ${user.name.last}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Email: &lt;/span&gt; ${user.email}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Phone: &lt;/span&gt; ${user.phone}
+          &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+          &lt;span class=&quot;font-bold&quot;&gt;Location: &lt;/span&gt; ${user.location.city} ${user.location.country}
+        &lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;&lt;span class=&quot;font-bold&quot;&gt;Age: &lt;/span&gt; ${user.dob.age}&lt;/p&gt;
+          &lt;p class=&quot;text-xl&quot;&gt;
+            &lt;span class=&quot;font-bold&quot;&gt;Gender: &lt;/span&gt;${user.gender}
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+      `;
+}
+
+function showSpinner() {
+  loadingEl.style.display = &#x27;block&#x27;;
+}
+
+function hideSpinner() {
+  loadingEl.style.display = &#x27;none&#x27;;
+}
+
+generateBtn.addEventListener(&#x27;click&#x27;, fetchUser);
+</code></pre><p id="90102045-38ad-4b3a-9883-e4d22f9051c5" class="">That&#x27;s it! Now we have a random user generator.</p><p id="66d0aff3-784c-4803-b681-7c8096fb1b52" class="">What I want to talk about next is error handling with the Fetch API.</p></details></li></ul><ul id="a5b95d2c-7a64-4f01-9929-927bcdb6b775" class="toggle"><li><details open=""><summary><strong>Fetch Options</strong></summary><p id="d658cd30-7445-4be7-aa5d-412240a6dad4" class="">When we make a request with the fetch API, the first parameter is the URL, but we can also pass in an object as the second parameter to add options to the request.</p><p id="9e1ff97e-1946-4b3f-8629-ef653fb38d59" class="">Some of the available options are:</p><ul id="e8ef21e6-8895-4581-b13a-3dcd8fa9cafd" class="bulleted-list"><li style="list-style-type:disc"><code>method</code>: The HTTP method to use, such as <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, etc. By default it is <code>GET</code>.</li></ul><ul id="bc02b33c-6c77-480b-ad41-71919ebdf8ea" class="bulleted-list"><li style="list-style-type:disc"><code>headers</code>: An object containing any custom headers that you want to add to the request.</li></ul><ul id="3fa19404-b9bd-4e61-b25f-9e55e03b839e" class="bulleted-list"><li style="list-style-type:disc"><code>body</code>: The data to send with the request. If you are submitting form data for instance, you can send that data here. It can be a string, a <code>Blob</code>, a <code>BufferSource</code>, a <code>FormData</code>, a <code>URLSearchParams</code>, or a <code>USVString</code>.</li></ul><p id="aa681e9e-c51b-46c3-9ce1-b992c5253ae5" class="">There are others as well such as <code>mode</code>, <code>credentials</code>, <code>cache</code>, <code>redirect</code>, <code>referrer</code>, <code>referrerPolicy</code>, <code>integrity</code>, and <code>keepalive</code>. You can read more about them <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#parameters">here</a>.</p><h2 id="69d56985-2562-47ff-b440-5fd8e537597b" class=""><strong>JSONPlaceholder API</strong></h2><p id="7a5518ad-d09b-4584-acbd-168c0de5f6bb" class="">For this video and the next project, we will be using the <a href="https://jsonplaceholder.typicode.com/">JSON Placeholder Fake REST API</a>. This API gives us access to a bunch of different endpoints for resources like posts, users, todos, etc.</p><p id="000cf6df-3d9b-4785-ab92-817688eb5b0b" class="">It is a REST API, which adheres to specific standards when it comes to HTTP methods and how the endpoint URLs are structured. We will be using the blog post resource for this. These are the REST endpoints</p><ul id="297fd35e-f790-4240-a088-0dd97528e8cb" class="bulleted-list"><li style="list-style-type:disc">GET /posts <strong>Fetch all posts</strong></li></ul><ul id="1e3f3c14-cccc-4a3f-9d3d-91fe98f5ceb1" class="bulleted-list"><li style="list-style-type:disc">GET posts/1 <strong>Fetch a post with the ID of 1</strong></li></ul><ul id="cd48e1fa-764d-47fd-add2-03a460c53462" class="bulleted-list"><li style="list-style-type:disc">POST /posts <strong>Add a new post</strong></li></ul><ul id="5ad5279f-0912-4e89-bff3-d5ed7c57ddc9" class="bulleted-list"><li style="list-style-type:disc">PUT /posts/1 <strong>Update a post with the id of 1</strong></li></ul><ul id="00c50e72-f7c0-4e4e-b569-71418dd3c445" class="bulleted-list"><li style="list-style-type:disc">DELETE /posts/1 <strong>Delete a post with the id of 1</strong></li></ul><p id="fa293b01-a9ae-43d1-8753-3496b11dcf05" class="">Now, we can make the requests, just know that the data does not actualy persist into any database. So for instance, when we make a post request, we get a successful response, however the data does not stick because it is not actually saved in the database. They can&#x27;t let the pubic add any data they want. There is a tool called <code>JSON Server</code> from this developer that we can use to store data locally. We will look at that later.</p><h2 id="39781785-7fdc-4991-bd6d-80783880c697" class=""><strong>Making a POST Request</strong></h2><p id="1d4c52f5-93a3-4085-8000-4e55716324f2" class="">By default, when we pass a URL into <code>fetch()</code> it will make a <code>GET</code> request. This is what we use if we want to retrieve data from a server. But what if we want to send data to the server? We can do that by passing in an object as the second parameter to <code>fetch()</code>. This object can contain options for the request, including the <code>method</code> option.</p><p id="1eba02c7-385d-415d-892c-c8a0222b4d6d" class="">Let&#x27;s make a POST request to the <a href="https://jsonplaceholder.typicode.com/">JSON Placeholder</a> API.</p><p id="93727381-91c8-455f-ae7b-3a80b8acebea" class="">Usually, when we make a <code>POST</code> request, we send some form data to the server to create some kind of resource like a blog post, user, etc.</p><p id="785c7445-c927-4e77-a7a6-cacf8d35460f" class="">JSONPlaceholder has endpoints for creating posts, users, and comments. Let&#x27;s make a <code>POST</code> request to create a new post.</p><pre id="07ff609b-4af3-4b79-80b7-9b85906f4a3b" class="code code-wrap"><code>function createPost({ title, body }) {
+  fetch(&#x27;https://jsonplaceholder.typicode.com/posts&#x27;, {
+    method: &#x27;POST&#x27;,
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+    headers: {
+      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+    },
+  })
+    .then((response) =&gt; response.json())
+    .then((data) =&gt; console.log(data));
+}
+
+createPost({ title: &#x27;My Post&#x27;, body: &#x27;This is my post&#x27; });
+</code></pre><p id="3a1815d3-f922-4edd-9c7b-4b9de290b1ae" class="">The <code>body</code> option is where we send the data to the server. We can send any kind of data here, but we need to make sure that the server knows what kind of data we are sending. We do this by setting the <code>Content-Type</code> header to the appropriate value. In this case, we are sending JSON data, so we set the <code>Content-Type</code> header to <code>application/json</code>. We also need to make sure that the data is in the correct format. In this case, we need to convert the data to a string using <code>JSON.stringify()</code>.</p><p id="3abb87ac-163c-4c4a-a5a1-ba59798c837f" class="">We can also add any custom headers that we wanted. For instance, the API may require you to authenticate and get a token and then send that token with a request to access a protected route.</p><pre id="dc187987-15cb-4801-9d06-d9578dd62805" class="code code-wrap"><code>headers: {
+    &#x27;Content-type&#x27;: &#x27;application/json; charset=UTF-8&#x27;,
+    &#x27;token&#x27;: &#x27;abc123&#x27;
+  }
+</code></pre><p id="3666cbd1-d119-4f19-ae8e-f1e0c68515ff" class="">The server will respond with the data that we sent, but it will also add an <code>id</code> property to the object. This is the ID of the new post that was created.</p><p id="bfa9efe4-0528-44a5-9110-ad33a23bac06" class="">If you open your DevTools and go to the <code>Network</code> tab, you will see all of the info about the request and response including the headers, payload, status and response.</p></details></li></ul><ul id="400dea39-647d-457f-99bb-c8c47880616a" class="toggle"><li><details open=""><summary><strong>Typicode Todos Mini-Project</strong></summary><p id="8509cebe-becd-442c-aba1-ecdfff5ab2b2" class="">Ok, so in the last lesson, I showed you how to add options to your fetch request including the method, headers and body. I want to take that a little further with another mini project. We&#x27;re going to use the <a href="https://jsonplaceholder.typicode.com/">JSONPlaceholder API</a>. Here are the specs...</p><ul id="e858a2ef-293a-4421-8f02-e72b4b8355ef" class="bulleted-list"><li style="list-style-type:disc">Fetch the todos from <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a> and put them on the page. We already have the HTML and CSS. I also want to be able to add a todo by making a POST request to the api and then adding the todo to the DOM. Now it&#x27;s important to understand that this data will NOT persist. The API does not actually let us store data, so it will not stick. If we reload the page, any new todos that we added will go away. Later on I will show you another tool by this API developer called <code>JSON Server</code> which we can run locally and actually save the data.</li></ul><ul id="e8734661-207b-4e49-8f98-26b84bcd4ac4" class="bulleted-list"><li style="list-style-type:disc">All of the todos that have the property <code>completed: true</code>, will have a class of <code>.done</code>, which will give it a light gray background.</li></ul><ul id="d4761b9e-0f4e-4a12-bd06-2700469ac65d" class="bulleted-list"><li style="list-style-type:disc">We click on the todo and it toggles the update value. This means we need to toggle the class in the DOM and make a PUT request to the API to update the <code>completed</code> value. Again, this will not stick because we can not actually update their data. It will give us the response though.</li></ul><ul id="024e6cdc-39ee-4545-b4ca-552cce9c8b12" class="bulleted-list"><li style="list-style-type:disc">We doouble click and send a DELETE request then delete the todo from the DOM.</li></ul><h2 id="43c5b812-170a-47ad-941b-46aeef0bae64" class=""><strong>Getting and Displaying the Todos</strong></h2><p id="4f2481f2-62d7-4bd8-9479-eb4615fb49d9" class="">Let&#x27;s start by getting and displaying the todos</p><p id="9921ea44-32cb-4b34-b978-84a41f1dcce1" class="">I am going to use an <code>init()</code> function for our event listeners</p><pre id="5d7e9e19-b465-489c-a2b3-18b0b727b6d1" class="code code-wrap"><code>const apiUrl = &#x27;https://jsonplaceholder.typicode.com/todos&#x27;;
+
+function getTodos() {
+  fetch(`${apiUrl}?_limit=5`)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      data.forEach((todo) =&gt; {
+      	const div = document.createElement(&#x27;div&#x27;);
+        div.classList.add(&#x27;todo&#x27;);
+	  	  div.appendChild(document.createTextNode(todo.title));
+	  	  div.setAttribute(&#x27;data-id&#x27;, todo.id);
+
+	  	  document.getElementById(&#x27;todo-list&#x27;).appendChild(div);
+	  });
+	});
+}
+
+function init() {
+  document.addEventListener(&#x27;DOMContentLoaded&#x27;, getTodos);
+}
+
+init();
+</code></pre><p id="3861c4ee-e554-46fb-9af4-2e9bcb88affd" class="">The code above will fetch the data and then loop through it and create a new <code>div</code> for each todo and add it to the list.</p><p id="113cd076-0d95-4e58-bad3-2322f224d334" class="">I added <code>?_limit=5</code> on to the end of our apiUrl. JSONPlaceholder allows this to limit the number of resources. I only want to get 5.</p><p id="c8db8163-335f-4624-8ed7-2618b99fd741" class="">I added a custom <code>data</code> attribute called <code>data-id</code>. That is because we will need the id later. This will let us access it. When you create an attribute that does not exist in HTML, you should prefix it with <code>data-</code>. We can then access it later using the &#x27;dataset&#x27; object.</p><h2 id="fc3a9bdd-7bec-4310-9dfe-26fc9b7b3e77" class=""><strong>Add background for completed todos</strong></h2><p id="c2d69a1f-bf4a-4e16-b852-394bca6ac894" class="">To add a gray background, just check for the completed value and add the <code>done</code> class:</p><pre id="f87bc985-4c5d-4b6c-802e-8a3a3c0936d7" class="code code-wrap"><code>if (todo.completed) {
+	div.classList.add(&#x27;done&#x27;);
+}
+</code></pre><h2 id="eeaf6acd-9483-4dd9-97ed-544070bb2f3e" class=""><strong>Create seperate function to add todo to DOM</strong></h2><p id="0b653c2e-f13c-4487-99aa-8fc4a939cd35" class="">When we create a todo, we will also add it to the DOM, so let&#x27;s create a function for that</p><pre id="d7aa0704-34b3-4fe6-a09c-b9877aacbeff" class="code code-wrap"><code>function addTodoToDOM(todo) {
+  const div = document.createElement(&#x27;div&#x27;);
+  div.classList.add(&#x27;todo&#x27;);
+  div.appendChild(document.createTextNode(todo.title));
+  div.setAttribute(&#x27;data-id&#x27;, todo.id);
+
+  if (todo.completed) {
+    div.classList.add(&#x27;done&#x27;);
+  }
+
+  document.getElementById(&#x27;todo-list&#x27;).appendChild(div);
+}
+</code></pre><p id="1eef8943-41b0-4532-ae06-0b215a2a7629" class="">Now add it to the foreach in <code>getTodos()</code></p><pre id="fc09fcf7-25d0-45e2-b0b9-6ac628a89d45" class="code code-wrap"><code>function getTodos() {
+  fetch(`${apiUrl}?_limit=5`)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      data.forEach((todo) =&gt; addTodoToDOM(todo));
+    });
+}
+</code></pre><h2 id="15eb7803-47bb-406a-8568-5047f2a70f10" class=""><strong>Create a todo</strong></h2><p id="f2ce5886-177d-43bf-a915-325762a102e6" class="">Now, let&#x27;s add the event listener and the <code>createTodo()</code> function</p><pre id="ae01aadb-d36b-496e-bfc9-5a8f91ad7ace" class="code code-wrap"><code>function createTodo(e) {
+  e.preventDefault();
+
+  const newTodo = {
+    title: e.target.firstElementChild.value,
+    completed: false,
+  };
+  fetch(apiUrl, {
+    method: &#x27;POST&#x27;,
+    body: JSON.stringify(newTodo),
+    headers: {
+      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      token: &#x27;abc123&#x27;,
+    },
+  })
+    .then((response) =&gt; response.json())
+    .then((data) =&gt; addTodoToDOM(data));
+}
+
+function init() {
+  document.addEventListener(&#x27;DOMContentLoaded&#x27;, getTodos);
+  document.getElementById(&#x27;todo-form&#x27;).addEventListener(&#x27;submit&#x27;, createPost);
+}
+
+init();
+</code></pre><h2 id="abf27c3c-83e9-4972-ace1-9eb112998d0c" class=""><strong>Update completed field</strong></h2><p id="8e93cca2-aede-41ca-ad65-6996c7c9f781" class="">Let&#x27;s make it so we can click on a todo and update the <code>completed</code> field. Again, this will go away on refresh because it does not persist to the database of the API.</p><pre id="05828c4b-f214-4cf0-bab0-dbd9801ed724" class="code code-wrap"><code>function toggleComplete(e) {
+  if (e.target.classList.contains(&#x27;todo&#x27;)) {
+    e.target.classList.toggle(&#x27;done&#x27;);
+    updateTodo(e.target.dataset.id, e.target.classList.contains(&#x27;done&#x27;));
+  }
+}
+
+function updateTodo(id, completed) {
+  fetch(`${apiUrl}/${id}`, {
+    method: &#x27;PUT&#x27;,
+    body: JSON.stringify({ completed }),
+    headers: {
+      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+    },
+  })
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; console.log(data));
+}
+
+function init() {
+  document.addEventListener(&#x27;DOMContentLoaded&#x27;, getTodos);
+  document.getElementById(&#x27;todo-form&#x27;).addEventListener(&#x27;submit&#x27;, createTodo);
+  document
+    .getElementById(&#x27;todo-list&#x27;)
+    .addEventListener(&#x27;click&#x27;, toggleComplete);
+}
+
+init();
+</code></pre><h2 id="5316ecdb-f7d9-42b4-9969-19ed6389d313" class=""><strong>Delete a todo</strong></h2><p id="bcd3d298-0117-4568-8f52-88b43620634c" class="">Let&#x27;s add a double click event listener and handler to remove the Todo. We will make a DELETE request and get a resonse, but it will not stick.</p><pre id="7f6823f7-daed-4509-877b-ca16aa4ccea4" class="code code-wrap"><code>function deleteTodo(e) {
+  if (e.target.classList.contains(&#x27;todo&#x27;)) {
+    const id = e.target.dataset.id;
+    fetch(`${apiUrl}/${id}`, {
+      method: &#x27;DELETE&#x27;,
+    })
+      .then((res) =&gt; res.json())
+      .then(() =&gt; e.target.remove());
+  }
+}
+
+
+function init() {
+  document.addEventListener(&#x27;DOMContentLoaded&#x27;, getTodos);
+  document.getElementById(&#x27;todo-form&#x27;).addEventListener(&#x27;submit&#x27;, createTodo);
+  document
+    .getElementById(&#x27;todo-list&#x27;)
+    .addEventListener(&#x27;click&#x27;, toggleComplete);
+  document.getElementById(&#x27;todo-list&#x27;).addEventListener(&#x27;dblclick&#x27;, deleteTodo);
+}
+
+init();
+
+</code></pre><p id="a63a0501-70fc-492d-b9d9-1d324e9f2940" class="">Here is the final code:</p><pre id="cbfc0911-7551-4b41-9ecb-6b36a9703650" class="code code-wrap"><code>const apiUrl = &#x27;https://jsonplaceholder.typicode.com/todos&#x27;;
+
+function getTodos() {
+  fetch(`${apiUrl}?_limit=5`)
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; {
+      data.forEach((todo) =&gt; addTodoToDOM(todo));
+    });
+}
+
+function createTodo(e) {
+  e.preventDefault();
+
+  const newTodo = {
+    title: e.target.firstElementChild.value,
+    completed: false,
+  };
+  fetch(apiUrl, {
+    method: &#x27;POST&#x27;,
+    body: JSON.stringify(newTodo),
+    headers: {
+      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      token: &#x27;abc123&#x27;,
+    },
+  })
+    .then((response) =&gt; response.json())
+    .then((data) =&gt; addTodoToDOM(data));
+}
+
+function addTodoToDOM(todo) {
+  const div = document.createElement(&#x27;div&#x27;);
+  div.appendChild(document.createTextNode(todo.title));
+  div.setAttribute(&#x27;data-id&#x27;, todo.id);
+
+  if (todo.completed) {
+    div.classList.add(&#x27;done&#x27;);
+  }
+
+  document.getElementById(&#x27;todo-list&#x27;).appendChild(div);
+}
+
+function toggleComplete(e) {
+  e.target.classList.toggle(&#x27;done&#x27;);
+  updateTodo(e.target.dataset.id, e.target.classList.contains(&#x27;done&#x27;));
+}
+
+function updateTodo(id, completed) {
+  fetch(`${apiUrl}/${id}`, {
+    method: &#x27;PUT&#x27;,
+    body: JSON.stringify({ completed }),
+    headers: {
+      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+    },
+  })
+    .then((res) =&gt; res.json())
+    .then((data) =&gt; console.log(data));
+}
+
+function deleteTodo(e) {
+  const id = e.target.dataset.id;
+  fetch(`${apiUrl}/${id}`, {
+    method: &#x27;DELETE&#x27;,
+  })
+    .then((res) =&gt; res.json())
+    .then(() =&gt; e.target.remove());
+}
+
+function init() {
+  document.addEventListener(&#x27;DOMContentLoaded&#x27;, getTodos);
+  document.getElementById(&#x27;todo-form&#x27;).addEventListener(&#x27;submit&#x27;, createTodo);
+  document
+    .getElementById(&#x27;todo-list&#x27;)
+    .addEventListener(&#x27;click&#x27;, toggleComplete);
+  document.getElementById(&#x27;todo-list&#x27;).addEventListener(&#x27;dblclick&#x27;, deleteTodo);
+}
+
+init();
+</code></pre></details></li></ul><ul id="f6702c34-4e31-42d9-8f33-110448c2c181" class="toggle"><li><details open=""><summary><strong>Fetch API Error Handling</strong></summary><p id="c3857184-7710-4f43-ba85-b5afc26651f0" class="">In this lesson, I want to talk about error handling in the Fetch API. There are a couple things that you may not expect. It is important to understand the main HTTP status codes and what they mean, because it is important that you understand your API&#x27;s response. So let&#x27;s recap on the most common ones.</p><p id="7045aff3-e10c-4ef2-bb5d-553ad12ae18d" class="">The <code>200</code> range is for successful responses.</p><ul id="8a4feaa9-bc7d-41f9-8014-72fb6557bf49" class="bulleted-list"><li style="list-style-type:disc">200 - OK</li></ul><ul id="35ab19b4-3b26-4644-b702-12287e468870" class="bulleted-list"><li style="list-style-type:disc">201 - Created</li></ul><ul id="32bd4d81-8256-4aea-b2fc-25ed9adbe4c6" class="bulleted-list"><li style="list-style-type:disc">204 - No Content</li></ul><p id="3ab08dd3-f18d-498c-85f5-13470c3b0fd3" class="">The <code>400</code> range is for client errors. This means that the request was not understood by the server.</p><ul id="82d2daa5-9bc7-4cf3-82f2-a73b24d8631b" class="bulleted-list"><li style="list-style-type:disc">400 - Bad Request</li></ul><ul id="f4b97914-707d-46be-b6c9-9e8369b12766" class="bulleted-list"><li style="list-style-type:disc">401 - Unauthorized</li></ul><ul id="a4184540-810a-4b19-9618-c4ceb1358905" class="bulleted-list"><li style="list-style-type:disc">403 - Forbidden</li></ul><ul id="4cf98045-2379-44bf-93e2-6f6c59cfcc27" class="bulleted-list"><li style="list-style-type:disc">404 - Not Found</li></ul><p id="9a56b1ca-3b6e-4319-a479-ab88d986a809" class="">The <code>500</code> range is for server errors. This means that the server encountered an error while processing the request.</p><ul id="29b4639b-cf72-4cbb-a7e5-a257a884ccea" class="bulleted-list"><li style="list-style-type:disc">500 - Internal Server Error</li></ul><p id="08849a0b-f1f1-419d-8649-ea8159b26356" class="">The most common of the common will be <code>200</code>, <code>404</code> and <code>500</code>. So let&#x27;s look at how we can handle these in the Fetch API.</p><p id="f6228a6e-086b-47d9-91cf-3eb9000d2cf1" class="">We can use the website <a href="http://httpstat.us/">httpstat.us</a> to send requests to and get a specific status code. Let&#x27;s try it out.</p><pre id="463c3e9e-7aec-472c-95eb-612d6af03424" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/200&#x27;)
+  .then((response) =&gt; {
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  });
+</code></pre><p id="44fbaf2d-9b87-4844-9aa4-78e357ba4533" class="">If you run this, you should see &#x27;Success&#x27; logged to the console. Let&#x27;s try a <code>404</code> now.</p><pre id="a981d900-bfa4-4e5a-b23d-7481399b0673" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/404&#x27;)
+  .then((response) =&gt; {
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  });
+</code></pre><p id="2c3b2fff-3786-4fee-b871-3979b0522111" class="">A <code>404</code> is not a successful response. It means what we are requesting is not there. However, we are still seeing &#x27;Success&#x27; logged to the console.</p><p id="42577ff3-2c67-4208-999f-948508e2d8d8" class="">Let&#x27;s try adding a <code>catch</code> to the end of the chain. Remember, a <code>catch</code> will catch any errors that occur in the chain. So let&#x27;s try it.</p><pre id="8b6fca89-74d0-466d-baf4-cb1a719b5cdc" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/404&#x27;)
+  .then((response) =&gt; {
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  })
+  .catch((error) =&gt; {
+    console.log(&#x27;Error:&#x27;, error);
+  });
+</code></pre><p id="cf3c9a37-dbf2-4748-a81e-210953d82e60" class="">Nothing happens. The <code>catch</code> is not called. This is because the <code>fetch</code> request itself was successful. The <code>catch</code> will only be called if there is a network error. So if we make a request to a URL that doesn&#x27;t exist, we will see the <code>catch</code> called. let&#x27;s try this:</p><pre id="fb9954aa-03db-4aed-be0b-64dc29d9781c" class="code code-wrap"><code>fetch(&#x27;http://hello123.net&#x27;)
+  .then((response) =&gt; {
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  })
+  .catch((error) =&gt; {
+    console.log(&#x27;Error:&#x27;, error);
+  });
+</code></pre><p id="5254a9d1-5e00-452b-852d-18a3ad8f8af4" class="">This does result with the <code>catch</code> being called. So we can use the <code>catch</code> to handle network errors. But what about the <code>404</code> or any other unsuccessful response? We want to handle that as well. We can do this by checking the <code>status</code> of the response and then throwing an error if we need to. Let&#x27;s try it out.</p><pre id="ec9f1c72-e89d-4c4c-b2aa-b44f3a695a3b" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/404&#x27;)
+  .then((response) =&gt; {
+    if (response.status !== 200) {
+      throw new Error(&#x27;Not 200 response&#x27;);
+    }
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  })
+  .catch((error) =&gt; {
+    console.log(&#x27;Error:&#x27;, error);
+  });
+</code></pre><p id="f276e2ec-6c01-435b-a947-8f0587167623" class="">So we looked at the <code>status</code> of the response and if it is not <code>200</code>, we throw an error. <code>throw</code> is a keyword that will stop the chain and call the <code>catch</code> with the error that we throw. So now we are seeing the <code>catch</code> called with the error that we threw. Try a <code>200</code> response and you will see the <code>then</code> called. If you try a <code>500</code> response or anything but <code>200</code>, you will see the <code>catch</code> called.</p><p id="5146ae8c-e286-4562-b29b-d3a0c1ae24b5" class="">If you want to check for specific status codes, you can use <code>else if</code> statements:</p><pre id="9527a260-3e88-442e-b527-99bc2f45df23" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/400&#x27;)
+  .then((response) =&gt; {
+    if (response.status === 404) {
+      throw new Error(&#x27;Not found&#x27;);
+    } else if (response.status === 400) {
+      throw new Error(&#x27;Bad request&#x27;);
+    } else if (response.status === 500) {
+      throw new Error(&#x27;Server error&#x27;);
+    } else if (response.status !== 200) {
+      throw new Error(&#x27;Not 200 response&#x27;);
+    }
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  })
+  .catch((error) =&gt; {
+    console.log(&#x27;Error:&#x27;, error);
+  });
+</code></pre><p id="8adff81a-2b6f-4808-85a8-c8a6ff95e3ac" class="">There are other <strong>success</strong> status codes that you may want to handle. For example, <code>201</code> is a successful response that means a resource was created. You may want to handle this differently than a <code>200</code> response. You can do this by adding another <code>else if</code> statement. Let&#x27;s try it out.</p><pre id="5399e7c0-c999-4353-b809-fbe8848ffc1a" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/404&#x27;)
+  .then((response) =&gt; {
+    if (response.status &gt;= 200 &amp;&amp; response.status &lt;= 299) {
+      throw new Error(&#x27;Not 200 response&#x27;);
+    }
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  })
+  .catch((error) =&gt; {
+    console.log(&#x27;Error:&#x27;, error);
+  });
+</code></pre><p id="e96a9d9f-2de0-4104-9c14-d9eee1964f88" class="">There is also an <code>ok</code> property on the response object. This is a boolean that is <code>true</code> if the status is in the <code>200</code> range. So we can use this as well:</p><pre id="9a38e60b-643e-4c98-a7e4-5df54ce25501" class="code code-wrap"><code>fetch(&#x27;http://httpstat.us/400&#x27;)
+  .then((response) =&gt; {
+    if (!response.ok) {
+      throw new Error(&#x27;Something went wrong&#x27;);
+    }
+    return response;
+  })
+  .then((data) =&gt; {
+    console.log(&#x27;Success&#x27;);
+  })
+  .catch((error) =&gt; {
+    console.log(&#x27;Error:&#x27;, error);
+  });
+</code></pre><h2 id="b265dea9-7116-464a-a314-e8c8d9f57c11" class=""><strong>Add error handling to project</strong></h2><p id="f3ae3f3e-d343-4704-9620-9981b2f9f003" class="">The random user API is pretty simple. We most likely won&#x27;t get a 404 or 500 error. But we can still add some error handling. Let&#x27;s add a <code>catch</code> to the end of the chain and show a message if there is an error.</p><pre id="f78ae8af-c708-4868-8b5d-3c1991956c1c" class="code code-wrap"><code>function fetchUser() {
+  showSpinner();
+  fetch(&#x27;https://randomuser.me/api/&#x27;)
+    .then((res) =&gt; {
+      if (res.status !== 200) {
+        throw new Error(&#x27;Something went wrong&#x27;);
+      }
+      return res.json();
+    })
+    .then((data) =&gt; {
+      hideSpinner();
+      const user = data.results[0];
+      displayUser(user);
+    })
+    .catch((error) =&gt; {
+      hideSpinner();
+      userEl.innerHTML = `&lt;p class=&quot;text-xl text-center text-red-500 mb-5&quot;&gt;${error}&lt;/p&gt;`;
+    });
+}
+</code></pre><p id="3852d7b6-838c-4c6d-920a-fd1a70221712" class="">Now try and change the URL to <code>https://randomuser.me/api1/</code>. Now this would still run the catch even without the check because it doesn&#x27;t exist, but the check is there to show for specific status codes and makes your code more less error prone.</p></details></li></ul><ul id="e0567e28-583d-412b-bbc6-c875b87657a7" class="toggle"><li><details open=""><summary><strong>Async / Await</strong></summary><p id="bcaee4da-4e24-49fa-be0d-5a5dfb0d0325" class="">Now that we know how about promises, I want to show you an alternate way to consume them called <code>Async &amp; Await</code>. We already saw that we can use the <code>.then()</code> method to handle the promise. That method is cleaner than the callback syntax, but it can get a little messy when you have a lot of nested <code>.then()</code> methods. That&#x27;s where <code>Async &amp; Await</code> comes in. It allows us to write asynchronous code that looks synchronous. It&#x27;s also a lot easier to read and understand.</p><p id="f5b0d48b-37d2-4cb4-ade6-489489390673" class="">Let&#x27;s take the first promise that we created a while ago and convert it to use <code>Async &amp; Await</code>.</p><pre id="39cc9b7e-dfa2-4edd-9388-79e1a85d5612" class="code code-wrap"><code>const promise = new Promise(function (resolve, reject) {
+  // Do an async task
+  setTimeout(function () {
+    let error = false;
+
+    if (!error) {
+      resolve({ name: &#x27;John&#x27;, age: 30 });
+    } else {
+      reject(&#x27;Error: Something went wrong&#x27;);
+    }
+  }, 1000);
+});
+</code></pre><p id="1479d507-69b6-41ca-933b-d3641b29da7f" class="">So this code will create a promise that resolves after 1 second. I&#x27;ll use the <code>.then()</code> syntax for comparison:</p><pre id="d0ef899d-f3ec-4800-a58f-587c29080ca3" class="code code-wrap"><code>promise.then((data) =&gt; {
+  console.log(data);
+});
+</code></pre><p id="2ef3bc35-5859-48d1-9846-33ec6f50e314" class="">When we use <code>Async &amp; Await</code>, we create a function that is prefixed with the <code>async</code> keyword. We can then use the <code>await</code> keyword in front of any promise. This will pause the execution of the function until the promise is resolved. Once the promise is resolved, we can store the result in a variable.</p><pre id="321f3cc7-ce98-4bec-985a-a7c5d90abce5" class="code code-wrap"><code>async function getPromise() {
+  const response = await promise;
+  console.log(response);
+}
+
+getPromise();
+</code></pre><p id="6ace0cca-b15f-4784-a81a-303a6b834f56" class="">As you can see, this does the same exact thing, but it&#x27;s a lot easier to read and understand. It reads like a normal synchronous function. We simply add the <code>async</code> keyword to the function, and then we use the <code>await</code> keyword in front of the promise. It is important to stress that you will not be able to use the <code>await</code> keyword outside of an <code>async</code> function. If you try it, you will get an error.</p><h2 id="191cecf5-a99e-481d-8f58-e5a7ca8a6507" class=""><strong>Async / Await with Fetch</strong></h2><p id="5d2dbe96-01b8-409a-9a11-29019c23b47a" class="">Using Async/Await with the Fetch API is very similar. We&#x27;ll create a function that is prefixed with the <code>async</code> keyword. We&#x27;ll then use the <code>await</code> keyword in front of the <code>fetch()</code> method. This will pause the execution of the function until the promise is resolved. Once the promise is resolved, we can store the result in a variable.</p><p id="d1dfc9df-6568-4ace-a2a0-908cf8c862e4" class="">You can use any API, but I&#x27;m going to use the <code>users</code> endpoint from <a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com</a>.</p><pre id="07103810-d878-47a4-8acb-c242884c12f5" class="code code-wrap"><code>async function getUsers() {
+  const response = await fetch(&#x27;https://jsonplaceholder.typicode.com/users&#x27;);
+  const data = await response.json();
+
+  console.log(data);
+}
+
+getUsers();
+</code></pre><p id="061d92b9-b217-4b06-8556-d8052d519481" class="">Now, remember the Fetch API returns the initial <code>Response</code> object. We can&#x27;t get the JSON data from that object directly. We need to use the <code>.json()</code> method on the response object. This will return another promise, so we need to use the <code>await</code> keyword again. Once the promise is resolved, we can store the result in a variable.</p><p id="b82dc59d-0355-433e-a564-d45136b3c4d7" class="">Let&#x27;s make it a bit more interesting and show the users on the page. I know this is not a DOM lesson, but I want to make sure I keep you on your toes.</p><p id="dfa1df83-1baf-42f7-8ca2-838fb9e65642" class="">Add a <code>div</code> with an <code>id</code> of <code>output</code> to the <code>index.html</code> file.</p><pre id="4ba12d28-b3ed-4959-baf3-72dfa3af63fa" class="code code-wrap"><code>&lt;div id=&quot;output&quot;&gt;&lt;/div&gt;</code></pre><p id="c7e0187f-d8a4-47a3-83e3-4ef6bcd6fb49" class="">Then edit your <code>getUsers()</code> function</p><pre id="f679201c-8ffb-429e-b2b7-5febc554e277" class="code code-wrap"><code>async function getUsers() {
+  const response = await fetch(&#x27;https://jsonplaceholder.typicode.com/users&#x27;);
+  const data = await response.json();
+
+ console.log(data);
+}
+
+getUsers();
+</code></pre><h2 id="b34e24d0-a876-45a8-9b86-1d08545def9f" class=""><strong>Using Async / Await with Arrow Functions</strong></h2><p id="a80de10a-3e78-4519-ade8-dd32e64e664c" class="">When we use arrow functions, the <code>async</code> keyword goes before the arrow. Here is the same function as above, but using an arrow function.</p><pre id="ba09d4a9-0926-4b66-90fe-54cc460dff39" class="code code-wrap"><code>const getUsers2 = async () =&gt; {
+  const response = await fetch(&#x27;https://jsonplaceholder.typicode.com/users&#x27;);
+  const data = await response.json();
+
+ console.log(data);
+};
+
+getUsers2();
+</code></pre><h2 id="65c421a7-5f20-4742-a519-c7c0b17eeffc" class=""><strong>Do I need to use Async/Await?</strong></h2><p id="e58b26d1-5cb4-44b3-a710-e8fad516deef" class="">No, you don&#x27;t need to use Async/Await. It&#x27;s just another way to consume promises. It&#x27;s a lot easier to read and understand, but it&#x27;s not required. You can use the <code>.then()</code> method if you want. I almost never use the <code>.then()</code> method. I think it&#x27;s a lot easier to read and understand the <code>Async &amp; Await</code> syntax. We&#x27;ll mostly be using the <code>Async &amp; Await</code> syntax for the rest of the course. If you&#x27;d like to use the <code>.then()</code> method, you can. It&#x27;s just a matter of preference.</p><p id="b7cb6a12-3ad7-47b4-9478-cbd852c02aab" class="">Next, let&#x27;s look at how to handle errors using <code>try/catch</code>.</p></details></li></ul><ul id="5ffd2de3-edfe-4912-8772-3473c0320e3a" class="toggle"><li><details open=""><summary><strong>Try...Catch</strong></summary><p id="3373ec2c-bef3-4f44-bde6-ae7ea2cd77d7" class="">A try...catch statement is used to handle errors in JavaScript. It is a syntax that allows you to write code that will run if an error occurs, and code that will run if no error occurs. The reason that I am choosing to cover this now is because it is how we usually handle errors with Async &amp; Await. With the <code>.then()</code> syntax, we can use the <code>.catch()</code> method, which you could use with Async/Await if you want, but usually to handle errors. With Async &amp; Await, we use a try...catch statement. I will get into using it with Async &amp; Await in the next lesson.</p><p id="2102ec4d-a3d9-4ef3-a6cf-b0aa01cccdab" class="">Let&#x27;s start off by just logging a variable that does not exist:</p><pre id="e70ea867-a53f-4ab9-ac09-5c2ce3158ddf" class="code code-wrap"><code>console.log(x);
+</code></pre><p id="c13b61d8-14af-40dc-a0e2-e60f6b2ddb23" class="">If we run this code, we will get an error in the console:</p><pre id="9cd19457-751e-400b-842a-b5f142e36399" class="code code-wrap"><code>Uncaught ReferenceError: x is not defined
+</code></pre><p id="f1c01396-de38-4a2f-b3e5-920cab150ae2" class="">Notice how it says <code>uncaught</code>? Let&#x27;s wrap this code in a try...catch statement:</p><p id="f782ba36-4f58-4805-b56a-ea351ef14771" class="">The basic syntax is as follows:</p><pre id="1c22d5ae-7b1a-4513-b837-314045d1737f" class="code code-wrap"><code>try {
+  // Try to execute this code
+} catch (error) {
+  // If an error occurs, execute this code
+}
+</code></pre><p id="87315d5e-15df-4be6-9be7-3218cfb1b69d" class="">Let&#x27;s add the console.log and also log any errors:</p><pre id="981e7fa9-6aec-48ed-9bf1-6df17553b42f" class="code code-wrap"><code>try {
+  console.log(x);
+} catch (error) {
+  console.log(&#x27;Error:&#x27;, error);
+}
+</code></pre><p id="72a60f55-30a6-4332-8474-1f97ffe72d19" class="">Now, if we run this code, we will see the error in the console:</p><pre id="59b13bbb-dc8c-4c29-b1bc-bfb08e9e76ad" class="code code-wrap"><code>Error: ReferenceError: x is not defined
+</code></pre><p id="4448f591-e186-492f-81e9-b3cdeca75341" class="">So we still get the same message, but it does not say <code>uncaught</code>. This is because we are handling the error.</p><h2 id="d8c98835-4e74-433d-8c20-282d7f338851" class=""><strong>When To Use Try...Catch</strong></h2><p id="70069ddf-931b-436d-a2b0-069421303f1b" class="">There is no reason to fill your code with try...catch statements. You should use a try...catch statement when you are doing something that may result in an error and you plan on handling that error. For example, if you are making an API request and you are not sure if the request will succeed, you can use a try...catch statement to handle the error if it occurs. We can then do something with the error, like display it on the page:</p><pre id="095623d5-1816-4a2c-ba80-20ae14747190" class="code code-wrap"><code>try {
+  console.log(x);
+} catch (error) {
+  document.body.append(error);
+}
+</code></pre><p id="0eb1b7fb-a574-4ecc-b95b-e7b5f4c659f9" class="">There may be times where you do some kind of check and then want to throw an error if the check fails. For example, let&#x27;s say we have a function that takes in a number and doubles it. We want to make sure that the argument is a number.</p><pre id="679fef2e-c68c-4d12-8e79-9b3e2c5de0a2" class="code code-wrap"><code>function double(number) {
+  if (isNaN(number)) {
+    throw new Error(number + &#x27; is not a number&#x27;);
+  }
+
+  return number * 2;
+}
+</code></pre><p id="398cfe1a-d74e-40d9-a491-52149ed6786b" class="">Let&#x27;s try to call this function with a string inside a try...catch statement:</p><pre id="3303f0a5-d1af-4467-836d-e79807b8bc77" class="code code-wrap"><code>try {
+  const y = double(&#x27;a&#x27;);
+} catch (error) {
+  console.log(error);
+}
+</code></pre><p id="6e193701-18a8-474b-800e-bf824434f43f" class="">We get the following error, which we can now do whatever we want with:</p><pre id="2b56d2b1-502f-4278-a911-19b289afa292" class="code code-wrap"><code>Error: a is not a number
+</code></pre><h2 id="935df830-ab3f-4718-9076-7bfe917157fc" class=""><strong>Finally Block</strong></h2><p id="4e190058-5dc8-4dd5-a510-a581794333be" class="">The finally block is a block of code that will always run, regardless of whether an error occurs or not. It is very similar to the <code>.finally()</code> method that we can use with <code>.then()</code>.</p><p id="3cc1a5d0-29dc-4e63-9148-35f2bcedd061" class="">Let&#x27;s say we want to log a message after the try...catch statement runs. We can do this with the finally block:</p><pre id="220c3715-4854-4d12-88d5-d3215fceef8d" class="code code-wrap"><code>try {
+  const y = double(&#x27;a&#x27;);
+} catch (error) {
+  console.log(error);
+} finally {
+  console.log(&#x27;This will always run&#x27;);
+}
+</code></pre><p id="7442dad3-0db5-4f34-a1cc-0c5430aa3077" class="">In the next video, we will look at how to use try...catch with Async &amp; Await.</p></details></li></ul><ul id="45802294-99f4-46ba-853f-413de1fc4148" class="toggle"><li><details open=""><summary><strong>Async/Await Error Handling</strong></summary><p id="3eb6b683-3134-48ec-a11d-ab010f8d8e9e" class="">In the last lesson, we looked at how to use try...catch statements. In this lesson, we will look at how to use try...catch with Async &amp; Await.</p><p id="042bc6da-5c1b-4533-950f-2819adddb0d6" class="">Let&#x27;s use the same <code>getUsers()</code> example from the other lesson. I&#x27;ll use the arrow function version:</p><pre id="41cfbe4c-a240-48cd-b830-ba84a9e6a2fd" class="code code-wrap"><code>const getUsers = async () =&gt; {
+  const response = await fetch(&#x27;https://jsonplaceholder.typicode.com/users&#x27;);
+  const data = await response.json();
+
+  document.querySelector(&#x27;#output&#x27;).innerHTML = data
+    .map(
+      (user) =&gt; `
+    &lt;li&gt;${user.name}&lt;/li&gt;
+  `)
+    .join(&#x27;&#x27;);
+};
+
+getUsers();
+</code></pre><p id="7d712990-9b9b-45ab-8c37-e1e216b55f65" class="">Remember, with the fetch API, if we want to handle status codes like 404, we need to check the <code>status</code> or <code>ok</code> property on the response object.</p><p id="9e866de1-cf6b-41b8-a9f0-30e89117b589" class="">In that case, we will throw an error:</p><pre id="a9930632-0efe-4768-91fa-123eaa0f3631" class="code code-wrap"><code>const getUsers = async () =&gt; {
+  const response = await fetch(&#x27;http://jsonplaceholder.typicode.com/users&#x27;);
+
+  // Add this
+  if (response.status !== 200) {
+    throw new Error(&#x27;Something went wrong&#x27;);
+  }
+
+  const data = await response.json();
+
+  document.querySelector(&#x27;#output&#x27;).innerHTML = data
+    .map(
+      (user) =&gt; `
+    &lt;li&gt;${user.name}&lt;/li&gt;
+  `)
+    .join(&#x27;&#x27;);
+};
+
+getUsers();
+</code></pre><p id="256ce945-9295-4bd6-9f50-cc868a4590c7" class="">In order to catch and use that error, we can use a try...catch statement. Let&#x27;s also change the URL to something that will return a 404 error.</p><pre id="64407027-172d-40ab-ae29-c9676ad95510" class="code code-wrap"><code>const getUsers = async () =&gt; {
+  try {
+    // const response = await fetch(&#x27;http://jsonplaceholder.typicode.com/users&#x27;);
+    const response = await fetch(&#x27;http://httpstat.us/404&#x27;);
+
+    if (response.status !== 200) {
+      throw new Error(&#x27;Something went wrong&#x27;);
+    }
+
+    const data = await response.json();
+
+    document.querySelector(&#x27;#output&#x27;).innerHTML = data
+      .map(
+        (user) =&gt; `
+    &lt;li&gt;${user.name}&lt;/li&gt;
+  `)
+      .join(&#x27;&#x27;);
+  } catch (error) {
+    document.querySelector(&#x27;#output&#x27;).innerHTML = error;
+  }
+};
+
+getUsers();
+</code></pre><p id="1c3bf5d8-990f-4c4c-b325-d9c85357671f" class="">And remember from the earlier lesson, you can check for specific responses and give specific error messages if you want.</p><p id="b285a29e-65fc-4920-ad3d-33ff58949fe7" class="">Again, you do not always have to use <code>try...catch</code>, just like you don&#x27;t always need to use a <code>then...catch</code>. It depends on your use case.</p></details></li></ul><ul id="cee4028c-5163-46a8-8952-7fdce563c9ad" class="toggle"><li><details open=""><summary><strong>Async / Await With Multiple Promises</strong></summary><p id="cdfb9e98-eb88-47e2-ab62-1ce85e49a076" class="">So we know that we can chain promises together using multiple <code>.then()</code> methods. We can also use promise.all to wait for multiple promises to resolve. But what about using async / await to wait for multiple promises to resolve?</p><p id="4cc84a31-07fd-401b-9b1c-4a0b83c6d2fc" class="">Let&#x27;s look at our <code>getData()</code> function from a past lesson.</p><pre id="9cd133d8-cbf3-4bfc-b77a-9ae24082a1c6" class="code code-wrap"><code>function getData(endpoint) {
+  return new Promise((resolve, reject) =&gt; {
+    const xhr = new XMLHttpRequest();
+    xhr.open(&#x27;GET&#x27;, endpoint);
+
+    xhr.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          resolve(JSON.parse(this.responseText));
+        } else {
+          reject(&#x27;Error: Something went wrong&#x27;);
+        }
+      }
+    };
+
+    setTimeout(() =&gt; {
+      xhr.send();
+    }, Math.floor(Math.random() * 3000) + 1000);
+  });
+}
+</code></pre><p id="f4080304-ba95-4cf1-8302-bcdcd57ebc95" class="">It fetches data from an endpoint and returns a promise. It can take anywhere from 1 to 4 seconds to resolve. I first showed you how to do this with callbacks, then with promises and chaining <code>.then()</code> methods, and now we&#x27;re going to do it with async / await.</p><p id="28a75a36-013c-4b51-8ff4-8cc6e1e8f03c" class="">Just for reference, let&#x27;s look at how we did this with promise chaining.</p><pre id="a556e0dc-66b0-41d6-9a00-6d1248e4a9a5" class="code code-wrap"><code>getData(&#x27;./movies.json&#x27;)
+  .then((movies) =&gt; {
+    console.log(movies);
+    return getData(&#x27;./actors.json&#x27;);
+  })
+  .then((actors) =&gt; {
+    console.log(actors);
+    return getData(&#x27;./directors.json&#x27;);
+  })
+  .then((directors) =&gt; {
+    console.log(directors);
+  });
+</code></pre><p id="cb2297ee-cd2c-43a3-a288-ef36bc6cd2f2" class="">We returned a value from each <code>.then()</code> method, and that value was passed to the next <code>.then()</code> method. This is ok. It looks better than callbacks, but it&#x27;s still a little messy. We can do better.</p><pre id="bfbdd29c-d6cf-4f56-ba01-48b49152280e" class="code code-wrap"><code>async function getAllData() {
+  const movies = await getData(&#x27;./movies.json&#x27;);
+  console.log(movies);
+  const actors = await getData(&#x27;./actors.json&#x27;);
+  console.log(actors);
+  const directors = await getData(&#x27;./directors.json&#x27;);
+  console.log(directors);
+}
+
+getAllData();
+</code></pre><p id="c4bec721-6b0a-4557-8a13-012c8e16a52d" class="">Or even better:</p><pre id="939b604d-a1c2-46a7-af9a-d210f29eecd0" class="code code-wrap"><code>async function getAllData() {
+  const movies = await getData(&#x27;./movies.json&#x27;);
+  const actors = await getData(&#x27;./actors.json&#x27;);
+  const directors = await getData(&#x27;./directors.json&#x27;);
+  console.log(movies, actors, directors);
+}
+
+getAllData();
+</code></pre><p id="41c65ef7-2e87-4cab-9076-72535994ee00" class="">We were able to use async / await to wait for multiple promises to resolve and it looks much nicer. We also have access to the data from each promise in the same scope.</p><h2 id="0a8ce4d0-481b-4b51-92fe-235bea788956" class=""><strong>Using </strong><code><strong>fetch</strong></code><strong> instead of </strong><code><strong>XMLHttpRequest</strong></code></h2><p id="308c86e0-6354-40f0-b85d-769aa04c12ab" class="">In the <code>getData()</code> function, we used the <code>XMLHttpRequest</code> object to fetch data from an endpoint. We could also use the <code>fetch()</code> API to do the same thing and get rid of the <code>getData()</code> function completely.</p><pre id="5589a5d1-25ee-4eee-8ada-ba401f578023" class="code code-wrap"><code>async function getAllDataWithFetch() {
+  const moviesRes = await fetch(&#x27;./movies.json&#x27;);
+  const movies = await moviesRes.json();
+
+  const actorsRes = await fetch(&#x27;./actors.json&#x27;);
+  const actors = await actorsRes.json();
+
+  const directorsRes = await fetch(&#x27;./directors.json&#x27;);
+  const directors = await directorsRes.json();
+
+  console.log(movies, actors, directors);
+}
+
+getAllDataWithFetch();
+</code></pre><p id="63449c20-3e46-4554-a159-e89f45e3d62c" class="">There is no returning from <code>.then()</code> methods. The code looks synchronous, but it&#x27;s not. It&#x27;s still asynchronous. We&#x27;re just using async / await to make it look synchronous.</p><h2 id="60adbc2a-0bd3-4b05-8128-420a5749fdd9" class=""><code><strong>Promise.all()</strong></code></h2><p id="907e4216-0e9a-41d0-90ac-5205478c4aaa" class="">We can also still use <code>Promise.all()</code> to wait for multiple promises to resolve.</p><pre id="21b9d505-42a4-4a62-8a77-aee1b58ceb8a" class="code code-wrap"><code>async function getAllDataWithPromiseAll() {
+  const [moviesRes, actorsRes, directorsRes] = await Promise.all([
+    fetch(&#x27;./movies.json&#x27;),
+    fetch(&#x27;./actors.json&#x27;),
+    fetch(&#x27;./directors.json&#x27;),
+  ]);
+
+  const movies = await moviesRes.json();
+  const actors = await actorsRes.json();
+  const directors = await directorsRes.json();
+
+  console.log(movies, actors, directors);
+}
+
+getAllDataWithPromiseAll();
+</code></pre><p id="578899e0-1c0b-43bf-9a96-67bd531e553e" class="">If you want, you can still use <code>.then()</code> on the response promise to get the data:</p><pre id="c8c44927-f935-4597-bb77-04fe6b735fa5" class="code code-wrap"><code>async function getAllDataWithPromiseAll2() {
+  const [movies, actors, directors] = await Promise.all([
+    fetch(&#x27;./movies.json&#x27;).then((response) =&gt; response.json()),
+    fetch(&#x27;./actors.json&#x27;).then((response) =&gt; response.json()),
+    fetch(&#x27;./directors.json&#x27;).then((response) =&gt; response.json()),
+  ]);
+
+  console.log(movies, actors, directors);
+}
+
+getAllDataWithPromiseAll2();</code></pre></details></li></ul></div></article></body></html>

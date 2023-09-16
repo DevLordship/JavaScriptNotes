@@ -1,0 +1,963 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>04-logic-control-scope-docs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e3aac300-d7c3-4fc1-9a73-343967930d2e" class="page sans"><header><h1 class="page-title">04-logic-control-scope-docs</h1><p class="page-description"></p></header><div class="page-body"><ul id="af9489e8-c0bf-40ab-b1ea-80193bb5e6dc" class="toggle"><li><details open=""><summary><strong>If Statements</strong></summary><p id="5a5b534b-8028-4108-bdc1-a3b64a97264c" class="">In any programming language, there will be times where you need to execute certain blocks of code and commands if a certain condition is true or false. Without the ability to have this type of conditional logic, programming wouldn&#x27;t really be possible.</p><p id="2c1cf7a5-fa6f-4d72-b74f-371cd8a3797a" class="">The structure of an <code>if-statement</code> is as follows:</p><pre id="eb6a96ae-8a9f-4b5a-a388-79f1d9f3b905" class="code code-wrap"><code>if (condition) {
+  // code to execute if condition is true
+}
+</code></pre><p id="41e35223-837b-41a3-880f-8f1331e50325" class="">The code block will only execute if the condition is true. If the condition is false, the code block will not execute.</p><p id="d460c7aa-873d-4f51-bf25-dd0601e49aaa" class="">The condition is a boolean expression that evaluates to true or false. In fact, we could put in true or false directly</p><pre id="1043f5c8-312f-4432-bae3-bc3a8753bfbe" class="code code-wrap"><code>if (true) {
+  // code to execute if condition is true
+}
+
+if (false) {
+  // code to execute if condition is false
+}
+</code></pre><p id="d9dd0f3c-d039-4396-af4f-35a44383e2d8" class="">There are something called truthy and falsy values in JavaScript. I will get more into this in a bit.</p><h2 id="fb338beb-2278-49ff-a46c-0f522256fb88" class=""><strong>Comparison Operators</strong></h2><p id="32f9c3c0-2ce0-4631-a4e2-2a1bf50ab739" class="">A few sections back, we looked at the comparison operators. These operators are used to compare values and return a boolean value.</p><figure id="fcaea3f5-f90a-479f-8f91-7db7cace0d49" class="image"><a href="04-logic-control-scope-docs%20e3aac300d7c34fc19a73343967930d2e/Untitled.png"><img style="width:531px" src="04-logic-control-scope-docs%20e3aac300d7c34fc19a73343967930d2e/Untitled.png"/></a></figure><p id="243777c5-2d7d-4cba-aee0-6e2cd785aa60" class="">We could use these operators to compare values.</p><pre id="aced997d-d320-495d-99b9-b76fca98e1f1" class="code code-wrap"><code>const x = 10;
+
+if (x &gt; 5) {
+  console.log(`${x} is greater than 5`);
+}
+
+if (x === 10) {
+  console.log(`${x} is equal to 10`);
+}
+</code></pre><h2 id="fc333a1c-1385-4f13-8945-60f986e02fee" class=""><strong>if-else Statements</strong></h2><p id="fc384cfa-aa64-43ea-ae5c-b6c34e5ac2e9" class="">Instead of doing nothing if the condition is false, we can execute different code blocks depending on the condition.</p><pre id="8bc2367b-04ed-4d4e-971f-a6c360c13048" class="code code-wrap"><code>const x = 10;
+
+if (x &gt; 5) {
+  console.log(`${x} is greater than 5`);
+} else {
+  console.log(`${x} is less than or equal to 5`);
+}
+</code></pre><h2 id="875f6bff-92ab-4568-9689-52d091ffcad3" class=""><strong>Block Scope</strong></h2><p id="d8dace30-21c7-4185-9e32-7fd2d8428881" class="">We talked about this earlier, but remember that variables defined with <code>let</code> or <code>const</code> inside of a block are not accessible outside of that block. <code>var</code> variables are, but I would not suggest using them.</p><pre id="5dd3f16c-394c-4bc5-afd7-5bf1187324fc" class="code code-wrap"><code>const x = 10;
+
+if (x &gt; 5) {
+  const y = 20;
+  console.log(`${x} is greater than 5`);
+  console.log(`${y} is greater than 5`);
+}
+
+console.log(y); // ReferenceError: y is not defined
+</code></pre><h2 id="0d880e3e-0c3e-4513-8c3d-3ce9f9f968dd" class=""><strong>Shorthand If</strong></h2><p id="bce6b3c5-7738-4eac-8e15-64db4794407c" class="">If the code within your if and else is a single statement and not a block of code, you omit the parentheses. It is usually not recommended and you don&#x27;t see it that often, but you can do it.</p><pre id="a44aec83-b4fa-49cf-a7d3-970b5d0cd65a" class="code code-wrap"><code>if (x &gt; 5) console.log(`${x} is greater than 5`);
+
+if (x &gt; 5) console.log(`${x} is greater than 5`);
+else console.log(`${x} is less than 5`);
+</code></pre><p id="c60b3f4a-3f0a-4f72-8011-b4bea9d7545f" class="">You actually can have multiple statements, but they need to be separated with a comma.</p><pre id="28e9b558-050f-4217-8f7c-54a21ddcd3f4" class="code code-wrap"><code>if (x &gt; 5)
+  console.log(`${x} is greater than 5`),
+    console.log(&#x27;another line&#x27;),
+    console.log(`and another`);
+</code></pre><p id="f6e000cc-a9ca-4660-a657-be00fa864f7e" class="">I would not personally do this.</p></details></li></ul><ul id="5378f5d0-06f7-4b54-9da9-bdb9e5ee3b07" class="toggle"><li><details open=""><summary><strong>Else-if and Nesting</strong></summary><p id="40b34308-8f5d-4818-8b0c-83e3322b6b45" class="">There may be cases where you want to execute different code blocks depending on multiple conditions. In this case, you can use an <code>else if</code> statement.</p><p id="ba885fc2-2ec6-40b5-af06-6db76357bb16" class="">Let&#x27;s make this a bit more interesting and have certain logs during certain hours.</p><pre id="67e519bd-73dd-480b-90eb-2415984e418d" class="code code-wrap"><code>const d = new Date();
+const hour = d.getHours();
+</code></pre><pre id="38fea1c3-1788-4b5a-84e3-7e0831df0fc6" class="code code-wrap"><code>if (hour &lt; 12) {
+  console.log(&#x27;Good Morning!&#x27;);
+} else if (hour &lt; 18) {
+  console.log(&#x27;Good Afternoon!&#x27;);
+} else {
+  console.log(&#x27;Good Night!&#x27;);
+}
+</code></pre><h2 id="3982f9b1-198d-4e74-b501-38f4914a736e" class=""><strong>Nesting</strong></h2><p id="5f459296-9e6e-4b03-a614-73abe47e27f6" class="">There may be cases where you need to have <code>if statements</code> inside of <code>if statements</code>. In this case, you can use a <code>nested</code> <code>if statement</code>.</p><pre id="baed6037-bab4-4777-81a8-aff07de83d95" class="code code-wrap"><code>if (hour &lt; 12) {
+  console.log(&#x27;Good Morning!&#x27;);
+
+  if (hour === 6) {
+    console.log(&#x27;Wake up!&#x27;);
+  }
+} else if (hour &lt; 18) {
+  console.log(&#x27;Good Afternoon!&#x27;);
+} else {
+  console.log(&#x27;Good Night!&#x27;);
+
+  if (hour &gt;= 20) {
+    console.log(&#x27;zzzzzzzzzzz!&#x27;);
+  }
+}
+</code></pre><h2 id="6991ed2d-02fd-43b6-b058-13d0ea5b013e" class=""><strong>Multiple conditions</strong></h2><p id="cc736d48-c01c-4af3-9e2b-486b9e526d9d" class="">We can test for multiple conditions in the same if statement by using the <code>&amp;&amp;</code> (AND) and the <code>||</code> (OR) logical operators.</p><pre id="2396f2a9-a758-480e-804c-763f021e9a16" class="code code-wrap"><code>if (hour &gt;= 7 &amp;&amp; hour &lt; 15) {
+  console.log(&#x27;It is work time!&#x27;);
+}
+
+if (hour === 6 || hour === 20) {
+  console.log(&#x27;Brush your teeth!&#x27;);
+}</code></pre></details></li></ul><ul id="1343d4e7-bbb1-4c64-b125-bb3fe1d89f62" class="toggle"><li><details open=""><summary><strong>Switches</strong></summary><p id="c97dae73-90ae-496c-8f74-2d68d1cdc2f5" class="">If you find yourself with a lot of else-if statements and you are testing a single value, you may want to consider using a switch statement. The switch evaluates an expression and then executes the first case that matches the value.</p><p id="51c07bad-0c5d-4447-9e39-744bc0aaccd0" class="">The format for a switch statement is as follows:</p><pre id="264dd59b-1969-46a8-b556-88c166d6e7e3" class="code code-wrap"><code>switch (expression) {
+  case value1:
+    statement1;
+    break;
+  case value2:
+    statement2;
+    break;
+  default:
+    statement3;
+}
+</code></pre><p id="e101d820-e8e4-4f75-b9e0-3cf8fac8245b" class="">We pass in an expression to evaluate and then we use the case keyword to define a value to match against the expression. We then use the break keyword to exit the switch statement. The default will run if there is are no cases that match.</p><p id="db8f13be-be6f-45c9-ac49-f7d61292e0c3" class="">Let&#x27;s say that we just want to log a message if the month is January, February, or March.</p><pre id="bb7f9187-e220-4b1c-8ec8-e43d63a9aece" class="code code-wrap"><code>const d = new Date(2022, 1, 20, 8, 0, 0);
+const month = d.getMonth();
+
+switch (month) {
+  case 1:
+    console.log(&#x27;It is January&#x27;);
+    break;
+  case 2:
+    console.log(&#x27;It is February&#x27;);
+    break;
+  case 3:
+    console.log(&#x27;It is March&#x27;);
+    break;
+  default:
+    console.log(&#x27;It is not January, February or March&#x27;);
+}
+</code></pre><p id="2db66955-97a0-496f-a7be-707354c06872" class="">Switches are best for immediate values. When using ranges, they are slower than <code>else-if</code>. To use a switch with ranges, we can do this.</p><pre id="e3bbf34e-e7ee-4df9-bfda-fade993ee5ae" class="code code-wrap"><code>const hour = d.getHours();
+
+switch (true) {
+  case hour &lt; 12:
+    console.log(&#x27;Good Morning&#x27;);
+    break;
+  case hour &lt; 18:
+    console.log(&#x27;Good Afternoon&#x27;);
+    break;
+  default:
+    console.log(&#x27;Good Night&#x27;);
+}</code></pre></details></li></ul><ul id="598127ca-2c39-427e-983c-971c8d1a54d4" class="toggle"><li><details open=""><summary><strong>Calculator Challenge</strong></summary><p id="993711ce-010d-4658-9e0f-8036fc15d8a6" class="">Now that you know how to write functions and use control structures like if statements and switches, let&#x27;s try to write a simple calculator.</p><p id="8acbc58d-3d05-4f8c-8420-d128638f37f6" class=""><strong>Instructions:</strong></p><p id="2e26fabe-97ba-4e72-8c0f-f6f03a28cd23" class="">Create a function called <code>calculator</code> that takes three parameters: <code>num1</code>, <code>num2</code> and <code>operator</code>. The operator can be <code>+</code>, <code>-</code>, <code>*</code> or <code>/</code>. The function should return the result of the calculation. If anything other than the four operators is passed in, the function should return an error message.</p><p id="a0a7265a-8cad-415c-88d8-20651e574956" class=""><strong>Example:</strong></p><pre id="1ba3eb39-49cb-43ca-8262-5bc3ee7db197" class="code code-wrap"><code>calculator(5, 2, &#x27;+&#x27;) // returns 7
+calculator(5, 2, &#x27;-&#x27;) // returns 3
+calculator(5, 2, &#x27;*&#x27;) // returns 10
+calculator(5, 2, &#x27;/&#x27;) // returns 2.5
+calculator(5, 2, &#x27;%&#x27;) // returns an error message
+</code></pre><p id="78ad4373-31ba-4a22-9589-0a05750be223" class=""><strong>Hint:</strong></p><ul id="7790c1fd-e0df-408f-bea6-af563aca1746" class="bulleted-list"><li style="list-style-type:disc">You can use an if statement to the operator, but this is a good example for using a switch statement.</li></ul><ul id="c0b0f210-6c79-47fa-9aab-e3b77cef9759" class="toggle"><li><details open=""><summary>Click For Solution</summary><pre id="e8d284d3-7614-47ae-9124-3c71198e975c" class="code code-wrap"><code>function calculator(num1, num2, operator) {
+let result;
+switch (operator) {
+  case &#x27;+&#x27;:
+    result = num1 + num2;
+    break;
+  case &#x27;-&#x27;:
+    result = num1 - num2;
+    break;
+  case &#x27;*&#x27;:
+    result = num1 * num2;
+    break;
+  case &#x27;/&#x27;:
+    result = num1 / num2;
+    break;
+  default:
+    result = &#x27;Invalid operator&#x27;;
+}
+console.log(result);
+return result;
+}
+
+calculator(3, 4, &#x27;*&#x27;); // returns 12
+</code></pre></details></li></ul><p id="5b102751-1023-4d5c-89ac-654b45a7367d" class="">⬆︎</p><p id="d28eb696-f61b-4b83-8cbe-9a2c826ff3d6" class="">⟳︎</p><p id="833d34bc-f0dc-45a2-891f-9f798055ab5a" class="">§</p></details></li></ul><ul id="ece99760-a6c2-4c14-bd4f-2819172e2a70" class="toggle"><li><details open=""><summary><strong>Truthy &amp; Falsy Values</strong></summary><p id="8ed4dfa3-1e39-4a3c-b5ce-08394b3354b8" class="">So we looked at some control structures for evaluating some basic expressions such as if something is greater than a value. We can also pass in a single value.</p><pre id="ab60f228-033b-4270-a97b-31ee3d59261f" class="code code-wrap"><code>const email = &#x27;test@test.com&#x27;;
+
+if (email) {
+  console.log(&#x27;You passed in an email&#x27;);
+} else {
+  console.log(&#x27;Please enter email&#x27;);
+}
+</code></pre><p id="2b1b1731-e878-4a13-b72a-efca4973c748" class="">This will return true because when you put something in an if statement, it is coerced into a boolean. A string with something in it is what we call a <strong>truthy</strong> value.</p><h3 id="4c893637-82f9-414e-8004-2e21e40c6af3" class=""><strong>Converting a value to a boolean</strong></h3><p id="c9b9fe10-edb5-498e-92d5-f1319147bc7d" class="">We can test truthy and falsy values by converting them to a boolean using the <code>Boolean</code> function. We saw this a while back when we looked at data types.</p><pre id="849b7782-d1c1-4596-aefe-38cc811c88fd" class="code code-wrap"><code>console.log(Boolean(name)); // true
+</code></pre><p id="5f47c3e0-fd52-4a92-9516-d3024b775dcb" class="">We can also use the <strong>!!</strong> (double bang) to convert to a boolean.</p><pre id="da560f8b-894d-4886-b76c-af25558d7f12" class="code code-wrap"><code>console.log(!!name); // true
+</code></pre><p id="33df3e49-be6d-4a69-9319-fbb0924e8156" class="">Let&#x27;s look at the values in JavaScript that are considered <strong>falsy</strong>.</p><h3 id="21298532-7da5-4e2e-bbd1-f6ec99a68111" class=""><strong>falsy Values</strong></h3><ul id="12e0363b-a744-487b-a6ff-c377f7a2eb34" class="bulleted-list"><li style="list-style-type:disc">false (obviously)</li></ul><ul id="aa35c532-14dd-422d-be84-acf7b4eea29f" class="bulleted-list"><li style="list-style-type:disc">0 (also -0 and BigInt 0n)</li></ul><ul id="e914d5a2-1b93-49f1-b197-f69d05c5e4fa" class="bulleted-list"><li style="list-style-type:disc">&quot;&quot; (empty string)</li></ul><ul id="3bb435ff-2cef-4a0d-b0ed-1908bee7c318" class="bulleted-list"><li style="list-style-type:disc">null</li></ul><ul id="805f6e51-a18b-47f0-964d-2dd39b4b50fa" class="bulleted-list"><li style="list-style-type:disc">undefined</li></ul><ul id="a3082d0c-6a31-4ff3-9b5e-88d0304d2f22" class="bulleted-list"><li style="list-style-type:disc">NaN</li></ul><p id="e35a51b1-858c-41e8-80b1-3059de3f1e66" class="">If we test any of these in an if statement, it will evaluate to <code>false</code>.</p><pre id="06232e51-5c19-4212-b186-f5abe5e1f1e2" class="code code-wrap"><code>const x = 0;
+
+if (x) {
+  console.log(&#x27;This is truthy&#x27;);
+} else {
+  console.log(&#x27;This is falsy&#x27;);
+}
+</code></pre><p id="549235b5-132f-412d-823d-06c7936c84da" class="">We talked about type conversion a while ago. If we convert any of these values to a Boolean, they will result in <code>false</code>.</p><pre id="3a2adec2-0fd9-4399-aab9-028a4dd007a9" class="code code-wrap"><code>console.log(Boolean(0)); // false
+</code></pre><h3 id="9f713ca1-de65-4938-8476-b3affba599ef" class=""><strong>Truthy Values</strong></h3><p id="3aca0a6a-e346-4dec-a979-cd71aa7fddcb" class="">Everything that is not falsy will evaluate to <code>true</code>, however, Some of these may surprise you.</p><ul id="0a001a54-40db-4553-9377-0735cac88207" class="bulleted-list"><li style="list-style-type:disc">Everything else that is not falsy</li></ul><ul id="c288dca9-c7e6-4a4d-9a5e-3957e13cd45d" class="bulleted-list"><li style="list-style-type:disc">true (obviously)</li></ul><ul id="e4fa58f2-1af0-4826-9f58-47a7d89df316" class="bulleted-list"><li style="list-style-type:disc">&#x27;0&#x27; (string with 0)</li></ul><ul id="bc616ddf-8331-4579-975e-6ed8f2e487a9" class="bulleted-list"><li style="list-style-type:disc">&#x27;false&#x27; (string with false)</li></ul><ul id="b15ba2b0-36d0-4661-96ec-3c1024eb5ab0" class="bulleted-list"><li style="list-style-type:disc">&#x27; &#x27; (space in a string)</li></ul><ul id="69e71e33-f40d-4214-9296-924483ff25e5" class="bulleted-list"><li style="list-style-type:disc">[] (empty array)</li></ul><ul id="4c5bfa9e-f2ff-4d73-b06b-6c1dd789be69" class="bulleted-list"><li style="list-style-type:disc">{} (empty object)</li></ul><ul id="eaa01e37-43ae-438e-8b5d-a31ca95e0abe" class="bulleted-list"><li style="list-style-type:disc">function() {} (empty function)</li></ul><p id="99f55278-1914-45e8-899b-e8855f0b9dea" class="">If we test any of these in an if statement, it will evaluate to <code>true</code>.</p><pre id="5cee010a-b091-4fe5-8ceb-3331fa95fd22" class="code code-wrap"><code>const x = &#x27;0&#x27;;
+
+if (x) {
+  console.log(&#x27;This is truthy&#x27;);
+} else {
+  console.log(&#x27;This is falsy&#x27;);
+}
+</code></pre><h3 id="15fa9d54-7746-4c81-9d90-f6dd6420d842" class=""><strong>Truthy &amp; Falsy Caveats</strong></h3><p id="2872c91c-1bdc-4216-b851-3c6a137e3de7" class="">Let&#x27;s say we have a variable called <code>children</code> that refers to the number of children someone has and we want to check it.</p><pre id="9ee36718-451b-42b3-9fc4-9af5e65d4739" class="code code-wrap"><code>let children = 2;
+
+if (children) {
+  console.log(`You have ${children} children`);
+} else {
+  console.log(&#x27;Please enter the number of children you have&#x27;);
+}
+
+// You have 2 children
+</code></pre><p id="1fe76393-1524-4e25-8085-a082d2598540" class="">Now that you understand that 0 is falsy, you will understand why the following will not work correctly.</p><pre id="88cb1174-a86c-4c2c-bfd9-47a089d98e0f" class="code code-wrap"><code>let children = 0;
+
+if (children) {
+  console.log(`You have ${children} children`);
+} else {
+  console.log(&#x27;Please enter the number of children you have&#x27;);
+}
+
+// Please enter the number of children you have
+</code></pre><p id="d141880d-1e97-4cc5-b321-b90213bdd49a" class="">In this case, we want 0 to be a valid value for children, but it is falsy, so the <code>else</code> block will run and say it is not defined.</p><p id="5e8c8e72-252f-428f-a2df-016c09a838cd" class="">This is something that you have to be aware of. There are multiple solutions to this problem. We could check to see if the variable is not <code>undefined</code> or <code>null</code>.</p><pre id="9a615dab-f412-4954-abfd-576ebdde3077" class="code code-wrap"><code>if (children !== undefined) {
+  console.log(`You have ${children} children`);
+} else {
+  console.log(&#x27;Please enter the number of children you have&#x27;);
+}
+</code></pre><p id="0acc842d-16e9-45fe-977b-45f9f8438cdc" class="">You probably want the value to be a number. So you could check if the value is NaN (Not a Number) with the <code>isNaN()</code> function.</p><pre id="020931f6-c973-4ccc-9681-ac27f1f82d14" class="code code-wrap"><code>if (!isNaN(children)) {
+  console.log(`You have ${children} children`);
+} else {
+  console.log(&#x27;Please enter the number of children you have&#x27;);
+}
+</code></pre><h3 id="2dbfad69-7a27-4d58-ad92-9bcbf82b4110" class=""><strong>Checking For Empty Arrays and Objects</strong></h3><p id="38c17fa3-3038-44a7-819e-31b29a52089e" class="">Since empty arrays and objects are truthy, we can not simply check for the variable that holds them.</p><p id="d591213f-6a12-42f1-9e6c-c85b822bb197" class="">Check for an empty array:</p><pre id="a39c40b8-c7bc-4175-9eec-c26438c4a8d5" class="code code-wrap"><code>const arr = [];
+
+if (arr.length === 0) {
+  console.log(&#x27;The array is empty&#x27;);
+}
+</code></pre><p id="f69d32cd-4fe3-40b3-9519-f3afc88ce401" class="">Check for an empty object:</p><pre id="33959015-dc3b-4535-bd2d-b11b40ce66e7" class="code code-wrap"><code>const obj = {};
+
+if (Object.keys(obj).length === 0) {
+  console.log(&#x27;The object is empty&#x27;);
+}
+</code></pre><h3 id="aec5d70e-f33b-4e5c-813d-5dd8872b0468" class=""><strong>Loose Equality Comparison</strong></h3><p id="9fec16f6-711d-49e5-baee-ad93afbbaae7" class="">As I stated earlier in the course, I prefer to use <code>===</code> unless there is a specific reason to use <code>==</code>. Using double equals (==) can cause some unexpected behavior. Let&#x27;s take a look at some of the weirdness that can happen when using <code>==</code>.</p><p id="32d00515-fdc4-4f56-8b39-a2666cfa6445" class=""><code>false</code>, zero and empty strings are equivalent (when using ==)</p><pre id="984fcdb8-1aa8-43fc-8d76-2bfbe179b718" class="code code-wrap"><code>false == 0; // true
+false == &#x27;&#x27;; // true
+0 == &#x27;&#x27;; // true</code></pre></details></li></ul><ul id="777b5e24-0e7b-4436-93e7-3949efb13a37" class="toggle"><li><details open=""><summary><strong>Logical Operators</strong></summary><p id="0d358ecb-5994-4011-867b-01cd4cd0c587" class="">If we use the <code>&amp;&amp;</code> and <code>||</code> in a conditional, this is how they work:</p><pre id="dda77a76-1af5-493b-a134-2ef0b5fa1de2" class="code code-wrap"><code>console.log(10 &lt; 20 &amp;&amp; 30 &gt; 15 &amp;&amp; 40 &gt; 30); // Must all be true
+console.log(10 &gt; 20 || 30 &lt; 15); // Only one has to be true
+</code></pre><p id="b0e33c7a-50ff-4420-9406-cd28b4c7f2ba" class="">There may be cases where you want to conditionally assign a value based on if a value is <code>truthy</code> or <code>falsy</code>. We can use logical operators and logical assignment for this.</p><h2 id="89fac26e-0cb6-440c-901b-acfded7ed03b" class=""><strong>AND Operator (&amp;&amp;)</strong></h2><p id="11f91fc3-7688-4fe5-ae97-2455c32bf8fe" class="">If we assign a value, using the <code>&amp;&amp;</code> operator, it will execute from left to right. If any of the values are <code>falsy</code>, that value will be returned; otherwise, the last value will be returned.</p><pre id="e84fea8c-7df1-4dbe-b8af-5d6a6d3bd277" class="code code-wrap"><code>x = 10 &amp;&amp; 20; // 20
+x = 10 &amp;&amp; 20 &amp;&amp; 30; // 30
+x = 10 &amp;&amp; 0 &amp;&amp; 30; // 0 (30 is not evaluated)
+x = 10 &amp;&amp; false &amp;&amp; 30; // false (30 is not evaluated)
+</code></pre><h2 id="b6bb0d4f-5b83-4157-a2d0-a81ef1893a82" class=""><strong>OR Operator (||)</strong></h2><p id="01c24687-a3b1-44be-a85b-42f0e3dce8be" class="">The <code>||</code> operator is the opposite of the <code>&amp;&amp;</code> operator. It will return the first value that is <code>truthy</code>. This is more common than using the <code>&amp;&amp;</code> operator.</p><pre id="972ed7fa-a411-4af8-9196-5a4d42b87d31" class="code code-wrap"><code>y = 10 || 20; // 10 (20 is not evaluated)
+y = 0 || 20; // 20
+y = 10 || 0 || 30; // 10 (0 and 30 are not evaluated)
+y = false || false || 30; // 30
+</code></pre><h2 id="0a414fbf-4b45-4f2e-aee4-6ccfb80ceb64" class=""><strong>Nullish Coalescing Operator (??)</strong></h2><p id="5b0bb3af-e260-41bb-93df-73dfe2517ed7" class="">The <code>??</code> operator will return the right side operand when its left side is either <code>null</code> or <code>undefined</code>. It is similar to <code>||</code> operator except, it doesn&#x27;t look at all falsey values, only <code>null</code> and <code>undefined</code>.</p><pre id="5b57dbcd-b6ce-4ce2-bb24-a56cb40a036b" class="code code-wrap"><code>let c;
+c = 10 ?? 20; // 10
+c = null ?? 20; // 20
+c = undefined ?? 20; // 20
+c = null ?? 0 ?? 20; // 0 (it will return 0 because it is not null or undefined)</code></pre></details></li></ul><ul id="7e2a7372-b8bb-4182-985f-f824249f433c" class="toggle"><li><details open=""><summary><strong>Logical Assignment</strong></summary><p id="bdf7d9fa-91e8-4c1c-ae92-a98d0252773f" class="">What we looked at in the last video was also technically logical assignment, however what we were evaluation was not necessarily the value that we were assigning. If what we are assigning is what we are evaluating, we can use a shorthand syntax.</p><h2 id="2780ef42-1079-43fc-9cc2-bd0ba56d769d" class=""><strong>OR Logical Assignment (||=)</strong></h2><p id="fc8f0ab1-2afc-407b-b5d4-9839fd1a9b69" class="">We can do something similar with <code>||=</code>. This will assigns the right side value only if the left is a falsy value.</p><p id="7d5140d4-c779-4e55-a822-2fb67537aa3e" class="">Here is the long form of what we are going to do</p><pre id="c0d0bb9f-2135-4d43-8ced-7e4ff3b34f60" class="code code-wrap"><code>let a = null;
+
+if (!a) {
+  a = 10;
+}
+</code></pre><p id="9cb7d6c9-256f-4fae-a3d9-39182571dc65" class="">If <code>a</code> is truthy, it will be left alone. If it is falsy, it will be set to 10.</p><p id="1c17f25f-4b90-44f0-b3d8-abf83e444fe7" class="">A shorter way would be to use the logical OR operator like we did in the last video.</p><pre id="b53812ff-3019-44d5-b910-77cf5a8df7ce" class="code code-wrap"><code>a = a || 10;
+</code></pre><p id="3ab25e1f-4680-4246-9c36-2c23a15b31b3" class="">An even shorter way would be to use the OR assignment operator</p><pre id="5ac34848-16df-433a-9d30-56f85ae523e0" class="code code-wrap"><code>a ||= 10;
+</code></pre><h2 id="aafab9f7-c9bd-45e4-9cf8-f688291434f9" class=""><strong>AND Logical Assignment (&amp;&amp;=)</strong></h2><p id="9d1caeff-1418-476e-8f02-51865f41d1fa" class="">We can do something similar with the AND assignment operator</p><p id="c55ce531-bab6-4db8-97c0-27ff730b99f2" class="">First, let&#x27;s looka at the long version of what we&#x27;re doing</p><pre id="00d72dd3-6de3-4e77-a78c-50259233bc01" class="code code-wrap"><code>let b = 10;
+
+if (b) {
+  b = 20;
+}
+
+</code></pre><p id="8b493eed-487b-4f0b-be34-a9695334a23c" class="">If <code>b</code> is <code>truthy</code> then we are setting it to 20.</p><p id="9d30bc1d-94a5-45d3-b662-6d83e0c9aaf6" class="">A shorter way would be to use the logical AND operator</p><pre id="15593f66-b13f-4748-8813-dfb64fd227a2" class="code code-wrap"><code>b = b &amp;&amp; 20;
+</code></pre><p id="697b9e3b-26bd-4174-84b7-0f5aaab94c8c" class="">We can make it even shorter by using the AND assignment operator</p><pre id="7c3ee7fa-0325-4410-b8f4-adec936e2267" class="code code-wrap"><code>b &amp;&amp;= 20;
+</code></pre><p id="56788d8c-d37c-49dd-b389-7f60e7e87a72" class="">This returns 20 because the value of <code>b</code> is 10, which is truthy.</p><p id="accaea9f-3183-41fb-84b4-e17854316a50" class="">If we try this with a falsy value, we get that falsy value.</p><pre id="b229ce50-4a29-40c3-9df3-482b85e111a9" class="code code-wrap"><code>let b = false;
+b = b &amp;&amp; 20; // false
+</code></pre><h2 id="63a6f875-6189-411a-81ac-68200e58d865" class=""><strong>Nullish Coalescing Assignment (??=)</strong></h2><p id="dbde4e6d-c365-4362-b9e1-b4d71c4a3be1" class="">We can us <code>??=</code> to assign a value to a variable if it is null or undefined.</p><p id="bbe90c83-ad0e-4081-a3c0-a41dcc560200" class="">Here is the long version</p><pre id="cd10a517-5b6b-40b9-8752-1d773220141f" class="code code-wrap"><code>let c = null;
+
+if (c === null || c === undefined) {
+  c = 20;
+}
+</code></pre><p id="71ef436e-5d12-44a9-af25-b29bc881c0ce" class="">Using the ?? operator</p><pre id="43bdd58e-2251-44e6-a462-23ffd3010b18" class="code code-wrap"><code>c = c ?? 20;
+</code></pre><p id="ea64f60a-822a-4a8a-8fab-158a4d259e89" class="">Using the ??= assignment operator</p><pre id="99a14876-22ce-4a5d-8559-fd772522f06e" class="code code-wrap"><code>c ??= 20;</code></pre></details></li></ul><ul id="aa0720bf-2862-4e5d-9c5f-0859d8204182" class="toggle"><li><details open=""><summary><strong>Ternary operator</strong></summary><p id="16b4cd8d-edc7-4d24-912d-be5889d1aa2d" class="">In addition to <code>if-else</code> and <code>switch</code>, there is a third way to write conditional logic. This is called the <code>ternary</code> operator. It is basically a shorthand, one line <code>if-else</code> statement. The actual operator is just a question mark. Let&#x27;s take a look at the syntax</p><pre id="22394dd6-681f-41b3-8c0e-45c22cb6d88b" class="code code-wrap"><code>condition ? true : false;
+</code></pre><p id="80de0b0e-1c24-4f84-8123-e24fbfc4d66d" class="">First, we have the condition to be evaluated as a boolean. Then we have a <code>?</code>, which is the <strong>ternary operator</strong> and after that is the expression that we want to happen if the condition is <code>true</code>. The <code>:</code> is the else. So the expression after that will execute if the condition is <code>false</code>.</p><p id="0546d9f8-9d14-4b10-a1c3-072420aa513c" class="">Let&#x27;s look at a simple if-else statement:</p><pre id="8f275dc6-e2df-4862-9401-8e61332d4467" class="code code-wrap"><code>const age = 19;
+
+if (age &gt;= 18) {
+  console.log(&#x27;You can vote!&#x27;);
+} else {
+  console.log(&#x27;You can not vote!&#x27;);
+}
+
+// You can vote!
+</code></pre><p id="b51e4a59-a53c-4bf0-9cc9-1f9585385762" class="">We can do the same thing using the ternary operator:</p><pre id="c1b54b3a-8856-440d-acb8-bd0950c8b9e0" class="code code-wrap"><code>age &gt;= 18 ? console.log(&#x27;You can vote!&#x27;) : console.log(&#x27;You can not vote!&#x27;);
+
+// You can vote!
+</code></pre><h2 id="a62801e7-5993-4b1b-9698-7db279ee0b26" class=""><strong>Assigning result to a variable</strong></h2><p id="dfe7b3c8-3988-4360-a206-31a4866e621d" class="">In many cases, we want to store the result of the ternary operator in a variable.</p><pre id="bb54ee32-32db-4525-a0df-a72a9e1acb7e" class="code code-wrap"><code>const canVote = age &gt;= 18 ? &#x27;You can vote!&#x27; : &#x27;You can not vote!&#x27;;
+
+console.log(canVote); // You can vote!
+</code></pre><p id="0260f653-9944-436f-b542-949eb29538dd" class="">This is much more compact than this:</p><pre id="6b99072f-d42e-4d73-a632-ed6de2bb9f07" class="code code-wrap"><code>let canVote;
+
+if (age &gt;= 18) {
+  canVote = &#x27;You can vote!&#x27;;
+} else {
+  canVote = &#x27;You can not vote!&#x27;;
+}
+
+console.log(canVote); // You can vote!
+</code></pre><h2 id="bfda873e-f90b-4830-a324-857578593dc9" class=""><strong>Multiple statements</strong></h2><p id="9580d59f-44bb-4804-b159-921a66ae5ebe" class="">In most cases, you will just have a single expression in the true/false part of the ternary operator, however you can have Multiple statements by using a comma.</p><pre id="771035cd-d899-4964-97c8-b8c728c74990" class="code code-wrap"><code>const auth = true;
+
+const redirect = auth
+  ? (alert(&#x27;Welcome To The Dashboard&#x27;), &#x27;/dashboard&#x27;)
+  : (alert(&#x27;Access Denied&#x27;), &#x27;/login&#x27;);
+
+console.log(redirect);
+</code></pre><p id="fa026066-c62b-4484-8700-1541ad4e258d" class="">In the case above, it will alert and then return the last value in the ternary.</p><h2 id="376cded7-b61e-440a-b36d-32f7f6e0807c" class=""><strong>Multiple Ternary Operators</strong></h2><p id="52414837-f649-48f1-b432-3c07eda16410" class="">We can also have multiple ternary operators and conditions. Much like an else-if.</p><pre id="4352b123-9872-424a-b3b6-b57c7e9b155d" class="code code-wrap"><code>const canDrink =
+  age &gt;= 21
+    ? &#x27;You can drink!&#x27;
+    : age &gt;= 18
+    ? &#x27;You can have 1 beer&#x27;
+    : &#x27;You can not drink&#x27;;
+
+console.log(canDrink);
+</code></pre><h2 id="e23c2d4f-bacf-4c3f-aca6-4e2bea4a8da2" class=""><strong>Using </strong><code><strong>&amp;&amp;</strong></code><strong> as a shorthand</strong></h2><p id="512c7838-c5d6-46ff-a531-1bf09d81c76a" class="">If your else(semi-colon) in a ternary is going to be null or you don&#x27;t need an else, you can use the <code>&amp;&amp;</code> operator instead. Here is an example:</p><pre id="21e5be4f-8561-405c-8e86-ea47269ee7cd" class="code code-wrap"><code>auth ? console.log(&#x27;Welcome to the dashboard&#x27;) : null;
+</code></pre><p id="1be6804b-028d-4d94-bf61-6aac3e52d3cc" class="">We could just do:</p><pre id="a7c2490a-3ec0-454c-a3bc-ad4f42ce5068" class="code code-wrap"><code>auth &amp;&amp; console.log(&#x27;Welcome to the dashboard&#x27;);
+</code></pre><p id="18a6c618-9dc3-476f-baa8-b55077dc276b" class="">This is the same as:</p><pre id="5e503e1d-16b3-46cb-af73-64220e47243e" class="code code-wrap"><code>if (auth) {
+console.log(&#x27;Welcome to the dashboard&#x27;);
+}
+</code></pre><p id="0d4ffcd9-1f40-487b-a51b-4efd4fa8f97c" class="">Using the <code>&amp;&amp;</code> operator as a shorthand is a popular thing to do in React templates. Many times, you will see something like:</p><pre id="dde73dd4-2d02-4777-96c6-22c3afe27fbf" class="code code-wrap"><code>{!loading &amp;&amp; (
+  &lt;Fragment&gt;Some UI&lt;/Fragment&gt;
+)}
+</code></pre><p id="e5dcd9b4-be87-4440-9f34-2e415a9ef27f" class="">Which is saying if done loading, then load the JSX fragment.</p></details></li></ul></div></article></body></html>
